@@ -1,0 +1,105 @@
+{
+  "codeExamples": [
+    {
+      "title": "Generation of PWM via CCU6",
+      "name": "CCU6_PWM_1",
+      "description": "The code example uses the Timer 12 of CCU6 and its three compare modules generate three PWM signals with frequency 20 kHz and different duty-cycles (respectively 25%, 50% and 75%).\r\nT12 is configured to count up and down and the three signals are center aligned.\r\nThe generated PWM signals are sent to the pins available to the board, and can be observed with an oscilloscope.",
+      "abstract": "Three center aligned pulse width modulated (PWM) signals with fixed frequency and different duty-cycles are generated using CCU6.",
+      "folder": "CCU6_PWM_1",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC2X7 V1.1",
+          "id": "KIT_AURIX_TC297_TFT_BC-Step",
+          "device_id": "TC29xTA/TX_BC-step"
+        }
+      ],
+      "keywords": [
+        "CCU6",
+        "Duty cycle",
+        "Multi-Channel mode",
+        "Oscilloscope",
+        "PWM",
+        "T12"
+      ],
+      "documents": [
+        "CCU6_PWM_1.pdf"
+      ],
+      "lastModified": "2019-07-29T00:00:00.000Z"
+    },
+    {
+      "title": "CPU Multicore Mutex",
+      "name": "CPU_Multicore_Mutex_1",
+      "description": "CPU0, CPU1 and CPU2 will try to access the same memory location\r\nand toggle different LEDs. While any of the three CPUs is writing\r\nsuccessfully on the protected memory the writes of the other two CPUs\r\nwill be blocked by the mutex.",
+      "abstract": "A mutex is implemented to protect a memory location from writes of multiple CPUs.",
+      "folder": "CPU_Multicore_Mutex_1",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC2X7 V1.1",
+          "id": "KIT_AURIX_TC297_TFT_BC-Step",
+          "device_id": "TC29xTA/TX_BC-step"
+        }
+      ],
+      "keywords": [
+        "CPU_Multicore_Mutex_1",
+        "Concurrency",
+        "Multicore",
+        "Mutex"
+      ],
+      "documents": [
+        "Infineon-AURIX_CPU_Multicore_Mutex_1-TR-v01_00_00-EN.pdf"
+      ],
+      "lastModified": "2019-09-09T00:00:00.000Z"
+    },
+    {
+      "title": "LED control via button",
+      "name": "GPIO_LED_Button_1",
+      "description": "Upon pressure of a push button, an LED will be turned on ON and the LED will turned off when\r\nreleasing the button. One port pin is configured as input for checking the push button state and\r\nthe other port pin is configured as output to control the LED.\r\nShort the port pins P14.4 with P14.5 (pin 39 and 40 of header X102)to switch on the LED D110.",
+      "abstract": "An LED is controlled via a push button.",
+      "folder": "GPIO_LED_Button_1",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC2X7 V1.1",
+          "id": "KIT_AURIX_TC297_TFT_BC-Step",
+          "device_id": "TC29xTA/TX_BC-step"
+        }
+      ],
+      "keywords": [
+        "LED",
+        "button",
+        "GPIO"
+      ],
+      "documents": [
+        "none"
+      ],
+      "lastModified": "2019-08-14T00:00:00.000Z"
+    },
+    {
+      "title": "Interrupt generation via STM trigger",
+      "name": "STM_Interrupt_1",
+      "description": "The LED is driven by pin 0 of the port 13.\r\nThe state of the pin will change based on the interrupt, which is triggered by STM.\r\nThe timer is counting and when it reaches the configured value configured in the compare register,\r\nit will trigger an interrupt and reset its current value.",
+      "abstract": "The STM is configured to trigger an interrupt every 100 ms. The interrupt will toggle an LED.",
+      "folder": "STM_Interrupt_1",
+      "version": "1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC2X7 V1.1",
+          "id": "KIT_AURIX_TC297_TFT_BC-Step",
+          "device_id": "TC29xTA/TX_BC-step"
+        }
+      ],
+      "keywords": [
+        "Interrupt",
+        "LED",
+        "STM",
+        "blink"
+      ],
+      "documents": [
+        "STM_Interrupt_1.pdf"
+      ],
+      "lastModified": "2019-08-14T00:00:00.000Z"
+    }
+  ]
+}
