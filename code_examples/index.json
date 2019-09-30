@@ -1,6 +1,32 @@
 {
   "codeExamples": [
     {
+      "title": "LIN Master Communication via ASCLIN module",
+      "name": "ASCLIN_LIN_master_1",
+      "description": "The string \"Hello World!\" is sent via an ASCLIN module configured as\r\nLIN master. The signal can be visualized using an oscilloscope.",
+      "abstract": "An ASCLIN module is configured as LIN master to send \"Hello World!“",
+      "folder": "ASCLIN_LIN_master_1",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC2X7 V1.1",
+          "id": "KIT_AURIX_TC297_TFT_BC-Step",
+          "device_id": "TC29xTA/TX_BC-step"
+        }
+      ],
+      "keywords": [
+        "ASCLIN",
+        "ASCLIN_LIN_master_1",
+        "AURIX",
+        "LIN",
+        "communication"
+      ],
+      "documents": [
+        "Infineon-AURIX_ASCLIN_LIN_master_1-TR-v01_00_00-EN.pdf"
+      ],
+      "lastModified": "2019-09-17T00:00:00.000Z"
+    },
+    {
       "title": "Generation of PWM via CCU6",
       "name": "CCU6_PWM_1",
       "description": "The code example uses the Timer 12 of CCU6 and its three compare modules generate three PWM signals with frequency 20 kHz and different duty-cycles (respectively 25%, 50% and 75%).\r\nT12 is configured to count up and down and the three signals are center aligned.\r\nThe generated PWM signals are sent to the pins available to the board, and can be observed with an oscilloscope.",
@@ -53,6 +79,55 @@
       "lastModified": "2019-09-09T00:00:00.000Z"
     },
     {
+      "title": "CPU Performance Counters",
+      "name": "CPU_Perf_Counters_1",
+      "description": "The CPU is counting the numbers of instruction, clock ticks and multi counters ticks\r\nbetween IfxCpuPerfCounter_start and IfxCpuPerfCounter_stop and store the result in a variable.",
+      "abstract": "Measure CPU performance via the counters",
+      "folder": "CPU_Perf_Counters_1",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC2X7 V1.1",
+          "id": "KIT_AURIX_TC297_TFT_BC-Step",
+          "device_id": "TC29xTA/TX_BC-step"
+        }
+      ],
+      "keywords": [
+        "CPU",
+        "CPU_Perf_Counters_1",
+        "Performance"
+      ],
+      "documents": [
+        "Infineon-AURIX_CPU_Perf_Counters_1-TR-v01_00_00-EN.pdf"
+      ],
+      "lastModified": "2019-09-24T00:00:00.000Z"
+    },
+    {
+      "title": "External interrupt generation",
+      "name": "ERU_Interrupt_1",
+      "description": "The code example uses the External Request Unit (ERU) to generate an\r\ninterrupt for each falling and rising edge at the input pin P02.0. The falling\r\nand rising edges are generated with pin P02.1. If an Interrupt occurs, an LED\r\nwill be toggled.",
+      "abstract": "The ERU is used to generate an interrupt on each rising and falling edge at an input pin.",
+      "folder": "ERU_Interrupt_1",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC2X7 V1.1",
+          "id": "KIT_AURIX_TC297_TFT_BC-Step",
+          "device_id": "TC29xTA/TX_BC-step"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "ERU",
+        "external request",
+        "interrupt"
+      ],
+      "documents": [
+        "Infineon-AURIX_ERU_Interrupt_1-TR-v01_00_00-EN.pdf"
+      ],
+      "lastModified": "2019-09-10T00:00:00.000Z"
+    },
+    {
       "title": "LED control via button",
       "name": "GPIO_LED_Button_1",
       "description": "Upon pressure of a push button, an LED will be turned on ON and the LED will turned off when\r\nreleasing the button. One port pin is configured as input for checking the push button state and\r\nthe other port pin is configured as output to control the LED.\r\nShort the port pins P14.4 with P14.5 (pin 39 and 40 of header X102)to switch on the LED D110.",
@@ -75,6 +150,38 @@
         "none"
       ],
       "lastModified": "2019-08-14T00:00:00.000Z"
+    },
+    {
+      "title": "Die Temperature Sensor",
+      "name": "SCU_Die_Temp_Sensor_1",
+      "description": "The internal Die Temperature Sensor (DTS) is continuously read in an infinite loop.\r\nWhen a new temperature result is available an interrupt service routine (ISR) is triggered.\r\nThe ISR notifies the availability of a new die temperature value by setting a flag,\r\nwhich is used to start printing the temperature via UART communication using the\r\nASCLIN module. The temperature value can be read by using a terminal program\r\nconnected to the virtual COM port of the board/kit.",
+      "abstract": "The Die Temperature is measured by an internal sensor and printed on a terminal program",
+      "folder": "SCU_Die_Temp_Sensor_1",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC2X7 V1.1",
+          "id": "KIT_AURIX_TC297_TFT_BC-Step",
+          "device_id": "TC29xTA/TX_BC-step"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "DTS",
+        "Interrupt",
+        "SCU",
+        "SCU_Die_Temp_Sensor_1",
+        "UART",
+        "VCOM",
+        "sensor",
+        "serial monitor",
+        "temperature",
+        "terminal"
+      ],
+      "documents": [
+        "Infineon-AURIX_SCU_Die_Temp_Sensor_1-TR-v01_00_00-EN.pdf"
+      ],
+      "lastModified": "2019-09-18T00:00:00.000Z"
     },
     {
       "title": "Interrupt generation via STM trigger",
