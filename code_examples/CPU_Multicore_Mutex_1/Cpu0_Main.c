@@ -24,43 +24,43 @@
  * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS 
  * IN THE SOFTWARE.
  *********************************************************************************************************************/
- /*\name CPU Multicore Mutex
- * \brief A mutex is implemented to protect a memory location from writes of multiple CPUs.
- * \description CPU0, CPU1 and CPU2 will try to access the same memory location
- *              and toggle different LEDs. While any of the three CPUs is writing
- *              successfully on the protected memory the writes of the other two CPUs
- *              will be blocked by the mutex.
+ /*\title CPU Multicore Mutex
+ * \abstract A mutex is implemented to protect a memory location from writes of multiple CPUs.
+ * \description CPU0, CPU1 and CPU2 will try to access the same memory location and toggle different LEDs.
+ *              While any of the three CPUs is writing successfully on the protected memory, the writes of the
+ *              other two CPUs will be blocked by the mutex.
  *
- * \identifier CPU_Multicore_Mutex_1
+ * \name CPU_Multicore_Mutex_1
  * \version V1.0.0
  * \board APPLICATION KIT TC2X7 V1.1, KIT_AURIX_TC297_TFT_BC-Step, TC29xTA/TX_BC-step
- * \keywords CPU_Multicore_Mutex_1, Concurrency, Multicore, Mutex
- * \documents Infineon-AURIX_CPU_Multicore_Mutex_1-TR-v01_00_00-EN.pdf
- * \date 2019-09-09
+ * \keywords AURIX, CPU, CPU_Multicore_Mutex_1, Concurrency, Multicore, Mutex
+ * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_CPU_Multicore_Mutex_1-TR-v01_00_00-EN.pdf
+ * \documents https://www.infineon.com/aurix-expert-training/iLLD_UM_TC29B.chm
+ * \lastUpdated 2019-10-17
  *********************************************************************************************************************/
 #include "Ifx_Types.h"
 #include "IfxCpu.h"
 #include "IfxScuWdt.h"
 #include "CPU_Multicore_Mutex.h"
 
-IfxCpu_syncEvent cpuSyncEvent = 0;
+IfxCpu_syncEvent g_cpuSyncEvent = 0;
 
 int core0_main(void)
 {
     IfxCpu_enableInterrupts();
-    /*
-     * !!WATCHDOG0 AND SAFETY WATCHDOG ARE DISABLED HERE!!
-     * Enable the watchdog in the demo if it is required and also service the watchdog periodically
-     * */
+
+    /* !!WATCHDOG0 AND SAFETY WATCHDOG ARE DISABLED HERE!!
+     * Enable the watchdogs and service them periodically if it is required
+     */
     IfxScuWdt_disableCpuWatchdog(IfxScuWdt_getCpuWatchdogPassword());
     IfxScuWdt_disableSafetyWatchdog(IfxScuWdt_getSafetyWatchdogPassword());
 
-    /* Init function, has to be called before cpu sync */
+    /* Initialization function: it has to be called before the CPU synchronization */
     initPeripherals();
 
-    /* Cpu sync event wait*/
-    IfxCpu_emitEvent(&cpuSyncEvent);
-    IfxCpu_waitEvent(&cpuSyncEvent, 1);
+    /* Wait for CPU sync event */
+    IfxCpu_emitEvent(&g_cpuSyncEvent);
+    IfxCpu_waitEvent(&g_cpuSyncEvent, 1);
 
     while(1)
     {

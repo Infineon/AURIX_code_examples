@@ -1,11 +1,11 @@
 {
   "codeExamples": [
     {
-      "title": "LIN Master Communication via ASCLIN module",
-      "name": "ASCLIN_LIN_master_1",
-      "description": "The string \"Hello World!\" is sent via an ASCLIN module configured as\r\nLIN master. The signal can be visualized using an oscilloscope.",
-      "abstract": "An ASCLIN module is configured as LIN master to send \"Hello World!“",
-      "folder": "ASCLIN_LIN_master_1",
+      "title": "UART Communication via ASCLIN module",
+      "name": "ASCLIN_UART_1",
+      "description": "The string \"Hello World!\" is sent and received via UART through one pin due to the internal loopback.\r\nThe data can be visualized using an oscilloscope.",
+      "abstract": "An ASCLIN module configured for UART communication sends \"Hello World!\" and receives the string via the internal loopback.",
+      "folder": "ASCLIN_UART_1",
       "version": "V1.0.0",
       "platforms": [
         {
@@ -15,48 +15,22 @@
         }
       ],
       "keywords": [
+        "ASC",
         "ASCLIN",
-        "ASCLIN_LIN_master_1",
+        "ASCLIN_UART_1",
         "AURIX",
-        "LIN",
+        "UART",
         "communication"
       ],
       "documents": [
-        "Infineon-AURIX_ASCLIN_LIN_master_1-TR-v01_00_00-EN.pdf"
+        "https://www.infineon.com/aurix-expert-training/iLLD_UM_TC29B.chm"
       ],
-      "lastModified": "2019-09-17T00:00:00.000Z"
-    },
-    {
-      "title": "Generation of PWM via CCU6",
-      "name": "CCU6_PWM_1",
-      "description": "The code example uses the Timer 12 of CCU6 and its three compare modules generate three PWM signals with frequency 20 kHz and different duty-cycles (respectively 25%, 50% and 75%).\r\nT12 is configured to count up and down and the three signals are center aligned.\r\nThe generated PWM signals are sent to the pins available to the board, and can be observed with an oscilloscope.",
-      "abstract": "Three center aligned pulse width modulated (PWM) signals with fixed frequency and different duty-cycles are generated using CCU6.",
-      "folder": "CCU6_PWM_1",
-      "version": "V1.0.0",
-      "platforms": [
-        {
-          "name": "APPLICATION KIT TC2X7 V1.1",
-          "id": "KIT_AURIX_TC297_TFT_BC-Step",
-          "device_id": "TC29xTA/TX_BC-step"
-        }
-      ],
-      "keywords": [
-        "CCU6",
-        "Duty cycle",
-        "Multi-Channel mode",
-        "Oscilloscope",
-        "PWM",
-        "T12"
-      ],
-      "documents": [
-        "CCU6_PWM_1.pdf"
-      ],
-      "lastModified": "2019-07-29T00:00:00.000Z"
+      "lastModified": "2019-10-17T00:00:00.000Z"
     },
     {
       "title": "CPU Multicore Mutex",
       "name": "CPU_Multicore_Mutex_1",
-      "description": "CPU0, CPU1 and CPU2 will try to access the same memory location\r\nand toggle different LEDs. While any of the three CPUs is writing\r\nsuccessfully on the protected memory the writes of the other two CPUs\r\nwill be blocked by the mutex.",
+      "description": "CPU0, CPU1 and CPU2 will try to access the same memory location and toggle different LEDs.\r\nWhile any of the three CPUs is writing successfully on the protected memory, the writes of the\r\nother two CPUs will be blocked by the mutex.",
       "abstract": "A mutex is implemented to protect a memory location from writes of multiple CPUs.",
       "folder": "CPU_Multicore_Mutex_1",
       "version": "V1.0.0",
@@ -68,46 +42,24 @@
         }
       ],
       "keywords": [
+        "AURIX",
+        "CPU",
         "CPU_Multicore_Mutex_1",
         "Concurrency",
         "Multicore",
         "Mutex"
       ],
       "documents": [
-        "Infineon-AURIX_CPU_Multicore_Mutex_1-TR-v01_00_00-EN.pdf"
+        "https://www.infineon.com/aurix-expert-training/iLLD_UM_TC29B.chm"
       ],
-      "lastModified": "2019-09-09T00:00:00.000Z"
+      "lastModified": "2019-10-17T00:00:00.000Z"
     },
     {
-      "title": "CPU Performance Counters",
-      "name": "CPU_Perf_Counters_1",
-      "description": "The CPU is counting the numbers of instruction, clock ticks and multi counters ticks\r\nbetween IfxCpuPerfCounter_start and IfxCpuPerfCounter_stop and store the result in a variable.",
-      "abstract": "Measure CPU performance via the counters",
-      "folder": "CPU_Perf_Counters_1",
-      "version": "V1.0.0",
-      "platforms": [
-        {
-          "name": "APPLICATION KIT TC2X7 V1.1",
-          "id": "KIT_AURIX_TC297_TFT_BC-Step",
-          "device_id": "TC29xTA/TX_BC-step"
-        }
-      ],
-      "keywords": [
-        "CPU",
-        "CPU_Perf_Counters_1",
-        "Performance"
-      ],
-      "documents": [
-        "Infineon-AURIX_CPU_Perf_Counters_1-TR-v01_00_00-EN.pdf"
-      ],
-      "lastModified": "2019-09-24T00:00:00.000Z"
-    },
-    {
-      "title": "External interrupt generation",
-      "name": "ERU_Interrupt_1",
-      "description": "The code example uses the External Request Unit (ERU) to generate an\r\ninterrupt for each falling and rising edge at the input pin P02.0. The falling\r\nand rising edges are generated with pin P02.1. If an Interrupt occurs, an LED\r\nwill be toggled.",
-      "abstract": "The ERU is used to generate an interrupt on each rising and falling edge at an input pin.",
-      "folder": "ERU_Interrupt_1",
+      "title": "DMA Linked List Mode usage",
+      "name": "DMA_Linked_List_Mode_1",
+      "description": "In this training, four DMA transactions are configured in DMA Linked List mode.\r\nTriggering one DMA transaction leads to the execution of all DMA transactions consecutively.\r\nAn interrupt is triggered at the completion of the last DMA transaction.\r\nIf DMA has correctly transferred the data, the LED driven by port pin 13.3 toggles and a new cycle\r\nstarts again. Otherwise, the LED driven by port pin 13.2 turns ON and no more DMA transfers are done.",
+      "abstract": "DMA Linked Lists are used to execute a series of DMA transactions without CPU intervention.",
+      "folder": "DMA_Linked_List_Mode_1",
       "version": "V1.0.0",
       "platforms": [
         {
@@ -118,21 +70,22 @@
       ],
       "keywords": [
         "AURIX",
-        "ERU",
-        "external request",
-        "interrupt"
+        "DMA",
+        "DMA_Linked_List_Mode_1",
+        "Linked list",
+        "data transfer"
       ],
       "documents": [
-        "Infineon-AURIX_ERU_Interrupt_1-TR-v01_00_00-EN.pdf"
+        "https://www.infineon.com/aurix-expert-training/iLLD_UM_TC29B.chm"
       ],
-      "lastModified": "2019-09-10T00:00:00.000Z"
+      "lastModified": "2019-10-17T00:00:00.000Z"
     },
     {
-      "title": "LED control via button",
-      "name": "GPIO_LED_Button_1",
-      "description": "Upon pressure of a push button, an LED will be turned on ON and the LED will turned off when\r\nreleasing the button. One port pin is configured as input for checking the push button state and\r\nthe other port pin is configured as output to control the LED.\r\nShort the port pins P14.4 with P14.5 (pin 39 and 40 of header X102)to switch on the LED D110.",
-      "abstract": "An LED is controlled via a push button.",
-      "folder": "GPIO_LED_Button_1",
+      "title": "Capture of PWM signal via GPT12",
+      "name": "GPT12_PWM_Capture_1",
+      "description": "GPT12 timers are configured in capture mode. The data from the captured PWM signal is used to calculate\r\nthe PWM frequency in software. The frequency is then stored in a variable.",
+      "abstract": "The GPT12 unit is used to capture an external PWM signal and calculate the PWM frequency.",
+      "folder": "GPT12_PWM_Capture_1",
       "version": "V1.0.0",
       "platforms": [
         {
@@ -142,21 +95,25 @@
         }
       ],
       "keywords": [
-        "LED",
-        "button",
-        "GPIO"
+        "GPT12",
+        "PWM",
+        "timer",
+        "frequency",
+        "capture",
+        "AURIX",
+        "GPT12_PWM_Capture_1"
       ],
       "documents": [
-        "none"
+        "https://www.infineon.com/aurix-expert-training/iLLD_UM_TC29B.chm"
       ],
-      "lastModified": "2019-08-14T00:00:00.000Z"
+      "lastModified": "2019-10-17T00:00:00.000Z"
     },
     {
-      "title": "Die Temperature Sensor",
-      "name": "SCU_Die_Temp_Sensor_1",
-      "description": "The internal Die Temperature Sensor (DTS) is continuously read in an infinite loop.\r\nWhen a new temperature result is available an interrupt service routine (ISR) is triggered.\r\nThe ISR notifies the availability of a new die temperature value by setting a flag,\r\nwhich is used to start printing the temperature via UART communication using the\r\nASCLIN module. The temperature value can be read by using a terminal program\r\nconnected to the virtual COM port of the board/kit.",
-      "abstract": "The Die Temperature is measured by an internal sensor and printed on a terminal program",
-      "folder": "SCU_Die_Temp_Sensor_1",
+      "title": "GTM ATOM Interrupt",
+      "name": "GTM_ATOM_Interrupt_1",
+      "description": "The Generic Timer Module triggers an interrupt every 500 ms. The state of the port pin,\r\nwhere the LED is connected, is toggled inside the Interrupt Service Routine (ISR).",
+      "abstract": "The GTM ATOM is configured to trigger an interrupt every 500 ms. The interrupt toggles an LED.",
+      "folder": "GTM_ATOM_Interrupt_1",
       "version": "V1.0.0",
       "platforms": [
         {
@@ -167,46 +124,17 @@
       ],
       "keywords": [
         "AURIX",
-        "DTS",
-        "Interrupt",
-        "SCU",
-        "SCU_Die_Temp_Sensor_1",
-        "UART",
-        "VCOM",
-        "sensor",
-        "serial monitor",
-        "temperature",
-        "terminal"
+        "GTM",
+        "GTM_ATOM_Interrupt_1",
+        "IR",
+        "general timer",
+        "interrupt",
+        "timer"
       ],
       "documents": [
-        "Infineon-AURIX_SCU_Die_Temp_Sensor_1-TR-v01_00_00-EN.pdf"
+        "https://www.infineon.com/aurix-expert-training/iLLD_UM_TC29B.chm"
       ],
-      "lastModified": "2019-09-18T00:00:00.000Z"
-    },
-    {
-      "title": "Interrupt generation via STM trigger",
-      "name": "STM_Interrupt_1",
-      "description": "The LED is driven by pin 0 of the port 13.\r\nThe state of the pin will change based on the interrupt, which is triggered by STM.\r\nThe timer is counting and when it reaches the configured value configured in the compare register,\r\nit will trigger an interrupt and reset its current value.",
-      "abstract": "The STM is configured to trigger an interrupt every 100 ms. The interrupt will toggle an LED.",
-      "folder": "STM_Interrupt_1",
-      "version": "1.0.0",
-      "platforms": [
-        {
-          "name": "APPLICATION KIT TC2X7 V1.1",
-          "id": "KIT_AURIX_TC297_TFT_BC-Step",
-          "device_id": "TC29xTA/TX_BC-step"
-        }
-      ],
-      "keywords": [
-        "Interrupt",
-        "LED",
-        "STM",
-        "blink"
-      ],
-      "documents": [
-        "STM_Interrupt_1.pdf"
-      ],
-      "lastModified": "2019-08-14T00:00:00.000Z"
+      "lastModified": "2019-10-17T00:00:00.000Z"
     }
   ]
 }

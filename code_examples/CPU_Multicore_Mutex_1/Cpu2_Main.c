@@ -29,25 +29,25 @@
 #include "IfxScuWdt.h"
 #include "CPU_Multicore_Mutex.h"
 
-extern IfxCpu_syncEvent cpuSyncEvent;
+extern IfxCpu_syncEvent g_cpuSyncEvent;
 
 int core2_main(void)
 {
     IfxCpu_enableInterrupts();
-    /*
-     * !!WATCHDOG2 IS DISABLED HERE!!
-     * Enable the watchdog in the demo if it is required and also service the watchdog periodically
-     * */
+
+    /* !!WATCHDOG2 IS DISABLED HERE!!
+     * Enable the watchdog and service it periodically if it is required
+     */
     IfxScuWdt_disableCpuWatchdog(IfxScuWdt_getCpuWatchdogPassword());
 
-    /* Cpu sync event wait*/
-    IfxCpu_emitEvent(&cpuSyncEvent);
-    IfxCpu_waitEvent(&cpuSyncEvent, 1);
+    /* Wait for CPU sync event */
+    IfxCpu_emitEvent(&g_cpuSyncEvent);
+    IfxCpu_waitEvent(&g_cpuSyncEvent, 1);
 
     while(1)
     {
-    	/* Run function */
-    	runMutexRequest();
+        /* Run function */
+        runMutexRequest();
     }
     return (1);
 }

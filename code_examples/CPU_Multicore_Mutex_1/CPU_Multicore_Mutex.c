@@ -30,8 +30,8 @@
 /*-----------------------------------------------------Includes------------------------------------------------------*/
 /*********************************************************************************************************************/
 #include "CPU_Multicore_Mutex.h"
-#include <Ifx_Types.h>
-#include <Cpu/Std/IfxCpu.h>
+#include "Ifx_Types.h"
+#include "IfxCpu.h"
 #include "Bsp.h"
 #include "IfxPort_PinMap.h"
 
@@ -50,32 +50,32 @@
  *  - &MODULE_P13,2
  *  - &MODULE_P13,3
  */
-#define LED1     &MODULE_P13, 0
-#define LED2     &MODULE_P13, 1
-#define LED3     &MODULE_P13, 2
+#define LED1     &MODULE_P13, 0     /* LED D107 */
+#define LED2     &MODULE_P13, 1     /* LED D108 */
+#define LED3     &MODULE_P13, 2     /* LED D109 */
 
 /*********************************************************************************************************************/
 /*-------------------------------------------------Global variables--------------------------------------------------*/
 /*********************************************************************************************************************/
-IfxCpu_mutexLock g_cpuMutexResourceLock;    /* Cpu mutex global data */
-uint8 g_protectedMutexVariable = 0;         /* Variable which every CPU tries to change  */
+IfxCpu_mutexLock g_cpuMutexResourceLock;    /* CPU mutex global data                    */
+uint8 g_protectedMutexVariable = 0;         /* Variable which every CPU tries to change */
 
 /*********************************************************************************************************************/
 /*---------------------------------------------Function Implementations----------------------------------------------*/
 /*********************************************************************************************************************/
-/* Init function
+/* Initialization function:
  * Initializes all three LEDs as output and default state is off
- * Inits time constants
+ * Initializes time constants
  */
 void initPeripherals(void)
 {
-    IfxPort_setPinMode(LED1, IfxPort_Mode_outputPushPullGeneral);   /* Initialize global variables for LED1; */
-    IfxPort_setPinMode(LED2, IfxPort_Mode_outputPushPullGeneral);   /* Initialize global variables for LED2; */
-    IfxPort_setPinMode(LED3, IfxPort_Mode_outputPushPullGeneral);   /* Initialize global variables for LED3; */
+    IfxPort_setPinMode(LED1, IfxPort_Mode_outputPushPullGeneral);   /* Initialize LED1 port pin         */
+    IfxPort_setPinMode(LED2, IfxPort_Mode_outputPushPullGeneral);   /* Initialize LED2 port pin         */
+    IfxPort_setPinMode(LED3, IfxPort_Mode_outputPushPullGeneral);   /* Initialize LED3 port pin         */
     IfxPort_setPinState(LED1, IfxPort_State_high);                  /* Turn off LED1, LED is low-active */
     IfxPort_setPinState(LED2, IfxPort_State_high);                  /* Turn off LED2, LED is low-active */
     IfxPort_setPinState(LED3, IfxPort_State_high);                  /* Turn off LED3, LED is low-active */
-    initTime();                                                     /* Initialize time constants */
+    initTime();                                                     /* Initialize time constants        */
 }
 
 /* This function gets called by all three CPUs.
@@ -87,14 +87,14 @@ void initPeripherals(void)
 void runMutexRequest(void)
 {
 #ifdef USE_MUTEX  /* Call CriticalSection if mutex got acquired successfully */
-    boolean mutex_acquired = IfxCpu_acquireMutex(&g_cpuMutexResourceLock); /* Each CPU tries to acquire the mutex */
-    if (mutex_acquired == TRUE)
+    boolean mutexAcquired = IfxCpu_acquireMutex(&g_cpuMutexResourceLock);   /* Each CPU tries to acquire the mutex */
+    if (mutexAcquired == TRUE)
     {
         /* Mutex acquire SUCCESS */
         /* Begin of critical section (protected area) */
-        criticalSection();                                                 /* Call criticalSection function */
+        criticalSection();                                                  /* Call criticalSection function       */
         /* End of critical section (protected area) */
-        IfxCpu_releaseMutex(&g_cpuMutexResourceLock);                      /* Release mutex at the end */
+        IfxCpu_releaseMutex(&g_cpuMutexResourceLock);                       /* Release mutex at the end            */
     }
 #else /* No mutex protection */
     criticalSection(); /* Call of criticalSection without mutex protection */
@@ -108,29 +108,29 @@ void runMutexRequest(void)
  */
 void criticalSection(void)
 {
-    uint8 coreid = IfxCpu_getCoreId();  /* Get id of the core which is calling the function right now */
-    switch(coreid)
+    uint8 coreID = IfxCpu_getCoreId();  /* Get id of the core which is calling the function */
+    switch(coreID)
     {
         case CPU0:
-            g_protectedMutexVariable = CPU0;                        /* Change global mutex variable to id of CPU0 */
-            IfxPort_setPinState(LED1, IfxPort_State_low);           /* Turn on LED1 */
-            wait(TimeConst_1s);                                     /* Wait for 1s */
+            g_protectedMutexVariable = CPU0;                        /* Change global mutex variable to ID of CPU0 */
+            IfxPort_setPinState(LED1, IfxPort_State_low);           /* Turn on LED1  */
+            wait(TimeConst_1s);                                     /* Wait for 1s   */
             IfxPort_setPinState(LED1, IfxPort_State_high);          /* Turn off LED1 */
-            wait(TimeConst_1s);                                     /* Wait for 1s */
+            wait(TimeConst_1s);                                     /* Wait for 1s   */
             break;
         case CPU1:
-            g_protectedMutexVariable = CPU1;                        /* Change global mutex variable to id of CPU1 */
-            IfxPort_setPinState(LED2, IfxPort_State_low);           /* Turn on LED2 */
-            wait(TimeConst_1s);                                     /* Wait for 1s */
+            g_protectedMutexVariable = CPU1;                        /* Change global mutex variable to ID of CPU1 */
+            IfxPort_setPinState(LED2, IfxPort_State_low);           /* Turn on LED2  */
+            wait(TimeConst_1s);                                     /* Wait for 1s   */
             IfxPort_setPinState(LED2, IfxPort_State_high);          /* Turn off LED2 */
-            wait(TimeConst_1s);                                     /* Wait for 1s */
+            wait(TimeConst_1s);                                     /* Wait for 1s   */
             break;
         case CPU2:
-            g_protectedMutexVariable = CPU2;                        /* Change global mutex variable to id of CPU2 */
-            IfxPort_setPinState(LED3, IfxPort_State_low);           /* Turn on LED3 */
-            wait(TimeConst_1s);                                     /* Wait for 1s */
+            g_protectedMutexVariable = CPU2;                        /* Change global mutex variable to ID of CPU2 */
+            IfxPort_setPinState(LED3, IfxPort_State_low);           /* Turn on LED3  */
+            wait(TimeConst_1s);                                     /* Wait for 1s   */
             IfxPort_setPinState(LED3, IfxPort_State_high);          /* Turn off LED3 */
-            wait(TimeConst_1s);                                     /* Wait for 1s */
+            wait(TimeConst_1s);                                     /* Wait for 1s   */
             break;
         default:
             break;
