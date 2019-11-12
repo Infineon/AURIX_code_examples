@@ -24,7 +24,7 @@
  * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS 
  * IN THE SOFTWARE.
  *********************************************************************************************************************/
- /*\title GTM ATOM Interrupt
+ /*\title GTM ATOM interrupt
  * \abstract The GTM ATOM is configured to trigger an interrupt every 500 ms. The interrupt toggles an LED.
  * \description The Generic Timer Module triggers an interrupt every 500 ms. The state of the port pin,
  *              where the LED is connected, is toggled inside the Interrupt Service Routine (ISR).

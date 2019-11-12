@@ -50,7 +50,7 @@
 /*********************************************************************************************************************/
 /*-------------------------------------------------Global variables--------------------------------------------------*/
 /*********************************************************************************************************************/
-/* Declaration of the ASC handler */
+/* Declaration of the ASC handle */
 static IfxAsclin_Asc g_ascHandle;
 
 /* Declaration of the FIFOs parameters */
@@ -105,9 +105,9 @@ void init_ASCLIN_UART(void)
     const IfxAsclin_Asc_Pins pins =
     {
         NULL_PTR,       IfxPort_InputMode_pullUp,     /* CTS pin not used */
-        &UART_PIN_RX,   IfxPort_InputMode_pullUp,     /* Rx pin           */
+        &UART_PIN_RX,   IfxPort_InputMode_pullUp,     /* RX pin           */
         NULL_PTR,       IfxPort_OutputMode_pushPull,  /* RTS pin not used */
-        &UART_PIN_TX,   IfxPort_OutputMode_pushPull,  /* Tx pin           */
+        &UART_PIN_TX,   IfxPort_OutputMode_pushPull,  /* TX pin           */
         IfxPort_PadDriver_cmosAutomotiveSpeed1
     };
     ascConfig.pins = &pins;

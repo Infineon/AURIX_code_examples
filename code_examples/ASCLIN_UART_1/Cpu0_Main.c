@@ -24,7 +24,7 @@
  * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS 
  * IN THE SOFTWARE.
  *********************************************************************************************************************/
- /*\title UART Communication via ASCLIN module
+ /*\title UART communication via ASCLIN module
  * \abstract An ASCLIN module configured for UART communication sends "Hello World!" and receives the string via the internal loopback.
  * \description The string "Hello World!" is sent and received via UART through one pin due to the internal loopback.
  *              The data can be visualized using an oscilloscope.
@@ -32,7 +32,7 @@
  * \name ASCLIN_UART_1
  * \version V1.0.0
  * \board APPLICATION KIT TC2X7 V1.1, KIT_AURIX_TC297_TFT_BC-Step, TC29xTA/TX_BC-step
- * \keywords ASC, ASCLIN, ASCLIN_UART_1, AURIX, UART, communication
+ * \keywords ASC, ASCLIN, ASCLIN_UART_1, AURIX, Oscilloscope, UART, communication
  * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_ASCLIN_UART_1-TR-v01_00_00-EN.pdf
  * \documents https://www.infineon.com/aurix-expert-training/iLLD_UM_TC29B.chm
  * \lastUpdated 2019-10-17

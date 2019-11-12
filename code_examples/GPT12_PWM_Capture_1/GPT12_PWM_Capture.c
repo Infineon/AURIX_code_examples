@@ -54,7 +54,7 @@ uint32  g_previousCntVal        = 0;    /* Global variable which stores the time
 /*********************************************************************************************************************/
 /*---------------------------------------------Function Implementations----------------------------------------------*/
 /*********************************************************************************************************************/
-/* Macro to define the Interrupt Service Routine. */
+/* Macro to define the Interrupt Service Routine */
 IFX_INTERRUPT(GPT12_T2_Int0_Handler, 0, ISR_PRIORITY_GPT12_T2_INT);
 
 /* Interrupt Service Routine of timer T2, gets triggered by rising edge on input pin of timer T2 */

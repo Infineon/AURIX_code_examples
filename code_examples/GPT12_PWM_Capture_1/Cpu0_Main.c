@@ -58,6 +58,7 @@ int core0_main(void)
     IfxCpu_emitEvent(&g_cpuSyncEvent);
     IfxCpu_waitEvent(&g_cpuSyncEvent, 1);
 
+    /* Initialize the GPT module */
     init_GPT12_module();
 
     while(1)

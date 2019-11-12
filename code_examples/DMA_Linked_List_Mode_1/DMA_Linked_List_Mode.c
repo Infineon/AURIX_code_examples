@@ -111,7 +111,7 @@ void initDmaLinkedList(void)
     cfg.shadowControl = IfxDma_ChannelShadow_linkedList;
 
     /* Generate linked list items */
-    for (i = 0; i < NUM_LINKED_LIST_ITEMS; ++i)
+    for(i = 0; i < NUM_LINKED_LIST_ITEMS; ++i)
     {
         cfg.sourceAddress = (uint32)g_source[i];
         cfg.destinationAddress = (uint32)g_destination[i];
@@ -129,7 +129,7 @@ void initDmaLinkedList(void)
         IfxDma_Dma_initLinkedListEntry((void *)&g_linkedList[i], &cfg);
 
         /* Copy first transaction set configuration into DMA Channel TCS SFRs  */
-        if (i == 0)
+        if(i == 0)
         {
             IfxDma_Dma_initChannel(&g_chn, &cfg);
         }
@@ -161,11 +161,11 @@ void startDmaLinkedListTransfer(void)
     uint32 i, j;
 
     /* Fill source buffers of DMA transactions */
-    for (i = 0; i < NUM_LINKED_LIST_ITEMS; ++i)
+    for(i = 0; i < NUM_LINKED_LIST_ITEMS; ++i)
     {
         uint32 *src = (uint32 *)g_source[i];
 
-        for (j = 0; j < NUM_TRANSFERED_WORDS; ++j)
+        for(j = 0; j < NUM_TRANSFERED_WORDS; ++j)
         {
             *src++ = CONTENT_GENERATOR_NUM1 + i * CONTENT_GENERATOR_NUM2 + j + 1;
         }
@@ -187,21 +187,21 @@ static void checkDmaTransferExecution(void)
     uint32 *dst;
 
     /* Check destination buffers */
-    for (i = 0; i < NUM_LINKED_LIST_ITEMS; ++i)
+    for(i = 0; i < NUM_LINKED_LIST_ITEMS; ++i)
     {
         src = (uint32 *)g_source[i];
         dst = (uint32 *)g_destination[i];
 
-        for (j = 0; j < NUM_TRANSFERED_WORDS; ++j)
+        for(j = 0; j < NUM_TRANSFERED_WORDS; ++j)
         {
-            if (*dst++ != *src++)
+            if(*dst++ != *src++)
             {
                 ++errors;
             }
         }
     }
 
-    if (errors != 0)
+    if(errors != 0)
     {
         /* Stop execution    */
         /* Turn on FAIL LED  */
@@ -218,11 +218,11 @@ static void checkDmaTransferExecution(void)
         delay(CYCLE_DELAY_MS);
 
         /* Clear Destination buffers */
-        for (i = 0; i < NUM_LINKED_LIST_ITEMS; ++i)
+        for(i = 0; i < NUM_LINKED_LIST_ITEMS; ++i)
         {
             dst = (uint32 *)g_destination[i];
 
-            for (j = 0; j < NUM_TRANSFERED_WORDS; ++j)
+            for(j = 0; j < NUM_TRANSFERED_WORDS; ++j)
             {
                 *dst++ = 0x0;
             }

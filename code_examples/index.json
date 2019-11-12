@@ -1,7 +1,93 @@
 {
   "codeExamples": [
     {
-      "title": "UART Communication via ASCLIN module",
+      "title": "LIN master communication via ASCLIN module",
+      "name": "ASCLIN_LIN_Master_1",
+      "description": "The string \"Hello World!\" is sent via an ASCLIN module configured as\r\nLIN master. The signal can be visualized using an oscilloscope.",
+      "abstract": "An ASCLIN module is configured as LIN master to send \"Hello World!\"",
+      "folder": "ASCLIN_LIN_Master_1",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC2X7 V1.1",
+          "id": "KIT_AURIX_TC297_TFT_BC-Step",
+          "device_id": "TC29xTA/TX_BC-step"
+        }
+      ],
+      "keywords": [
+        "ASCLIN",
+        "ASCLIN_LIN_Master_1",
+        "AURIX",
+        "LIN",
+        "Oscilloscope",
+        "communication"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_ASCLIN_LIN_Master_1-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/iLLD_UM_TC29B.chm"
+      ],
+      "lastModified": "2019-10-17T00:00:00.000Z"
+    },
+    {
+      "title": "Shell via UART communication",
+      "name": "ASCLIN_Shell_UART_1",
+      "description": "The ASCLIN module is configured for UART communication.\r\nThe Shell from iLLDs exploits the ASCLIN module to interpret and manage commands from the\r\nuser like \"info\", \"toggle [x]\" or \"help\".",
+      "abstract": "A Shell is used to parse a command line and call the corresponding command execution. The ASCLIN module is used to interface with the Shell through the USB port via UART.",
+      "folder": "ASCLIN_Shell_UART_1",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC2X7 V1.1",
+          "id": "KIT_AURIX_TC297_TFT_BC-Step",
+          "device_id": "TC29xTA/TX_BC-step"
+        }
+      ],
+      "keywords": [
+        "ASC",
+        "ASCLIN_Shell_UART_1",
+        "AURIX",
+        "UART",
+        "VCOM",
+        "serial communication",
+        "shell"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_ASCLIN_Shell_UART_1-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/iLLD_UM_TC29B.chm"
+      ],
+      "lastModified": "2019-10-17T00:00:00.000Z"
+    },
+    {
+      "title": "SPI master communication via ASCLIN module",
+      "name": "ASCLIN_SPI_Master_1",
+      "description": "The two bytes message is sent through MTSR (MOSI) port pin P15.4 in loopback mode.\r\nThis signal can be visualized on the oscilloscope screen.",
+      "abstract": "An ASCLIN module configured as SPI master sends a two bytes message.",
+      "folder": "ASCLIN_SPI_Master_1",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC2X7 V1.1",
+          "id": "KIT_AURIX_TC297_TFT_BC-Step",
+          "device_id": "TC29xTA/TX_BC-step"
+        }
+      ],
+      "keywords": [
+        "ASCLIN",
+        "ASCLIN_SPI_Master_1",
+        "AURIX",
+        "Oscilloscope",
+        "SPI",
+        "communication",
+        "master"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_ASCLIN_SPI_Master_1-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/iLLD_UM_TC29B.chm"
+      ],
+      "lastModified": "2019-10-17T00:00:00.000Z"
+    },
+    {
+      "title": "UART communication via ASCLIN module",
       "name": "ASCLIN_UART_1",
       "description": "The string \"Hello World!\" is sent and received via UART through one pin due to the internal loopback.\r\nThe data can be visualized using an oscilloscope.",
       "abstract": "An ASCLIN module configured for UART communication sends \"Hello World!\" and receives the string via the internal loopback.",
@@ -19,20 +105,79 @@
         "ASCLIN",
         "ASCLIN_UART_1",
         "AURIX",
+        "Oscilloscope",
         "UART",
         "communication"
       ],
       "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_ASCLIN_UART_1-TR-v01_00_00-EN.pdf",
         "https://www.infineon.com/aurix-expert-training/iLLD_UM_TC29B.chm"
       ],
       "lastModified": "2019-10-17T00:00:00.000Z"
     },
     {
-      "title": "CPU Multicore Mutex",
-      "name": "CPU_Multicore_Mutex_1",
-      "description": "CPU0, CPU1 and CPU2 will try to access the same memory location and toggle different LEDs.\r\nWhile any of the three CPUs is writing successfully on the protected memory, the writes of the\r\nother two CPUs will be blocked by the mutex.",
-      "abstract": "A mutex is implemented to protect a memory location from writes of multiple CPUs.",
-      "folder": "CPU_Multicore_Mutex_1",
+      "title": "CCU6 interrupt generation",
+      "name": "CCU6_Interrupt_1",
+      "description": "Timer T12 of the CCU6  unit generates an interrupt on a \"period match\" event every 500 ms.\r\nInside the ISR, a counter variable is incremented.\r\nLEDs toggles based on the value of the counter:\r\n- 1st LED: counter % 4 \u003d\u003d 0\r\n- 2nd LED: counter % 4 \u003d\u003d 1\r\n- 3rd LED: counter % 4 \u003d\u003d 2\r\n- 4th LED: counter % 4 \u003d\u003d 3",
+      "abstract": "The CCU6 unit generates an interrupt every 500 ms and increments a counter in its Interrupt Service Routine (ISR).",
+      "folder": "CCU6_Interrupt_1",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC2X7 V1.1",
+          "id": "KIT_AURIX_TC297_TFT_BC-Step",
+          "device_id": "TC29xTA/TX_BC-step"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "CCU6",
+        "CCU6_interrupt_1",
+        "Interrupt",
+        "LED"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_CCU6_Interrupt_1-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/iLLD_UM_TC29B.chm"
+      ],
+      "lastModified": "2019-10-17T00:00:00.000Z"
+    },
+    {
+      "title": "Generation of PWM via CCU6",
+      "name": "CCU6_PWM_Generation_1",
+      "description": "The code example uses the Timer T12 of CCU6 and its three compare modules to generate three PWM signals\r\nwith a frequency of 20 kHz and different duty cycles (25%, 50% and 75%). T12 is configured to count up\r\nand down and the three signals are center aligned. The generated PWM signals are sent to the pins\r\navailable on the board and can be observed with an oscilloscope.",
+      "abstract": "Three center aligned Pulse Width Modulated (PWM) signals with fixed frequency and different duty cycles are generated using CCU6.",
+      "folder": "CCU6_PWM_Generation_1",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC2X7 V1.1",
+          "id": "KIT_AURIX_TC297_TFT_BC-Step",
+          "device_id": "TC29xTA/TX_BC-step"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "CCU6",
+        "CCU6_PWM_Generation_1",
+        "Duty cycle",
+        "Multi-Channel mode",
+        "Oscilloscope",
+        "PWM",
+        "T12"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_CCU6_PWM_Generation_1-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/iLLD_UM_TC29B.chm"
+      ],
+      "lastModified": "2019-10-17T00:00:00.000Z"
+    },
+    {
+      "title": "CPU performance counters",
+      "name": "CPU_Perf_Counters_1",
+      "description": "The CPU performance counters are counting the number of instructions, clock ticks and multi\r\ncounters ticks. They are used to measure the run-time of a c-function.\r\nThe result is stored in a global variable.",
+      "abstract": "Measure code performance via the CPU performance counters",
+      "folder": "CPU_Perf_Counters_1",
       "version": "V1.0.0",
       "platforms": [
         {
@@ -44,12 +189,39 @@
       "keywords": [
         "AURIX",
         "CPU",
-        "CPU_Multicore_Mutex_1",
-        "Concurrency",
-        "Multicore",
-        "Mutex"
+        "CPU_Perf_Counters_1",
+        "Performance"
       ],
       "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_CPU_Perf_Counters_1-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/iLLD_UM_TC29B.chm"
+      ],
+      "lastModified": "2019-10-17T00:00:00.000Z"
+    },
+    {
+      "title": "DMA transfer of ADC conversion results",
+      "name": "DMA_ADC_Transfer_1",
+      "description": "At the end of an analog-to-digital conversion of the VADC module, an interrupt is triggered, which starts\r\nthe data transfer of the converted ADC results via DMA to the LMURAM. The ADC conversion is started\r\nmanually via a command of a serial monitor.",
+      "abstract": "The DMA is used to transfer ADC measurements results to LMURAM.",
+      "folder": "DMA_ADC_Transfer_1",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC2X7 V1.1",
+          "id": "KIT_AURIX_TC297_TFT_BC-Step",
+          "device_id": "TC29xTA/TX_BC-step"
+        }
+      ],
+      "keywords": [
+        "ADC",
+        "AURIX",
+        "DMA",
+        "DMA_ADC_Transfer_1",
+        "VADC",
+        "data transfer"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_DMA_ADC_Transfer_1-TR-v01_00_00-EN.pdf",
         "https://www.infineon.com/aurix-expert-training/iLLD_UM_TC29B.chm"
       ],
       "lastModified": "2019-10-17T00:00:00.000Z"
@@ -76,6 +248,148 @@
         "data transfer"
       ],
       "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_DMA_Linked_List_Mode_1-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/iLLD_UM_TC29B.chm"
+      ],
+      "lastModified": "2019-10-17T00:00:00.000Z"
+    },
+    {
+      "title": "DMA transfer between memories",
+      "name": "DMA_Mem_to_Mem_1",
+      "description": "The transfer of data is triggered by SW. The source is the Data Scratch Pad SRAM of CPU0 (DSPR0) and\r\nthe destination is the Local Memory Unit (LMURAM). At the end of the transactions, the data is\r\nverified by comparing the source and destination buffers. The success of the data transfer is signaled\r\nthrough the LED connected to pin 0 of port 13. Otherwise, the LED connected to pin 1 of port 13 is\r\nused. The same cycle is repeated each second.",
+      "abstract": "The DMA is used to transfer ten words (32-bit) of data from one memory location to another without any CPU load.",
+      "folder": "DMA_Mem_to_Mem_1",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC2X7 V1.1",
+          "id": "KIT_AURIX_TC297_TFT_BC-Step",
+          "device_id": "TC29xTA/TX_BC-step"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "DMA",
+        "DMA_Mem_to_Mem_1",
+        "memory",
+        "transfer"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_DMA_Mem_to_Mem_1-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/iLLD_UM_TC29B.chm"
+      ],
+      "lastModified": "2019-10-17T00:00:00.000Z"
+    },
+    {
+      "title": "Delta-Sigma ADC conversion",
+      "name": "DSADC_1",
+      "description": "The Delta-Sigma ADC (DSADC) continuously measures an external signal on channel 0, connected\r\nto port pin AN2. It converts the analog signal to a data stream and then a global variable is updated\r\nto the current conversion result.",
+      "abstract": "The DSADC is used to convert an external signal to a stream of discrete digital values.",
+      "folder": "DSADC_1",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC2X7 V1.1",
+          "id": "KIT_AURIX_TC297_TFT_BC-Step",
+          "device_id": "TC29xTA/TX_BC-step"
+        }
+      ],
+      "keywords": [
+        "ADC",
+        "AURIX",
+        "DSADC",
+        "DSADC_1",
+        "delta-sigma"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_DSADC_1-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/iLLD_UM_TC29B.chm"
+      ],
+      "lastModified": "2019-10-17T00:00:00.000Z"
+    },
+    {
+      "title": "External interrupt generation",
+      "name": "ERU_Interrupt_1",
+      "description": "The code example uses the External Request Unit (ERU) to generate an interrupt for each\r\nfalling and rising edge at the input pin P02.0. The falling and rising edges are generated\r\nwith pin P02.1. If an Interrupt occurs, an LED will be toggled.",
+      "abstract": "The ERU is used to generate an interrupt on each rising and falling edge at an input pin.",
+      "folder": "ERU_Interrupt_1",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC2X7 V1.1",
+          "id": "KIT_AURIX_TC297_TFT_BC-Step",
+          "device_id": "TC29xTA/TX_BC-step"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "ERU",
+        "ERU_Interrupt_1",
+        "external request",
+        "interrupt"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_ERU_Interrupt_1-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/iLLD_UM_TC29B.chm"
+      ],
+      "lastModified": "2019-10-17T00:00:00.000Z"
+    },
+    {
+      "title": "FCE CRC calculation",
+      "name": "FCE_CRC_1",
+      "description": "This training shows how to configure the FCE to calculate CRC of a known message\r\nwith all supported algorithms (CRC32, CRC16 and CRC8).\r\nThe FCE interrupt is enabled to report execution errors.\r\nAny CRC kernel calculation error is indicated by switching ON the related LED.",
+      "abstract": "The FCE module is used to calculate the CRC of the same message with different algorithms.�",
+      "folder": "FCE_CRC_1",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC2X7 V1.1",
+          "id": "KIT_AURIX_TC297_TFT_BC-Step",
+          "device_id": "TC29xTA/TX_BC-step"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "CRC16",
+        "CRC32",
+        "CRC8",
+        "FCE",
+        "FCE_CRC_1",
+        "Hardware Acceleration"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_FCE_CRC_1-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/iLLD_UM_TC29B.chm"
+      ],
+      "lastModified": "2019-10-17T00:00:00.000Z"
+    },
+    {
+      "title": "LED controlled via a push button",
+      "name": "GPIO_LED_Button_1",
+      "description": "Upon pressure of a push button, an LED is turned on and the LED is turned off when\r\nreleasing the button. One port pin is configured as input for checking the push button\r\nstate and the other port pin is configured as output to control the LED.\r\nShort the port pins P14.4 with P14.5 (pin 39 and 40 of header X102) to switch on the LED D110.",
+      "abstract": "An LED is controlled via a push button.",
+      "folder": "GPIO_LED_Button_1",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC2X7 V1.1",
+          "id": "KIT_AURIX_TC297_TFT_BC-Step",
+          "device_id": "TC29xTA/TX_BC-step"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "GPIO",
+        "GPIO_LED_Button_1",
+        "LED",
+        "pin",
+        "port",
+        "port pin",
+        "push button",
+        "push-pull"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_GPIO_LED_Button_1-TR-v01_00_00-EN.pdf",
         "https://www.infineon.com/aurix-expert-training/iLLD_UM_TC29B.chm"
       ],
       "lastModified": "2019-10-17T00:00:00.000Z"
@@ -104,12 +418,41 @@
         "GPT12_PWM_Capture_1"
       ],
       "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_GPT12_PWM_Capture_1-TR-v01_00_00-EN.pdf",
         "https://www.infineon.com/aurix-expert-training/iLLD_UM_TC29B.chm"
       ],
       "lastModified": "2019-10-17T00:00:00.000Z"
     },
     {
-      "title": "GTM ATOM Interrupt",
+      "title": "Timer concatenation of GPT12",
+      "name": "GPT12_Timer_Concatenation_1",
+      "description": "A 32-bit timer is formed by the concatenation of two 16-bit timers of the GPT12 module.\r\nWhen the 32-bit timer overflows, an interrupt is generated toggling an LED.",
+      "abstract": "A 32-bit timer is formed by the concatenation of two timers of the GPT12 module. On timer overflow an interrupt is generated, which toggles an LED.",
+      "folder": "GPT12_Timer_Concatenation_1",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC2X7 V1.1",
+          "id": "KIT_AURIX_TC297_TFT_BC-Step",
+          "device_id": "TC29xTA/TX_BC-step"
+        }
+      ],
+      "keywords": [
+        "GPT12",
+        "timer",
+        "concatenation",
+        "LED",
+        "AURIX",
+        "GPT12_Timer_Concatenation_1"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_GPT12_Timer_Concatenation_1-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/iLLD_UM_TC29B.chm"
+      ],
+      "lastModified": "2019-10-17T00:00:00.000Z"
+    },
+    {
+      "title": "GTM ATOM interrupt",
       "name": "GTM_ATOM_Interrupt_1",
       "description": "The Generic Timer Module triggers an interrupt every 500 ms. The state of the port pin,\r\nwhere the LED is connected, is toggled inside the Interrupt Service Routine (ISR).",
       "abstract": "The GTM ATOM is configured to trigger an interrupt every 500 ms. The interrupt toggles an LED.",
@@ -132,6 +475,512 @@
         "timer"
       ],
       "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_GTM_ATOM_Interrupt_1-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/iLLD_UM_TC29B.chm"
+      ],
+      "lastModified": "2019-10-17T00:00:00.000Z"
+    },
+    {
+      "title": "GTM ATOM PWM",
+      "name": "GTM_ATOM_PWM_1",
+      "description": "The LED is driven by pin 0 of the port 13. The state of the pin is controlled by the PWM signal\r\ngenerated by the ATOM timer of GTM.",
+      "abstract": "GTM ATOM is used to generate a PWM signal, which is driving the intensity of an LED.",
+      "folder": "GTM_ATOM_PWM_1",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC2X7 V1.1",
+          "id": "KIT_AURIX_TC297_TFT_BC-Step",
+          "device_id": "TC29xTA/TX_BC-step"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "GTM",
+        "GTM_ATOM_PWM_1",
+        "PWM"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_GTM_ATOM_PWM_1-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/iLLD_UM_TC29B.chm"
+      ],
+      "lastModified": "2019-10-17T00:00:00.000Z"
+    },
+    {
+      "title": "GTM TOM interrupt",
+      "name": "GTM_TOM_Interrupt_1",
+      "description": "The Generic Timer Module triggers an interrupt every 500 ms. The state of the port pin,\r\nwhere the LED is connected, is toggled inside the Interrupt Service Routine (ISR).",
+      "abstract": "The GTM TOM is configured to trigger an interrupt every 500 ms. The interrupt toggles an LED.",
+      "folder": "GTM_TOM_Interrupt_1",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC2X7 V1.1",
+          "id": "KIT_AURIX_TC297_TFT_BC-Step",
+          "device_id": "TC29xTA/TX_BC-step"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "GTM",
+        "GTM_TOM_Interrupt_1",
+        "IR",
+        "interrupt"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_GTM_TOM_Interrupt_1-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/iLLD_UM_TC29B.chm"
+      ],
+      "lastModified": "2019-10-17T00:00:00.000Z"
+    },
+    {
+      "title": "Read external device MAC address via I2C",
+      "name": "I2C_Read_Ext_Device_1",
+      "description": "An I2C module configured as I2C master is used to read the MAC address stored in MCP79411,\r\na Real-Time-Clock device mounted on the board KIT_AURIX_TC297_TFT_BC-Step. The AURIX\r\ndevice reads the MAC address through the I2C module and stores it into a global variable.",
+      "abstract": "An I2C module configured as I2C master is used to read a register of an external device.",
+      "folder": "I2C_Read_Ext_Device_1",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC2X7 V1.1",
+          "id": "KIT_AURIX_TC297_TFT_BC-Step",
+          "device_id": "TC29xTA/TX_BC-step"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "I2C",
+        "I2C_Read_Ext_Device_1",
+        "MAC address",
+        "Oscilloscope",
+        "RTC",
+        "Real-Time Clock",
+        "external device"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_I2C_Read_Ext_Device_1-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/iLLD_UM_TC29B.chm"
+      ],
+      "lastModified": "2019-10-17T00:00:00.000Z"
+    },
+    {
+      "title": "Interrupts prioritization",
+      "name": "Interrupt_Prio_1",
+      "description": "Each interrupt is configured to control the state of one LED.\r\nBased on their priority, the interrupts toggle the appropriate LED.\r\nIn this example, the interrupts are triggered by GPT12 module.",
+      "abstract": "Three interrupts with different priorities are used to toggle LEDs.",
+      "folder": "Interrupt_Prio_1",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC2X7 V1.1",
+          "id": "KIT_AURIX_TC297_TFT_BC-Step",
+          "device_id": "TC29xTA/TX_BC-step"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "IR",
+        "Interrupt_Prio_1",
+        "interrupt",
+        "prioritization"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_Interrupt_Prio_1-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/iLLD_UM_TC29B.chm"
+      ],
+      "lastModified": "2019-10-17T00:00:00.000Z"
+    },
+    {
+      "title": "MULTICAN data transmission",
+      "name": "MULTICAN_1",
+      "description": "A CAN message is sent from CAN node 0 to CAN node 1 using Loop-Back mode.\r\nAfter the CAN message transmission, an interrupt will be generated and LED1 will\r\nbe turned on to confirm successful message transmission. Once the CAN message\r\nis successfully received by the CAN node 1, an interrupt will be generated.\r\nInside the interrupt service routine the content of the received CAN message will be\r\ncompared to the content of the transmitted CAN message. In case of a success, LED2\r\nwill be turned on to confirm successful message reception.",
+      "abstract": "MULTICAN is used to exchange data between two nodes, implemented in the same device using Loop-Back mode.",
+      "folder": "MULTICAN_1",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC2X7 V1.1",
+          "id": "KIT_AURIX_TC297_TFT_BC-Step",
+          "device_id": "TC29xTA/TX_BC-step"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "CAN",
+        "MULTICAN",
+        "MULTICAN_1"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_MULTICAN_1-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/iLLD_UM_TC29B.chm"
+      ],
+      "lastModified": "2019-10-17T00:00:00.000Z"
+    },
+    {
+      "title": "MULTICAN in GATEWAY mode using TX FIFO",
+      "name": "MULTICAN_GW_TX_FIFO_1",
+      "description": "The CAN messages are sent from CAN node 2 over CAN bus (in case of Loop-Back\r\nmode all nodes can access the internal bus). CAN node 0 receives the transmitted\r\nmessages but also immediately gateways the received data to CAN node 1. Three\r\nmessage objects allocated to CAN node 1 define a TX FIFO buffer structure.\r\nImmediately, upon the reception of the data via gateway, CAN node 1 transmits\r\nthe received data. The data transmitted by the CAN node 1 is received by the CAN\r\nnode 3. The content of the received data will be compared to the content of the\r\ntransmitted CAN messages together with the FIFO status check and in case of success,\r\na LED is turned on to confirm successful message reception.",
+      "abstract": "MULTICAN in Gateway mode is used to exchange data using a gateway with a TX FIFO structure between multiple nodes, implemented in the same device using Loop-Back mode.",
+      "folder": "MULTICAN_GW_TX_FIFO_1",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC2X7 V1.1",
+          "id": "KIT_AURIX_TC297_TFT_BC-Step",
+          "device_id": "TC29xTA/TX_BC-step"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "CAN",
+        "Gateway",
+        "INTERRUPT",
+        "LOOP-BACK",
+        "MULTICAN",
+        "MULTICAN_GW_TX_FIFO",
+        "TX FIFO"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_MULTICAN_GW_TX_FIFO_1-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/iLLD_UM_TC29B.chm"
+      ],
+      "lastModified": "2019-10-17T00:00:00.000Z"
+    },
+    {
+      "title": "PWM controlled melody on Buzzer",
+      "name": "PWM_Buzzer_1",
+      "description": "The generated PWM (Pulse-Width Modulation) signal is controlled by timer TOM1 of the GTM block.\r\nThe signal drives the piezo buzzer via the pin 0 of the port 33.",
+      "abstract": "The GTM unit is used to play a PWM-controlled song with a piezo buzzer.",
+      "folder": "PWM_Buzzer_1",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC2X7 V1.1",
+          "id": "KIT_AURIX_TC297_TFT_BC-Step",
+          "device_id": "TC29xTA/TX_BC-step"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "GTM",
+        "PWM",
+        "PWM_Buzzer_1",
+        "buzzer",
+        "song"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_PWM_Buzzer_1-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/iLLD_UM_TC29B.chm"
+      ],
+      "lastModified": "2019-10-17T00:00:00.000Z"
+    },
+    {
+      "title": "Clock configuration via SCU",
+      "name": "SCU_Clock_1",
+      "description": "The Clock Control Unit, which is part of the System Control Units (SCU), is used to configure\r\nthe PLL clock. This clock signal is routed to an external clock output pin, which can be observed\r\nwith an oscilloscope.",
+      "abstract": "The clock system is configured based on a PLL frequency of 200 MHz and the clock signal is provided at an external port pin.",
+      "folder": "SCU_Clock_1",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC2X7 V1.1",
+          "id": "KIT_AURIX_TC297_TFT_BC-Step",
+          "device_id": "TC29xTA/TX_BC-step"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "Oscilloscope",
+        "PLL",
+        "SCU",
+        "SCU_Clock_1",
+        "clock"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_SCU_Clock_1-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/iLLD_UM_TC29B.chm"
+      ],
+      "lastModified": "2019-10-17T00:00:00.000Z"
+    },
+    {
+      "title": "Die Temperature Sensor",
+      "name": "SCU_Die_Temp_Sensor_1",
+      "description": "The internal Die Temperature Sensor (DTS) is continuously read in an infinite loop.\r\nWhen a new temperature result is available an interrupt service routine (ISR) is triggered.\r\nThe ISR notifies the availability of a new die temperature value by setting a flag,\r\nwhich is used to start printing the temperature via UART communication using the\r\nASCLIN module. The temperature value can be read by using a terminal program\r\nconnected to the virtual COM port of the board/kit.",
+      "abstract": "The die temperature is measured by an internal sensor and printed on a terminal program",
+      "folder": "SCU_Die_Temp_Sensor_1",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC2X7 V1.1",
+          "id": "KIT_AURIX_TC297_TFT_BC-Step",
+          "device_id": "TC29xTA/TX_BC-step"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "DTS",
+        "Interrupt",
+        "SCU",
+        "SCU_Die_Temp_Sensor_1",
+        "UART",
+        "VCOM",
+        "sensor",
+        "serial monitor",
+        "temperature",
+        "terminal"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_UART_VCOM_1-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/iLLD_UM_TC29B.chm"
+      ],
+      "lastModified": "2019-10-17T00:00:00.000Z"
+    },
+    {
+      "title": "Emergency Stop via SCU",
+      "name": "SCU_Emergency_Stop_1",
+      "description": "The LED D107, which is driven by the port pin P13.0, is blinking until an external signal\r\ntriggers an emergency stop and sets the pin to emergency stop mode.",
+      "abstract": "This example shows how to trigger an emergency stop via an external signal and how port pins can be set to a defined state in this case.",
+      "folder": "SCU_Emergency_Stop_1",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC2X7 V1.1",
+          "id": "KIT_AURIX_TC297_TFT_BC-Step",
+          "device_id": "TC29xTA/TX_BC-step"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "SCU",
+        "SCU_Emergency_Stop_1",
+        "SMU",
+        "alarm",
+        "emergency stop"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_SCU_Emergency_Stop_1-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/iLLD_UM_TC29B.chm"
+      ],
+      "lastModified": "2019-10-17T00:00:00.000Z"
+    },
+    {
+      "title": "Detection of reset type",
+      "name": "SCU_Reset_Detection_1",
+      "description": "The AURIX TC2xx devices can be reset by various reset sources. The application software is able\r\nto determine the source of the last reset based on a routine that evaluates the related reset\r\nspecial function register.",
+      "abstract": "This example shows how to detect the source of the last reset (power-on reset, watchdog reset, etc.)",
+      "folder": "SCU_Reset_Detection_1",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC2X7 V1.1",
+          "id": "KIT_AURIX_TC297_TFT_BC-Step",
+          "device_id": "TC29xTA/TX_BC-step"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "SCU",
+        "SCU_Reset_Detection_1",
+        "reset detection",
+        "reset type"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_SCU_Reset_Detection_1-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/iLLD_UM_TC29B.chm"
+      ],
+      "lastModified": "2019-10-17T00:00:00.000Z"
+    },
+    {
+      "title": "Emergency stop triggered by an SMU alarm",
+      "name": "SMU_Emergency_Stop_Alarm_1",
+      "description": "The Safety Management Unit (SMU) is configured to trigger an interrupt if an internal software alarm\r\noccurs. In case of an alarm, an LED is turned on inside the Interrupt Service Routine and the port\r\nemergency stop is activated.",
+      "abstract": "The SMU triggers an alarm, which has, as preconfigured reaction, an interrupt and a port emergency stop. The interrupt turns on an LED.",
+      "folder": "SMU_Emergency_Stop_Alarm_1",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC2X7 V1.1",
+          "id": "KIT_AURIX_TC297_TFT_BC-Step",
+          "device_id": "TC29xTA/TX_BC-step"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "SMU",
+        "SMU_Emergency_Stop_Alarm_1",
+        "alarm",
+        "emergency stop"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_SMU_Emergency_Stop_Alarm_1-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/iLLD_UM_TC29B.chm"
+      ],
+      "lastModified": "2019-10-17T00:00:00.000Z"
+    },
+    {
+      "title": "Interrupt triggered by an SMU alarm",
+      "name": "SMU_IR_Alarm_1",
+      "description": "The Safety Management Unit (SMU) is configured to trigger an interrupt if an internal software alarm\r\noccurs. In case of an alarm, an LED will be turned on inside the Interrupt Service Routine.",
+      "abstract": "The SMU triggers an alarm, which has, as preconfigured reaction, an interrupt. The interrupt turns on an LED.",
+      "folder": "SMU_IR_Alarm_1",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC2X7 V1.1",
+          "id": "KIT_AURIX_TC297_TFT_BC-Step",
+          "device_id": "TC29xTA/TX_BC-step"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "SMU",
+        "SMU_IR_Alarm_1",
+        "alarm",
+        "interrupt"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_SMU_IR_Alarm_1-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/iLLD_UM_TC29B.chm"
+      ],
+      "lastModified": "2019-10-17T00:00:00.000Z"
+    },
+    {
+      "title": "Reset triggered by an SMU alarm",
+      "name": "SMU_Reset_Alarm_1",
+      "description": "The Safety Management Unit (SMU) is configured to trigger a reset if an internal software alarm occurs.",
+      "abstract": "The SMU triggers an alarm, which resets the device as preconfigured reaction.",
+      "folder": "SMU_Reset_Alarm_1",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC2X7 V1.1",
+          "id": "KIT_AURIX_TC297_TFT_BC-Step",
+          "device_id": "TC29xTA/TX_BC-step"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "SMU",
+        "SMU_Reset_Alarm_1",
+        "alarm",
+        "reset"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_SMU_Reset_Alarm_1-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/iLLD_UM_TC29B.chm"
+      ],
+      "lastModified": "2019-10-17T00:00:00.000Z"
+    },
+    {
+      "title": "SPI communication via QSPI",
+      "name": "SPI_CPU_1",
+      "description": "QSPI2 is configured in master mode and used to send five bytes to QSPI3 configured in slave mode.\r\nThe received data is read by the CPU and compared against the transmitted data. Port pin 13.3,\r\nto which LED D110 is connected, indicates the successful transfer.",
+      "abstract": "A QSPI module configured as SPI master sends five bytes to another QSPI module which is configured as SPI slave.",
+      "folder": "SPI_CPU_1",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC2X7 V1.1",
+          "id": "KIT_AURIX_TC297_TFT_BC-Step",
+          "device_id": "TC29xTA/TX_BC-step"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "QSPI",
+        "SPI",
+        "SPI_CPU_1"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_SPI_CPU_1-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/iLLD_UM_TC29B.chm"
+      ],
+      "lastModified": "2019-10-17T00:00:00.000Z"
+    },
+    {
+      "title": "Interrupt generation via STM trigger",
+      "name": "STM_Interrupt_1",
+      "description": "The System Timer (STM) module counts up to a configured compare value, when it reaches the specific\r\nvalue, it triggers an interrupt and resets its counter value. The value is set to trigger the interrupt\r\nevery 500 ms; at each interrupt an LED is toggled.",
+      "abstract": "The STM is configured to trigger an interrupt every 500 ms. The interrupt toggles an LED.",
+      "folder": "STM_Interrupt_1",
+      "version": "1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC2X7 V1.1",
+          "id": "KIT_AURIX_TC297_TFT_BC-Step",
+          "device_id": "TC29xTA/TX_BC-step"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "Interrupt",
+        "LED",
+        "STM",
+        "STM_Interrupt_1",
+        "blink"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_STM_Interrupt_1-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/iLLD_UM_TC29B.chm"
+      ],
+      "lastModified": "2019-10-17T00:00:00.000Z"
+    },
+    {
+      "title": "UART data transfer via DMA",
+      "name": "UART_DMA_Transfer_1",
+      "description": "The CPU sends a message via UART in loopback mode. When it receives the message back,\r\nit triggers an interrupt which starts the data transfer via DMA.",
+      "abstract": "The DMA module is used to transfer data received from the UART to LMURAM.",
+      "folder": "UART_DMA_Transfer_1",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC2X7 V1.1",
+          "id": "KIT_AURIX_TC297_TFT_BC-Step",
+          "device_id": "TC29xTA/TX_BC-step"
+        }
+      ],
+      "keywords": [
+        "ASC",
+        "ASCLIN",
+        "AURIX",
+        "DMA",
+        "UART",
+        "UART_DMA_Transfer_1",
+        "data transfer"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_UART_DMA_Transfer_1-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/iLLD_UM_TC29B.chm"
+      ],
+      "lastModified": "2019-10-17T00:00:00.000Z"
+    },
+    {
+      "title": "UART communication between PC and device",
+      "name": "UART_VCOM_1",
+      "description": "The string \"Hello World!\" is sent from the device to the PC via UART.\r\nThe string is then visualized in a serial monitor.",
+      "abstract": "UART communication via ASCLIN is used to send \"Hello World!\" from the device to the computer.",
+      "folder": "UART_VCOM_1",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC2X7 V1.1",
+          "id": "KIT_AURIX_TC297_TFT_BC-Step",
+          "device_id": "TC29xTA/TX_BC-step"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "COM",
+        "PC",
+        "UART",
+        "UART_VCOM_1",
+        "VCOM",
+        "communication",
+        "serial",
+        "virtual COM"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_UART_VCOM_1-TR-v01_00_00-EN.pdf",
         "https://www.infineon.com/aurix-expert-training/iLLD_UM_TC29B.chm"
       ],
       "lastModified": "2019-10-17T00:00:00.000Z"
