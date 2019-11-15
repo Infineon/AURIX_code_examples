@@ -1,2 +1,0 @@
-In this repository, you can find code example projects for the AURIX™ Development Studio.
-To import a code example, use the import fuction of the AURIX™ Development Studio: File>>Import...>>Infineon>>"AURIX Project from Code Examples", select "Github hosted Examples Repository" and select the code example to be imported. 

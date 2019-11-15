@@ -25,7 +25,7 @@
  * IN THE SOFTWARE.
  *********************************************************************************************************************/
  /*\title FCE CRC calculation
- * \abstract The FCE module is used to calculate the CRC of the same message with different algorithms. 
+ * \abstract The FCE module is used to calculate the CRC of the same message with different algorithms.
  * \description This training shows how to configure the FCE to calculate CRC of a known message
  *              with all supported algorithms (CRC32, CRC16 and CRC8).
  *              The FCE interrupt is enabled to report execution errors.
