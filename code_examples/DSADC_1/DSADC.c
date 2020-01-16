@@ -80,11 +80,11 @@ void init_DSADC(void)
 
     /* Modify default configuration of the channel */
     dsadcChannelConfig.combFilter.decimationFactor  = DECIMATION_FACTOR;
-    dsadcChannelConfig.combFilter.startValue        = START_VALUE;
-    dsadcChannelConfig.combFilter.combFilterShift   = IfxDsadc_MainCombFilterShift_shiftBy3,
-    dsadcChannelConfig.firFilter.fir0Enabled        = TRUE;
-    dsadcChannelConfig.firFilter.fir1Enabled        = TRUE;
-    dsadcChannelConfig.firFilter.dataShift          = IfxDsadc_FirDataShift_shiftBy1;
+    dsadcChannelConfig.combFilter.startValue = START_VALUE;
+    dsadcChannelConfig.combFilter.combFilterShift = IfxDsadc_MainCombFilterShift_shiftBy3,
+    dsadcChannelConfig.firFilter.fir0Enabled = TRUE;
+    dsadcChannelConfig.firFilter.fir1Enabled = TRUE;
+    dsadcChannelConfig.firFilter.dataShift = IfxDsadc_FirDataShift_shiftBy1;
 
     /* Initialize channel */
     dsadcChannelConfig.channelId = (IfxDsadc_ChannelId)g_chn;

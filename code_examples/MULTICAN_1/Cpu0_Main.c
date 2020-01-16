@@ -35,17 +35,17 @@
  *              will be turned on to confirm successful message reception.
  *
  * \name MULTICAN_1
- * \version V1.0.0
+ * \version V1.0.1
  * \board APPLICATION KIT TC2X7 V1.1, KIT_AURIX_TC297_TFT_BC-Step, TC29xTA/TX_BC-step
  * \keywords AURIX, CAN, MULTICAN, MULTICAN_1
  * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_MULTICAN_1-TR-v01_00_00-EN.pdf
  * \documents https://www.infineon.com/aurix-expert-training/iLLD_UM_TC29B.chm
- * \lastUpdated 2019-10-17
+ * \lastUpdated 2020-01-17
  *********************************************************************************************************************/
 #include "Ifx_Types.h"
 #include "IfxCpu.h"
 #include "IfxScuWdt.h"
-#include "MULTICAN_1.h"
+#include "MULTICAN.h"
 
 IfxCpu_syncEvent g_cpuSyncEvent = 0;
 

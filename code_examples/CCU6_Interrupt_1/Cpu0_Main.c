@@ -37,7 +37,7 @@
  * \name CCU6_Interrupt_1
  * \version V1.0.0
  * \board APPLICATION KIT TC2X7 V1.1, KIT_AURIX_TC297_TFT_BC-Step, TC29xTA/TX_BC-step
- * \keywords AURIX, CCU6, CCU6_interrupt_1, Interrupt, LED
+ * \keywords AURIX, CCU6, CCU6_Interrupt_1, Interrupt, LED
  * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_CCU6_Interrupt_1-TR-v01_00_00-EN.pdf
  * \documents https://www.infineon.com/aurix-expert-training/iLLD_UM_TC29B.chm
  * \lastUpdated 2019-10-17
