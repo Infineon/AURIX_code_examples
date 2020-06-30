@@ -31,7 +31,7 @@
  *
  * \name Multicore_1_KIT_TC275_SB
  * \version V1.0.0
- * \board hitex ShieldBuddy, KIT_AURIX_TC275_ARD_SB, TC27xTP_DC-step
+ * \board hitex ShieldBuddy, KIT_AURIX_TC275_ARD_SB, TC27xTP_D-Step
  * \keywords multicore, LED, AURIX, Multicore_1
  * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_Multicore_1_KIT_TC275_SB-TR-v01_00_00-EN.pdf
  * \documents https://www.infineon.com/aurix-expert-training/TC27D_iLLD_UM_1_0_1_11_0.chm

@@ -31,7 +31,7 @@
  *
  * \name Multicore_1_KIT_TC277_TFT
  * \version V1.0.0
- * \board APPLICATION KIT TC2X7 V1.1, KIT_AURIX_TC277_TFT_DC-Step, TC27xTP_DC-step
+ * \board APPLICATION KIT TC2X7 V1.1, KIT_AURIX_TC277_TFT_DC-Step, TC27xTP_D-Step
  * \keywords multicore, LED, AURIX, Multicore_1
  * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_Multicore_1_KIT_TC277_TFT-TR-v01_00_00-EN.pdf
  * \documents https://www.infineon.com/aurix-expert-training/TC27D_iLLD_UM_1_0_1_11_0.chm

@@ -29,7 +29,7 @@
  * \description A wait function is used to add delays between switching on and switching off an LED on port pin P33.8.
  * \name Blinky_LED_1_KIT_TC265_TFT
  * \version V1.0.0
- * \board APPLICATION KIT TC2x5 V2.0, KIT_AURIX_TC265_TFT_BC-Step, TC26xD_BC-step
+ * \board APPLICATION KIT TC2x5 V2.0, KIT_AURIX_TC265_TFT_BC-Step, TC26xD_B-Step
  * \keywords LED, blinky, GPIO, General Port Input Output, AURIX, Blinky_LED_1
  * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_Blinky_LED_1_KIT_TC265_TFT-TR-v01_00_00-EN.pdf
  * \documents https://www.infineon.com/aurix-expert-training/TC26B_iLLD_UM_1_0_1_11_0.chm

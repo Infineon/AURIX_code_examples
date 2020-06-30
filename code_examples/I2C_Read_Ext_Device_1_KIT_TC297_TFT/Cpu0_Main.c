@@ -32,7 +32,7 @@
  *
  * \name I2C_Read_Ext_Device_1_KIT_TC297_TFT
  * \version V1.0.0
- * \board APPLICATION KIT TC2X7 V1.1, KIT_AURIX_TC297_TFT_BC-Step, TC29xTA/TX_BC-step
+ * \board APPLICATION KIT TC2X7 V1.1, KIT_AURIX_TC297_TFT_BC-Step, TC29xTA/TX_B-Step
  * \keywords AURIX, I2C, I2C_Read_Ext_Device_1, MAC address, Oscilloscope, RTC, Real-Time Clock, external device
  * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_I2C_Read_Ext_Device_1_KIT_TC297_TFT-TR-v01_00_00-EN.pdf
  * \documents https://www.infineon.com/aurix-expert-training/TC29B_iLLD_UM_1_0_1_11_0.chm

@@ -33,7 +33,7 @@
  *
  * \name Flash_Programming_1_KIT_TC297_TFT
  * \version V1.0.0
- * \board APPLICATION KIT TC2X7 V1.1, KIT_AURIX_TC297_TFT_BC-Step, TC29xTA/TX_BC-step
+ * \board APPLICATION KIT TC2X7 V1.1, KIT_AURIX_TC297_TFT_BC-Step, TC29xTA/TX_B-Step
  * \keywords AURIX, DFLASH, Flash, Flash_Programming_1, PFLASH, data, erase, page, page mode, program, programming, verify, write page
  * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_Flash_Programming_1_KIT_TC297_TFT-TR-v01_00_00-EN.pdf
  * \documents https://www.infineon.com/aurix-expert-training/TC29B_iLLD_UM_1_0_1_11_0.chm

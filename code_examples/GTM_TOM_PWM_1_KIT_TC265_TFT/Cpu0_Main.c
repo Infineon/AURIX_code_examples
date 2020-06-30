@@ -31,7 +31,7 @@
  *
  * \name GTM_TOM_PWM_1_KIT_TC265_TFT
  * \version V1.0.0
- * \board APPLICATION KIT TC2x5 V2.0, KIT_AURIX_TC265_TFT_BC-Step, TC26xD_BC-step
+ * \board APPLICATION KIT TC2x5 V2.0, KIT_AURIX_TC265_TFT_BC-Step, TC26xD_B-Step
  * \keywords AURIX, GTM, GTM_TOM_PWM_1, PWM, general timer, timer
  * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_GTM_TOM_PWM_1_KIT_TC265_TFT-TR-v01_00_00-EN.pdf
  * \documents https://www.infineon.com/aurix-expert-training/TC26B_iLLD_UM_1_0_1_11_0.chm

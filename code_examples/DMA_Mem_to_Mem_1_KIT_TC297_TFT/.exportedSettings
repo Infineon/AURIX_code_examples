@@ -1,4 +1,16 @@
 {
+  "metadata": {
+    "DEVICE-ID-FULL": "TC29xTA/TX_B-Step",
+    "ILLD-SET": "full",
+    "LIBRARIES-ROOT-PATH": "Libraries",
+    "aurixPlatform": "KIT_AURIX_TC297_TFT_BC-Step",
+    "NEVER-EXCLUDE-FROM-BUILD": "/Libraries/iLLD/TC29B/Tricore/Cpu/CStart#/Libraries/iLLD/TC29B/Tricore/Cpu/Trap#/Configurations#/Configurations/Debug",
+    "aurixDevice": "TC29xTA/TX_B-Step",
+    "DEVICE-ID": "TC29B",
+    "projectName": "DMA_Mem_to_Mem_1_KIT_TC297_TFT",
+    "AURIX-LIBRARY-PATH": "Libraries/iLLD#Libraries/Infra#Libraries/Service",
+    "PROJECT-VERSION": "1.0"
+  },
   "toolchains": [
     {
       "id": "com.infineon.aurix.buildsystem.managed.toolChain.tasking.exe.binary",
@@ -7,8 +19,18 @@
       "tools": [
         {
           "id": "com.infineon.aurix.buildsystem.managed.tool.c.compiler.tasking.debug",
-          "name": "TASKING C Compiler",
+          "name": "TASKING C/C++ Compiler",
           "options": [
+            {
+              "id": "com.infineon.aurix.buildsystem.managed.c.compiler.tasking.preprocessor.definedSymbols",
+              "value": "",
+              "valueType": "definedSymbols",
+              "optionValues": [
+                {
+                  "value": "__CPU__\u003dtc29xb"
+                }
+              ]
+            },
             {
               "id": "com.infineon.aurix.buildsystem.managed.c.compiler.tasking.include",
               "value": "",
@@ -447,16 +469,6 @@
                   "value": "\"${ProjDirPath}/Libraries/iLLD/TC29B/Tricore/Msc/Std\""
                 }
               ]
-            },
-            {
-              "id": "com.infineon.aurix.buildsystem.managed.c.compiler.tasking.preprocessor.definedSymbols",
-              "value": "",
-              "valueType": "definedSymbols",
-              "optionValues": [
-                {
-                  "value": "__CPU__\u003dtc29xb"
-                }
-              ]
             }
           ]
         },
@@ -468,11 +480,6 @@
         {
           "id": "com.infineon.aurix.buildsystem.managed.tool.c.linker.tasking",
           "name": "TASKING Linker",
-          "options": []
-        },
-        {
-          "id": "com.infineon.aurix.buildsystem.managed.tool.c.linker.hex.tasking",
-          "name": "TASKING HEX Generator",
           "options": []
         },
         {
@@ -489,8 +496,18 @@
       "tools": [
         {
           "id": "com.infineon.aurix.buildsystem.managed.tool.c.compiler.tasking.release",
-          "name": "TASKING C Compiler",
+          "name": "TASKING C/C++ Compiler",
           "options": [
+            {
+              "id": "com.infineon.aurix.buildsystem.managed.c.compiler.tasking.preprocessor.definedSymbols",
+              "value": "",
+              "valueType": "definedSymbols",
+              "optionValues": [
+                {
+                  "value": "__CPU__\u003dtc29xb"
+                }
+              ]
+            },
             {
               "id": "com.infineon.aurix.buildsystem.managed.c.compiler.tasking.include",
               "value": "",
@@ -926,16 +943,6 @@
                   "value": "\"${ProjDirPath}/Libraries/iLLD/TC29B/Tricore/Msc/Std\""
                 }
               ]
-            },
-            {
-              "id": "com.infineon.aurix.buildsystem.managed.c.compiler.tasking.preprocessor.definedSymbols",
-              "value": "",
-              "valueType": "definedSymbols",
-              "optionValues": [
-                {
-                  "value": "__CPU__\u003dtc29xb"
-                }
-              ]
             }
           ]
         },
@@ -947,11 +954,6 @@
         {
           "id": "com.infineon.aurix.buildsystem.managed.tool.c.linker.tasking",
           "name": "TASKING Linker",
-          "options": []
-        },
-        {
-          "id": "com.infineon.aurix.buildsystem.managed.tool.c.linker.hex.tasking",
-          "name": "TASKING HEX Generator",
           "options": []
         },
         {

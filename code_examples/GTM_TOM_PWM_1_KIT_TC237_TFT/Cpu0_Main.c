@@ -31,7 +31,7 @@
  *
  * \name GTM_TOM_PWM_1_KIT_TC237_TFT
  * \version V1.0.0
- * \board APPLICATION KIT TC2X7 V1.1, KIT_AURIX_TC237_TFT_AC-Step, TC23xLP_AC-step
+ * \board APPLICATION KIT TC2X7 V1.1, KIT_AURIX_TC237_TFT_AC-Step, TC23xLP_A-Step
  * \keywords AURIX, GTM, GTM_TOM_PWM_1, PWM, general timer, timer
  * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_GTM_TOM_PWM_1_KIT_TC237_TFT-TR-v01_00_00-EN.pdf
  * \documents https://www.infineon.com/aurix-expert-training/TC23A_iLLD_UM_1_0_1_11_0.chm

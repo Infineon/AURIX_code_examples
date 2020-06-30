@@ -67,7 +67,7 @@ void init_TIM(void)
     IfxGtm_Tim_In_init(&g_driverTIM, &configTIM);                       /* Initialize the TIM                       */
 }
 
-/* Generation of simple PWM signal by toggling a pin */
+/* Initialization of the TOM and generation of a PWM signal */
 void generate_PWM(void)
 {
     IfxGtm_Tom_Pwm_Config tomConfig;                                    /* Timer configuration structure            */
@@ -83,6 +83,7 @@ void generate_PWM(void)
     tomConfig.pin.outputPin = &PWM_OUT;                                 /* Set the pin as output                    */
     tomConfig.synchronousUpdateEnabled = TRUE;                          /* Enable synchronous update                */
     tomConfig.clock = IfxGtm_Tom_Ch_ClkSrc_cmuFxclk1;                   /* Select the FXU clock 1                   */
+
     IfxGtm_Tom_Pwm_init(&tomDriver, &tomConfig);                        /* Initialize the module                    */
     IfxGtm_Tom_Pwm_start(&tomDriver, TRUE);                             /* Start the generation of the PWM signal   */
 }

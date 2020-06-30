@@ -33,12 +33,12 @@
  *              used. The same cycle is repeated each second.
  *
  * \name DMA_Mem_to_Mem_1_KIT_TC297_TFT
- * \version V1.0.0
- * \board APPLICATION KIT TC2X7 V1.1, KIT_AURIX_TC297_TFT_BC-Step, TC29xTA/TX_BC-step
+ * \version V1.0.1
+ * \board APPLICATION KIT TC2X7 V1.1, KIT_AURIX_TC297_TFT_BC-Step, TC29xTA/TX_B-Step
  * \keywords AURIX, DMA, DMA_Mem_to_Mem_1, memory, transfer
- * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_DMA_Mem_to_Mem_1_KIT_TC297_TFT-TR-v01_00_00-EN.pdf
+ * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_DMA_Mem_to_Mem_1_KIT_TC297_TFT-TR-v01_00_01-EN.pdf
  * \documents https://www.infineon.com/aurix-expert-training/TC29B_iLLD_UM_1_0_1_11_0.chm
- * \lastUpdated 2020-02-11
+ * \lastUpdated 2020-06-05
  *********************************************************************************************************************/
 #include "Ifx_Types.h"
 #include "IfxCpu.h"
@@ -54,7 +54,7 @@
 /*********************************************************************************************************************/
 /*-------------------------------------------------Global variables--------------------------------------------------*/
 /*********************************************************************************************************************/
-IfxCpu_syncEvent g_cpuSyncEvent = 0;        /* Provides BaseFramework sync mechanism */
+IfxCpu_syncEvent g_cpuSyncEvent = 0;        /* Provides sync mechanism */
 
 /*********************************************************************************************************************/
 /*---------------------------------------------- Function Prototypes ------------------------------------------------*/
@@ -66,6 +66,8 @@ static void wait_ms(uint32 ms);
 /*********************************************************************************************************************/
 int core0_main(void)
 {
+    IfxCpu_enableInterrupts();
+
     /* !!WATCHDOG0 AND SAFETY WATCHDOG ARE DISABLED HERE!!
      * Enable the watchdogs and service them periodically if it is required
      */

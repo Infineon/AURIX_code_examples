@@ -29,7 +29,7 @@
  * \description A wait function is used to add delays between switching on and switching off an LED on port pin P10.2.
  * \name Blinky_LED_1_KIT_TC275_SB
  * \version V1.0.0
- * \board hitex ShieldBuddy, KIT_AURIX_TC275_ARD_SB, TC27xTP_DC-step
+ * \board hitex ShieldBuddy, KIT_AURIX_TC275_ARD_SB, TC27xTP_D-Step
  * \keywords LED, blinky, GPIO, General Port Input Output, AURIX, Blinky_LED_1
  * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_Blinky_LED_1_KIT_TC275_SB-TR-v01_00_00-EN.pdf
  * \documents https://www.infineon.com/aurix-expert-training/TC27D_iLLD_UM_1_0_1_11_0.chm

@@ -1,5 +1,5 @@
 /**********************************************************************************************************************
- * \file ASCLIN_SPI_master.h
+ * \file ASCLIN_SPI_Master.h
  * \copyright Copyright (C) Infineon Technologies AG 2019
  *
  * Use of this file is subject to the terms of use agreed between (i) you or the company in which ordinary course of

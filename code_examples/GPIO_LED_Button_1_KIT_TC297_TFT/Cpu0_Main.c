@@ -33,7 +33,7 @@
  *
  * \name GPIO_LED_Button_1_KIT_TC297_TFT
  * \version V1.0.0
- * \board APPLICATION KIT TC2X7 V1.1, KIT_AURIX_TC297_TFT_BC-Step, TC29xTA/TX_BC-step
+ * \board APPLICATION KIT TC2X7 V1.1, KIT_AURIX_TC297_TFT_BC-Step, TC29xTA/TX_B-Step
  * \keywords AURIX, GPIO, GPIO_LED_Button_1, LED, pin, port, port pin, push button, push-pull
  * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_GPIO_LED_Button_1_KIT_TC297_TFT-TR-v01_00_00-EN.pdf
  * \documents https://www.infineon.com/aurix-expert-training/TC29B_iLLD_UM_1_0_1_11_0.chm
@@ -60,11 +60,11 @@ int core0_main(void)
     IfxCpu_emitEvent(&g_cpuSyncEvent);
     IfxCpu_waitEvent(&g_cpuSyncEvent, 1);
 
-    init_GPIOs();       /* Initialize port pin for push button and LED */
+    init_GPIOs();       /* Initialize port pin for push button and LED          */
 
     while(1)
     {
-        control_LED();  /* Check the push button and set the LED accordingly */
+        control_LED();  /* Check the push button and set the LED accordingly    */
     }
     return (1);
 }
