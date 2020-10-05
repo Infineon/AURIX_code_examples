@@ -65,6 +65,42 @@
       "lastModified": "2020-06-05T00:00:00.000Z"
     },
     {
+      "title": "ADC filtering",
+      "name": "ADC_Filtering_1_KIT_TC397_TFT",
+      "description": "The Enhanced Versatile Analog-to-Digital Converter (EVADC) module is configured to convert four\r\nchannels. The data resulting from the conversions of three channels is automatically modified: one\r\nchannel computes an average on 4 results, another channel applies a 3rd order Finite Impulse\r\nResponse (FIR) filter and another channel applies a 1st order Infinite Impulse Response (IIR) filter.\r\nFinally, the last channel measures the same signal without Data Modification.\r\nThe channels are continuously converted and, for each of them, the maximum and minimum\r\nvalues are stored, which are then sent through UART in order to be compared.",
+      "abstract": "Four EVADC channels are used to convert the same analog signal with different filters enabled.",
+      "folder": "ADC_Filtering_1_KIT_TC397_TFT",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC3X7 V2.0",
+          "id": "KIT_A2G_TC397_5V_TFT",
+          "device_id": "TC39xXX_B-Step"
+        }
+      ],
+      "keywords": [
+        "ADC",
+        "ADC_Filtering_1",
+        "AURIX",
+        "Average",
+        "DMM",
+        "DRCTR",
+        "Difference Mode",
+        "FIR",
+        "Filter",
+        "IIR",
+        "Result Filtering Mode",
+        "Standard Data Reduction Mode",
+        "Subtraction",
+        "EVADC"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_ADC_Filtering_1_KIT_TC397_TFT-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/TC39B_iLLD_UM_1_0_1_11_0.chm"
+      ],
+      "lastModified": "2020-06-05T00:00:00.000Z"
+    },
+    {
       "title": "Auto Scan of ADC channel",
       "name": "ADC_Group_Scan_1_KIT_TC297_TFT",
       "description": "The Auto Scan mode of the Versatile Analog to Digital Converter (VADC) module is enabled over the\r\nchannels 0 to 4 of the Group 0. Additionally, the converted results are checked with the\r\nValid Flag (VF) of the Result Register, and then sent to the PC via UART.",
@@ -121,6 +157,34 @@
       "lastModified": "2020-06-05T00:00:00.000Z"
     },
     {
+      "title": "ADC queued source",
+      "name": "ADC_Queued_Scan_1_KIT_TC397_TFT",
+      "description": "The Queued Request of the Enhanced Versatile Analog-to-Digital Converter (EVADC) module is used to\r\ncontinuously scan the analog inputs channels 1, 4 and 5 of group 2.",
+      "abstract": "The Enhanced Versatile Analog-to-Digital Converter (EVADC) is configured to measure multiple analog signals in a sequence using queued request.",
+      "folder": "ADC_Queued_Scan_1_KIT_TC397_TFT",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC3X7 V2.0",
+          "id": "KIT_A2G_TC397_5V_TFT",
+          "device_id": "TC39xXX_B-Step"
+        }
+      ],
+      "keywords": [
+        "ADC",
+        "queued",
+        "conversion",
+        "EVADC",
+        "AURIX",
+        "ADC_Queued_Scan_1"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_ADC_Queued_1_KIT_TC397_TFT-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/TC39B_iLLD_UM_1_0_1_11_0.chm"
+      ],
+      "lastModified": "2020-06-05T00:00:00.000Z"
+    },
+    {
       "title": "ADC single channel conversion",
       "name": "ADC_Single_Channel_1_KIT_TC297_TFT",
       "description": "An analog input channel is continuously converted using the background scan mode. The input value\r\nis determined using the microcontroller\u0027s supply voltage, ground level or letting the analog pin open\r\nand floating. Three LEDs are used, each indicating a voltage interval. Thus depending on the conversion\r\nvalue, a certain LED will light up.",
@@ -146,6 +210,34 @@
         "https://www.infineon.com/aurix-expert-training/TC29B_iLLD_UM_1_0_1_11_0.chm"
       ],
       "lastModified": "2020-02-11T00:00:00.000Z"
+    },
+    {
+      "title": "ADC single channel conversion",
+      "name": "ADC_Single_Channel_1_KIT_TC397_TFT",
+      "description": "An analog input channel is continuously converted using the queued mode.\r\nThe input value is determined using the microcontroller’s supply voltage, ground level or letting\r\nthe analog pin open and floating. Three LEDs are used, each indicating a voltage interval.\r\nThus depending on the conversion value, a certain LED will light up.",
+      "abstract": "The Enhanced Versatile Analog-to-Digital Converter (EVADC) is configured to measure an analog signal using queued request.",
+      "folder": "ADC_Single_Channel_1_KIT_TC397_TFT",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC3X7 V2.0",
+          "id": "KIT_A2G_TC397_5V_TFT",
+          "device_id": "TC39xXX_B-Step"
+        }
+      ],
+      "keywords": [
+        "ADC",
+        "ADC_Single_Channel_1",
+        "EVADC",
+        "conversion",
+        "single channel scan",
+        "AURIX"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_ADC_Single_Channel_1_KIT_TC397_TFT-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/TC39B_iLLD_UM_1_0_1_11_0.chm"
+      ],
+      "lastModified": "2020-06-05T00:00:00.000Z"
     },
     {
       "title": "LIN master communication via ASCLIN module",
@@ -598,6 +690,33 @@
         "https://www.infineon.com/aurix-expert-training/TC26B_iLLD_UM_1_0_1_11_0.chm"
       ],
       "lastModified": "2020-02-11T00:00:00.000Z"
+    },
+    {
+      "title": "Blinky LED",
+      "name": "Blinky_LED_1_KIT_TC275_LK",
+      "description": "A wait function is used to add delays between switching on and switching off an LED\r\non port pin P00.5.",
+      "abstract": "An LED is blinking based on the timing given by a wait function.",
+      "folder": "Blinky_LED_1_KIT_TC275_LK",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC275 lite Kit",
+          "id": "KIT_AURIX_TC275_LITE",
+          "device_id": "TC27xTF_D-Step"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "Blinky_LED_1",
+        "Blinky",
+        "LED",
+        "Lite"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_Blinky_LED_1_KIT_TC275_LK-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/TC27D_iLLD_UM_1_0_1_11_0.chm"
+      ],
+      "lastModified": "2020-08-13T00:00:00.000Z"
     },
     {
       "title": "Blinky LED",
@@ -1986,6 +2105,34 @@
     },
     {
       "title": "GTM TOM PWM generation",
+      "name": "GTM_TOM_PWM_1_KIT_TC275_LK",
+      "description": "The LED is driven by pin 5 of the port 00. The state of the pin is controlled by the PWM signal\r\ngenerated by the TOM timer of GTM.",
+      "abstract": "GTM TOM is used to generate a PWM signal, which is driving the intensity of an LED.",
+      "folder": "GTM_TOM_PWM_1_KIT_TC275_LK",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC275 lite Kit",
+          "id": "KIT_AURIX_TC275_LITE",
+          "device_id": "TC27xTF_D-Step"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "GTM",
+        "GTM_TOM_PWM_1",
+        "PWM",
+        "general timer",
+        "timer"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_GTM_TOM_PWM_1_KIT_TC275_LK-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/TC27D_iLLD_UM_1_0_1_11_0.chm"
+      ],
+      "lastModified": "2020-08-13T00:00:00.000Z"
+    },
+    {
+      "title": "GTM TOM PWM generation",
       "name": "GTM_TOM_PWM_1_KIT_TC275_SB",
       "description": "The LED is driven by pin 2 of the port 10. The state of the pin is controlled by the PWM signal\r\ngenerated by the TOM timer of GTM.",
       "abstract": "GTM TOM is used to generate a PWM signal, which is driving the intensity of an LED.",
@@ -2271,6 +2418,34 @@
       "lastModified": "2020-02-11T00:00:00.000Z"
     },
     {
+      "title": "MCMCAN data transmission",
+      "name": "MCMCAN_1_KIT_TC397_TFT",
+      "description": "A CAN message is sent from CAN node 0 to CAN node 1 using Loop-Back mode. After the CAN message\r\ntransmission, an interrupt is generated and an LED is turned on to confirm successful message\r\ntransmission. Once the CAN message is successfully received by the CAN node 1, an interrupt is\r\ngenerated. Inside the interrupt service routine the content of the received CAN message is compared to\r\nthe content of the transmitted CAN message. In case of a success, another LED is turned on to confirm\r\nsuccessful message reception.",
+      "abstract": "MCMCAN is used to exchange data between two nodes, implemented in the same device using Loop-Back mode.",
+      "folder": "MCMCAN_1_KIT_TC397_TFT",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC3X7 V2.0",
+          "id": "KIT_A2G_TC397_5V_TFT",
+          "device_id": "TC39xXX_B-Step"
+        }
+      ],
+      "keywords": [
+        "CAN",
+        "MCMCAN",
+        "AURIX",
+        "INTERRUPT",
+        "LOOP-BACK",
+        "MCMCAN_1"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_MCMCAN_1_KIT_TC397_TFT-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/TC39B_iLLD_UM_1_0_1_11_0.chm"
+      ],
+      "lastModified": "2020-08-13T00:00:00.000Z"
+    },
+    {
       "title": "Memory access performance",
       "name": "Memory_Access_Performance_1_KIT_TC297_TFT",
       "description": "A routine is implemented to execute performance measurements using the CPU performance counters.\r\nThe amount of required CPU clocks is evaluated for ten alternating write and read operations to different\r\nmemories (DSPR0, DSPR1, LMU).",
@@ -2297,6 +2472,34 @@
         "https://www.infineon.com/aurix-expert-training/TC29B_iLLD_UM_1_0_1_11_0.chm"
       ],
       "lastModified": "2020-06-05T00:00:00.000Z"
+    },
+    {
+      "title": "MPU memory protection",
+      "name": "MPU_Memory_Protection_1_KIT_TC297_TFT",
+      "description": "The MPU module is configured to enable read/write access to the first half of an array.\r\nTo test the function of the read protection, each element of the array is read in a loop.\r\nTwo LEDs are used to indicate the progression of the CPU read accesses.\r\nWhen the loop reads the last accessible element, the first LED is turned on.\r\nThe second LED is only turned on if the CPU reads an element which should be protected.",
+      "abstract": "The MPU module is used to protect part of an array from read/write accesses.",
+      "folder": "MPU_Memory_Protection_1_KIT_TC297_TFT",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC2X7 V1.1",
+          "id": "KIT_AURIX_TC297_TFT_BC-Step",
+          "device_id": "TC29xTA/TX_B-Step"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "MPU_Memory_Protection_1",
+        "MPU",
+        "Data Protection",
+        "Code Protection",
+        "Memory Protection"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_MPU_Memory_Protection_1_KIT_TC297_TFT-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/TC29B_iLLD_UM_1_0_1_11_0.chm"
+      ],
+      "lastModified": "2020-08-13T00:00:00.000Z"
     },
     {
       "title": "Memory Built-In Test via MTU",
@@ -2408,6 +2611,61 @@
         "https://www.infineon.com/aurix-expert-training/TC29B_iLLD_UM_1_0_1_11_0.chm"
       ],
       "lastModified": "2020-02-11T00:00:00.000Z"
+    },
+    {
+      "title": "MULTICAN RX FIFO data transmission",
+      "name": "MULTICAN_RX_FIFO_1_KIT_TC297_TFT",
+      "description": "The CAN messages are sent from CAN node 0 over CAN bus (in case of Loop-Back mode all nodes can access\r\nthe internal bus). CAN node 1 receives the transmitted messages and stores them inside of RX FIFO\r\nbuffer structure. Once the RX FIFO buffer threshold value has been reached, an interrupt service\r\nrequest is generated. CPU 1 handles the interrupt service request and reads the received CAN messages\r\nfrom the RX FIFO buffer. The content of the received data will be compared to the content of the\r\ntransmitted CAN messages and in case of success, an LED is turned on to confirm the message reception.",
+      "abstract": "MULTICAN is used to exchange data using RX FIFO structure between two nodes, implemented in the same device using Loop-Back mode.",
+      "folder": "MULTICAN_RX_FIFO_1_KIT_TC297_TFT",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC2X7 V1.1",
+          "id": "KIT_AURIX_TC297_TFT_BC-Step",
+          "device_id": "TC29xTA/TX_BC-step"
+        }
+      ],
+      "keywords": [
+        "CAN",
+        "FIFO",
+        "INTERRUPT",
+        "LOOP-BACK",
+        "MULTICAN",
+        "MULTICAN_RX_FIFO_1",
+        "AURIX"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_MULTICAN_RX_FIFO_1_KIT_TC297_TFT-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/TC29B_iLLD_UM_1_0_1_11_0.chm"
+      ],
+      "lastModified": "2020-08-13T00:00:00.000Z"
+    },
+    {
+      "title": "Multicore LED control",
+      "name": "Multicore_1_KIT_TC275_LK",
+      "description": "Core 0 is switching on an LED. When the LED flag is set, Core 1 is switching off the LED.\r\nCore 2 is controlling the state of the LED flag.",
+      "abstract": "One LED is controlled by using three different cores.",
+      "folder": "Multicore_1_KIT_TC275_LK",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC275 lite Kit",
+          "id": "KIT_AURIX_TC275_LITE",
+          "device_id": "TC27xTF_D-Step"
+        }
+      ],
+      "keywords": [
+        "multicore",
+        "LED",
+        "AURIX",
+        "Multicore_1"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_Multicore_1_KIT_TC275_LK-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/TC27D_iLLD_UM_1_0_1_11_0.chm"
+      ],
+      "lastModified": "2020-08-13T00:00:00.000Z"
     },
     {
       "title": "Multicore LED control",
@@ -3357,6 +3615,34 @@
         "https://www.infineon.com/aurix-expert-training/TC26B_iLLD_UM_1_0_1_11_0.chm"
       ],
       "lastModified": "2020-06-05T00:00:00.000Z"
+    },
+    {
+      "title": "Interrupt generation via STM trigger",
+      "name": "STM_Interrupt_1_KIT_TC275_LK",
+      "description": "The System Timer (STM) module counts up to a configured compare value, when it reaches the specific\r\nvalue, it triggers an interrupt and resets its counter value. The value is set to trigger the interrupt\r\nevery 500 ms; at each interrupt an LED is toggled.",
+      "abstract": "The STM is configured to trigger an interrupt every 500 ms. The interrupt toggles an LED.",
+      "folder": "STM_Interrupt_1_KIT_TC275_LK",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC275 lite Kit",
+          "id": "KIT_AURIX_TC275_LITE",
+          "device_id": "TC27xTF_D-Step"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "Interrupt",
+        "LED",
+        "STM",
+        "STM_Interrupt_1",
+        "blink"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_STM_Interrupt_1_KIT_TC275_LK-TR-v01_00_01-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/TC27D_iLLD_UM_1_0_1_11_0.chm"
+      ],
+      "lastModified": "2020-08-13T00:00:00.000Z"
     },
     {
       "title": "Interrupt generation via STM trigger",

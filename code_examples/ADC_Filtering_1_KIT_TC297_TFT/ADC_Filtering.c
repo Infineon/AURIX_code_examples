@@ -168,7 +168,7 @@ void initVADCGroups(void)
 /* Function to initialize the used VADC channels */
 void initVADCChannels(void)
 {
-    IfxVadc_Adc_ChannelConfig adcChannelConf;                   /* Array of configuration structures                */
+    IfxVadc_Adc_ChannelConfig adcChannelConf;                   /* Configuration structure                          */
 
     uint16 chnNum;
     for(chnNum = 0; chnNum < CHANNELS_NUM; chnNum++)            /* The channels included in g_chn are initialized   */
@@ -197,9 +197,9 @@ void initVADCChannels(void)
 /* Function to apply the filters to the VADC channels */
 void applyFiltering(void)
 {
-    /* Accumulate 4 result values within each result register before generating a final result for AN0 */
+    /* Accumulate 4 result values within the result register before generating a final result for AN0 */
     VADC_G0_RCR0.B.DMM = DMM_DATA_REDUCTION;        /* Set the Data Modification Mode bit field to Standard Data Reduction */
-    VADC_G0_RCR0.B.DRCTR = DRCTR_DATA_REDUCTION;    /* Configure the Result Register 1 of Group 1 to accumulate 4 conversions */
+    VADC_G0_RCR0.B.DRCTR = DRCTR_DATA_REDUCTION;    /* Configure the Result Register 0 of Group 0 to accumulate 4 conversions */
 
     /* Apply a 3rd order Finite Impulse Response Filter (FIR) to the result register G0RES7 (AN2) */
     VADC_G0_RCR7.B.DMM = DMM_RESULT_FILTERING;      /* Set the Data Modification Mode bit field to Result filtering mode */
