@@ -31,12 +31,12 @@
  *              every 500 ms; at each interrupt an LED is toggled.
  *
  * \name STM_Interrupt_1_KIT_TC237_TFT
- * \version V1.0.1
+ * \version V1.0.2
  * \board APPLICATION KIT TC2X7 V1.1, KIT_AURIX_TC237_TFT_AC-Step, TC23xLP_A-Step
  * \keywords AURIX, Interrupt, LED, STM, STM_Interrupt_1, blink
- * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_STM_Interrupt_1_KIT_TC237_TFT-TR-v01_00_01-EN.pdf
- * \documents https://www.infineon.com/aurix-expert-training/TC23A_iLLD_UM_1_0_1_11_0.chm
- * \lastUpdated 2020-06-05
+ * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_STM_Interrupt_1_KIT_TC237_TFT-TR-v01_00_02-EN.pdf
+ * \documents https://www.infineon.com/aurix-expert-training/TC23A_iLLD_UM_1_0_1_12_0.chm
+ * \lastUpdated 2020-12-18
  *********************************************************************************************************************/
 #include "Ifx_Types.h"
 #include "IfxCpu.h"

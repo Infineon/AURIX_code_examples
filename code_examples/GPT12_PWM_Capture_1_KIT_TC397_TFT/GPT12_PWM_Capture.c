@@ -119,8 +119,6 @@ void init_GPT12_module(void)
     IfxSrc_init(src, IfxSrc_Tos_cpu0, ISR_PRIORITY_GPT12_T3_INT);
     IfxSrc_enable(src);
 
-    /* Initialize time constants */
-    initTime();
     /* Initialize PWM_PIN port pin */
     IfxPort_setPinMode(PWM_PIN, IfxPort_Mode_outputPushPullGeneral);
 
@@ -132,7 +130,7 @@ void init_GPT12_module(void)
 void generate_PWM_signal(void)
 {
     /* Calculate the total time between two rising edges for the specific frequency */
-    sint32 targetWaitTime_us = (1 / g_generatedPwmFreqHz) * FACTOR_SEC_TO_USEC * TimeConst_1us;
+    sint32 targetWaitTime_us = IfxStm_getTicksFromMicroseconds(BSP_DEFAULT_TIMER, (1 / g_generatedPwmFreqHz) * FACTOR_SEC_TO_USEC);
     /* Set the pin high to trigger an interrupt */
     IfxPort_setPinState(PWM_PIN, IfxPort_State_high);
     /* Wait for an amount of CPU ticks that represent the calculated microseconds considering the duty cycle */

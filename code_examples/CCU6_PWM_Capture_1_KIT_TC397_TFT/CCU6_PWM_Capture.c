@@ -216,10 +216,9 @@ void init_CCU6_ICU(void)
     IfxCcu6_Icu_startCapture(&g_icuChannel);
 }
 
-/* Initialize time constants and configure the port pin for PWM generation */
+/* Configure the port pin for PWM generation */
 void init_PWM_signal_generation(void)
 {
-    initTime();                                                         /* Initialize the time constants            */
     IfxPort_setPinMode(PWM_PIN, IfxPort_Mode_outputPushPullGeneral);    /* Initialize the PWM_PIN port pin          */
 }
 
@@ -227,7 +226,7 @@ void init_PWM_signal_generation(void)
 void generate_PWM_signal(void)
 {
     /* Calculate the total time between two rising edges for the specific frequency */
-    uint32 targetWaitTime_us = (1 / g_generatedPwmFreq_Hz) * SEC_TO_USEC * TimeConst_1us;
+    uint32 targetWaitTime_us = IfxStm_getTicksFromMicroseconds(BSP_DEFAULT_TIMER, (1 / g_generatedPwmFreq_Hz) * SEC_TO_USEC);
 
     /* Set the port pin state to high in order to trigger an interrupt */
     IfxPort_setPinState(PWM_PIN, IfxPort_State_high);

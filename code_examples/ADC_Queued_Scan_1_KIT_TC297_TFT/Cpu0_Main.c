@@ -30,12 +30,12 @@
  *              scan the analog inputs channels 1, 4 and 5 of group 2.
  *
  * \name ADC_Queued_Scan_1_KIT_TC297_TFT
- * \version V1.0.0
+ * \version V1.0.1
  * \board APPLICATION KIT TC2X7 V1.1, KIT_AURIX_TC297_TFT_BC-Step, TC29xTA/TX_B-Step
  * \keywords ADC, queued, conversion, VADC, ADC_Queued_Scan_1, AURIX
- * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_ADC_Queued_Scan_1_KIT_TC297_TFT-TR-v01_00_00-EN.pdf
- * \documents https://www.infineon.com/aurix-expert-training/TC29B_iLLD_UM_1_0_1_11_0.chm
- * \lastUpdated 2020-06-05
+ * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_ADC_Queued_Scan_1_KIT_TC297_TFT-TR-v01_00_01-EN.pdf
+ * \documents https://www.infineon.com/aurix-expert-training/TC29B_iLLD_UM_1_0_1_12_0.chm
+ * \lastUpdated 2020-12-18
  *********************************************************************************************************************/
 #include "Ifx_Types.h"
 #include "IfxCpu.h"

@@ -36,6 +36,7 @@
 /*------------------------------------------------------Macros-------------------------------------------------------*/
 /*********************************************************************************************************************/
 #define BUFFERSIZE      10                              /* Number of elements to be written and read in each memory */
+#define NUM_OF_TESTS    3                               /* Number of tests done in the example                      */
 
 /*********************************************************************************************************************/
 /*-------------------------------------------------Global variables--------------------------------------------------*/
@@ -52,7 +53,7 @@ uint32 g_DataDSPR1[BUFFERSIZE];                                 /* Data Field in
 /* Restore the initial address settings */
 #pragma section farbss restore
 
-IfxCpu_Perf g_perfCounts[BUFFERSIZE];                           /* Data Field to store the Performance Values       */
+IfxCpu_Perf g_perfCounts[NUM_OF_TESTS];                         /* Data Field to store the Performance Values       */
 
 /*********************************************************************************************************************/
 /*---------------------------------------------Function Implementations----------------------------------------------*/

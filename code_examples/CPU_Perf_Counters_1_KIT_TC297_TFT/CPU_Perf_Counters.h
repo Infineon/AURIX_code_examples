@@ -30,7 +30,6 @@
 /*********************************************************************************************************************/
 /*-----------------------------------------------Function Prototypes-------------------------------------------------*/
 /*********************************************************************************************************************/
-void initCpuPerfCounters(void); /* Function to initialize the CPU performance counters  */
 void runCpuPerfCounters(void);  /* Function to run the CPU performance counters         */
 
 #endif /* CPU_PERF_COUNTERS_H_ */

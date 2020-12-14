@@ -31,12 +31,12 @@
  *              below the threshold, an LED is switched on.
  *
  * \name IOM_PWM_Monitor_1_KIT_TC297_TFT
- * \version V1.0.0
+ * \version V1.0.1
  * \board APPLICATION KIT TC2X7 V1.1, KIT_AURIX_TC297_TFT_BC-Step, TC29xTA/TX_B-Step
  * \keywords AURIX, IOM, IOM_PWM_Monitor_1, Oscilloscope, PWM, input, monitor, output, period
- * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_IOM_PWM_Monitor_1_KIT_TC297_TFT-TR-v01_00_00-EN.pdf
- * \documents https://www.infineon.com/aurix-expert-training/TC29B_iLLD_UM_1_0_1_11_0.chm
- * \lastUpdated 2020-02-11
+ * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_IOM_PWM_Monitor_1_KIT_TC297_TFT-TR-v01_00_01-EN.pdf
+ * \documents https://www.infineon.com/aurix-expert-training/TC29B_iLLD_UM_1_0_1_12_0.chm
+ * \lastUpdated 2020-12-18
  *********************************************************************************************************************/
 #include "Ifx_Types.h"
 #include "IfxCpu.h"
@@ -45,11 +45,16 @@
 #include "Bsp.h"
 
 /*********************************************************************************************************************/
+/*------------------------------------------------------Macros-------------------------------------------------------*/
+/*********************************************************************************************************************/
+#define WAIT_TIME   1000                /* Number of milliseconds to wait                                           */
+
+/*********************************************************************************************************************/
 /*-------------------------------------------------Global variables--------------------------------------------------*/
 /*********************************************************************************************************************/
 IfxCpu_syncEvent g_cpuSyncEvent = 0;
-float32 g_duty = 50;    /* PWM's duty cycle (in %)                    */
-                        /* Routine: 50% - 45% - 40% - 35% - 30% - 25% */
+float32 g_duty = 50;                    /* PWM's duty cycle (in %)                                                  */
+                                        /* Routine: 50% - 45% - 40% - 35% - 30% - 25%                               */
 
 int core0_main(void)
 {
@@ -65,20 +70,21 @@ int core0_main(void)
     IfxCpu_emitEvent(&g_cpuSyncEvent);
     IfxCpu_waitEvent(&g_cpuSyncEvent, 1);
 
-    initTime();     /* Calculate iLLDs time constants                                   */
+    /* Initialize a time variable */
+    Ifx_TickTime ticksFor1s = IfxStm_getTicksFromMilliseconds(BSP_DEFAULT_TIMER, WAIT_TIME);
 
     /* Initialization of all the needed modules */
-    init_Smu();     /* Initialization of SMU module                                     */
-    init_IR();      /* Initialization of the Interrupt Router module                    */
-    init_Iom();     /* Initialization of the IOM module                                 */
-    init_Gtm_Pwm(); /* Initialization of the GTM module and creation of the PWM signal  */
+    init_Smu();                         /* Initialization of SMU module                                             */
+    init_IR();                          /* Initialization of the Interrupt Router module                            */
+    init_Iom();                         /* Initialization of the IOM module                                         */
+    init_Gtm_Pwm();                     /* Initialization of the GTM module and creation of the PWM signal          */
 
     while(1)
     {
-        IfxPort_setPinHigh(LED_D109);   /* Switch off the LED D109 (active low)         */
-        changeDutyCycle(g_duty);        /* Update the Duty cycle with specified value   */
-        waitTime(TimeConst_1s);         /* Wait 1 second to facilitate the observation  */
-        g_duty = g_duty - 5;            /* Decrease the duty cycle, 5% less             */
+        IfxPort_setPinHigh(LED_D109);   /* Switch off the LED D109 (active low)                                     */
+        changeDutyCycle(g_duty);        /* Update the Duty cycle with specified value                               */
+        waitTime(ticksFor1s);           /* Wait 1 second to facilitate the observation                              */
+        g_duty = g_duty - 5;            /* Decrease the duty cycle, 5% less                                         */
 
         /* Start another observation round beginning with a duty cycle of 50% */
         if(g_duty < 25)

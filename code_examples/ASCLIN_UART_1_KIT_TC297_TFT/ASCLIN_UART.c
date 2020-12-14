@@ -45,7 +45,7 @@
 
 #define UART_RX_BUFFER_SIZE     64                                      /* Definition of the receive buffer size    */
 #define UART_TX_BUFFER_SIZE     64                                      /* Definition of the transmit buffer size   */
-#define SIZE                    12                                      /* Size of the string                       */
+#define SIZE                    13                                      /* Size of the string                       */
 
 /*********************************************************************************************************************/
 /*-------------------------------------------------Global variables--------------------------------------------------*/

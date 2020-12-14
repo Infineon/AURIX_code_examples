@@ -35,18 +35,23 @@
  *              and minimum values are stored, which are then sent through UART in order to be compared.
  *
  * \name ADC_Filtering_1_KIT_TC297_TFT
- * \version V1.0.0
+ * \version V1.0.1
  * \board APPLICATION KIT TC2X7 V1.1, KIT_AURIX_TC297_TFT_BC-Step, TC29xTA/TX_B-Step
  * \keywords ADC, ADC_Filtering_1, AURIX, Average, DMM, DRCTR, Difference Mode, FIR, Filter, IIR, Result Filtering Mode, Standard Data Reduction Mode, Subtraction, VADC
- * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_ADC_Filtering_1_KIT_TC297_TFT-TR-v01_00_00-EN.pdf
- * \documents https://www.infineon.com/aurix-expert-training/TC29B_iLLD_UM_1_0_1_11_0.chm
- * \lastUpdated 2020-06-05
+ * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_ADC_Filtering_1_KIT_TC297_TFT-TR-v01_00_01-EN.pdf
+ * \documents https://www.infineon.com/aurix-expert-training/TC29B_iLLD_UM_1_0_1_12_0.chm
+ * \lastUpdated 2020-12-18
  *********************************************************************************************************************/
 #include "Ifx_Types.h"
 #include "IfxCpu.h"
 #include "IfxScuWdt.h"
 #include "ADC_Filtering.h"
 #include "Bsp.h"
+
+/*********************************************************************************************************************/
+/*------------------------------------------------------Macros-------------------------------------------------------*/
+/*********************************************************************************************************************/
+#define WAIT_TIME   100             /* Number of milliseconds to wait between each conversion                       */
 
 IfxCpu_syncEvent g_cpuSyncEvent = 0;
 
@@ -67,8 +72,8 @@ int core0_main(void)
     /* Initialize a counter for the number of conversions that have been read */
     uint32 cnt = 0;
 
-    /* Initialize the time constants */
-    initTime();
+    /* Initialize a time variable */
+    Ifx_TickTime ticksFor100ms = IfxStm_getTicksFromMilliseconds(BSP_DEFAULT_TIMER, WAIT_TIME);
 
     /* Initialize the UART communication */
     initUART();
@@ -96,7 +101,7 @@ int core0_main(void)
     char rxData[RX_LENGTH]; /* Placeholder for the data received over UART */
 
     /* Introduce a delay to avoid reading spikes due to the initialization of the device */
-    wait(TimeConst_100ms);
+    wait(ticksFor100ms);
 
     while(1)
     {
@@ -163,7 +168,7 @@ int core0_main(void)
         }
 
         /* Delay between each conversion to not overload the CPU */
-        wait(TimeConst_100ms);
+        wait(ticksFor100ms);
     }
     return (1);
 }

@@ -31,18 +31,23 @@
  *              in variables.
  *
  * \name GTM_TIM_Capture_1_KIT_TC397_TFT
- * \version V1.0.0
+ * \version V1.0.1
  * \board APPLICATION KIT TC3X7 V2.0, KIT_A2G_TC397_5V_TFT, TC39xXX_B-Step
  * \keywords AURIX, GTM, GTM_TIM_Capture_1, Generic Timer Module, PWM, TIM, Timer Input Module AURIX, capture
- * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_GTM_TIM_Capture_1_KIT_TC397_TFT-TR-v01_00_00-EN.pdf
- * \documents https://www.infineon.com/aurix-expert-training/TC39B_iLLD_UM_1_0_1_11_0.chm
- * \lastUpdated 2020-06-05
+ * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_GTM_TIM_Capture_1_KIT_TC397_TFT-TR-v01_00_01-EN.pdf
+ * \documents https://www.infineon.com/aurix-expert-training/TC39B_iLLD_UM_1_0_1_12_1.chm
+ * \lastUpdated 2020-12-18
  *********************************************************************************************************************/
 #include "Ifx_Types.h"
 #include "IfxCpu.h"
 #include "IfxScuWdt.h"
 #include "GTM_TIM_Capture.h"
 #include "Bsp.h"
+
+/*********************************************************************************************************************/
+/*------------------------------------------------------Macros-------------------------------------------------------*/
+/*********************************************************************************************************************/
+#define WAIT_TIME   100         /* Number of milliseconds to wait between each duty cycle change                    */
 
 IFX_ALIGN(4) IfxCpu_syncEvent g_cpuSyncEvent = 0;
 
@@ -60,15 +65,16 @@ void core0_main(void)
     IfxCpu_emitEvent(&g_cpuSyncEvent);
     IfxCpu_waitEvent(&g_cpuSyncEvent, 1);
     
-    initTime();                 /* Initialize time constants                        */
+    /* Initialize a time variable */
+    Ifx_TickTime ticksFor100ms = IfxStm_getTicksFromMilliseconds(BSP_DEFAULT_TIMER, WAIT_TIME);
 
-    init_TIM();                 /* Call the initialization function of the TIM      */
-    generate_PWM();             /* Initialize the TOM and generate a PWM signal     */
-    waitTime(TimeConst_100ms);  /* Wait 100 ms                                      */
+    init_TIM();                 /* Call the initialization function of the TIM                                      */
+    generate_PWM();             /* Call the function which generates a PWM signal                                   */
+    waitTime(ticksFor100ms);    /* Wait 100 ms                                                                      */
 
     while(1)
     {
-        measure_PWM();          /* Measure PWM signal frequency and duty cycle      */
+        measure_PWM();          /* Measure PWM signal frequency and duty cycle                                      */
     }
 }
 

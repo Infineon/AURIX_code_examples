@@ -29,16 +29,6 @@
           "name": "TASKING C/C++ Compiler",
           "options": [
             {
-              "id": "com.infineon.aurix.buildsystem.managed.c.compiler.tasking.preprocessor.definedSymbols",
-              "value": "",
-              "valueType": "definedSymbols",
-              "optionValues": [
-                {
-                  "value": "__CPU__\u003dtc38x"
-                }
-              ]
-            },
-            {
               "id": "com.infineon.aurix.buildsystem.managed.c.compiler.tasking.include",
               "value": "",
               "valueType": "includePath",
@@ -60,6 +50,9 @@
                 },
                 {
                   "value": "\"${ProjDirPath}/Libraries/Infra/Platform\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC39B/Tricore/Gtm/Tom/Dtm_PwmHl\""
                 },
                 {
                   "value": "\"${ProjDirPath}/Libraries/Service/CpuGeneric/If/Ccu6If\""
@@ -240,6 +233,9 @@
                 },
                 {
                   "value": "\"${ProjDirPath}/Libraries/iLLD/TC39B/Tricore/Stm/Timer\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC39B/Tricore/Gtm/Atom/Dtm_PwmHl\""
                 },
                 {
                   "value": "\"${ProjDirPath}/Libraries/iLLD/TC39B/Tricore/Qspi/Std\""
@@ -515,6 +511,16 @@
                   "value": "\"${ProjDirPath}/Libraries/iLLD/TC39B/Tricore/I2c/Std\""
                 }
               ]
+            },
+            {
+              "id": "com.infineon.aurix.buildsystem.managed.c.compiler.tasking.preprocessor.definedSymbols",
+              "value": "",
+              "valueType": "definedSymbols",
+              "optionValues": [
+                {
+                  "value": "__CPU__\u003dtc39xb"
+                }
+              ]
             }
           ]
         },
@@ -552,16 +558,6 @@
           "name": "TASKING C/C++ Compiler",
           "options": [
             {
-              "id": "com.infineon.aurix.buildsystem.managed.c.compiler.tasking.preprocessor.definedSymbols",
-              "value": "",
-              "valueType": "definedSymbols",
-              "optionValues": [
-                {
-                  "value": "__CPU__\u003dtc38x"
-                }
-              ]
-            },
-            {
               "id": "com.infineon.aurix.buildsystem.managed.c.compiler.tasking.include",
               "value": "",
               "valueType": "includePath",
@@ -583,6 +579,9 @@
                 },
                 {
                   "value": "\"${ProjDirPath}/Libraries/Infra/Platform\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC39B/Tricore/Gtm/Tom/Dtm_PwmHl\""
                 },
                 {
                   "value": "\"${ProjDirPath}/Libraries/Service/CpuGeneric/If/Ccu6If\""
@@ -763,6 +762,9 @@
                 },
                 {
                   "value": "\"${ProjDirPath}/Libraries/iLLD/TC39B/Tricore/Stm/Timer\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC39B/Tricore/Gtm/Atom/Dtm_PwmHl\""
                 },
                 {
                   "value": "\"${ProjDirPath}/Libraries/iLLD/TC39B/Tricore/Qspi/Std\""
@@ -1033,6 +1035,16 @@
                 },
                 {
                   "value": "\"${ProjDirPath}/Libraries/iLLD/TC39B/Tricore/I2c/Std\""
+                }
+              ]
+            },
+            {
+              "id": "com.infineon.aurix.buildsystem.managed.c.compiler.tasking.preprocessor.definedSymbols",
+              "value": "",
+              "valueType": "definedSymbols",
+              "optionValues": [
+                {
+                  "value": "__CPU__\u003dtc39xb"
                 }
               ]
             }

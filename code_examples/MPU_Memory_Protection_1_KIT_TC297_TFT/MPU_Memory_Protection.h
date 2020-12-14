@@ -83,7 +83,7 @@
 /*------------------------------------------------Function Prototypes------------------------------------------------*/
 /*********************************************************************************************************************/
 /* MPU control functions */
-void MPU_enable_protection(void);
+void enable_memory_protection(void);
 void define_data_protection_range(uint32 lowerBoundAddress, uint32 upperBoundAddress, uint8 range);
 void define_code_protection_range(uint32 lowerBoundAddress, uint32 upperBoundAddress, uint8 range);
 void enable_data_read(uint8 protectionSet, uint8 range);

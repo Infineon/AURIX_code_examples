@@ -30,18 +30,23 @@
  *              This number is used to calculate the current system time in day, hours, minutes and seconds.
  *
  * \name STM_System_Time_1_KIT_TC397_TFT
- * \version V1.0.0
+ * \version V1.0.1
  * \board APPLICATION KIT TC3X7 V2.0, KIT_A2G_TC397_5V_TFT, TC39xXX_B-Step
  * \keywords AURIX, STM, STM_System_Time_1, System timer, Time
- * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_STM_System_Time_1_KIT_TC397_TFT-TR-v01_00_00-EN.pdf
- * \documents https://www.infineon.com/aurix-expert-training/TC39B_iLLD_UM_1_0_1_11_0.chm
- * \lastUpdated 2020-06-05
+ * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_STM_System_Time_1_KIT_TC397_TFT-TR-v01_00_01-EN.pdf
+ * \documents https://www.infineon.com/aurix-expert-training/TC39B_iLLD_UM_1_0_1_12_1.chm
+ * \lastUpdated 2020-12-18
  *********************************************************************************************************************/
 #include "Ifx_Types.h"
 #include "IfxCpu.h"
 #include "IfxScuWdt.h"
 #include "STM_System_Time.h"
 #include "Bsp.h"
+
+/*********************************************************************************************************************/
+/*------------------------------------------------------Macros-------------------------------------------------------*/
+/*********************************************************************************************************************/
+#define WAIT_TIME   1000        /* Number of milliseconds to wait               */
 
 IFX_ALIGN(4) IfxCpu_syncEvent g_cpuSyncEvent = 0;
 
@@ -59,13 +64,13 @@ void core0_main(void)
     IfxCpu_emitEvent(&g_cpuSyncEvent);
     IfxCpu_waitEvent(&g_cpuSyncEvent, 1);
     
-    /* Initialize the time constants */
-    initTime();
+    /* Initialize a time variable */
+    Ifx_TickTime ticksFor1s = IfxStm_getTicksFromMilliseconds(BSP_DEFAULT_TIMER, WAIT_TIME);
 
     while(1)
     {
         getTime();              /* Call the function which get the system time  */
-        waitTime(TimeConst_1s); /* Wait one second                              */
+        waitTime(ticksFor1s);   /* Wait one second                              */
     }
 }
 

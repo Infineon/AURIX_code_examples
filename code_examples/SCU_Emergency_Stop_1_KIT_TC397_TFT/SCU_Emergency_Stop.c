@@ -42,6 +42,12 @@
 #define SYNC_MODE       0x0                                         /* Synchronous mode is selected                 */
 #define PORT_A          0x0                                         /* Port A is used for emergency stop input      */
 #define EN_EMSF         0x1                                         /* Enable emergency stop flag                   */
+#define WAIT_TIME       500                                         /* Number of milliseconds to wait               */
+
+/*********************************************************************************************************************/
+/*-------------------------------------------------Global variables--------------------------------------------------*/
+/*********************************************************************************************************************/
+Ifx_TickTime g_ticksFor500ms;   /* Variable to store the number of ticks to wait for 1 second delay                 */
 
 /*********************************************************************************************************************/
 /*---------------------------------------------Function Implementations----------------------------------------------*/
@@ -49,7 +55,8 @@
 /* This function initializes the SCU emergency stop */
 void initScuEmergency(void)
 {
-    initTime();                                                     /* Initialize time constants                    */
+    /* Initialize the time variable */
+    g_ticksFor500ms = IfxStm_getTicksFromMilliseconds(BSP_DEFAULT_TIMER, WAIT_TIME);
 
     /* Clear Safety ENDINIT protection to allow register modification */
     IfxScuWdt_clearSafetyEndinitInline(IfxScuWdt_getSafetyWatchdogPasswordInline());
@@ -72,5 +79,5 @@ void initScuEmergency(void)
 void toggleLED(void)
 {
     IfxPort_togglePin(LED);                                         /* Toggle LED port pin                          */
-    waitTime(TimeConst_100ms * 5);                                  /* Wait 500ms                                   */
+    waitTime(g_ticksFor500ms);                                      /* Wait 500ms                                   */
 }

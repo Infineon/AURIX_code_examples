@@ -36,15 +36,17 @@
 /*********************************************************************************************************************/
 /*------------------------------------------------------Macros-------------------------------------------------------*/
 /*********************************************************************************************************************/
-#define PWM_BUZZER_PRIO     0                                               /* Interrupt priority number            */
-#define VOLUME_LEVEL        2                                               /* Volume level in percentage           */
-#define MIN_RESOLUTION      0                                               /* Ignore minimum resolution parameter  */
-#define TRIGGER_POINT       0xffff                                          /* Trigger point for GTM timer          */
-#define FREQ_NULL           0                                               /* Initial frequency for GTM timer      */
+#define PWM_BUZZER_PRIO     0                                   /* Interrupt priority number                        */
+#define VOLUME_LEVEL        2                                   /* Volume level in percentage                       */
+#define MIN_RESOLUTION      0                                   /* Ignore minimum resolution parameter              */
+#define TRIGGER_POINT       0xffff                              /* Trigger point for GTM timer                      */
+#define FREQ_NULL           0                                   /* Initial frequency for GTM timer                  */
+#define WAIT_TIME           1                                   /* Number of milliseconds to wait during play time  */
 
 /*********************************************************************************************************************/
 /*-------------------------------------------------Global variables--------------------------------------------------*/
 /*********************************************************************************************************************/
+Ifx_TickTime g_ticksFor1ms;     /* Variable to store the number of ticks to wait for 1 second delay                 */
 IfxGtm_Tom_Timer g_buzzer;
 
 /*********************************************************************************************************************/
@@ -62,7 +64,8 @@ void playTone(float32 frequency, sint64 length_ms);
 /* This function initializes the PWM for the buzzer */
 void initPWMBuzzer()
 {
-    initTime(); /* Initialize time constant */
+    /* Initialize the time variable */
+    g_ticksFor1ms = IfxStm_getTicksFromMilliseconds(BSP_DEFAULT_TIMER, WAIT_TIME);
 
     IfxGtm_enable(&MODULE_GTM); /* Enable GTM */
     IfxGtm_Cmu_enableClocks(&MODULE_GTM, IFXGTM_CMU_CLKEN_FXCLK); /* Enable FX clock */
@@ -95,14 +98,14 @@ void playTone(float32 frequency, sint64 duration_ms)
 {
     if(frequency == 0) /* If frequency is zero then the PWM will not start */
     {
-        waitTime(duration_ms*TimeConst_1ms);                                /* Wait during play time                */
+        waitTime(duration_ms * g_ticksFor1ms);                              /* Wait during play time                */
     }
     else
     {
         IfxGtm_Tom_Timer_run(&g_buzzer);                                    /* Start the timer                      */
         IfxGtm_Tom_Timer_setFrequency(&g_buzzer,frequency);                 /* Set frequency to the desired value   */
         setVolume(VOLUME_LEVEL);                                            /* Set volume to VOLUME_LEVEL           */
-        waitTime(duration_ms*TimeConst_1ms);                                /* Wait during play time                */
+        waitTime(duration_ms * g_ticksFor1ms);                              /* Wait during play time                */
         setVolume(0);                                                       /* Set volume to 0                      */
         IfxGtm_Tom_Timer_stop(&g_buzzer);                                   /* Stop the timer                       */
     }

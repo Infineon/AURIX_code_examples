@@ -33,12 +33,12 @@
  *              used. The same cycle is repeated each second.
  *
  * \name DMA_Mem_to_Mem_1_KIT_TC297_TFT
- * \version V1.0.1
+ * \version V1.0.2
  * \board APPLICATION KIT TC2X7 V1.1, KIT_AURIX_TC297_TFT_BC-Step, TC29xTA/TX_B-Step
  * \keywords AURIX, DMA, DMA_Mem_to_Mem_1, memory, transfer
- * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_DMA_Mem_to_Mem_1_KIT_TC297_TFT-TR-v01_00_01-EN.pdf
- * \documents https://www.infineon.com/aurix-expert-training/TC29B_iLLD_UM_1_0_1_11_0.chm
- * \lastUpdated 2020-06-05
+ * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_DMA_Mem_to_Mem_1_KIT_TC297_TFT-TR-v01_00_02-EN.pdf
+ * \documents https://www.infineon.com/aurix-expert-training/TC29B_iLLD_UM_1_0_1_12_0.chm
+ * \lastUpdated 2020-12-18
  *********************************************************************************************************************/
 #include "Ifx_Types.h"
 #include "IfxCpu.h"
@@ -47,7 +47,7 @@
 #include "Bsp.h"
 
 /*********************************************************************************************************************/
-/*-----------------------------------------------------Macros------------------------------------------------------*/
+/*-------------------------------------------------------Macros------------------------------------------------------*/
 /*********************************************************************************************************************/
 #define WAIT_TIME   1000U
 

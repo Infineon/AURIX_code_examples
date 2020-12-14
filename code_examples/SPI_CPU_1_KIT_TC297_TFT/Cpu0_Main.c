@@ -31,12 +31,12 @@
  *              to which LED D110 is connected, indicates the successful transfer.
  *
  * \name SPI_CPU_1_KIT_TC297_TFT
- * \version V1.0.1
+ * \version V1.0.2
  * \board APPLICATION KIT TC2X7 V1.1, KIT_AURIX_TC297_TFT_BC-Step, TC29xTA/TX_B-Step
  * \keywords AURIX, Communication, Master, QSPI, SPI, SPI_CPU_1, Slave
- * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_SPI_CPU_1_KIT_TC297_TFT-TR-v01_00_01-EN.pdf
- * \documents https://www.infineon.com/aurix-expert-training/TC29B_iLLD_UM_1_0_1_11_0.chm
- * \lastUpdated 2020-02-11
+ * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_SPI_CPU_1_KIT_TC297_TFT-TR-v01_00_02-EN.pdf
+ * \documents https://www.infineon.com/aurix-expert-training/TC29B_iLLD_UM_1_0_1_12_0.chm
+ * \lastUpdated 2020-12-18
  *********************************************************************************************************************/
 #include "Ifx_Types.h"
 #include "IfxCpu.h"

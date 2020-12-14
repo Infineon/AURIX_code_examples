@@ -31,18 +31,23 @@
  *              signal (XOR) is in high state outside the acceptable propagation window, an LED is switched on.
  *
  * \name IOM_Signals_Comparison_1_KIT_TC297_TFT
- * \version V1.0.0
+ * \version V1.0.1
  * \board APPLICATION KIT TC2X7 V1.1, KIT_AURIX_TC297_TFT_BC-Step, TC29xTA/TX_B-Step
  * \keywords AURIX, IOM, IOM_Signals_Comparison_1, PWM, comparison, duty cycle, signal
- * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_IOM_Signals_Comparison_1_KIT_TC297_TFT-TR-v01_00_00-EN.pdf
- * \documents https://www.infineon.com/aurix-expert-training/TC29B_iLLD_UM_1_0_1_11_0.chm
- * \lastUpdated 2020-02-11
+ * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_IOM_Signals_Comparison_1_KIT_TC297_TFT-TR-v01_00_01-EN.pdf
+ * \documents https://www.infineon.com/aurix-expert-training/TC29B_iLLD_UM_1_0_1_12_0.chm
+ * \lastUpdated 2020-12-18
  *********************************************************************************************************************/
 #include "Ifx_Types.h"
 #include "IfxCpu.h"
 #include "IfxScuWdt.h"
 #include "Bsp.h"
 #include "IOM_Signals_Comparison.h"
+
+/*********************************************************************************************************************/
+/*------------------------------------------------------Macros-------------------------------------------------------*/
+/*********************************************************************************************************************/
+#define WAIT_TIME   1000                        /* Number of milliseconds to wait                                   */
 
 IfxCpu_syncEvent g_cpuSyncEvent = 0;
 
@@ -66,7 +71,8 @@ int core0_main(void)
     /* Initial duty cycle (in %) */
     float32 duty = 50.0;
 
-    initTime();         /* Calculate iLLDs time constants                                       */
+    /* Initialize a time variable */
+    Ifx_TickTime ticksFor1s = IfxStm_getTicksFromMilliseconds(BSP_DEFAULT_TIMER, WAIT_TIME);
 
     /* Initialization of all the needed modules */
     initSmu();          /* Initialization of SMU module                                         */
@@ -80,7 +86,7 @@ int core0_main(void)
     {
         IfxPort_setPinHigh(LED_D107);           /* Switch off the LED D110 (active low)         */
         changeDutyCycle(duty);                  /* Update the duty cycle with specified value   */
-        waitTime(TimeConst_1s);                 /* Wait 1 second to facilitate the observation  */
+        waitTime(ticksFor1s);                   /* Wait 1 second to facilitate the observation  */
         duty -= 1.0;                            /* Decrease the duty cycle - 1% less            */
 
         /* Start another observation round beginning with a duty cycle of 50% */

@@ -30,12 +30,12 @@
  *              Core 2 is controlling the state of the LED flag.
  *
  * \name Multicore_1_KIT_TC275_LK
- * \version V1.0.0
- * \board AURIX TC275 lite Kit, KIT_AURIX_TC275_LITE, TC27xTF_D-Step
+ * \version V1.0.1
+ * \board AURIX TC275 lite Kit, KIT_AURIX_TC275_LITE, TC27xTP_D-Step
  * \keywords multicore, LED, AURIX, Multicore_1
- * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_Multicore_1_KIT_TC275_LK-TR-v01_00_00-EN.pdf
- * \documents https://www.infineon.com/aurix-expert-training/TC27D_iLLD_UM_1_0_1_11_0.chm
- * \lastUpdated 2020-08-13
+ * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_Multicore_1_KIT_TC275_LK-TR-v01_00_01-EN.pdf
+ * \documents https://www.infineon.com/aurix-expert-training/TC27D_iLLD_UM_1_0_1_12_0.chm
+ * \lastUpdated 2020-12-18
  *********************************************************************************************************************/
 #include "Ifx_Types.h"
 #include "IfxCpu.h"
@@ -54,7 +54,7 @@ int core0_main(void)
     IfxScuWdt_disableCpuWatchdog(IfxScuWdt_getCpuWatchdogPassword());
     IfxScuWdt_disableSafetyWatchdog(IfxScuWdt_getSafetyWatchdogPassword());
     
-    /* Initialize the LED and the time constants before the CPUs synchronization */
+    /* Initialize the LED and a time constant before the CPUs synchronization */
     initLEDAndTime();
 
     /* Wait for CPU sync event */

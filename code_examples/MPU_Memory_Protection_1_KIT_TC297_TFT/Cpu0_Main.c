@@ -33,12 +33,12 @@
  *              The second LED is only turned on if the CPU reads an element which should be protected.
  *
  * \name MPU_Memory_Protection_1_KIT_TC297_TFT
- * \version V1.0.0
+ * \version V1.0.1
  * \board APPLICATION KIT TC2X7 V1.1, KIT_AURIX_TC297_TFT_BC-Step, TC29xTA/TX_B-Step
  * \keywords AURIX, MPU_Memory_Protection_1, MPU, Data Protection, Code Protection, Memory Protection
- * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_MPU_Memory_Protection_1_KIT_TC297_TFT-TR-v01_00_00-EN.pdf
- * \documents https://www.infineon.com/aurix-expert-training/TC29B_iLLD_UM_1_0_1_11_0.chm
- * \lastUpdated 2020-08-13
+ * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_MPU_Memory_Protection_1_KIT_TC297_TFT-TR-v01_00_01-EN.pdf
+ * \documents https://www.infineon.com/aurix-expert-training/TC29B_iLLD_UM_1_0_1_12_0.chm
+ * \lastUpdated 2020-12-18
  *********************************************************************************************************************/
 #include "Ifx_Types.h"
 #include "IfxCpu.h"
@@ -48,7 +48,7 @@
 /*********************************************************************************************************************/
 /*------------------------------------------------------Macros-------------------------------------------------------*/
 /*********************************************************************************************************************/
-#define DUMMY_ELEMENTS_NUM          96      /* Array length. Must be multiple of DPR_GRANULARITY or CPR_GRANULARITY */
+#define DUMMY_ELEMENTS_NUM          96          /* Array length. Must be multiple of DPR_GRANULARITY                */
 #define INDEX_FORTY_EIGHT           48
 #define INDEX_FORTY_SEVEN           47
 #define FIRST_ADDR                  0x00000000
@@ -122,7 +122,7 @@ int core0_main(void)
     define_code_protection_range(FIRST_ADDR, LAST_ADDR, CODE_PROTECTION_RANGE_7);
     /* Define the Data Protection Range 15: from 0x00000000 to 0xFFFFFFFF (every address of the microcontroller) */
     define_data_protection_range(FIRST_ADDR, LAST_ADDR, DATA_PROTECTION_RANGE_15);
-    /* Enable code execution on the trap table for Protection Set 0 (the default Protection Set) */
+    /* Enable code execution for Protection Set 0 (the default Protection Set) */
     enable_code_execution(PROTECTION_SET_0, CODE_PROTECTION_RANGE_7);
     /* Enable read access to the Data Protection Range 15 in the Protection Set 0 */
     enable_data_read(PROTECTION_SET_0, DATA_PROTECTION_RANGE_15);
@@ -135,7 +135,7 @@ int core0_main(void)
     set_active_protection_set(PROTECTION_SET_1);
 
     /* Enable the Memory Protection */
-    MPU_enable_protection();
+    enable_memory_protection();
 
     volatile uint8 dummyRead;
 
@@ -155,7 +155,8 @@ int core0_main(void)
         else if(i > INDEX_FORTY_SEVEN)
         {
             /* If the MPU is configured properly this will be unreachable code.
-             * Thus, the LED should never be switched on. */
+             * Thus, the LED should never be switched on.
+             */
             switch_LED_ON(LED_SECOND_HALF);
         }
     }

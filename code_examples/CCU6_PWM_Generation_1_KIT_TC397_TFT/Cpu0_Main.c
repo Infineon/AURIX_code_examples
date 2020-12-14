@@ -32,12 +32,12 @@
  *              available on the board and can be observed with an oscilloscope.
  *
  * \name CCU6_PWM_Generation_1_KIT_TC397_TFT
- * \version V1.0.0
+ * \version V1.0.1
  * \board APPLICATION KIT TC3X7 V2.0, KIT_A2G_TC397_5V_TFT, TC39xXX_B-Step
  * \keywords AURIX, CCU6, CCU6_PWM_Generation_1, Duty cycle, Multi-Channel mode, Oscilloscope, PWM, T12
- * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_CCU6_PWM_Generation_1_KIT_TC397_TFT-TR-v01_00_00-EN.pdf
- * \documents https://www.infineon.com/aurix-expert-training/TC39B_iLLD_UM_1_0_1_11_0.chm
- * \lastUpdated 2020-06-05
+ * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_CCU6_PWM_Generation_1_KIT_TC397_TFT-TR-v01_00_01-EN.pdf
+ * \documents https://www.infineon.com/aurix-expert-training/TC39B_iLLD_UM_1_0_1_12_1.chm
+ * \lastUpdated 2020-12-18
  *********************************************************************************************************************/
 #include "Ifx_Types.h"
 #include "IfxCpu.h"

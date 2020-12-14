@@ -75,11 +75,6 @@ void canIsrRxHandler(void)
     /* Clear the "Message stored to Dedicated RX Buffer" interrupt flag */
     IfxCan_Node_clearInterruptFlag(g_mcmcan.canDstNode.node, IfxCan_Interrupt_messageStoredToDedicatedRxBuffer);
 
-    /* Clear the "New Data" flag; as long as the "New Data" flag is set, the respective Rx buffer is
-     * locked against updates from received matching frames.
-     */
-    IfxCan_Node_clearRxBufferNewDataFlag(g_mcmcan.canDstNode.node, g_mcmcan.canFilter.rxBufferOffset);
-
     /* Read the received CAN message */
     IfxCan_Can_readMessage(&g_mcmcan.canDstNode, &g_mcmcan.rxMsg, g_mcmcan.rxData);
 

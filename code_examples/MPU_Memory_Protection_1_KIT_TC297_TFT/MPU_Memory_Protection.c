@@ -47,7 +47,7 @@
  * ISYNC for other compiler vendors is ensured by use of a preprocessor macro.
  */
 
-void MPU_enable_protection()
+void enable_memory_protection()
 {
     Ifx_CPU_SYSCON sysconValue;
     sysconValue.U = __mfcr(CPU_SYSCON);                 /* Get the System Configuration Register (SYSCON) value     */

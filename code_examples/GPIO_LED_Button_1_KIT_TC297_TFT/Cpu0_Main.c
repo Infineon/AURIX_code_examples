@@ -32,12 +32,12 @@
  *              Short the port pins P14.4 with P14.5 (pin 39 and 40 of header X102) to switch on the LED D110.
  *
  * \name GPIO_LED_Button_1_KIT_TC297_TFT
- * \version V1.0.0
+ * \version V1.0.1
  * \board APPLICATION KIT TC2X7 V1.1, KIT_AURIX_TC297_TFT_BC-Step, TC29xTA/TX_B-Step
  * \keywords AURIX, GPIO, GPIO_LED_Button_1, LED, pin, port, port pin, push button, push-pull
- * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_GPIO_LED_Button_1_KIT_TC297_TFT-TR-v01_00_00-EN.pdf
- * \documents https://www.infineon.com/aurix-expert-training/TC29B_iLLD_UM_1_0_1_11_0.chm
- * \lastUpdated 2020-02-11
+ * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_GPIO_LED_Button_1_KIT_TC297_TFT-TR-v01_00_01-EN.pdf
+ * \documents https://www.infineon.com/aurix-expert-training/TC29B_iLLD_UM_1_0_1_12_0.chm
+ * \lastUpdated 2020-12-18
  *********************************************************************************************************************/
 #include "GPIO_LED_Button.h"
 #include "Ifx_Types.h"

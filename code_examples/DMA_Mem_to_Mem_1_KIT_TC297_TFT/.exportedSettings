@@ -22,16 +22,6 @@
           "name": "TASKING C/C++ Compiler",
           "options": [
             {
-              "id": "com.infineon.aurix.buildsystem.managed.c.compiler.tasking.preprocessor.definedSymbols",
-              "value": "",
-              "valueType": "definedSymbols",
-              "optionValues": [
-                {
-                  "value": "__CPU__\u003dtc29xb"
-                }
-              ]
-            },
-            {
               "id": "com.infineon.aurix.buildsystem.managed.c.compiler.tasking.include",
               "value": "",
               "valueType": "includePath",
@@ -469,6 +459,16 @@
                   "value": "\"${ProjDirPath}/Libraries/iLLD/TC29B/Tricore/Msc/Std\""
                 }
               ]
+            },
+            {
+              "id": "com.infineon.aurix.buildsystem.managed.c.compiler.tasking.preprocessor.definedSymbols",
+              "value": "",
+              "valueType": "definedSymbols",
+              "optionValues": [
+                {
+                  "value": "__CPU__\u003dtc29xb"
+                }
+              ]
             }
           ]
         },
@@ -498,16 +498,6 @@
           "id": "com.infineon.aurix.buildsystem.managed.tool.c.compiler.tasking.release",
           "name": "TASKING C/C++ Compiler",
           "options": [
-            {
-              "id": "com.infineon.aurix.buildsystem.managed.c.compiler.tasking.preprocessor.definedSymbols",
-              "value": "",
-              "valueType": "definedSymbols",
-              "optionValues": [
-                {
-                  "value": "__CPU__\u003dtc29xb"
-                }
-              ]
-            },
             {
               "id": "com.infineon.aurix.buildsystem.managed.c.compiler.tasking.include",
               "value": "",
@@ -941,6 +931,16 @@
                 },
                 {
                   "value": "\"${ProjDirPath}/Libraries/iLLD/TC29B/Tricore/Msc/Std\""
+                }
+              ]
+            },
+            {
+              "id": "com.infineon.aurix.buildsystem.managed.c.compiler.tasking.preprocessor.definedSymbols",
+              "value": "",
+              "valueType": "definedSymbols",
+              "optionValues": [
+                {
+                  "value": "__CPU__\u003dtc29xb"
                 }
               ]
             }

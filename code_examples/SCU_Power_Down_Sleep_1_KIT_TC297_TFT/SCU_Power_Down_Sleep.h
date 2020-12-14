@@ -25,8 +25,8 @@
  * IN THE SOFTWARE.
  *********************************************************************************************************************/
 
-#ifndef GTM_TOM_INTERRUPT_H_
-#define GTM_TOM_INTERRUPT_H_
+#ifndef SCU_POWER_DOWN_SLEEP_H_
+#define SCU_POWER_DOWN_SLEEP_H_
 
 /*********************************************************************************************************************/
 /*-----------------------------------------------Function Prototypes-------------------------------------------------*/
@@ -35,4 +35,4 @@ void initTom(void);     /* Function to initialize the TOM                   */
 void initStm(void);     /* Function to initialize the STM                   */
 void switchMode(void);  /* Function to alternate between run and sleep mode */
 
-#endif /* GTM_TOM_INTERRUPT_H_ */
+#endif /* SCU_POWER_DOWN_SLEEP_H_ */

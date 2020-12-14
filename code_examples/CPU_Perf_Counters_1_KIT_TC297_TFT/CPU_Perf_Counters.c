@@ -55,16 +55,6 @@ void loop(void)
     }
 }
 
-/* Function to initialize the CPU performance counters by enabling OCDS */
-void initCpuPerfCounters(void)
-{
-    /* Insert predefined pattern for enabling OCDS */
-    CBS_OEC.U = 0xA1;
-    CBS_OEC.U = 0x5E;
-    CBS_OEC.U = 0xA1;
-    CBS_OEC.U = 0x5E;
-}
-
 /* Function to run the CPU performance counters */
 void runCpuPerfCounters(void)
 {

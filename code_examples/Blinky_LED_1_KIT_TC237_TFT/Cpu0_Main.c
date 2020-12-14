@@ -28,16 +28,15 @@
  * \abstract An LED is blinking based on the timing given by a wait function.
  * \description A wait function is used to add delays between switching on and switching off an LED on port pin P13.0.
  * \name Blinky_LED_1_KIT_TC237_TFT
- * \version V1.0.0
+ * \version V1.0.1
  * \board APPLICATION KIT TC2X7 V1.1, KIT_AURIX_TC237_TFT_AC-Step, TC23xLP_A-Step
  * \keywords LED, blinky, GPIO, General Port Input Output, AURIX, Blinky_LED_1
- * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_Blinky_LED_1_KIT_TC237_TFT-TR-v01_00_00-EN.pdf
- * \documents https://www.infineon.com/aurix-expert-training/TC23A_iLLD_UM_1_0_1_11_0.chm
- * \lastUpdated 2020-02-11
+ * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_Blinky_LED_1_KIT_TC237_TFT-TR-v01_00_01-EN.pdf
+ * \documents https://www.infineon.com/aurix-expert-training/TC23A_iLLD_UM_1_0_1_12_0.chm
+ * \lastUpdated 2020-12-18
  *********************************************************************************************************************/
 #include "Ifx_Types.h"
 #include "IfxCpu.h"
-#include "Bsp.h"
 #include "IfxScuWdt.h"
 #include "Blinky_LED.h"
 
@@ -57,7 +56,6 @@ int core0_main(void)
     IfxCpu_emitEvent(&g_cpuSyncEvent);
     IfxCpu_waitEvent(&g_cpuSyncEvent, 1);
     
-    initTime(); /* Calculate iLLDs time constants   */
     initLED();  /* Initialize the LED port pin      */
 
     while(1)

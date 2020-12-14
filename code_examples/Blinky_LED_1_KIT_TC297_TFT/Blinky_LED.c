@@ -34,8 +34,8 @@
 /*********************************************************************************************************************/
 /*------------------------------------------------------Macros-------------------------------------------------------*/
 /*********************************************************************************************************************/
-#define LED_D107    &MODULE_P13,0           /* LED D107: Port, Pin definition       */
-#define WAIT_TIME   (5 * TimeConst_100ms)   /* Wait time constant in milliseconds   */
+#define LED_D107    &MODULE_P13,0                                           /* LED D107: Port, Pin definition       */
+#define WAIT_TIME   500                                                     /* Wait time constant in milliseconds   */
 
 /*********************************************************************************************************************/
 /*---------------------------------------------Function Implementations----------------------------------------------*/
@@ -53,6 +53,6 @@ void initLED(void)
 /* This function toggles the port pin and wait 500 milliseconds */
 void blinkLED(void)
 {
-    IfxPort_togglePin(LED_D107);            /* Toggle the state of the LED          */
-    waitTime(WAIT_TIME);                    /* Wait 500 milliseconds                */
+    IfxPort_togglePin(LED_D107);                                                /* Toggle the state of the LED      */
+    waitTime(IfxStm_getTicksFromMilliseconds(BSP_DEFAULT_TIMER, WAIT_TIME));    /* Wait 500 milliseconds            */
 }

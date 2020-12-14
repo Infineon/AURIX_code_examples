@@ -36,12 +36,14 @@
 /*********************************************************************************************************************/
 /*------------------------------------------------------Macros-------------------------------------------------------*/
 /*********************************************************************************************************************/
-#define LED    &MODULE_P13, 0   /* LED D107                                                                         */
+#define LED         &MODULE_P13, 0  /* LED D107                                                                     */
+#define WAIT_TIME   1000            /* Number of milliseconds to wait between each duty cycle change                */
 
 /*********************************************************************************************************************/
 /*-------------------------------------------------Global variables--------------------------------------------------*/
 /*********************************************************************************************************************/
 uint16 g_turnLEDon = FALSE;     /* Variable for the LED, CPU0 and CPU1 are toggling the LED depending on its state  */
+Ifx_TickTime g_ticksFor1s;      /* Variable to store the number of ticks to wait for 1 second delay                 */
 
 /*********************************************************************************************************************/
 /*---------------------------------------------Function Implementations----------------------------------------------*/
@@ -54,8 +56,8 @@ void initLEDAndTime(void)
     /* Set the port pin mode to output push-pull */
     IfxPort_setPinMode(LED, IfxPort_Mode_outputPushPullGeneral);
 
-    /* Initialize the time constants */
-    initTime();
+    /* Initialize the time variable */
+    g_ticksFor1s = IfxStm_getTicksFromMilliseconds(BSP_DEFAULT_TIMER, WAIT_TIME);
 }
 
 /* Function to turn on the LED accordingly to the state of g_turnLEDon */
@@ -80,5 +82,5 @@ void turnLEDoff(void)
 void controlLEDflag(void)
 {
     g_turnLEDon = !g_turnLEDon;     /* Toggle the state of the global variable      */
-    wait(TimeConst_1s);             /* Wait for approximately 1 second              */
+    wait(g_ticksFor1s);             /* Wait for approximately 1 second              */
 }

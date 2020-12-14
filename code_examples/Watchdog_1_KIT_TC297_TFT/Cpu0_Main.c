@@ -28,12 +28,12 @@
  * \abstract The watchdog is serviced in order to prevent a reset.
  * \description This example is showing how to service the WDT periodically.
  * \name Watchdog_1_KIT_TC297_TFT
- * \version V1.0.0
+ * \version V1.0.1
  * \board APPLICATION KIT TC2X7 V1.1, KIT_AURIX_TC297_TFT_BC-Step, TC29xTA/TX_B-Step
  * \keywords AURIX, SCU, WDT, Watchdog_1, system control unit, timer, watchdog
- * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_Watchdog_1_KIT_TC297_TFT-TR-v01_00_00-EN.pdf
- * \documents https://www.infineon.com/aurix-expert-training/TC29B_iLLD_UM_1_0_1_11_0.chm
- * \lastUpdated 2020-02-11
+ * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_Watchdog_1_KIT_TC297_TFT-TR-v01_00_01-EN.pdf
+ * \documents https://www.infineon.com/aurix-expert-training/TC29B_iLLD_UM_1_0_1_12_0.chm
+ * \lastUpdated 2020-12-18
  *********************************************************************************************************************/
 #include "Ifx_Types.h"
 #include "IfxCpu.h"
@@ -44,6 +44,7 @@
 /*------------------------------------------------------Macros-------------------------------------------------------*/
 /*********************************************************************************************************************/
 #define REL_VAL     0xE000                                              /* Reload value for extended timeout window */
+#define WAIT_TIME   1000                                                /* Number of milliseconds to wait           */
 
 IfxCpu_syncEvent g_cpuSyncEvent = 0;
 
@@ -61,12 +62,13 @@ int core0_main(void)
     IfxCpu_emitEvent(&g_cpuSyncEvent);
     IfxCpu_waitEvent(&g_cpuSyncEvent, 1);
     
-    initTime();                                                                     /* Initialize time constants    */
+    /* Initialize a time variable */
+    Ifx_TickTime ticksFor1s = IfxStm_getTicksFromMilliseconds(BSP_DEFAULT_TIMER, WAIT_TIME);
 
     while(1)
     {
         IfxScuWdt_serviceCpuWatchdog(IfxScuWdt_getCpuWatchdogPassword());           /* Continuously service CPU0WDT */
-        wait(TimeConst_1s);                                                         /* Wait for one second          */
+        wait(ticksFor1s);                                                           /* Wait for one second          */
     }
     return (1);
 }

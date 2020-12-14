@@ -32,12 +32,12 @@
  *              through the LED connected to pin 0 of port 13. Otherwise, the LED connected to pin 1 of port 13 is
  *
  * \name DMA_Mem_to_Mem_1_KIT_TC397_TFT
- * \version V1.0.0
+ * \version V1.0.1
  * \board APPLICATION KIT TC3X7 V2.0, KIT_A2G_TC397_5V_TFT, TC39xXX_B-Step
  * \keywords AURIX, DMA, DMA_Mem_to_Mem_1, memory, transfer
- * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_DMA_Mem_to_Mem_1_KIT_TC397_TFT-TR-v01_00_00-EN.pdf
- * \documents https://www.infineon.com/aurix-expert-training/TC39B_iLLD_UM_1_0_1_11_0.chm
- * \lastUpdated 2020-06-05
+ * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_DMA_Mem_to_Mem_1_KIT_TC397_TFT-TR-v01_00_01-EN.pdf
+ * \documents https://www.infineon.com/aurix-expert-training/TC39B_iLLD_UM_1_0_1_12_1.chm
+ * \lastUpdated 2020-12-18
  *********************************************************************************************************************/
 #include "Ifx_Types.h"
 #include "IfxCpu.h"
@@ -46,7 +46,7 @@
 #include "Bsp.h"
 
 /*********************************************************************************************************************/
-/*-----------------------------------------------------Macros------------------------------------------------------*/
+/*-------------------------------------------------------Macros------------------------------------------------------*/
 /*********************************************************************************************************************/
 #define WAIT_TIME   1000U
 

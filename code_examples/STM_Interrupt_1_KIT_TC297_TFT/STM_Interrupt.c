@@ -37,7 +37,7 @@
 /*------------------------------------------------------Macros-------------------------------------------------------*/
 /*********************************************************************************************************************/
 #define ISR_PRIORITY_STM        40                              /* Priority for interrupt ISR                       */
-#define TIMER_INT_TIME          TimeConst_100ms * 5             /* Time between interrupts (500 ms)                 */
+#define TIMER_INT_TIME          500                             /* Time between interrupts in ms                    */
 
 #define LED                     &MODULE_P13,0                   /* LED toggled in Interrupt Service Routine (ISR)   */
 #define STM                     &MODULE_STM0                    /* STM0 is used in this example                     */
@@ -46,6 +46,7 @@
 /*-------------------------------------------------Global variables--------------------------------------------------*/
 /*********************************************************************************************************************/
 IfxStm_CompareConfig g_STMConf;                                 /* STM configuration structure                      */
+Ifx_TickTime g_ticksFor500ms;                                   /* Variable to store the number of ticks to wait    */
 
 /*********************************************************************************************************************/
 /*------------------------------------------------Function Prototypes------------------------------------------------*/
@@ -72,7 +73,7 @@ IFX_INTERRUPT(isrSTM, 0, ISR_PRIORITY_STM);
 void isrSTM(void)
 {
     /* Update the compare register value that will trigger the next interrupt and toggle the LED */
-    IfxStm_increaseCompare(STM, g_STMConf.comparator, TIMER_INT_TIME);
+    IfxStm_increaseCompare(STM, g_STMConf.comparator, g_ticksFor500ms);
     IfxPort_setPinState(LED, IfxPort_State_toggled);
 }
 
@@ -90,7 +91,7 @@ void initSTM(void)
 
     g_STMConf.triggerPriority = ISR_PRIORITY_STM;   /* Set the priority of the interrupt                            */
     g_STMConf.typeOfService = IfxSrc_Tos_cpu0;      /* Set the service provider for the interrupts                  */
-    g_STMConf.ticks = TIMER_INT_TIME;               /* Set the number of ticks after which the timer triggers an
+    g_STMConf.ticks = g_ticksFor500ms;               /* Set the number of ticks after which the timer triggers an
                                                      * interrupt for the first time                                 */
     IfxStm_initCompare(STM, &g_STMConf);            /* Initialize the STM with the user configuration               */
 }
@@ -98,7 +99,9 @@ void initSTM(void)
 /* Function to initialize all the peripherals and variables used */
 void initPeripherals(void)
 {
-    initTime();                                     /* Initialize time constants                                    */
+    /* Initialize time constant */
+    g_ticksFor500ms = IfxStm_getTicksFromMilliseconds(BSP_DEFAULT_TIMER, TIMER_INT_TIME);
+    
     initLED();                                      /* Initialize the port pin to which the LED is connected        */
     initSTM();                                      /* Configure the STM module                                     */
 }
