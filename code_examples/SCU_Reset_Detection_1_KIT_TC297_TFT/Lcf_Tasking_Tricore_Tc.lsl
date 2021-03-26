@@ -75,11 +75,17 @@
 #define LCF_HEAP2_OFFSET    (LCF_USTACK2_OFFSET - LCF_HEAP_SIZE)
 
 #define LCF_INTVEC0_START   0x801F4000
+#define LCF_INTVEC1_START   0x801F5000
+#define LCF_INTVEC2_START   0x801F3000
+
 #define LCF_TRAPVEC0_START  0x80000100
 #define LCF_TRAPVEC1_START  0x801F6200
 #define LCF_TRAPVEC2_START  0x801F6000
 
 #define INTTAB0             (LCF_INTVEC0_START)
+#define INTTAB1             (LCF_INTVEC1_START)
+#define INTTAB2             (LCF_INTVEC2_START)
+
 #define TRAPTAB0            (LCF_TRAPVEC0_START)
 #define TRAPTAB1            (LCF_TRAPVEC1_START)
 #define TRAPTAB2            (LCF_TRAPVEC2_START)
@@ -502,13 +508,23 @@ derivative tc29B
     {
         "_lc_u_int_tab" = (LCF_INTVEC0_START);
         "__INTTAB_CPU0" = (LCF_INTVEC0_START);
-        "__INTTAB_CPU1" = (LCF_INTVEC0_START);
-        "__INTTAB_CPU2" = (LCF_INTVEC0_START);
+        "__INTTAB_CPU1" = (LCF_INTVEC1_START);
+        "__INTTAB_CPU2" = (LCF_INTVEC2_START);
         
         // interrupt vector tables for tc0, tc1, tc2 
         group int_tab_tc0 (ordered)
         {
 #           include "inttab0.lsl"
+        }
+        
+        group int_tab_tc1 (ordered)
+        {
+#           include "inttab1.lsl"
+        }
+        
+        group int_tab_tc2 (ordered)
+        {
+#           include "inttab2.lsl"
         }
         
         group trapvec_tc0 (ordered, run_addr=LCF_TRAPVEC0_START)

@@ -33,7 +33,6 @@
 #include "IfxAsclin_Asc.h"
 #include "Ifx_Shell.h"
 #include "Ifx_Console.h"
-#include "Ifx_Assert.h"
 #include "IfxPort.h"
 
 /*********************************************************************************************************************/
@@ -234,9 +233,6 @@ void initShellInterface(void)
 
     /* Initialize the Console */
     Ifx_Console_init(&g_ascStandardInterface);
-
-    /* Initialize the Assert */
-    Ifx_Assert_setStandardIo(&g_ascStandardInterface);
 
     /* Print info to the console */
     printInfo(&g_ascStandardInterface);

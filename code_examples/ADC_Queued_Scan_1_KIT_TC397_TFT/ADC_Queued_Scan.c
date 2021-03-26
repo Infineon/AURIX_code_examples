@@ -59,7 +59,7 @@ Ifx_EVADC_G_RES g_results[CHANNELS_NUM];                        /* Array of resu
 void initEVADCModule(void);                                     /* Function to initialize the EVADC module          */
 void initEVADCGroup(void);                                      /* Function to initialize the EVADC group           */
 void initEVADCChannels(void);                                   /* Function to initialize the EVADC channels        */
-void fillQueue(void);                                           /* Function to add each channel to the queue        */
+void fillAndStartQueue(void);                             /* Function to add each channel to the queue and start it */
 
 /*********************************************************************************************************************/
 /*---------------------------------------------Function Implementations----------------------------------------------*/
@@ -70,7 +70,7 @@ void initEVADC()
     initEVADCModule();      /* Initialize the EVADC module  */
     initEVADCGroup();       /* Initialize the EVADC group   */
     initEVADCChannels();    /* Initialize the channels      */
-    fillQueue();            /* Fill the queue request       */
+    fillAndStartQueue();    /* Fill the queue and start it  */
 }
 
 /* Function to initialize the EVADC module with default parameters */
@@ -122,18 +122,18 @@ void initEVADCChannels()
         /* Initialize the channel */
         IfxEvadc_Adc_initChannel(&g_adcChannel[idx], &adcChannelConfig[idx]);
     }
-
-    /* Start the queue */
-    IfxEvadc_Adc_startQueue(&g_adcGroup, IfxEvadc_RequestSource_queue0);
 }
 
-void fillQueue()
+void fillAndStartQueue()
 {
     for(uint16 idx = 0; idx < CHANNELS_NUM; idx++)
     {
         /* Add channel to queue with refill option enabled */
         IfxEvadc_Adc_addToQueue(&g_adcChannel[idx], IfxEvadc_RequestSource_queue0, IFXEVADC_QUEUE_REFILL);
     }
+
+    /* Start the queue */
+    IfxEvadc_Adc_startQueue(&g_adcGroup, IfxEvadc_RequestSource_queue0);
 }
 
 /* Function to read the EVADC used channel */

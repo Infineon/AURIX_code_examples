@@ -43,8 +43,8 @@
 /*------------------------------------------------------Macros-------------------------------------------------------*/
 /*********************************************************************************************************************/
 #define CAN_MESSAGE_ID              (uint32)0x777           /* Message ID that will be used in arbitration phase    */
-#define PORT13_PIN0                 0                       /* LED1 used in TX ISR is connected to this pin         */
-#define PORT13_PIN1                 1                       /* LED2 used in RX ISR is connected to this pin         */
+#define PIN0                        0                       /* LED1 used in TX ISR is connected to this pin         */
+#define PIN1                        1                       /* LED2 used in RX ISR is connected to this pin         */
 #define INVALID_RX_DATA_VALUE       0xA5                    /* Used to invalidate RX message data content           */
 #define INVALID_ID_VALUE            (uint32)0xFFFFFFFF      /* Used to invalidate RX message ID value               */
 #define ISR_PRIORITY_CAN_TX         2                       /* Define the CAN TX interrupt priority                 */

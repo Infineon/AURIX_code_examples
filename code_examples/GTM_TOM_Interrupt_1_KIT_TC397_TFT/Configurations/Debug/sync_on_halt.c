@@ -17,7 +17,7 @@
 **  Copyright 1996-2019 TASKING BV                                        *
 **                                                                        *
 **************************************************************************/
-
+#if __TASKING__ == 1
 #include <stddef.h>
 
 #pragma nomisrac
@@ -404,3 +404,4 @@ extern void __protect__ _sync_on_halt(void)
         __asm("j _sync_on_halt_end");
         return;
 }
+#endif

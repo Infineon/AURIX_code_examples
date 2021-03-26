@@ -81,9 +81,10 @@ void init_ASCLIN_SPI_master(void)
     spiMasterConfig.baudrate.prescaler = PRESCALER;
     spiMasterConfig.baudrate.baudrate = BAUDRATE;
 
-    /* ISR priorities */
+    /* ISR priorities and service provider */
     spiMasterConfig.interrupt.txPriority = IFX_INTPRIO_ASCLIN1_TX;
     spiMasterConfig.interrupt.rxPriority = IFX_INTPRIO_ASCLIN1_RX;
+    spiMasterConfig.interrupt.typeOfService = IfxSrc_Tos_cpu0;
 
     /* Pin configuration */
     const IfxAsclin_Spi_Pins pins =

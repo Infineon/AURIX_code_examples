@@ -43,7 +43,7 @@
 /* When DMA is used as Service Provider, the channel's priority should be equal to the UART related IR priority */
 #define DMA_CHANNEL             INTPRIO_ASCLIN0_RX
 
-/* Start address of the LMURAM - AURIX TC29xx */
+/* Start address of the DLMU0 - AURIX TC39xx */
 #define DEST_ADDR               0x90000000
 
 /* ASCLIN UART related Macros */
@@ -119,10 +119,10 @@ void init_asclin_uart(void)
     /* Pin configuration */
     const IfxAsclin_Asc_Pins pins =
     {
-        NULL_PTR,       IfxPort_InputMode_pullUp,    /* CTS port pin not used   */
-        &UART_PIN_RX,   IfxPort_InputMode_pullUp,    /* RX port pin             */
-        NULL_PTR,       IfxPort_OutputMode_pushPull, /* RTS port pin not used   */
-        &UART_PIN_TX,   IfxPort_OutputMode_pushPull, /* TX port pin             */
+        NULL_PTR,       IfxPort_InputMode_pullUp,       /* CTS port pin not used   */
+        &UART_PIN_RX,   IfxPort_InputMode_pullUp,       /* RX port pin             */
+        NULL_PTR,       IfxPort_OutputMode_pushPull,    /* RTS port pin not used   */
+        &UART_PIN_TX,   IfxPort_OutputMode_pushPull,    /* TX port pin             */
         IfxPort_PadDriver_cmosAutomotiveSpeed1
     };
     ascConfig.pins = &pins;
@@ -198,7 +198,7 @@ void init_dma(void)
     /* Address of the UART RX FIFO */
     cfg.sourceAddress = (uint32) &g_ascHandle.asclin->RXDATA.U;
 
-    /* Address of LMURAM */
+    /* Address of DLMU0 */
     cfg.destinationAddress = DEST_ADDR;
     cfg.channelInterruptEnabled = TRUE;
 

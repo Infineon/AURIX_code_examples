@@ -46,8 +46,8 @@
 /*********************************************************************************************************************/
 /*-------------------------------------------------Global variables--------------------------------------------------*/
 /*********************************************************************************************************************/
-float32 g_generatedPwmFreqHz    = 50.0; /* Global variable for frequency of generated PWM signal                    */
-float32 g_measuredPwmFreqHz     = 0.0;  /* Global variable for frequency calculation of PWM signal                  */
+float32 g_generatedPwmFreq_Hz   = 50.0; /* Global variable for frequency of generated PWM signal                    */
+float32 g_measuredPwmFreq_Hz    = 0.0;  /* Global variable for frequency calculation of PWM signal                  */
 uint32  g_cntOverflow           = 0;    /* Global counter variable for the timer overflow between two edges         */
 uint32  g_previousCntVal        = 0;    /* Global variable which stores the timer value of the previous interrupt   */
 
@@ -78,7 +78,7 @@ void GPT12_T2_Int0_Handler(void)
     }
 
     /* Calculation of the PWM frequency by dividing the frequency of timer T3 through the final total counter value */
-    g_measuredPwmFreqHz = IfxGpt12_T3_getFrequency(&MODULE_GPT120) / finalCntVal;
+    g_measuredPwmFreq_Hz = IfxGpt12_T3_getFrequency(&MODULE_GPT120) / finalCntVal;
 
     g_previousCntVal = currentCntVal;    /* Set g_previousCntVal to currentCntVal for the next calculation */
     g_cntOverflow = 0;                   /* Reset overflow flag */
@@ -130,7 +130,7 @@ void init_GPT12_module(void)
 void generate_PWM_signal(void)
 {
     /* Calculate the total time between two rising edges for the specific frequency */
-    sint32 targetWaitTime_us = IfxStm_getTicksFromMicroseconds(BSP_DEFAULT_TIMER, (1 / g_generatedPwmFreqHz) * FACTOR_SEC_TO_USEC);
+    sint32 targetWaitTime_us = IfxStm_getTicksFromMicroseconds(BSP_DEFAULT_TIMER, (1 / g_generatedPwmFreq_Hz) * FACTOR_SEC_TO_USEC);
     /* Set the pin high to trigger an interrupt */
     IfxPort_setPinState(PWM_PIN, IfxPort_State_high);
     /* Wait for an amount of CPU ticks that represent the calculated microseconds considering the duty cycle */

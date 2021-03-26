@@ -34,12 +34,12 @@
  *              connected to the virtual COM port of the board/kit.
  *
  * \name SCU_Die_Temp_Sensor_1_KIT_TC397_TFT
- * \version V1.0.1
+ * \version V1.0.2
  * \board APPLICATION KIT TC3X7 V2.0, KIT_A2G_TC397_5V_TFT, TC39xXX_B-Step
  * \keywords AURIX, DTS, Interrupt, SCU, SCU_Die_Temp_Sensor_1, UART, VCOM, sensor, serial monitor, temperature, terminal
- * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_SCU_Die_Temp_Sensor_1_KIT_TC397_TFT-TR-v01_00_01-EN.pdf
+ * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_SCU_Die_Temp_Sensor_1_KIT_TC397_TFT-TR-v01_00_02-EN.pdf
  * \documents https://www.infineon.com/aurix-expert-training/TC39B_iLLD_UM_1_0_1_12_1.chm
- * \lastUpdated 2020-12-18
+ * \lastUpdated 2021-03-22
  *********************************************************************************************************************/
 #include "Ifx_Types.h"
 #include "IfxCpu.h"

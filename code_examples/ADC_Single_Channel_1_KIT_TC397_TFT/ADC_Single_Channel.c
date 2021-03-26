@@ -42,8 +42,8 @@
 #define LED_MID         &MODULE_P13, 1                          /* LED D108                                         */
 #define LED_LOW         &MODULE_P13, 2                          /* LED D109                                         */
 
-#define LIMIT_HIGH      0xC00                                   /* Higher limit to be compared with the measure     */
-#define LIMIT_LOW       0x300                                   /* Lower limit to be compared with the measure      */
+#define LIMIT_HIGH      0xAAA                                   /* Higher limit to be compared with the measure     */
+#define LIMIT_LOW       0x555                                   /* Lower limit to be compared with the measure      */
 
 /*********************************************************************************************************************/
 /*-------------------------------------------------Global variables--------------------------------------------------*/
@@ -61,7 +61,7 @@ Ifx_EVADC_G_RES g_result;                                       /* Variable to s
 void initEVADCModule(void);                                     /* Function to initialize the EVADC module          */
 void initEVADCGroup(void);                                      /* Function to initialize the EVADC module          */
 void initEVADCChannels(void);                                   /* Function to initialize the EVADC module          */
-void fillQueue(void);                                           /* Function to add the channel to a queue           */
+void fillAndStartQueue(void);                                /* Function to add the channel to a queue and start it */
 
 /*********************************************************************************************************************/
 /*---------------------------------------------Function Implementations----------------------------------------------*/
@@ -86,7 +86,7 @@ void initEVADC(void)
     initEVADCModule();      /* Initialize the EVADC module  */
     initEVADCGroup();       /* Initialize the EVADC group   */
     initEVADCChannels();    /* Initialize the channel       */
-    fillQueue();            /* Fill the queue request       */
+    fillAndStartQueue();    /* Fill the queue and start it  */
 }
 
 /* Function to initialize the EVADC module with default parameters */
@@ -136,16 +136,16 @@ void initEVADCChannels(void)
 
     /* Initialize the channel */
     IfxEvadc_Adc_initChannel(&g_adcChannel, &adcChannelConfig);
-
-    /* Start the queue */
-    IfxEvadc_Adc_startQueue(&g_adcGroup, IfxEvadc_RequestSource_queue0);
 }
 
 /* Function to add the channel to a queue */
-void fillQueue(void)
+void fillAndStartQueue(void)
 {
     /* Add channel to queue with refill option enabled */
     IfxEvadc_Adc_addToQueue(&g_adcChannel, IfxEvadc_RequestSource_queue0, IFXEVADC_QUEUE_REFILL);
+
+    /* Start the queue */
+    IfxEvadc_Adc_startQueue(&g_adcGroup, IfxEvadc_RequestSource_queue0);
 }
 
 /* Function to read the EVADC used channel */
@@ -166,13 +166,13 @@ void readEVADC(void)
 /* This function retrieves the conversion value and indicates it using LEDs */
 void indicateConversionValue(void)
 {
-    if(g_result.B.RESULT > LIMIT_HIGH)      /* LED D107 lights up if the conversion value is greater than 0xC00 */
+    if(g_result.B.RESULT > LIMIT_HIGH)      /* LED D107 lights up if the conversion value is greater than 0xAAA */
     {
         IfxPort_setPinLow(LED_HIGH);
         IfxPort_setPinHigh(LED_MID);
         IfxPort_setPinHigh(LED_LOW);
     }
-    else if(g_result.B.RESULT < LIMIT_LOW)  /* LED D109 lights up if the conversion value is smaller than 0x300 */
+    else if(g_result.B.RESULT < LIMIT_LOW)  /* LED D109 lights up if the conversion value is smaller than 0x555 */
     {
         IfxPort_setPinHigh(LED_HIGH);
         IfxPort_setPinHigh(LED_MID);

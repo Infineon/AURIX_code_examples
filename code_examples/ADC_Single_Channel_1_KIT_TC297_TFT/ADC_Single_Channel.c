@@ -34,12 +34,17 @@
 /*********************************************************************************************************************/
 /*------------------------------------------------------Macros-------------------------------------------------------*/
 /*********************************************************************************************************************/
-#define LED_HIGH                    &MODULE_P13, 0          /* LED D107                     */
-#define LED_MID                     &MODULE_P13, 1          /* LED D108                     */
-#define LED_LOW                     &MODULE_P13, 2          /* LED D109                     */
-#define VADC_GROUP                  IfxVadc_GroupId_0       /* Use the ADC group 0          */
-#define CHANNEL_ID                  2                       /* Use the Channel 2            */
-#define CHANNEL_RESULT_REGISTER     5                       /* Use the Result Register 5    */
+#define LED_HIGH                    &MODULE_P13, 0              /* LED D107                                         */
+#define LED_MID                     &MODULE_P13, 1              /* LED D108                                         */
+#define LED_LOW                     &MODULE_P13, 2              /* LED D109                                         */
+
+#define LIMIT_HIGH                  0xAAA                       /* Higher limit to be compared with the measure     */
+#define LIMIT_LOW                   0x555                       /* Lower limit to be compared with the measure      */
+
+#define VADC_GROUP                  IfxVadc_GroupId_0           /* Use the ADC group 0                              */
+
+#define CHANNEL_ID                  2                           /* Use the Channel 2                                */
+#define CHANNEL_RESULT_REGISTER     5                           /* Use the Result Register 5                        */
 
 /*********************************************************************************************************************/
 /*-------------------------------------------------Global variables--------------------------------------------------*/
@@ -75,19 +80,19 @@ void indicateConversionValue(void)
     }
     while (!conversionResult.B.VF);
 
-    if(conversionResult.B.RESULT > 0xC00)       /* LED D107 lights up if the conversion value is greater than 0xC00 */
+    if(conversionResult.B.RESULT > LIMIT_HIGH)      /* LED D107 lights up if the conversion value is greater than 0xAAA */
     {
         IfxPort_setPinLow(LED_HIGH);
         IfxPort_setPinHigh(LED_MID);
         IfxPort_setPinHigh(LED_LOW);
     }
-    else if(conversionResult.B.RESULT < 0x300)  /* LED D109 lights up if the conversion value is smaller than 0x300 */
+    else if(conversionResult.B.RESULT < LIMIT_LOW)  /* LED D109 lights up if the conversion value is smaller than 0x555 */
     {
         IfxPort_setPinHigh(LED_HIGH);
         IfxPort_setPinHigh(LED_MID);
         IfxPort_setPinLow(LED_LOW);
     }
-    else                                        /* LED D108 lights up if the conversion value is in between         */
+    else                                            /* LED D108 lights up if the conversion value is in between         */
     {
         IfxPort_setPinHigh(LED_HIGH);
         IfxPort_setPinLow(LED_MID);

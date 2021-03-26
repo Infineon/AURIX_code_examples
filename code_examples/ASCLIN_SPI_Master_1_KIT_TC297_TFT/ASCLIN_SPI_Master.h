@@ -25,8 +25,8 @@
  * IN THE SOFTWARE.
  *********************************************************************************************************************/
 
-#ifndef SPI_ASCLIN_MASTER_SLAVE_H_
-#define SPI_ASCLIN_MASTER_SLAVE_H_
+#ifndef ASCLIN_SPI_MASTER_H_
+#define ASCLIN_SPI_MASTER_H_
 
 /*********************************************************************************************************************/
 /*------------------------------------------------Function Prototypes------------------------------------------------*/
@@ -34,4 +34,4 @@
 void init_ASCLIN_SPI_master(void);
 void exchange_ASCLIN_SPI_message(void);
 
-#endif /* SPI_ASCLIN_MASTER_SLAVE_H_ */
+#endif /* ASCLIN_SPI_MASTER_H_ */

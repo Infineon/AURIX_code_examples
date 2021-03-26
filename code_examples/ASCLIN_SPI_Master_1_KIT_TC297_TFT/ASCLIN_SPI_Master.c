@@ -33,17 +33,17 @@
 /*********************************************************************************************************************/
 /*------------------------------------------------------Macros-------------------------------------------------------*/
 /*********************************************************************************************************************/
-#define SPI_BUFFER_SIZE         2                           /* Size of the SPI buffer in bytes    */
+#define SPI_BUFFER_SIZE             2                                           /* Size of the SPI buffer in bytes  */
 
-#define BAUDRATE                115200                      /* Define baud rate in bit/s          */
-#define PRESCALER               1                           /* Define prescaler                   */
+#define BAUDRATE                    115200                                      /* Define baud rate in bit/s        */
+#define PRESCALER                   1                                           /* Define prescaler                 */
 
-#define IFX_INTPRIO_ASCLIN1_TX  1                           /* Define TX interrupt priority       */
-#define IFX_INTPRIO_ASCLIN1_RX  2                           /* Define RX interrupt priority       */
+#define IFX_INTPRIO_ASCLIN1_TX      1                                           /* Define TX interrupt priority     */
+#define IFX_INTPRIO_ASCLIN1_RX      2                                           /* Define RX interrupt priority     */
 
-#define CLOCK_PIN               IfxAsclin1_SCLK_P20_10_OUT  /* Define Clock port pin              */
-#define MTSR_PIN                IfxAsclin1_TX_P15_4_OUT     /* Define MTSR port pin               */
-#define MRST_PIN                IfxAsclin1_RXB_P15_5_IN     /* Define MRST port pin               */
+#define CLOCK_PIN                   IfxAsclin1_SCLK_P20_10_OUT                  /* Define Clock port pin            */
+#define MTSR_PIN                    IfxAsclin1_TX_P15_4_OUT                     /* Define MTSR port pin             */
+#define MRST_PIN                    IfxAsclin1_RXB_P15_5_IN                     /* Define MRST port pin             */
 
 /*********************************************************************************************************************/
 /*-------------------------------------------------Global variables--------------------------------------------------*/
@@ -81,9 +81,10 @@ void init_ASCLIN_SPI_master(void)
     spiMasterConfig.baudrate.prescaler = PRESCALER;
     spiMasterConfig.baudrate.baudrate = BAUDRATE;
 
-    /* ISR priorities */
+    /* ISR priorities and service provider */
     spiMasterConfig.interrupt.txPriority = IFX_INTPRIO_ASCLIN1_TX;
     spiMasterConfig.interrupt.rxPriority = IFX_INTPRIO_ASCLIN1_RX;
+    spiMasterConfig.interrupt.typeOfService = IfxSrc_Tos_cpu0;
 
     /* Pin configuration */
     const IfxAsclin_Spi_Pins pins =

@@ -31,12 +31,12 @@
  *              user like "info", "toggle [x]" or "help".
  *
  * \name ASCLIN_Shell_UART_1_KIT_TC277_TFT
- * \version V1.0.1
+ * \version V1.0.2
  * \board APPLICATION KIT TC2X7 V1.1, KIT_AURIX_TC277_TFT_DC-Step, TC27xTP_D-Step
  * \keywords ASC, ASCLIN_Shell_UART_1, AURIX, UART, VCOM, serial communication, shell
- * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_ASCLIN_Shell_UART_1_KIT_TC277_TFT-TR-v01_00_01-EN.pdf
+ * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_ASCLIN_Shell_UART_1_KIT_TC277_TFT-TR-v01_00_02-EN.pdf
  * \documents https://www.infineon.com/aurix-expert-training/TC27D_iLLD_UM_1_0_1_12_0.chm
- * \lastUpdated 2020-12-18
+ * \lastUpdated 2021-03-22
  *********************************************************************************************************************/
 #include "Ifx_Types.h"
 #include "IfxCpu.h"

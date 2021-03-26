@@ -30,6 +30,7 @@
  *              the destination is the Local Memory Unit (LMURAM). At the end of the transactions, the data is
  *              verified by comparing the source and destination buffers. The success of the data transfer is signaled
  *              through the LED connected to pin 0 of port 13. Otherwise, the LED connected to pin 1 of port 13 is
+ *              used. The same cycle is repeated each second.
  *
  * \name DMA_Mem_to_Mem_1_KIT_TC397_TFT
  * \version V1.0.1

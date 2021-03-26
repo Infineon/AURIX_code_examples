@@ -32,12 +32,12 @@
  *              into run mode and the LED blinks again.
  *
  * \name SCU_Power_Down_Sleep_1_KIT_TC297_TFT
- * \version V1.0.3
+ * \version V1.0.4
  * \board APPLICATION KIT TC2X7 V1.1, KIT_AURIX_TC297_TFT_BC-Step, TC29xTA/TX_B-Step
  * \keywords AURIX, SCU, SCU_Power_Down_Sleep_1, power down, power modes, sleep
- * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_SCU_Power_Down_Sleep_1_KIT_TC297_TFT-TR-v01_00_03-EN.pdf
+ * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_SCU_Power_Down_Sleep_1_KIT_TC297_TFT-TR-v01_00_04-EN.pdf
  * \documents https://www.infineon.com/aurix-expert-training/TC29B_iLLD_UM_1_0_1_12_0.chm
- * \lastUpdated 2020-12-18
+ * \lastUpdated 2021-03-22
  *********************************************************************************************************************/
 #include "Ifx_Types.h"
 #include "IfxCpu.h"

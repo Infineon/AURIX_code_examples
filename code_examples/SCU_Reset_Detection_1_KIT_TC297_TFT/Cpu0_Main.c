@@ -26,17 +26,18 @@
  *********************************************************************************************************************/
  /*\title Detection of reset type
  * \abstract This example shows how to detect the source of the last reset (power-on reset, watchdog reset, etc.)
- * \description The AURIX TC2xx devices can be reset by various reset sources. The application software is able
- *              to determine the source of the last reset based on a routine that evaluates the related reset
- *              special function register.
+ * \description The AURIX TC2xx devices can be reset by various reset sources.
+ *              The application software is able to determine the source of the last reset based on a routine
+ *              that evaluates the related reset special function register. According to the type of reset,
+ *              one of three LEDs is switched on.
  *
  * \name SCU_Reset_Detection_1_KIT_TC297_TFT
- * \version V1.0.1
+ * \version V1.1.0
  * \board APPLICATION KIT TC2X7 V1.1, KIT_AURIX_TC297_TFT_BC-Step, TC29xTA/TX_B-Step
  * \keywords AURIX, SCU, SCU_Reset_Detection_1, reset detection, reset type
- * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_SCU_Reset_Detection_1_KIT_TC297_TFT-TR-v01_00_01-EN.pdf
+ * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_SCU_Reset_Detection_1_KIT_TC297_TFT-TR-v01_01_00-EN.pdf
  * \documents https://www.infineon.com/aurix-expert-training/TC29B_iLLD_UM_1_0_1_12_0.chm
- * \lastUpdated 2020-12-18
+ * \lastUpdated 2021-03-22
  *********************************************************************************************************************/
 #include "Ifx_Types.h"
 #include "IfxCpu.h"
@@ -48,18 +49,25 @@ IfxCpu_syncEvent g_cpuSyncEvent = 0;
 int core0_main(void)
 {
     IfxCpu_enableInterrupts();
-
+    
     /* !!WATCHDOG0 AND SAFETY WATCHDOG ARE DISABLED HERE!!
      * Enable the watchdogs and service them periodically if it is required
      */
     IfxScuWdt_disableCpuWatchdog(IfxScuWdt_getCpuWatchdogPassword());
     IfxScuWdt_disableSafetyWatchdog(IfxScuWdt_getSafetyWatchdogPassword());
-
+    
     /* Wait for CPU sync event */
     IfxCpu_emitEvent(&g_cpuSyncEvent);
     IfxCpu_waitEvent(&g_cpuSyncEvent, 1);
 
-    startScuResetDetection(); /* START SCU Reset Detection */
+    /* Initialize the LEDs */
+    initLEDs();
+
+    /* Detect the last reset type and turn on an LED accordingly */
+    detectResetSource();
+
+    /* Trigger either a SW Application Reset or a SW System Reset based on the macro RESET_SRC */
+    triggerSwReset(RESET_SRC);
 
     while(1)
     {

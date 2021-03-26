@@ -31,21 +31,51 @@
 #include "SCU_Reset_Detection.h"
 #include "IfxPort.h"
 #include "Ifx_Types.h"
+#include "IfxCpu.h"
+#include "Bsp.h"
 
 /*********************************************************************************************************************/
 /*------------------------------------------------------Macros-------------------------------------------------------*/
 /*********************************************************************************************************************/
-#define RSTCON2_CLRC_BIT   0x2
+#define LED1                &MODULE_P13,0           /* LED D107: Port 13, Pin 0                                     */
+#define LED2                &MODULE_P13,1           /* LED D108: Port 13, Pin 1                                     */
+#define LED3                &MODULE_P13,2           /* LED D109: Port 13, Pin 2                                     */
+
+#define TIME_TO_WAIT        500       /* Time to wait in ms before resetting the device (during which an LED is on) */
+
+/*********************************************************************************************************************/
+/*------------------------------------------------Function Prototypes------------------------------------------------*/
+/*********************************************************************************************************************/
+void wait_ms(uint32 ms);
+void clearColdPowerOnResetBits(void);
+scuRcuResetCode evaluateReset(void);
+void configureSwResetRequestTrigger(scuRcuResetType resetType);
 
 /*********************************************************************************************************************/
 /*---------------------------------------------Function Implementations----------------------------------------------*/
 /*********************************************************************************************************************/
+/* This function initialize the LEDs */
+void initLEDs(void)
+{
+    /* Set the port pin 13.0 (to which the LED 107 is connected) to output push-pull mode */
+    IfxPort_setPinModeOutput(LED1, IfxPort_OutputMode_pushPull, IfxPort_OutputIdx_general);
+    /* Set the port pin 13.1 (to which the LED 108 is connected) to output push-pull mode */
+    IfxPort_setPinModeOutput(LED2, IfxPort_OutputMode_pushPull, IfxPort_OutputIdx_general);
+    /* Set the port pin 13.2 (to which the LED 109 is connected) to output push-pull mode */
+    IfxPort_setPinModeOutput(LED3, IfxPort_OutputMode_pushPull, IfxPort_OutputIdx_general);
+
+    /* Turn off LEDs (LEDs are low-level active) */
+    IfxPort_setPinHigh(LED1);
+    IfxPort_setPinHigh(LED2);
+    IfxPort_setPinHigh(LED3);
+}
+
 /* Clear Cold Power-On Reset sticky bits */
 void clearColdPowerOnResetBits(void)
 {
     uint16 safetyEndinitPw = IfxScuWdt_getSafetyWatchdogPassword();
     IfxScuWdt_clearSafetyEndinit(safetyEndinitPw);
-    MODULE_SCU.RSTCON2.U = MODULE_SCU.RSTCON2.U | RSTCON2_CLRC_BIT;
+    MODULE_SCU.RSTCON2.B.CLRC = 1U;
     IfxScuWdt_setSafetyEndinit(safetyEndinitPw);
 }
 
@@ -198,45 +228,99 @@ scuRcuResetCode evaluateReset(void)
     return resetCode;
 }
 
-/* This function is developed only for testing purposes. Based on the local variable swRstType,
- * it triggers either a SW Application Reset or a SW System Reset.
- */
-void triggerSWReset(uint32 swRstType)
+/* This function gets information about the last occurred reset and turns on an LED accordingly */
+void detectResetSource(void)
 {
+    scuRcuResetCode lastReset;
+
+    /* Evaluate the last reset cause/details */
+    lastReset = evaluateReset();
+
+    /* Depending on the last reset type, turn on an LED for 500 ms */
+    switch (lastReset.resetType)
+    {
+         case IfxScuRcu_ResetType_application:
+            /* Turn on LED D107, turn off LED D108 and LED D109 */
+            IfxPort_setPinLow(LED1);
+            IfxPort_setPinHigh(LED2);
+            IfxPort_setPinHigh(LED3);
+            wait_ms(TIME_TO_WAIT);
+            break;
+
+        case IfxScuRcu_ResetType_system:
+            /* Turn on LED D108, turn off LED D107 and LED D109 */
+            IfxPort_setPinHigh(LED1);
+            IfxPort_setPinLow(LED2);
+            IfxPort_setPinHigh(LED3);
+            wait_ms(TIME_TO_WAIT);
+            break;
+
+        case IfxScuRcu_ResetType_warmpoweron:
+            /* Turn on LED D109, turn off LED D107 and LED D108 */
+            IfxPort_setPinHigh(LED1);
+            IfxPort_setPinHigh(LED2);
+            IfxPort_setPinLow(LED3);
+            wait_ms(TIME_TO_WAIT);
+            break;
+
+        default:
+            /* Turn off all LEDs */
+            IfxPort_setPinHigh(LED1);
+            IfxPort_setPinHigh(LED2);
+            IfxPort_setPinHigh(LED3);
+            wait_ms(TIME_TO_WAIT);
+    }
+
+    /* Clear Cold Power-On Reset sticky bits */
+    clearColdPowerOnResetBits();
+}
+
+void configureSwResetRequestTrigger(scuRcuResetType resetType)
+{
+    /* Get the Safety EndInit password */
     uint16 endinitSftyPw = IfxScuWdt_getSafetyWatchdogPassword();
+
+    /* Clear Safety EndInit protection to write in the RSTCON register */
     IfxScuWdt_clearSafetyEndinit(endinitSftyPw);
 
-    if(swRstType == 1)
+    if(resetType == IfxScuRcu_ResetType_application)
     {
         SCU_RSTCON.B.SW = IfxScuRcu_ResetType_application; /* Trigger SW Reset Type as application reset    */
     }
-    else if(swRstType == 2)
+    else if(resetType == IfxScuRcu_ResetType_system)
     {
         SCU_RSTCON.B.SW = IfxScuRcu_ResetType_system;      /* Trigger SW Reset Type as system reset         */
     }
-    /* The following instructions are not executed if a SW reset occurs */
-    SCU_SWRSTCON.B.SWRSTREQ = 1;
-    IfxScuWdt_clearSafetyEndinit(endinitSftyPw);
+
+    /* Set Safety EndInit protection */
+    IfxScuWdt_setSafetyEndinit(endinitSftyPw);
 }
 
-/* This function is the entry into the example and called from Cpu0_Main. */
-void startScuResetDetection(void)
+/* This function triggers either a SW Application Reset or a SW System Reset, based on the parameter resetType */
+void triggerSwReset(scuRcuResetType resetType)
 {
-    volatile scuRcuResetCode lastReset;
-    volatile uint32 swReset = 0;
+    /* Configure the request trigger in the Reset Configuration Register */
+    configureSwResetRequestTrigger(resetType);
 
-    lastReset = evaluateReset();
+    /* Get the Safety EndInit password */
+    uint16 safetyEndinitPw = IfxScuWdt_getSafetyWatchdogPassword();
 
-    clearColdPowerOnResetBits(); /* Clears Cold Power On sticky bits of RSTCON register */
+    /* Clear Safety EndInit protection to write in the SWRSTCON register */
+    IfxScuWdt_clearSafetyEndinit(safetyEndinitPw);
 
-    /* The following while loop is used to stay in the startScuResetDetection() function during debug,
-     * in order to watch the local variable lastReset.
-     */
-    while(1)
-    {
-        if(swReset > 0)
-        {
-            triggerSWReset(swReset);
-        }
-    }
+    /* Trigger a software reset based on the configuration of RSTCON register */
+    IfxCpu_triggerSwReset();
+
+    /* The following instructions are not executed if a SW reset occurs */
+    /* Set Safety EndInit protection */
+    IfxScuWdt_setSafetyEndinit(safetyEndinitPw);
+}
+
+/* Wait until a timeout (in milliseconds) */
+void wait_ms(uint32 ms)
+{
+    sint32 fSys = IfxStm_getFrequency(&MODULE_STM0);
+    Ifx_TickTime wait_ms = (fSys / (1000 / ms));
+
+    wait(wait_ms);
 }

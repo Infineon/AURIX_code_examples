@@ -73,8 +73,17 @@ typedef struct
 } scuRcuResetCode;
 
 /*********************************************************************************************************************/
+/*------------------------------------------------------Macros-------------------------------------------------------*/
+/*********************************************************************************************************************/
+#define RESET_SRC               APPLICATION_RESET                   /* Macro used to set the type of software reset */
+#define APPLICATION_RESET       IfxScuRcu_ResetType_application
+#define SYSTEM_RESET            IfxScuRcu_ResetType_system
+
+/*********************************************************************************************************************/
 /*------------------------------------------------Function Prototypes------------------------------------------------*/
 /*********************************************************************************************************************/
-void startScuResetDetection(void);
+void initLEDs(void);
+void detectResetSource(void);
+void triggerSwReset(scuRcuResetType resetType);
 
 #endif /* SCU_RESET_DETECTION_H_ */
