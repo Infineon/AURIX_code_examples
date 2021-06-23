@@ -1,0 +1,940 @@
+{
+  "metadata": {
+    "DEVICE-ID-FULL": "TC27xTP_D-Step",
+    "ILLD-SET": "full",
+    "LIBRARIES-ROOT-PATH": "Libraries",
+    "aurixPlatform": "KIT_AURIX_TC275_LITE",
+    "NEVER-EXCLUDE-FROM-BUILD": "/Libraries/iLLD/TC27D/Tricore/Cpu/CStart#/Libraries/iLLD/TC27D/Tricore/Cpu/Trap#/Configurations#/Configurations/Debug",
+    "aurixDevice": "TC27xTP_D-Step",
+    "DEVICE-ID": "TC27D",
+    "projectName": "MULTICAN_1_KIT_TC275_LK",
+    "AURIX-LIBRARY-PATH": "Libraries/iLLD#Libraries/Infra#Libraries/Service",
+    "PROJECT-VERSION": "1.0"
+  },
+  "toolchains": [
+    {
+      "id": "com.infineon.aurix.buildsystem.managed.toolChain.tasking.exe.binary",
+      "name": "AURIX Toolchain",
+      "options": [
+        {
+          "id": "com.tasking.ctc.cpu",
+          "value": "tc27xd",
+          "valueType": "string",
+          "optionValues": []
+        },
+        {
+          "id": "com.tasking.ctc.package",
+          "value": "qfp176",
+          "valueType": "string",
+          "optionValues": []
+        }
+      ],
+      "tools": [
+        {
+          "id": "com.infineon.aurix.buildsystem.managed.tool.c.compiler.tasking.debug",
+          "name": "TASKING C/C++ Compiler",
+          "options": [
+            {
+              "id": "com.infineon.aurix.buildsystem.managed.c.compiler.tasking.include",
+              "value": "",
+              "valueType": "includePath",
+              "optionValues": [
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/_PinMap\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/Infra/Platform/Tricore/Compilers\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Ccu6/Icu\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/I2c/Std\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/Infra/Platform\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Msc/Msc\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/Service/CpuGeneric/If/Ccu6If\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Qspi/Std\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Cif\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Eth/Std\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Flash\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/_Lib/DataHandling\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/Service/CpuGeneric/SysSe/Comm\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/Service/CpuGeneric/SysSe/Math\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/Infra/Platform/Tricore\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Dsadc/Dsadc\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Vadc/Std\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Sent\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Qspi\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Gtm/Tom\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Iom/Std\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Multican/Can\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Dma/Dma\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/Infra\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Gpt12\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Stm/Std\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Eray\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Gtm/Tom/Pwm\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Hssl\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Mtu\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/_Impl\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Eth/Phy_Pef7071\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/Service/CpuGeneric/SysSe\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Scu/Std\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Iom/Driver\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Stm/Timer\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/_Lib\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Sent/Std\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Gtm/Atom/Timer\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/Service/CpuGeneric/If\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Cpu\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Dsadc\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Cpu/Trap\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Asclin\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Emem/Std\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Psi5\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Hssl/Hssl\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Multican/Std\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Dts/Dts\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Eth\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Emem\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Multican\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Psi5/Psi5\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Cpu/CStart\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Gpt12/Std\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Msc\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Qspi/SpiSlave\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Asclin/Std\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Flash/Std\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Dsadc/Std\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Gtm/Tom/PwmHl\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Gtm/Tim\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Fce/Crc\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/I2c\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Vadc\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Ccu6/Timer\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/Infra/Sfr\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Cif/Cam\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Eray/Eray\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/Service/CpuGeneric/SysSe/Bsp\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/Service/CpuGeneric/SysSe/General\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Src/Std\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/Infra/Sfr/TC27D/_Reg\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Port\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Dma/Std\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Configurations\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Cpu/Std\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Qspi/SpiMaster\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Dts/Std\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Gtm/Atom\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Smu\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/Infra/Sfr/TC27D\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Asclin/Asc\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Sent/Sent\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Vadc/Adc\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Fce\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Port/Std\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Psi5s/Std\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/Service/CpuGeneric\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Psi5s/Psi5s\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Stm\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Mtu/Std\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/Service/CpuGeneric/SysSe/Time\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Gtm\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Ccu6/PwmHl\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Cpu/Irq\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Psi5/Std\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/_Lib/InternalMux\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Fce/Std\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Gtm/Atom/Pwm\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Psi5s\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Scu\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Gtm/Trig\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Ccu6/TimerWithTrigger\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/Service\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Cif/Std\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Eray/Std\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/Service/CpuGeneric/StdIf\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Asclin/Spi\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Hssl/Std\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Ccu6\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/I2c/I2c\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Iom\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Gtm/Tom/Timer\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Gtm/Atom/PwmHl\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Configurations/Debug\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Msc/Std\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/Service/CpuGeneric/_Utilities\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Dsadc/Rdc\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Dma\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Asclin/Lin\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Gpt12/IncrEnc\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Gtm/Std\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Ccu6/PwmBc\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Ccu6/TPwm\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Dts\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Smu/Std\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Gtm/Tim/In\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Src\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Ccu6/Std\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Port/Io\""
+                }
+              ]
+            },
+            {
+              "id": "com.infineon.aurix.buildsystem.managed.c.compiler.tasking.preprocessor.definedSymbols",
+              "value": "",
+              "valueType": "definedSymbols",
+              "optionValues": [
+                {
+                  "value": "__CPU__\u003dtc27xd"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "com.infineon.aurix.buildsystem.managed.tool.c.assembler.tasking",
+          "name": "TASKING Assembler",
+          "options": []
+        },
+        {
+          "id": "com.infineon.aurix.buildsystem.managed.tool.c.linker.tasking",
+          "name": "TASKING Linker",
+          "options": []
+        },
+        {
+          "id": "com.infineon.aurix.buildsystem.managed.tool.printsize.tasking",
+          "name": "Print Size",
+          "options": []
+        }
+      ]
+    },
+    {
+      "id": "com.infineon.aurix.buildsystem.managed.toolChain.tasking.exe.binary.release",
+      "name": "AURIX Toolchain",
+      "options": [
+        {
+          "id": "com.tasking.ctc.cpu",
+          "value": "tc27xd",
+          "valueType": "string",
+          "optionValues": []
+        },
+        {
+          "id": "com.tasking.ctc.package",
+          "value": "qfp176",
+          "valueType": "string",
+          "optionValues": []
+        }
+      ],
+      "tools": [
+        {
+          "id": "com.infineon.aurix.buildsystem.managed.tool.c.compiler.tasking.release",
+          "name": "TASKING C/C++ Compiler",
+          "options": [
+            {
+              "id": "com.infineon.aurix.buildsystem.managed.c.compiler.tasking.include",
+              "value": "",
+              "valueType": "includePath",
+              "optionValues": [
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/_PinMap\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/Infra/Platform/Tricore/Compilers\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Ccu6/Icu\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/I2c/Std\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/Infra/Platform\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Msc/Msc\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/Service/CpuGeneric/If/Ccu6If\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Qspi/Std\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Cif\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Eth/Std\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Flash\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/_Lib/DataHandling\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/Service/CpuGeneric/SysSe/Comm\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/Service/CpuGeneric/SysSe/Math\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/Infra/Platform/Tricore\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Dsadc/Dsadc\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Vadc/Std\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Sent\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Qspi\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Gtm/Tom\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Iom/Std\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Multican/Can\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Dma/Dma\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/Infra\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Gpt12\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Stm/Std\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Eray\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Gtm/Tom/Pwm\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Hssl\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Mtu\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/_Impl\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Eth/Phy_Pef7071\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/Service/CpuGeneric/SysSe\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Scu/Std\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Iom/Driver\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Stm/Timer\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/_Lib\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Sent/Std\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Gtm/Atom/Timer\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/Service/CpuGeneric/If\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Cpu\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Dsadc\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Cpu/Trap\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Asclin\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Emem/Std\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Psi5\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Hssl/Hssl\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Multican/Std\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Dts/Dts\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Eth\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Emem\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Multican\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Psi5/Psi5\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Cpu/CStart\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Gpt12/Std\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Msc\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Qspi/SpiSlave\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Asclin/Std\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Flash/Std\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Dsadc/Std\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Gtm/Tom/PwmHl\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Gtm/Tim\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Fce/Crc\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/I2c\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Vadc\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Ccu6/Timer\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/Infra/Sfr\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Cif/Cam\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Eray/Eray\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/Service/CpuGeneric/SysSe/Bsp\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/Service/CpuGeneric/SysSe/General\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Src/Std\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/Infra/Sfr/TC27D/_Reg\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Port\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Dma/Std\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Configurations\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Cpu/Std\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Qspi/SpiMaster\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Dts/Std\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Gtm/Atom\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Smu\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/Infra/Sfr/TC27D\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Asclin/Asc\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Sent/Sent\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Vadc/Adc\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Fce\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Port/Std\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Psi5s/Std\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/Service/CpuGeneric\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Psi5s/Psi5s\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Stm\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Mtu/Std\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/Service/CpuGeneric/SysSe/Time\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Gtm\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Ccu6/PwmHl\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Cpu/Irq\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Psi5/Std\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/_Lib/InternalMux\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Fce/Std\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Gtm/Atom/Pwm\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Psi5s\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Scu\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Gtm/Trig\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Ccu6/TimerWithTrigger\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/Service\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Cif/Std\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Eray/Std\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/Service/CpuGeneric/StdIf\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Asclin/Spi\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Hssl/Std\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Ccu6\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/I2c/I2c\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Iom\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Gtm/Tom/Timer\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Gtm/Atom/PwmHl\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Msc/Std\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/Service/CpuGeneric/_Utilities\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Dsadc/Rdc\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Dma\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Asclin/Lin\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Gpt12/IncrEnc\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Gtm/Std\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Ccu6/PwmBc\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Ccu6/TPwm\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Dts\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Smu/Std\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Gtm/Tim/In\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Src\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Ccu6/Std\""
+                },
+                {
+                  "value": "\"${ProjDirPath}/Libraries/iLLD/TC27D/Tricore/Port/Io\""
+                }
+              ]
+            },
+            {
+              "id": "com.infineon.aurix.buildsystem.managed.c.compiler.tasking.preprocessor.definedSymbols",
+              "value": "",
+              "valueType": "definedSymbols",
+              "optionValues": [
+                {
+                  "value": "__CPU__\u003dtc27xd"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "com.infineon.aurix.buildsystem.managed.tool.c.assembler.tasking",
+          "name": "TASKING Assembler",
+          "options": []
+        },
+        {
+          "id": "com.infineon.aurix.buildsystem.managed.tool.c.linker.tasking",
+          "name": "TASKING Linker",
+          "options": []
+        },
+        {
+          "id": "com.infineon.aurix.buildsystem.managed.tool.printsize.tasking",
+          "name": "Print Size",
+          "options": []
+        }
+      ]
+    }
+  ],
+  "contributions": {}
+}

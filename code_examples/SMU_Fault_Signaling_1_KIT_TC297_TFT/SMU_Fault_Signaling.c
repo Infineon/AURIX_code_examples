@@ -47,8 +47,8 @@
 /* Delay in ms before triggering the SW ALarm */
 #define DELAY_BEFORE_ALARM              500U
 
-/* Fault state time in ms before calling the FSP release command  */
-#define DELAY_BEFORE_FSP_RELEASE_CMD    1000U
+/* Fault state time in ms before calling the FSP release command */
+#define DELAY_BEFORE_FSP_RELEASE_CMD    500U
 
 /*********************************************************************************************************************/
 /*------------------------------------------------Function Prototypes------------------------------------------------*/
@@ -112,7 +112,7 @@ void run_FSP_Protocol(void)
         IfxPort_setPinState(LED1, IfxPort_State_low);
     }
 
-    /* Wait 1 second in fault state */
+    /* Wait 500 ms in fault state */
     wait_ms(DELAY_BEFORE_FSP_RELEASE_CMD);
 
     /* Enable the alarm clearing. This has to be done before clearing the status flag */

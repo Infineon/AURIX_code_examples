@@ -31,12 +31,12 @@
  *              every 500 ms; at each interrupt an LED is toggled.
  *
  * \name STM_Interrupt_1_KIT_TC375_SB
- * \version V1.0.0
+ * \version V1.0.1
  * \board hitex ShieldBuddy, KIT_A2G_TC375_ARD_SB, TC37xTP_A-Step
  * \keywords AURIX, Interrupt, LED, STM, STM_Interrupt_1, blink
- * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_STM_Interrupt_1_KIT_TC375_SB-TR-v01_00_00-EN.pdf
+ * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_STM_Interrupt_1_KIT_TC375_SB-TR-v01_00_01-EN.pdf
  * \documents https://www.infineon.com/aurix-expert-training/TC37A_iLLD_UM_1_0_1_12_1.chm
- * \lastUpdated 2020-12-18
+ * \lastUpdated 2021-06-29
  *********************************************************************************************************************/
 #include "Ifx_Types.h"
 #include "IfxCpu.h"

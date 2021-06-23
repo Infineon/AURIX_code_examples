@@ -49,7 +49,7 @@
 #define SRC_EXTENDED_MO_OFFSET      64                          /* Offset where the src extended MOs are located     */
 #define DST_EXTENDED_MO_OFFSET      128                         /* Offset where the dst extended MOs are located     */
 #define RX_INTERRUPT_SRC_ID         IfxMultican_SrcId_1         /* RX interrupt service request ID                   */
-#define PORT13_PIN0                 0                           /* LED used in RX ISR is connected to this pin       */
+#define PIN0                        0                           /* LED used in RX ISR is connected to this pin       */
 #define INVALID_TX_DATA_VALUE       (uint8)0x55                 /* Used to invalidate TX message data content        */
 #define INVALID_RX_DATA_VALUE       (uint8)0xAA                 /* Used to invalidate RX message data content        */
 #define INVALID_FAST_BITRATE_VALUE  (boolean)FALSE              /* Used to invalidate RX messages fast bit rate value*/

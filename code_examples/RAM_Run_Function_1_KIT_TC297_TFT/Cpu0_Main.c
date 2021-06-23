@@ -31,12 +31,12 @@
  *              The SRAM function is toggling LED1 (P13.0), while the flash function is toggling LED2 (P13.1).
  *
  * \name RAM_Run_Function_1_KIT_TC297_TFT
- * \version V1.0.1
+ * \version V1.0.2
  * \board APPLICATION KIT TC2X7 V1.1, KIT_AURIX_TC297_TFT_BC-Step, TC29xTA/TX_B-Step
  * \keywords AURIX, Execute, Function, RAM_Run_Function_1, SRAM
- * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_RAM_Run_Function_1_KIT_TC297_TFT-TR-v01_00_01-EN.pdf
+ * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_RAM_Run_Function_1_KIT_TC297_TFT-TR-v01_00_02-EN.pdf
  * \documents https://www.infineon.com/aurix-expert-training/TC29B_iLLD_UM_1_0_1_12_0.chm
- * \lastUpdated 2020-12-18
+ * \lastUpdated 2021-06-29
  *********************************************************************************************************************/
 #include "Ifx_Types.h"
 #include "IfxCpu.h"

@@ -15,7 +15,20 @@
     {
       "id": "com.infineon.aurix.buildsystem.managed.toolChain.tasking.exe.binary",
       "name": "AURIX Toolchain",
-      "options": [],
+      "options": [
+        {
+          "id": "com.tasking.ctc.cpu",
+          "value": "tc29xb",
+          "valueType": "string",
+          "optionValues": []
+        },
+        {
+          "id": "com.tasking.ctc.package",
+          "value": "bga292",
+          "valueType": "string",
+          "optionValues": []
+        }
+      ],
       "tools": [
         {
           "id": "com.infineon.aurix.buildsystem.managed.tool.c.compiler.tasking.debug",
@@ -492,7 +505,20 @@
     {
       "id": "com.infineon.aurix.buildsystem.managed.toolChain.tasking.exe.binary.release",
       "name": "AURIX Toolchain",
-      "options": [],
+      "options": [
+        {
+          "id": "com.tasking.ctc.cpu",
+          "value": "tc29xb",
+          "valueType": "string",
+          "optionValues": []
+        },
+        {
+          "id": "com.tasking.ctc.package",
+          "value": "bga292",
+          "valueType": "string",
+          "optionValues": []
+        }
+      ],
       "tools": [
         {
           "id": "com.infineon.aurix.buildsystem.managed.tool.c.compiler.tasking.release",
@@ -963,5 +989,6 @@
         }
       ]
     }
-  ]
+  ],
+  "contributions": {}
 }

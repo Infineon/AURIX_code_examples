@@ -162,12 +162,12 @@ void readEVADC(void)
 /* This function retrieves the conversion value and indicates it using LEDs */
 void indicateConversionValue(void)
 {
-    if(g_result.B.RESULT < LIMIT_LOW)      /* LED1 lights up if the conversion value is greater than 0xC00 */
+    if(g_result.B.RESULT < LIMIT_LOW)       /* LED1 lights up if the conversion value is smaller than 0x555 */
     {
         IfxPort_setPinLow(LED1);
         IfxPort_setPinHigh(LED2);
     }
-    else if(g_result.B.RESULT > LIMIT_HIGH)  /* LED2 lights up if the conversion value is smaller than 0x300 */
+    else if(g_result.B.RESULT > LIMIT_HIGH) /* LED2 lights up if the conversion value is greater than 0xAAA */
     {
         IfxPort_setPinHigh(LED1);
         IfxPort_setPinLow(LED2);

@@ -27,7 +27,6 @@
 #include "Ifx_Types.h"
 #include "IfxCpu.h"
 #include "IfxScuWdt.h"
-
 #include "MULTICAN_RX_FIFO.h"
 
 extern IfxCpu_syncEvent g_cpuSyncEvent;

@@ -247,12 +247,12 @@ void initLed(void)
      * ======================================================================
      */
     g_led.led1.port      = &MODULE_P13;
-    g_led.led1.pinIndex  = PORT13_PIN0;
+    g_led.led1.pinIndex  = PIN0;
     g_led.led1.mode      = IfxPort_OutputIdx_general;
     g_led.led1.padDriver = IfxPort_PadDriver_cmosAutomotiveSpeed1;
 
     g_led.led2.port      = &MODULE_P13;
-    g_led.led2.pinIndex  = PORT13_PIN1;
+    g_led.led2.pinIndex  = PIN1;
     g_led.led2.mode      = IfxPort_OutputIdx_general;
     g_led.led2.padDriver = IfxPort_PadDriver_cmosAutomotiveSpeed1;
 

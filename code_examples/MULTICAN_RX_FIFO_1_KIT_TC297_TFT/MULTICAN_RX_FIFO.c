@@ -52,7 +52,8 @@ const uint32                g_canInitialMessageData[2] = {0xDA7A0000, 0xBA5E0000
  *  - vectabNum: Vector table number.
  *  - priority: Interrupt priority. Refer Usage of Interrupt Macro for more details.
  */
-IFX_INTERRUPT(canIsrOverflowHandler, 0, ISR_PRIORITY_CAN_OVERFLOW);
+/* NOTE: the vector table number parameter (vectabNum) must match the CPU index that is servicing the ISR */
+IFX_INTERRUPT(canIsrOverflowHandler, 1, ISR_PRIORITY_CAN_OVERFLOW);
 
 /* Interrupt Service Routine (ISR) called once the RX interrupt has been generated.
  * Reads the received CAN message and, in case of no errors, increments the counter

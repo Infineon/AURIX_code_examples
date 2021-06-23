@@ -26,19 +26,20 @@
  *********************************************************************************************************************/
  /*\title Fault signaling via a port pin
  * \abstract The Fault Signaling Protocol (FSP) pin is configured by the SMU to signal a fault by changing the state of the port pin P33.8.
- * \description During initialization the FSP is set to fault free state, indicated by a high level of the port pin
- *              P33.8. The software triggers an alarm that leads to the FSP fault state, thus the port pin P33.8
- *              switches to low level state. After one second from triggering the alarm, the FSP release command
- *              is sent by software. The port pin P33.8 state switches to high level again one second after the
- *              command is sent, since the minimum fault state time is configured to two seconds.
+ * \description After initialization the FSP is set to fault free state, indicated by a high level of the
+ *              port pin P33.8. After some time, the software triggers an alarm that leads to the FSP fault state,
+ *              thus the port pin P33.8 switches to low level state.
+ *              After 500 ms from triggering the alarm, the FSP release command is sent by software.
+ *              The minimum fault state time is configured to 2 s. Therefore the port pin P33.8 state switches to
+ *              high level again after 1500 ms.
  *
  * \name SMU_Fault_Signaling_1_KIT_TC297_TFT
- * \version V1.0.1
+ * \version V1.0.2
  * \board APPLICATION KIT TC2X7 V1.1, KIT_AURIX_TC297_TFT_BC-Step, TC29xTA/TX_B-Step
  * \keywords AURIX, FSP, Fault Signaling, SMU, SMU_Fault_Signaling_1, Safety
- * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_SMU_Fault_Signaling_1_KIT_TC297_TFT-TR-v01_00_01-EN.pdf
+ * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_SMU_Fault_Signaling_1_KIT_TC297_TFT-TR-v01_00_02-EN.pdf
  * \documents https://www.infineon.com/aurix-expert-training/TC29B_iLLD_UM_1_0_1_12_0.chm
- * \lastUpdated 2020-12-18
+ * \lastUpdated 2021-06-29
  *********************************************************************************************************************/
 #include "Ifx_Types.h"
 #include "IfxCpu.h"

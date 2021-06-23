@@ -53,7 +53,7 @@
 #define DST_MESSAGE_ID              GTW_DST_MESSAGE_ID          /* Should be same value as gateway destination ID    */
 #define TX_FIFO_SIZE                2                           /* Number of slave message objects in FIFO structure */
 #define RX_INTERRUPT_SRC_ID         IfxMultican_SrcId_1         /* Receive interrupt service request ID              */
-#define PORT13_PIN0                 0                           /* LED1 used in TX ISR is connected to this pin      */
+#define PIN0                        0                           /* LED1 used in TX ISR is connected to this pin      */
 #define INVALID_DATA_VALUE          (uint32)0xDEADBEEF          /* Used to invalidate RX messages data content       */
 #define INVALID_ID_VALUE            (uint32)0xFFFFFFFF          /* Used to invalidate RX messages ID value           */
 #define INVALID_LENGTH_VALUE        (IfxMultican_DataLengthCode)0   /* Used to invalidate RX messages length value   */
