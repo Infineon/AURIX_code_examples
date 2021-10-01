@@ -30,6 +30,7 @@
 /*********************************************************************************************************************/
 #include "SMU_Fault_Signaling.h"
 #include "IfxSmu.h"
+#include "IfxSmu_bf.h"
 #include "IfxPort.h"
 #include "Bsp.h"
 
@@ -52,13 +53,19 @@
 /* Fault state time in ms before calling the FSP release command  */
 #define DELAY_BEFORE_FSP_RELEASE_CMD    1000U
 
-/* Delay in ms to wait in fault free state used to make the debugging more convenient and easier to understand */
-#define DELAY_FAULT_FREE_STATE          500U
+/* Frequency of f_BACK clock in Hertz */
+#define F_BACK_FREQ                     100e6
+
+/* Support macros for Fault Signaling Protocol (FSP) register */
+#define FSP_PRE1_MAX_VALUE              7
+#define FSP_TFSP_HIGH_MAX_VALUE         0x3FF
+#define FSP_TFSP_LOW_RESET_VALUE        0x3FFF
 
 /*********************************************************************************************************************/
 /*------------------------------------------------Function Prototypes------------------------------------------------*/
 /*********************************************************************************************************************/
 void wait_ms(uint32 ms);
+Ifx_SMU_FSP_Bits get_FSP_timing_settings(uint8 minFaultStateTime);
 
 /*********************************************************************************************************************/
 /*---------------------------------------------Function Implementations----------------------------------------------*/
@@ -73,6 +80,9 @@ void init_SMU_FSP(void)
     /* Enable the SMU configuration */
     IfxSmu_unlockConfigRegisters();
 
+    /* Get the PRE1 and the TFSP_HIGH bitfields of FSP register for the selected minimum fault state time */
+    Ifx_SMU_FSP_Bits FSPreg = get_FSP_timing_settings(MIN_FAULT_STATE_TIME);
+
     uint16 passwd = IfxScuWdt_getSafetyWatchdogPassword();
     /* disable the write-protection for registers */
     IfxScuWdt_clearSafetyEndinit(passwd);
@@ -82,6 +92,10 @@ void init_SMU_FSP(void)
 
     /* Enable the SMU to control the PAD configuration */
     SMU_PCTL.B.PCS = 1;
+
+    /* Configure the FSP prescaler PRE1 and the TFSP_HIGH bitfields to set the minimum fault state time to ~2 seconds */
+    SMU_FSP.B.PRE1 = FSPreg.PRE1;
+    SMU_FSP.B.TFSP_HIGH = FSPreg.TFSP_HIGH;
 
     /* Restore back the write-protection for registers */
     IfxScuWdt_setSafetyEndinit(passwd);
@@ -104,6 +118,34 @@ void init_SMU_FSP(void)
     /* Turn off LEDs (LEDs are low-level active) */
     IfxPort_setPinState(LED1, IfxPort_State_high);
     IfxPort_setPinState(LED2, IfxPort_State_high);
+}
+
+/* Function to calculate the PRE1 and TFSP_HIGH bitfields of the FSP register for the given minimum fault state time */
+Ifx_SMU_FSP_Bits get_FSP_timing_settings(uint8 minFaultStateTime)
+{
+    Ifx_SMU_FSP_Bits resultingFSP;              /* Result variable                                                  */
+    uint8 pre1;                                 /* Variable to hold the PRE1 bitfield value                         */
+
+    /* Test different values of PRE1 bitfield until a suitable one is found for the given minimum fault state time  */
+    for(pre1 = 0; pre1 <= FSP_PRE1_MAX_VALUE; pre1++)
+    {
+        /* Calculate the period T_FSP with the current value of PRE1 bitfield */
+        float32 tSmuFs = (1 << (pre1 + 1)) / F_BACK_FREQ;
+
+        /* Calculate the TFSP_HIGH bitfield with the current PRE1 bitfield to get the given minimum fault state time */
+        uint32 tFspHigh = (uint32)(minFaultStateTime / tSmuFs) >> IFX_SMU_FSP_TFSP_LOW_LEN;
+
+        /* If the given minimum fault state time is smaller then the calculated actual one
+         * AND the calculated bitfield TSFP_HIGH is smaller or equal than its maximum value
+         */
+        if(minFaultStateTime <= (tSmuFs * (((tFspHigh << IFX_SMU_FSP_TFSP_LOW_LEN) | FSP_TFSP_LOW_RESET_VALUE) + 1)) && tFspHigh <= FSP_TFSP_HIGH_MAX_VALUE)
+        {
+            resultingFSP.TFSP_HIGH = tFspHigh;  /* Set the calculated TFSP_HIGH bitfield in the result structure    */
+            resultingFSP.PRE1 = pre1;           /* Set the current PRE1 bitfield in the result structure            */
+            break;                              /* Exit and return the results                                      */
+        }
+    }
+    return resultingFSP;
 }
 
 /* Trigger an Alarm and execute the FSP protocol */
@@ -132,14 +174,10 @@ void run_FSP_Protocol(void)
         /* Turn on LED2 to indicate that release FSP command is sent */
         IfxPort_setPinState(LED1, IfxPort_State_high);
         IfxPort_setPinState(LED2, IfxPort_State_low);
-
     }
 
     /* Wait while FSP state is still in fault state */
     while((SMU_STS.B.FSP & 0x1) == 0x0);
-
-    /* Wait before switching the LEDs */
-    wait_ms(DELAY_FAULT_FREE_STATE);
 
     /* Turn on LED3 to indicate that release FSP is switched to fault free state */
     IfxPort_setPinState(LED1, IfxPort_State_low);

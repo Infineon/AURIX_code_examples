@@ -29,16 +29,15 @@
  * \description During initialization the FSP is set to fault free state, indicated by a high level of the port pin
  *              P33.8. The software triggers an alarm that leads to the FSP fault state, thus the port pin P33.8
  *              switches to low level state. After one second from triggering the alarm, the FSP release command
- *              is sent by software. The port pin P33.8 state switches to high level again one second after the
- *              command is sent, since the minimum fault state time is configured to two seconds.
+ *              is sent by software. The port pin P33.8 state switches to high level after the command is sent.
  *
  * \name SMU_Fault_Signaling_1_KIT_TC397_TFT
- * \version V1.0.1
+ * \version V1.0.2
  * \board APPLICATION KIT TC3X7 V2.0, KIT_A2G_TC397_5V_TFT, TC39xXX_B-Step
  * \keywords AURIX, FSP, Fault Signaling, SMU, SMU_Fault_Signaling_1, Safety
- * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_SMU_Fault_Signaling_1_KIT_TC397_TFT-TR-v01_00_01-EN.pdf
+ * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_SMU_Fault_Signaling_1_KIT_TC397_TFT-TR-v01_00_02-EN.pdf
  * \documents https://www.infineon.com/aurix-expert-training/TC39B_iLLD_UM_1_0_1_12_1.chm
- * \lastUpdated 2020-12-18
+ * \lastUpdated 2021-09-29
  *********************************************************************************************************************/
 #include "Ifx_Types.h"
 #include "IfxCpu.h"

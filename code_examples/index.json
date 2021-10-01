@@ -453,7 +453,7 @@
     {
       "title": "ADC single channel conversion",
       "name": "ADC_Single_Channel_1_KIT_TC397_TFT",
-      "description": "An analog input channel is continuously converted using the queued mode.\r\nThe input value is determined using the microcontrollerï¿½s supply voltage, ground level or letting\r\nthe analog pin open and floating. Three LEDs are used, each indicating a voltage interval.\r\nThus depending on the conversion value, a certain LED will light up.",
+      "description": "An analog input channel is continuously converted using the queued mode.\r\nThe input value is determined using the microcontroller’s supply voltage, ground level or letting\r\nthe analog pin open and floating. Three LEDs are used, each indicating a voltage interval.\r\nThus depending on the conversion value, a certain LED will light up.",
       "abstract": "The Enhanced Versatile Analog-to-Digital Converter (EVADC) is configured to measure an analog signal using queued request.",
       "folder": "ADC_Single_Channel_1_KIT_TC397_TFT",
       "version": "V1.0.2",
@@ -2238,7 +2238,7 @@
     {
       "title": "Clock configuration via CCU",
       "name": "CCU_Clock_1_KIT_TC375_LK",
-      "description": "The Clock Controlï¿½Unit (CCU)ï¿½is used to configure the PLL clock.\r\nThis clock signal is routed to an external clock output pin, which can be observed with an oscilloscope.",
+      "description": "The Clock Control Unit (CCU) is used to configure the PLL clock.\r\nThis clock signal is routed to an external clock output pin, which can be observed with an oscilloscope.",
       "abstract": "The clock system is configured based on a PLL frequency of 200 MHz and the clock signal is provided at an external port pin.",
       "folder": "CCU_Clock_1_KIT_TC375_LK",
       "version": "V1.0.0",
@@ -2267,7 +2267,7 @@
     {
       "title": "Clock configuration via CCU",
       "name": "CCU_Clock_1_KIT_TC397_TFT",
-      "description": "The Clock Controlï¿½Unit (CCU)ï¿½is used to configure the PLL clock.\r\nThis clock signal is routed to an external clock output pin, which can be observed with an oscilloscope.",
+      "description": "The Clock Control Unit (CCU) is used to configure the PLL clock.\r\nThis clock signal is routed to an external clock output pin, which can be observed with an oscilloscope.",
       "abstract": "The clock system is configured based on a PLL frequency of 200 MHz and the clock signal is provided at an external port pin.",
       "folder": "CCU_Clock_1_KIT_TC397_TFT",
       "version": "V1.0.2",
@@ -2940,7 +2940,7 @@
     {
       "title": "External interrupt generation",
       "name": "ERU_Interrupt_1_KIT_TC275_LK",
-      "description": "The code example uses the External Request Unit (ERU) to generate an interrupt for each\r\nfalling and rising edge at an input pin. The falling and rising edges are generated\r\nwith the pin P00.7 connected to the boardï¿½s button. If an interrupt occurs, an LED will be toggled.",
+      "description": "The code example uses the External Request Unit (ERU) to generate an interrupt for each\r\nfalling and rising edge at an input pin. The falling and rising edges are generated\r\nwith the pin P00.7 connected to the board’s button. If an interrupt occurs, an LED will be toggled.",
       "abstract": "The ERU is used to generate an interrupt on each rising and falling edge at an input pin.",
       "folder": "ERU_Interrupt_1_KIT_TC275_LK",
       "version": "V1.0.0",
@@ -2994,7 +2994,7 @@
     {
       "title": "External interrupt generation",
       "name": "ERU_Interrupt_1_KIT_TC375_LK",
-      "description": "The code example uses the External Request Unit (ERU) to generate an interrupt for each falling and\r\nrising edge at an input pin. The falling and rising edges are generated with the pin P00.7 connected\r\nto the boardï¿½s button. If an interrupt occurs, an LED will be toggled.",
+      "description": "The code example uses the External Request Unit (ERU) to generate an interrupt for each falling and\r\nrising edge at an input pin. The falling and rising edges are generated with the pin P00.7 connected\r\nto the board’s button. If an interrupt occurs, an LED will be toggled.",
       "abstract": "The ERU is used to generate an interrupt on each rising and falling edge at an input pin.",
       "folder": "ERU_Interrupt_1_KIT_TC375_LK",
       "version": "V1.0.0",
@@ -5086,6 +5086,64 @@
       "lastModified": "2021-06-29T00:00:00.000Z"
     },
     {
+      "title": "Comparison of signals via IOM",
+      "name": "IOM_Signals_Comparison_1_KIT_TC375_LK",
+      "description": "Two PWM signals are routed through the port pins to the Input Output Module (IOM) as monitor and\r\nreference respectively. The signals are continuously compared using exclusive OR. If the newly formed\r\nsignal (XOR) is in high state outside the acceptable propagation window, an LED is switched on.",
+      "abstract": "Two PWM signals are compared by the IOM module.",
+      "folder": "IOM_Signals_Comparison_1_KIT_TC375_LK",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC375 lite Kit",
+          "id": "KIT_A2G_TC375_LITE",
+          "device_id": "TC37xTP_A-Step"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "IOM",
+        "IOM_Signals_Comparison_1",
+        "PWM",
+        "comparison",
+        "duty cycle",
+        "signal"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_IOM_Signals_Comparison_1_KIT_TC375_LK-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/TC37A_iLLD_UM_1_0_1_12_1.chm"
+      ],
+      "lastModified": "2021-09-29T00:00:00.000Z"
+    },
+    {
+      "title": "Comparison of signals via IOM",
+      "name": "IOM_Signals_Comparison_1_KIT_TC397_TFT",
+      "description": "Two PWM signals are routed through the port pins to the Input Output Module (IOM) as monitor and\r\nreference respectively. The signals are continuously compared using exclusive OR. If the newly formed\r\nsignal (XOR) is in high state outside the acceptable propagation window, an LED is switched on.",
+      "abstract": "Two PWM signals are compared by the IOM module.",
+      "folder": "IOM_Signals_Comparison_1_KIT_TC397_TFT",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC3X7 V2.0",
+          "id": "KIT_A2G_TC397_5V_TFT",
+          "device_id": "TC39xXX_B-Step"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "IOM",
+        "IOM_Signals_Comparison_1",
+        "PWM",
+        "comparison",
+        "duty cycle",
+        "signal"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_IOM_Signals_Comparison_1_KIT_TC397_TFT-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/TC39B_iLLD_UM_1_0_1_12_1.chm"
+      ],
+      "lastModified": "2021-09-29T00:00:00.000Z"
+    },
+    {
       "title": "MCMCAN data transmission",
       "name": "MCMCAN_1_KIT_TC375_LK",
       "description": "A CAN message is sent from CAN node 0 to CAN node 1 using Loop-Back mode. After the CAN message\r\ntransmission, an interrupt is generated and an LED is turned on to confirm successful message\r\ntransmission. Once the CAN message is successfully received by the CAN node 1, an interrupt is\r\ngenerated. Inside the interrupt service routine the content of the received CAN message is compared to\r\nthe content of the transmitted CAN message. In case of a success, another LED is turned on to confirm\r\nsuccessful message reception.",
@@ -6798,7 +6856,7 @@
     {
       "title": "Detection of reset type",
       "name": "SCU_Reset_Detection_1_KIT_TC275_LK",
-      "description": "The AURIXï¿½ TC2xx devices can be reset by various reset sources.\r\nThe application software is able to determine the source of the last reset based on a routine\r\nthat evaluates the related reset special function registers. According to the type of reset,\r\none or two LEDs are switched on.",
+      "description": "The AURIX™ TC2xx devices can be reset by various reset sources.\r\nThe application software is able to determine the source of the last reset based on a routine\r\nthat evaluates the related reset special function registers. According to the type of reset,\r\none or two LEDs are switched on.",
       "abstract": "This example shows how to detect the source of the last reset (power-on reset, watchdog reset, etc.)",
       "folder": "SCU_Reset_Detection_1_KIT_TC275_LK",
       "version": "V1.0.0",
@@ -6963,7 +7021,7 @@
       "description": "The Safety Management Unit (SMU) is configured to trigger an interrupt if an internal software alarm\r\noccurs. In case of an alarm, an LED is turned on inside the Interrupt Service Routine and the port\r\nemergency stop is activated.",
       "abstract": "The SMU triggers an alarm, which has, as preconfigured reaction, an interrupt and a port emergency stop. The interrupt turns on an LED.",
       "folder": "SMU_Emergency_Stop_Alarm_1_KIT_TC375_LK",
-      "version": "V1.0.0",
+      "version": "V1.0.1",
       "platforms": [
         {
           "name": "AURIX TC375 lite Kit",
@@ -6979,10 +7037,10 @@
         "emergency stop"
       ],
       "documents": [
-        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_SMU_Emergency_Stop_Alarm_1_KIT_TC375_LK-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_SMU_Emergency_Stop_Alarm_1_KIT_TC375_LK-TR-v01_00_01-EN.pdf",
         "https://www.infineon.com/aurix-expert-training/TC37A_iLLD_UM_1_0_1_12_1.chm"
       ],
-      "lastModified": "2021-03-22T00:00:00.000Z"
+      "lastModified": "2021-09-29T00:00:00.000Z"
     },
     {
       "title": "Emergency stop triggered by an SMU alarm",
@@ -6990,7 +7048,7 @@
       "description": "The Safety Management Unit (SMU) is configured to trigger an interrupt if an internal software alarm\r\noccurs. In case of an alarm, an LED is turned on inside the Interrupt Service Routine and the port\r\nemergency stop is activated.",
       "abstract": "The SMU triggers an alarm, which has, as preconfigured reaction, an interrupt and a port emergency stop. The interrupt turns on an LED.",
       "folder": "SMU_Emergency_Stop_Alarm_1_KIT_TC397_TFT",
-      "version": "V1.0.2",
+      "version": "V1.0.3",
       "platforms": [
         {
           "name": "APPLICATION KIT TC3X7 V2.0",
@@ -7006,10 +7064,10 @@
         "emergency stop"
       ],
       "documents": [
-        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_SMU_Emergency_Stop_Alarm_1_KIT_TC397_TFT-TR-v01_00_02-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_SMU_Emergency_Stop_Alarm_1_KIT_TC397_TFT-TR-v01_00_03-EN.pdf",
         "https://www.infineon.com/aurix-expert-training/TC39B_iLLD_UM_1_0_1_12_1.chm"
       ],
-      "lastModified": "2021-03-22T00:00:00.000Z"
+      "lastModified": "2021-09-29T00:00:00.000Z"
     },
     {
       "title": "Fault signaling via a port pin",
@@ -7070,10 +7128,10 @@
     {
       "title": "Fault signaling via a port pin",
       "name": "SMU_Fault_Signaling_1_KIT_TC375_LK",
-      "description": "During initialization the FSP is set to fault free state, indicated by a high level of the port pin\r\nP33.8. The software triggers an alarm that leads to the FSP fault state, thus the port pin P33.8\r\nswitches to low level state. After one second from triggering the alarm, the FSP release command\r\nis sent by software. The port pin P33.8 state switches to high level again one second after the\r\ncommand is sent, since the minimum fault state time is configured to two seconds.",
+      "description": "During initialization the FSP is set to fault free state, indicated by a high level of the port pin\r\nP33.8. The software triggers an alarm that leads to the FSP fault state, thus the port pin P33.8\r\nswitches to low level state. After one second from triggering the alarm, the FSP release command\r\nis sent by software. The port pin P33.8 state switches to high level after the command is sent.",
       "abstract": "The Fault Signaling Protocol (FSP) pin is configured by the SMU to signal a fault by changing the state of the port pin P33.8.",
       "folder": "SMU_Fault_Signaling_1_KIT_TC375_LK",
-      "version": "V1.0.0",
+      "version": "V1.0.1",
       "platforms": [
         {
           "name": "AURIX TC375 lite Kit",
@@ -7090,18 +7148,18 @@
         "Safety"
       ],
       "documents": [
-        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_SMU_Fault_Signaling_1_KIT_TC375_LK-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_SMU_Fault_Signaling_1_KIT_TC375_LK-TR-v01_00_01-EN.pdf",
         "https://www.infineon.com/aurix-expert-training/TC37A_iLLD_UM_1_0_1_12_1.chm"
       ],
-      "lastModified": "2021-03-22T00:00:00.000Z"
+      "lastModified": "2021-09-29T00:00:00.000Z"
     },
     {
       "title": "Fault signaling via a port pin",
       "name": "SMU_Fault_Signaling_1_KIT_TC397_TFT",
-      "description": "During initialization the FSP is set to fault free state, indicated by a high level of the port pin\r\nP33.8. The software triggers an alarm that leads to the FSP fault state, thus the port pin P33.8\r\nswitches to low level state. After one second from triggering the alarm, the FSP release command\r\nis sent by software. The port pin P33.8 state switches to high level again one second after the\r\ncommand is sent, since the minimum fault state time is configured to two seconds.",
+      "description": "During initialization the FSP is set to fault free state, indicated by a high level of the port pin\r\nP33.8. The software triggers an alarm that leads to the FSP fault state, thus the port pin P33.8\r\nswitches to low level state. After one second from triggering the alarm, the FSP release command\r\nis sent by software. The port pin P33.8 state switches to high level after the command is sent.",
       "abstract": "The Fault Signaling Protocol (FSP) pin is configured by the SMU to signal a fault by changing the state of the port pin P33.8.",
       "folder": "SMU_Fault_Signaling_1_KIT_TC397_TFT",
-      "version": "V1.0.1",
+      "version": "V1.0.2",
       "platforms": [
         {
           "name": "APPLICATION KIT TC3X7 V2.0",
@@ -7118,10 +7176,10 @@
         "Safety"
       ],
       "documents": [
-        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_SMU_Fault_Signaling_1_KIT_TC397_TFT-TR-v01_00_01-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_SMU_Fault_Signaling_1_KIT_TC397_TFT-TR-v01_00_02-EN.pdf",
         "https://www.infineon.com/aurix-expert-training/TC39B_iLLD_UM_1_0_1_12_1.chm"
       ],
-      "lastModified": "2020-12-18T00:00:00.000Z"
+      "lastModified": "2021-09-29T00:00:00.000Z"
     },
     {
       "title": "Interrupt triggered by an SMU alarm",
@@ -7183,7 +7241,7 @@
       "description": "The Safety Management Unit (SMU) is configured to trigger an interrupt if an internal software alarm\r\noccurs. In case of an alarm, an LED will be turned on inside the Interrupt Service Routine.",
       "abstract": "The SMU triggers an alarm, which has, as preconfigured reaction, an interrupt. The interrupt turns on an LED.",
       "folder": "SMU_IR_Alarm_1_KIT_TC375_LK",
-      "version": "V1.0.0",
+      "version": "V1.0.1",
       "platforms": [
         {
           "name": "AURIX TC375 lite Kit",
@@ -7199,10 +7257,10 @@
         "interrupt"
       ],
       "documents": [
-        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_SMU_IR_Alarm_1_KIT_TC375_LK-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_SMU_IR_Alarm_1_KIT_TC375_LK-TR-v01_00_01-EN.pdf",
         "https://www.infineon.com/aurix-expert-training/TC37A_iLLD_UM_1_0_1_12_1.chm"
       ],
-      "lastModified": "2021-03-22T00:00:00.000Z"
+      "lastModified": "2021-09-29T00:00:00.000Z"
     },
     {
       "title": "Interrupt triggered by an SMU alarm",
@@ -7210,7 +7268,7 @@
       "description": "The Safety Management Unit (SMU) is configured to trigger an interrupt if an internal software alarm\r\noccurs. In case of an alarm, an LED will be turned on inside the Interrupt Service Routine.",
       "abstract": "The SMU triggers an alarm, which has, as preconfigured reaction, an interrupt. The interrupt turns on an LED.",
       "folder": "SMU_IR_Alarm_1_KIT_TC397_TFT",
-      "version": "V1.0.2",
+      "version": "V1.0.3",
       "platforms": [
         {
           "name": "APPLICATION KIT TC3X7 V2.0",
@@ -7226,10 +7284,10 @@
         "interrupt"
       ],
       "documents": [
-        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_SMU_IR_Alarm_1_KIT_TC397_TFT-TR-v01_00_02-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_SMU_IR_Alarm_1_KIT_TC397_TFT-TR-v01_00_03-EN.pdf",
         "https://www.infineon.com/aurix-expert-training/TC39B_iLLD_UM_1_0_1_12_1.chm"
       ],
-      "lastModified": "2021-03-22T00:00:00.000Z"
+      "lastModified": "2021-09-29T00:00:00.000Z"
     },
     {
       "title": "Reset triggered by an SMU alarm",

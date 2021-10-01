@@ -5,6 +5,7 @@
     "LIBRARIES-ROOT-PATH": "Libraries",
     "aurixPlatform": "KIT_A2G_TC397_5V_TFT",
     "NEVER-EXCLUDE-FROM-BUILD": "/Libraries/iLLD/TC39B/Tricore/Cpu/CStart#/Libraries/iLLD/TC39B/Tricore/Cpu/Trap#/Configurations#/Configurations/Debug",
+    "projectType": "com.infineon.aurix.buildsystem.managed.projectType",
     "aurixDevice": "TC39xXX_B-Step",
     "DEVICE-ID": "TC39B",
     "projectName": "SMU_Fault_Signaling_1_KIT_TC397_TFT",
@@ -19,6 +20,12 @@
         {
           "id": "com.tasking.ctc.cpu",
           "value": "tc39xb",
+          "valueType": "string",
+          "optionValues": []
+        },
+        {
+          "id": "com.tasking.ctc.package",
+          "value": "lfbga292",
           "valueType": "string",
           "optionValues": []
         }
@@ -550,6 +557,12 @@
           "value": "tc39xb",
           "valueType": "string",
           "optionValues": []
+        },
+        {
+          "id": "com.tasking.ctc.package",
+          "value": "lfbga292",
+          "valueType": "string",
+          "optionValues": []
         }
       ],
       "tools": [
@@ -1067,5 +1080,6 @@
         }
       ]
     }
-  ]
+  ],
+  "contributions": {}
 }

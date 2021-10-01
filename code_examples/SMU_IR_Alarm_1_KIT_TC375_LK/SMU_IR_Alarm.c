@@ -50,6 +50,7 @@ IFX_INTERRUPT(ISR_SMU_Alarm, 0, ISR_PRIORITY_SMU_INT0);
 void ISR_SMU_Alarm(void)
 {
     IfxSmu_clearAlarmStatus(IfxSmu_Alarm_Software_Alarm0);              /* Clear alarm status flag                  */
+    IfxSmu_clearAlarmExecutedStatus(IfxSmu_AlarmExecutionStatus_irq0);  /* Clear Alarm Execution Status register bit*/
 
     IfxPort_setPinState(LED, IfxPort_State_low);                        /* Turn on LED (LED is low-level active)    */
 }

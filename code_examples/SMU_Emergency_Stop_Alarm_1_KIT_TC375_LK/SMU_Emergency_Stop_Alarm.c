@@ -50,8 +50,10 @@ IFX_INTERRUPT(ISR_SMU, 0, ISR_PRIORITY_SMU_INT0);
 /* Interrupt Service Routine of SMU, gets triggered when SMU Software Alarm 0 is triggered */
 void ISR_SMU(void)
 {
-    IfxSmu_clearAlarmStatus(IfxSmu_Alarm_Software_Alarm0);          /* Clear alarm status flag                      */
-    IfxPort_setPinState(LED, IfxPort_State_low);                    /* Turn on LED (LED is low-level active)        */
+    IfxSmu_clearAlarmStatus(IfxSmu_Alarm_Software_Alarm0);              /* Clear alarm status flag                  */
+    IfxSmu_clearAlarmExecutedStatus(IfxSmu_AlarmExecutionStatus_irq0);  /* Clear Alarm Execution Status register bit*/
+
+    IfxPort_setPinState(LED, IfxPort_State_low);                        /* Turn on LED (LED is low-level active)    */
 }
 
 /* This function configures the SMU module to trigger an interrupt if a software alarm occurs */
