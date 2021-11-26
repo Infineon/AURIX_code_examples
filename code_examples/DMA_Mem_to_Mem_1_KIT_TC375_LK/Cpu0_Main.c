@@ -27,18 +27,18 @@
  /*\title DMA transfer between memories
  * \abstract The DMA is used to transfer ten words (32-bit) of data from one memory location to another without any CPU load.
  * \description The transfer of data is triggered by SW. The source is the Data Scratch Pad SRAM of CPU0 (DSPR0) and
- *              the destination is the Local Memory Unit (LMURAM). At the end of the transactions, the data is
- *              verified by comparing the source and destination buffers. The success of the data transfer is signaled
- *              through the LED connected to pin 6 of port 00. Otherwise, the LED connected to pin 5 of port 00 is used.
- *              The same cycle is repeated each second.
+ *              the destination is the Distributed Local Memory Unit (DLMU RAM). At the end of the transactions,
+ *              the data is verified by comparing the source and destination buffers. The success of the data transfer
+ *              is signaled through the LED connected to pin 6 of port 00. Otherwise, the LED connected to pin 5 of
+ *              port 00 is used. The same cycle is repeated each second.
  *
  * \name DMA_Mem_to_Mem_1_KIT_TC375_LK
- * \version V1.0.0
+ * \version V1.0.1
  * \board AURIX TC375 lite Kit, KIT_A2G_TC375_LITE, TC37xTP_A-Step
  * \keywords AURIX, DMA, DMA_Mem_to_Mem_1, memory, transfer
- * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_DMA_Mem_to_Mem_1_KIT_TC375_LK-TR-v01_00_00-EN.pdf
+ * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_DMA_Mem_to_Mem_1_KIT_TC375_LK-TR-v01_00_01-EN.pdf
  * \documents https://www.infineon.com/aurix-expert-training/TC37A_iLLD_UM_1_0_1_12_1.chm
- * \lastUpdated 2021-03-22
+ * \lastUpdated 2021-12-16
  *********************************************************************************************************************/
 #include "Ifx_Types.h"
 #include "IfxCpu.h"

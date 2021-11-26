@@ -36,7 +36,7 @@
  * \board AURIX TC375 lite Kit, KIT_A2G_TC375_LITE, TC37xTP_A-Step
  * \keywords AURIX, SCU, SCU_Reset_Detection_1, reset detection, reset type
  * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_SCU_Reset_Detection_1_KIT_TC375_LK-TR-v01_00_00-EN.pdf
- * \documents https://www.infineon.com/aurix-expert-training/TC39B_iLLD_UM_1_0_1_12_1.chm
+ * \documents https://www.infineon.com/aurix-expert-training/TC37A_iLLD_UM_1_0_1_12_1.chm
  * \lastUpdated 2021-03-22
  *********************************************************************************************************************/
 #include "Ifx_Types.h"

@@ -1,0 +1,4145 @@
+{
+  "metadata": {
+    "DEVICE-ID-FULL": "TC39xXX_B-Step",
+    "ILLD-SET": "full",
+    "LIBRARIES-ROOT-PATH": "Libraries",
+    "aurixPlatform": "KIT_A2G_TC397_5V_TFT",
+    "NEVER-EXCLUDE-FROM-BUILD": "/Libraries/iLLD/TC39B/Tricore/Cpu/CStart#/Libraries/iLLD/TC39B/Tricore/Cpu/Trap#/Configurations#/Configurations/Debug",
+    "projectType": "com.infineon.aurix.buildsystem.managed.projectType",
+    "aurixDevice": "TC39xXX_B-Step",
+    "DEVICE-ID": "TC39B",
+    "projectName": "SPI_TLF_1_KIT_TC397_TFT",
+    "IncludesAutodiscovery": "true",
+    "AURIX-LIBRARY-PATH": "Libraries/iLLD#Libraries/Infra#Libraries/Service",
+    "PROJECT-VERSION": "1.0"
+  },
+  "toolchains": [
+    {
+      "id": "com.infineon.aurix.buildsystem.managed.toolChain.tasking.exe.binary",
+      "name": "AURIX Toolchain",
+      "options": [
+        {
+          "id": "com.tasking.ctc.cpu",
+          "value": "tc39xb",
+          "valueType": "string",
+          "optionValues": []
+        },
+        {
+          "id": "com.tasking.ctc.package",
+          "value": "lfbga292",
+          "valueType": "string",
+          "optionValues": []
+        }
+      ],
+      "tools": [
+        {
+          "id": "com.infineon.aurix.buildsystem.managed.tool.c.compiler.tasking.debug",
+          "name": "TASKING C/C++ Compiler",
+          "options": [
+            {
+              "id": "com.infineon.aurix.buildsystem.managed.c.compiler.tasking.include",
+              "value": "",
+              "valueType": "includePath",
+              "optionValues": [
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Configurations}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Configurations/Debug}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Platform}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Platform/Tricore}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Platform/Tricore/Compilers}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Sfr}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Sfr/TC39B}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Sfr/TC39B/_Reg}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Ssw}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Ssw/TC39B}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Ssw/TC39B/Tricore}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/If}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/If/Ccu6If}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/StdIf}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/SysSe}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/SysSe/Bsp}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/SysSe/Comm}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/SysSe/General}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/SysSe/Math}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/SysSe/Time}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/_Utilities}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Asclin}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Asclin/Asc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Asclin/Lin}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Asclin/Spi}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Asclin/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Can}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Can/Can}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Can/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ccu6}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ccu6/Icu}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ccu6/PwmBc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ccu6/PwmHl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ccu6/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ccu6/TPwm}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ccu6/Timer}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ccu6/TimerWithTrigger}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Convctrl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Convctrl/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Cpu}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Cpu/Irq}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Cpu/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Cpu/Trap}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Dma}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Dma/Dma}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Dma/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Dts}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Dts/Dts}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Dts/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ebu}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ebu/BFlashSpansion}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ebu/BFlashSt}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ebu/Dram}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ebu/Sram}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ebu/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Edsadc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Edsadc/Edsadc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Edsadc/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Emem}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Emem/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Eray}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Eray/Eray}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Eray/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Evadc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Evadc/Adc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Evadc/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Fce}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Fce/Crc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Fce/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Flash}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Flash/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Geth}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Geth/Eth}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Geth/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gpt12}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gpt12/IncrEnc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gpt12/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Atom}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Atom/Dtm_PwmHl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Atom/Pwm}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Atom/PwmHl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Atom/Timer}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Tim}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Tim/In}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Tim/Timer}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Tom}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Tom/Dtm_PwmHl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Tom/Pwm}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Tom/PwmHl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Tom/Timer}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Trig}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Hspdm}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Hspdm/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Hssl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Hssl/Hssl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Hssl/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/I2c}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/I2c/I2c}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/I2c/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Iom}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Iom/Driver}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Iom/Iom}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Iom/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Msc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Msc/Msc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Msc/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Mtu}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Mtu/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Pms}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Pms/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Port}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Port/Io}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Port/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Psi5}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Psi5/Psi5}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Psi5/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Psi5s}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Psi5s/Psi5s}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Psi5s/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Qspi}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Qspi/SpiMaster}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Qspi/SpiSlave}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Qspi/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Rif}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Rif/Rif}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Rif/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Scu}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Scu/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Sdmmc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Sdmmc/Emmc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Sdmmc/Sd}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Sdmmc/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Sent}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Sent/Sent}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Sent/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Smu}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Smu/Smu}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Smu/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Spu}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Spu/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Src}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Src/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Stm}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Stm/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Stm/Timer}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/_Impl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/_Lib}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/_Lib/DataHandling}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/_Lib/InternalMux}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/_PinMap}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Configurations}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Configurations/Debug}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Platform}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Platform/Tricore}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Platform/Tricore/Compilers}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Sfr}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Sfr/TC39B}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Sfr/TC39B/_Reg}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Ssw}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Ssw/TC39B}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Ssw/TC39B/Tricore}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/If}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/If/Ccu6If}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/StdIf}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/SysSe}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/SysSe/Bsp}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/SysSe/Comm}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/SysSe/General}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/SysSe/Math}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/SysSe/Time}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/_Utilities}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Asclin}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Asclin/Asc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Asclin/Lin}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Asclin/Spi}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Asclin/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Can}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Can/Can}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Can/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ccu6}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ccu6/Icu}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ccu6/PwmBc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ccu6/PwmHl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ccu6/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ccu6/TPwm}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ccu6/Timer}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ccu6/TimerWithTrigger}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Convctrl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Convctrl/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Cpu}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Cpu/Irq}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Cpu/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Cpu/Trap}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Dma}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Dma/Dma}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Dma/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Dts}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Dts/Dts}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Dts/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ebu}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ebu/BFlashSpansion}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ebu/BFlashSt}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ebu/Dram}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ebu/Sram}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ebu/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Edsadc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Edsadc/Edsadc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Edsadc/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Emem}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Emem/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Eray}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Eray/Eray}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Eray/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Evadc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Evadc/Adc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Evadc/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Fce}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Fce/Crc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Fce/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Flash}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Flash/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Geth}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Geth/Eth}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Geth/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gpt12}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gpt12/IncrEnc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gpt12/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Atom}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Atom/Dtm_PwmHl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Atom/Pwm}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Atom/PwmHl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Atom/Timer}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Tim}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Tim/In}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Tim/Timer}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Tom}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Tom/Dtm_PwmHl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Tom/Pwm}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Tom/PwmHl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Tom/Timer}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Trig}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Hspdm}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Hspdm/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Hssl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Hssl/Hssl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Hssl/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/I2c}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/I2c/I2c}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/I2c/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Iom}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Iom/Driver}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Iom/Iom}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Iom/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Msc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Msc/Msc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Msc/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Mtu}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Mtu/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Pms}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Pms/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Port}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Port/Io}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Port/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Psi5}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Psi5/Psi5}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Psi5/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Psi5s}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Psi5s/Psi5s}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Psi5s/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Qspi}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Qspi/SpiMaster}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Qspi/SpiSlave}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Qspi/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Rif}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Rif/Rif}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Rif/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Scu}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Scu/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Sdmmc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Sdmmc/Emmc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Sdmmc/Sd}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Sdmmc/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Sent}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Sent/Sent}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Sent/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Smu}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Smu/Smu}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Smu/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Spu}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Spu/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Src}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Src/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Stm}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Stm/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Stm/Timer}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/_Impl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/_Lib}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/_Lib/DataHandling}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/_Lib/InternalMux}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/_PinMap}\""
+                }
+              ]
+            },
+            {
+              "id": "com.infineon.aurix.buildsystem.managed.c.compiler.tasking.preprocessor.definedSymbols",
+              "value": "",
+              "valueType": "definedSymbols",
+              "optionValues": [
+                {
+                  "value": "__CPU__\u003dtc39xb"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "com.infineon.aurix.buildsystem.managed.tool.c.assembler.tasking",
+          "name": "TASKING Assembler",
+          "options": []
+        },
+        {
+          "id": "com.infineon.aurix.buildsystem.managed.tool.c.linker.tasking",
+          "name": "TASKING Linker",
+          "options": []
+        },
+        {
+          "id": "com.infineon.aurix.buildsystem.managed.tool.printsize.tasking",
+          "name": "Print Size",
+          "options": []
+        }
+      ]
+    },
+    {
+      "id": "com.infineon.aurix.buildsystem.managed.toolChain.tasking.exe.binary.release",
+      "name": "AURIX Toolchain",
+      "options": [
+        {
+          "id": "com.tasking.ctc.cpu",
+          "value": "tc39xb",
+          "valueType": "string",
+          "optionValues": []
+        },
+        {
+          "id": "com.tasking.ctc.package",
+          "value": "lfbga292",
+          "valueType": "string",
+          "optionValues": []
+        }
+      ],
+      "tools": [
+        {
+          "id": "com.infineon.aurix.buildsystem.managed.tool.c.compiler.tasking.release",
+          "name": "TASKING C/C++ Compiler",
+          "options": [
+            {
+              "id": "com.infineon.aurix.buildsystem.managed.c.compiler.tasking.include",
+              "value": "",
+              "valueType": "includePath",
+              "optionValues": [
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Configurations}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Platform}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Platform/Tricore}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Platform/Tricore/Compilers}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Sfr}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Sfr/TC39B}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Sfr/TC39B/_Reg}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Ssw}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Ssw/TC39B}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Ssw/TC39B/Tricore}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/If}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/If/Ccu6If}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/StdIf}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/SysSe}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/SysSe/Bsp}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/SysSe/Comm}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/SysSe/General}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/SysSe/Math}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/SysSe/Time}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/_Utilities}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Asclin}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Asclin/Asc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Asclin/Lin}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Asclin/Spi}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Asclin/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Can}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Can/Can}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Can/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ccu6}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ccu6/Icu}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ccu6/PwmBc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ccu6/PwmHl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ccu6/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ccu6/TPwm}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ccu6/Timer}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ccu6/TimerWithTrigger}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Convctrl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Convctrl/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Cpu}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Cpu/Irq}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Cpu/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Cpu/Trap}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Dma}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Dma/Dma}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Dma/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Dts}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Dts/Dts}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Dts/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ebu}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ebu/BFlashSpansion}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ebu/BFlashSt}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ebu/Dram}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ebu/Sram}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ebu/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Edsadc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Edsadc/Edsadc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Edsadc/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Emem}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Emem/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Eray}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Eray/Eray}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Eray/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Evadc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Evadc/Adc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Evadc/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Fce}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Fce/Crc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Fce/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Flash}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Flash/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Geth}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Geth/Eth}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Geth/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gpt12}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gpt12/IncrEnc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gpt12/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Atom}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Atom/Dtm_PwmHl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Atom/Pwm}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Atom/PwmHl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Atom/Timer}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Tim}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Tim/In}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Tim/Timer}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Tom}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Tom/Dtm_PwmHl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Tom/Pwm}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Tom/PwmHl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Tom/Timer}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Trig}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Hspdm}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Hspdm/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Hssl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Hssl/Hssl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Hssl/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/I2c}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/I2c/I2c}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/I2c/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Iom}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Iom/Driver}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Iom/Iom}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Iom/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Msc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Msc/Msc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Msc/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Mtu}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Mtu/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Pms}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Pms/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Port}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Port/Io}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Port/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Psi5}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Psi5/Psi5}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Psi5/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Psi5s}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Psi5s/Psi5s}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Psi5s/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Qspi}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Qspi/SpiMaster}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Qspi/SpiSlave}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Qspi/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Rif}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Rif/Rif}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Rif/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Scu}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Scu/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Sdmmc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Sdmmc/Emmc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Sdmmc/Sd}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Sdmmc/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Sent}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Sent/Sent}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Sent/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Smu}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Smu/Smu}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Smu/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Spu}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Spu/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Src}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Src/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Stm}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Stm/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Stm/Timer}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/_Impl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/_Lib}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/_Lib/DataHandling}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/_Lib/InternalMux}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/_PinMap}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Configurations}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Platform}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Platform/Tricore}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Platform/Tricore/Compilers}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Sfr}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Sfr/TC39B}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Sfr/TC39B/_Reg}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Ssw}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Ssw/TC39B}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Ssw/TC39B/Tricore}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/If}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/If/Ccu6If}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/StdIf}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/SysSe}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/SysSe/Bsp}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/SysSe/Comm}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/SysSe/General}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/SysSe/Math}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/SysSe/Time}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/_Utilities}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Asclin}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Asclin/Asc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Asclin/Lin}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Asclin/Spi}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Asclin/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Can}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Can/Can}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Can/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ccu6}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ccu6/Icu}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ccu6/PwmBc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ccu6/PwmHl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ccu6/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ccu6/TPwm}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ccu6/Timer}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ccu6/TimerWithTrigger}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Convctrl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Convctrl/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Cpu}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Cpu/Irq}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Cpu/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Cpu/Trap}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Dma}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Dma/Dma}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Dma/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Dts}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Dts/Dts}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Dts/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ebu}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ebu/BFlashSpansion}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ebu/BFlashSt}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ebu/Dram}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ebu/Sram}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ebu/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Edsadc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Edsadc/Edsadc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Edsadc/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Emem}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Emem/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Eray}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Eray/Eray}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Eray/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Evadc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Evadc/Adc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Evadc/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Fce}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Fce/Crc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Fce/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Flash}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Flash/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Geth}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Geth/Eth}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Geth/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gpt12}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gpt12/IncrEnc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gpt12/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Atom}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Atom/Dtm_PwmHl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Atom/Pwm}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Atom/PwmHl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Atom/Timer}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Tim}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Tim/In}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Tim/Timer}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Tom}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Tom/Dtm_PwmHl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Tom/Pwm}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Tom/PwmHl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Tom/Timer}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Trig}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Hspdm}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Hspdm/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Hssl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Hssl/Hssl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Hssl/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/I2c}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/I2c/I2c}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/I2c/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Iom}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Iom/Driver}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Iom/Iom}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Iom/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Msc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Msc/Msc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Msc/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Mtu}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Mtu/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Pms}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Pms/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Port}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Port/Io}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Port/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Psi5}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Psi5/Psi5}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Psi5/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Psi5s}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Psi5s/Psi5s}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Psi5s/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Qspi}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Qspi/SpiMaster}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Qspi/SpiSlave}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Qspi/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Rif}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Rif/Rif}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Rif/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Scu}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Scu/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Sdmmc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Sdmmc/Emmc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Sdmmc/Sd}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Sdmmc/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Sent}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Sent/Sent}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Sent/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Smu}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Smu/Smu}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Smu/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Spu}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Spu/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Src}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Src/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Stm}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Stm/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Stm/Timer}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/_Impl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/_Lib}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/_Lib/DataHandling}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/_Lib/InternalMux}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/_PinMap}\""
+                }
+              ]
+            },
+            {
+              "id": "com.infineon.aurix.buildsystem.managed.c.compiler.tasking.preprocessor.definedSymbols",
+              "value": "",
+              "valueType": "definedSymbols",
+              "optionValues": [
+                {
+                  "value": "__CPU__\u003dtc39xb"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "com.infineon.aurix.buildsystem.managed.tool.c.assembler.tasking",
+          "name": "TASKING Assembler",
+          "options": []
+        },
+        {
+          "id": "com.infineon.aurix.buildsystem.managed.tool.c.linker.tasking",
+          "name": "TASKING Linker",
+          "options": []
+        },
+        {
+          "id": "com.infineon.aurix.buildsystem.managed.tool.printsize.tasking",
+          "name": "Print Size",
+          "options": []
+        }
+      ]
+    },
+    {
+      "id": "com.infineon.aurix.buildsystem.managed.external.gcc.configuration.debug",
+      "name": "AURIX External GCC Toolchain",
+      "options": [
+        {
+          "id": "com.infineon.aurix.buildsystem.managed.gcc.c.option.mtc",
+          "value": "com.infineon.aurix.buildsystem.managed.gcc.c.option.mtc.mtc162",
+          "valueType": "enumerated",
+          "optionValues": []
+        }
+      ],
+      "tools": [
+        {
+          "id": "com.infineon.aurix.buildsystem.managed.tool.c.compiler",
+          "name": "AURIX GCC Compiler",
+          "options": [
+            {
+              "id": "com.infineon.aurix.buildsystem.managed.tool.c.compiler.option.optimization.level",
+              "value": "",
+              "valueType": "enumerated",
+              "optionValues": []
+            },
+            {
+              "id": "com.infineon.aurix.buildsystem.managed.tool.c.compiler.option.debugging.level",
+              "value": "",
+              "valueType": "enumerated",
+              "optionValues": []
+            },
+            {
+              "id": "com.infineon.aurix.buildsystem.managed.tool.c.compiler.option.include.paths",
+              "value": "",
+              "valueType": "includePath",
+              "optionValues": [
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Configurations}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Platform}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Platform/Tricore}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Platform/Tricore/Compilers}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Sfr}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Sfr/TC39B}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Sfr/TC39B/_Reg}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Ssw}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Ssw/TC39B}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Ssw/TC39B/Tricore}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/If}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/If/Ccu6If}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/StdIf}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/SysSe}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/SysSe/Bsp}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/SysSe/Comm}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/SysSe/General}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/SysSe/Math}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/SysSe/Time}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/_Utilities}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Asclin}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Asclin/Asc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Asclin/Lin}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Asclin/Spi}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Asclin/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Can}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Can/Can}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Can/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ccu6}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ccu6/Icu}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ccu6/PwmBc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ccu6/PwmHl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ccu6/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ccu6/TPwm}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ccu6/Timer}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ccu6/TimerWithTrigger}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Convctrl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Convctrl/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Cpu}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Cpu/Irq}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Cpu/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Cpu/Trap}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Dma}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Dma/Dma}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Dma/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Dts}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Dts/Dts}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Dts/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ebu}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ebu/BFlashSpansion}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ebu/BFlashSt}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ebu/Dram}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ebu/Sram}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ebu/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Edsadc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Edsadc/Edsadc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Edsadc/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Emem}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Emem/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Eray}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Eray/Eray}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Eray/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Evadc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Evadc/Adc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Evadc/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Fce}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Fce/Crc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Fce/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Flash}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Flash/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Geth}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Geth/Eth}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Geth/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gpt12}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gpt12/IncrEnc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gpt12/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Atom}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Atom/Dtm_PwmHl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Atom/Pwm}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Atom/PwmHl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Atom/Timer}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Tim}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Tim/In}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Tim/Timer}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Tom}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Tom/Dtm_PwmHl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Tom/Pwm}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Tom/PwmHl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Tom/Timer}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Trig}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Hspdm}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Hspdm/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Hssl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Hssl/Hssl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Hssl/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/I2c}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/I2c/I2c}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/I2c/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Iom}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Iom/Driver}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Iom/Iom}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Iom/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Msc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Msc/Msc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Msc/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Mtu}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Mtu/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Pms}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Pms/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Port}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Port/Io}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Port/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Psi5}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Psi5/Psi5}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Psi5/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Psi5s}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Psi5s/Psi5s}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Psi5s/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Qspi}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Qspi/SpiMaster}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Qspi/SpiSlave}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Qspi/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Rif}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Rif/Rif}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Rif/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Scu}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Scu/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Sdmmc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Sdmmc/Emmc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Sdmmc/Sd}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Sdmmc/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Sent}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Sent/Sent}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Sent/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Smu}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Smu/Smu}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Smu/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Spu}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Spu/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Src}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Src/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Stm}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Stm/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Stm/Timer}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/_Impl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/_Lib}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/_Lib/DataHandling}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/_Lib/InternalMux}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/_PinMap}\""
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "com.infineon.aurix.buildsystem.managed.tool.cpp.compiler",
+          "name": "AURIX G++ Compiler",
+          "options": [
+            {
+              "id": "com.infineon.aurix.buildsystem.managed.tool.cpp.compiler.option.optimization.level",
+              "value": "gnu.cpp.compiler.optimization.level.none",
+              "valueType": "enumerated",
+              "optionValues": []
+            },
+            {
+              "id": "com.infineon.aurix.buildsystem.managed.tool.cpp.compiler.option.debugging.level",
+              "value": "",
+              "valueType": "enumerated",
+              "optionValues": []
+            },
+            {
+              "id": "com.infineon.aurix.buildsystem.managed.tool.cpp.compiler.option.include.paths",
+              "value": "",
+              "valueType": "includePath",
+              "optionValues": [
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Configurations}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Platform}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Platform/Tricore}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Platform/Tricore/Compilers}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Sfr}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Sfr/TC39B}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Sfr/TC39B/_Reg}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Ssw}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Ssw/TC39B}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Ssw/TC39B/Tricore}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/If}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/If/Ccu6If}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/StdIf}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/SysSe}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/SysSe/Bsp}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/SysSe/Comm}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/SysSe/General}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/SysSe/Math}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/SysSe/Time}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/_Utilities}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Asclin}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Asclin/Asc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Asclin/Lin}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Asclin/Spi}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Asclin/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Can}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Can/Can}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Can/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ccu6}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ccu6/Icu}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ccu6/PwmBc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ccu6/PwmHl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ccu6/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ccu6/TPwm}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ccu6/Timer}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ccu6/TimerWithTrigger}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Convctrl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Convctrl/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Cpu}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Cpu/Irq}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Cpu/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Cpu/Trap}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Dma}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Dma/Dma}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Dma/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Dts}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Dts/Dts}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Dts/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ebu}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ebu/BFlashSpansion}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ebu/BFlashSt}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ebu/Dram}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ebu/Sram}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ebu/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Edsadc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Edsadc/Edsadc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Edsadc/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Emem}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Emem/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Eray}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Eray/Eray}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Eray/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Evadc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Evadc/Adc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Evadc/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Fce}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Fce/Crc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Fce/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Flash}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Flash/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Geth}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Geth/Eth}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Geth/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gpt12}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gpt12/IncrEnc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gpt12/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Atom}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Atom/Dtm_PwmHl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Atom/Pwm}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Atom/PwmHl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Atom/Timer}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Tim}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Tim/In}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Tim/Timer}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Tom}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Tom/Dtm_PwmHl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Tom/Pwm}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Tom/PwmHl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Tom/Timer}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Trig}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Hspdm}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Hspdm/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Hssl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Hssl/Hssl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Hssl/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/I2c}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/I2c/I2c}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/I2c/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Iom}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Iom/Driver}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Iom/Iom}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Iom/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Msc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Msc/Msc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Msc/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Mtu}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Mtu/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Pms}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Pms/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Port}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Port/Io}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Port/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Psi5}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Psi5/Psi5}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Psi5/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Psi5s}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Psi5s/Psi5s}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Psi5s/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Qspi}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Qspi/SpiMaster}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Qspi/SpiSlave}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Qspi/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Rif}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Rif/Rif}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Rif/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Scu}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Scu/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Sdmmc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Sdmmc/Emmc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Sdmmc/Sd}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Sdmmc/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Sent}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Sent/Sent}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Sent/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Smu}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Smu/Smu}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Smu/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Spu}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Spu/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Src}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Src/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Stm}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Stm/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Stm/Timer}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/_Impl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/_Lib}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/_Lib/DataHandling}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/_Lib/InternalMux}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/_PinMap}\""
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "com.infineon.aurix.buildsystem.managed.tool.assembler",
+          "name": "AURIX GCC Assembler",
+          "options": []
+        },
+        {
+          "id": "com.infineon.aurix.buildsystem.managed.tool.c.linker",
+          "name": "AURIX GCC Linker",
+          "options": []
+        },
+        {
+          "id": "com.infineon.aurix.buildsystem.managed.tool.cpp.linker",
+          "name": "AURIX G++ Linker",
+          "options": []
+        },
+        {
+          "id": "com.infineon.aurix.buildsystem.managed.tool.c.objcopy",
+          "name": "AURIX Object Copy",
+          "options": []
+        },
+        {
+          "id": "com.infineon.aurix.buildsystem.managed.tool.objdump",
+          "name": "AURIX Create Listing",
+          "options": []
+        },
+        {
+          "id": "com.infineon.aurix.buildsystem.managed.tool.printsize",
+          "name": "AURIX Print Size",
+          "options": []
+        }
+      ]
+    },
+    {
+      "id": "com.infineon.aurix.buildsystem.managed.external.gcc.configuration.release",
+      "name": "AURIX External GCC Toolchain",
+      "options": [
+        {
+          "id": "com.infineon.aurix.buildsystem.managed.gcc.c.option.mtc",
+          "value": "com.infineon.aurix.buildsystem.managed.gcc.c.option.mtc.mtc162",
+          "valueType": "enumerated",
+          "optionValues": []
+        }
+      ],
+      "tools": [
+        {
+          "id": "com.infineon.aurix.buildsystem.managed.tool.c.compiler",
+          "name": "AURIX GCC Compiler",
+          "options": [
+            {
+              "id": "com.infineon.aurix.buildsystem.managed.tool.c.compiler.option.optimization.level",
+              "value": "",
+              "valueType": "enumerated",
+              "optionValues": []
+            },
+            {
+              "id": "com.infineon.aurix.buildsystem.managed.tool.c.compiler.option.debugging.level",
+              "value": "",
+              "valueType": "enumerated",
+              "optionValues": []
+            },
+            {
+              "id": "com.infineon.aurix.buildsystem.managed.tool.c.compiler.option.include.paths",
+              "value": "",
+              "valueType": "includePath",
+              "optionValues": [
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Configurations}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Platform}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Platform/Tricore}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Platform/Tricore/Compilers}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Sfr}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Sfr/TC39B}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Sfr/TC39B/_Reg}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Ssw}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Ssw/TC39B}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Ssw/TC39B/Tricore}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/If}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/If/Ccu6If}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/StdIf}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/SysSe}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/SysSe/Bsp}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/SysSe/Comm}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/SysSe/General}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/SysSe/Math}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/SysSe/Time}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/_Utilities}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Asclin}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Asclin/Asc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Asclin/Lin}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Asclin/Spi}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Asclin/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Can}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Can/Can}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Can/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ccu6}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ccu6/Icu}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ccu6/PwmBc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ccu6/PwmHl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ccu6/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ccu6/TPwm}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ccu6/Timer}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ccu6/TimerWithTrigger}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Convctrl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Convctrl/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Cpu}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Cpu/Irq}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Cpu/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Cpu/Trap}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Dma}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Dma/Dma}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Dma/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Dts}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Dts/Dts}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Dts/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ebu}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ebu/BFlashSpansion}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ebu/BFlashSt}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ebu/Dram}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ebu/Sram}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ebu/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Edsadc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Edsadc/Edsadc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Edsadc/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Emem}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Emem/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Eray}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Eray/Eray}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Eray/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Evadc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Evadc/Adc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Evadc/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Fce}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Fce/Crc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Fce/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Flash}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Flash/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Geth}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Geth/Eth}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Geth/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gpt12}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gpt12/IncrEnc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gpt12/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Atom}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Atom/Dtm_PwmHl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Atom/Pwm}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Atom/PwmHl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Atom/Timer}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Tim}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Tim/In}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Tim/Timer}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Tom}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Tom/Dtm_PwmHl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Tom/Pwm}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Tom/PwmHl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Tom/Timer}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Trig}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Hspdm}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Hspdm/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Hssl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Hssl/Hssl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Hssl/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/I2c}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/I2c/I2c}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/I2c/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Iom}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Iom/Driver}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Iom/Iom}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Iom/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Msc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Msc/Msc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Msc/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Mtu}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Mtu/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Pms}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Pms/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Port}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Port/Io}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Port/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Psi5}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Psi5/Psi5}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Psi5/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Psi5s}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Psi5s/Psi5s}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Psi5s/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Qspi}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Qspi/SpiMaster}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Qspi/SpiSlave}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Qspi/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Rif}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Rif/Rif}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Rif/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Scu}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Scu/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Sdmmc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Sdmmc/Emmc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Sdmmc/Sd}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Sdmmc/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Sent}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Sent/Sent}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Sent/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Smu}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Smu/Smu}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Smu/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Spu}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Spu/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Src}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Src/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Stm}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Stm/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Stm/Timer}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/_Impl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/_Lib}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/_Lib/DataHandling}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/_Lib/InternalMux}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/_PinMap}\""
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "com.infineon.aurix.buildsystem.managed.tool.cpp.compiler",
+          "name": "AURIX G++ Compiler",
+          "options": [
+            {
+              "id": "com.infineon.aurix.buildsystem.managed.tool.cpp.compiler.option.optimization.level",
+              "value": "gnu.cpp.compiler.optimization.level.most",
+              "valueType": "enumerated",
+              "optionValues": []
+            },
+            {
+              "id": "com.infineon.aurix.buildsystem.managed.tool.cpp.compiler.option.debugging.level",
+              "value": "",
+              "valueType": "enumerated",
+              "optionValues": []
+            },
+            {
+              "id": "com.infineon.aurix.buildsystem.managed.tool.cpp.compiler.option.include.paths",
+              "value": "",
+              "valueType": "includePath",
+              "optionValues": [
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Configurations}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Platform}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Platform/Tricore}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Platform/Tricore/Compilers}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Sfr}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Sfr/TC39B}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Sfr/TC39B/_Reg}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Ssw}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Ssw/TC39B}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Infra/Ssw/TC39B/Tricore}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/If}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/If/Ccu6If}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/StdIf}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/SysSe}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/SysSe/Bsp}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/SysSe/Comm}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/SysSe/General}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/SysSe/Math}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/SysSe/Time}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/_Utilities}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Asclin}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Asclin/Asc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Asclin/Lin}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Asclin/Spi}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Asclin/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Can}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Can/Can}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Can/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ccu6}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ccu6/Icu}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ccu6/PwmBc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ccu6/PwmHl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ccu6/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ccu6/TPwm}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ccu6/Timer}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ccu6/TimerWithTrigger}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Convctrl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Convctrl/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Cpu}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Cpu/Irq}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Cpu/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Cpu/Trap}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Dma}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Dma/Dma}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Dma/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Dts}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Dts/Dts}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Dts/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ebu}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ebu/BFlashSpansion}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ebu/BFlashSt}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ebu/Dram}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ebu/Sram}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Ebu/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Edsadc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Edsadc/Edsadc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Edsadc/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Emem}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Emem/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Eray}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Eray/Eray}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Eray/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Evadc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Evadc/Adc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Evadc/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Fce}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Fce/Crc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Fce/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Flash}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Flash/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Geth}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Geth/Eth}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Geth/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gpt12}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gpt12/IncrEnc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gpt12/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Atom}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Atom/Dtm_PwmHl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Atom/Pwm}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Atom/PwmHl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Atom/Timer}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Tim}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Tim/In}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Tim/Timer}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Tom}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Tom/Dtm_PwmHl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Tom/Pwm}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Tom/PwmHl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Tom/Timer}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Gtm/Trig}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Hspdm}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Hspdm/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Hssl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Hssl/Hssl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Hssl/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/I2c}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/I2c/I2c}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/I2c/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Iom}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Iom/Driver}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Iom/Iom}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Iom/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Msc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Msc/Msc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Msc/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Mtu}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Mtu/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Pms}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Pms/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Port}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Port/Io}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Port/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Psi5}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Psi5/Psi5}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Psi5/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Psi5s}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Psi5s/Psi5s}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Psi5s/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Qspi}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Qspi/SpiMaster}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Qspi/SpiSlave}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Qspi/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Rif}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Rif/Rif}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Rif/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Scu}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Scu/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Sdmmc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Sdmmc/Emmc}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Sdmmc/Sd}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Sdmmc/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Sent}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Sent/Sent}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Sent/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Smu}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Smu/Smu}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Smu/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Spu}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Spu/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Src}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Src/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Stm}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Stm/Std}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/Stm/Timer}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/_Impl}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/_Lib}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/_Lib/DataHandling}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/_Lib/InternalMux}\""
+                },
+                {
+                  "value": "\"${workspace_loc:/${ProjName}/Libraries/iLLD/TC39B/Tricore/_PinMap}\""
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "com.infineon.aurix.buildsystem.managed.tool.assembler",
+          "name": "AURIX GCC Assembler",
+          "options": []
+        },
+        {
+          "id": "com.infineon.aurix.buildsystem.managed.tool.c.linker",
+          "name": "AURIX GCC Linker",
+          "options": []
+        },
+        {
+          "id": "com.infineon.aurix.buildsystem.managed.tool.cpp.linker",
+          "name": "AURIX G++ Linker",
+          "options": []
+        },
+        {
+          "id": "com.infineon.aurix.buildsystem.managed.tool.c.objcopy",
+          "name": "AURIX Object Copy",
+          "options": []
+        },
+        {
+          "id": "com.infineon.aurix.buildsystem.managed.tool.objdump",
+          "name": "AURIX Create Listing",
+          "options": []
+        },
+        {
+          "id": "com.infineon.aurix.buildsystem.managed.tool.printsize",
+          "name": "AURIX Print Size",
+          "options": []
+        }
+      ]
+    }
+  ],
+  "contributions": {}
+}

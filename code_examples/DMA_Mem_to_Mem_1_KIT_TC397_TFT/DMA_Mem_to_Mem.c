@@ -44,7 +44,7 @@ dmaParams g_DMA;                                    /* Global DMA configuration 
 /* DMA Source buffer for DMA transfer stored inside DSPR0: 0x70000000 */
 uint32 g_dataForDmaTransfer[DATA_ARRAY_LENGTH] __at(0x70000000);
 
-/* DMA Destination buffer stored inside LMURAM Not-Cached Area: 0xB0000000 */
+/* DMA Destination buffer stored inside DLMU RAM (of CPU0): 0xB0000000 */
 uint32  g_dmaLmuDestination[DATA_ARRAY_LENGTH] __at(0xB0000000);
 
 /*********************************************************************************************************************/
