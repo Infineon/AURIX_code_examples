@@ -1,0 +1,30 @@
+<root version="2.46.0">
+    <signals>
+        <var name="elf" type="group" offset="0" access="read-write">
+            <var name="g_oneEyeDasPipe" type="group" offset="0" access="read-write">
+                <var name="FromTarget" type="char" offset="0" access="read-write">
+                    <item-configuration>
+                        <title><![CDATA[FromTarget]]></title>
+                    </item-configuration>
+                </var>
+                <var name="ToTarget" type="char" offset="0" access="read-write">
+                    <item-configuration>
+                        <title><![CDATA[ToTarget]]></title>
+                    </item-configuration>
+                </var>
+            </var>
+        </var>
+    </signals>
+    <layout>
+        <textEdit data-in="elf.g_oneEyeDasPipe.FromTarget" update-method="on-new-data"/>
+        <lineEdit data-out="elf.g_oneEyeDasPipe.ToTarget" capture-key="true"/>
+    </layout>
+    <interface>
+        <item-configuration>
+            <id><![CDATA[das-itf]]></id>
+        </item-configuration>
+        <port plugin="PCom_DAS::DAS" connect="true" system-key="{ADS}"/>
+    </interface>
+    <config/>
+    <debugBox elf-path="..\Debug\OneEye_DAS_Shell_1_KIT_TC275_LK.elf" watches="!g_oneEyeDasPipe" com-interface-id="das-itf" title="" id="elf"/>
+</root>

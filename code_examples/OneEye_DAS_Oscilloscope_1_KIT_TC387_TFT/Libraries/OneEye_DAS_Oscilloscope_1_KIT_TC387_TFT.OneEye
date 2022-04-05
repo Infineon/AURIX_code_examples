@@ -1,0 +1,55 @@
+<root version="2.46.0">
+    <signals>
+        <var name="elf" type="group" offset="0" access="read-write">
+            <var name="g_signalGenerator" type="group" offset="0" access="read-write">
+                <item-configuration>
+                    <title><![CDATA[g_signalGenerator]]></title>
+                </item-configuration>
+                <var name="input" type="group" offset="0" access="read-write">
+                    <item-configuration>
+                        <title><![CDATA[input]]></title>
+                    </item-configuration>
+                    <var name="max" type="float" offset="0" access="read-write" default="0">
+                        <item-configuration>
+                            <title><![CDATA[max]]></title>
+                        </item-configuration>
+                    </var>
+                    <var name="increment" type="float" offset="0" access="read-write" default="0">
+                        <item-configuration>
+                            <title><![CDATA[increment]]></title>
+                        </item-configuration>
+                    </var>
+                </var>
+            </var>
+            <var name="g_osciDas" type="char" offset="0" access="read-write">
+                <item-configuration>
+                    <title><![CDATA[g_osciDas]]></title>
+                </item-configuration>
+            </var>
+        </var>
+    </signals>
+    <layout>
+        <lineEdit auto-connect="elf.g_signalGenerator.input.max"/>
+        <lineEdit auto-connect="elf.g_signalGenerator.input.increment"/>
+        <oscilloscope data-in="elf.g_osciDas" data-out="elf.g_osciDas" legend-pos="top" division-x="10" protocol-type="ProtocolDma" dma-refresh-period="100" division-y="10" offset-y="5" time-per-division-x="0.05120000243186951" unit-x="s">
+            <oscilloscopeChannel enabled="defined-by-connection" offset-x="0" offset-y="0" unit-per-division-y="200" pen-width="1" color="red"/>
+            <oscilloscopeChannel enabled="defined-by-connection" offset-x="0" offset-y="0" unit-per-division-y="200" pen-width="1" color="blue"/>
+            <oscilloscopeChannel enabled="defined-by-connection" visible="no" offset-x="0" offset-y="0" unit-per-division-y="1" pen-width="1" color="blue"/>
+            <oscilloscopeChannel enabled="defined-by-connection" visible="no" offset-x="0" offset-y="0" unit-per-division-y="1" pen-width="1" color="blue"/>
+            <oscilloscopeChannel enabled="defined-by-connection" visible="no" offset-x="0" offset-y="0" unit-per-division-y="1" pen-width="1" color="blue"/>
+            <oscilloscopeChannel enabled="defined-by-connection" visible="no" offset-x="0" offset-y="0" unit-per-division-y="1" pen-width="1" color="blue"/>
+            <oscilloscopeChannel enabled="defined-by-connection" visible="no" offset-x="0" offset-y="0" unit-per-division-y="1" pen-width="1" color="blue"/>
+            <oscilloscopeChannel enabled="defined-by-connection" visible="no" offset-x="0" offset-y="0" unit-per-division-y="1" pen-width="1" color="blue"/>
+            <oscilloscopeChannel enabled="defined-by-connection" visible="no" offset-x="0" offset-y="0" unit-per-division-y="1" pen-width="1" color="blue"/>
+            <oscilloscopeChannel enabled="defined-by-connection" visible="no" offset-x="0" offset-y="0" unit-per-division-y="1" pen-width="1" color="blue"/>
+        </oscilloscope>
+    </layout>
+    <interface>
+        <item-configuration>
+            <id><![CDATA[das-itf]]></id>
+        </item-configuration>
+        <port plugin="PCom_DAS::DAS" connect="true" system-key="{ADS}"/>
+    </interface>
+    <config/>
+    <debugBox elf-path="..\Debug\OneEye_DAS_Oscilloscope_1_KIT_TC387_TFT.elf" watches="g_signalGenerator;$g_osciDas" com-interface-id="das-itf" title="" id="elf"/>
+</root>

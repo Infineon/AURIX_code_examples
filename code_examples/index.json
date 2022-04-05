@@ -4448,6 +4448,34 @@
     },
     {
       "title": "Timer concatenation of GPT12",
+      "name": "GPT12_Timer_Concatenation_1_KIT_TC334_LK",
+      "description": "A 32-bit timer is formed by the concatenation of two 16-bit timers of the GPT12 module.\r\nWhen the 32-bit timer overflows, an interrupt is generated toggling an LED.",
+      "abstract": "A 32-bit timer is formed by the concatenation of two timers of the GPT12 module. On timer overflow an interrupt is generated, which toggles an LED.",
+      "folder": "GPT12_Timer_Concatenation_1_KIT_TC334_LK",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC334 lite Kit",
+          "id": "KIT_A2G_TC334_LITE",
+          "device_id": "TC33xLP_A-Step"
+        }
+      ],
+      "keywords": [
+        "GPT12",
+        "timer",
+        "concatenation",
+        "LED",
+        "AURIX",
+        "GPT12_Timer_Concatenation_1"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_GPT12_Timer_Concatenation_1_KIT_TC334_LK-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/TC33A_iLLD_UM_1_0_1_12_1.chm"
+      ],
+      "lastModified": "2022-03-28T00:00:00.000Z"
+    },
+    {
+      "title": "Timer concatenation of GPT12",
       "name": "GPT12_Timer_Concatenation_1_KIT_TC375_LK",
       "description": "A 32-bit timer is formed by the concatenation of two 16-bit timers of the GPT12 module.\r\nWhen the 32-bit timer overflows, an interrupt is generated toggling an LED.",
       "abstract": "A 32-bit timer is formed by the concatenation of two timers of the GPT12 module. On timer overflow an interrupt is generated, which toggles an LED.",
@@ -6593,6 +6621,34 @@
     },
     {
       "title": "Memory Built-In Test via MTU",
+      "name": "MTU_MBIST_1_KIT_TC334_LK",
+      "description": "In this training the Memory Test Unit (MTU) is used to initialize and clear the content of an SRAM\r\nmemory including its ECC code. Additionally, the Non-Destructive Test (NDT) is performed by Memory\r\nBuilt-in-Self-Test (MBIST) to verify the content of the same SRAM memory. The SRAM of the DMA\r\n(DMARAM) is selected to be tested in this example. In order to test the faulty scenario, this training\r\nprovides the possibility to inject a single bit error in the memory. The LEDs on the board are used to\r\nsignal the correct or faulty behavior of the MBIST.",
+      "abstract": "The MBIST is used to assess the state of the memory",
+      "folder": "MTU_MBIST_1_KIT_TC334_LK",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC334 lite Kit",
+          "id": "KIT_A2G_TC334_LITE",
+          "device_id": "TC33xLP_A-Step"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "MBIST",
+        "MTU_MBIST_1",
+        "MTU",
+        "Memory",
+        "Test"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_MTU_MBIST_1_KIT_TC334_LK-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/TC33A_iLLD_UM_1_0_1_12_1.chm"
+      ],
+      "lastModified": "2022-03-28T00:00:00.000Z"
+    },
+    {
+      "title": "Memory Built-In Test via MTU",
       "name": "MTU_MBIST_1_KIT_TC375_LK",
       "description": "In this training the Memory Test Unit (MTU) is used to initialize and clear the content of an SRAM\r\nmemory including its ECC code. Additionally, the Non-Destructive Test (NDT) is performed by Memory\r\nBuilt-in-Self-Test (MBIST) to verify the content of the same SRAM memory. The SRAM of the DMA\r\n(DMARAM) is selected to be tested in this example. In order to test the faulty scenario, this training\r\nprovides the possibility to inject a single bit error in the memory. The LEDs on the board are used to\r\nsignal the correct or faulty behavior of the MBIST.",
       "abstract": "The MBIST is used to assess the state of the memory",
@@ -7104,6 +7160,645 @@
         "https://www.infineon.com/aurix-expert-training/TC39B_iLLD_UM_1_0_1_12_1.chm"
       ],
       "lastModified": "2020-12-18T00:00:00.000Z"
+    },
+    {
+      "title": "Oscilloscope over DAS using OneEye",
+      "name": "OneEye_DAS_Oscilloscope_1_KIT_TC234_TFT",
+      "description": "After configuring the OneEye DAS interface, a OneEye oscilloscope is created with two signals.\r\nThe signals are updated and sampled every millisecond.\r\nOneEye is used to visualize the signal values.",
+      "abstract": "Demonstrate how to implement the OneEye oscilloscope over the DAS interface",
+      "folder": "OneEye_DAS_Oscilloscope_1_KIT_TC234_TFT",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC2X4 V1.0",
+          "id": "KIT_AURIX_TC234_TFT_AC-Step",
+          "device_id": "TC23xLP_A-Step"
+        }
+      ],
+      "keywords": [
+        "OneEye",
+        "DAS",
+        "Oscilloscope",
+        "AURIX"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_OneEye_DAS_Oscilloscope_1_KIT_TC234_TFT-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/TC23A_iLLD_UM_1_0_1_12_0.chm"
+      ],
+      "lastModified": "2022-03-28T00:00:00.000Z"
+    },
+    {
+      "title": "Oscilloscope over DAS using OneEye",
+      "name": "OneEye_DAS_Oscilloscope_1_KIT_TC237_TFT",
+      "description": "After configuring the OneEye DAS interface, a OneEye oscilloscope is created with two signals.\r\nThe signals are updated and sampled every millisecond.\r\nOneEye is used to visualize the signal values.",
+      "abstract": "Demonstrate how to implement the OneEye oscilloscope over the DAS interface",
+      "folder": "OneEye_DAS_Oscilloscope_1_KIT_TC237_TFT",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC2X7 V1.1",
+          "id": "KIT_AURIX_TC237_TFT_AC-Step",
+          "device_id": "TC23xLP_A-Step"
+        }
+      ],
+      "keywords": [
+        "OneEye",
+        "DAS",
+        "Oscilloscope",
+        "AURIX"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_OneEye_DAS_Oscilloscope_1_KIT_TC237_TFT-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/TC23A_iLLD_UM_1_0_1_12_0.chm"
+      ],
+      "lastModified": "2022-03-28T00:00:00.000Z"
+    },
+    {
+      "title": "Oscilloscope over DAS using OneEye",
+      "name": "OneEye_DAS_Oscilloscope_1_KIT_TC265_TFT",
+      "description": "After configuring the OneEye DAS interface, a OneEye oscilloscope is created with two signals.\r\nThe signals are updated and sampled every millisecond.\r\nOneEye is used to visualize the signal values.",
+      "abstract": "Demonstrate how to implement the OneEye oscilloscope over the DAS interface",
+      "folder": "OneEye_DAS_Oscilloscope_1_KIT_TC265_TFT",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC2x5 V2.0",
+          "id": "KIT_AURIX_TC265_TFT_BC-Step",
+          "device_id": "TC26xD_B-Step"
+        }
+      ],
+      "keywords": [
+        "OneEye",
+        "DAS",
+        "Oscilloscope",
+        "AURIX"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_OneEye_DAS_Oscilloscope_1_KIT_TC265_TFT-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/TC26B_iLLD_UM_1_0_1_12_0.chm"
+      ],
+      "lastModified": "2022-03-28T00:00:00.000Z"
+    },
+    {
+      "title": "Oscilloscope over DAS using OneEye",
+      "name": "OneEye_DAS_Oscilloscope_1_KIT_TC275_LK",
+      "description": "After configuring the OneEye DAS interface, a OneEye oscilloscope is created with two signals.\r\nThe signals are updated and sampled every millisecond.\r\nOneEye is used to visualize the signal values.",
+      "abstract": "Demonstrate how to implement the OneEye oscilloscope over the DAS interface",
+      "folder": "OneEye_DAS_Oscilloscope_1_KIT_TC275_LK",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC275 lite Kit",
+          "id": "KIT_AURIX_TC275_LITE",
+          "device_id": "TC27xTP_D-Step"
+        }
+      ],
+      "keywords": [
+        "OneEye",
+        "DAS",
+        "Oscilloscope",
+        "AURIX"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_OneEye_DAS_Oscilloscope_1_KIT_TC275_LK-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/TC27D_iLLD_UM_1_0_1_12_0.chm"
+      ],
+      "lastModified": "2022-03-28T00:00:00.000Z"
+    },
+    {
+      "title": "Oscilloscope over DAS using OneEye",
+      "name": "OneEye_DAS_Oscilloscope_1_KIT_TC275_SB",
+      "description": "After configuring the OneEye DAS interface, a OneEye oscilloscope is created with two signals.\r\nThe signals are updated and sampled every millisecond.\r\nOneEye is used to visualize the signal values.",
+      "abstract": "Demonstrate how to implement the OneEye oscilloscope over the DAS interface",
+      "folder": "OneEye_DAS_Oscilloscope_1_KIT_TC275_SB",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "hitex ShieldBuddy",
+          "id": "KIT_AURIX_TC275_ARD_SB",
+          "device_id": "TC27xTP_D-Step"
+        }
+      ],
+      "keywords": [
+        "OneEye",
+        "DAS",
+        "Oscilloscope",
+        "AURIX"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_OneEye_DAS_Oscilloscope_1_KIT_TC275_SB-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/TC27D_iLLD_UM_1_0_1_12_0.chm"
+      ],
+      "lastModified": "2022-03-28T00:00:00.000Z"
+    },
+    {
+      "title": "Oscilloscope over DAS using OneEye",
+      "name": "OneEye_DAS_Oscilloscope_1_KIT_TC277_TFT",
+      "description": "After configuring the OneEye DAS interface, a OneEye oscilloscope is created with two signals.\r\nThe signals are updated and sampled every millisecond.\r\nOneEye is used to visualize the signal values.",
+      "abstract": "Demonstrate how to implement the OneEye oscilloscope over the DAS interface",
+      "folder": "OneEye_DAS_Oscilloscope_1_KIT_TC277_TFT",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC2X7 V1.1",
+          "id": "KIT_AURIX_TC277_TFT_DC-Step",
+          "device_id": "TC27xTP_D-Step"
+        }
+      ],
+      "keywords": [
+        "OneEye",
+        "DAS",
+        "Oscilloscope",
+        "AURIX"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_OneEye_DAS_Oscilloscope_1_KIT_TC277_TFT-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/TC27D_iLLD_UM_1_0_1_12_0.chm"
+      ],
+      "lastModified": "2022-03-28T00:00:00.000Z"
+    },
+    {
+      "title": "Oscilloscope over DAS using OneEye",
+      "name": "OneEye_DAS_Oscilloscope_1_KIT_TC297_TFT",
+      "description": "After configuring the OneEye DAS interface, a OneEye oscilloscope is created with two signals.\r\nThe signals are updated and sampled every millisecond.\r\nOneEye is used to visualize the signal values.",
+      "abstract": "Demonstrate how to implement the OneEye oscilloscope over the DAS interface",
+      "folder": "OneEye_DAS_Oscilloscope_1_KIT_TC297_TFT",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC2X7 V1.1",
+          "id": "KIT_AURIX_TC297_TFT_BC-Step",
+          "device_id": "TC29xTA/TX_B-Step"
+        }
+      ],
+      "keywords": [
+        "OneEye",
+        "DAS",
+        "Oscilloscope",
+        "AURIX"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_OneEye_DAS_Oscilloscope_1_KIT_TC297_TFT-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/TC29B_iLLD_UM_1_0_1_12_0.chm"
+      ],
+      "lastModified": "2022-03-28T00:00:00.000Z"
+    },
+    {
+      "title": "Oscilloscope over DAS using OneEye",
+      "name": "OneEye_DAS_Oscilloscope_1_KIT_TC334_LK",
+      "description": "After configuring the OneEye DAS interface, a OneEye oscilloscope is created with two signals.\r\nThe signals are updated and sampled every millisecond.\r\nOneEye is used to visualize the signal values.",
+      "abstract": "Demonstrate how to implement the OneEye oscilloscope over the DAS interface",
+      "folder": "OneEye_DAS_Oscilloscope_1_KIT_TC334_LK",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC334 lite Kit",
+          "id": "KIT_A2G_TC334_LITE",
+          "device_id": "TC33xLP_A-Step"
+        }
+      ],
+      "keywords": [
+        "OneEye",
+        "DAS",
+        "Oscilloscope",
+        "AURIX"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_OneEye_DAS_Oscilloscope_1_KIT_TC334_LK-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/TC33A_iLLD_UM_1_0_1_12_1.chm"
+      ],
+      "lastModified": "2022-03-28T00:00:00.000Z"
+    },
+    {
+      "title": "Oscilloscope over DAS using OneEye",
+      "name": "OneEye_DAS_Oscilloscope_1_KIT_TC367_TFT",
+      "description": "After configuring the OneEye DAS interface, a OneEye oscilloscope is created with two signals.\r\nThe signals are updated and sampled every millisecond.\r\nOneEye is used to visualize the signal values.",
+      "abstract": "Demonstrate how to implement the OneEye oscilloscope over the DAS interface",
+      "folder": "OneEye_DAS_Oscilloscope_1_KIT_TC367_TFT",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC3X7 V2.0",
+          "id": "KIT_A2G_TC367_5V_TFT",
+          "device_id": "TC36xDP_A-Step"
+        }
+      ],
+      "keywords": [
+        "OneEye",
+        "DAS",
+        "Oscilloscope",
+        "AURIX"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_OneEye_DAS_Oscilloscope_1_KIT_TC367_TFT-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/TC36A_iLLD_UM_1_0_1_12_1.chm"
+      ],
+      "lastModified": "2022-03-28T00:00:00.000Z"
+    },
+    {
+      "title": "Oscilloscope over DAS using OneEye",
+      "name": "OneEye_DAS_Oscilloscope_1_KIT_TC375_LK",
+      "description": "After configuring the OneEye DAS interface, a OneEye oscilloscope is created with two signals.\r\nThe signals are updated and sampled every millisecond.\r\nOneEye is used to visualize the signal values.",
+      "abstract": "Demonstrate how to implement the OneEye oscilloscope over the DAS interface",
+      "folder": "OneEye_DAS_Oscilloscope_1_KIT_TC375_LK",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC375 lite Kit",
+          "id": "KIT_A2G_TC375_LITE",
+          "device_id": "TC37xTP_A-Step"
+        }
+      ],
+      "keywords": [
+        "OneEye",
+        "DAS",
+        "Oscilloscope",
+        "AURIX"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_OneEye_DAS_Oscilloscope_1_KIT_TC375_LK-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/TC37A_iLLD_UM_1_0_1_12_1.chm"
+      ],
+      "lastModified": "2022-03-28T00:00:00.000Z"
+    },
+    {
+      "title": "Oscilloscope over DAS using OneEye",
+      "name": "OneEye_DAS_Oscilloscope_1_KIT_TC375_SB",
+      "description": "After configuring the OneEye DAS interface, a OneEye oscilloscope is created with two signals.\r\nThe signals are updated and sampled every millisecond.\r\nOneEye is used to visualize the signal values.",
+      "abstract": "Demonstrate how to implement the OneEye oscilloscope over the DAS interface",
+      "folder": "OneEye_DAS_Oscilloscope_1_KIT_TC375_SB",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "hitex ShieldBuddy",
+          "id": "KIT_A2G_TC375_ARD_SB",
+          "device_id": "TC37xTP_A-Step"
+        }
+      ],
+      "keywords": [
+        "OneEye",
+        "DAS",
+        "Oscilloscope",
+        "AURIX"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_OneEye_DAS_Oscilloscope_1_KIT_TC375_SB-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/TC37A_iLLD_UM_1_0_1_12_1.chm"
+      ],
+      "lastModified": "2022-03-28T00:00:00.000Z"
+    },
+    {
+      "title": "Oscilloscope over DAS using OneEye",
+      "name": "OneEye_DAS_Oscilloscope_1_KIT_TC377_TFT",
+      "description": "After configuring the OneEye DAS interface, a OneEye oscilloscope is created with two signals.\r\nThe signals are updated and sampled every millisecond.\r\nOneEye is used to visualize the signal values.",
+      "abstract": "Demonstrate how to implement the OneEye oscilloscope over the DAS interface",
+      "folder": "OneEye_DAS_Oscilloscope_1_KIT_TC377_TFT",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC3X7 V2.0",
+          "id": "KIT_A2G_TC377_5V_TFT",
+          "device_id": "TC37xTP_A-Step"
+        }
+      ],
+      "keywords": [
+        "OneEye",
+        "DAS",
+        "Oscilloscope",
+        "AURIX"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_OneEye_DAS_Oscilloscope_1_KIT_TC377_TFT-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/TC37A_iLLD_UM_1_0_1_12_1.chm"
+      ],
+      "lastModified": "2022-03-28T00:00:00.000Z"
+    },
+    {
+      "title": "Oscilloscope over DAS using OneEye",
+      "name": "OneEye_DAS_Oscilloscope_1_KIT_TC387_TFT",
+      "description": "After configuring the OneEye DAS interface, a OneEye oscilloscope is created with two signals.\r\nThe signals are updated and sampled every millisecond.\r\nOneEye is used to visualize the signal values.",
+      "abstract": "Demonstrate how to implement the OneEye oscilloscope over the DAS interface",
+      "folder": "OneEye_DAS_Oscilloscope_1_KIT_TC387_TFT",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC3X7 V2.0",
+          "id": "KIT_A2G_TC387_5V_TFT",
+          "device_id": "TC38xQP_A-Step"
+        }
+      ],
+      "keywords": [
+        "OneEye",
+        "DAS",
+        "Oscilloscope",
+        "AURIX"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_OneEye_DAS_Oscilloscope_1_KIT_TC387_TFT-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/TC38A_iLLD_UM_1_0_1_12_1.chm"
+      ],
+      "lastModified": "2022-03-28T00:00:00.000Z"
+    },
+    {
+      "title": "Oscilloscope over DAS using OneEye",
+      "name": "OneEye_DAS_Oscilloscope_1_KIT_TC397_TFT",
+      "description": "After configuring the OneEye DAS interface, a OneEye oscilloscope is created with two signals.\r\nThe signals are updated and sampled every millisecond.\r\nOneEye is used to visualize the signal values.",
+      "abstract": "Demonstrate how to implement the OneEye oscilloscope over the DAS interface",
+      "folder": "OneEye_DAS_Oscilloscope_1_KIT_TC397_TFT",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC3X7 V2.0",
+          "id": "KIT_A2G_TC397_5V_TFT",
+          "device_id": "TC39xXX_B-Step"
+        }
+      ],
+      "keywords": [
+        "OneEye",
+        "DAS",
+        "Oscilloscope",
+        "AURIX"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_OneEye_DAS_Oscilloscope_1_KIT_TC397_TFT-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/TC39B_iLLD_UM_1_0_1_12_1.chm"
+      ],
+      "lastModified": "2022-03-28T00:00:00.000Z"
+    },
+    {
+      "title": "Read / write variables over DAS using OneEye",
+      "name": "OneEye_DAS_QuickStart_1_KIT_TC275_LK",
+      "description": "After configuring the OneEye DAS interface, OneEye is used to read / write variable.",
+      "abstract": "Demonstrate how to use the OneEye DAS interface to access variables",
+      "folder": "OneEye_DAS_QuickStart_1_KIT_TC275_LK",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC275 lite Kit",
+          "id": "KIT_AURIX_TC275_LITE",
+          "device_id": "TC27xTP_D-Step"
+        }
+      ],
+      "keywords": [
+        "OneEye",
+        "DAS",
+        "Memory",
+        "Read",
+        "Write",
+        "AURIX"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_OneEye_DAS_Quickstart_1_KIT_TC275_LK-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/TC27D_iLLD_UM_1_0_1_12_0.chm"
+      ],
+      "lastModified": "2022-03-28T00:00:00.000Z"
+    },
+    {
+      "title": "Read / write variables over DAS using OneEye",
+      "name": "OneEye_DAS_QuickStart_1_KIT_TC297_TFT",
+      "description": "After configuring the OneEye DAS interface, OneEye is used to read / write variable.",
+      "abstract": "Demonstrate how to use the OneEye DAS interface to access variables",
+      "folder": "OneEye_DAS_QuickStart_1_KIT_TC297_TFT",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC2X7 V1.1",
+          "id": "KIT_AURIX_TC297_TFT_BC-Step",
+          "device_id": "TC29xTA/TX_B-Step"
+        }
+      ],
+      "keywords": [
+        "OneEye",
+        "DAS",
+        "Memory",
+        "Read",
+        "Write",
+        "AURIX"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_OneEye_DAS_Quickstart_1_KIT_TC297_TFT-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/TC29B_iLLD_UM_1_0_1_12_0.chm"
+      ],
+      "lastModified": "2022-03-28T00:00:00.000Z"
+    },
+    {
+      "title": "Read / write variables over DAS using OneEye",
+      "name": "OneEye_DAS_QuickStart_1_KIT_TC334_LK",
+      "description": "After configuring the OneEye DAS interface, OneEye is used to read / write variable.",
+      "abstract": "Demonstrate how to use the OneEye DAS interface to access variables",
+      "folder": "OneEye_DAS_QuickStart_1_KIT_TC334_LK",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC334 lite Kit",
+          "id": "KIT_A2G_TC334_LITE",
+          "device_id": "TC33xLP_A-Step"
+        }
+      ],
+      "keywords": [
+        "OneEye",
+        "DAS",
+        "Memory",
+        "Read",
+        "Write",
+        "AURIX"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_OneEye_DAS_Quickstart_1_KIT_TC334_LK-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/TC33A_iLLD_UM_1_0_1_12_1.chm"
+      ],
+      "lastModified": "2022-03-28T00:00:00.000Z"
+    },
+    {
+      "title": "Read / write variables over DAS using OneEye",
+      "name": "OneEye_DAS_QuickStart_1_KIT_TC375_LK",
+      "description": "After configuring the OneEye DAS interface, OneEye is used to read / write variable.",
+      "abstract": "Demonstrate how to use the OneEye DAS interface to access variables",
+      "folder": "OneEye_DAS_QuickStart_1_KIT_TC375_LK",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC375 lite Kit",
+          "id": "KIT_A2G_TC375_LITE",
+          "device_id": "TC37xTP_A-Step"
+        }
+      ],
+      "keywords": [
+        "OneEye",
+        "DAS",
+        "Memory",
+        "Read",
+        "Write",
+        "AURIX"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_OneEye_DAS_Quickstart_1_KIT_TC375_LK-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/TC37A_iLLD_UM_1_0_1_12_1.chm"
+      ],
+      "lastModified": "2022-03-28T00:00:00.000Z"
+    },
+    {
+      "title": "Read / write variables over DAS using OneEye",
+      "name": "OneEye_DAS_QuickStart_1_KIT_TC397_TFT",
+      "description": "After configuring the OneEye DAS interface, OneEye is used to read / write variable.",
+      "abstract": "Demonstrate how to use the OneEye DAS interface to access variables",
+      "folder": "OneEye_DAS_QuickStart_1_KIT_TC397_TFT",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC3X7 V2.0",
+          "id": "KIT_A2G_TC397_5V_TFT",
+          "device_id": "TC39xXX_B-Step"
+        }
+      ],
+      "keywords": [
+        "OneEye",
+        "DAS",
+        "Memory",
+        "Read",
+        "Write",
+        "AURIX"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_OneEye_DAS_Quickstart_1_KIT_TC397_TFT-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/TC39B_iLLD_UM_1_0_1_12_1.chm"
+      ],
+      "lastModified": "2022-03-28T00:00:00.000Z"
+    },
+    {
+      "title": "Shell via DAS interface using OneEye",
+      "name": "OneEye_DAS_Shell_1_KIT_TC275_LK",
+      "description": "After configuring the OneEye DAS interface, the Shell from iLLDs is used to interpret and manage commands like \"info\" or \"help\".\r\nThe example creates a OneEye pipe and the corresponding DPipe that is used to interface the shell.",
+      "abstract": "A Shell is used to parse a command line and call the corresponding command execution. A OneEye pipe is used to interface with the Shell through the DAS interface.",
+      "folder": "OneEye_DAS_Shell_1_KIT_TC275_LK",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC275 lite Kit",
+          "id": "KIT_AURIX_TC275_LITE",
+          "device_id": "TC27xTP_D-Step"
+        }
+      ],
+      "keywords": [
+        "OneEye",
+        "DAS",
+        "Shell",
+        "Pipe",
+        "AURIX"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_OneEye_DAS_Shell_1_KIT_TC275_LK-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/TC27D_iLLD_UM_1_0_1_12_0.chm"
+      ],
+      "lastModified": "2022-03-28T00:00:00.000Z"
+    },
+    {
+      "title": "Shell via DAS interface using OneEye",
+      "name": "OneEye_DAS_Shell_1_KIT_TC297_TFT",
+      "description": "After configuring the OneEye DAS interface, the Shell from iLLDs is used to interpret and manage commands like \"info\" or \"help\".\r\nThe example creates a OneEye pipe and the corresponding DPipe that is used to interface the shell.",
+      "abstract": "A Shell is used to parse a command line and call the corresponding command execution. A OneEye pipe is used to interface with the Shell through the DAS interface.",
+      "folder": "OneEye_DAS_Shell_1_KIT_TC297_TFT",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC2X7 V1.1",
+          "id": "KIT_AURIX_TC297_TFT_BC-Step",
+          "device_id": "TC29xTA/TX_B-Step"
+        }
+      ],
+      "keywords": [
+        "OneEye",
+        "DAS",
+        "Shell",
+        "Pipe",
+        "AURIX"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_OneEye_DAS_Shell_1_KIT_TC297_TFT-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/TC29B_iLLD_UM_1_0_1_12_0.chm"
+      ],
+      "lastModified": "2022-03-28T00:00:00.000Z"
+    },
+    {
+      "title": "Shell via DAS interface using OneEye",
+      "name": "OneEye_DAS_Shell_1_KIT_TC334_LK",
+      "description": "After configuring the OneEye DAS interface, the Shell from iLLDs is used to interpret and manage commands like \"info\" or \"help\".\r\nThe example creates a OneEye pipe and the corresponding DPipe that is used to interface the shell.",
+      "abstract": "A Shell is used to parse a command line and call the corresponding command execution. A OneEye pipe is used to interface with the Shell through the DAS interface.",
+      "folder": "OneEye_DAS_Shell_1_KIT_TC334_LK",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC334 lite Kit",
+          "id": "KIT_A2G_TC334_LITE",
+          "device_id": "TC33xLP_A-Step"
+        }
+      ],
+      "keywords": [
+        "OneEye",
+        "DAS",
+        "Shell",
+        "Pipe",
+        "AURIX"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_OneEye_DAS_Shell_1_KIT_TC334_LK-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/TC33A_iLLD_UM_1_0_1_12_1.chm"
+      ],
+      "lastModified": "2022-03-28T00:00:00.000Z"
+    },
+    {
+      "title": "Shell via DAS interface using OneEye",
+      "name": "OneEye_DAS_Shell_1_KIT_TC375_LK",
+      "description": "After configuring the OneEye DAS interface, the Shell from iLLDs is used to interpret and manage commands like \"info\" or \"help\".\r\nThe example creates a OneEye pipe and the corresponding DPipe that is used to interface the shell.",
+      "abstract": "A Shell is used to parse a command line and call the corresponding command execution. A OneEye pipe is used to interface with the Shell through the DAS interface.",
+      "folder": "OneEye_DAS_Shell_1_KIT_TC375_LK",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC375 lite Kit",
+          "id": "KIT_A2G_TC375_LITE",
+          "device_id": "TC37xTP_A-Step"
+        }
+      ],
+      "keywords": [
+        "OneEye",
+        "DAS",
+        "Shell",
+        "Pipe",
+        "AURIX"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_OneEye_DAS_Shell_1_KIT_TC375_LK-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/TC37A_iLLD_UM_1_0_1_12_1.chm"
+      ],
+      "lastModified": "2022-03-28T00:00:00.000Z"
+    },
+    {
+      "title": "Shell via DAS interface using OneEye",
+      "name": "OneEye_DAS_Shell_1_KIT_TC397_TFT",
+      "description": "After configuring the OneEye DAS interface, the Shell from iLLDs is used to interpret and manage commands like \"info\" or \"help\".\r\nThe example creates a OneEye pipe and the corresponding DPipe that is used to interface the shell.",
+      "abstract": "A Shell is used to parse a command line and call the corresponding command execution. A OneEye pipe is used to interface with the Shell through the DAS interface.",
+      "folder": "OneEye_DAS_Shell_1_KIT_TC397_TFT",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC3X7 V2.0",
+          "id": "KIT_A2G_TC397_5V_TFT",
+          "device_id": "TC39xXX_B-Step"
+        }
+      ],
+      "keywords": [
+        "OneEye",
+        "DAS",
+        "Shell",
+        "Pipe",
+        "AURIX"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_OneEye_DAS_Shell_1_KIT_TC397_TFT-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/TC39B_iLLD_UM_1_0_1_12_1.chm"
+      ],
+      "lastModified": "2022-03-28T00:00:00.000Z"
     },
     {
       "title": "Power saving in CPU idle mode",
@@ -8706,6 +9401,36 @@
     },
     {
       "title": "SPI communication via QSPI",
+      "name": "SPI_CPU_1_KIT_TC334_LK",
+      "description": "QSPI1 is configured in master mode and used to send five bytes to QSPI2 configured in slave mode.\r\nThe received data is read by the CPU and compared against the transmitted data. Port pin 00.5,\r\nto which LED1 is connected, indicates the successful transfer.",
+      "abstract": "A QSPI module configured as SPI master sends five bytes to another QSPI module which is configured as SPI slave.",
+      "folder": "SPI_CPU_1_KIT_TC334_LK",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC334 lite Kit",
+          "id": "KIT_A2G_TC334_LITE",
+          "device_id": "TC33xLP_A-Step"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "Communication",
+        "Master",
+        "QSPI",
+        "SPI",
+        "SPI_CPU_1",
+        "Slave",
+        "MikroBus"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_SPI_CPU_1_KIT_TC334_LK-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/TC33A_iLLD_UM_1_0_1_12_1.chm"
+      ],
+      "lastModified": "2022-03-28T00:00:00.000Z"
+    },
+    {
+      "title": "SPI communication via QSPI",
       "name": "SPI_CPU_1_KIT_TC375_LK",
       "description": "QSPI1 is configured in master mode and used to send five bytes to QSPI2 configured in slave mode.\r\nThe received data is read by the CPU and compared against the transmitted data. Port pin 00.5,\r\nto which LED1 is connected, indicates the successful transfer.",
       "abstract": "A QSPI module configured as SPI master sends five bytes to another QSPI module which is configured as SPI slave.",
@@ -8820,6 +9545,36 @@
         "https://www.infineon.com/aurix-expert-training/TC29B_iLLD_UM_1_0_1_12_0.chm"
       ],
       "lastModified": "2020-12-18T00:00:00.000Z"
+    },
+    {
+      "title": "SPI data communication via DMA",
+      "name": "SPI_DMA_1_KIT_TC334_LK",
+      "description": "This example implements an SPI full duplex communication.\r\nQSPI1 is configured as an SPI master and QSPI2 is configured as an SPI slave. Both master and slave\r\nexchange eight bytes of data.\r\nFour DMA channels are used to enable data transfer between RAM and QSPI FIFOs without CPU intervention:\r\nDMA channel 1 is configured as SPI master Tx\r\nDMA channel 2 is configured as SPI master Rx\r\nDMA channel 3 is configured as SPI slave Tx\r\nDMA channel 4 is configured as SPI slave Rx\r\nAn LED is used to signal the successful data communication.",
+      "abstract": "QSPI is used to conduct SPI Master Slave communication using the DMA module.",
+      "folder": "SPI_DMA_1_KIT_TC334_LK",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC334 lite Kit",
+          "id": "KIT_A2G_TC334_LITE",
+          "device_id": "TC33xLP_A-Step"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "Communication",
+        "DMA",
+        "Master",
+        "SPI",
+        "SPI_DMA_1",
+        "Slave",
+        "MikroBus"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_SPI_DMA_1_KIT_TC334_LK-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/TC33A_iLLD_UM_1_0_1_12_1.chm"
+      ],
+      "lastModified": "2022-03-28T00:00:00.000Z"
     },
     {
       "title": "SPI data communication via DMA",

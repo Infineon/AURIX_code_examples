@@ -1,0 +1,55 @@
+<root version="2.46.0">
+    <signals>
+        <var name="elf" type="group" offset="0" access="read-write">
+            <var name="g_signalGenerator" type="group" offset="0" access="read-write">
+                <item-configuration>
+                    <title><![CDATA[g_signalGenerator]]></title>
+                </item-configuration>
+                <var name="input" type="group" offset="0" access="read-write">
+                    <item-configuration>
+                        <title><![CDATA[input]]></title>
+                    </item-configuration>
+                    <var name="max" type="float" offset="0" access="read-write" default="0">
+                        <item-configuration>
+                            <title><![CDATA[max]]></title>
+                        </item-configuration>
+                    </var>
+                    <var name="increment" type="float" offset="0" access="read-write" default="0">
+                        <item-configuration>
+                            <title><![CDATA[increment]]></title>
+                        </item-configuration>
+                    </var>
+                </var>
+                <var name="output" type="group" offset="0" access="read-write">
+                    <item-configuration>
+                        <title><![CDATA[output]]></title>
+                    </item-configuration>
+                    <var name="signalA" type="float" offset="0" access="read-write" default="0">
+                        <item-configuration>
+                            <title><![CDATA[signalA]]></title>
+                        </item-configuration>
+                    </var>
+                    <var name="signalB" type="sint32" offset="0" access="read-write" default="0">
+                        <item-configuration>
+                            <title><![CDATA[signalB]]></title>
+                        </item-configuration>
+                    </var>
+                </var>
+            </var>
+        </var>
+    </signals>
+    <layout>
+        <lineEdit auto-connect="elf.g_signalGenerator.input.max"/>
+        <lineEdit auto-connect="elf.g_signalGenerator.input.increment"/>
+        <lineEdit auto-connect="elf.g_signalGenerator.output.signalA"/>
+        <lineEdit auto-connect="elf.g_signalGenerator.output.signalB"/>
+    </layout>
+    <interface>
+        <item-configuration>
+            <id><![CDATA[das-itf]]></id>
+        </item-configuration>
+        <port plugin="PCom_DAS::DAS" connect="true" system-key="{ADS}"/>
+    </interface>
+    <config/>
+    <debugBox elf-path="..\Debug\OneEye_DAS_Quickstart_1_KIT_TC334_LK.elf" watches="g_signalGenerator" com-interface-id="das-itf" title="" id="elf"/>
+</root>
