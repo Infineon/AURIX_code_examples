@@ -4,6 +4,8 @@ Each code example is made up of two parts: the **[source code](#source-code)** a
 
 To import a code example into AURIX™ Development Studio, follow the guide at the [end on this page](#how-to-import).
 
+**NOTE:** For any question or request, please use the dedicated [Infineon AURIX™ forum](https://community.infineon.com/t5/AURIX/bd-p/AURIX).
+
 ## Topics
 The topics covered by the code examples stored in this repository are the following, divided per macro category:
 
