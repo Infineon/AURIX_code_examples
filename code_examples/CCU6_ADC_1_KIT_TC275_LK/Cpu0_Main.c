@@ -32,12 +32,12 @@
  *              communication is used to display all measured values on a terminal monitor.
  *
  * \name CCU6_ADC_1_KIT_TC275_LK
- * \version V1.0.0
+ * \version V1.0.1
  * \board AURIX TC275 lite Kit, KIT_AURIX_TC275_LITE, TC27xTP_D-Step
  * \keywords ADC, AURIX, CCU6, CCU6_ADC_1, VADC, analog, conversion, digital, measurement, timer
- * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_CCU6_ADC_1_KIT_TC275_LK-TR-v01_00_00-EN.pdf
+ * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_CCU6_ADC_1_KIT_TC275_LK-TR-v01_00_01-EN.pdf
  * \documents https://www.infineon.com/aurix-expert-training/TC27D_iLLD_UM_1_0_1_12_0.chm
- * \lastUpdated 2021-06-29
+ * \lastUpdated 2022-06-30
  *********************************************************************************************************************/
 #include "Ifx_Types.h"
 #include "IfxCpu.h"

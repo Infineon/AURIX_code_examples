@@ -30,12 +30,12 @@
  *              The string is then visualized in a serial monitor.
  *
  * \name UART_VCOM_1_KIT_TC275_LK
- * \version V1.0.0
+ * \version V1.0.1
  * \board AURIX TC275 lite Kit, KIT_AURIX_TC275_LITE, TC27xTP_D-Step
  * \keywords AURIX, COM, PC, UART, UART_VCOM_1, VCOM, communication, serial, virtual COM
- * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_UART_VCOM_1_KIT_TC275_LK-TR-v01_00_00-EN.pdf
+ * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_UART_VCOM_1_KIT_TC275_LK-TR-v01_00_01-EN.pdf
  * \documents https://www.infineon.com/aurix-expert-training/TC27D_iLLD_UM_1_0_1_12_0.chm
- * \lastUpdated 2021-06-29
+ * \lastUpdated 2022-06-30
  *********************************************************************************************************************/
 #include "Ifx_Types.h"
 #include "IfxCpu.h"

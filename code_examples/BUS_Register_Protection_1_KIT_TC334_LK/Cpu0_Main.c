@@ -31,12 +31,12 @@
  *              a Trap is expected to be raised, to inform about the illegal write access.
  *
  * \name BUS_Register_Protection_1_KIT_TC334_LK
- * \version V1.0.0
+ * \version V1.0.1
  * \board AURIX TC334 lite Kit, KIT_A2G_TC334_LITE, TC33xLP_A-Step
  * \keywords AURIX, Access protection, BUS_Register_Protection_1, Registers
- * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_BUS_Register_Protection_1_KIT_TC334_LK-TR-v01_00_00-EN.pdf
+ * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_BUS_Register_Protection_1_KIT_TC334_LK-TR-v01_00_01-EN.pdf
  * \documents https://www.infineon.com/aurix-expert-training/TC33A_iLLD_UM_1_0_1_12_1.chm
- * \lastUpdated 2021-12-16
+ * \lastUpdated 2022-06-30
  *********************************************************************************************************************/
 #include "Ifx_Types.h"
 #include "IfxCpu.h"

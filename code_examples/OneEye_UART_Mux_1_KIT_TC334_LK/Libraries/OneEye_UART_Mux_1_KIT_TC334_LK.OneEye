@@ -1,0 +1,91 @@
+<root version="2.48.0">
+    <signals>
+        <var name="bb" type="group" offset="0" access="read-write">
+            <var name="in" type="char" offset="0" access="read-write">
+                <item-configuration>
+                    <title><![CDATA[BB in]]></title>
+                </item-configuration>
+            </var>
+            <var name="out" type="char" offset="0" access="read-write">
+                <item-configuration>
+                    <title><![CDATA[BB out]]></title>
+                </item-configuration>
+            </var>
+        </var>
+        <var name="mux" type="group" offset="0" access="read-write">
+            <var name="in" type="char" offset="0" access="read-write">
+                <item-configuration>
+                    <title><![CDATA[Mux in]]></title>
+                </item-configuration>
+            </var>
+            <var name="out" type="char" offset="0" access="read-write">
+                <item-configuration>
+                    <title><![CDATA[Mux out]]></title>
+                </item-configuration>
+            </var>
+        </var>
+        <var name="command" type="group" offset="0" access="read-write">
+            <var name="max" type="float" offset="0" access="read-write" default="0">
+                <item-configuration>
+                    <title><![CDATA[Max]]></title>
+                </item-configuration>
+            </var>
+            <var name="increment" type="float" offset="0" access="read-write" default="0">
+                <item-configuration>
+                    <title><![CDATA[Increment]]></title>
+                </item-configuration>
+            </var>
+        </var>
+        <var name="status" type="group" offset="0" access="read-write">
+            <var name="signalA" type="float" offset="0" access="read-only" default="0">
+                <item-configuration>
+                    <title><![CDATA[Signal A]]></title>
+                </item-configuration>
+            </var>
+            <var name="signalB" type="sint32" offset="0" access="read-write" default="0">
+                <item-configuration>
+                    <title><![CDATA[Signal B]]></title>
+                </item-configuration>
+            </var>
+        </var>
+    </signals>
+    <layout>
+        <pushButton>
+            <item-configuration>
+                <title><![CDATA[Setup Serial Interface]]></title>
+                <on-click><![CDATA[{show.connection.ui}]]></on-click>
+            </item-configuration>
+        </pushButton>
+        <slider auto-connect="command.max" max="1200"/>
+        <graph buffer-depth="6000" multi-channel="false" legend-pos="top" division-x="10" division-y="10" offset-y="5" time-per-division-x="1" unit-x="s">
+            <channel auto-connect="status.signalA" enabled="defined-by-connection" offset-x="0" offset-y="0" unit-per-division-y="200" pen-width="1" color="green"/>
+            <channel auto-connect="status.signalB" enabled="defined-by-connection" offset-x="0" offset-y="0" unit-per-division-y="200" pen-width="1" color="black"/>
+        </graph>
+        <muxDemux data-in="mux.in" data-out="mux.out" key="0x0">
+            <message id="0x4000" length="32">
+                <field name="status.signalA" bit-pos="0"/>
+                <field name="status.signalB" bit-pos="32"/>
+            </message>
+            <message id="0x4001" dir="mux" length="4">
+                <field name="command.max" bit-pos="0"/>
+            </message>
+        </muxDemux>
+    </layout>
+    <interface>
+        <messages>
+            <message id="0xFE" interval="0.001" send-on-new-data="true" dir="tx" stream="true">
+                <field name="bb.out" bit-pos="0" buffer="512"/>
+            </message>
+            <message id="0xFF" stream="true">
+                <field name="bb.in" bit-pos="0"/>
+            </message>
+        </messages>
+        <port plugin="PCom_Core::com" device="COM17" baudrate="115200" connect="true"/>
+    </interface>
+    <protocolEngine>
+        <protocol name="BB-core" plugin="PProtocol_Core::bb" data-in="bb.in" data-out="bb.out" timeout="2000">
+            <target local-port="1" remote-port="1" signal-in="mux.out" signal-out="mux.in" forward="true" send-parent-value="false"/>
+        </protocol>
+    </protocolEngine>
+    <config/>
+</root>

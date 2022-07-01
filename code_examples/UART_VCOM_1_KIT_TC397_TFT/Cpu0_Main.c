@@ -30,12 +30,12 @@
  *              The string is then visualized in a serial monitor.
  *
  * \name UART_VCOM_1_KIT_TC397_TFT
- * \version V1.0.2
+ * \version V1.0.3
  * \board APPLICATION KIT TC3X7 V2.0, KIT_A2G_TC397_5V_TFT, TC39xXX_B-Step
  * \keywords AURIX, COM, PC, UART, UART_VCOM_1, VCOM, communication, serial, virtual COM
- * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_UART_VCOM_1_KIT_TC397_TFT-TR-v01_00_02-EN.pdf
+ * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_UART_VCOM_1_KIT_TC397_TFT-TR-v01_00_03-EN.pdf
  * \documents https://www.infineon.com/aurix-expert-training/TC39B_iLLD_UM_1_0_1_12_1.chm
- * \lastUpdated 2021-06-29
+ * \lastUpdated 2023-06-30
  *********************************************************************************************************************/
 #include "Ifx_Types.h"
 #include "IfxCpu.h"
