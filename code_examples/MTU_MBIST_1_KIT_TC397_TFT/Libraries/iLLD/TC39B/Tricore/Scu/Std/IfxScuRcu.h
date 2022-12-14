@@ -3,25 +3,28 @@
  * \brief SCU  basic functionality
  * \ingroup IfxLld_Scu
  *
- * \version iLLD_1_0_1_12_0
- * \copyright Copyright (c) 2018 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_15_0_1
+ * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
  *
+ *
  * Use of this file is subject to the terms of use agreed between (i) you or
  * the company in which ordinary course of business you are acting and (ii)
- * Infineon Technologies AG or its licensees. If and as long as no such terms
- * of use are agreed, use of this file is subject to following:
+ * Infineon Technologies AG or its licensees. If and as long as no such
+ * terms of use are agreed, use of this file is subject to following:
+ *
  *
  * Boost Software License - Version 1.0 - August 17th, 2003
  *
- * Permission is hereby granted, free of charge, to any person or organization
- * obtaining a copy of the software and accompanying documentation covered by
- * this license (the "Software") to use, reproduce, display, distribute,
- * execute, and transmit the Software, and to prepare derivative works of the
- * Software, and to permit third-parties to whom the Software is furnished to
- * do so, all subject to the following:
+ * Permission is hereby granted, free of charge, to any person or
+ * organization obtaining a copy of the software and accompanying
+ * documentation covered by this license (the "Software") to use, reproduce,
+ * display, distribute, execute, and transmit the Software, and to prepare
+ * derivative works of the Software, and to permit third-parties to whom the
+ * Software is furnished to do so, all subject to the following:
  *
  * The copyright notices in the Software and this entire statement, including
  * the above license grant, this restriction and the following disclaimer, must
@@ -37,6 +40,7 @@
  * FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
+ *
  *
  *
  * This file contains the APIs for Reset related functions.
@@ -122,8 +126,6 @@ typedef enum
     IfxScuRcu_Trigger_cb0       = 18,  /**< \brief Cerberus System Reset */
     IfxScuRcu_Trigger_cb1       = 19,  /**< \brief Cerberus Debug Reset */
     IfxScuRcu_Trigger_cb3       = 20,  /**< \brief Cerberus Application Reset */
-    IfxScuRcu_Trigger_tp        = 21,  /**< \brief Tuning protection */
-    IfxScuRcu_Trigger_tcu       = 22,  /**< \brief TCU */
     IfxScuRcu_Trigger_evrc      = 23,  /**< \brief EVRC */
     IfxScuRcu_Trigger_evr33     = 24,  /**< \brief EVR33 */
     IfxScuRcu_Trigger_swd       = 25,  /**< \brief Supply Watchdog */

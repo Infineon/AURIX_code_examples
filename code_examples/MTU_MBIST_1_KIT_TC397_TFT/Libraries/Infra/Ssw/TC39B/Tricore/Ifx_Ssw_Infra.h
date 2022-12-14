@@ -2,7 +2,7 @@
  * \file Ifx_Ssw_Infra.h
  * \brief Startup Software support functions.
  *
- * \version iLLD_1_0_1_12_0
+ * \version iLLD_1_0_1_15_0_1
  * \copyright Copyright (c) 2018 Infineon Technologies AG. All rights reserved.
  *
  *
@@ -263,8 +263,11 @@ extern void Ifx_Ssw_startCore(Ifx_CPU *cpu, unsigned int programCounter);
 /** \brief Set CPU0 to idle state */
 extern void Ifx_Ssw_setCpu0Idle(void);
 
-/** \brief Initialise the C runtime environment */
-extern void Ifx_Ssw_C_Init(void);
+/** \brief Initialize the C/Cpp runtime environment */
+extern void Ifx_Ssw_doCppInit(void);
+
+/** \brief De-initialize the C/Cpp runtime environment */
+extern void Ifx_Ssw_doCppExit(int status);
 
 /** \brief Returns the system timer frequency.
  * \return the system timer frequency in Hz.
@@ -291,6 +294,10 @@ extern void Ifx_Ssw_serviceCpuWatchdog(Ifx_SCU_WDTCPU *watchdog, unsigned short 
  * \return None
  */
 extern void Ifx_Ssw_serviceSafetyWatchdog(unsigned short password);
+
+/* Hook Functions */
+extern IFX_SSW_WEAK void hardware_init_hook(void);
+extern IFX_SSW_WEAK void software_init_hook(void);
 
 /*Endinit Functions*/
 IFX_SSW_INLINE unsigned short Ifx_Ssw_getGlobalSafetyEndinitPasswordInline(void)

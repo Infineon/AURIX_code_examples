@@ -2,8 +2,9 @@
  * \file IfxGtm_Tim_In.c
  * \brief GTM IN details
  *
- * \version iLLD_1_0_1_12_0_1
- * \copyright Copyright (c) 2019 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_15_0_1
+ * \copyright Copyright (c) 2021 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
@@ -36,6 +37,7 @@
  * FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
+ *
  *
  */
 
@@ -86,16 +88,30 @@ boolean IfxGtm_Tim_In_init(IfxGtm_Tim_In *driver, const IfxGtm_Tim_In_Config *co
     driver->overflowCnt      = FALSE;
     driver->edgeCounterUpper = 0;
 
-    channel->CTRL.B.TIM_MODE = IfxGtm_Tim_Mode_pwmMeasurement;
+    channel->CTRL.B.TIM_MODE = config->mode;
 
     IfxGtm_Tim_Ch_setClockSource(channel, config->capture.clock);
 
     driver->captureClockFrequency = IfxGtm_Tim_Ch_getCaptureClockFrequency(config->gtm, channel);
 
-    IFX_ASSERT(IFX_VERBOSE_LEVEL_ERROR, (config->capture.mode == Ifx_Pwm_Mode_leftAligned) || (config->capture.mode == Ifx_Pwm_Mode_rightAligned));
+    if ((config->mode == IfxGtm_Tim_Mode_inputEvent) || (config->mode == IfxGtm_Tim_Mode_gatedPeriodic))
+    {
+        channel->CTRL.B.DSL = (config->capture.activeEdge != IfxGtm_Tim_In_ActiveEdge_both) ? (uint32)config->capture.activeEdge : 0;
+        channel->CTRL.B.ISL = (config->capture.activeEdge == IfxGtm_Tim_In_ActiveEdge_both) ? 1 : 0;
 
-    result                  &= (config->capture.mode == Ifx_Pwm_Mode_leftAligned) || (config->capture.mode == Ifx_Pwm_Mode_rightAligned);
-    channel->CTRL.B.DSL      = config->capture.mode == Ifx_Pwm_Mode_leftAligned ? 1 : 0;
+        if (config->mode == IfxGtm_Tim_Mode_gatedPeriodic)
+        {
+            IfxGtm_Tim_Ch_setShadowCounter(channel, config->capture.gateCount);
+        }
+    }
+    else
+    {
+        IFX_ASSERT(IFX_VERBOSE_LEVEL_ERROR, (config->mode == IfxGtm_Tim_Mode_pwmMeasurement));
+        IFX_ASSERT(IFX_VERBOSE_LEVEL_ERROR, (config->capture.mode == Ifx_Pwm_Mode_leftAligned) || (config->capture.mode == Ifx_Pwm_Mode_rightAligned));
+        result             &= (config->capture.mode == Ifx_Pwm_Mode_leftAligned) || (config->capture.mode == Ifx_Pwm_Mode_rightAligned);
+
+        channel->CTRL.B.DSL = config->capture.mode == Ifx_Pwm_Mode_leftAligned ? 1 : 0;
+    }
 
     channel->CTRL.B.CNTS_SEL = IfxGtm_Tim_CntsSel_cntReg;
     channel->CTRL.B.GPR0_SEL = IfxGtm_Tim_GprSel_cnts; /* Use CNTS as input for GPR0 */
@@ -267,6 +283,8 @@ void IfxGtm_Tim_In_initConfig(IfxGtm_Tim_In_Config *config, Ifx_GTM *gtm)
     config->capture.irqOnDatalost        = FALSE;
     config->capture.clock                = IfxGtm_Cmu_Clk_0;
     config->capture.mode                 = Ifx_Pwm_Mode_leftAligned;
+    config->capture.activeEdge           = IfxGtm_Tim_In_ActiveEdge_both;
+    config->capture.gateCount            = 0;
     config->timeout.irqOnTimeout         = FALSE;
     config->timeout.clock                = IfxGtm_Cmu_Clk_0;
     config->timeout.timeout              = 0.0;
@@ -278,6 +296,7 @@ void IfxGtm_Tim_In_initConfig(IfxGtm_Tim_In_Config *config, Ifx_GTM *gtm)
     config->filter.risingEdgeFilterTime  = 0;
     config->filter.fallingEdgeFilterTime = 0;
     config->filter.clock                 = IfxGtm_Cmu_Tim_Filter_Clk_0;
+    config->mode                         = IfxGtm_Tim_Mode_pwmMeasurement;
 }
 
 

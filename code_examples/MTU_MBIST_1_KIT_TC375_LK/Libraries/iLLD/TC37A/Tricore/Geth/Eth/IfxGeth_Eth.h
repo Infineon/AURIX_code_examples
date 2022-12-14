@@ -3,25 +3,28 @@
  * \brief GETH ETH details
  * \ingroup IfxLld_Geth
  *
- * \version iLLD_1_0_1_12_0
- * \copyright Copyright (c) 2019 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_15_0_1
+ * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
  *
+ *
  * Use of this file is subject to the terms of use agreed between (i) you or
  * the company in which ordinary course of business you are acting and (ii)
- * Infineon Technologies AG or its licensees. If and as long as no such terms
- * of use are agreed, use of this file is subject to following:
+ * Infineon Technologies AG or its licensees. If and as long as no such
+ * terms of use are agreed, use of this file is subject to following:
+ *
  *
  * Boost Software License - Version 1.0 - August 17th, 2003
  *
- * Permission is hereby granted, free of charge, to any person or organization
- * obtaining a copy of the software and accompanying documentation covered by
- * this license (the "Software") to use, reproduce, display, distribute,
- * execute, and transmit the Software, and to prepare derivative works of the
- * Software, and to permit third-parties to whom the Software is furnished to
- * do so, all subject to the following:
+ * Permission is hereby granted, free of charge, to any person or
+ * organization obtaining a copy of the software and accompanying
+ * documentation covered by this license (the "Software") to use, reproduce,
+ * display, distribute, execute, and transmit the Software, and to prepare
+ * derivative works of the Software, and to permit third-parties to whom the
+ * Software is furnished to do so, all subject to the following:
  *
  * The copyright notices in the Software and this entire statement, including
  * the above license grant, this restriction and the following disclaimer, must
@@ -37,6 +40,7 @@
  * FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
+ *
  *
  *
  * \defgroup IfxLld_Geth_Eth_Usage How to use the Geth Eth Interface driver?
@@ -127,10 +131,10 @@
  * config.dmaConfig.rxChannel[0].rxBuffer1Size = IFXGETH_MAX_RX_BUFFER_SIZE; // user defined variable
  *
  * config.dmaConfig.txInterrupt[0].channelId = IfxGeth_DmaChannel_0;
- * config.dmaConfig.txInterrupt[0].priority = 10;	// priority
+ * config.dmaConfig.txInterrupt[0].priority = 10;  // priority
  * config.dmaConfig.txInterrupt[0].provider = IfxSrc_Tos_cpu0;
  * config.dmaConfig.rxInterrupt[0].channelId = IfxGeth_DmaChannel_0;
- * config.dmaConfig.rxInterrupt[0].priority = 11;	// priority
+ * config.dmaConfig.rxInterrupt[0].priority = 11;  // priority
  * config.dmaConfig.rxInterrupt[0].provider = IfxSrc_Tos_cpu0;
  *
  * // initialise themodule
@@ -370,6 +374,7 @@ typedef struct
     IfxGeth_TxDescrList   *txDescrList;                 /**< \brief pointer to TX descriptors RAM */
     uint32                *txBuffer1StartAddress;       /**< \brief Start address of Tx Buffer 1 */
     uint16                 txBuffer1Size;               /**< \brief Size of Tx Buffer 1 */
+    boolean                enableOSF;                   /**< \brief Operate on Second Frame, True: Enabled, False: Disabled */
 } IfxGeth_Eth_TxChannelConfig;
 
 /** \brief Tx Queue Configuration
@@ -689,7 +694,7 @@ IFX_EXTERN void IfxGeth_Eth_writeHeader(IfxGeth_Eth *geth, uint8 *txBuffer, uint
  * mtlConfig.rxArbitrationAlgorithm       =    IfxGeth_RxArbitrationAlgorithm_sp;
  * mtlConfig.txQueueConfig[0].storeAndForward              =    FALSE;
  * mtlConfig.txQueueConfig[0].txQueueSize                  =    IfxGeth_QueueSize_256Bytes;
- * mtlConfig.txQueueConfig[0].txQueueUnderflowInterruptEnabled = FLASE;	// enable if required
+ * mtlConfig.txQueueConfig[0].txQueueUnderflowInterruptEnabled = FLASE;  // enable if required
  *
  * mtlConfig.rxQueueConfig[0].storeAndForward              =    FALSE;
  * mtlConfig.rxQueueConfig[0].rxQueueSize                  =    IfxGeth_QueueSize_256Bytes;
@@ -697,10 +702,10 @@ IFX_EXTERN void IfxGeth_Eth_writeHeader(IfxGeth_Eth *geth, uint8 *txBuffer, uint
  * mtlConfig.rxQueueConfig[0].forwardUndersizeedGoodPacket    =    FALSE;
  * mtlConfig.rxQueueConfig[0].daBasedDmaChannelEnabled     =    FALSE;
  * mtlConfig.rxQueueConfig[0].rxDmaChannelMap              =    IfxEth_RxDmaChannel_0;
- * mtlConfig.rxQueueConfig[0].rxQueueOverflowInterruptEnabled = FALSE;	// enable if required
+ * mtlConfig.rxQueueConfig[0].rxQueueOverflowInterruptEnabled = FALSE; // enable if required
  *
  * mtlConfig.interrupt.serviceRequest = IfxGeth_ServiceRequest_1;
- * mtlConfig.interrupt.priority = 0;	// choose priority
+ * mtlConfig.interrupt.priority = 0; // choose priority
  * mtlConfig.interrupt.provider = IfxSrc_Tos_cpu0;
  *
  * IfxGeth_Eth_configureMTL(&geth, &mtlConfig);
@@ -787,11 +792,11 @@ IFX_INLINE boolean IfxGeth_Eth_isRxDataAvailable(IfxGeth_Eth *geth, IfxGeth_RxDm
  * dmaConfig.rxChannel[0].rxBuffer1Size = RX_BUFFER1_SIZE; // user defined variable
  *
  * dmaConfig.txInterrupt[0].channelId = IfxGeth_DmaChannel_0;
- * dmaConfig.txInterrupt[0].priority = 0;	// choose priority
+ * dmaConfig.txInterrupt[0].priority = 0;  // choose priority
  * dmaConfig.txInterrupt[0].provider = IfxSrc_Tos_cpu0;
  *
  * dmaConfig.rxInterrupt[0].channelId = IfxGeth_DmaChannel_0;
- * dmaConfig.rxInterrupt[0].priority = 0;	// choose priority
+ * dmaConfig.rxInterrupt[0].priority = 0;  // choose priority
  * dmaConfig.rxInterrupt[0].provider = IfxSrc_Tos_cpu0;
  *
  * IfxGeth_Eth_configureDMA(&geth, &dmaConfig);
@@ -1063,7 +1068,6 @@ IFX_EXTERN void IfxGeth_Eth_freeReceiveBuffer(IfxGeth_Eth *geth, IfxGeth_RxDmaCh
 /******************************************************************************/
 /*-------------------Global Exported Variables/Constants----------------------*/
 /******************************************************************************/
-
 /** \brief Actual rx descriptor lists of all availabe rx channels
  */
 IFX_EXTERN IfxGeth_RxDescrList IfxGeth_Eth_rxDescrList[IFXGETH_NUM_MODULES][IFXGETH_NUM_RX_CHANNELS];

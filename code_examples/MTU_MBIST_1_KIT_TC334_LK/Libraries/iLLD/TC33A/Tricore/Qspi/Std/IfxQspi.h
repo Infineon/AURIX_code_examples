@@ -3,26 +3,28 @@
  * \brief QSPI  basic functionality
  * \ingroup IfxLld_Qspi
  *
- * \version iLLD_1_0_1_12_0_1
- * \copyright Copyright (c) 2019 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_15_0_1
+ * \copyright Copyright (c) 2021 Infineon Technologies AG. All rights reserved.
  *
  *
  *
  *                                 IMPORTANT NOTICE
  *
+ *
  * Use of this file is subject to the terms of use agreed between (i) you or
  * the company in which ordinary course of business you are acting and (ii)
- * Infineon Technologies AG or its licensees. If and as long as no such terms
- * of use are agreed, use of this file is subject to following:
+ * Infineon Technologies AG or its licensees. If and as long as no such
+ * terms of use are agreed, use of this file is subject to following:
+ *
  *
  * Boost Software License - Version 1.0 - August 17th, 2003
  *
- * Permission is hereby granted, free of charge, to any person or organization
- * obtaining a copy of the software and accompanying documentation covered by
- * this license (the "Software") to use, reproduce, display, distribute,
- * execute, and transmit the Software, and to prepare derivative works of the
- * Software, and to permit third-parties to whom the Software is furnished to
- * do so, all subject to the following:
+ * Permission is hereby granted, free of charge, to any person or
+ * organization obtaining a copy of the software and accompanying
+ * documentation covered by this license (the "Software") to use, reproduce,
+ * display, distribute, execute, and transmit the Software, and to prepare
+ * derivative works of the Software, and to permit third-parties to whom the
+ * Software is furnished to do so, all subject to the following:
  *
  * The copyright notices in the Software and this entire statement, including
  * the above license grant, this restriction and the following disclaimer, must
@@ -127,7 +129,8 @@ typedef enum
     IfxQspi_ChannelId_11,    /**< \brief Channel #11  */
     IfxQspi_ChannelId_12,    /**< \brief Channel #12  */
     IfxQspi_ChannelId_13,    /**< \brief Channel #13  */
-    IfxQspi_ChannelId_14     /**< \brief Channel #14  */
+    IfxQspi_ChannelId_14,    /**< \brief Channel #14  */
+    IfxQspi_ChannelId_15     /**< \brief Channel #15  */
 } IfxQspi_ChannelId;
 
 /** \brief Data length unit of a frame (BACON.BYTE)

@@ -2,8 +2,8 @@
  * \file IfxI2c_I2c.c
  * \brief I2C I2C details
  *
- * \version iLLD_1_0_1_12_0
- * \copyright Copyright (c) 2019 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_15_0_1
+ * \copyright Copyright (c) 2021 Infineon Technologies AG. All rights reserved.
  *
  *
  *
@@ -135,8 +135,8 @@ IfxI2c_I2c_Status IfxI2c_I2c_read(IfxI2c_I2c_Device *i2cDevice, volatile uint8 *
     IfxI2c_clearLastBurstRequestInterruptSource(i2c);
     IfxI2c_clearBurstRequestInterruptSource(i2c);
 
-    /* Poll until aribtration lost, nack, or rx mode flag is reset, or the error is gone*/
-    while ((i2c->PIRQSS.U & ((1 << IFX_I2C_PIRQSS_AL_OFF) | (1 << IFX_I2C_PIRQSS_NACK_OFF) | (1 << IFX_I2C_PIRQSS_RX_OFF))) || i2c->ERRIRQSS.U)
+    /* Poll until aribtration lost, nack, or rx mode flag is reset */
+    while ((i2c->PIRQSS.U & ((1 << IFX_I2C_PIRQSS_AL_OFF) | (1 << IFX_I2C_PIRQSM_TX_END_OFF) | (1 << IFX_I2C_PIRQSS_RX_OFF))) == FALSE)
     {}
 
     /* check status*/

@@ -3,26 +3,28 @@
  * \brief QSPI SPISLAVE details
  * \ingroup IfxLld_Qspi
  *
- * \version iLLD_1_0_1_12_0_1
- * \copyright Copyright (c) 2019 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_15_0_1
+ * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
  *
  *
  *
  *                                 IMPORTANT NOTICE
  *
+ *
  * Use of this file is subject to the terms of use agreed between (i) you or
  * the company in which ordinary course of business you are acting and (ii)
- * Infineon Technologies AG or its licensees. If and as long as no such terms
- * of use are agreed, use of this file is subject to following:
+ * Infineon Technologies AG or its licensees. If and as long as no such
+ * terms of use are agreed, use of this file is subject to following:
+ *
  *
  * Boost Software License - Version 1.0 - August 17th, 2003
  *
- * Permission is hereby granted, free of charge, to any person or organization
- * obtaining a copy of the software and accompanying documentation covered by
- * this license (the "Software") to use, reproduce, display, distribute,
- * execute, and transmit the Software, and to prepare derivative works of the
- * Software, and to permit third-parties to whom the Software is furnished to
- * do so, all subject to the following:
+ * Permission is hereby granted, free of charge, to any person or
+ * organization obtaining a copy of the software and accompanying
+ * documentation covered by this license (the "Software") to use, reproduce,
+ * display, distribute, execute, and transmit the Software, and to prepare
+ * derivative works of the Software, and to permit third-parties to whom the
+ * Software is furnished to do so, all subject to the following:
  *
  * The copyright notices in the Software and this entire statement, including
  * the above license grant, this restriction and the following disclaimer, must
@@ -383,14 +385,15 @@ typedef struct
  */
 typedef struct
 {
-    SpiIf                       base;             /**< \brief Module SPI interface handle */
-    Ifx_QSPI                   *qspi;             /**< \brief Pointer to QSPI module registers */
-    uint8                       dataWidth;        /**< \brief Number of bits which will be written into the FIFO */
-    SpiIf_Job                   rxJob;            /**< \brief Rx Stream which has been received */
-    SpiIf_Job                   txJob;            /**< \brief Tx Stream which should be sent */
-    boolean                     onTransfer;       /**< \brief set to TRUE during ongoing transfer */
-    IfxQspi_SpiSlave_Dma        dma;              /**< \brief Dma handle */
-    IfxQspi_SpiSlave_ErrorFlags errorFlags;       /**< \brief Spi Slave Error Flags */
+    SpiIf                       base;                  /**< \brief Module SPI interface handle */
+    Ifx_QSPI                   *qspi;                  /**< \brief Pointer to QSPI module registers */
+    uint8                       dataWidth;             /**< \brief Number of bits which will be written into the FIFO */
+    SpiIf_Job                   rxJob;                 /**< \brief Rx Stream which has been received */
+    SpiIf_Job                   txJob;                 /**< \brief Tx Stream which should be sent */
+    boolean                     onTransfer;            /**< \brief set to TRUE during ongoing transfer */
+    IfxQspi_SpiSlave_Dma        dma;                   /**< \brief Dma handle */
+    IfxQspi_SpiSlave_ErrorFlags errorFlags;            /**< \brief Spi Slave Error Flags */
+    float32                     maximumBaudrate;       /**< \brief Maximum Baud Rate for the SPI Module. */
 } IfxQspi_SpiSlave;
 
 /** \brief Module configuration structure

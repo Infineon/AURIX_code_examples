@@ -2,7 +2,7 @@
  * \file IfxEvadc_Adc.c
  * \brief EVADC ADC details
  *
- * \version iLLD_1_0_1_12_0
+ * \version iLLD_1_0_1_15_0_1
  * \copyright Copyright (c) 2020 Infineon Technologies AG. All rights reserved.
  *
  *

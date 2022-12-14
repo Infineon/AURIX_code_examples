@@ -3,8 +3,8 @@
  * \brief FLASH on-chip implementation data
  * \ingroup IfxLld_Flash
  *
- * \version iLLD_1_0_1_12_0_1
- * \copyright Copyright (c) 2019 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_15_0_1
+ * \copyright Copyright (c) 2021 Infineon Technologies AG. All rights reserved.
  *
  *
  *                                 IMPORTANT NOTICE
@@ -88,7 +88,7 @@
  */
 #define IFXFLASH_DFLASH_NUM_HSM_LOG_SECTORS              (32)
 
-#define IFXFLASH_DFLASH_NUM_LOG_SECTORS                  (32 + 32)
+#define IFXFLASH_DFLASH_NUM_LOG_SECTORS                  (32)
 
 /** \brief Phy sector for DF
  */

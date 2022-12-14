@@ -2,8 +2,8 @@
  * \file IfxMultican_Can.c
  * \brief MULTICAN CAN details
  *
- * \version iLLD_1_0_1_12_0
- * \copyright Copyright (c) 2019 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_15_0_1
+ * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
  *
  *
  *                                 IMPORTANT NOTICE
@@ -106,6 +106,14 @@ IfxMultican_Status IfxMultican_Can_MsgObj_init(IfxMultican_Can_MsgObj *msgObj, c
 
     /* check for the receive FIFO and trabsmit FIFO */
     boolean receiveFifo = FALSE, transmitFifo = FALSE;
+
+    boolean exception = FALSE; 
+    boolean bottomEqualsCurrent = FALSE;
+
+    if(config->msgObjId == config->firstSlaveObjId)
+    {
+        exception = TRUE; 
+    }
 
     if (config->gatewayTransfers != 1)
     {
@@ -290,27 +298,31 @@ IfxMultican_Status IfxMultican_Can_MsgObj_init(IfxMultican_Can_MsgObj *msgObj, c
         boolean remoteMonitoringEnabled = (config->frame == IfxMultican_Frame_remoteAnswer);
         IfxMultican_MsgObj_setRemoteMonitoring(hwObj, remoteMonitoringEnabled);
 
-        /* long frame CAN FD */
-        /* FDEN = 1, EDL = 1 and BRS = 0/1 */
-        /* in case of recieve Msg Obj, it recieves long and long+fast frames */
-        if (config->node->fastNode && longFrame)
+        /* only in case of transmit frame; in receive frame case these bits will be set by the hardware */
+        if (transmitFrame)
         {
-            /* enable extended data length */
-            IfxMultican_MsgObj_setExtendedDataLength(hwObj, TRUE);
+            /* long frame CAN FD */
+            /* FDEN = 1, EDL = 1 and BRS = 0/1 */
+            /* in case of recieve Msg Obj, it recieves long and long+fast frames */
+            if (config->node->fastNode && longFrame)
+            {
+                /* enable extended data length */
+                IfxMultican_MsgObj_setExtendedDataLength(hwObj, TRUE);
 
-            /* set data length code FCR.DLC */
-            IfxMultican_MsgObj_setDataLengthCode(hwObj, config->control.messageLen);
+                /* set data length code FCR.DLC */
+                IfxMultican_MsgObj_setDataLengthCode(hwObj, config->control.messageLen);
 
-            /* set bit rate switch (fast bit rate enable/disable) */
-            IfxMultican_MsgObj_setBitRateSwitch(hwObj, config->control.fastBitRate);
-        }
-        /* standard frame */
-        /* FDEN = 0/1, EDL = 0 and BRS = 0 (BRS = 1 also has no effect here) */
-        /* in case of recieve Msg Obj, it recieves only standard frames */
-        else
-        {
-            /* set data length code FCR.DLC */
-            IfxMultican_MsgObj_setDataLengthCode(hwObj, config->control.messageLen);
+                /* set bit rate switch (fast bit rate enable/disable) */
+                IfxMultican_MsgObj_setBitRateSwitch(hwObj, config->control.fastBitRate);
+            }
+            /* standard frame */
+            /* FDEN = 0/1, EDL = 0 and BRS = 0 (BRS = 1 also has no effect here) */
+            /* in case of recieve Msg Obj, it recieves only standard frames */
+            else
+            {
+                /* set data length code FCR.DLC */
+                IfxMultican_MsgObj_setDataLengthCode(hwObj, config->control.messageLen);
+            }
         }
 
         /* only for standard message object */
@@ -348,7 +360,12 @@ IfxMultican_Status IfxMultican_Can_MsgObj_init(IfxMultican_Can_MsgObj *msgObj, c
             }
             /* standard gateway transfers */
             else if (gatewaySourceObj)
-            {
+            {   /* set bottom pointer FGPR.BOT */
+                IfxMultican_MsgObj_setBottomObjectPointer(hwObj, gatewayDstObjId);
+
+                /* set top pointer FGPR.TOP */
+                IfxMultican_MsgObj_setTopObjectPointer(hwObj, gatewayDstObjId);
+
                 /* set (current pointer) FGPR.CUR, to gateway destination object */
                 IfxMultican_MsgObj_setCurrentObjectPointer(hwObj, gatewayDstObjId);
             }
@@ -374,6 +391,8 @@ IfxMultican_Status IfxMultican_Can_MsgObj_init(IfxMultican_Can_MsgObj *msgObj, c
 
             /* set start of FIFO (current pointer) FGPR.CUR, to first FIFO slave object (bottom pointer) */
             IfxMultican_MsgObj_setCurrentObjectPointer(hwObj, firstSlaveObjId);
+
+            bottomEqualsCurrent = TRUE; /*S/w Flag*/
 
             if (receiveFifo || transmitFifo)
             {
@@ -451,7 +470,7 @@ IfxMultican_Status IfxMultican_Can_MsgObj_init(IfxMultican_Can_MsgObj *msgObj, c
             Ifx_CAN_MO *hwSlaveObj = IfxMultican_MsgObj_getPointer(mcanSFR, objId);
 
             /* set message mode as transmit FIFO slave mode  */
-            IfxMultican_MsgObj_setMessageMode(hwSlaveObj, IfxMultican_MsgObjMode_transmitFifoSlave);
+            IfxMultican_MsgObj_setMessageMode(hwSlaveObj, IfxMultican_MsgObjMode_transmitFifoSlave); /*Not valid if Base object is at the same time 1st slave object. Corrected in expection*/
 
             /* point current pointer(FGPR.CUR) back to the base FIFO object */
             IfxMultican_MsgObj_setCurrentObjectPointer(hwSlaveObj, msgObj->msgObjId);
@@ -544,6 +563,17 @@ IfxMultican_Status IfxMultican_Can_MsgObj_init(IfxMultican_Can_MsgObj *msgObj, c
                 }
 
                 IfxMultican_MsgObj_setBottomObjectPointer(hwSlaveObj, nextFifoObj);
+
+                /*Exception when Base object is at the same time 1st Slave object*/
+                if(exception)
+                {
+                    IfxMultican_MsgObj_setMessageMode(hwObj, IfxMultican_MsgObjMode_transmitFifoBase);    /*Reconfigure Base Object to IfxMultican_MsgObjMode_transmitFifoBase*/
+                    
+                    if(bottomEqualsCurrent)
+                    {
+                        IfxMultican_MsgObj_setBottomObjectPointer(hwObj, config->msgObjId);
+                    } 
+                }
             }
         }
     }

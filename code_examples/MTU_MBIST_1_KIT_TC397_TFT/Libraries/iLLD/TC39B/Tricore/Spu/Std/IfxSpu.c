@@ -2,8 +2,8 @@
  * \file IfxSpu.c
  * \brief SPU  basic functionality
  *
- * \version iLLD_1_0_1_12_0
- * \copyright Copyright (c) 2019 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_15_0_1
+ * \copyright Copyright (c) 2021 Infineon Technologies AG. All rights reserved.
  *
  *
  *                                 IMPORTANT NOTICE
@@ -651,7 +651,6 @@ void IfxSpu_setupCfarGOS(IfxSpu_ConfigSlot *slot, const IfxSpu_CfarGOSConfig *co
             slot->CFAR.CFG1.U  = cfarcfg1.U;
         }
 
-        slot->CFAR.CFG2.U = 0;
         slot->CFAR.CFG3.U = 0;
     }
 }

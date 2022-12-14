@@ -3,7 +3,7 @@
  * \brief SCU on-chip implementation data
  * \ingroup IfxLld_Scu
  *
- * \version iLLD_1_0_1_12_0
+ * \version iLLD_1_0_1_15_0_1
  * \copyright Copyright (c) 2012 Infineon Technologies AG. All rights reserved.
  *
  *
@@ -1179,32 +1179,32 @@
 
 #ifndef IFXSCU_CFG_FLASH_FCON_WSDFLASH_80MHZ
 /** \brief Macro to configure FCON.WSDFLASH at 80MHz target frequency */
-#define IFXSCU_CFG_FLASH_FCON_WSDFLASH_80MHZ  (16 - 1)
+#define IFXSCU_CFG_FLASH_FCON_WSDFLASH_80MHZ  (8 - 1)
 #endif /*#ifndef IFXSCU_CFG_FLASH_FCON_WSDFLASH_80MHZ */
 
 #ifndef IFXSCU_CFG_FLASH_FCON_WSDFLASH_133MHZ
-/** \brief Macro to configure FCON.WSDFLASH_ at 133MHz target frequency, where fSRI= 133/2= 66.5MHZ */
-#define IFXSCU_CFG_FLASH_FCON_WSDFLASH_133MHZ (14 - 1)
+/** \brief Macro to configure FCON.WSDFLASH_ at 133MHz target frequency, where fFSI= 133/2= 66.5MHZ */
+#define IFXSCU_CFG_FLASH_FCON_WSDFLASH_133MHZ (7 - 1)
 #endif /*#ifndef IFXSCU_CFG_FLASH_FCON_WSDFLASH_133MHZ */
 
 #ifndef IFXSCU_CFG_FLASH_FCON_WSDFLASH_160MHZ
-/** \brief Macro to configure FCON.WSDFLASH at 160MHz target frequency, where fSRI= 160/2= 80MHZ */
-#define IFXSCU_CFG_FLASH_FCON_WSDFLASH_160MHZ (16 - 1)
+/** \brief Macro to configure FCON.WSDFLASH at 160MHz target frequency, where fFSI= 160/2= 80MHZ */
+#define IFXSCU_CFG_FLASH_FCON_WSDFLASH_160MHZ (8 - 1)
 #endif /*#ifndef IFXSCU_CFG_FLASH_FCON_WSDFLASH_160MHZ */
 
 #ifndef IFXSCU_CFG_FLASH_FCON_WSDFLASH_200MHZ
-/** \brief Macro to configure FCON.WSDFLASH at 200MHz target frequency, where fSRI= 200/2= 100MHZ */
-#define IFXSCU_CFG_FLASH_FCON_WSDFLASH_200MHZ (20 - 1)
+/** \brief Macro to configure FCON.WSDFLASH at 200MHz target frequency, where fFSI= 200/2= 100MHZ */
+#define IFXSCU_CFG_FLASH_FCON_WSDFLASH_200MHZ (10 - 1)
 #endif /*#ifndef IFXSCU_CFG_FLASH_FCON_WSDFLASH_200MHZ */
 
 #ifndef IFXSCU_CFG_FLASH_FCON_WSDFLASH_240MHZ
-/** \brief Macro to configure FCON.WSDFLASH at 240MHz target frequency, where fSRI= 240/3= 80MHZ */
-#define IFXSCU_CFG_FLASH_FCON_WSDFLASH_240MHZ (16 - 1)
+/** \brief Macro to configure FCON.WSDFLASH at 240MHz target frequency, where fFSI= 240/3= 80MHZ */
+#define IFXSCU_CFG_FLASH_FCON_WSDFLASH_240MHZ (8 - 1)
 #endif /*#ifndef IFXSCU_CFG_FLASH_FCON_WSDFLASH_240MHZ */
 
 #ifndef IFXSCU_CFG_FLASH_FCON_WSDFLASH_300MHZ
-/** \brief Macro to configure FCON.WSDFLASH at 300MHz target frequency, where fSRI= 300/3= 100MHZ */
-#define IFXSCU_CFG_FLASH_FCON_WSDFLASH_300MHZ (20 - 1)
+/** \brief Macro to configure FCON.WSDFLASH at 300MHz target frequency, where fFSI= 300/3= 100MHZ */
+#define IFXSCU_CFG_FLASH_FCON_WSDFLASH_300MHZ (10 - 1)
 #endif /*#ifndef IFXSCU_CFG_FLASH_FCON_WSDFLASH_300MHZ */
 
 #ifndef IFXSCU_CFG_FLASH_FCON_WSECDF_80MHZ
@@ -1213,27 +1213,27 @@
 #endif /*#ifndef IFXSCU_CFG_FLASH_FCON_WSECDF_80MHZ */
 
 #ifndef IFXSCU_CFG_FLASH_FCON_WSECDF_133MHZ
-/** \brief Macro to configure FCON.WSECDF at 133MHz target frequency, where fSRI= 133/2= 66.5MHZ */
+/** \brief Macro to configure FCON.WSECDF at 133MHz target frequency, where fFSI= 133/2= 66.5MHZ */
 #define IFXSCU_CFG_FLASH_FCON_WSECDF_133MHZ   (2 - 1)
 #endif /*#ifndef IFXSCU_CFG_FLASH_FCON_WSECDF_133MHZ */
 
 #ifndef IFXSCU_CFG_FLASH_FCON_WSECDF_160MHZ
-/** \brief Macro to configure FCON.WSECDF at 160MHz target frequency, where fSRI= 160/2= 80MHZ */
+/** \brief Macro to configure FCON.WSECDF at 160MHz target frequency, where fFSI= 160/2= 80MHZ */
 #define IFXSCU_CFG_FLASH_FCON_WSECDF_160MHZ   (2 - 1)
 #endif /*#ifndef IFXSCU_CFG_FLASH_FCON_WSECDF_160MHZ */
 
 #ifndef IFXSCU_CFG_FLASH_FCON_WSECDF_200MHZ
-/** \brief Macro to configure FCON.WSECDF at 200MHz target frequency, where fSRI= 200/2= 100MHZ */
+/** \brief Macro to configure FCON.WSECDF at 200MHz target frequency, where fFSI= 200/2= 100MHZ */
 #define IFXSCU_CFG_FLASH_FCON_WSECDF_200MHZ   (2 - 1)
 #endif /*#ifndef IFXSCU_CFG_FLASH_FCON_WSECDF_200MHZ */
 
 #ifndef IFXSCU_CFG_FLASH_FCON_WSECDF_240MHZ
-/** \brief Macro to configure FCON.WSECDF at 240MHz target frequency, where fSRI= 240/3= 80MHZ */
+/** \brief Macro to configure FCON.WSECDF at 240MHz target frequency, where fFSI= 240/3= 80MHZ */
 #define IFXSCU_CFG_FLASH_FCON_WSECDF_240MHZ   (2 - 1)
 #endif /*#ifndef IFXSCU_CFG_FLASH_FCON_WSECDF_240MHZ */
 
 #ifndef IFXSCU_CFG_FLASH_FCON_WSECDF_300MHZ
-/** \brief Macro to configure FCON.WSECDF at 300MHz target frequency, where fSRI= 300/3= 100MHZ */
+/** \brief Macro to configure FCON.WSECDF at 300MHz target frequency, where fFSI= 300/3= 100MHZ */
 #define IFXSCU_CFG_FLASH_FCON_WSECDF_300MHZ   (2 - 1)
 #endif /*#ifndef IFXSCU_CFG_FLASH_FCON_WSECDF_300MHZ */
 

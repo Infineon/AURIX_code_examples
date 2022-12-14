@@ -545,7 +545,7 @@
     {
       "title": "ADC single channel conversion",
       "name": "ADC_Single_Channel_1_KIT_TC397_TFT",
-      "description": "An analog input channel is continuously converted using the queued mode.\r\nThe input value is determined using the microcontroller’s supply voltage, ground level or letting\r\nthe analog pin open and floating. Three LEDs are used, each indicating a voltage interval.\r\nThus depending on the conversion value, a certain LED will light up.",
+      "description": "An analog input channel is continuously converted using the queued mode.\r\nThe input value is determined using the microcontrollerï¿½s supply voltage, ground level or letting\r\nthe analog pin open and floating. Three LEDs are used, each indicating a voltage interval.\r\nThus depending on the conversion value, a certain LED will light up.",
       "abstract": "The Enhanced Versatile Analog-to-Digital Converter (EVADC) is configured to measure an analog signal using queued request.",
       "folder": "ADC_Single_Channel_1_KIT_TC397_TFT",
       "version": "V1.0.2",
@@ -2584,7 +2584,7 @@
     {
       "title": "Clock configuration via CCU",
       "name": "CCU_Clock_1_KIT_TC334_LK",
-      "description": "The Clock Control Unit (CCU) is used to configure the PLL clock.\r\nThis clock signal is routed to an external clock output pin, which can be observed with an oscilloscope.",
+      "description": "The Clock Controlï¿½Unit (CCU)ï¿½is used to configure the PLL clock.\r\nThis clock signal is routed to an external clock output pin, which can be observed with an oscilloscope.",
       "abstract": "The clock system is configured based on a PLL frequency of 200 MHz and the clock signal is provided at an external port pin.",
       "folder": "CCU_Clock_1_KIT_TC334_LK",
       "version": "V1.0.0",
@@ -2613,7 +2613,7 @@
     {
       "title": "Clock configuration via CCU",
       "name": "CCU_Clock_1_KIT_TC375_LK",
-      "description": "The Clock Control Unit (CCU) is used to configure the PLL clock.\r\nThis clock signal is routed to an external clock output pin, which can be observed with an oscilloscope.",
+      "description": "The Clock Controlï¿½Unit (CCU)ï¿½is used to configure the PLL clock.\r\nThis clock signal is routed to an external clock output pin, which can be observed with an oscilloscope.",
       "abstract": "The clock system is configured based on a PLL frequency of 200 MHz and the clock signal is provided at an external port pin.",
       "folder": "CCU_Clock_1_KIT_TC375_LK",
       "version": "V1.0.0",
@@ -2642,7 +2642,7 @@
     {
       "title": "Clock configuration via CCU",
       "name": "CCU_Clock_1_KIT_TC397_TFT",
-      "description": "The Clock Control Unit (CCU) is used to configure the PLL clock.\r\nThis clock signal is routed to an external clock output pin, which can be observed with an oscilloscope.",
+      "description": "The Clock Controlï¿½Unit (CCU)ï¿½is used to configure the PLL clock.\r\nThis clock signal is routed to an external clock output pin, which can be observed with an oscilloscope.",
       "abstract": "The clock system is configured based on a PLL frequency of 200 MHz and the clock signal is provided at an external port pin.",
       "folder": "CCU_Clock_1_KIT_TC397_TFT",
       "version": "V1.0.2",
@@ -3449,7 +3449,7 @@
     {
       "title": "External interrupt generation",
       "name": "ERU_Interrupt_1_KIT_TC275_LK",
-      "description": "The code example uses the External Request Unit (ERU) to generate an interrupt for each\r\nfalling and rising edge at an input pin. The falling and rising edges are generated\r\nwith the pin P00.7 connected to the board’s button. If an interrupt occurs, an LED will be toggled.",
+      "description": "The code example uses the External Request Unit (ERU) to generate an interrupt for each\r\nfalling and rising edge at an input pin. The falling and rising edges are generated\r\nwith the pin P00.7 connected to the boardï¿½s button. If an interrupt occurs, an LED will be toggled.",
       "abstract": "The ERU is used to generate an interrupt on each rising and falling edge at an input pin.",
       "folder": "ERU_Interrupt_1_KIT_TC275_LK",
       "version": "V1.0.0",
@@ -3503,7 +3503,7 @@
     {
       "title": "External interrupt generation",
       "name": "ERU_Interrupt_1_KIT_TC334_LK",
-      "description": "The code example uses the External Request Unit (ERU) to generate an interrupt for each falling and\r\nrising edge at an input pin. The falling and rising edges are generated with the pin P00.7 connected\r\nto the board’s button. If an interrupt occurs, an LED will be toggled.",
+      "description": "The code example uses the External Request Unit (ERU) to generate an interrupt for each falling and\r\nrising edge at an input pin. The falling and rising edges are generated with the pin P00.7 connected\r\nto the boardï¿½s button. If an interrupt occurs, an LED will be toggled.",
       "abstract": "The ERU is used to generate an interrupt on each rising and falling edge at an input pin.",
       "folder": "ERU_Interrupt_1_KIT_TC334_LK",
       "version": "V1.0.0",
@@ -3530,7 +3530,7 @@
     {
       "title": "External interrupt generation",
       "name": "ERU_Interrupt_1_KIT_TC375_LK",
-      "description": "The code example uses the External Request Unit (ERU) to generate an interrupt for each falling and\r\nrising edge at an input pin. The falling and rising edges are generated with the pin P00.7 connected\r\nto the board’s button. If an interrupt occurs, an LED will be toggled.",
+      "description": "The code example uses the External Request Unit (ERU) to generate an interrupt for each falling and\r\nrising edge at an input pin. The falling and rising edges are generated with the pin P00.7 connected\r\nto the boardï¿½s button. If an interrupt occurs, an LED will be toggled.",
       "abstract": "The ERU is used to generate an interrupt on each rising and falling edge at an input pin.",
       "folder": "ERU_Interrupt_1_KIT_TC375_LK",
       "version": "V1.0.0",
@@ -5096,6 +5096,34 @@
       "lastModified": "2021-06-29T00:00:00.000Z"
     },
     {
+      "title": "GTM TOM ADC conversion triggering",
+      "name": "GTM_TOM_ADC_1_KIT_TC275_LK",
+      "description": "The LED is driven by pin 6 of the port 00. The state of the pin is controlled by the PWM signal\r\ngenerated by the TOM timer of GTM. The PWM duty cycle is defined by the result value of VADC.",
+      "abstract": "GTM TOM is used to generate a PWM signal and is used to trigger the Versatile Analog-to-Digital Converter (VADC). Based on the read value, the intensity of an LED is driven.",
+      "folder": "GTM_TOM_ADC_1_KIT_TC275_LK",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC275 lite Kit",
+          "id": "KIT_AURIX_TC275_LITE",
+          "device_id": "TC27xTP_D-Step"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "GTM",
+        "GTM_TOM_PWM_1",
+        "PWM",
+        "general timer",
+        "timer"
+      ],
+      "documents": [
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_GTM_TOM_ADC_1_KIT_TC275_LK-TR-v01_00_00-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/TC27D_iLLD_UM_1_0_1_12_0.chm"
+      ],
+      "lastModified": "2022-12-16T00:00:00.000Z"
+    },
+    {
       "title": "GTM TOM interrupt",
       "name": "GTM_TOM_Interrupt_1_KIT_TC275_LK",
       "description": "The Generic Timer Module triggers an interrupt every 500 ms. The state of the port pin,\r\nwhere the LED is connected, is toggled inside the Interrupt Service Routine (ISR).",
@@ -6569,7 +6597,7 @@
       "description": "In this training the Memory Test Unit (MTU) is used to initialize and clear the content of an SRAM\r\nmemory including its ECC code. Also, the non destructive inversion test is performed by Memory\r\nBuilt-in-Self-Test (MBIST) to verify the content of the same SRAM memory. The SRAM of the DMA\r\n(DMARAM) is selected to be tested in this example. In order to test the faulty scenario, this training\r\nprovides the possibility to inject a single bit error in the memory. The LEDs on the board are used to\r\nsignal the correct or faulty behavior of the MBIST.",
       "abstract": "The MBIST is used to assess the state of the memory",
       "folder": "MTU_MBIST_1_KIT_TC275_LK",
-      "version": "V1.0.0",
+      "version": "V1.0.1",
       "platforms": [
         {
           "name": "AURIX TC275 lite Kit",
@@ -6586,10 +6614,10 @@
         "Test"
       ],
       "documents": [
-        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_MTU_MBIST_1_KIT_TC275_LK-TR-v01_00_00-EN.pdf",
-        "https://www.infineon.com/aurix-expert-training/TC27D_iLLD_UM_1_0_1_12_0.chm"
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_MTU_MBIST_1_KIT_TC275_LK-TR-v01_00_01-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/TC27D_iLLD_UM_1_0_1_15_0.chm"
       ],
-      "lastModified": "2021-06-29T00:00:00.000Z"
+      "lastModified": "2022-12-16T00:00:00.000Z"
     },
     {
       "title": "Memory Built-In Test via MTU",
@@ -6597,7 +6625,7 @@
       "description": "In this training the Memory Test Unit (MTU) is used to initialize and clear the content of an SRAM\r\nmemory including its ECC code. Also, the non destructive inversion test is performed by Memory\r\nBuilt-in-Self-Test (MBIST) to verify the content of the same SRAM memory. The SRAM of the DMA\r\n(DMARAM) is selected to be tested in this example. In order to test the faulty scenario, this training\r\nprovides the possibility to inject a single bit error in the memory. The LEDs on the board are used to\r\nsignal the correct or faulty behavior of the MBIST.",
       "abstract": "The MBIST is used to assess the state of the memory",
       "folder": "MTU_MBIST_1_KIT_TC297_TFT",
-      "version": "V1.0.1",
+      "version": "V1.0.2",
       "platforms": [
         {
           "name": "APPLICATION KIT TC2X7 V1.1",
@@ -6614,10 +6642,10 @@
         "Test"
       ],
       "documents": [
-        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_MTU_MBIST_1_KIT_TC297_TFT-TR-v01_00_01-EN.pdf",
-        "https://www.infineon.com/aurix-expert-training/TC29B_iLLD_UM_1_0_1_12_0.chm"
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_MTU_MBIST_1_KIT_TC297_TFT-TR-v01_00_02-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/TC29B_iLLD_UM_1_0_1_15_0.chm"
       ],
-      "lastModified": "2020-12-18T00:00:00.000Z"
+      "lastModified": "2022-12-16T00:00:00.000Z"
     },
     {
       "title": "Memory Built-In Test via MTU",
@@ -6625,7 +6653,7 @@
       "description": "In this training the Memory Test Unit (MTU) is used to initialize and clear the content of an SRAM\r\nmemory including its ECC code. Additionally, the Non-Destructive Test (NDT) is performed by Memory\r\nBuilt-in-Self-Test (MBIST) to verify the content of the same SRAM memory. The SRAM of the DMA\r\n(DMARAM) is selected to be tested in this example. In order to test the faulty scenario, this training\r\nprovides the possibility to inject a single bit error in the memory. The LEDs on the board are used to\r\nsignal the correct or faulty behavior of the MBIST.",
       "abstract": "The MBIST is used to assess the state of the memory",
       "folder": "MTU_MBIST_1_KIT_TC334_LK",
-      "version": "V1.0.0",
+      "version": "V1.0.1",
       "platforms": [
         {
           "name": "AURIX TC334 lite Kit",
@@ -6642,10 +6670,10 @@
         "Test"
       ],
       "documents": [
-        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_MTU_MBIST_1_KIT_TC334_LK-TR-v01_00_00-EN.pdf",
-        "https://www.infineon.com/aurix-expert-training/TC33A_iLLD_UM_1_0_1_12_1.chm"
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_MTU_MBIST_1_KIT_TC334_LK-TR-v01_00_01-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/TC33A_iLLD_UM_1_0_1_15_0.chm"
       ],
-      "lastModified": "2022-03-28T00:00:00.000Z"
+      "lastModified": "2022-12-16T00:00:00.000Z"
     },
     {
       "title": "Memory Built-In Test via MTU",
@@ -6653,7 +6681,7 @@
       "description": "In this training the Memory Test Unit (MTU) is used to initialize and clear the content of an SRAM\r\nmemory including its ECC code. Additionally, the Non-Destructive Test (NDT) is performed by Memory\r\nBuilt-in-Self-Test (MBIST) to verify the content of the same SRAM memory. The SRAM of the DMA\r\n(DMARAM) is selected to be tested in this example. In order to test the faulty scenario, this training\r\nprovides the possibility to inject a single bit error in the memory. The LEDs on the board are used to\r\nsignal the correct or faulty behavior of the MBIST.",
       "abstract": "The MBIST is used to assess the state of the memory",
       "folder": "MTU_MBIST_1_KIT_TC375_LK",
-      "version": "V1.0.0",
+      "version": "V1.0.1",
       "platforms": [
         {
           "name": "AURIX TC375 lite Kit",
@@ -6670,10 +6698,10 @@
         "Test"
       ],
       "documents": [
-        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_MTU_MBIST_1_KIT_TC375_LK-TR-v01_00_00-EN.pdf",
-        "https://www.infineon.com/aurix-expert-training/TC37A_iLLD_UM_1_0_1_12_1.chm"
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_MTU_MBIST_1_KIT_TC375_LK-TR-v01_00_01-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/TC37A_iLLD_UM_1_0_1_15_0.chm"
       ],
-      "lastModified": "2021-03-22T00:00:00.000Z"
+      "lastModified": "2022-12-16T00:00:00.000Z"
     },
     {
       "title": "Memory Built-In Test via MTU",
@@ -6681,7 +6709,7 @@
       "description": "In this training the Memory Test Unit (MTU) is used to initialize and clear the content of an SRAM\r\nmemory including its ECC code. Additionally, the Non-Destructive Test (NDT) is performed by Memory\r\nBuilt-in-Self-Test (MBIST) to verify the content of the same SRAM memory. The SRAM of the DMA\r\n(DMARAM) is selected to be tested in this example. In order to test the faulty scenario, this training\r\nprovides the possibility to inject a single bit error in the memory. The LEDs on the board are used to\r\nsignal the correct or faulty behavior of the MBIST.",
       "abstract": "The MBIST is used to assess the state of the memory",
       "folder": "MTU_MBIST_1_KIT_TC397_TFT",
-      "version": "V1.0.0",
+      "version": "V1.0.1",
       "platforms": [
         {
           "name": "APPLICATION KIT TC3X7 V2.0",
@@ -6698,10 +6726,10 @@
         "Test"
       ],
       "documents": [
-        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_MTU_MBIST_1_KIT_TC397_TFT-TR-v01_00_00-EN.pdf",
-        "https://www.infineon.com/aurix-expert-training/TC39B_iLLD_UM_1_0_1_12_1.chm"
+        "https://www.infineon.com/aurix-expert-training/Infineon-AURIX_MTU_MBIST_1_KIT_TC397_TFT-TR-v01_00_01-EN.pdf",
+        "https://www.infineon.com/aurix-expert-training/TC39B_iLLD_UM_1_0_1_15_0.chm"
       ],
-      "lastModified": "2021-03-22T00:00:00.000Z"
+      "lastModified": "2022-12-16T00:00:00.000Z"
     },
     {
       "title": "MULTICAN data transmission",
@@ -9069,7 +9097,7 @@
     {
       "title": "Detection of reset type",
       "name": "SCU_Reset_Detection_1_KIT_TC275_LK",
-      "description": "The AURIX™ TC2xx devices can be reset by various reset sources.\r\nThe application software is able to determine the source of the last reset based on a routine\r\nthat evaluates the related reset special function registers. According to the type of reset,\r\none or two LEDs are switched on.",
+      "description": "The AURIXï¿½ TC2xx devices can be reset by various reset sources.\r\nThe application software is able to determine the source of the last reset based on a routine\r\nthat evaluates the related reset special function registers. According to the type of reset,\r\none or two LEDs are switched on.",
       "abstract": "This example shows how to detect the source of the last reset (power-on reset, watchdog reset, etc.)",
       "folder": "SCU_Reset_Detection_1_KIT_TC275_LK",
       "version": "V1.0.0",

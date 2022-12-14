@@ -2,8 +2,9 @@
  * \file IfxGtm_Tom.c
  * \brief GTM  basic functionality
  *
- * \version iLLD_1_0_1_12_0_1
- * \copyright Copyright (c) 2019 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_15_0_1
+ * \copyright Copyright (c) 2021 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
@@ -36,6 +37,7 @@
  * FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
+ *
  *
  */
 
@@ -523,7 +525,7 @@ void IfxGtm_Tom_Tgc_setChannelForceUpdate(Ifx_GTM_TOM_TGC *tgc, IfxGtm_Tom_Ch ch
     regEnable        = IfxGtm_Tom_Tgc_buildFeatureForChannel(channel, enabled, IFX_GTM_TOM_TGC_FUPD_CTRL_FUPD_CTRL0_OFF);
     regReset         = IfxGtm_Tom_Tgc_buildFeatureForChannel(channel, resetEnabled, IFX_GTM_TOM_TGC_FUPD_CTRL_RSTCN0_CH0_OFF);
 
-    tgc->FUPD_CTRL.U = regEnable | (regReset << 16);
+    tgc->FUPD_CTRL.U = regEnable | (regReset);
 }
 
 

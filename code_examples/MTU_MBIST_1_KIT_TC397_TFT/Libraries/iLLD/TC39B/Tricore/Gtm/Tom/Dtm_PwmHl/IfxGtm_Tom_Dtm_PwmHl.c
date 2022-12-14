@@ -2,25 +2,28 @@
  * \file IfxGtm_Tom_Dtm_PwmHl.c
  * \brief GTM DTM_PWMHL details
  *
- * \version iLLD_1_0_1_12_0
- * \copyright Copyright (c) 2020 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_15_0_1
+ * \copyright Copyright (c) 2021 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
  *
+ *
  * Use of this file is subject to the terms of use agreed between (i) you or
  * the company in which ordinary course of business you are acting and (ii)
- * Infineon Technologies AG or its licensees. If and as long as no such terms
- * of use are agreed, use of this file is subject to following:
+ * Infineon Technologies AG or its licensees. If and as long as no such
+ * terms of use are agreed, use of this file is subject to following:
+ *
  *
  * Boost Software License - Version 1.0 - August 17th, 2003
  *
- * Permission is hereby granted, free of charge, to any person or organization
- * obtaining a copy of the software and accompanying documentation covered by
- * this license (the "Software") to use, reproduce, display, distribute,
- * execute, and transmit the Software, and to prepare derivative works of the
- * Software, and to permit third-parties to whom the Software is furnished to
- * do so, all subject to the following:
+ * Permission is hereby granted, free of charge, to any person or
+ * organization obtaining a copy of the software and accompanying
+ * documentation covered by this license (the "Software") to use, reproduce,
+ * display, distribute, execute, and transmit the Software, and to prepare
+ * derivative works of the Software, and to permit third-parties to whom the
+ * Software is furnished to do so, all subject to the following:
  *
  * The copyright notices in the Software and this entire statement, including
  * the above license grant, this restriction and the following disclaimer, must
@@ -37,6 +40,7 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  *
+ *
  */
 
 /******************************************************************************/
@@ -47,6 +51,7 @@
 #include "_Utilities/Ifx_Assert.h"
 #include "stddef.h"
 #include "string.h"
+#include "IfxGtm_Tom_PwmHl.h"
 
 /******************************************************************************/
 /*------------------------Inline Function Prototypes--------------------------*/
@@ -158,10 +163,10 @@ IFX_INLINE Ifx_ActiveState IfxGtm_Tom_Dtm_PwmHl_invertActiveState(Ifx_ActiveStat
 
 boolean IfxGtm_Tom_Dtm_PwmHl_init(IfxGtm_TomDtm_PwmHl *driver, const IfxGtm_Tom_Dtm_PwmHl_Config *config)
 {
-    boolean            result       = TRUE;
-    uint16             channelMask;
-    uint16             channelsMask = 0;
-    uint32             channelIndex;
+    boolean           result       = TRUE;
+    uint16            channelMask;
+    uint16            channelsMask = 0;
+    uint32            channelIndex;
 
     IfxGtm_Tom_Timer *timer = config->timer;
 
@@ -173,7 +178,7 @@ boolean IfxGtm_Tom_Dtm_PwmHl_init(IfxGtm_TomDtm_PwmHl *driver, const IfxGtm_Tom_
     driver->base.coutxActiveState = config->base.coutxActiveState;
     driver->base.channelCount     = config->base.channelCount;
 
-    driver->tom                  = &(timer->gtm->TOM[config->tom]);
+    driver->tom                   = &(timer->gtm->TOM[config->tom]);
 
     driver->tgc                   = (Ifx_GTM_TOM_TGC *)&driver->tom->TGC0_GLB_CTRL;
 
@@ -201,7 +206,7 @@ boolean IfxGtm_Tom_Dtm_PwmHl_init(IfxGtm_TomDtm_PwmHl *driver, const IfxGtm_Tom_
 
             /* Initialize the timer part */
             IfxGtm_Tom_Ch_setClockSource(driver->tom, channel, clock);
-            IfxGtm_Tom_Ch_setResetSource( driver->tom, channel, IfxGtm_Tom_Ch_ResetEvent_onTrigger);
+            IfxGtm_Tom_Ch_setResetSource(driver->tom, channel, IfxGtm_Tom_Ch_ResetEvent_onTrigger);
             IfxGtm_Tom_Ch_setSignalLevel(driver->tom, channel, config->base.ccxActiveState);
             IfxGtm_Tom_Ch_setTriggerOutput(driver->tom, channel, IfxGtm_Tom_Ch_OutputTrigger_forward);
 
@@ -274,7 +279,7 @@ void IfxGtm_Tom_Dtm_PwmHl_initConfig(IfxGtm_Tom_Dtm_PwmHl_Config *config)
 {
     IfxStdIf_PwmHl_initConfig(&config->base);
     config->timer         = NULL_PTR;
-    config->tom          = IfxGtm_Tom_0;
+    config->tom           = IfxGtm_Tom_0;
     config->ccx           = NULL_PTR;
     config->coutx         = NULL_PTR;
     config->deadTimeClock = IfxGtm_Dtm_ClockSource_systemClock;
@@ -342,7 +347,7 @@ boolean IfxGtm_Tom_Dtm_PwmHl_setMinPulse(IfxGtm_TomDtm_PwmHl *driver, float32 mi
 
 boolean IfxGtm_Tom_Dtm_PwmHl_setMode(IfxGtm_TomDtm_PwmHl *driver, Ifx_Pwm_Mode mode)
 {
-    boolean                     result = TRUE;
+    boolean                    result = TRUE;
     IfxGtm_Tom_Dtm_PwmHl_Base *base   = &driver->base;
 
     if (base->mode != mode)
@@ -353,7 +358,7 @@ boolean IfxGtm_Tom_Dtm_PwmHl_setMode(IfxGtm_TomDtm_PwmHl *driver, Ifx_Pwm_Mode m
             result = FALSE;
         }
 
-        IFX_ASSERT(IFX_VERBOSE_LEVEL_ERROR, mode == IfxGtm_TomDtm_PwmHl_modes[mode].mode);
+        IFX_ASSERT(IFX_VERBOSE_LEVEL_ERROR, mode == IfxGtm_Tom_Dtm_PwmHl_modes[mode].mode);
 
         base->mode             = mode;
         driver->update         = IfxGtm_Tom_Dtm_PwmHl_modes[mode].update;

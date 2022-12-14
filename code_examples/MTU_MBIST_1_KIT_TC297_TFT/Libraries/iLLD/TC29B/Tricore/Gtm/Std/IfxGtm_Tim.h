@@ -3,8 +3,9 @@
  * \brief GTM  basic functionality
  * \ingroup IfxLld_Gtm
  *
- * \version iLLD_1_0_1_12_0
- * \copyright Copyright (c) 2019 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_15_0_1
+ * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
@@ -37,6 +38,7 @@
  * FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
+ *
  *
  *
  *
@@ -105,11 +107,12 @@ typedef enum
 
 typedef enum
 {
-    IfxGtm_Tim_Mode_pwmMeasurement = 0,  /**< \brief TPWM */
-    IfxGtm_Tim_Mode_pulseIntegration,    /**< \brief TPIM */
-    IfxGtm_Tim_Mode_inputEvent,          /**< \brief TIEM */
-    IfxGtm_Tim_Mode_inputPrescaler,      /**< \brief TIPM */
-    IfxGtm_Tim_Mode_bitCompression       /**< \brief TBCM */
+    IfxGtm_Tim_Mode_pwmMeasurement   = 0,  /**< \brief TPWM */
+    IfxGtm_Tim_Mode_pulseIntegration = 1,  /**< \brief TPIM - Not Supported */
+    IfxGtm_Tim_Mode_inputEvent       = 2,  /**< \brief TIEM */
+    IfxGtm_Tim_Mode_inputPrescaler   = 3,  /**< \brief TIPM - Not Supported */
+    IfxGtm_Tim_Mode_bitCompression   = 4,  /**< \brief TBCM - Not Supported */
+    IfxGtm_Tim_Mode_gatedPeriodic    = 5   /**< \brief TGPS */
 } IfxGtm_Tim_Mode;
 
 /** \brief Enum for Timeout control
@@ -198,6 +201,13 @@ IFX_INLINE boolean IfxGtm_Tim_Ch_isGlitchEvent(Ifx_GTM_TIM_CH *channel);
  * \return TRUE if the flag is set, else FALSE
  */
 IFX_INLINE boolean IfxGtm_Tim_Ch_isNewValueEvent(Ifx_GTM_TIM_CH *channel);
+
+/** \brief This function configures the Shadow counter register.
+ * \param channel TIM channel pointer
+ * \param shadowCounter Shadow counter value
+ * \return None
+ */
+IFX_INLINE void IfxGtm_Tim_Ch_setShadowCounter(Ifx_GTM_TIM_CH *channel, uint32 shadowCounter);
 
 /** \brief Returns the pointer to the TIM channel
  * \param tim Pointer to Tim base
@@ -297,6 +307,22 @@ IFX_EXTERN void IfxGtm_Tim_Ch_setTimeoutNotification(Ifx_GTM_TIM_CH *channel, bo
 /** \} */
 
 /******************************************************************************/
+/*-------------------------Inline Function Prototypes-------------------------*/
+/******************************************************************************/
+
+/** \brief Get count of TIM channel
+ * \param channel Pointer to TIM channel base
+ * \return number of count
+ */
+IFX_INLINE uint32 IfxGtm_Tim_Ch_getCountValue(Ifx_GTM_TIM_CH *channel);
+
+/** \brief Get shadow count of TIM channel
+ * \param channel Pointer to TIM channel base
+ * \return number of shadow count
+ */
+IFX_INLINE uint32 IfxGtm_Tim_Ch_getShadowCountValue(Ifx_GTM_TIM_CH *channel);
+
+/******************************************************************************/
 /*---------------------Inline Function Implementations------------------------*/
 /******************************************************************************/
 
@@ -367,6 +393,12 @@ IFX_INLINE boolean IfxGtm_Tim_Ch_isNewValueEvent(Ifx_GTM_TIM_CH *channel)
 }
 
 
+IFX_INLINE void IfxGtm_Tim_Ch_setShadowCounter(Ifx_GTM_TIM_CH *channel, uint32 shadowCounter)
+{
+    channel->CNTS.B.CNTS = shadowCounter;
+}
+
+
 IFX_INLINE Ifx_GTM_TIM_CH *IfxGtm_Tim_getChannel(Ifx_GTM_TIM *tim, IfxGtm_Tim_Ch channel)
 {
     return (Ifx_GTM_TIM_CH *)((uint32)&tim->CH0.GPR0.U + ((uint32)&tim->CH1 - (uint32)&tim->CH0) * channel);
@@ -376,6 +408,18 @@ IFX_INLINE Ifx_GTM_TIM_CH *IfxGtm_Tim_getChannel(Ifx_GTM_TIM *tim, IfxGtm_Tim_Ch
 IFX_INLINE void IfxGtm_Tim_Ch_resetChannel(Ifx_GTM_TIM *tim, IfxGtm_Tim_Ch channel)
 {
     tim->RST.U |= (uint32)1 << (uint32)channel;
+}
+
+
+IFX_INLINE uint32 IfxGtm_Tim_Ch_getCountValue(Ifx_GTM_TIM_CH *channel)
+{
+    return channel->CNT.B.CNT;
+}
+
+
+IFX_INLINE uint32 IfxGtm_Tim_Ch_getShadowCountValue(Ifx_GTM_TIM_CH *channel)
+{
+    return channel->CNTS.B.CNTS;
 }
 
 

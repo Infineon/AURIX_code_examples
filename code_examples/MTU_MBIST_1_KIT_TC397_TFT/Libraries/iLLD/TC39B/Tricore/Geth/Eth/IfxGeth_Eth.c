@@ -2,25 +2,28 @@
  * \file IfxGeth_Eth.c
  * \brief GETH ETH details
  *
- * \version iLLD_1_0_1_12_0
- * \copyright Copyright (c) 2019 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_15_0_1
+ * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
  *
+ *
  * Use of this file is subject to the terms of use agreed between (i) you or
  * the company in which ordinary course of business you are acting and (ii)
- * Infineon Technologies AG or its licensees. If and as long as no such terms
- * of use are agreed, use of this file is subject to following:
+ * Infineon Technologies AG or its licensees. If and as long as no such
+ * terms of use are agreed, use of this file is subject to following:
+ *
  *
  * Boost Software License - Version 1.0 - August 17th, 2003
  *
- * Permission is hereby granted, free of charge, to any person or organization
- * obtaining a copy of the software and accompanying documentation covered by
- * this license (the "Software") to use, reproduce, display, distribute,
- * execute, and transmit the Software, and to prepare derivative works of the
- * Software, and to permit third-parties to whom the Software is furnished to
- * do so, all subject to the following:
+ * Permission is hereby granted, free of charge, to any person or
+ * organization obtaining a copy of the software and accompanying
+ * documentation covered by this license (the "Software") to use, reproduce,
+ * display, distribute, execute, and transmit the Software, and to prepare
+ * derivative works of the Software, and to permit third-parties to whom the
+ * Software is furnished to do so, all subject to the following:
  *
  * The copyright notices in the Software and this entire statement, including
  * the above license grant, this restriction and the following disclaimer, must
@@ -38,6 +41,7 @@
  * DEALINGS IN THE SOFTWARE.
  *
  *
+ *
  */
 
 /******************************************************************************/
@@ -51,7 +55,6 @@
 /******************************************************************************/
 
 IfxGeth_RxDescrList IfxGeth_Eth_rxDescrList[IFXGETH_NUM_MODULES][IFXGETH_NUM_RX_CHANNELS];
-
 IfxGeth_TxDescrList IfxGeth_Eth_txDescrList[IFXGETH_NUM_MODULES][IFXGETH_NUM_TX_CHANNELS];
 
 /******************************************************************************/
@@ -74,6 +77,7 @@ void IfxGeth_Eth_configureDMA(IfxGeth_Eth *geth, IfxGeth_Eth_DmaConfig *dmaConfi
     for (txChannelIndex = 0; txChannelIndex < dmaConfig->numOfTxChannels; txChannelIndex++)
     {
         IfxGeth_dma_setTxMaxBurstLength(geth->gethSFR, dmaConfig->txChannel[txChannelIndex].channelId, dmaConfig->txChannel[txChannelIndex].maxBurstLength);
+        IfxGeth_dma_setTxOSF(geth->gethSFR, dmaConfig->txChannel[txChannelIndex].channelId, dmaConfig->txChannel[txChannelIndex].enableOSF);
         IfxGeth_Eth_initTransmitDescriptors(geth, &dmaConfig->txChannel[txChannelIndex]);
     }
 
@@ -426,6 +430,7 @@ void IfxGeth_Eth_initModuleConfig(IfxGeth_Eth_Config *config, Ifx_GETH *gethSFR)
                     .txDescrList           = &IfxGeth_Eth_txDescrList[gethIndex][0],
                     .txBuffer1StartAddress = NULL_PTR,
                     .txBuffer1Size         = 256,
+                    .enableOSF             = FALSE,
                 },
 
                 {
@@ -434,6 +439,7 @@ void IfxGeth_Eth_initModuleConfig(IfxGeth_Eth_Config *config, Ifx_GETH *gethSFR)
                     .txDescrList           = &IfxGeth_Eth_txDescrList[gethIndex][1],
                     .txBuffer1StartAddress = NULL_PTR,
                     .txBuffer1Size         = 256,
+                    .enableOSF             = FALSE,
                 },
 
                 {
@@ -442,6 +448,7 @@ void IfxGeth_Eth_initModuleConfig(IfxGeth_Eth_Config *config, Ifx_GETH *gethSFR)
                     .txDescrList           = &IfxGeth_Eth_txDescrList[gethIndex][2],
                     .txBuffer1StartAddress = NULL_PTR,
                     .txBuffer1Size         = 256,
+                    .enableOSF             = FALSE,
                 },
 
                 {
@@ -450,6 +457,7 @@ void IfxGeth_Eth_initModuleConfig(IfxGeth_Eth_Config *config, Ifx_GETH *gethSFR)
                     .txDescrList           = &IfxGeth_Eth_txDescrList[gethIndex][3],
                     .txBuffer1StartAddress = NULL_PTR,
                     .txBuffer1Size         = 256,
+                    .enableOSF             = FALSE,
                 },
             },
 
@@ -673,7 +681,7 @@ void IfxGeth_Eth_sendTransmitBuffer(IfxGeth_Eth *geth, uint32 packetLength, IfxG
         {
             descr->TDES3.R.LD  = 0;
             descr->TDES3.R.FD  = 0;
-            descr->TDES2.R.IOC = 0;                                          /* Clear the IOC bits for intermeditate buffers */
+            descr->TDES2.R.IOC = 0;                                        /* Clear the IOC bits for intermeditate buffers */
             descr->TDES2.R.B1L = geth->txChannel[channelId].txBuf1Size;
             packetLength      -= bufferLength;
         }

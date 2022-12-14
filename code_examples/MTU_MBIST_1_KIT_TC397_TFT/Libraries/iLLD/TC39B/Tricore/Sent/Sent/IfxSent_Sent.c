@@ -2,7 +2,7 @@
  * \file IfxSent_Sent.c
  * \brief SENT SENT details
  *
- * \version iLLD_1_0_1_12_0
+ * \version iLLD_1_0_1_15_0_1
  * \copyright Copyright (c) 2019 Infineon Technologies AG. All rights reserved.
  *
  *

@@ -1,7 +1,7 @@
 /**
  * \file IfxCpu_Cstart2.c
  * \brief This file contains the Core startup sequence for Cpu2.
- * \version iLLD_1_0_1_12_0
+ * \version iLLD_1_0_1_15_0_1
  * \copyright Copyright (c) 2012 Infineon Technologies AG. All rights reserved.
  *
  *

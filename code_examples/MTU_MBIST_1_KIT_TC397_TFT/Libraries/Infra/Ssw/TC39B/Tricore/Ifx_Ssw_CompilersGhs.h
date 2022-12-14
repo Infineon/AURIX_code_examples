@@ -2,7 +2,7 @@
  * \file Ifx_Ssw_CompilersGhs.h
  * \brief Startup Software for GHS compiler options
  *
- * \version iLLD_1_0_1_12_0
+ * \version iLLD_1_0_1_15_0_1
  * \copyright Copyright (c) 2018 Infineon Technologies AG. All rights reserved.
  *
  *                                 IMPORTANT NOTICE
@@ -77,7 +77,7 @@
     extern unsigned int __INTTAB_CPU##cpu[];  /**< Interrupt vector table */    \
     extern unsigned int __TRAPTAB_CPU##cpu[]; /**< trap table */                \
     extern unsigned int __CSA##cpu[];         /**< context save area 1 begin */ \
-    extern unsigned int __CSA##cpu##_END[]    /**< context save area 1 begin */
+    extern unsigned int __CSA##cpu##_END[]    /**< context save area 1 end */
 
 #define __USTACK(cpu)      __USTACK##cpu
 #define __ISTACK(cpu)      __ISTACK##cpu

@@ -2,8 +2,8 @@
  * \file IfxEdsadc.c
  * \brief EDSADC  basic functionality
  *
- * \version iLLD_1_0_1_12_0
- * \copyright Copyright (c) 2019 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_15_0_1
+ * \copyright Copyright (c) 2021 Infineon Technologies AG. All rights reserved.
  *
  *
  *                                 IMPORTANT NOTICE
@@ -208,11 +208,8 @@ void IfxEdsadc_resetModule(Ifx_EDSADC *edsadc)
 }
 
 
-void IfxEdsadc_setCommonModeVoltage(Ifx_EDSADC *edsadc, IfxEdsadc_ChannelId channel, IfxEdsadc_FractionalRefVoltageSelection voltage, IfxEdsadc_FractionalRefVoltage refMode, IfxEdsadc_HalfSupplyVoltage hsvMode, IfxEdsadc_CommonModeHoldVoltage cmhvMode, uint8 positiveInput, uint8 negativeInput)
+void IfxEdsadc_setCommonModeVoltage(Ifx_EDSADC *edsadc, IfxEdsadc_ChannelId channel, IfxEdsadc_FractionalRefVoltageSelection voltage, IfxEdsadc_FractionalRefVoltage refMode, uint8 positiveInput, uint8 negativeInput)
 {
-    IFX_UNUSED_PARAMETER(cmhvMode);
-    IFX_UNUSED_PARAMETER(hsvMode);
-
     Ifx_EDSADC_CH_VCM tempVCM;
     tempVCM.U                 = edsadc->CH[channel].VCM.U;
     tempVCM.B.VREFXSEL        = voltage;

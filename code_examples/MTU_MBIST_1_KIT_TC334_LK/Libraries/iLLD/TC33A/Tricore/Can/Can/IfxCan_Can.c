@@ -2,25 +2,28 @@
  * \file IfxCan_Can.c
  * \brief CAN CAN details
  *
- * \version iLLD_1_0_1_12_0_1
- * \copyright Copyright (c) 2019 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_15_0_1
+ * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
  *
+ *
  * Use of this file is subject to the terms of use agreed between (i) you or
  * the company in which ordinary course of business you are acting and (ii)
- * Infineon Technologies AG or its licensees. If and as long as no such terms
- * of use are agreed, use of this file is subject to following:
+ * Infineon Technologies AG or its licensees. If and as long as no such
+ * terms of use are agreed, use of this file is subject to following:
+ *
  *
  * Boost Software License - Version 1.0 - August 17th, 2003
  *
- * Permission is hereby granted, free of charge, to any person or organization
- * obtaining a copy of the software and accompanying documentation covered by
- * this license (the "Software") to use, reproduce, display, distribute,
- * execute, and transmit the Software, and to prepare derivative works of the
- * Software, and to permit third-parties to whom the Software is furnished to
- * do so, all subject to the following:
+ * Permission is hereby granted, free of charge, to any person or
+ * organization obtaining a copy of the software and accompanying
+ * documentation covered by this license (the "Software") to use, reproduce,
+ * display, distribute, execute, and transmit the Software, and to prepare
+ * derivative works of the Software, and to permit third-parties to whom the
+ * Software is furnished to do so, all subject to the following:
  *
  * The copyright notices in the Software and this entire statement, including
  * the above license grant, this restriction and the following disclaimer, must
@@ -36,6 +39,7 @@
  * FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
+ *
  *
  *
  */
@@ -673,7 +677,7 @@ void IfxCan_Can_initNodeConfig(IfxCan_Can_NodeConfig *config, IfxCan_Can *can)
             .rxFifo1Size           = 0
         },
         .messageRAM                                  = {
-            .baseAddress                    = (uint32)&MODULE_CAN0,
+            .baseAddress                    = (uint32)(can->can),
             .standardFilterListStartAddress = 0x0,
             .extendedFilterListStartAddress = 0x80,
             .rxFifo0StartAddress            = 0x100,
@@ -833,6 +837,9 @@ void IfxCan_Can_readMessage(IfxCan_Can_Node *node, IfxCan_Message *message, uint
 
     /*get message ID */
     message->messageId = IfxCan_Node_getMesssageId(rxBufferElement);
+
+    /* get message ID length */
+    message->messageIdLength = (IfxCan_MessageIdLength)rxBufferElement->R0.B.XTD;
 
     /* get data length code*/
     message->dataLengthCode = (IfxCan_DataLengthCode)IfxCan_Node_getDataLengthCode(rxBufferElement);

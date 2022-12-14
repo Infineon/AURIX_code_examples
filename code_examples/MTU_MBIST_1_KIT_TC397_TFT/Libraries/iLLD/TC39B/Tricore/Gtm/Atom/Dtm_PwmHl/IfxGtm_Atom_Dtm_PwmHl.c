@@ -2,25 +2,28 @@
  * \file IfxGtm_Atom_Dtm_PwmHl.c
  * \brief GTM DTM_PWMHL details
  *
- * \version iLLD_1_0_1_12_0
- * \copyright Copyright (c) 2020 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_15_0_1
+ * \copyright Copyright (c) 2021 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
  *
+ *
  * Use of this file is subject to the terms of use agreed between (i) you or
  * the company in which ordinary course of business you are acting and (ii)
- * Infineon Technologies AG or its licensees. If and as long as no such terms
- * of use are agreed, use of this file is subject to following:
+ * Infineon Technologies AG or its licensees. If and as long as no such
+ * terms of use are agreed, use of this file is subject to following:
+ *
  *
  * Boost Software License - Version 1.0 - August 17th, 2003
  *
- * Permission is hereby granted, free of charge, to any person or organization
- * obtaining a copy of the software and accompanying documentation covered by
- * this license (the "Software") to use, reproduce, display, distribute,
- * execute, and transmit the Software, and to prepare derivative works of the
- * Software, and to permit third-parties to whom the Software is furnished to
- * do so, all subject to the following:
+ * Permission is hereby granted, free of charge, to any person or
+ * organization obtaining a copy of the software and accompanying
+ * documentation covered by this license (the "Software") to use, reproduce,
+ * display, distribute, execute, and transmit the Software, and to prepare
+ * derivative works of the Software, and to permit third-parties to whom the
+ * Software is furnished to do so, all subject to the following:
  *
  * The copyright notices in the Software and this entire statement, including
  * the above license grant, this restriction and the following disclaimer, must
@@ -37,6 +40,7 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  *
+ *
  */
 
 /******************************************************************************/
@@ -47,6 +51,7 @@
 #include "_Utilities/Ifx_Assert.h"
 #include "stddef.h"
 #include "string.h"
+#include "IfxGtm_Atom_PwmHl.h"
 
 /******************************************************************************/
 /*------------------------Inline Function Prototypes--------------------------*/
@@ -352,7 +357,7 @@ boolean IfxGtm_Atom_Dtm_PwmHl_setMode(IfxGtm_AtomDtm_PwmHl *driver, Ifx_Pwm_Mode
             result = FALSE;
         }
 
-        IFX_ASSERT(IFX_VERBOSE_LEVEL_ERROR, mode == IfxGtm_AtomDtm_PwmHl_modes[mode].mode);
+        IFX_ASSERT(IFX_VERBOSE_LEVEL_ERROR, mode == IfxGtm_Atom_Dtm_PwmHl_modes[mode].mode);
 
         base->mode             = mode;
         driver->update         = IfxGtm_Atom_Dtm_PwmHl_modes[mode].update;

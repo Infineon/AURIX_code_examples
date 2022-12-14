@@ -2,8 +2,8 @@
  * \file IfxEdsadc_Edsadc.c
  * \brief EDSADC EDSADC details
  *
- * \version iLLD_1_0_1_12_0
- * \copyright Copyright (c) 2018 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_15_0_1
+ * \copyright Copyright (c) 2021 Infineon Technologies AG. All rights reserved.
  *
  *
  *                                 IMPORTANT NOTICE
@@ -219,7 +219,7 @@ void IfxEdsadc_Edsadc_initChannelConfig(IfxEdsadc_Edsadc_ChannelConfig *config, 
             .overshootCompensation     = IfxEdsadc_OvershootCompensation_disabled
         },
         .modulator                      = {
-            .modulatorClockFreq     = 10.0e6,
+            .modulatorClockFreq     = 16.0e6,
             .inputGain              = IfxEdsadc_InputGain_factor1,
             .analogClockSyncDelay   = IfxEdsadc_AnalogClockSyncDelay_noDelay,
             .positiveInput          = IfxEdsadc_InputConfig_inputPin,
@@ -265,12 +265,10 @@ void IfxEdsadc_Edsadc_initChannelConfig(IfxEdsadc_Edsadc_ChannelConfig *config, 
             .analogMuxCopy              = IfxEdsadc_AnalogMux_doNotCopyAmx
         },
         .commonMode                     = {
-            .fractionalRefVoltage  = IfxEdsadc_FractionalRefVoltageSelection_div2,
-            .refVoltageEnable      = IfxEdsadc_FractionalRefVoltage_disable,
-            .halfSupplyVoltge      = IfxEdsadc_HalfSupplyVoltage_disable,
-            .commonModeHoldVoltage = IfxEdsadc_CommonModeHoldVoltage_disable,
-            .positiveInput         = 0,
-            .negativeInput         = 0
+            .fractionalRefVoltage = IfxEdsadc_FractionalRefVoltageSelection_div2,
+            .refVoltageEnable     = IfxEdsadc_FractionalRefVoltage_disable,
+            .positiveInput        = 0,
+            .negativeInput        = 0
         },
         .gainFactor            = 8090,
         .cicShift              = 16,

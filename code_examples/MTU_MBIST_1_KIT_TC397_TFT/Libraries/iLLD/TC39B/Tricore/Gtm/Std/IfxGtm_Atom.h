@@ -3,8 +3,9 @@
  * \brief GTM  basic functionality
  * \ingroup IfxLld_Gtm
  *
- * \version iLLD_1_0_1_12_0
- * \copyright Copyright (c) 2020 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_15_0_1
+ * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
@@ -40,6 +41,7 @@
  *
  *
  *
+ *
  * \defgroup IfxLld_Gtm_Std_Atom Atom Basic Functionality
  * \ingroup IfxLld_Gtm_Std
  * \defgroup IfxLld_Gtm_Std_Atom_Enumerations ATOM Enumerations
@@ -65,6 +67,19 @@
 #include "Src/Std/IfxSrc.h"
 #include "IfxGtm_Cmu.h"
 #include "stddef.h"
+
+/******************************************************************************/
+/*-----------------------------------Macros-----------------------------------*/
+/******************************************************************************/
+
+/** \brief Macro to calculate shift for each channel
+ * Each channel occupies two bits hence left shift by 1 and then add offset
+ */
+#define IFXGTM_ATOM_AGC_CHANNEL_SHIFT(channel, offset) ((((uint32)((uint32)channel & 0x7u)) << 1u) + offset)
+
+/** \brief Macro to mask one channel bitfield in AGC registers
+ */
+#define IFXGTM_ATOM_AGC_CHANNEL_MASK (3u)
 
 /******************************************************************************/
 /*--------------------------------Enumerations--------------------------------*/

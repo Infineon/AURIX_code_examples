@@ -3,8 +3,8 @@
  * \brief EDSADC EDSADC details
  * \ingroup IfxLld_Edsadc
  *
- * \version iLLD_1_0_1_12_0
- * \copyright Copyright (c) 2018 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_15_0_1
+ * \copyright Copyright (c) 2021 Infineon Technologies AG. All rights reserved.
  *
  *
  *                                 IMPORTANT NOTICE
@@ -199,13 +199,11 @@ typedef struct
  */
 typedef struct
 {
-    IfxEdsadc_FractionalRefVoltageSelection fractionalRefVoltage;        /**< \brief Fractional Reference Voltage selection */
-    IfxEdsadc_FractionalRefVoltage          refVoltageEnable;            /**< \brief Fractional Reference Voltage enable/disable */
-    IfxEdsadc_HalfSupplyVoltage             halfSupplyVoltge;            /**< \brief Half supply voltage Enable/Disable */
-    IfxEdsadc_CommonModeHoldVoltage         commonModeHoldVoltage;       /**< \brief Common Mode hold Voltage Enable/ Disable */
-    uint8                                   positiveInput;               /**< \brief Defines the connection of the respective positive input y to the common
-                                                                          * mode hold voltage. */
-    uint8                                   negativeInput;               /**< \brief Defines the connection of the respective negative input y to the common mode hold voltage */
+    IfxEdsadc_FractionalRefVoltageSelection fractionalRefVoltage;       /**< \brief Fractional Reference Voltage selection */
+    IfxEdsadc_FractionalRefVoltage          refVoltageEnable;           /**< \brief Fractional Reference Voltage enable/disable */
+    uint8                                   positiveInput;              /**< \brief Defines the connection of the respective positive input y to the common
+                                                                         * mode hold voltage. */
+    uint8                                   negativeInput;              /**< \brief Defines the connection of the respective negative input y to the common mode hold voltage */
 } IfxEdsadc_Edsadc_CommonModeVoltageConfig;
 
 /** \brief Demodulator configuration structure
@@ -645,7 +643,7 @@ IFX_INLINE void IfxEdsadc_Edsadc_initTimeStampCounter(Ifx_EDSADC *edsadc, IfxEds
 
 IFX_INLINE void IfxEdsadc_Edsadc_initCommonModeVoltage(Ifx_EDSADC *edsadc, IfxEdsadc_ChannelId channel, const IfxEdsadc_Edsadc_CommonModeVoltageConfig *commonMode)
 {
-    IfxEdsadc_setCommonModeVoltage(edsadc, channel, commonMode->fractionalRefVoltage, commonMode->refVoltageEnable, commonMode->halfSupplyVoltge, commonMode->commonModeHoldVoltage, commonMode->positiveInput, commonMode->negativeInput);
+    IfxEdsadc_setCommonModeVoltage(edsadc, channel, commonMode->fractionalRefVoltage, commonMode->refVoltageEnable, commonMode->positiveInput, commonMode->negativeInput);
 }
 
 

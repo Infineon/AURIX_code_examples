@@ -2,7 +2,7 @@
  * \file Ifx_Ssw_Tc2.c
  * \brief Startup Software for Core2
  *
- * \version iLLD_1_0_1_12_0
+ * \version iLLD_1_0_1_15_0_1
  * \copyright Copyright (c) 2018 Infineon Technologies AG. All rights reserved.
  *
  *
@@ -67,10 +67,6 @@
 IFX_SSW_COMMON_LINKER_SYMBOLS();
 IFX_SSW_CORE_LINKER_SYMBOLS(2);
 
-extern void core2_main(void);
-#if defined(__TASKING__)
-__asm("\t .extern core2_main");
-#endif
 
 /*******************************************************************************
 **                      Private Constant Definitions                          **
@@ -166,13 +162,40 @@ void __Core2_start(void)
 #endif /* #if (IFX_CFG_SSW_ENABLE_TRICORE3 == 0) */
 
     /*Initialize CPU Private Global Variables*/
-    //TODO : This implementation is done once all compilers support this
 #if (IFX_CFG_SSW_ENABLE_INDIVIDUAL_C_INIT != 0)
-    (void)Ifx_Ssw_C_Init();
+    /* Hook functions to initialize application specific HW extensions */
+    if(hardware_init_hook)
+    {
+    	hardware_init_hook();
+    }
+
+    /* Hook functions to initialize application specific SW extensions */
+    if(software_init_hook)
+    {
+    	software_init_hook();
+    }
+
+    /* Initialization of C runtime variables and CPP constructors and destructors */
+    Ifx_Ssw_doCppInit();
 #endif
 
-    /*Call main function of Cpu2 */
-    Ifx_Ssw_jumpToFunction(core2_main);
+#ifdef IFX_CFG_SSW_RETURN_FROM_MAIN
+    {
+        extern int core2_main(void);
+        int status= core2_main();        /* Call main function of CPU2 */
+#if (IFX_CFG_SSW_ENABLE_INDIVIDUAL_C_INIT != 0)
+        Ifx_Ssw_doCppExit(status);
+#else /* (IFX_CFG_SSW_ENABLE_INDIVIDUAL_C_INIT != 0) */
+        (void)status;
+#endif /* (IFX_CFG_SSW_ENABLE_INDIVIDUAL_C_INIT != 0) */
+    }
+#else /* IFX_CFG_SSW_RETURN_FROM_MAIN */
+    extern void core2_main(void);
+    Ifx_Ssw_jumpToFunction(core2_main);  /* Jump to main function of CPU2 */
+#endif /* IFX_CFG_SSW_RETURN_FROM_MAIN */
+
+    /* Go into infinite loop, normally the code shall not reach here */
+    Ifx_Ssw_infiniteLoop();
 }
 
 /******************************************************************************

@@ -2,8 +2,8 @@
  * \file IfxCan.c
  * \brief CAN  basic functionality
  *
- * \version iLLD_1_0_1_12_0_1
- * \copyright Copyright (c) 2019 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_15_0_1
+ * \copyright Copyright (c) 2021 Infineon Technologies AG. All rights reserved.
  *
  *
  *                                 IMPORTANT NOTICE
@@ -355,13 +355,13 @@ boolean IfxCan_Node_isRxBufferNewDataUpdated(Ifx_CAN_N *node, IfxCan_RxBufferId 
     if (rxBufferId < IfxCan_RxBufferId_32)
     {
         mask    = (1U << rxBufferId);
-        tempVar = (boolean)(node->NDAT1.U & mask);
+        tempVar = (boolean)((node->NDAT1.U & mask) != 0 ? 1 : 0);
         return tempVar;
     }
     else
     {
         mask    = (1U << (rxBufferId - 32));
-        tempVar = (boolean)(node->NDAT2.U & mask);
+        tempVar = (boolean)((node->NDAT2.U & mask) != 0 ? 1 : 0);
         return tempVar;
     }
 }

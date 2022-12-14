@@ -2,7 +2,7 @@
  * \file IfxScuCcu.c
  * \brief SCU  basic functionality
  *
- * \version iLLD_1_0_1_12_0
+ * \version iLLD_1_0_1_15_0_1
  * \copyright Copyright (c) 2018 Infineon Technologies AG. All rights reserved.
  *
  *
@@ -693,14 +693,14 @@ boolean IfxScuCcu_init(const IfxScuCcu_Config *cfg)
         /* Now PLL is in free running mode */
 
         /* Select Clock Source as PLL input clock */
-        while (SCU_CCUCON0.B.LCK != 0U)
+        while (SCU_CCUCON1.B.LCK != 0U)
         {
-            /*Wait till ccucon0 lock is set */
+            /*Wait till ccucon1 lock is set */
             /*No "timeout" required, because if it hangs, Safety Endinit will give a trap */
         }
 
         SCU_CCUCON1.B.INSEL = 1; /*Select oscillator OSC0 as clock to PLL */
-        SCU_CCUCON1.B.UP    = 1; /*Update the ccucon0 register */
+        SCU_CCUCON1.B.UP    = 1; /*Update the ccucon1 register */
 
         status             |= IfxScuCcu_isOscillatorStable();
 

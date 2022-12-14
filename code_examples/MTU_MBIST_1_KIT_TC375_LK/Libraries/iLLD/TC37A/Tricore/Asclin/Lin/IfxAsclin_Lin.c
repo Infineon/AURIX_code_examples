@@ -2,26 +2,28 @@
  * \file IfxAsclin_Lin.c
  * \brief ASCLIN LIN details
  *
- * \version iLLD_1_0_1_12_0
- * \copyright Copyright (c) 2019 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_15_0_1
+ * \copyright Copyright (c) 2021 Infineon Technologies AG. All rights reserved.
  *
  *
  *
  *                                 IMPORTANT NOTICE
  *
+ *
  * Use of this file is subject to the terms of use agreed between (i) you or
  * the company in which ordinary course of business you are acting and (ii)
- * Infineon Technologies AG or its licensees. If and as long as no such terms
- * of use are agreed, use of this file is subject to following:
+ * Infineon Technologies AG or its licensees. If and as long as no such
+ * terms of use are agreed, use of this file is subject to following:
+ *
  *
  * Boost Software License - Version 1.0 - August 17th, 2003
  *
- * Permission is hereby granted, free of charge, to any person or organization
- * obtaining a copy of the software and accompanying documentation covered by
- * this license (the "Software") to use, reproduce, display, distribute,
- * execute, and transmit the Software, and to prepare derivative works of the
- * Software, and to permit third-parties to whom the Software is furnished to
- * do so, all subject to the following:
+ * Permission is hereby granted, free of charge, to any person or
+ * organization obtaining a copy of the software and accompanying
+ * documentation covered by this license (the "Software") to use, reproduce,
+ * display, distribute, execute, and transmit the Software, and to prepare
+ * derivative works of the Software, and to permit third-parties to whom the
+ * Software is furnished to do so, all subject to the following:
  *
  * The copyright notices in the Software and this entire statement, including
  * the above license grant, this restriction and the following disclaimer, must
@@ -276,21 +278,19 @@ IfxAsclin_Status IfxAsclin_Lin_initModule(IfxAsclin_Lin *asclin, const IfxAsclin
     IfxAsclin_setFrameMode(asclinSFR, IfxAsclin_FrameMode_initialise);  /* setting the module in Initialise mode*/
     IfxAsclin_setClockSource(asclinSFR, config->clockSource);           /* setting the clock source*/
 
-    /* lin mode initialisation */
-    IfxAsclin_setClockSource(asclinSFR, IfxAsclin_ClockSource_noClock); /* disabling the clock*/
-    IfxAsclin_setFrameMode(asclinSFR, config->frameMode);               /* setting the module in Lin mode*/
-    IfxAsclin_setLinMode(asclinSFR, config->linMode);                   /* configuring lin mode of operation (master/slave)*/
-    IfxAsclin_setRxInput(asclinSFR, config->alti);                      /* selecting the Rx(alternate) input pin*/
-    IfxAsclin_setPrescaler(asclinSFR, config->btc.prescaler);           /* setting the prescaler*/
-    IfxAsclin_setClockSource(asclinSFR, config->clockSource);           /* setting the clock source*/
-
     /* baudrate generation in both modes */
     status = (IfxAsclin_Status)IfxAsclin_setBitTiming(asclinSFR, config->brg.baudrate,
         config->btc.oversampling,
         config->bsc.samplePointPosition,
         config->bsc.medianFilter);                                      /* setting the baudrate bit fields to generate the required baudrate*/
 
+    /* lin mode initialisation */
+    IfxAsclin_setRxInput(asclinSFR, config->alti);                      /* selecting the Rx(alternate) input pin*/
+    IfxAsclin_setPrescaler(asclinSFR, config->btc.prescaler);           /* setting the prescaler*/
     IfxAsclin_setClockSource(asclinSFR, IfxAsclin_ClockSource_noClock); /* disabling the clock again*/
+
+    IfxAsclin_setFrameMode(asclinSFR, config->frameMode);               /* setting the module in Lin mode*/
+    IfxAsclin_setLinMode(asclinSFR, config->linMode);                   /* configuring lin mode of operation (master/slave)*/
 
     /* auto baud rate detection in slave mode */
     if (config->linMode == IfxAsclin_LinMode_slave)

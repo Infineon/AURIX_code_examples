@@ -3,7 +3,7 @@
  * \brief CIF I/O map
  * \ingroup IfxLld_Cif
  *
- * \version iLLD_1_0_1_12_0
+ * \version iLLD_1_0_1_15_0_1
  * \copyright Copyright (c) 2013 Infineon Technologies AG. All rights reserved.
  *
  *

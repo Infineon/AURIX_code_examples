@@ -2,9 +2,9 @@
  * \file IfxGtm_cfg.c
  * \brief GTM on-chip implementation data
  *
+ * \version iLLD_1_0_1_15_0_1
  * \copyright Copyright (c) 2020 Infineon Technologies AG. All rights reserved.
  *
- * $Date: 2020-04-24 11:22:01
  *
  *                                 IMPORTANT NOTICE
  *

@@ -2,25 +2,28 @@
  * \file IfxCcu6_TimerWithTrigger.c
  * \brief CCU6 TIMERWITHTRIGGER details
  *
- * \version iLLD_1_0_1_12_0
- * \copyright Copyright (c) 2019 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_15_0_1
+ * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
  *
+ *
  * Use of this file is subject to the terms of use agreed between (i) you or
  * the company in which ordinary course of business you are acting and (ii)
- * Infineon Technologies AG or its licensees. If and as long as no such terms
- * of use are agreed, use of this file is subject to following:
+ * Infineon Technologies AG or its licensees. If and as long as no such
+ * terms of use are agreed, use of this file is subject to following:
+ *
  *
  * Boost Software License - Version 1.0 - August 17th, 2003
  *
- * Permission is hereby granted, free of charge, to any person or organization
- * obtaining a copy of the software and accompanying documentation covered by
- * this license (the "Software") to use, reproduce, display, distribute,
- * execute, and transmit the Software, and to prepare derivative works of the
- * Software, and to permit third-parties to whom the Software is furnished to
- * do so, all subject to the following:
+ * Permission is hereby granted, free of charge, to any person or
+ * organization obtaining a copy of the software and accompanying
+ * documentation covered by this license (the "Software") to use, reproduce,
+ * display, distribute, execute, and transmit the Software, and to prepare
+ * derivative works of the Software, and to permit third-parties to whom the
+ * Software is furnished to do so, all subject to the following:
  *
  * The copyright notices in the Software and this entire statement, including
  * the above license grant, this restriction and the following disclaimer, must
@@ -36,6 +39,7 @@
  * FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
+ *
  *
  */
 
@@ -157,7 +161,7 @@ boolean IfxCcu6_TimerWithTrigger_init(IfxCcu6_TimerWithTrigger *driver, IfxCcu6_
         freqT12   = freqCC6 / (1U << prescaler);
         periodT12 = freqT12 / config->base.frequency;
 
-        if ((periodT12 <= 16386.0) && (periodT12 > config->base.minResolution))
+        if ((periodT12 <= 65535.0) && (periodT12 > config->base.minResolution))
         {
             break;
         }
@@ -370,7 +374,7 @@ void IfxCcu6_TimerWithTrigger_stop(IfxCcu6_TimerWithTrigger *driver)
 void IfxCcu6_TimerWithTrigger_updateInputFrequency(IfxCcu6_TimerWithTrigger *driver)
 {
     uint16 prescaler;
-    prescaler              = driver->ccu6->TCTR0.B.T12CLK;
+    prescaler              = driver->ccu6->TCTR0.B.T12CLK | (driver->ccu6->TCTR0.B.T12PRE << 3);
 
     driver->base.clockFreq = IfxScuCcu_getSpbFrequency() / (1U << prescaler);
 }

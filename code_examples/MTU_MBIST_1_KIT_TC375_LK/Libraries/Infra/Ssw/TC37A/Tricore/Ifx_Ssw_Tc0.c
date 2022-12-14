@@ -2,7 +2,7 @@
  * \file Ifx_Ssw_Tc0.c
  * \brief Startup Software for Core0
  *
- * \version iLLD_1_0_1_12_0
+ * \version iLLD_1_0_1_15_0_1
  * \copyright Copyright (c) 2018 Infineon Technologies AG. All rights reserved.
  *
  *
@@ -117,11 +117,6 @@ IFX_SSW_CORE_LINKER_SYMBOLS(0);
 /*******************************************************************************
 **                       Defines                                              **
 *******************************************************************************/
-extern void core0_main(void);
-
-#if defined(__TASKING__)
-__asm("\t .extern core0_main");
-#endif
 
 /*Add options to eliminate usage of stack pointers unnecessarily*/
 #if defined(__HIGHTEC__)
@@ -281,8 +276,20 @@ static void __Core0_start(void)
     Ifx_Ssw_disableCpuWatchdog(&MODULE_SCU.WDTCPU[0], cpuWdtPassword);
     Ifx_Ssw_disableSafetyWatchdog(safetyWdtPassword);
 
-    /* Initialization of C runtime variables */
-    Ifx_Ssw_C_Init();
+    /* Hook functions to initialize application specific HW extensions */
+    if(hardware_init_hook)
+    {
+    	hardware_init_hook();
+    }
+
+    /* Hook functions to initialize application specific SW extensions */
+    if(software_init_hook)
+    {
+    	software_init_hook();
+    }
+
+    /* Initialization of C runtime variables and CPP constructors and destructors */
+    Ifx_Ssw_doCppInit();
 
     Ifx_Ssw_enableSafetyWatchdog(safetyWdtPassword);
 
@@ -293,8 +300,19 @@ static void __Core0_start(void)
 
     Ifx_Ssw_enableCpuWatchdog(&MODULE_SCU.WDTCPU[0], cpuWdtPassword);
 
-    /*Call main function of Cpu0 */
-    Ifx_Ssw_jumpToFunction(core0_main);
+#ifdef IFX_CFG_SSW_RETURN_FROM_MAIN
+    {
+        extern int core0_main(void);
+        int status= core0_main();          /* Call main function of CPU0 */
+        Ifx_Ssw_doCppExit(status);
+    }
+#else /* IFX_CFG_SSW_RETURN_FROM_MAIN */
+    extern void core0_main(void);
+    Ifx_Ssw_jumpToFunction(core0_main);    /* Jump to main function of CPU0 */
+#endif /* IFX_CFG_SSW_RETURN_FROM_MAIN */
+
+    /* Go into infinite loop, normally the code shall not reach here */
+    Ifx_Ssw_infiniteLoop();
 }
 
 

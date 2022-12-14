@@ -2,7 +2,7 @@
  * \file Ifx_Ssw_Tc5.c
  * \brief Startup Software for Core5
  *
- * \version iLLD_1_0_1_12_0
+ * \version iLLD_1_0_1_15_0_1
  * \copyright Copyright (c) 2018 Infineon Technologies AG. All rights reserved.
  *
  *
@@ -67,10 +67,6 @@
 IFX_SSW_COMMON_LINKER_SYMBOLS();
 IFX_SSW_CORE_LINKER_SYMBOLS(5);
 
-extern void core5_main(void);
-#if defined(__TASKING__)
-__asm("\t .extern core5_main");
-#endif
 
 /*******************************************************************************
 **                      Private Constant Definitions                          **
@@ -151,13 +147,40 @@ void __Core5_start(void)
     }
 
     /*Initialize CPU Private Global Variables*/
-    //TODO : This implementation is done once all compilers support this
 #if (IFX_CFG_SSW_ENABLE_INDIVIDUAL_C_INIT != 0)
-    (void)Ifx_Ssw_C_Init();
+    /* Hook functions to initialize application specific HW extensions */
+    if(hardware_init_hook)
+    {
+    	hardware_init_hook();
+    }
+
+    /* Hook functions to initialize application specific SW extensions */
+    if(software_init_hook)
+    {
+    	software_init_hook();
+    }
+
+    /* Initialization of C runtime variables and CPP constructors and destructors */
+    Ifx_Ssw_doCppInit();
 #endif
 
-    /*Call main function of Cpu0 */
-    Ifx_Ssw_jumpToFunction(core5_main);
+#ifdef IFX_CFG_SSW_RETURN_FROM_MAIN
+    {
+        extern int core5_main(void);
+        int status= core5_main();        /* Call main function of CPU5 */
+#if (IFX_CFG_SSW_ENABLE_INDIVIDUAL_C_INIT != 0)
+        Ifx_Ssw_doCppExit(status);
+#else /* (IFX_CFG_SSW_ENABLE_INDIVIDUAL_C_INIT != 0) */
+        (void)status;
+#endif /* (IFX_CFG_SSW_ENABLE_INDIVIDUAL_C_INIT != 0) */
+    }
+#else /* IFX_CFG_SSW_RETURN_FROM_MAIN */
+    extern void core5_main(void);
+    Ifx_Ssw_jumpToFunction(core5_main);  /* Jump to main function of CPU5 */
+#endif /* IFX_CFG_SSW_RETURN_FROM_MAIN */
+
+    /* Go into infinite loop, normally the code shall not reach here */
+    Ifx_Ssw_infiniteLoop();
 }
 
 /******************************************************************************

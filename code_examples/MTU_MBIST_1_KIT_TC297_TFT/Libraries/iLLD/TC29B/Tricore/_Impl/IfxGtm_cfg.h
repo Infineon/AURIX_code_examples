@@ -3,7 +3,7 @@
  * \brief GTM on-chip implementation data
  * \ingroup IfxLld_Gtm
  *
- * \version iLLD_1_0_1_12_0
+ * \version iLLD_1_0_1_15_0_1
  * \copyright Copyright (c) 2020 Infineon Technologies AG. All rights reserved.
  *
  *

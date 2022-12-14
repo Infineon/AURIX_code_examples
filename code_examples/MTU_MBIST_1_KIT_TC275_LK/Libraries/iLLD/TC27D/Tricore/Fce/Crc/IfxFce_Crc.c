@@ -2,8 +2,9 @@
  * \file IfxFce_Crc.c
  * \brief FCE CRC details
  *
- * \version iLLD_1_0_1_12_0
- * \copyright Copyright (c) 2017 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_15_0_1
+ * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
@@ -36,6 +37,7 @@
  * FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
+ *
  *
  *
  */
@@ -72,6 +74,9 @@ uint16 IfxFce_Crc_calculateCrc16(IfxFce_Crc_Crc *fce, const uint16 *crcData, uin
         }
     }
 
+    /* A delay of 2 clock cycles is needed after the write into IR register
+     * Hence another Dummy read is added */
+    crcResultValue = (uint16)fceSFR->IN2.RES.U;
     crcResultValue = (uint16)fceSFR->IN2.RES.U;
 
     return crcResultValue;
@@ -117,10 +122,16 @@ uint32 IfxFce_Crc_calculateCrc32(IfxFce_Crc_Crc *fce, const uint32 *crcData, uin
 
     if (fce->crc32Kernel == IfxFce_Crc32Kernel_0)
     {
+        /* A delay of 2 clock cycles is needed after the write into IR register
+         * Hence another Dummy read is added */
+        crcResultValue = fceSFR->IN0.RES.U;
         crcResultValue = fceSFR->IN0.RES.U;
     }
     else
     {
+        /* A delay of 2 clock cycles is needed after the write into IR register
+         * Hence another Dummy read is added */
+        crcResultValue = fceSFR->IN1.RES.U;
         crcResultValue = fceSFR->IN1.RES.U;
     }
 
@@ -151,6 +162,9 @@ uint8 IfxFce_Crc_calculateCrc8(IfxFce_Crc_Crc *fce, const uint8 *crcData, uint32
             fceSFR->IN3.IR.U = *(dataPtr++);
         }
     }
+    /* A delay of 2 clock cycles is needed after the write into IR register
+     * Hence another Dummy read is added */
+    crcResultValue = (uint8)fceSFR->IN3.RES.U;
     crcResultValue = (uint8)fceSFR->IN3.RES.U;
 
     return crcResultValue;

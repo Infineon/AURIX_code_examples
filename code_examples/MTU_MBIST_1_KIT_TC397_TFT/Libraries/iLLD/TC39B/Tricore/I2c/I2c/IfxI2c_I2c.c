@@ -2,25 +2,28 @@
  * \file IfxI2c_I2c.c
  * \brief I2C I2C details
  *
- * \version iLLD_1_0_1_12_0
- * \copyright Copyright (c) 2020 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_15_0_1
+ * \copyright Copyright (c) 2021 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
  *
+ *
  * Use of this file is subject to the terms of use agreed between (i) you or
  * the company in which ordinary course of business you are acting and (ii)
- * Infineon Technologies AG or its licensees. If and as long as no such terms
- * of use are agreed, use of this file is subject to following:
+ * Infineon Technologies AG or its licensees. If and as long as no such
+ * terms of use are agreed, use of this file is subject to following:
+ *
  *
  * Boost Software License - Version 1.0 - August 17th, 2003
  *
- * Permission is hereby granted, free of charge, to any person or organization
- * obtaining a copy of the software and accompanying documentation covered by
- * this license (the "Software") to use, reproduce, display, distribute,
- * execute, and transmit the Software, and to prepare derivative works of the
- * Software, and to permit third-parties to whom the Software is furnished to
- * do so, all subject to the following:
+ * Permission is hereby granted, free of charge, to any person or
+ * organization obtaining a copy of the software and accompanying
+ * documentation covered by this license (the "Software") to use, reproduce,
+ * display, distribute, execute, and transmit the Software, and to prepare
+ * derivative works of the Software, and to permit third-parties to whom the
+ * Software is furnished to do so, all subject to the following:
  *
  * The copyright notices in the Software and this entire statement, including
  * the above license grant, this restriction and the following disclaimer, must
@@ -67,19 +70,21 @@ void IfxI2c_I2c_initConfig(IfxI2c_I2c_Config *config, Ifx_I2C *i2c)
 
 void IfxI2c_I2c_initDevice(IfxI2c_I2c_Device *i2cDevice, const IfxI2c_I2c_deviceConfig *i2cDeviceConfig)
 {
-    i2cDevice->i2c           = i2cDeviceConfig->i2c;
-    i2cDevice->deviceAddress = i2cDeviceConfig->deviceAddress;
-    i2cDevice->addressMode   = i2cDeviceConfig->addressMode;
-    i2cDevice->speedMode     = i2cDeviceConfig->speedMode;
+    i2cDevice->i2c                 = i2cDeviceConfig->i2c;
+    i2cDevice->deviceAddress       = i2cDeviceConfig->deviceAddress;
+    i2cDevice->addressMode         = i2cDeviceConfig->addressMode;
+    i2cDevice->speedMode           = i2cDeviceConfig->speedMode;
+    i2cDevice->enableRepeatedStart = i2cDeviceConfig->enableRepeatedStart;
 }
 
 
 void IfxI2c_I2c_initDeviceConfig(IfxI2c_I2c_deviceConfig *i2cDeviceConfig, IfxI2c_I2c *i2c)
 {
-    i2cDeviceConfig->i2c           = i2c;
-    i2cDeviceConfig->deviceAddress = 0xff;
-    i2cDeviceConfig->addressMode   = IfxI2c_AddressMode_7Bit;
-    i2cDeviceConfig->speedMode     = IfxI2c_Mode_StandardAndFast;
+    i2cDeviceConfig->i2c                 = i2c;
+    i2cDeviceConfig->deviceAddress       = 0xff;
+    i2cDeviceConfig->addressMode         = IfxI2c_AddressMode_7Bit;
+    i2cDeviceConfig->speedMode           = IfxI2c_Mode_StandardAndFast;
+    i2cDeviceConfig->enableRepeatedStart = FALSE;
 }
 
 
@@ -186,8 +191,8 @@ IfxI2c_I2c_Status IfxI2c_I2c_read(IfxI2c_I2c_Device *i2cDevice, volatile uint8 *
     IfxI2c_writeFifo(i2c, packet);
     IfxI2c_clearAllDtrInterruptSources(i2c);
 
-    /* Poll until aribtration lost, nack, or rx mode flag is reset, or the error is gone*/
-    while ((i2c->PIRQSS.U & ((1 << IFX_I2C_PIRQSS_AL_OFF) | (1 << IFX_I2C_PIRQSS_NACK_OFF) | (1 << IFX_I2C_PIRQSS_RX_OFF))) || i2c->ERRIRQSS.U)
+    /* Poll until aribtration lost, nack, or rx mode flag is reset */
+    while ((i2c->PIRQSS.U & ((1 << IFX_I2C_PIRQSS_AL_OFF) | (1 << IFX_I2C_PIRQSM_TX_END_OFF) | (1 << IFX_I2C_PIRQSS_RX_OFF))) == FALSE)
     {}
 
     /* check status*/
@@ -377,7 +382,18 @@ IfxI2c_I2c_Status IfxI2c_I2c_read(IfxI2c_I2c_Device *i2cDevice, volatile uint8 *
     IfxI2c_clearAllErrorInterruptSources(i2c);
     IfxI2c_clearAllProtocolInterruptSources(i2c);
 
-    IfxI2c_releaseBus(i2c);
+    if (!i2cDevice->enableRepeatedStart)
+    {
+        IfxI2c_releaseBus(i2c);
+    }
+    else
+    {   // wait until bus is free
+        while (IfxI2c_getProtocolInterruptSourceStatus(i2c, IfxI2c_ProtocolInterruptSource_transmissionEnd) == FALSE)
+        {}
+
+        IfxI2c_clearProtocolInterruptSource(i2c, IfxI2c_ProtocolInterruptSource_transmissionEnd);
+    }
+
     i2cDevice->i2c->busStatus = IfxI2c_getBusStatus(i2c);
     i2cDevice->i2c->status    = status;
     return status;
@@ -563,7 +579,19 @@ IfxI2c_I2c_Status IfxI2c_I2c_write(IfxI2c_I2c_Device *i2cDevice, volatile uint8 
         }
     }
 
-    IfxI2c_releaseBus(i2c);
+    if (!i2cDevice->enableRepeatedStart)
+    {
+        IfxI2c_releaseBus(i2c);
+    }
+    else
+    {
+        //wait until bus is free
+        while (IfxI2c_getProtocolInterruptSourceStatus(i2c, IfxI2c_ProtocolInterruptSource_transmissionEnd) == FALSE)
+        {}
+
+        IfxI2c_clearProtocolInterruptSource(i2c, IfxI2c_ProtocolInterruptSource_transmissionEnd);
+    }
+
     i2cDevice->i2c->busStatus = IfxI2c_getBusStatus(i2c);
     i2cDevice->i2c->status    = status;
     return status;

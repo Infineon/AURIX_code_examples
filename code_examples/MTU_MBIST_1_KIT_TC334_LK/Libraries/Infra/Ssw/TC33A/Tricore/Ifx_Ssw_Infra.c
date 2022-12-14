@@ -2,8 +2,8 @@
  * \file Ifx_Ssw_Infra.c
  * \brief Startup Software support functions.
  *
- * \version iLLD_1_0_1_12_0_1
- * \copyright Copyright (c) 2018 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_15_0_1
+ * \copyright Copyright (c) 2021 Infineon Technologies AG. All rights reserved.
  *
  *
  *                                 IMPORTANT NOTICE
@@ -259,8 +259,11 @@ void Ifx_Ssw_Monbist(void)
     PMS_AGFSP_STDBY0.U = 0x40000000U;
     PMS_AGFSP_STDBY1.U = 0x40000000U;
     /* FSP0EN and FSP1EN configuration bits are cleared to avoid spurious Error pin activation */
-    PMS_CMD_STDBY.U |= 0x40000000U;
+	/* ASCE bit is set and respective alarms are cleared */
     PMS_CMD_STDBY.U |= 0x40000008U;
+	PMS_AG_STDBY0.U = 0xFFF0U;
+	PMS_CMD_STDBY.U |= 0x40000008U;
+	PMS_AG_STDBY1.U = 0x1FFFFU;
     /* Reset the MONFILT register */
     PMS_MONFILT.U = 0x00000000U;
     /* Start MONBIST test */

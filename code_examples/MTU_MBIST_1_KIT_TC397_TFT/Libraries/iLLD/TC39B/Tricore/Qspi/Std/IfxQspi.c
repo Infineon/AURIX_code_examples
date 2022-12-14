@@ -2,26 +2,28 @@
  * \file IfxQspi.c
  * \brief QSPI  basic functionality
  *
- * \version iLLD_1_0_1_12_0
- * \copyright Copyright (c) 2019 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_15_0_1
+ * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
  *
  *
  *
  *                                 IMPORTANT NOTICE
  *
+ *
  * Use of this file is subject to the terms of use agreed between (i) you or
  * the company in which ordinary course of business you are acting and (ii)
- * Infineon Technologies AG or its licensees. If and as long as no such terms
- * of use are agreed, use of this file is subject to following:
+ * Infineon Technologies AG or its licensees. If and as long as no such
+ * terms of use are agreed, use of this file is subject to following:
+ *
  *
  * Boost Software License - Version 1.0 - August 17th, 2003
  *
- * Permission is hereby granted, free of charge, to any person or organization
- * obtaining a copy of the software and accompanying documentation covered by
- * this license (the "Software") to use, reproduce, display, distribute,
- * execute, and transmit the Software, and to prepare derivative works of the
- * Software, and to permit third-parties to whom the Software is furnished to
- * do so, all subject to the following:
+ * Permission is hereby granted, free of charge, to any person or
+ * organization obtaining a copy of the software and accompanying
+ * documentation covered by this license (the "Software") to use, reproduce,
+ * display, distribute, execute, and transmit the Software, and to prepare
+ * derivative works of the Software, and to permit third-parties to whom the
+ * Software is furnished to do so, all subject to the following:
  *
  * The copyright notices in the Software and this entire statement, including
  * the above license grant, this restriction and the following disclaimer, must
@@ -124,7 +126,7 @@ uint32 IfxQspi_calculateExtendedConfigurationValue(Ifx_QSPI *qspi, const uint8 c
     for (abc = abcMax; abc >= abcMin; abc--)
     {
         tTmp = tQspi * abc;
-        q    = (int)((tBaud / tTmp) + 0.5);
+        q    = (int)((tBaud / tTmp) + 0.5F);
 
         if (q > 64)
         {
@@ -237,8 +239,8 @@ uint32 IfxQspi_calculateTimeQuantumLength(Ifx_QSPI *qspi, float maxBaudrate)
 
     IFX_UNUSED_PARAMETER(qspi);
 
-    uint32 abcq  = ABCQMIN, tq, bestTq;
-    float  realTQ, deltaMax, bestDelta, achievedMax;
+    uint32 abcq  = ABCQMIN, bestTq;
+    float  realTQ, deltaMax, bestDelta, achievedMax, tq;
     float  fQspi = IfxScuCcu_getQspiFrequency();
 
     if (__leqf(maxBaudrate, 0.0))
@@ -253,14 +255,14 @@ uint32 IfxQspi_calculateTimeQuantumLength(Ifx_QSPI *qspi, float maxBaudrate)
     for (abcq = ABCQMIN; abcq <= ABCQMAX; abcq++)
     {
         realTQ      = fQspi / (maxBaudrate * abcq);
-        tq          = (uint32)(realTQ + 0.5);
+        tq          = (float)(realTQ + 0.5F);
         achievedMax = fQspi / (tq * abcq);
         deltaMax    = __absf(maxBaudrate - achievedMax);
 
         if (__leqf(deltaMax, bestDelta) && (tq >= 1))
         {
             bestDelta = deltaMax;
-            bestTq    = tq;
+            bestTq    = (uint32)tq;
         }
 
         if ((bestDelta == 0) || (tq < 1))
@@ -477,13 +479,13 @@ void IfxQspi_calculateDelayConstants(const Ifx_QSPI *qspi, const IfxQspi_Channel
 
         for (preTemp = 0; preTemp < 8; preTemp++)
         {
-            delayTemp = (uint8)((scaleTemp / (1 << (2 * preTemp))) + 0.5); /* divide the scale_temp by ( 4 ^ pre_temp) to find delay_temp */
+            delayTemp = (uint8)((scaleTemp / (1 << (2 * preTemp))) + 0.5F); /* divide the scale_temp by ( 4 ^ pre_temp) to find delay_temp */
 
-            if (delayTemp <= 8)                                            /* if delay_temp is <= 8; we can get a good value pair */
+            if (delayTemp <= 8)                                             /* if delay_temp is <= 8; we can get a good value pair */
             {
-                if ((float32)(delayTemp << (2 * preTemp)) >= scaleTemp)    /* greater delays are tolerated. less is not */
+                if ((float32)(delayTemp << (2 * preTemp)) >= scaleTemp)     /* greater delays are tolerated. less is not */
                 {
-                    delayFinal = __max(delayTemp - 1, 0);                  /* subtract 1 to set to register */
+                    delayFinal = __max(delayTemp - 1, 0);                   /* subtract 1 to set to register */
                     preFinal   = preTemp;
                     matchFound = TRUE;
                     break;

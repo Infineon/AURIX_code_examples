@@ -3,7 +3,7 @@
  * \brief SENT I/O map
  * \ingroup IfxLld_Sent
  *
- * \version iLLD_1_0_1_12_0
+ * \version iLLD_1_0_1_15_0_1
  * \copyright Copyright (c) 2017 Infineon Technologies AG. All rights reserved.
  *
  *

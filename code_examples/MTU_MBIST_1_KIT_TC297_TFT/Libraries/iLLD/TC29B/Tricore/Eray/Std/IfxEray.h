@@ -3,25 +3,28 @@
  * \brief ERAY  basic functionality
  * \ingroup IfxLld_Eray
  *
- * \version iLLD_1_0_1_12_0
- * \copyright Copyright (c) 2018 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_15_0_1
+ * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
  *
+ *
  * Use of this file is subject to the terms of use agreed between (i) you or
  * the company in which ordinary course of business you are acting and (ii)
- * Infineon Technologies AG or its licensees. If and as long as no such terms
- * of use are agreed, use of this file is subject to following:
+ * Infineon Technologies AG or its licensees. If and as long as no such
+ * terms of use are agreed, use of this file is subject to following:
+ *
  *
  * Boost Software License - Version 1.0 - August 17th, 2003
  *
- * Permission is hereby granted, free of charge, to any person or organization
- * obtaining a copy of the software and accompanying documentation covered by
- * this license (the "Software") to use, reproduce, display, distribute,
- * execute, and transmit the Software, and to prepare derivative works of the
- * Software, and to permit third-parties to whom the Software is furnished to
- * do so, all subject to the following:
+ * Permission is hereby granted, free of charge, to any person or
+ * organization obtaining a copy of the software and accompanying
+ * documentation covered by this license (the "Software") to use, reproduce,
+ * display, distribute, execute, and transmit the Software, and to prepare
+ * derivative works of the Software, and to permit third-parties to whom the
+ * Software is furnished to do so, all subject to the following:
  *
  * The copyright notices in the Software and this entire statement, including
  * the above license grant, this restriction and the following disclaimer, must
@@ -37,6 +40,7 @@
  * FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
+ *
  *
  * \defgroup IfxLld_Eray_Std_Enumerations Enumerations
  * \ingroup IfxLld_Eray_Std
@@ -263,19 +267,21 @@ typedef enum
  */
 typedef enum
 {
-    IfxEray_PocCommand_notAccepted = 0,  /**< \brief command not accepted. */
-    IfxEray_PocCommand_config      = 1,  /**< \brief command to controller to enter CONFIG */
-    IfxEray_PocCommand_ready       = 2,  /**< \brief command to controller to enter READY. */
-    IfxEray_PocCommand_wakeup      = 3,  /**< \brief command to controller to enter WAKEUP */
-    IfxEray_PocCommand_run         = 4,  /**< \brief command to controller to enter RUN */
-    IfxEray_PocCommand_allSlots    = 5,  /**< \brief command to controller to enter ALL_SLOTS */
-    IfxEray_PocCommand_halt        = 6,  /**< \brief command to controller to enter HALT */
-    IfxEray_PocCommand_freeze      = 7,  /**< \brief command to controller to enter FREEZE */
-    IfxEray_PocCommand_sendMts     = 8,  /**< \brief command to controller to enter SEND_MTS */
-    IfxEray_PocCommand_coldStart   = 9,  /**< \brief command to controller to enter COLD_START */
-    IfxEray_PocCommand_reset       = 10, /**< \brief command to controller to enter RESET */
-    IfxEray_PocCommand_monitor     = 11, /**< \brief command to controller to enter MONITOR */
-    IfxEray_PocCommand_clearRam    = 12  /**< \brief command to controller to enter CLEAR_RAM */
+    IfxEray_PocCommand_notAccepted  = 0,   /**< \brief command not accepted. */
+    IfxEray_PocCommand_config       = 1,   /**< \brief command to controller to enter CONFIG */
+    IfxEray_PocCommand_ready        = 2,   /**< \brief command to controller to enter READY. */
+    IfxEray_PocCommand_wakeup       = 3,   /**< \brief command to controller to enter WAKEUP */
+    IfxEray_PocCommand_run          = 4,   /**< \brief command to controller to enter RUN */
+    IfxEray_PocCommand_allSlots     = 5,   /**< \brief command to controller to enter ALL_SLOTS */
+    IfxEray_PocCommand_halt         = 6,   /**< \brief command to controller to enter HALT */
+    IfxEray_PocCommand_freeze       = 7,   /**< \brief command to controller to enter FREEZE */
+    IfxEray_PocCommand_sendMts      = 8,   /**< \brief command to controller to enter SEND_MTS */
+    IfxEray_PocCommand_coldStart    = 9,   /**< \brief command to controller to enter COLD_START */
+    IfxEray_PocCommand_reset        = 10,  /**< \brief command to controller to enter RESET */
+    IfxEray_PocCommand_monitor      = 11,  /**< \brief command to controller to enter MONITOR */
+    IfxEray_PocCommand_clearRam     = 12,  /**< \brief command to controller to enter CLEAR_RAM */
+    IfxEray_PocCommand_Asynchronous = 14,  /**< \brief command to controller to enter Asynchronous transmit mode */
+    IfxEray_PocCommand_LoopBack     = 15   /**< \brief command to controller to enter Loop back mode */
 } IfxEray_PocCommand;
 
 /** \brief State of Communication Controller Protocol operation control, defined in MODULE_ERAY0.CCSV.B.POCS.
@@ -288,6 +294,8 @@ typedef enum
     IfxEray_PocState_normalPassive               = 3,   /**< \brief controller entered normal-passive state */
     IfxEray_PocState_halt                        = 4,   /**< \brief controller entered halt state */
     IfxEray_PocState_monitor                     = 5,   /**< \brief controller entered monitor state */
+    IfxEray_PocState_LoopBack                    = 13,  /**< \brief controller entered Loop Back mode. */
+    IfxEray_PocState_Asynchronous                = 14,  /**< \brief controller entered Asynchronous transfer mode. */
     IfxEray_PocState_config                      = 15,  /**< \brief controller entered config state */
     IfxEray_PocState_wakeupStandby               = 16,  /**< \brief controller entered wakeup standby state */
     IfxEray_PocState_wakeupListen                = 17,  /**< \brief controller entered wakeup-listen state */
@@ -957,7 +965,7 @@ IFX_INLINE void IfxEray_setMessageBufferCount(Ifx_ERAY *eray, uint8 numberOfMess
  * \param latestTransmissionStart dynamic slots befor transmission of inhibit frame in dynamic segment.
  * \return None
  */
-IFX_INLINE void IfxEray_setMessageHandlerConfigurations(Ifx_ERAY *eray, uint8 staticFramepayload, uint8 latestTransmissionStart);
+IFX_INLINE void IfxEray_setMessageHandlerConfigurations(Ifx_ERAY *eray, uint8 staticFramepayload, uint16 latestTransmissionStart);
 
 /** \brief Sets network start Idle time.
  * \param eray pointer to ERAY module registers.
@@ -1723,7 +1731,7 @@ IFX_INLINE void IfxEray_setMessageBufferCount(Ifx_ERAY *eray, uint8 numberOfMess
 }
 
 
-IFX_INLINE void IfxEray_setMessageHandlerConfigurations(Ifx_ERAY *eray, uint8 staticFramepayload, uint8 latestTransmissionStart)
+IFX_INLINE void IfxEray_setMessageHandlerConfigurations(Ifx_ERAY *eray, uint8 staticFramepayload, uint16 latestTransmissionStart)
 {
     Ifx_ERAY_MHDC mhdc;
     mhdc.U       = 0;

@@ -2,25 +2,28 @@
  * \file IfxEray.c
  * \brief ERAY  basic functionality
  *
- * \version iLLD_1_0_1_12_0
- * \copyright Copyright (c) 2019 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_15_0_1
+ * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
  *
+ *
  * Use of this file is subject to the terms of use agreed between (i) you or
  * the company in which ordinary course of business you are acting and (ii)
- * Infineon Technologies AG or its licensees. If and as long as no such terms
- * of use are agreed, use of this file is subject to following:
+ * Infineon Technologies AG or its licensees. If and as long as no such
+ * terms of use are agreed, use of this file is subject to following:
+ *
  *
  * Boost Software License - Version 1.0 - August 17th, 2003
  *
- * Permission is hereby granted, free of charge, to any person or organization
- * obtaining a copy of the software and accompanying documentation covered by
- * this license (the "Software") to use, reproduce, display, distribute,
- * execute, and transmit the Software, and to prepare derivative works of the
- * Software, and to permit third-parties to whom the Software is furnished to
- * do so, all subject to the following:
+ * Permission is hereby granted, free of charge, to any person or
+ * organization obtaining a copy of the software and accompanying
+ * documentation covered by this license (the "Software") to use, reproduce,
+ * display, distribute, execute, and transmit the Software, and to prepare
+ * derivative works of the Software, and to permit third-parties to whom the
+ * Software is furnished to do so, all subject to the following:
  *
  * The copyright notices in the Software and this entire statement, including
  * the above license grant, this restriction and the following disclaimer, must
@@ -36,6 +39,7 @@
  * FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
+ *
  *
  */
 
@@ -263,10 +267,9 @@ void IfxEray_setMessageBufferInterruptDestination(Ifx_ERAY *eray, uint8 messageB
 
 void IfxEray_setNewDataInterruptDestination(Ifx_ERAY *eray, uint8 ndat, uint8 ndatDestination)
 {
-    IFX_UNUSED_PARAMETER(ndat);
-    uint8           ix      = ndatDestination / 32;
-    uint32          mask    = 1 << (ndatDestination % 32);
-    Ifx_ERAY_NDIC1 *ndicSFR = (Ifx_ERAY_NDIC1 *)((uint32)&eray->NDIC1 + 4 * ix);
+    uint8           ix      = ndat >> 5;
+    uint32          mask    = 1 << (ndat & 31);
+    Ifx_ERAY_NDIC1 *ndicSFR = (Ifx_ERAY_NDIC1 *)((uint32)&eray->NDIC1 + (ix << 2));
 
     if (ndatDestination == FALSE)
     {

@@ -1,7 +1,7 @@
 /**
  * \file IfxCpu_Cstart0.c
  * \brief This file contains the Core startup sequence for Cpu0.
- * \version iLLD_1_0_1_12_0
+ * \version iLLD_1_0_1_15_0_1
  * \copyright Copyright (c) 2012 Infineon Technologies AG. All rights reserved.
  *
  *
@@ -86,10 +86,17 @@
 IFXCOMPILER_COMMON_LINKER_SYMBOLS()
 IFXCOMPILER_CORE_LINKER_SYMBOLS(0)
 
-IFX_EXTERN void core0_main(void);
-#if defined(__TASKING__)
-__asm("\t .extern core0_main");
-#endif
+/** \brief Initialize the C/Cpp runtime environment */
+static void Ifx_Cpp_Init(void);
+
+#ifdef IFX_CFG_RETURN_FROM_MAIN
+/** \brief De-initialize the C/Cpp runtime environment */
+static void Ifx_Cpp_Exit(int status);
+#endif /*IFX_CFG_RETURN_FROM_MAIN*/
+
+/* Hook Functions */
+extern __attribute__ ((weak)) void hardware_init_hook(void);
+extern __attribute__ ((weak)) void software_init_hook(void);
 
 /*******************************************************************************
 **                      Private Constant Definitions                          **
@@ -160,7 +167,19 @@ void _Core0_start(void)
         IfxScuWdt_disableCpuWatchdog(cpuWdtPassword);
         IfxScuWdt_disableSafetyWatchdog(safetyWdtPassword);
 
-        Ifx_C_Init();           /*Initialization of C runtime variables */
+        /* Hook functions to initialize application specific HW extensions */
+        if(hardware_init_hook)
+        {
+        	hardware_init_hook();
+        }
+
+        /* Hook functions to initialize application specific SW extensions */
+        if(software_init_hook)
+        {
+        	software_init_hook();
+        }
+
+        Ifx_Cpp_Init();
 
         IfxScuWdt_enableCpuWatchdog(cpuWdtPassword);
         IfxScuWdt_enableSafetyWatchdog(safetyWdtPassword);
@@ -183,8 +202,17 @@ void _Core0_start(void)
     IfxCpu_setCoreMode(&MODULE_CPU0, IfxCpu_CoreMode_idle);
 #endif
 
-    /*Call main function of Cpu0 */
-    __non_return_call(core0_main);
+#ifdef IFX_CFG_RETURN_FROM_MAIN
+    {
+        extern int core0_main(void);
+        int status= core0_main();          /* Call main function of CPU0 */
+        Ifx_Cpp_Exit(status);
+        while(1);
+    }
+#else /* IFX_CFG_RETURN_FROM_MAIN */
+    extern void core0_main(void);
+    __non_return_call(core0_main);         /*Jump to main function of Cpu0 */
+#endif /* IFX_CFG_RETURN_FROM_MAIN */
 }
 
 #if defined(__HIGHTEC__)
@@ -305,6 +333,36 @@ const uint32 BootModeHeader_1[] = {
 #if defined(__DCC__)
 #pragma section CONST
 #endif
+
+/** \brief Initialize the C/Cpp runtime environment */
+static void Ifx_Cpp_Init(void)
+{
+    Ifx_C_Init();           /*Initialization of C runtime variables */
+#ifdef __TASKING__
+extern void _main(void); /* cpp initialization */
+    _main();
+#endif
+#ifdef __HIGHTEC__
+extern void _init(void); /* cpp initialization */
+    _init();
+#endif
+}
+
+/** \brief De-initialize the C/Cpp runtime environment */
+#ifdef IFX_CFG_RETURN_FROM_MAIN
+static void Ifx_Cpp_Exit(int status)
+{
+#ifdef __TASKING__
+extern void _doexit(void); /* cpp deinitialization */
+    _doexit();
+#endif
+#ifdef __HIGHTEC__
+extern void exit(int);     /* cpp deinitialization */
+    exit(status);
+#endif
+}
+#endif /*IFX_CFG_RETURN_FROM_MAIN*/
+
 #endif /*IFX_CFG_CPUCSTART_BMI01_NOT_NEEDED*/
 
 #endif /*IFX_CFG_CPUCSTART_BMHD_NOT_NEEDED*/
