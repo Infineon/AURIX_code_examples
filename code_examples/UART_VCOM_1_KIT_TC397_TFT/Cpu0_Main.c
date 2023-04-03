@@ -35,7 +35,7 @@
  * \keywords AURIX, COM, PC, UART, UART_VCOM_1, VCOM, communication, serial, virtual COM
  * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_UART_VCOM_1_KIT_TC397_TFT-TR-v01_00_03-EN.pdf
  * \documents https://www.infineon.com/aurix-expert-training/TC39B_iLLD_UM_1_0_1_12_1.chm
- * \lastUpdated 2023-06-30
+ * \lastUpdated 2022-06-30
  *********************************************************************************************************************/
 #include "Ifx_Types.h"
 #include "IfxCpu.h"

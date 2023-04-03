@@ -31,12 +31,12 @@
  *              to the current conversion result.
  *
  * \name DSADC_1_KIT_TC275_LK
- * \version V1.0.0
+ * \version V1.0.1
  * \board AURIX TC275 lite Kit, KIT_AURIX_TC275_LITE, TC27xTP_D-Step
  * \keywords ADC, AURIX, DSADC, DSADC_1, delta-sigma
- * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_DSADC_1_KIT_TC275_LK-TR-v01_00_00-EN.pdf
+ * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_DSADC_1_KIT_TC275_LK-TR-v01_00_01-EN.pdf
  * \documents https://www.infineon.com/aurix-expert-training/TC27D_iLLD_UM_1_0_1_12_0.chm
- * \lastUpdated 2021-06-29
+ * \lastUpdated 2023-03-30
  *********************************************************************************************************************/
 #include "Ifx_Types.h"
 #include "IfxCpu.h"

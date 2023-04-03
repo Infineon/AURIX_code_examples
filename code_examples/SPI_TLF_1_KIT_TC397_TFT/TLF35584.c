@@ -40,8 +40,8 @@ void enableWindowWatchdogTLF35584(tlf35584 *tlfDevice);
 void disableErrPinMonitorTLF35584(tlf35584 *tlfDevice);
 void enableErrPinMonitorTLF35584(tlf35584 *tlfDevice);
 void enableVoltageSupplyRails(tlf35584 *tlfDevice);
-uint8 getSpiStatusFlagsTFL35584(tlf35584 *tlfDevice);
-void clearSpiStatusFlagsTFL35584(tlf35584 *tlfDevice);
+uint8 getSpiStatusFlagsTLF35584(tlf35584 *tlfDevice);
+void clearSpiStatusFlagsTLF35584(tlf35584 *tlfDevice);
 IFX_EXTERN uint16 transferDataTLF35584(spiCommandType cmd, tlf35584RegAddr addr, uint8 data);
 
 /*********************************************************************************************************************/
@@ -175,7 +175,7 @@ stateStatusType getCurrentStateTLF35584(tlf35584 *tlfDevice)
     return tlfDevice->DEVSTAT.B.STATE;
 }
 
-uint8 getSystemStatusFlagsTFL35584(tlf35584 *tlfDevice)
+uint8 getSystemStatusFlagsTLF35584(tlf35584 *tlfDevice)
 {
     tlf35584SpiFrameType spiFrame;
 
@@ -186,13 +186,13 @@ uint8 getSystemStatusFlagsTFL35584(tlf35584 *tlfDevice)
     return tlfDevice->SYSSF.U;
 }
 
-void clearSystemStatusFlagsTFL35584(tlf35584 *tlfDevice)
+void clearSystemStatusFlagsTLF35584(tlf35584 *tlfDevice)
 {
     tlfDevice->SYSSF.U = CLEAR_STATUS_FLAGS;
     transferDataTLF35584(SpiCommand_write, SyssfRegAddr, tlfDevice->SYSSF.U);
 }
 
-uint8 getSpiStatusFlagsTFL35584(tlf35584 *tlfDevice)
+uint8 getSpiStatusFlagsTLF35584(tlf35584 *tlfDevice)
 {
     tlf35584SpiFrameType spiFrame;
 
@@ -203,7 +203,7 @@ uint8 getSpiStatusFlagsTFL35584(tlf35584 *tlfDevice)
     return tlfDevice->SPISF.U;
 }
 
-void clearSpiStatusFlagsTFL35584(tlf35584 *tlfDevice)
+void clearSpiStatusFlagsTLF35584(tlf35584 *tlfDevice)
 {
     tlfDevice->SPISF.U = CLEAR_STATUS_FLAGS;
     transferDataTLF35584(SpiCommand_write, SpisfRegAddr, tlfDevice->SPISF.U);

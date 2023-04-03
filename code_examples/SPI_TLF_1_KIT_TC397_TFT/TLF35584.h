@@ -515,8 +515,8 @@ IFX_EXTERN tlf35584 g_tlfDevice;
 /*********************************************************************************************************************/
 void initQSPI(void);
 void initTLF35584(tlf35584 *tlfDevice);
-uint8 getSystemStatusFlagsTFL35584(tlf35584 *tlfDevice);
-void clearSystemStatusFlagsTFL35584(tlf35584 *tlfDevice);
+uint8 getSystemStatusFlagsTLF35584(tlf35584 *tlfDevice);
+void clearSystemStatusFlagsTLF35584(tlf35584 *tlfDevice);
 void setStateTransitionTLF35584(tlf35584 *tlfDevice, statereqType requestedStateTransition);
 stateStatusType getCurrentStateTLF35584(tlf35584 *tlfDevice);
 

@@ -32,12 +32,12 @@
  *              Typical application use case and the features of the TLF35584 device are not covered by this training.
  *
  * \name SPI_TLF_1_KIT_TC397_TFT
- * \version V1.0.0
+ * \version V1.0.1
  * \board APPLICATION KIT TC3X7 V2.0, KIT_A2G_TC397_5V_TFT, TC39xXX_B-Step
  * \keywords AURIX, SPI, QSPI, TLF, TLF35584, SPI_TLF_1
- * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_SPI_TLF_1_KIT_TC397_TFT-TR-v01_00_00-EN.pdf
+ * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_SPI_TLF_1_KIT_TC397_TFT-TR-v01_00_01-EN.pdf
  * \documents https://www.infineon.com/aurix-expert-training/TC39B_iLLD_UM_1_0_1_12_1.chm
- * \lastUpdated 2021-12-16
+ * \lastUpdated 2023-03-30
  *********************************************************************************************************************/
 #include "SPI_TLF.h"
 #include "Bsp.h"
@@ -67,9 +67,9 @@ int core0_main(void)
     initTLF35584(&g_tlfDevice);     /* Initialize the TLF35584 device   */
 
     /* If any error flag has been raised, clear that flag */
-    if (getSystemStatusFlagsTFL35584(&g_tlfDevice) != 0)
+    if (getSystemStatusFlagsTLF35584(&g_tlfDevice) != 0)
     {
-        clearSystemStatusFlagsTFL35584(&g_tlfDevice);
+        clearSystemStatusFlagsTLF35584(&g_tlfDevice);
     }
 
     /* Add the necessary delay time before the device can be set to NORMAL state */
@@ -79,7 +79,7 @@ int core0_main(void)
     setStateTransitionTLF35584(&g_tlfDevice, DeviceStateTransition_normal);
 
     /* If any error is encountered, the code execution ends up in an infinite loop */
-    if (getSystemStatusFlagsTFL35584(&g_tlfDevice) != 0)
+    if (getSystemStatusFlagsTLF35584(&g_tlfDevice) != 0)
     {
         while(1);
     }

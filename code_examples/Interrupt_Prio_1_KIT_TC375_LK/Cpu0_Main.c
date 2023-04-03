@@ -30,12 +30,12 @@
  *              In this example, the interrupts are triggered by GPT12 module.
  *
  * \name Interrupt_Prio_1_KIT_TC375_LK
- * \version V1.0.0
+ * \version V1.0.1
  * \board AURIX TC375 lite Kit, KIT_A2G_TC375_LITE, TC37xTP_A-Step
  * \keywords AURIX, IR, Interrupt_Prio_1, interrupt, prioritization
- * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_Interrupt_Prio_1_KIT_TC375_LK-TR-v01_00_00-EN.pdf
+ * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_Interrupt_Prio_1_KIT_TC375_LK-TR-v01_00_01-EN.pdf
  * \documents https://www.infineon.com/aurix-expert-training/TC37A_iLLD_UM_1_0_1_12_1.chm
- * \lastUpdated 2021-03-22
+ * \lastUpdated 2023-03-30
  *********************************************************************************************************************/
 #include "Ifx_Types.h"
 #include "IfxCpu.h"
