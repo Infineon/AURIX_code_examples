@@ -1,0 +1,202 @@
+<root version="2.56.0">
+    <signals>
+        <var name="elf" type="group" offset="0" access="read-write">
+            <var name="g_dataTle5012" type="group" offset="0" access="read-write">
+                <item-configuration>
+                    <title><![CDATA[g_dataTle5012]]></title>
+                </item-configuration>
+                <var name="sentAngleCovered" type="group" offset="0" access="read-write">
+                    <item-configuration>
+                        <title><![CDATA[sentAngleCovered]]></title>
+                    </item-configuration>
+                    <var name="sentAngleCovered[0]" type="float" unit="degree" offset="0" access="read-write" default="0">
+                        <item-configuration>
+                            <title><![CDATA[0]]></title>
+                        </item-configuration>
+                    </var>
+                    <var name="sentAngleCovered[1]" type="float" unit="degree" offset="0" access="read-write" default="0">
+                        <item-configuration>
+                            <title><![CDATA[1]]></title>
+                        </item-configuration>
+                    </var>
+                </var>
+                <var name="sentAngle" type="group" offset="0" access="read-write">
+                    <item-configuration>
+                        <title><![CDATA[sentAngle]]></title>
+                    </item-configuration>
+                    <var name="sentAngle[0]" type="float" unit="degree" offset="0" access="read-write" default="0">
+                        <item-configuration>
+                            <title><![CDATA[0]]></title>
+                        </item-configuration>
+                    </var>
+                    <var name="sentAngle[1]" type="float" unit="degree" offset="0" access="read-write" default="0">
+                        <item-configuration>
+                            <title><![CDATA[1]]></title>
+                        </item-configuration>
+                    </var>
+                </var>
+                <var name="sentCrcReceived" type="group" offset="0" access="read-write">
+                    <item-configuration>
+                        <title><![CDATA[sentCrcReceived]]></title>
+                    </item-configuration>
+                    <var name="sentCrcReceived[0]" type="uint8" offset="0" access="read-write" default="0">
+                        <item-configuration>
+                            <title><![CDATA[0]]></title>
+                        </item-configuration>
+                    </var>
+                    <var name="sentCrcReceived[1]" type="uint8" offset="0" access="read-write" default="0">
+                        <item-configuration>
+                            <title><![CDATA[1]]></title>
+                        </item-configuration>
+                    </var>
+                </var>
+                <var name="sentCrcCalculated" type="group" offset="0" access="read-write">
+                    <item-configuration>
+                        <title><![CDATA[sentCrcCalculated]]></title>
+                    </item-configuration>
+                    <var name="sentCrcCalculated[0]" type="uint8" offset="0" access="read-write" default="0">
+                        <item-configuration>
+                            <title><![CDATA[0]]></title>
+                        </item-configuration>
+                    </var>
+                    <var name="sentCrcCalculated[1]" type="uint8" offset="0" access="read-write" default="0">
+                        <item-configuration>
+                            <title><![CDATA[1]]></title>
+                        </item-configuration>
+                    </var>
+                </var>
+            </var>
+            <var name="g_angleCoveredDifference" type="float" unit="degree" offset="0" access="read-write" default="0">
+                <item-configuration>
+                    <title><![CDATA[Angle Difference (within limit) ]]></title>
+                </item-configuration>
+            </var>
+            <var name="g_alarmFlag" type="uint8" offset="0" access="read-write" default="0">
+                <item-configuration>
+                    <title><![CDATA[g_alarmFlag]]></title>
+                </item-configuration>
+            </var>
+        </var>
+    </signals>
+    <layout layout="horizontal">
+        <tab>
+            <item-configuration>
+                <id><![CDATA[Sensor1]]></id>
+                <user-data><![CDATA[Sensor1]]></user-data>
+                <style-sheet><![CDATA[#__tab{ color: green; font-weight : Bold; font-size:12pt } ]]></style-sheet>
+            </item-configuration>
+            <tabPage layout="horizontal">
+                <item-configuration>
+                    <title><![CDATA[TLE5012_Sensor]]></title>
+                </item-configuration>
+                <group layout="horizontal" layout-item="false">
+                    <group layout="float" layout-item="false">
+                        <item-configuration>
+                            <id><![CDATA[Sensor1]]></id>
+                            <title><![CDATA[Sensor1 Data]]></title>
+                            <style-sheet><![CDATA[#__group { font-weight : Bold; font-size: 12pt } ]]></style-sheet>
+                        </item-configuration>
+                        <lineEdit auto-connect="elf.g_dataTle5012.sentCrcReceived.sentCrcReceived[0]" pos-y="800" pos-width="350" pos-hight="30">
+                            <item-configuration>
+                                <title><![CDATA[CRC Received from Sensor ]]></title>
+                                <style-sheet><![CDATA[#__title { color: green;  font-size: 14pt } 
+#__lineEdit { color: black;  background-color: lightgray; font-size: 14pt; } 
+#__unit { color:blue } ]]></style-sheet>
+                            </item-configuration>
+                        </lineEdit>
+                        <lineEdit auto-connect="elf.g_dataTle5012.sentCrcCalculated.sentCrcCalculated[0]" pos-y="850" pos-width="360" pos-hight="30">
+                            <item-configuration>
+                                <title><![CDATA[CRC Calculated at AURIX]]></title>
+                                <style-sheet><![CDATA[#__title { color: green;  font-size: 14pt } 
+#__lineEdit { color: black;  background-color: lightgray; font-size: 14pt; } 
+#__unit { color:blue } ]]></style-sheet>
+                            </item-configuration>
+                        </lineEdit>
+                        <clockGauge data-in="elf.g_dataTle5012.sentAngleCovered.sentAngleCovered[0]" pos-y="100" pos-width="600" pos-hight="600" min="0" max="360" angle-start="360" angle-end="0" tick-inc-major="1" tick-inc-minor="0.5" tick-inc-label="45">
+                            <item-configuration>
+                                <id><![CDATA[sensor1]]></id>
+                                <title><![CDATA[Covered_Angle]]></title>
+                            </item-configuration>
+                        </clockGauge>
+                        <lineEdit data-in="elf.g_dataTle5012.sentAngleCovered.sentAngleCovered[0]" pos-y="25" pos-width="370" pos-hight="50" format-field-width="10" max="360">
+                            <item-configuration>
+                                <id><![CDATA[sensor1]]></id>
+                                <title><![CDATA[Rotation Angle          ]]></title>
+                                <style-sheet><![CDATA[#__title { color: green;  font-size: 14pt } 
+#__lineEdit { color: black;  background-color: lightgray; font-size: 14pt; } 
+#__unit { color:blue } ]]></style-sheet>
+                            </item-configuration>
+                        </lineEdit>
+                    </group>
+                    <group layout="float" layout-item="false">
+                        <item-configuration>
+                            <id><![CDATA[sensor2]]></id>
+                            <title><![CDATA[Sensor2 Data]]></title>
+                            <style-sheet><![CDATA[#__group { font-weight : Bold; font-size: 12pt } ]]></style-sheet>
+                        </item-configuration>
+                        <lineEdit auto-connect="elf.g_dataTle5012.sentCrcReceived.sentCrcReceived[1]" pos-y="800" pos-width="350" pos-hight="30">
+                            <item-configuration>
+                                <title><![CDATA[CRC Received from Sensor ]]></title>
+                                <style-sheet><![CDATA[#__title { color: green;  font-size: 14pt } 
+#__lineEdit { color: black;  background-color: lightgray; font-size: 14pt; } 
+#__unit { color:blue } ]]></style-sheet>
+                            </item-configuration>
+                        </lineEdit>
+                        <lineEdit auto-connect="elf.g_dataTle5012.sentCrcCalculated.sentCrcCalculated[1]" pos-y="850" pos-width="370" pos-hight="30">
+                            <item-configuration>
+                                <title><![CDATA[CRC Calculated at AURIX]]></title>
+                                <style-sheet><![CDATA[#__title { color: green;  font-size: 14pt } 
+#__lineEdit { color: black;  background-color: lightgray; font-size: 14pt; } 
+#__unit { color:blue } ]]></style-sheet>
+                            </item-configuration>
+                        </lineEdit>
+                        <clockGauge data-in="elf.g_dataTle5012.sentAngleCovered.sentAngleCovered[1]" pos-y="100" pos-width="600" pos-hight="600" min="0" max="360" angle-start="360" angle-end="0" tick-inc-major="1" tick-inc-minor="0.5" tick-inc-label="45">
+                            <item-configuration>
+                                <id><![CDATA[sensor2]]></id>
+                                <title><![CDATA[Covered Angle]]></title>
+                            </item-configuration>
+                        </clockGauge>
+                        <lineEdit data-in="elf.g_dataTle5012.sentAngleCovered.sentAngleCovered[1]" pos-y="25" pos-width="370" pos-hight="50">
+                            <item-configuration>
+                                <id><![CDATA[sensor2]]></id>
+                                <title><![CDATA[Rotation Angle            ]]></title>
+                                <style-sheet><![CDATA[#__title { color: green;  font-size: 14pt } 
+#__lineEdit { color: black;  background-color: lightgray; font-size: 14pt; } 
+#__unit { color:blue } ]]></style-sheet>
+                            </item-configuration>
+                        </lineEdit>
+                    </group>
+                    <group layout="float" layout-item="false">
+                        <item-configuration>
+                            <title><![CDATA[Redundancy Check]]></title>
+                            <style-sheet><![CDATA[#__group { font-weight : Bold; font-size: 12pt } ]]></style-sheet>
+                        </item-configuration>
+                        <script pos-y="500" pos-width="600" pos-hight="500" button-execute-visible="true" button-save-visible="true" script-visible="true">
+                            <item-configuration>
+                                <title><![CDATA[script]]></title>
+                                <path><![CDATA[script.js]]></path>
+                                <inline-script></inline-script>
+                                <button-execute-title><![CDATA[Execute]]></button-execute-title>
+                                <script-remote></script-remote>
+                            </item-configuration>
+                        </script>
+                        <lineEdit auto-connect="elf.g_angleCoveredDifference" pos-y="250" pos-width="600" pos-hight="50">
+                            <item-configuration>
+                                <id><![CDATA[difference]]></id>
+                                <style-sheet><![CDATA[#__title { color: green; font-size: 14pt }#__lineEdit { color: green;  background-color: lightgray; font-size: 14pt;} #__unit { color:blue } ]]></style-sheet>
+                            </item-configuration>
+                        </lineEdit>
+                    </group>
+                </group>
+            </tabPage>
+        </tab>
+    </layout>
+    <interface>
+        <item-configuration>
+            <id><![CDATA[das-itf]]></id>
+        </item-configuration>
+        <port plugin="PCom_DAS::DAS" connect="true" system-key="{ADS}"/>
+    </interface>
+    <config update-timer-period="10" on-timer-script="{script:script.js}"/>
+    <debugBox elf-path="..\TriCore Release (TASKING)\iLLD_TC397_ADS_SENT_Redundancy_SPC_Trig_TLE5012_GTM_TOM.elf" watches="g_dataTle5012;g_angleCoveredDifference;g_alarmFlag" com-interface-id="das-itf" title="" id="elf"/>
+</root>

@@ -1,0 +1,68 @@
+<root version="2.54.0">
+    <signals>
+        <var name="elf" type="group" offset="0" access="read-write">
+            <var name="g_dht11_one_eye_data" type="group" offset="0" access="read-write">
+                <item-configuration>
+                    <title><![CDATA[g_dht11_one_eye_data]]></title>
+                </item-configuration>
+                <var name="humidity" type="uint8" offset="0" access="read-write" default="0">
+                    <item-configuration>
+                        <title><![CDATA[humidity]]></title>
+                    </item-configuration>
+                </var>
+                <var name="temperature" type="uint8" offset="0" access="read-write" default="0">
+                    <item-configuration>
+                        <title><![CDATA[temperature]]></title>
+                    </item-configuration>
+                </var>
+                <var name="data_valid" type="uint8" offset="0" access="read-write" default="0">
+                    <item-configuration>
+                        <title><![CDATA[data_valid]]></title>
+                    </item-configuration>
+                </var>
+                <var name="measurement_number" type="uint16" offset="0" access="read-write" default="0">
+                    <item-configuration>
+                        <title><![CDATA[measurement_number]]></title>
+                    </item-configuration>
+                </var>
+            </var>
+        </var>
+    </signals>
+    <layout>
+        <pushButton>
+            <item-configuration>
+                <title><![CDATA[Setup Connection]]></title>
+                <on-click><![CDATA[{show.connection.ui}]]></on-click>
+            </item-configuration>
+        </pushButton>
+        <lineEdit auto-connect="elf.g_dht11_one_eye_data.humidity">
+            <item-configuration>
+                <title><![CDATA[humidity                                       ]]></title>
+            </item-configuration>
+        </lineEdit>
+        <lineEdit auto-connect="elf.g_dht11_one_eye_data.temperature">
+            <item-configuration>
+                <title><![CDATA[temperature                              ]]></title>
+            </item-configuration>
+        </lineEdit>
+        <lineEdit auto-connect="elf.g_dht11_one_eye_data.measurement_number">
+            <item-configuration>
+                <title><![CDATA[measurement_number   ]]></title>
+            </item-configuration>
+        </lineEdit>
+        <lineEdit auto-connect="elf.g_dht11_one_eye_data.data_valid">
+            <item-configuration>
+                <title><![CDATA[data_valid                                   ]]></title>
+            </item-configuration>
+        </lineEdit>
+        <spacer/>
+    </layout>
+    <interface>
+        <item-configuration>
+            <id><![CDATA[das-itf]]></id>
+        </item-configuration>
+        <port plugin="PCom_DAS::DAS" connect="true" system-key="{ADS}"/>
+    </interface>
+    <config/>
+    <debugBox elf-path="..\Debug\iLLD_TC375_ADS_DHT11.elf" watches="g_dht11_one_eye_data" com-interface-id="das-itf" title="" id="elf"/>
+</root>
