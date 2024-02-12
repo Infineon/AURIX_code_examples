@@ -1,0 +1,229 @@
+<root version="2.56.0">
+    <signals>
+        <var name="g_TLE5014CPS" type="group" offset="0" access="read-write">
+            <item-configuration>
+                <title><![CDATA[g_TLE5014CPS]]></title>
+            </item-configuration>
+            <var name="angle" type="float" offset="0" access="read-write" default="0">
+                <item-configuration>
+                    <title><![CDATA[angle]]></title>
+                </item-configuration>
+            </var>
+            <var name="rollingCnt" type="uint8" offset="0" access="read-write" default="0">
+                <item-configuration>
+                    <title><![CDATA[rollingCnt]]></title>
+                </item-configuration>
+            </var>
+            <var name="errors" type="group" offset="0" access="read-write">
+                <item-configuration>
+                    <title><![CDATA[errors]]></title>
+                </item-configuration>
+                <var name="rxOverflow" type="uint32" offset="0" access="read-write" default="0">
+                    <item-configuration>
+                        <title><![CDATA[rxOverflow]]></title>
+                    </item-configuration>
+                </var>
+                <var name="txUnderflow" type="uint32" offset="0" access="read-write" default="0">
+                    <item-configuration>
+                        <title><![CDATA[txUnderflow]]></title>
+                    </item-configuration>
+                </var>
+                <var name="errorFreqRange" type="uint32" offset="0" access="read-write" default="0">
+                    <item-configuration>
+                        <title><![CDATA[errorFreqRange]]></title>
+                    </item-configuration>
+                </var>
+                <var name="errorFreqDrift" type="uint32" offset="0" access="read-write" default="0">
+                    <item-configuration>
+                        <title><![CDATA[errorFreqDrift]]></title>
+                    </item-configuration>
+                </var>
+                <var name="errorWrongNumOfNibbles" type="uint32" offset="0" access="read-write" default="0">
+                    <item-configuration>
+                        <title><![CDATA[errorWrongNumOfNibbles]]></title>
+                    </item-configuration>
+                </var>
+                <var name="errorNibbleValueRange" type="uint32" offset="0" access="read-write" default="0">
+                    <item-configuration>
+                        <title><![CDATA[errorNibbleValueRange]]></title>
+                    </item-configuration>
+                </var>
+                <var name="errorCrcFast" type="uint32" offset="0" access="read-write" default="0">
+                    <item-configuration>
+                        <title><![CDATA[errorCrcFast]]></title>
+                    </item-configuration>
+                </var>
+                <var name="errorWrongStatusCom" type="uint32" offset="0" access="read-write" default="0">
+                    <item-configuration>
+                        <title><![CDATA[errorWrongStatusCom]]></title>
+                    </item-configuration>
+                </var>
+                <var name="errorCrcSlowSerial" type="uint32" offset="0" access="read-write" default="0">
+                    <item-configuration>
+                        <title><![CDATA[errorCrcSlowSerial]]></title>
+                    </item-configuration>
+                </var>
+                <var name="errorWatchdog" type="uint32" offset="0" access="read-write" default="0">
+                    <item-configuration>
+                        <title><![CDATA[errorWatchdog]]></title>
+                    </item-configuration>
+                </var>
+            </var>
+        </var>
+    </signals>
+    <layout>
+        <group layout-item="false"/>
+        <group layout-item="false">
+            <tab enabled="enabled">
+                <item-configuration>
+                    <id><![CDATA[Sensor1]]></id>
+                    <user-data><![CDATA[Sensor 1]]></user-data>
+                </item-configuration>
+                <tabPage layout="horizontal">
+                    <item-configuration>
+                        <id><![CDATA[Sensor0]]></id>
+                        <title><![CDATA[Sensor]]></title>
+                    </item-configuration>
+                    <group layout="float" layout-item="false">
+                        <group layout="float" pos-y="5" pos-width="610" pos-hight="930" layout-item="false">
+                            <item-configuration>
+                                <title><![CDATA[Angle From Sensor]]></title>
+                            </item-configuration>
+                            <graph pos-y="630" pos-width="600" pos-hight="280" buffer-depth="6000" multi-channel="false" legend-pos="top" division-x="10" division-y="10" offset-y="5" time-per-division-x="1" unit-x="s" x-axis-visible="false" control-visible="false">
+                                <item-configuration>
+                                    <id><![CDATA[GraphAngle]]></id>
+                                </item-configuration>
+                                <channel data-in="g_TLE5014CPS.angle" enabled="defined-by-connection" offset-x="0" offset-y="180" unit-per-division-y="40" pen-width="2" color="red" y-axis-visible="false">
+                                    <item-configuration>
+                                        <id><![CDATA[GraphChAngle]]></id>
+                                        <title><![CDATA[Angle]]></title>
+                                    </item-configuration>
+                                </channel>
+                            </graph>
+                            <clockGauge auto-connect="g_TLE5014CPS.angle" pos-x="0" pos-width="600" pos-hight="600" min="0" max="360" angle-start="360" angle-end="0" tick-inc-major="5" tick-inc-minor="1" tick-inc-label="10">
+                                <item-configuration>
+                                    <id><![CDATA[Angle0]]></id>
+                                    <title><![CDATA[Degrees]]></title>
+                                </item-configuration>
+                            </clockGauge>
+                            <lineEdit data-in="g_TLE5014CPS.angle" pos-width="190">
+                                <item-configuration>
+                                    <id><![CDATA[LE_Angle]]></id>
+                                    <title><![CDATA[Angle       ]]></title>
+                                </item-configuration>
+                            </lineEdit>
+                        </group>
+                        <group pos-x="620" pos-y="5" pos-width="350" pos-hight="625" layout-item="false">
+                            <item-configuration>
+                                <id><![CDATA[SentErrors]]></id>
+                                <title><![CDATA[SENT Errors]]></title>
+                            </item-configuration>
+                            <group layout="float" layout-item="false">
+                                <item-configuration>
+                                    <id><![CDATA[ErrorFreqDrift]]></id>
+                                </item-configuration>
+                                <lineEdit data-in="g_TLE5014CPS.errors.errorFreqDrift" pos-width="250">
+                                    <item-configuration>
+                                        <id><![CDATA[EdtErrorFreqDrift]]></id>
+                                        <title><![CDATA[Freq. Erift Error Count]]></title>
+                                    </item-configuration>
+                                </lineEdit>
+                            </group>
+                            <group layout="float" layout-item="false">
+                                <item-configuration>
+                                    <id><![CDATA[ErrorFreqRange]]></id>
+                                </item-configuration>
+                                <lineEdit data-in="g_TLE5014CPS.errors.errorFreqRange" pos-width="250">
+                                    <item-configuration>
+                                        <id><![CDATA[EdtErrorFreqRange]]></id>
+                                        <title><![CDATA[Freq. Range Error Count]]></title>
+                                    </item-configuration>
+                                </lineEdit>
+                            </group>
+                            <group layout="float" layout-item="false">
+                                <item-configuration>
+                                    <id><![CDATA[ErrorCRCFast]]></id>
+                                </item-configuration>
+                                <lineEdit data-in="g_TLE5014CPS.errors.errorCrcFast" pos-width="250">
+                                    <item-configuration>
+                                        <id><![CDATA[EdtErrorCRCFast]]></id>
+                                        <title><![CDATA[CRC Error Count]]></title>
+                                    </item-configuration>
+                                </lineEdit>
+                            </group>
+                            <group layout="float" layout-item="false">
+                                <item-configuration>
+                                    <id><![CDATA[ErrorNumNibble]]></id>
+                                </item-configuration>
+                                <lineEdit data-in="g_TLE5014CPS.errors.errorWrongNumOfNibbles" pos-width="250">
+                                    <item-configuration>
+                                        <id><![CDATA[EdtErrorNumNibble]]></id>
+                                        <title><![CDATA[Num of Nibbles Error Count]]></title>
+                                    </item-configuration>
+                                </lineEdit>
+                            </group>
+                            <group layout="float" layout-item="false">
+                                <item-configuration>
+                                    <id><![CDATA[ErrorNibbleRange]]></id>
+                                </item-configuration>
+                                <lineEdit data-in="g_TLE5014CPS.errors.errorNibbleValueRange" pos-width="250">
+                                    <item-configuration>
+                                        <id><![CDATA[EdtErrorNibbleRange]]></id>
+                                        <title><![CDATA[Nibble Range Error Count]]></title>
+                                    </item-configuration>
+                                </lineEdit>
+                            </group>
+                            <group layout="float" layout-item="false">
+                                <item-configuration>
+                                    <id><![CDATA[ErrorRxOF]]></id>
+                                </item-configuration>
+                                <lineEdit data-in="g_TLE5014CPS.errors.rxOverflow" pos-width="250">
+                                    <item-configuration>
+                                        <id><![CDATA[EdtErrorRxOF]]></id>
+                                        <title><![CDATA[Rx Buf. Overflow Count]]></title>
+                                    </item-configuration>
+                                </lineEdit>
+                            </group>
+                            <group layout="float" layout-item="false">
+                                <item-configuration>
+                                    <id><![CDATA[ErrorTxUF]]></id>
+                                </item-configuration>
+                                <lineEdit data-in="g_TLE5014CPS.errors.txUnderflow" pos-width="250">
+                                    <item-configuration>
+                                        <id><![CDATA[EdtErrorUF]]></id>
+                                        <title><![CDATA[Tx Buf. Underflow Count]]></title>
+                                    </item-configuration>
+                                </lineEdit>
+                            </group>
+                            <group layout="float" layout-item="false">
+                                <item-configuration>
+                                    <id><![CDATA[ErrorWDT]]></id>
+                                </item-configuration>
+                                <lineEdit data-in="g_TLE5014CPS.errors.errorWatchdog" pos-width="250">
+                                    <item-configuration>
+                                        <id><![CDATA[EdtErrorEDT]]></id>
+                                        <title><![CDATA[Watchdog Error Count]]></title>
+                                    </item-configuration>
+                                </lineEdit>
+                            </group>
+                        </group>
+                        <group layout="float" pos-x="620" pos-y="635" pos-width="350" pos-hight="300" layout-item="false">
+                            <graph pos-y="5" pos-width="340" pos-hight="280" buffer-depth="6000" multi-channel="false" legend-pos="top" division-x="1" division-y="10" offset-y="5" time-per-division-x="1" unit-x="s" x-axis-visible="false" control-visible="false">
+                                <channel auto-connect="g_TLE5014CPS.rollingCnt" enabled="defined-by-connection" offset-x="0" offset-y="120" unit-per-division-y="30" pen-width="2" color="blue" y-axis-visible="true">
+                                    <item-configuration>
+                                        <title><![CDATA[Rolling Count]]></title>
+                                    </item-configuration>
+                                </channel>
+                            </graph>
+                        </group>
+                    </group>
+                </tabPage>
+            </tab>
+        </group>
+    </layout>
+    <interface>
+        <port plugin="PCom_DAS::DAS" connect="true"/>
+    </interface>
+    <config/>
+    <debugBox elf-path="..\TriCore Debug (TASKING)\iLLD_TC375_ADS_TLE5014_Interface_SENT_Simple.elf" watches="g_TLE5014CPS" com-interface-id="" title="" id=""/>
+</root>
