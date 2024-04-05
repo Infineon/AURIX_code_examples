@@ -1,0 +1,154 @@
+<root version="2.56.0">
+    <signals>
+        <var name="elf" type="group" offset="0" access="read-write">
+            <var name="g_gtmAtomDAB" type="group" offset="0" access="read-write">
+                <item-configuration>
+                    <title><![CDATA[g_gtmAtomDAB]]></title>
+                </item-configuration>
+                <var name="phases" type="group" offset="0" access="read-write">
+                    <item-configuration>
+                        <title><![CDATA[phases]]></title>
+                    </item-configuration>
+                    <var name="phases[0]" type="float" offset="0" access="read-write" default="0">
+                        <item-configuration>
+                            <title><![CDATA[0]]></title>
+                        </item-configuration>
+                    </var>
+                    <var name="phases[1]" type="float" offset="0" access="read-write" default="0">
+                        <item-configuration>
+                            <title><![CDATA[1]]></title>
+                        </item-configuration>
+                    </var>
+                    <var name="phases[2]" type="float" offset="0" access="read-write" default="0">
+                        <item-configuration>
+                            <title><![CDATA[2]]></title>
+                        </item-configuration>
+                    </var>
+                    <var name="phases[3]" type="float" offset="0" access="read-write" default="0">
+                        <item-configuration>
+                            <title><![CDATA[3]]></title>
+                        </item-configuration>
+                    </var>
+                    <var name="phases[4]" type="float" offset="0" access="read-write" default="0">
+                        <item-configuration>
+                            <title><![CDATA[4]]></title>
+                        </item-configuration>
+                    </var>
+                </var>
+                <var name="chargingDirection" type="bit" data-size="8" offset="0" access="read-write" default="0" enum="true" model-update-value-enabled="true">
+                    <item-configuration>
+                        <title><![CDATA[chargingDirection]]></title>
+                    </item-configuration>
+                    <option data="0">
+                        <item-configuration>
+                            <value><![CDATA[IfxPrim2Sec]]></value>
+                            <title><![CDATA[IfxPrim2Sec]]></title>
+                        </item-configuration>
+                    </option>
+                    <option data="1">
+                        <item-configuration>
+                            <value><![CDATA[IfxSec2Prim]]></value>
+                            <title><![CDATA[IfxSec2Prim]]></title>
+                        </item-configuration>
+                    </option>
+                </var>
+                <var name="rtState" type="bit" data-size="8" offset="0" access="read-write" default="0" enum="true">
+                    <item-configuration>
+                        <title><![CDATA[rtState]]></title>
+                    </item-configuration>
+                    <option data="0">
+                        <item-configuration>
+                            <value><![CDATA[IfxPaused]]></value>
+                            <title><![CDATA[IfxPaused]]></title>
+                        </item-configuration>
+                    </option>
+                    <option data="1">
+                        <item-configuration>
+                            <value><![CDATA[IfxRun]]></value>
+                            <title><![CDATA[IfxRun]]></title>
+                        </item-configuration>
+                    </option>
+                </var>
+                <var name="spsRad" type="float" offset="0" access="read-write" default="0">
+                    <item-configuration>
+                        <title><![CDATA[spsRad]]></title>
+                    </item-configuration>
+                </var>
+            </var>
+        </var>
+    </signals>
+    <layout>
+        <group layout-item="false">
+            <item-configuration>
+                <title><![CDATA[Dual Active Bridge Topology]]></title>
+            </item-configuration>
+            <image>
+                <item-configuration>
+                    <image><![CDATA[Images/GTM_ATOM_DAB_PWM_Topology.gif]]></image>
+                </item-configuration>
+            </image>
+        </group>
+        <group layout-item="false">
+            <item-configuration>
+                <title><![CDATA[Commands]]></title>
+            </item-configuration>
+            <lineEdit auto-connect="elf.g_gtmAtomDAB.spsRad" min="-4" max="4">
+                <item-configuration>
+                    <title><![CDATA[Set phase shift in radians [-Pi, Pi]]]></title>
+                </item-configuration>
+            </lineEdit>
+            <lineEdit auto-connect="elf.g_gtmAtomDAB.rtState" max="1">
+                <item-configuration>
+                    <title><![CDATA[Enable runtime update                        ]]></title>
+                </item-configuration>
+            </lineEdit>
+        </group>
+        <group layout-item="false">
+            <item-configuration>
+                <title><![CDATA[Phases and Charging Direction]]></title>
+            </item-configuration>
+            <lineEdit auto-connect="elf.g_gtmAtomDAB.phases.phases[1]">
+                <item-configuration>
+                    <title><![CDATA[Phase of HVLV_PRI_PWM_T1, HVLV_PRI_PWM_T2  ]]></title>
+                </item-configuration>
+            </lineEdit>
+            <lineEdit auto-connect="elf.g_gtmAtomDAB.phases.phases[2]">
+                <item-configuration>
+                    <title><![CDATA[Phase of HVLV_PRI_PWM_T3, HVLV_PRI_PWM_T4  ]]></title>
+                </item-configuration>
+            </lineEdit>
+            <lineEdit auto-connect="elf.g_gtmAtomDAB.phases.phases[3]">
+                <item-configuration>
+                    <title><![CDATA[Phase of HVLV_SEC_PWM_T1, HVLV_SEC_PWM_T2]]></title>
+                </item-configuration>
+            </lineEdit>
+            <lineEdit auto-connect="elf.g_gtmAtomDAB.phases.phases[4]">
+                <item-configuration>
+                    <title><![CDATA[Phase of HVLV_SEC_PWM_T3, HVLV_SEC_PWM_T4]]></title>
+                </item-configuration>
+            </lineEdit>
+            <lineEdit auto-connect="elf.g_gtmAtomDAB.chargingDirection" enabled="enabled">
+                <item-configuration>
+                    <title><![CDATA[Charging Direction [0 - PrimToSec, 1 - SecToPrim]     ]]></title>
+                </item-configuration>
+            </lineEdit>
+        </group>
+        <spacer/>
+        <group layout-item="false">
+            <pushButton>
+                <item-configuration>
+                    <title><![CDATA[Setup connection]]></title>
+                    <on-click><![CDATA[{show.connection.ui}]]></on-click>
+                </item-configuration>
+            </pushButton>
+        </group>
+    </layout>
+    <interface>
+        <item-configuration>
+            <id><![CDATA[das-itf]]></id>
+        </item-configuration>
+        <port plugin="PCom_DAS::DAS" connect="true" system-key="{ADS}"/>
+    </interface>
+    <config/>
+    <debugBox elf-path="TriCore Debug (TASKING)/iLLD_TC375_ADS_GTM_ATOM_Dual_Active_Bridge_PWM_1.elf" watches="g_gtmAtomDAB" com-interface-id="das-itf" title="" id="elf"/>
+</root>
