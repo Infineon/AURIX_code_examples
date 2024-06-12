@@ -5932,6 +5932,33 @@
       "lastModified": "2023-02-06T00:00:00.000Z"
     },
     {
+      "title": "iLLD_TC375_ADS_BUS_Memory_Protection_LiteKit",
+      "name": "iLLD_TC375_ADS_BUS_Memory_Protection_LiteKit",
+      "description": "The BUS Memory Protection Unit (BUS MPU) is focused on 2 CPUs (CPU0, CPU1), and handles â€œread/writeâ€? access permission to\r\nthe local memory of CPU0 (DSPR0/PSPR0/DLMU0/Pflash0) from the bus master CPU1.\r\nIn this code example the BUS master CPU0 has always â€œread/writeâ€? permission of local memory of CPU0, while\r\nbus master CPU1 does not have access permission to that area. Different test scenarios has been provided to\r\ndefine access permission for each local memories.",
+      "abstract": "CPU0 and CPU1 are handles read/write access permission to the local memory of CPU0 from the bus master CPU1.",
+      "folder": "iLLD_TC375_ADS_BUS_Memory_Protection_LiteKit",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC375 lite Kit",
+          "id": "KIT_A2G_TC375_LITE",
+          "device_id": "TC37xTP_A-Step"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "BUS MPU_Memory_Protection",
+        "MPU",
+        "Read Protection",
+        "Write Protection",
+        "Memory Protection"
+      ],
+      "documents": [
+        "See README.MD"
+      ],
+      "lastModified": "2024-03-11T00:00:00.000Z"
+    },
+    {
       "title": "Read the data from DHT11 and visualize it using OneEye GUI",
       "name": "iLLD_TC375_ADS_DHT11",
       "description": "This project is a simple example of how to read the data from the temperature/humidity sensor DHT11 and visualize it using OneEye",
@@ -6552,6 +6579,110 @@
         "README.md"
       ],
       "lastModified": "2023-09-08T00:00:00.000Z"
+    },
+    {
+      "title": "iLLD_TC397_APPKIT_5V_ADS_PMIC_SLEEP_MODE",
+      "name": "iLLD_TC397_APPKIT_5V_ADS_PMIC_SLEEP_MODE",
+      "description": "This code example uses the Queued Synchronous Peripheral Interface (QSPI) and the Asynchronous/Synchronous Interface (ASCLIN) module to communicate with the on board PMIC and put the board in sleep mode. The CPU communicates with the PMIC via QSPI, an ASCLIN interrupt triggers the PMIC state transition to sleep or normal mode.",
+      "abstract": "This code example send a request to put the Power Management IC (PMIC) TLF35584 in Sleep mode or Normal mode.",
+      "folder": "iLLD_TC397_APPKIT_5V_ADS_PMIC_SLEEP_MODE",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC3X7 V2.0",
+          "id": "KIT_A2G_TC397_5V_TFT",
+          "device_id": "TC39xXX_B-Step"
+        }
+      ],
+      "keywords": [
+        "PMIC",
+        "QSPI",
+        "ASCLIN",
+        "SLEEP",
+        "LOW POWER"
+      ],
+      "documents": [
+        "Readme.md"
+      ],
+      "lastModified": "2024-05-18T00:00:00.000Z"
+    },
+    {
+      "title": "iLLD_TC397_APPKIT_5V_ADS_PMIC_STANDBY_MODE",
+      "name": "iLLD_TC397_APPKIT_5V_ADS_PMIC_STANDBY_MODE",
+      "description": "This code example uses the Queued Synchronous Peripheral Interface (QSPI) and the Asynchronous/Synchronous Interface (ASCLIN) module to communicate with the on board PMIC and put the board in Standby mode. The CPU communicates with the PMIC via QSPI, an ASCLIN interrupt triggers the PMIC state transition to standby, then the board directly transits into standby mode.",
+      "abstract": "This code example send a request to put the board in STANDBY mode with the Power Management IC (PMIC).",
+      "folder": "iLLD_TC397_APPKIT_5V_ADS_PMIC_STANDBY_MODE",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC3X7 V2.0",
+          "id": "KIT_A2G_TC397_5V_TFT",
+          "device_id": "TC39xXX_B-Step"
+        }
+      ],
+      "keywords": [
+        "PMIC",
+        "STANDBY",
+        "ASCLIN",
+        "QSPI",
+        "LOW POWER"
+      ],
+      "documents": [
+        "Readme.md"
+      ],
+      "lastModified": "2024-05-18T00:00:00.000Z"
+    },
+    {
+      "title": "iLLD_TC397_TRIBOARD_ADS_PMIC_SLEEP_MODE",
+      "name": "iLLD_TC397_TRIBOARD_ADS_PMIC_SLEEP_MODE",
+      "description": "This code example uses the Queued Synchronous Peripheral Interface (QSPI) and the Asynchronous/Synchronous Interface (ASCLIN) module to communicate with the on board PMIC and put the board in sleep mode. The CPU communicates with the PMIC via QSPI, an ASCLIN interrupt triggers the PMIC state transition to sleep or normal mode.",
+      "abstract": "This code example send a request to put the Power Management IC (PMIC) TLF35584 in Sleep mode or Normal mode.",
+      "folder": "iLLD_TC397_TRIBOARD_ADS_PMIC_SLEEP_MODE",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "TRIBOARD KIT TC3X7",
+          "id": "KIT_A2G_TC397_5V_TRB_S",
+          "device_id": "TC39xXX_B-Step"
+        }
+      ],
+      "keywords": [
+        "PMIC",
+        "QSPI",
+        "ASCLIN",
+        "SLEEP",
+        "LOW POWER"
+      ],
+      "documents": [
+        "README.MD"
+      ],
+      "lastModified": "2024-05-18T00:00:00.000Z"
+    },
+    {
+      "title": "iLLD_TC397_TRIBOARD_ADS_PMIC_STANDBY_MODE",
+      "name": "iLLD_TC397_TRIBOARD_ADS_PMIC_STANDBY_MODE",
+      "description": "This code example uses the Queued Synchronous Peripheral Interface (QSPI) and the Asynchronous/Synchronous Interface (ASCLIN) module to communicate with the on board PMIC and put the board in standby mode, the wake-up is done by the Standby Controller (SCR). The CPU communicates with the PMIC via QSPI, an ASCLIN interrupt triggers the PMIC state transition to standby, then the board directly transits into standby mode.",
+      "abstract": "This code example send a request to put the board and STANDBY mode with the Power Management IC (PMIC).",
+      "folder": "iLLD_TC397_TRIBOARD_ADS_PMIC_STANDBY_MODE",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "TRIBOARD KIT TC3X7",
+          "id": "KIT_A2G_TC397_5V_TRB_S",
+          "device_id": "TC39xXX_B-Step"
+        }
+      ],
+      "keywords": [
+        "PMIC",
+        "STANDBY",
+        "LOW POWER",
+        "QSPI",
+        "ASCLIN"
+      ],
+      "documents": [
+        "README.MD"
+      ],
+      "lastModified": "2024-05-18T00:00:00.000Z"
     },
     {
       "title": "Safe Application Development for AURIX(TM) Application kit TC3xx Safety",
