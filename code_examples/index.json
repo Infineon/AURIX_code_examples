@@ -1943,6 +1943,31 @@
       "lastModified": "2023-09-09T00:00:00.000Z"
     },
     {
+      "title": "BMETAL_TC375_ADS_WSS_GTM_TSSM_HW",
+      "name": "BMETAL_TC375_ADS_WSS_GTM_TSSM_HW",
+      "description": "The TIM block within the GTM is used to decode the AK protocol. The are five TIM channels used in this example, three of them perform the manchester decoding, the fourth is used to measure the period of the speed pulse signal and the fifth is used to count the number of bits transmitted in the AK frame for handling the shorten frame.",
+      "abstract": "This is a demo code for interfacing the TLE5046iC Wheel Speed Sensor (WSS) using GTM block, the AK protocol is decoded by the GTM-TIM using TSSM mode of operation",
+      "folder": "BMETAL_TC375_ADS_WSS_GTM_TSSM_HW",
+      "version": "V1.0.1",
+      "platforms": [
+        {
+          "name": "AURIX TC375 lite Kit",
+          "id": "KIT_A2G_TC375_LITE",
+          "device_id": "TC37xTP_A-Step"
+        }
+      ],
+      "keywords": [
+        "GTM",
+        "TIM",
+        "TSSM",
+        "WSS"
+      ],
+      "documents": [
+        "See README.md"
+      ],
+      "lastModified": "2024-07-22T00:00:00.000Z"
+    },
+    {
       "title": "Register Access Protection",
       "name": "BUS_Register_Protection_1_KIT_TC275_LK",
       "description": "The CPU0 tries to make a write access to an ASCLIN0 module register two times: when the access is\r\nenabled for CPU0 and when the access is disabled for CPU0. During the second register write access,\r\na Trap is expected to be raised, to inform about the illegal write access.",
@@ -6502,6 +6527,55 @@
       "lastModified": "2023-05-22T00:00:00.000Z"
     },
     {
+      "title": "Signal Processing Unit basic configuration",
+      "name": "iLLD_TC397X_ADS_SPU_Basics",
+      "description": "This project shows a basic radar data processing flow implemented on the Signal Processing Unit (SPU)\r\nhardware. The processing flow includes range-doppler processing of a raw data cube and subsequent target detection\r\nusing CFAR. This code example uses a simulated dataset as input, Radar interface (RIF) configuration is not shown.\r\nBasic understanding of FMCW radar range-doppler signal processing is presumed to follow this code example.",
+      "abstract": "This code example shows the basic usage of the Signal Processing Unit (SPU), implementing a basic radar data processing flow.",
+      "folder": "iLLD_TC397X_ADS_SPU_Basics",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "KIT_A2G_TC397XA_TRB_S",
+          "id": "KIT_A2G_TC397XA_TRB_S",
+          "device_id": "TC397XA"
+        }
+      ],
+      "keywords": [
+        "SPU",
+        "Radar",
+        "EMEM",
+        "FFT"
+      ],
+      "documents": [
+        "See README.md"
+      ],
+      "lastModified": "2024-04-17T00:00:00.000Z"
+    },
+    {
+      "title": "SDCard multiblock Read Write with SDMMC_",
+      "name": "iLLD_TC397_3V3_ADS_SDCard_SDMMC_Read_Write",
+      "description": "The SDMMC is initialized in 4 bit configuration with SDMA mode.\r\nUsing the FatFs file system the SDCard is mounted and a message is written into text file \"Message.txt\" (the file is created if inexistent).\r\nThe text file is then read and the message is displayed on the serial terminal.",
+      "abstract": "Write and read a text file in an SD_Card connected to the SDMMC peripheral.",
+      "folder": "iLLD_TC397_3V3_ADS_SDCard_SDMMC_Read_Write",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC3X7 V2.0",
+          "id": "KIT_A2G_TC397_3V3_TFT",
+          "device_id": "TC39xXX_B-Step"
+        }
+      ],
+      "keywords": [
+        "SD",
+        "SDMMC",
+        "SDMA"
+      ],
+      "documents": [
+        "Readme.md"
+      ],
+      "lastModified": "2024-06-04T00:00:00.000Z"
+    },
+    {
       "title": "Clock Plausibility",
       "name": "iLLD_TC397_ADS_ESM_SW_CLOCK_PLAUSIBILITY",
       "description": "The scope of this project is to understand how to implement a software based clock plausibility\r\nESM (External Safety Mechanism). Application Software (SW) shall evaluate the different clock frequencies\r\nprovided by Peripheral PLL Configuration 1 register (PERPLLCON1.K2, PERPLLCON1.K3) with a time measurement\r\nbased on System PLL Configuration 1 register (SYSPLLCON1.K2) clock frequency, where K2 and K3 are divider\r\nvalues. If the measured and expected clock frequency values does not match, the application SW shall\r\ntrigger an alarm.",
@@ -6528,6 +6602,30 @@
         "README.md"
       ],
       "lastModified": "2023-07-25T00:00:00.000Z"
+    },
+    {
+      "title": "Port loopback safety mechanism",
+      "name": "iLLD_TC397_ADS_PORT_LOOPBACK",
+      "description": "The scope of this project is to understand how to implement a software based Port loopback\r\nSafety Mechanism (SM). The application Software (SW) shall configure and use redundant General Purpose\r\nInput Output (GPIO) to detect faults when receiving or transmitting the information.",
+      "abstract": "This code example presents the implementation of port loopback safety mechanism",
+      "folder": "iLLD_TC397_ADS_PORT_LOOPBACK",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC3X7 V2.0",
+          "id": "KIT_A2G_TC397_5V_TFT",
+          "device_id": "TC39xXX_B-Step"
+        }
+      ],
+      "keywords": [
+        "PORT",
+        "ESM",
+        "Functional Safety"
+      ],
+      "documents": [
+        "README.md"
+      ],
+      "lastModified": "2024-07-10T00:00:00.000Z"
     },
     {
       "title": "Read from SD card and print to serial terminal",
@@ -6631,6 +6729,32 @@
         "Readme.md"
       ],
       "lastModified": "2024-05-18T00:00:00.000Z"
+    },
+    {
+      "title": "iLLD_tc397_APPKIT_5V_ADS_TLE4973_Current_Sensor",
+      "name": "iLLD_tc397_APPKIT_5V_ADS_TLE4973_Current_Sensor",
+      "description": "This code example uses the UART interface of the microcontroller to interact with 3 TLE4973 sensors (TLE4973 evaluation board). It offers the choice to the user to measure the current of one the 3 sensors of the evaluation board.",
+      "abstract": "This code example provides a user interface for current measurement using the TLE4973 EVALUATION BOARD",
+      "folder": "iLLD_tc397_APPKIT_5V_ADS_TLE4973_Current_Sensor",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC3X7 V2.0",
+          "id": "KIT_A2G_TC397_5V_TFT",
+          "device_id": "TC39xXX_B-Step"
+        }
+      ],
+      "keywords": [
+        "TLE4973",
+        "ASCLIN",
+        "EDSADC",
+        "EEPROM",
+        "CURRENT SENSOR"
+      ],
+      "documents": [
+        "Readme.md"
+      ],
+      "lastModified": "2024-05-28T00:00:00.000Z"
     },
     {
       "title": "iLLD_TC397_TRIBOARD_ADS_PMIC_SLEEP_MODE",
