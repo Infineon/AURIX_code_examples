@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?fileVersion 4.0.0?><cproject storage_type_id="org.eclipse.cdt.core.XmlProjectDescriptionStorage">
+	<storageModule moduleId="org.eclipse.cdt.core.settings">
+		<cconfiguration id="com.infineon.aurix.buildsystem.managed.configuration.binary.1106299975">
+			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="com.infineon.aurix.buildsystem.managed.configuration.binary.1106299975" moduleId="org.eclipse.cdt.core.settings" name="TriCore Debug (TASKING)">
+				<externalSettings/>
+				<extensions>
+					<extension id="com.tasking.managedbuilder.TASKING_ELF" point="org.eclipse.cdt.core.BinaryParser"/>
+					<extension id="com.infineon.aurix.buildsystem.managed.TaskingErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.CWDLocator" point="org.eclipse.cdt.core.ErrorParser"/>
+				</extensions>
+			</storageModule>
+			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+				<configuration artifactName="${ProjName}" buildArtefactType="com.infineon.aurix.buildsystem.managed.buildArtefactType.elf" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=com.infineon.aurix.buildsystem.managed.buildArtefactType.elf,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug" description="" id="com.infineon.aurix.buildsystem.managed.configuration.binary.1106299975" name="TriCore Debug (TASKING)" parent="com.infineon.aurix.buildsystem.managed.configuration.binary">
+					<folderInfo id="com.infineon.aurix.buildsystem.managed.configuration.binary.1106299975." name="/" resourcePath="">
+						<toolChain id="com.infineon.aurix.buildsystem.managed.toolChain.tasking.exe.binary.404599021" name="TASKING" superClass="com.infineon.aurix.buildsystem.managed.toolChain.tasking.exe.binary">
+							<option id="com.tasking.ctc.cpu.1520794883" name="Processor" superClass="com.tasking.ctc.cpu" value="tc37x" valueType="string"/>
+							<option id="com.tasking.ctc.package.970168312" name="Device package" superClass="com.tasking.ctc.package" value="lfbga292" valueType="string"/>
+							<targetPlatform archList="all" binaryParser="com.tasking.managedbuilder.TASKING_ELF" id="com.infineon.aurix.buildsystem.managed.tasking.targetPlatform.1526032240" isAbstract="false" osList="all" superClass="com.infineon.aurix.buildsystem.managed.tasking.targetPlatform"/>
+							<builder buildPath="${workspace_loc:/secure_gateway_tc377tx_v1}/TriCore Debug (TASKING)" id="com.infineon.aurix.buildsystem.managed.tasking.builder.167624065" keepEnvironmentInBuildfile="false" name="Gnu Make Builder" superClass="com.infineon.aurix.buildsystem.managed.tasking.builder"/>
+							<tool id="com.infineon.aurix.buildsystem.managed.tool.c.compiler.tasking.debug.1998323387" name="TASKING C/C++ Compiler" superClass="com.infineon.aurix.buildsystem.managed.tool.c.compiler.tasking.debug">
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.infineon.aurix.buildsystem.managed.c.compiler.tasking.include.207450163" name="Include paths (-I)" superClass="com.infineon.aurix.buildsystem.managed.c.compiler.tasking.include" valueType="includePath">
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Configurations}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/Infra}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/Infra/Platform}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/Infra/Platform/Tricore}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/Infra/Platform/Tricore/Compilers}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/Infra/Sfr}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/Infra/Sfr/TC37AED}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/Infra/Sfr/TC37AED/_Reg}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/Infra/Ssw}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/Infra/Ssw/TC37AED}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/Infra/Ssw/TC37AED/Tricore}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/Service}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/If}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/StdIf}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/_Utilities}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC37AED}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC37AED/Tricore}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC37AED/Tricore/Asclin}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC37AED/Tricore/Asclin/Lin}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC37AED/Tricore/Asclin/Std}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC37AED/Tricore/Can}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC37AED/Tricore/Can/Can}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC37AED/Tricore/Can/Std}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC37AED/Tricore/Cpu}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC37AED/Tricore/Cpu/Irq}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC37AED/Tricore/Cpu/Std}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC37AED/Tricore/Cpu/Trap}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC37AED/Tricore/Dma}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC37AED/Tricore/Dma/Dma}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC37AED/Tricore/Dma/Std}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC37AED/Tricore/Dts}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC37AED/Tricore/Dts/Dts}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC37AED/Tricore/Dts/Std}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC37AED/Tricore/Evadc}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC37AED/Tricore/Evadc/Adc}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC37AED/Tricore/Evadc/Std}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC37AED/Tricore/Geth}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC37AED/Tricore/Geth/Eth}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC37AED/Tricore/Geth/Std}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC37AED/Tricore/Gtm}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC37AED/Tricore/Gtm/Std}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC37AED/Tricore/Mtu}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC37AED/Tricore/Mtu/Std}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC37AED/Tricore/Pms}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC37AED/Tricore/Pms/Std}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC37AED/Tricore/Port}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC37AED/Tricore/Port/Std}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC37AED/Tricore/Qspi}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC37AED/Tricore/Qspi/SpiMaster}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC37AED/Tricore/Qspi/Std}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC37AED/Tricore/Scu}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC37AED/Tricore/Scu/Std}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC37AED/Tricore/Src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC37AED/Tricore/Src/Std}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC37AED/Tricore/Stm}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC37AED/Tricore/Stm/Std}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC37AED/Tricore/Stm/Timer}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC37AED/Tricore/_Impl}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC37AED/Tricore/_PinMap}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/boards}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/boards/Secure_Gateway_V11}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/components}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/components/can}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/components/eth}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/components/eth/mac}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/components/eth/phy}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/components/led}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/components/lin}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/components/power_supply}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/components/power_supply/TLF3xx8x}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/components/power_supply/analog_measure}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/components/power_supply/power_good_s}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/components/serialio}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/middleware}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/middleware/lwip}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/middleware/lwip/port}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/middleware/lwip/port/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/middleware/lwip/port/include/arch}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/middleware/lwip/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/middleware/lwip/src/apps}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/middleware/lwip/src/apps/http}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/middleware/lwip/src/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/middleware/lwip/src/include/compat}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/middleware/lwip/src/include/compat/posix}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/middleware/lwip/src/include/compat/posix/arpa}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/middleware/lwip/src/include/compat/posix/net}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/middleware/lwip/src/include/compat/posix/sys}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/middleware/lwip/src/include/compat/stdc}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/middleware/lwip/src/include/lwip}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/middleware/lwip/src/include/lwip/apps}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/middleware/lwip/src/include/lwip/priv}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/middleware/lwip/src/include/lwip/prot}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/middleware/lwip/src/include/netif}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/middleware/lwip/src/include/netif/ppp}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/middleware/lwip/src/include/netif/ppp/polarssl}&quot;"/>
+								</option>
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.infineon.aurix.buildsystem.managed.c.compiler.tasking.preprocessor.definedSymbols.566155633" name="Defined symbols (-D)" superClass="com.infineon.aurix.buildsystem.managed.c.compiler.tasking.preprocessor.definedSymbols" valueType="definedSymbols">
+									<listOptionValue builtIn="false" value="__CPU__=tc37x"/>
+									<listOptionValue builtIn="false" value="CONFIG_BOARD_SERIALIO_ENABLE"/>
+									<listOptionValue builtIn="false" value="CONFIG_BOARD_LED_ENABLE"/>
+									<listOptionValue builtIn="false" value="CONFIG_BOARD_ETH_ENABLE"/>
+									<listOptionValue builtIn="false" value="CONFIG_ETH_MAC_DWMAC_QOS"/>
+								</option>
+								<inputType id="com.infineon.aurix.buildsystem.managed.tool.c.compiler.tasking.input.cpp.287913458" name="C++" superClass="com.infineon.aurix.buildsystem.managed.tool.c.compiler.tasking.input.cpp"/>
+								<inputType id="com.infineon.aurix.buildsystem.managed.tool.c.compiler.tasking.input.1202568445" name="C" superClass="com.infineon.aurix.buildsystem.managed.tool.c.compiler.tasking.input"/>
+							</tool>
+							<tool id="com.infineon.aurix.buildsystem.managed.tool.c.assembler.tasking.1089055488" name="TASKING Assembler" superClass="com.infineon.aurix.buildsystem.managed.tool.c.assembler.tasking">
+								<inputType id="com.infineon.aurix.buildsystem.managed.tool.c.assembler.tasking.input.24766927" superClass="com.infineon.aurix.buildsystem.managed.tool.c.assembler.tasking.input"/>
+							</tool>
+							<tool id="com.infineon.aurix.buildsystem.managed.tool.c.linker.tasking.467666727" name="TASKING Linker" superClass="com.infineon.aurix.buildsystem.managed.tool.c.linker.tasking"/>
+							<tool id="com.infineon.aurix.buildsystem.managed.tool.printsize.tasking.1141365982" name="Print Size" superClass="com.infineon.aurix.buildsystem.managed.tool.printsize.tasking"/>
+						</toolChain>
+					</folderInfo>
+					<sourceEntries>
+						<entry excluding="middleware/lwip/src/netif/zepif.c|middleware/lwip/src/netif/slipif.c|middleware/lwip/src/netif/lowpan6.c|middleware/lwip/src/netif/lowpan6_common.c|middleware/lwip/src/netif/lowpan6_ble.c|middleware/lwip/src/netif/bridgeif.c|middleware/lwip/src/netif/bridgeif_fdb.c|SCR|MCS|HSM|Libraries/iLLD/TC37AED/Tricore/Gpt12/Std|Libraries/iLLD/TC37AED/Tricore/_Lib/InternalMux|Libraries/iLLD/TC37AED/Tricore/Ccu6/Std|Libraries/iLLD/TC37AED/Tricore/Gtm/Tom/Pwm|Libraries/iLLD/TC37AED/Tricore/Sdmmc/Std|Libraries/iLLD/TC37AED/Tricore/Sent/Std|Libraries/iLLD/TC37AED/Tricore/Gtm/Tom/PwmHl|Libraries/iLLD/TC37AED/Tricore/Sdmmc|Libraries/Service/CpuGeneric/If/Ccu6If|Libraries/iLLD/TC37AED/Tricore/Hssl/Hssl|Libraries/iLLD/TC37AED/Tricore/Gtm/Atom/Timer|Libraries/iLLD/TC37AED/Tricore/Psi5/Std|Libraries/iLLD/TC37AED/Tricore/Gtm/Tom|Libraries/Service/CpuGeneric/SysSe/Time|Libraries/.ads|Libraries/iLLD/TC37AED/Tricore/Psi5/Psi5|Libraries/iLLD/TC37AED/Tricore/Gtm/Tom/Timer|Libraries/iLLD/TC37AED/Tricore/Eray/Std|Libraries/iLLD/TC37AED/Tricore/I2c/I2c|Libraries/iLLD/TC37AED/Tricore/Cif/Std|Libraries/iLLD/TC37AED/Tricore/Iom|Libraries/iLLD/TC37AED/Tricore/Ccu6/TimerWithTrigger|Libraries/iLLD/TC37AED/Tricore/Psi5s/Std|Libraries/iLLD/TC37AED/Tricore/Iom/Driver|Libraries/iLLD/TC37AED/Tricore/Flash|Libraries/iLLD/TC37AED/Tricore/Gtm/Pwm|Libraries/iLLD/TC37AED/Tricore/Smu|Libraries/iLLD/TC37AED/Tricore/Gtm/Atom/Pwm|Libraries/iLLD/TC37AED/Tricore/Gtm/Atom|Libraries/iLLD/TC37AED/Tricore/Gtm/Atom/PwmHl|Libraries/iLLD/TC37AED/Tricore/Ccu6|Libraries/Service/CpuGeneric/SysSe/General|Libraries/iLLD/TC37AED/Tricore/Iom/Iom|Libraries/iLLD/TC37AED/Tricore/Edsadc|Libraries/Service/CpuGeneric/SysSe|Libraries/iLLD/TC37AED/Tricore/Gtm/Tim|Libraries/iLLD/TC37AED/Tricore/Asclin/Spi|Libraries/iLLD/TC37AED/Tricore/Gpt12|Libraries/iLLD/TC37AED/Tricore/Ccu6/TPwm|Libraries/Service/CpuGeneric/SysSe/Comm|Libraries/Service/CpuGeneric/SysSe/Math|Libraries/iLLD/TC37AED/Tricore/Msc/Std|Libraries/iLLD/TC37AED/Tricore/Fce|Libraries/iLLD/TC37AED/Tricore/Ccu6/PwmHl|Libraries/iLLD/TC37AED/Tricore/Gtm/Trig|Libraries/iLLD/TC37AED/Tricore/Gtm/Tom/Dtm_PwmHl|Libraries/iLLD/TC37AED/Tricore/Iom/Std|Libraries/Service/CpuGeneric/SysSe/Bsp|Libraries/iLLD/TC37AED/Tricore/_Lib|Libraries/iLLD/TC37AED/Tricore/I2c|Libraries/iLLD/TC37AED/Tricore/Emem/Std|Libraries/iLLD/TC37AED/Tricore/_Lib/DataHandling|Libraries/iLLD/TC37AED/Tricore/Ccu6/Icu|Libraries/iLLD/TC37AED/Tricore/Eray/Eray|Libraries/iLLD/TC37AED/Tricore/Fce/Crc|Libraries/iLLD/TC37AED/Tricore/Smu/Std|Libraries/iLLD/TC37AED/Tricore/Edsadc/Edsadc|Libraries/iLLD/TC37AED/Tricore/Qspi/SpiSlave|Libraries/iLLD/TC37AED/Tricore/Convctrl|Libraries/iLLD/TC37AED/Tricore/_Build|Libraries/iLLD/TC37AED/Tricore/Edsadc/Std|Libraries/iLLD/TC37AED/Tricore/Psi5s/Psi5s|Libraries/iLLD/TC37AED/Tricore/Asclin/Asc|Libraries/iLLD/TC37AED/Tricore/Eray|Libraries/iLLD/TC37AED/Tricore/Hssl|Libraries/iLLD/TC37AED/Tricore/Ccu6/PwmBc|Libraries/iLLD/TC37AED/Tricore/Hssl/Std|Libraries/iLLD/TC37AED/Tricore/Msc|Libraries/iLLD/TC37AED/Tricore/I2c/Std|Libraries/iLLD/TC37AED/Tricore/Sent|Libraries/iLLD/TC37AED/Tricore/Cif/Cam|Libraries/iLLD/TC37AED/Tricore/Gpt12/IncrEnc|Libraries/iLLD/TC37AED/Tricore/Gtm/Tim/In|Libraries/iLLD/TC37AED/Tricore/Msc/Msc|Libraries/iLLD/TC37AED/Tricore/Psi5|Libraries/iLLD/TC37AED/Tricore/Gtm/Tim/Timer|Libraries/iLLD/TC37AED/Tricore/Flash/Std|Libraries/iLLD/TC37AED/Tricore/Fce/Std|Libraries/iLLD/TC37AED/Tricore/Smu/Smu|Libraries/iLLD/TC37AED/Tricore/Port/Io|Libraries/iLLD/TC37AED/Tricore/Emem|Libraries/iLLD/TC37AED/Tricore/Convctrl/Std|Libraries/iLLD/TC37AED/Tricore/Sdmmc/Sd|Libraries/iLLD/TC37AED/Tricore/Sent/Sent|Libraries/iLLD/TC37AED/Tricore/Gtm/Atom/Dtm_PwmHl|Libraries/iLLD/TC37AED/Tricore/Psi5s|Libraries/iLLD/TC37AED/Tricore/Ccu6/Timer|Libraries/iLLD/TC37AED/Tricore/Cif|Libraries/iLLD/TC37AED/Tricore/Sdmmc/Emmc" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+					</sourceEntries>
+				</configuration>
+			</storageModule>
+			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
+			<storageModule moduleId="com.infineon.aurix.buildsystem.build.booster.settings">
+				<never-exclude-from-build>
+					<path>/Libraries/iLLD/TC37AED/Tricore/Cpu/Trap</path>
+					<path>/Configurations</path>
+					<path>/Libraries/iLLD/TC37AED/Tricore/Cpu/CStart</path>
+					<path>/Configurations/Debug</path>
+				</never-exclude-from-build>
+			</storageModule>
+		</cconfiguration>
+	</storageModule>
+	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+		<project id="secure_gateway_tc377tx_v1.com.infineon.aurix.buildsystem.managed.projectType.406656848" name="AURIX Project" projectType="com.infineon.aurix.buildsystem.managed.projectType"/>
+	</storageModule>
+	<storageModule moduleId="scannerConfiguration">
+		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		<scannerConfigBuildInfo instanceId="com.infineon.aurix.buildsystem.managed.external.gcc.builtin.configuration.debug.256167480;com.infineon.aurix.buildsystem.managed.external.gcc.builtin.configuration.debug.256167480.;com.infineon.aurix.buildsystem.managed.tool.c.compiler.15045354;com.infineon.aurix.buildsystem.managed.tool.c.compiler.inputType.1254542189">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="com.infineon.aurix.buildsystem.managed.external.gcc.builtin.configuration.release.225008856;com.infineon.aurix.buildsystem.managed.external.gcc.builtin.configuration.release.225008856.;com.infineon.aurix.buildsystem.managed.tool.c.compiler.1470482669;com.infineon.aurix.buildsystem.managed.tool.c.compiler.inputType.2136601800">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
+	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
+	<storageModule moduleId="org.eclipse.cdt.core.language.mapping">
+		<project-mappings>
+			<content-type-mapping configuration="" content-type="org.eclipse.cdt.core.cHeader" language="com.tasking.dbg.ctc.clanguage"/>
+			<content-type-mapping configuration="" content-type="org.eclipse.cdt.core.cSource" language="com.tasking.dbg.ctc.clanguage"/>
+			<content-type-mapping configuration="" content-type="org.eclipse.cdt.core.cxxHeader" language="com.tasking.dbg.ctc.cpplanguage"/>
+			<content-type-mapping configuration="" content-type="org.eclipse.cdt.core.cxxSource" language="com.tasking.dbg.ctc.cpplanguage"/>
+		</project-mappings>
+	</storageModule>
+	<storageModule moduleId="refreshScope"/>
+	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
+</cproject>

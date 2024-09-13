@@ -1968,6 +1968,32 @@
       "lastModified": "2024-07-22T00:00:00.000Z"
     },
     {
+      "title": "BMETAL_TC387_ADS_EDSADC_FIFO_1",
+      "name": "BMETAL_TC387_ADS_EDSADC_FIFO_1",
+      "description": "This bare metal code example initializes TC387 EDSADC and its FIFO.\r\nEvery time when the FIFO is full (with 4 results in single-word read mode, DRM \u003d 0), an interrupt is triggered and results are fetched from FIFO.\r\nA 100ns wait is inserted between each read (the first read after interrupt does not need wait). See user manual chapter \"Result Service Request Generation and Read Sequencing\" foot note.\r\nCorresponding FIFO error bits are checked when reading results, in order to ensure data integrity.",
+      "abstract": "Bare metal code example to initialize TC387 EDSADC, its FIFO, interrupt and FIFO read.",
+      "folder": "BMETAL_TC387_ADS_EDSADC_FIFO_1",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC3X7 V2.0",
+          "id": "KIT_A2G_TC387_5V_TFT",
+          "device_id": "TC38xQP_A-Step"
+        }
+      ],
+      "keywords": [
+        "TC387",
+        "EDSADC",
+        "FIFO",
+        "Initialization",
+        "Interrupt"
+      ],
+      "documents": [
+        "See README.md"
+      ],
+      "lastModified": "2024-08-11T00:00:00.000Z"
+    },
+    {
       "title": "Register Access Protection",
       "name": "BUS_Register_Protection_1_KIT_TC275_LK",
       "description": "The CPU0 tries to make a write access to an ASCLIN0 module register two times: when the access is\r\nenabled for CPU0 and when the access is disabled for CPU0. During the second register write access,\r\na Trap is expected to be raised, to inform about the illegal write access.",
@@ -6388,6 +6414,30 @@
       "lastModified": "2023-04-12T00:00:00.000Z"
     },
     {
+      "title": "iLLD_TC375_ADS_REDUNDANT_ADC_STM_SMU",
+      "name": "iLLD_TC375_ADS_REDUNDANT_ADC_STM_SMU",
+      "description": "This project uses a EVADC channel and a DSADC channel to periodically sense the voltage at the output of a potentiometer, using STM (System Timer) to trigger the conversions. The difference between the two voltages is then saved in an array where the mean value is calculated. Whenever the mean value of the differences array is over a certain treshold an alarm is activated and an interrupt is triggered as reaction from SMU (Safety Management Unit). The interrupt routine in turn activates one of the LEDs on the board. The voltages sensed by the ADCs are also printed into the Console using UART.",
+      "abstract": "A VADC and a DSADC channel read analog values out of the embedded potentiometer. When the mean value of the difference bewteen the two ADCs samples is over a certain threshold, an alarm is activated",
+      "folder": "iLLD_TC375_ADS_REDUNDANT_ADC_STM_SMU",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC375 lite Kit",
+          "id": "KIT_A2G_TC375_LITE",
+          "device_id": "TC37xTP_A-Step"
+        }
+      ],
+      "keywords": [
+        "EDSADC",
+        "EVADC",
+        "STM",
+        "SMU",
+        "AURIX"
+      ],
+      "documents": [],
+      "lastModified": "2024-08-21T00:00:00.000Z"
+    },
+    {
       "title": "Example of simple SENT communication to interface TLE5014 GMR angle sensor with AURIX(TM) TC3x Device.",
       "name": "iLLD_TC375_ADS_TLE5014_Interface_SENT_Simple",
       "description": "With this example, SENT interfacing using AURIX(TM) TC3x Device with TLE5014 angle sensor is demonstrated.",
@@ -6412,6 +6462,32 @@
         "README.md"
       ],
       "lastModified": "2023-12-07T00:00:00.000Z"
+    },
+    {
+      "title": "iLLD_TC377TX_ADS_LWIP-HTTP-Server",
+      "name": "iLLD_TC377TX_ADS_LWIP-HTTP-Server",
+      "description": "The die temperature is read from an HTTP server implemented in the LWIP 2.2.0 stack. LED manipulation is done via the HTTP server. A CAN node and a LIN master node are also implemented. The CAN implementation can be configured to be used in loop-back mode or with an external CAN node. The LIN implementation configures a LIN Master node that sends a header and a data block on the LIN bus.",
+      "abstract": "This code example demonstrates the TC377 peripheral capabilities by implementing a CAN and LIN node together with an HTTP server using the LWIP 2.2.0 stack. The server reads the die temperature and it can manipulate LEDs.",
+      "folder": "iLLD_TC377TX_ADS_LWIP-HTTP-Server",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "KIT_A2G_TC377_SEC_GTW",
+          "id": "KIT_A2G_TC377_SEC_GTW",
+          "device_id": "TC377TX_A-Step"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "LWIP",
+        "C",
+        "CAN",
+        "LIN"
+      ],
+      "documents": [
+        "See README.MD"
+      ],
+      "lastModified": "2024-07-17T00:00:00.000Z"
     },
     {
       "title": "This code example generates a periodic interrupt using the SCR RTC Module.",
@@ -6552,6 +6628,32 @@
       "lastModified": "2024-04-17T00:00:00.000Z"
     },
     {
+      "title": "Signal Processing Unit configuration for clutter removal",
+      "name": "iLLD_TC397x_ADS_SPU_Clutter_Removal",
+      "description": "This project shows a basic radar data processing flow for clutter suppression implemented on the Signal Processing Unit (SPU) hardware. Clutter suppression is used to remove static targets from the dataset. The processing flow includes clutter removal on the range FFT data cube and doppler FFT both on a range map with and without clutter. This code example uses a simulated dataset as input, Radar interface (RIF) configuration is not shown.\r\n\r\nBasic understanding of FMCW radar range-doppler signal processing is presumed to follow this code example.",
+      "abstract": "This code example illustrates the configuration of the Signal Processing Unit (SPU) for implementing clutter suppression, a standard step in radar data processing for in cabin monitoring systems (ICMS).",
+      "folder": "iLLD_TC397x_ADS_SPU_Clutter_Removal",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "KIT_A2G_TC397XA_TRB_S",
+          "id": "KIT_A2G_TC397XA_TRB_S",
+          "device_id": "TC397XA"
+        }
+      ],
+      "keywords": [
+        "SPU",
+        "Radar",
+        "EMEM",
+        "FFT",
+        "ICMS"
+      ],
+      "documents": [
+        "See README.md"
+      ],
+      "lastModified": "2024-08-02T00:00:00.000Z"
+    },
+    {
       "title": "SDCard multiblock Read Write with SDMMC_",
       "name": "iLLD_TC397_3V3_ADS_SDCard_SDMMC_Read_Write",
       "description": "The SDMMC is initialized in 4 bit configuration with SDMA mode.\r\nUsing the FatFs file system the SDCard is mounted and a message is written into text file \"Message.txt\" (the file is created if inexistent).\r\nThe text file is then read and the message is displayed on the serial terminal.",
@@ -6626,6 +6728,30 @@
         "README.md"
       ],
       "lastModified": "2024-07-10T00:00:00.000Z"
+    },
+    {
+      "title": "Port redundancy safety mechanism",
+      "name": "iLLD_TC397_ADS_PORT_REDUNDANCY",
+      "description": "The scope of this code example is to understand how to implement a software based port redundancy\r\nsafety mechanism (SM). The application software (SW) shall configure and use redundant General Purpose\r\nInput Output (GPIO) to detect faults when receiving or transmitting the information.",
+      "abstract": "This code example presents the implementation of port redundancy safety mechanism",
+      "folder": "iLLD_TC397_ADS_PORT_REDUNDANCY",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC3X7 V2.0",
+          "id": "KIT_A2G_TC397_5V_TFT",
+          "device_id": "TC39xXX_B-Step"
+        }
+      ],
+      "keywords": [
+        "PORT",
+        "ESM",
+        "Functional Safety"
+      ],
+      "documents": [
+        "README.md"
+      ],
+      "lastModified": "2024-05-28T00:00:00.000Z"
     },
     {
       "title": "Read from SD card and print to serial terminal",
@@ -6755,6 +6881,34 @@
         "Readme.md"
       ],
       "lastModified": "2024-05-28T00:00:00.000Z"
+    },
+    {
+      "title": "iLLD_TC397_TFT_ADS_LMU_Memory_Protection",
+      "name": "iLLD_TC397_TFT_ADS_LMU_Memory_Protection",
+      "description": "The LMU Memory Protection Unit (LMU MPU) is focused on 2 CPUs (CPU0, CPU1), and handles read/write\r\naccess permission to LMU0 from the bus master CPU0 and CPU1.\r\nIn this code example the BUS master CPU0 has always read/write permission of LMU0, while bus master\r\nCPU1 does not have access permission to that area.\r\nDifferent test scenarios has been provided to define access permission for LMU0.",
+      "abstract": "CPU0 and CPU1 are handles read/write access permission to LMU0 from the bus master CPU0 and CPU1.",
+      "folder": "iLLD_TC397_TFT_ADS_LMU_Memory_Protection",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC3X7 V2.0",
+          "id": "KIT_A2G_TC397_5V_TFT",
+          "device_id": "TC39xXX_B-Step"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "Memory_Protection",
+        "MPU",
+        "LMU Memory_Protection",
+        "Read Protection",
+        "Write Protection",
+        "Memory Protection"
+      ],
+      "documents": [
+        "See README.MD"
+      ],
+      "lastModified": "2024-07-10T00:00:00.000Z"
     },
     {
       "title": "iLLD_TC397_TRIBOARD_ADS_PMIC_SLEEP_MODE",

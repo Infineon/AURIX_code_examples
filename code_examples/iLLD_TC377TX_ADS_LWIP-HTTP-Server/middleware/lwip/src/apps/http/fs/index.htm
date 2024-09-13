@@ -1,0 +1,45 @@
+﻿<html>
+  <head>
+    <title>Secure Gateway Web Server Demo</title>
+    <script type="text/javascript" src="smoothie.min.js"></script>
+    <script type="text/javascript" src="jquery.min.js"></script>
+	<style>
+    html *
+   {
+      font-family: Verdana  !important;
+   }
+    </style>
+  </head>
+
+  <body>
+    <h1 align=center style='text-align:center'><img id="logo" src="img_sics.gif"></h1>
+    <h1 align=center style='text-align:center'>Secure Gateway Web Server Demo</h1>
+    <h3 align=center style='text-align:center'>Realtime Data - CPU temperature</h3>
+    <table align=center>
+      <td>
+        <canvas id="mycanvas" width="600" height="300"></canvas>
+      </td>
+      <td>
+        <p style="color:red">x</p>
+      </td>
+    </table>
+    <a href="cgi.htm" target=_blank><p align=center>CGI demo</p></a>
+    
+    <script type="text/javascript">
+      var smoothie = new SmoothieChart({scaleSmoothing:0.01,maxValue:100,minValue:0});
+      smoothie.streamTo(document.getElementById("mycanvas"), 100);      
+    
+      // Data
+      var linex = new TimeSeries();
+      
+      setInterval(function() {
+        $.get("data.cgi", function(data) {
+          linex.append(new Date().getTime(), parseInt(data.cpu_temp));
+        }, "json");
+      }, 100);              
+
+      smoothie.addTimeSeries(linex, { strokeStyle:'rgb(255, 0, 0)', lineWidth:3 });
+
+    </script>    
+   </body>
+</html>
