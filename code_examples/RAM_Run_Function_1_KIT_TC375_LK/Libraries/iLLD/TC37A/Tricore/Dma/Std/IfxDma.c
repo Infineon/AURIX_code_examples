@@ -2,7 +2,7 @@
  * \file IfxDma.c
  * \brief DMA  basic functionality
  *
- * \version iLLD_1_0_1_12_0
+ * \version iLLD_1_0_1_17_0
  * \copyright Copyright (c) 2017 Infineon Technologies AG. All rights reserved.
  *
  *

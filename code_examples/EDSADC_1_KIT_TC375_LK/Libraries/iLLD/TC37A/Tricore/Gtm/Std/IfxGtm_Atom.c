@@ -2,8 +2,9 @@
  * \file IfxGtm_Atom.c
  * \brief GTM  basic functionality
  *
- * \version iLLD_1_0_1_12_0
- * \copyright Copyright (c) 2020 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0
+ * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
@@ -36,6 +37,7 @@
  * FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
+ *
  *
  */
 
@@ -111,15 +113,14 @@ void IfxGtm_Atom_Agc_enableChannel(Ifx_GTM_ATOM_AGC *agc, IfxGtm_Atom_Ch channel
     uint32 value;
 
     value = IfxGtm_Atom_Agc_buildFeatureForChannel(channel, enabled, IFX_GTM_ATOM_AGC_ENDIS_CTRL_ENDIS_CTRL0_OFF);
+    uint32 shift = IFXGTM_ATOM_AGC_CHANNEL_SHIFT(channel, IFX_GTM_ATOM_AGC_ENDIS_CTRL_ENDIS_CTRL0_OFF);
+    uint32 mask  = (uint32)IFXGTM_ATOM_AGC_CHANNEL_MASK << shift;
+
+    Ifx__ldmst(&(agc->ENDIS_CTRL.U), mask, value);
 
     if (immediate)
     {
-        agc->ENDIS_CTRL.U = value;
-        agc->ENDIS_STAT.U = value;
-    }
-    else
-    {
-        agc->ENDIS_CTRL.U = value;
+        Ifx__ldmst(&(agc->ENDIS_STAT.U), mask, value);
     }
 }
 
@@ -129,22 +130,25 @@ void IfxGtm_Atom_Agc_enableChannelOutput(Ifx_GTM_ATOM_AGC *agc, IfxGtm_Atom_Ch c
     uint32 value;
 
     value = IfxGtm_Atom_Agc_buildFeatureForChannel(channel, enabled, IFX_GTM_ATOM_AGC_OUTEN_CTRL_OUTEN_CTRL0_OFF);
+    uint32 shift = IFXGTM_ATOM_AGC_CHANNEL_SHIFT(channel, IFX_GTM_ATOM_AGC_OUTEN_CTRL_OUTEN_CTRL0_OFF);
+    uint32 mask  = (uint32)IFXGTM_ATOM_AGC_CHANNEL_MASK << shift;
+
+    Ifx__ldmst(&(agc->OUTEN_CTRL.U), mask, value);
 
     if (immediate)
     {
-        agc->OUTEN_CTRL.U = value;
-        agc->OUTEN_STAT.U = value;
-    }
-    else
-    {
-        agc->OUTEN_CTRL.U = value;
+        Ifx__ldmst(&(agc->OUTEN_STAT.U), mask, value);
     }
 }
 
 
 void IfxGtm_Atom_Agc_enableChannelUpdate(Ifx_GTM_ATOM_AGC *agc, IfxGtm_Atom_Ch channel, boolean enabled)
 {
-    agc->GLB_CTRL.U = IfxGtm_Atom_Agc_buildFeatureForChannel(channel, enabled, IFX_GTM_ATOM_AGC_GLB_CTRL_UPEN_CTRL0_OFF);
+    uint32 value = IfxGtm_Atom_Agc_buildFeatureForChannel(channel, enabled, IFX_GTM_ATOM_AGC_GLB_CTRL_UPEN_CTRL0_OFF);
+    uint32 shift = IFXGTM_ATOM_AGC_CHANNEL_SHIFT(channel, IFX_GTM_ATOM_AGC_GLB_CTRL_UPEN_CTRL0_OFF);
+    uint32 mask  = (uint32)IFXGTM_ATOM_AGC_CHANNEL_MASK << shift;
+
+    Ifx__ldmst(&(agc->GLB_CTRL.U), mask, value);
 }
 
 
@@ -228,7 +232,7 @@ void IfxGtm_Atom_Agc_setChannelForceUpdate(Ifx_GTM_ATOM_AGC *agc, IfxGtm_Atom_Ch
     regEnable        = IfxGtm_Atom_Agc_buildFeatureForChannel(channel, enabled, IFX_GTM_ATOM_AGC_FUPD_CTRL_FUPD_CTRL0_OFF);
     regReset         = IfxGtm_Atom_Agc_buildFeatureForChannel(channel, resetEnabled, IFX_GTM_ATOM_AGC_FUPD_CTRL_RSTCN0_CH0_OFF);
 
-    agc->FUPD_CTRL.U = regEnable | (regReset << 16);
+    agc->FUPD_CTRL.U = regEnable | (regReset);
 }
 
 

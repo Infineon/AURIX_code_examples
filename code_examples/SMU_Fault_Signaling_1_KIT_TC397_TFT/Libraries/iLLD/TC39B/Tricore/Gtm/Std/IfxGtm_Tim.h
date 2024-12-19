@@ -3,8 +3,9 @@
  * \brief GTM  basic functionality
  * \ingroup IfxLld_Gtm
  *
- * \version iLLD_1_0_1_12_0
- * \copyright Copyright (c) 2019 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0_1
+ * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
@@ -37,6 +38,7 @@
  * FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
+ *
  *
  *
  *
@@ -135,11 +137,13 @@ typedef enum
 
 typedef enum
 {
-    IfxGtm_Tim_Mode_pwmMeasurement = 0,  /**< \brief TPWM */
-    IfxGtm_Tim_Mode_pulseIntegration,    /**< \brief TPIM */
-    IfxGtm_Tim_Mode_inputEvent,          /**< \brief TIEM */
-    IfxGtm_Tim_Mode_inputPrescaler,      /**< \brief TIPM */
-    IfxGtm_Tim_Mode_bitCompression       /**< \brief TBCM */
+    IfxGtm_Tim_Mode_pwmMeasurement   = 0,  /**< \brief TPWM */
+    IfxGtm_Tim_Mode_pulseIntegration = 1,  /**< \brief TPIM - Not Supported */
+    IfxGtm_Tim_Mode_inputEvent       = 2,  /**< \brief TIEM */
+    IfxGtm_Tim_Mode_inputPrescaler   = 3,  /**< \brief TIPM - Not Supported */
+    IfxGtm_Tim_Mode_bitCompression   = 4,  /**< \brief TBCM - Not Supported */
+    IfxGtm_Tim_Mode_gatedPeriodic    = 5,  /**< \brief TGPS */
+    IfxGtm_Tim_Mode_serialShift      = 6   /**< \brief TSSM - Not Supported */
 } IfxGtm_Tim_Mode;
 
 /** \brief Enum for Timeout control
@@ -476,6 +480,18 @@ IFX_EXTERN void IfxGtm_Tim_Ch_setTimeoutNotification(Ifx_GTM_TIM_CH *channel, bo
  */
 IFX_INLINE void IfxGtm_Tim_Ch_setTimTin(IfxGtm_Tim timIndex, IfxGtm_Tim_Ch channelIndex, uint32 tinSel);
 
+/** \brief Get count of TIM channel
+ * \param channel Pointer to TIM channel base
+ * \return number of count
+ */
+IFX_INLINE uint32 IfxGtm_Tim_Ch_getCountValue(Ifx_GTM_TIM_CH *channel);
+
+/** \brief Get shadow count of TIM channel
+ * \param channel Pointer to TIM channel base
+ * \return number of shadow count
+ */
+IFX_INLINE uint32 IfxGtm_Tim_Ch_getShadowCountValue(Ifx_GTM_TIM_CH *channel);
+
 /******************************************************************************/
 /*---------------------Inline Function Implementations------------------------*/
 /******************************************************************************/
@@ -637,6 +653,18 @@ IFX_INLINE void IfxGtm_Tim_Ch_setTimTin(IfxGtm_Tim timIndex, IfxGtm_Tim_Ch chann
     uint32 shift = channelIndex * 4;
 
     __ldmst_c(&(MODULE_GTM.TIMINSEL[timIndex].U), (0xFU << shift), (tinSel) << shift);
+}
+
+
+IFX_INLINE uint32 IfxGtm_Tim_Ch_getCountValue(Ifx_GTM_TIM_CH *channel)
+{
+    return channel->CNT.B.CNT;
+}
+
+
+IFX_INLINE uint32 IfxGtm_Tim_Ch_getShadowCountValue(Ifx_GTM_TIM_CH *channel)
+{
+    return channel->CNTS.B.CNTS;
 }
 
 

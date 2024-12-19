@@ -3,8 +3,8 @@
  * \brief SENT SENT details
  * \ingroup IfxLld_Sent
  *
- * \version iLLD_1_0_1_12_0_1
- * \copyright Copyright (c) 2019 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0
+ * \copyright Copyright (c) 2023 Infineon Technologies AG. All rights reserved.
  *
  *
  *
@@ -395,20 +395,20 @@
  */
 typedef struct
 {
-    uint8 receiveDataInterrupt;                       /**< \brief Specifies receive data interrupt enable */
-    uint8 receiveSuccessInterrupt;                    /**< \brief Specifies receive success interrupt enable */
-    uint8 receiveBufferOverflowInterrupt;             /**< \brief Specifies receive buffer overflow interrupt enable */
-    uint8 transferDataInterrupt;                      /**< \brief Specifies transfer data interrupt enable */
-    uint8 transferBufferUnderflowInterrupt;           /**< \brief Specifies transfer buffer underflow interrupt enable */
-    uint8 serialDataReceiveInterrupt;                 /**< \brief Specifies serial data interrupt enable */
-    uint8 watchdogErrorInterrupt;                     /**< \brief Specifies watchdog error interrupt enable */
-    uint8 serialDataCrcErrorInterrupt;                /**< \brief Specifies serial data CRC error interrupt enable */
-    uint8 wrongStatusNibbleErrorInterrupt;            /**< \brief Specifies wrong status nibble error interrupt enable */
-    uint8 crcErrorInterrupt;                          /**< \brief Specifies CRC error interrupt enable */
-    uint8 nibblesValueOutOfRangeErrorInterrupt;       /**< \brief Specifies nibble value out of range error interrupt enable */
-    uint8 nibblesWrongErrorInterrupt;                 /**< \brief Specifies nibbles wrong error interrupt enable */
-    uint8 frequencyDriftErrorInterrupt;               /**< \brief Specifies frequency drift error interrupt enable */
-    uint8 frequencyRangeErrorInterrupt;               /**< \brief Specifies frequency not in the range error interrupt enable */
+    uint32 receiveDataInterrupt : 1;                     /**< \brief Specifies receive data interrupt enable */
+    uint32 receiveSuccessInterrupt : 1;                  /**< \brief Specifies receive success interrupt enable */
+    uint32 receiveBufferOverflowInterrupt : 1;           /**< \brief Specifies receive buffer overflow interrupt enable */
+    uint32 transferDataInterrupt : 1;                    /**< \brief Specifies transfer data interrupt enable */
+    uint32 transferBufferUnderflowInterrupt : 1;         /**< \brief Specifies transfer buffer underflow interrupt enable */
+    uint32 serialDataReceiveInterrupt : 1;               /**< \brief Specifies serial data interrupt enable */
+    uint32 watchdogErrorInterrupt : 1;                   /**< \brief Specifies watchdog error interrupt enable */
+    uint32 serialDataCrcErrorInterrupt : 1;              /**< \brief Specifies serial data CRC error interrupt enable */
+    uint32 wrongStatusNibbleErrorInterrupt : 1;          /**< \brief Specifies wrong status nibble error interrupt enable */
+    uint32 crcErrorInterrupt : 1;                        /**< \brief Specifies CRC error interrupt enable */
+    uint32 nibblesValueOutOfRangeErrorInterrupt : 1;     /**< \brief Specifies nibble value out of range error interrupt enable */
+    uint32 nibblesWrongErrorInterrupt : 1;               /**< \brief Specifies nibbles wrong error interrupt enable */
+    uint32 frequencyDriftErrorInterrupt : 1;             /**< \brief Specifies frequency drift error interrupt enable */
+    uint32 frequencyRangeErrorInterrupt : 1;             /**< \brief Specifies frequency not in the range error interrupt enable */
 } IfxSent_Sent_Enable;
 
 /** \} */
@@ -681,6 +681,24 @@ IFX_EXTERN boolean IfxSent_Sent_readChannelSerialDataFrame(IfxSent_Sent_Channel 
 IFX_EXTERN boolean IfxSent_Sent_readChannelSerialMessageFrame(IfxSent_Sent_Channel *channel, IfxSent_Sent_SerialMessageFrame *message);
 
 /** \} */
+
+/******************************************************************************/
+/*-------------------------Global Function Prototypes-------------------------*/
+/******************************************************************************/
+
+/** \brief Generates SPC signal for the sensor
+ * \param channel channel reads the Serial data recieved and collected over several SENT frames
+ * \param pulseLength pulseLength configure the SPC pulse length
+ * \param delay delay configure the SPC pulse start delay
+ * \return None
+ */
+IFX_EXTERN void IfxSent_Sent_spcPulseUpdate(IfxSent_Sent_Channel *channel, uint8 pulseLength, uint8 delay);
+
+/** \brief Trigger SPC signal for the sensor
+ * \param channel channel reads the Serial data recieved and collected over several SENT frames
+ * \return None
+ */
+IFX_EXTERN void IfxSent_Sent_spcPulseTrigger(IfxSent_Sent_Channel *channel);
 
 /******************************************************************************/
 /*---------------------Inline Function Implementations------------------------*/

@@ -28,12 +28,12 @@
  * \abstract An LED is blinking based on the timing given by a wait function.
  * \description A wait function is used to add delays between switching on and switching off an LED on port pin P00.5
  * \name Blinky_LED_1_KIT_TC334_LK
- * \version V1.0.0
+ * \version V2.0.0
  * \board AURIX TC334 lite Kit, KIT_A2G_TC334_LITE, TC33xLP_A-Step
  * \keywords LED, GPIO, blinky, General Port Input Output, AURIX, Blinky_LED_1
- * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_Blinky_LED_1_KIT_TC334_LK-TR-v01_00_00-EN.pdf
- * \documents https://www.infineon.com/aurix-expert-training/TC33A_iLLD_UM_1_0_1_12_1.chm
- * \lastUpdated 2021-06-29
+ * \documents https://www.infineon.com/aurix-expert-training/TC33A_iLLD_UM_1_0_1_17_0.chm
+ * \documents README.MD
+ * \lastUpdated 2024-01-16
  *********************************************************************************************************************/
 #include "Ifx_Types.h"
 #include "IfxCpu.h"

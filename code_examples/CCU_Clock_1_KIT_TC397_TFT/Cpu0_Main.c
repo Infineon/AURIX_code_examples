@@ -26,16 +26,16 @@
  *********************************************************************************************************************/
  /*\title Clock configuration via CCU
  * \abstract The clock system is configured based on a PLL frequency of 200 MHz and the clock signal is provided at an external port pin.
- * \description The Clock Control Unit (CCU) is used to configure the PLL clock.
+ * \description The Clock ControlÂ Unit (CCU)Â is used to configure the PLL clock.
  *              This clock signal is routed to an external clock output pin, which can be observed with an oscilloscope.
  *
  * \name CCU_Clock_1_KIT_TC397_TFT
- * \version V1.0.2
+ * \version V2.0.0
  * \board APPLICATION KIT TC3X7 V2.0, KIT_A2G_TC397_5V_TFT, TC39xXX_B-Step
  * \keywords AURIX, Oscilloscope, PLL, CCU, CCU_Clock_1, clock, SCU
- * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_CCU_Clock_1_KIT_TC397_TFT-TR-v01_00_02-EN.pdf
- * \documents https://www.infineon.com/aurix-expert-training/TC39B_iLLD_UM_1_0_1_12_1.chm
- * \lastUpdated 2021-03-22
+ * \documents README.MD
+ * \documents https://www.infineon.com/aurix-expert-training/TC39B_iLLD_UM_1_0_1_17_0.chm
+ * \lastUpdated 2024-02-07
  *********************************************************************************************************************/
 #include "Ifx_Types.h"
 #include "IfxCpu.h"

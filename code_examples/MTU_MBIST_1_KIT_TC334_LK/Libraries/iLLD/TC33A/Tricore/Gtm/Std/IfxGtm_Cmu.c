@@ -2,28 +2,26 @@
  * \file IfxGtm_Cmu.c
  * \brief GTM  basic functionality
  *
- * \version iLLD_1_0_1_15_0_1
- * \copyright Copyright (c) 2021 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0
+ * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
  *
  *
  *
  *                                 IMPORTANT NOTICE
  *
- *
  * Use of this file is subject to the terms of use agreed between (i) you or
  * the company in which ordinary course of business you are acting and (ii)
- * Infineon Technologies AG or its licensees. If and as long as no such
- * terms of use are agreed, use of this file is subject to following:
- *
+ * Infineon Technologies AG or its licensees. If and as long as no such terms
+ * of use are agreed, use of this file is subject to following:
  *
  * Boost Software License - Version 1.0 - August 17th, 2003
  *
- * Permission is hereby granted, free of charge, to any person or
- * organization obtaining a copy of the software and accompanying
- * documentation covered by this license (the "Software") to use, reproduce,
- * display, distribute, execute, and transmit the Software, and to prepare
- * derivative works of the Software, and to permit third-parties to whom the
- * Software is furnished to do so, all subject to the following:
+ * Permission is hereby granted, free of charge, to any person or organization
+ * obtaining a copy of the software and accompanying documentation covered by
+ * this license (the "Software") to use, reproduce, display, distribute,
+ * execute, and transmit the Software, and to prepare derivative works of the
+ * Software, and to permit third-parties to whom the Software is furnished to
+ * do so, all subject to the following:
  *
  * The copyright notices in the Software and this entire statement, including
  * the above license grant, this restriction and the following disclaimer, must
@@ -89,7 +87,7 @@ float32 IfxGtm_Cmu_getClkFrequency(Ifx_GTM *gtm, IfxGtm_Cmu_Clk clkIndex, boolea
             }
             else
             {
-                frequency = 0.0;
+                frequency = 0.0f;
             }
 
             break;
@@ -101,18 +99,18 @@ float32 IfxGtm_Cmu_getClkFrequency(Ifx_GTM *gtm, IfxGtm_Cmu_Clk clkIndex, boolea
             }
             else
             {
-                frequency = 0.0;
+                frequency = 0.0f;
             }
 
             break;
         default:
-            frequency = 0.0;
+            frequency = 0.0f;
             break;
         }
     }
     else
     {
-        frequency = 0.0;
+        frequency = 0.0f;
     }
 
     return frequency;
@@ -132,7 +130,7 @@ float32 IfxGtm_Cmu_getEclkFrequency(Ifx_GTM *gtm, IfxGtm_Cmu_Eclk clkIndex, bool
     }
     else
     {
-        frequency = 0.0;
+        frequency = 0.0f;
     }
 
     return frequency;
@@ -187,13 +185,13 @@ float32 IfxGtm_Cmu_getFxClkFrequency(Ifx_GTM *gtm, IfxGtm_Cmu_Fxclk clkIndex, bo
             frequency = frequency / 65536;
             break;
         default:
-            frequency = 0.0;
+            frequency = 0.0f;
             break;
         }
     }
     else
     {
-        frequency = 0.0;
+        frequency = 0.0f;
     }
 
     return frequency;
@@ -255,7 +253,7 @@ void IfxGtm_Cmu_setClkFrequency(Ifx_GTM *gtm, IfxGtm_Cmu_Clk clkIndex, float32 f
     float32 t   = (IfxGtm_Cmu_getGclkFrequency(gtm) / frequency) - 1;
     uint32  cnt = (uint32)t;
 
-    if ((t - (float32)cnt) > 0.5)
+    if ((t - (float32)cnt) > 0.5f)
     {                           /* Round to nearest */
         cnt++;
     }
@@ -313,7 +311,7 @@ void IfxGtm_Cmu_setEclkFrequency(Ifx_GTM *gtm, IfxGtm_Cmu_Eclk clkIndex, float32
                 zBest        = z;
             }
 
-            if (bestDistance < 0.1)
+            if (bestDistance < 0.1f)
             {
                 endLoop = TRUE;
                 break;
@@ -364,7 +362,7 @@ void IfxGtm_Cmu_setGclkFrequency(Ifx_GTM *gtm, float32 frequency)
                 zBest        = z;
             }
 
-            if (bestDistance < 0.1)
+            if (bestDistance < 0.1f)
             {
                 endLoop = TRUE;
                 break;
@@ -408,7 +406,7 @@ void IfxGtm_Cmu_setGclkFrequency(Ifx_GTM *gtm, float32 frequency)
             zBest        = z;
         }
 
-        if (bestDistance == 0.0)
+        if (bestDistance == 0.0f)
         {
             break;
         }

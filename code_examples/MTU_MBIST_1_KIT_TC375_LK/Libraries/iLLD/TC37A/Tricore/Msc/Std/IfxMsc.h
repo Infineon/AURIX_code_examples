@@ -3,8 +3,8 @@
  * \brief MSC  basic functionality
  * \ingroup IfxLld_Msc
  *
- * \version iLLD_1_0_1_15_0_1
- * \copyright Copyright (c) 2019 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0
+ * \copyright Copyright (c) 2023 Infineon Technologies AG. All rights reserved.
  *
  *
  *
@@ -781,6 +781,15 @@ typedef enum
     IfxMsc_Source_alternateInputLine         = 2, /**< \brief SRx[16] is taken from ALTINL input line */
     IfxMsc_Source_alternateInputLineInverted = 3  /**< \brief SRx[16] is taken from ALTINL input line in inverted state */
 } IfxMsc_Source;
+
+/** \brief MSC Stream mode.
+ * Used for correct baudrate calculation
+ */
+typedef enum
+{
+    IfxMsc_StreamMode_up   = 0, /**< \brief MSC is used in upStream mode */
+    IfxMsc_StreamMode_down = 1  /**< \brief MSC is used in downStream mode */
+} IfxMsc_StreamMode;
 
 /** \brief OCDS Suspend Control (OCDS.SUS)
  */

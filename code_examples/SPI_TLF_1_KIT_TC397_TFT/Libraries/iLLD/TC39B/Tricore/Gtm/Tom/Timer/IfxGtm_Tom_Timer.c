@@ -2,8 +2,9 @@
  * \file IfxGtm_Tom_Timer.c
  * \brief GTM TIMER details
  *
- * \version iLLD_1_0_1_12_0_1
- * \copyright Copyright (c) 2020 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0_1
+ * \copyright Copyright (c) 2023 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
@@ -36,6 +37,7 @@
  * FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
+ *
  *
  */
 
@@ -137,7 +139,7 @@ void IfxGtm_Tom_Timer_disableUpdate(IfxGtm_Tom_Timer *driver)
 
 float32 IfxGtm_Tom_Timer_getFrequency(IfxGtm_Tom_Timer *driver)
 {
-    return 1.0 / IfxStdIf_Timer_tickToS(driver->base.clockFreq, driver->base.period);
+    return 1.0f / IfxStdIf_Timer_tickToS(driver->base.clockFreq, driver->base.period);
 }
 
 
@@ -167,7 +169,7 @@ volatile uint32 *IfxGtm_Tom_Timer_getPointer(IfxGtm_Tom_Timer *driver)
 
 float32 IfxGtm_Tom_Timer_getResolution(IfxGtm_Tom_Timer *driver)
 {
-    return 1.0 / driver->base.clockFreq;
+    return 1.0f / driver->base.clockFreq;
 }
 
 
@@ -255,7 +257,7 @@ boolean IfxGtm_Tom_Timer_init(IfxGtm_Tom_Timer *driver, const IfxGtm_Tom_Timer_C
 
     IfxGtm_Tom_Timer_updateInputFrequency(driver);
 
-    if ((config->base.minResolution > 0) && ((1.0 / base->clockFreq) > config->base.minResolution))
+    if ((config->base.minResolution > 0) && ((1.0f / base->clockFreq) > config->base.minResolution))
     {
         result = FALSE;
         IFX_ASSERT(IFX_VERBOSE_LEVEL_ERROR, FALSE);
@@ -263,91 +265,93 @@ boolean IfxGtm_Tom_Timer_init(IfxGtm_Tom_Timer *driver, const IfxGtm_Tom_Timer_C
     else
     {}
 
-    IfxGtm_Tom_Timer_setFrequency(driver, config->base.frequency);
+    result &= IfxGtm_Tom_Timer_setFrequency(driver, config->base.frequency);
 
-    driver->offset = IfxStdIf_Timer_sToTick(driver->base.clockFreq, 1.0 / config->base.frequency * config->base.startOffset);
-
-    IfxGtm_Tom_Ch_setCounterValue(driver->tom, driver->timerChannel, driver->offset);
-
-    /* Initialize the trigger part */
-    maskShift = (config->timerChannel <= 7) ? 0 : 8;
-    IfxGtm_Tom_Timer_addToChannelMask(driver, driver->timerChannel);
-
-    if (base->triggerEnabled)
+    if (result == TRUE)
     {
-        IfxGtm_Tom_Ch triggerChannel     = driver->triggerChannel;
-        uint16        triggerChannelMask = 1 << (triggerChannel - maskShift);
-        /* TO DO: enable the trigger to be not in the same TGC group as the timer */
+        driver->offset = IfxStdIf_Timer_sToTick(driver->base.clockFreq, 1.0f / config->base.frequency * config->base.startOffset);
 
-        IfxGtm_Tom_Ch_setSignalLevel(driver->tom, triggerChannel, config->base.trigger.risingEdgeAtPeriod ? Ifx_ActiveState_high : Ifx_ActiveState_low);
-        IfxGtm_Tom_Ch_setCounterValue(driver->tom, triggerChannel, driver->offset);
+        IfxGtm_Tom_Ch_setCounterValue(driver->tom, driver->timerChannel, driver->offset);
 
-        if (triggerChannel != driver->timerChannel)
+        /* Initialize the trigger part */
+        maskShift = (config->timerChannel <= 7) ? 0 : 8;
+        IfxGtm_Tom_Timer_addToChannelMask(driver, driver->timerChannel);
+
+        if (base->triggerEnabled)
         {
-            IfxGtm_Tom_Ch_setResetSource(driver->tom, triggerChannel, IfxGtm_Tom_Ch_ResetEvent_onTrigger);
-            IfxGtm_Tom_Ch_setClockSource(driver->tom, triggerChannel, config->clock);
-            IfxGtm_Tom_Ch_setTriggerOutput(driver->tom, triggerChannel, IfxGtm_Tom_Ch_OutputTrigger_forward);
-            IfxGtm_Tom_Tgc_enableChannels(driver->tgc[0], triggerChannelMask, 0, FALSE);
-            IfxGtm_Tom_Timer_addToChannelMask(driver, driver->triggerChannel);
-        }
-        else
-        {}
+            IfxGtm_Tom_Ch triggerChannel     = driver->triggerChannel;
+            uint16        triggerChannelMask = 1 << (triggerChannel - maskShift);
+            /* TO DO: enable the trigger to be not in the same TGC group as the timer */
 
-        /* Signal must go out of the GTM even if the port outpout is not enabled */
-        IfxGtm_Tom_Tgc_enableChannelsOutput(driver->tgc[0], triggerChannelMask, 0, FALSE);
+            IfxGtm_Tom_Ch_setSignalLevel(driver->tom, triggerChannel, config->base.trigger.risingEdgeAtPeriod ? Ifx_ActiveState_high : Ifx_ActiveState_low);
+            IfxGtm_Tom_Ch_setCounterValue(driver->tom, triggerChannel, driver->offset);
 
-        if ((config->base.trigger.outputEnabled) && (config->initPins == TRUE))
-        {
-            /* Initialize the port */
-            IfxGtm_PinMap_setTomTout(config->triggerOut, config->base.trigger.outputMode, config->base.trigger.outputDriver);
-        }
-        else
-        {}
-
-        IfxGtm_Tom_Timer_setTrigger(driver, config->base.trigger.triggerPoint);
-    }
-    else
-    {}
-
-    /* Interrupt configuration */
-    {
-        volatile Ifx_SRC_SRCR *src;
-        boolean                timerHasIrq   = config->base.isrPriority > 0;
-        boolean                triggerHasIrq = (config->base.trigger.isrPriority > 0) && base->triggerEnabled;
-
-        if (driver->triggerChannel == driver->timerChannel)
-        {
-            IfxGtm_Tom_Ch_setNotification(driver->tom, driver->timerChannel, timerHasIrq ? config->irqModeTimer : config->irqModeTrigger, timerHasIrq, triggerHasIrq);
-            src = IfxGtm_Tom_Ch_getSrcPointer(driver->gtm, config->tom, driver->timerChannel);
-            IfxSrc_init(src, timerHasIrq ? config->base.isrProvider : config->base.trigger.isrProvider, timerHasIrq ? config->base.isrPriority : config->base.trigger.isrPriority);
-            IfxSrc_enable(src);
-        }
-        else
-        {
-            IfxGtm_IrqMode irqMode = IfxGtm_IrqMode_pulseNotify;
-
-            if (timerHasIrq)
+            if (triggerChannel != driver->timerChannel)
             {
-                IfxGtm_Tom_Ch_setNotification(driver->tom, driver->timerChannel, irqMode, TRUE, FALSE);
+                IfxGtm_Tom_Ch_setResetSource(driver->tom, triggerChannel, IfxGtm_Tom_Ch_ResetEvent_onTrigger);
+                IfxGtm_Tom_Ch_setClockSource(driver->tom, triggerChannel, config->clock);
+                IfxGtm_Tom_Ch_setTriggerOutput(driver->tom, triggerChannel, IfxGtm_Tom_Ch_OutputTrigger_forward);
+                IfxGtm_Tom_Tgc_enableChannels(driver->tgc[0], triggerChannelMask, 0, FALSE);
+                IfxGtm_Tom_Timer_addToChannelMask(driver, driver->triggerChannel);
+            }
+            else
+            {}
+
+            /* Signal must go out of the GTM even if the port outpout is not enabled */
+            IfxGtm_Tom_Tgc_enableChannelsOutput(driver->tgc[0], triggerChannelMask, 0, FALSE);
+
+            if ((config->base.trigger.outputEnabled) && (config->initPins == TRUE))
+            {
+                /* Initialize the port */
+                IfxGtm_PinMap_setTomTout(config->triggerOut, config->base.trigger.outputMode, config->base.trigger.outputDriver);
+            }
+            else
+            {}
+
+            IfxGtm_Tom_Timer_setTrigger(driver, config->base.trigger.triggerPoint);
+        }
+        else
+        {}
+
+        /* Interrupt configuration */
+        {
+            volatile Ifx_SRC_SRCR *src;
+            boolean                timerHasIrq   = config->base.isrPriority > 0;
+            boolean                triggerHasIrq = (config->base.trigger.isrPriority > 0) && base->triggerEnabled;
+
+            if (driver->triggerChannel == driver->timerChannel)
+            {
+                IfxGtm_Tom_Ch_setNotification(driver->tom, driver->timerChannel, timerHasIrq ? config->irqModeTimer : config->irqModeTrigger, timerHasIrq, triggerHasIrq);
                 src = IfxGtm_Tom_Ch_getSrcPointer(driver->gtm, config->tom, driver->timerChannel);
-                IfxSrc_init(src, config->base.isrProvider, config->base.isrPriority);
+                IfxSrc_init(src, timerHasIrq ? config->base.isrProvider : config->base.trigger.isrProvider, timerHasIrq ? config->base.isrPriority : config->base.trigger.isrPriority);
                 IfxSrc_enable(src);
             }
-
-            if (triggerHasIrq)
+            else
             {
-                IfxGtm_Tom_Ch_setNotification(driver->tom, driver->triggerChannel, irqMode, FALSE, TRUE);
-                src = IfxGtm_Tom_Ch_getSrcPointer(driver->gtm, config->tom, driver->triggerChannel);
-                IfxSrc_init(src, config->base.trigger.isrProvider, config->base.trigger.isrPriority);
-                IfxSrc_enable(src);
+                IfxGtm_IrqMode irqMode = IfxGtm_IrqMode_pulseNotify;
+
+                if (timerHasIrq)
+                {
+                    IfxGtm_Tom_Ch_setNotification(driver->tom, driver->timerChannel, irqMode, TRUE, FALSE);
+                    src = IfxGtm_Tom_Ch_getSrcPointer(driver->gtm, config->tom, driver->timerChannel);
+                    IfxSrc_init(src, config->base.isrProvider, config->base.isrPriority);
+                    IfxSrc_enable(src);
+                }
+
+                if (triggerHasIrq)
+                {
+                    IfxGtm_Tom_Ch_setNotification(driver->tom, driver->triggerChannel, irqMode, FALSE, TRUE);
+                    src = IfxGtm_Tom_Ch_getSrcPointer(driver->gtm, config->tom, driver->triggerChannel);
+                    IfxSrc_init(src, config->base.trigger.isrProvider, config->base.trigger.isrPriority);
+                    IfxSrc_enable(src);
+                }
             }
         }
-    }
 
-    /* Transfer the shadow registers */
-    IfxGtm_Tom_Tgc_setChannelsForceUpdate(driver->tgc[0], driver->channelsMask[0], 0, 0, 0);
-    IfxGtm_Tom_Tgc_trigger(driver->tgc[0]);
-    IfxGtm_Tom_Tgc_setChannelsForceUpdate(driver->tgc[0], 0, driver->channelsMask[0], 0, 0);
+        /* Transfer the shadow registers */
+        IfxGtm_Tom_Tgc_setChannelsForceUpdate(driver->tgc[0], driver->channelsMask[0], 0, 0, 0);
+        IfxGtm_Tom_Tgc_trigger(driver->tgc[0]);
+        IfxGtm_Tom_Tgc_setChannelsForceUpdate(driver->tgc[0], 0, driver->channelsMask[0], 0, 0);
 
 /*
  *  if (dtmAvailable)
@@ -361,6 +365,7 @@ boolean IfxGtm_Tom_Timer_init(IfxGtm_Tom_Timer *driver, const IfxGtm_Tom_Timer_C
  *  IfxGtm_Dtm_setOutput1DeadTimePath(driver->dtm, driver->dtmChannel, IfxGtm_Dtm_DeadTimePath_enable);
  *  }
  */
+    }
 
     return result;
 }
@@ -396,20 +401,30 @@ void IfxGtm_Tom_Timer_run(IfxGtm_Tom_Timer *driver)
 
 boolean IfxGtm_Tom_Timer_setFrequency(IfxGtm_Tom_Timer *driver, float32 frequency)
 {
-    Ifx_TimerValue period = IfxStdIf_Timer_sToTick(driver->base.clockFreq, 1.0 / frequency);
+    boolean        status = TRUE;
+    Ifx_TimerValue period = IfxStdIf_Timer_sToTick(driver->base.clockFreq, 1.0f / frequency);
 
-    return IfxGtm_Tom_Timer_setPeriod(driver, period);
+    if ((period & (0xFFFF << 16)) != 0)
+    {
+        status = FALSE;
+    }
+    else
+    {
+        IfxGtm_Tom_Timer_setPeriod(driver, period);
+    }
+
+    return status;
 }
 
 
 boolean IfxGtm_Tom_Timer_setPeriod(IfxGtm_Tom_Timer *driver, Ifx_TimerValue period)
 {
     driver->base.period = period;
-    IfxGtm_Tom_Ch_setCompareZeroShadow(driver->tom, driver->timerChannel, period);
+    IfxGtm_Tom_Ch_setCompareZeroShadow(driver->tom, driver->timerChannel, (uint16)period);
 
     if (driver->triggerChannel != driver->timerChannel)
     {
-        IfxGtm_Tom_Ch_setCompareZeroShadow(driver->tom, driver->triggerChannel, period);
+        IfxGtm_Tom_Ch_setCompareZeroShadow(driver->tom, driver->triggerChannel, (uint16)period);
     }
 
     return TRUE;
@@ -424,7 +439,7 @@ void IfxGtm_Tom_Timer_setSingleMode(IfxGtm_Tom_Timer *driver, boolean enabled)
 
 void IfxGtm_Tom_Timer_setTrigger(IfxGtm_Tom_Timer *driver, Ifx_TimerValue triggerPoint)
 {
-    IfxGtm_Tom_Ch_setCompareOneShadow(driver->tom, driver->triggerChannel, triggerPoint + 1);
+    IfxGtm_Tom_Ch_setCompareOneShadow(driver->tom, driver->triggerChannel, (uint16)triggerPoint + 1);
 }
 
 

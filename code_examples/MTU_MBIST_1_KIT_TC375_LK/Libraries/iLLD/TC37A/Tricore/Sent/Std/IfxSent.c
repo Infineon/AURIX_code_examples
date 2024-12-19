@@ -2,8 +2,8 @@
  * \file IfxSent.c
  * \brief SENT  basic functionality
  *
- * \version iLLD_1_0_1_15_0_1
- * \copyright Copyright (c) 2019 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0
+ * \copyright Copyright (c) 2023 Infineon Technologies AG. All rights reserved.
  *
  *
  *
@@ -66,7 +66,7 @@ float32 IfxSent_getChannelUnitTime(Ifx_SENT *sent, IfxSent_ChannelId channelId)
     }
     else
     {
-        return 0.0;
+        return 0.0f;
     }
 }
 
@@ -78,7 +78,7 @@ float32 IfxSent_getModuleClock(Ifx_SENT *sent)
     Ifx_SENT_FDR fdr;
     fdr.U = sent->FDR.U;
 
-    float32      kernelFreq = 0.0;
+    float32      kernelFreq = 0.0f;
 
     if (fdr.B.DM == 1)
     {

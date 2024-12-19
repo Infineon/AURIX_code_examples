@@ -3,7 +3,7 @@
  * \brief CAN I/O map
  * \ingroup IfxLld_Can
  *
- * \version iLLD_1_0_1_12_0
+ * \version iLLD_1_0_1_17_0_1
  * \copyright Copyright (c) 2017 Infineon Technologies AG. All rights reserved.
  *
  *

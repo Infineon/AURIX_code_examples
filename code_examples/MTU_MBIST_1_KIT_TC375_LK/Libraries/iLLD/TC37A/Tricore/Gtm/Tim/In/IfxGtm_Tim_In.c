@@ -2,8 +2,8 @@
  * \file IfxGtm_Tim_In.c
  * \brief GTM IN details
  *
- * \version iLLD_1_0_1_15_0_1
- * \copyright Copyright (c) 2021 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0
+ * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
  *
  *
  *
@@ -144,14 +144,14 @@ boolean IfxGtm_Tim_In_init(IfxGtm_Tim_In *driver, const IfxGtm_Tim_In_Config *co
         {
             timeout = 0;
         }
-        else if (timeout >= (1 << IFX_GTM_TIM_CH_TDUV_TCS_MSK))
+        else if (timeout >= (0xFFFFFF))
         {
-            timeout = IFX_GTM_TIM_CH_TDUV_TCS_MSK;
+            timeout = 0xFFFFFF;
             result  = FALSE;
         }
 
         channel->CTRL.B.TOCTRL = config->capture.mode == Ifx_Pwm_Mode_leftAligned ? IfxGtm_Tim_Timeout_risingEdge : IfxGtm_Tim_Timeout_fallingEdge;
-        channel->TDUV.B.TOV    = timeout;
+        channel->TDUV.U       |= (0xFFFFFF & timeout); //24 bit timeout value
 
         IfxGtm_Tim_Ch_setTimeoutNotification(channel, config->timeout.irqOnTimeout);
     }
@@ -287,7 +287,7 @@ void IfxGtm_Tim_In_initConfig(IfxGtm_Tim_In_Config *config, Ifx_GTM *gtm)
     config->capture.gateCount            = 0;
     config->timeout.irqOnTimeout         = FALSE;
     config->timeout.clock                = IfxGtm_Cmu_Clk_0;
-    config->timeout.timeout              = 0.0;
+    config->timeout.timeout              = 0.0f;
     config->filter.input                 = IfxGtm_Tim_In_Input_currentChannel;
     config->filter.inputPin              = NULL_PTR;
     config->filter.inputPinMode          = IfxPort_InputMode_noPullDevice;

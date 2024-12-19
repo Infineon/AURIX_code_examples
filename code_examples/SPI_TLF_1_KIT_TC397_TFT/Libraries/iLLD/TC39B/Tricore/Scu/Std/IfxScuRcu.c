@@ -2,8 +2,9 @@
  * \file IfxScuRcu.c
  * \brief SCU  basic functionality
  *
- * \version iLLD_1_0_1_12_0_1
- * \copyright Copyright (c) 2019 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0_1
+ * \copyright Copyright (c) 2023 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
@@ -38,6 +39,7 @@
  * DEALINGS IN THE SOFTWARE.
  *
  *
+ *
  */
 
 /******************************************************************************/
@@ -51,6 +53,51 @@
 /******************************************************************************/
 
 #define IFXSCURCU_PERFORM_RESET_DELAY (90000U)
+
+#define IFXSCURCU_COLD_POWERON_MASK                             \
+    ((IFX_SCU_RSTSTAT_STBYR_MSK << IFX_SCU_RSTSTAT_STBYR_OFF) | \
+     (IFX_SCU_RSTSTAT_SWD_MSK << IFX_SCU_RSTSTAT_SWD_OFF) |     \
+     (IFX_SCU_RSTSTAT_EVR33_MSK << IFX_SCU_RSTSTAT_EVR33_OFF) | \
+     (IFX_SCU_RSTSTAT_EVRC_MSK << IFX_SCU_RSTSTAT_EVRC_OFF))
+
+#define IFXSCURCU_WARM_POWERON_MASK   (IFX_SCU_RSTSTAT_PORST_MSK << IFX_SCU_RSTSTAT_PORST_OFF)
+
+#define IFXSCURCU_ESR0_MASK           (1u << IFX_SCU_RSTSTAT_ESR0_OFF)
+
+#define IFXSCURCU_ESR1_MASK           (1u << IFX_SCU_RSTSTAT_ESR1_OFF)
+
+#define IFXSCURCU_SMU_MASK            (1u << IFX_SCU_RSTSTAT_SMU_OFF)
+
+#define IFXSCURCU_SW_MASK             (1u << IFX_SCU_RSTSTAT_SW_OFF)
+
+#define IFXSCURCU_STM0_MASK           (1u << IFX_SCU_RSTSTAT_STM0_OFF)
+
+#if (IFXCPU_NUM_MODULES > 1U)
+#define IFXSCURCU_STM1_MASK           (1u << IFX_SCU_RSTSTAT_STM1_OFF)
+#endif
+
+#if (IFXCPU_NUM_MODULES > 2U)
+#define IFXSCURCU_STM2_MASK           (1u << IFX_SCU_RSTSTAT_STM2_OFF)
+#endif
+
+#if (IFXCPU_NUM_MODULES > 3U)
+#define IFXSCURCU_STM3_MASK           (1u << IFX_SCU_RSTSTAT_STM3_OFF)
+#endif
+
+#if (IFXCPU_NUM_MODULES > 4U)
+#define IFXSCURCU_STM4_MASK           (1u << IFX_SCU_RSTSTAT_STM4_OFF)
+#endif
+
+#if (IFXCPU_NUM_MODULES > 5U)
+#define IFXSCURCU_STM5_MASK           (1u << IFX_SCU_RSTSTAT_STM5_OFF)
+#endif
+#define IFXSCURCU_EVRC_MASK           (1u << IFX_SCU_RSTSTAT_EVRC_OFF)
+
+#define IFXSCURCU_EVR33_MASK          (1u << IFX_SCU_RSTSTAT_EVR33_OFF)
+
+#define IFXSCURCU_SWD_MASK            (1u << IFX_SCU_RSTSTAT_SWD_OFF)
+
+#define IFXSCURCU_STBYR_MASK          (1u << IFX_SCU_RSTSTAT_STBYR_OFF)
 
 /******************************************************************************/
 /*-------------------------Function Implementations---------------------------*/
@@ -228,4 +275,155 @@ void IfxScuRcu_performReset(IfxScuRcu_ResetType resetType, uint16 userResetInfo)
 
     /*IfxScu_Wdt_enableSafetyEndinit() is not needed, as the micro would RESET */
     /* IfxScuWdt_setCpuEndinitInline() is not needed, as the micro would RESET */
+}
+
+
+IfxScuRcu_ResetCode IfxScuRcu_getResetReason(void)
+{
+    Ifx_SCU_RSTCON      Rstcon;
+    Ifx_SCU_RSTSTAT     RstStat;
+    IfxScuRcu_ResetCode resetCode;
+
+    uint32              cldRbits  = 0u;
+    uint32              warmRbits = 0u;
+    uint32              asRbits   = 0u;
+
+    resetCode.cpuSafeState = (((MODULE_SCU.RSTCON2.U >> IFX_SCU_RSTCON2_CSSX_OFF) & IFX_SCU_RSTCON2_CSSX_MSK) == IFX_SCU_RSTCON2_CSSX_MSK);
+    resetCode.resetType    = IfxScuRcu_ResetType_undefined;
+    resetCode.resetTrigger = IfxScuRcu_Trigger_undefined;
+    resetCode.resetReason  = 0;
+
+    RstStat.U              = MODULE_SCU.RSTSTAT.U;
+    Rstcon.U               = MODULE_SCU.RSTCON.U;
+
+    cldRbits               = RstStat.U & IFXSCURCU_COLD_POWERON_MASK;
+    warmRbits              = RstStat.U & IFXSCURCU_WARM_POWERON_MASK;
+    asRbits                = RstStat.U & IFXSCURCU_APPLICATIONRESET_MASK;
+
+    /* Evaluate Cold power on reset */
+    if ((cldRbits != 0u) && (warmRbits != 0u) && (asRbits == 0u))  /* Cold Power On */
+    {
+        resetCode.resetType = IfxScuRcu_ResetType_coldpoweron;
+
+        switch (cldRbits)
+        {
+        case IFXSCURCU_EVRC_MASK:
+            resetCode.resetTrigger = IfxScuRcu_Trigger_evrc;
+            break;
+
+        case IFXSCURCU_EVR33_MASK:
+            resetCode.resetTrigger = IfxScuRcu_Trigger_evr33;
+            break;
+
+        case IFXSCURCU_SWD_MASK:
+            resetCode.resetTrigger = IfxScuRcu_Trigger_swd;
+            break;
+
+        case IFXSCURCU_STBYR_MASK:
+            resetCode.resetTrigger = IfxScuRcu_Trigger_stbyr;
+            break;
+
+        default:
+            resetCode.resetTrigger = IfxScuRcu_Trigger_undefined;
+            break;
+        }
+    }
+    else if ((cldRbits == 0u) && (warmRbits != 0u) && (asRbits == 0u)) /* Warm Power On */
+    {
+        resetCode.resetType    = IfxScuRcu_ResetType_warmpoweron;
+        resetCode.resetTrigger = IfxScuRcu_Trigger_portst;
+    }
+    else if ((cldRbits == 0u) && (warmRbits == 0u) && (asRbits != 0u)) /* App/Sys resets */
+    {
+        switch (asRbits)
+        {
+        case IFXSCURCU_ESR0_MASK:
+            resetCode.resetType    = (IfxScuRcu_ResetType)Rstcon.B.ESR0;
+            resetCode.resetTrigger = IfxScuRcu_Trigger_esr0;
+            break;
+
+        case IFXSCURCU_ESR1_MASK:
+            resetCode.resetType    = (IfxScuRcu_ResetType)Rstcon.B.ESR1;
+            resetCode.resetTrigger = IfxScuRcu_Trigger_esr1;
+            break;
+
+        case IFXSCURCU_SMU_MASK:
+            resetCode.resetType    = (IfxScuRcu_ResetType)Rstcon.B.SMU;
+            resetCode.resetTrigger = IfxScuRcu_Trigger_smu;
+            break;
+
+        case IFXSCURCU_SW_MASK:
+            resetCode.resetType    = (IfxScuRcu_ResetType)Rstcon.B.SW;
+            resetCode.resetTrigger = IfxScuRcu_Trigger_sw;
+            break;
+
+        case IFXSCURCU_STM0_MASK:
+            resetCode.resetType    = (IfxScuRcu_ResetType)Rstcon.B.STM0;
+            resetCode.resetTrigger = IfxScuRcu_Trigger_stm0;
+            break;
+
+#if (IFXCPU_NUM_MODULES > 1U)
+        case IFXSCURCU_STM1_MASK:
+            resetCode.resetType    = (IfxScuRcu_ResetType)Rstcon.B.STM1;
+            resetCode.resetTrigger = IfxScuRcu_Trigger_stm1;
+            break;
+#endif
+
+#if (IFXCPU_NUM_MODULES > 2U)
+        case IFXSCURCU_STM2_MASK:
+            resetCode.resetType    = (IfxScuRcu_ResetType)Rstcon.B.STM2;
+            resetCode.resetTrigger = IfxScuRcu_Trigger_stm2;
+            break;
+#endif
+
+#if (IFXCPU_NUM_MODULES > 3U)
+        case IFXSCURCU_STM3_MASK:
+            resetCode.resetType    = (IfxScuRcu_ResetType)Rstcon.B.STM3;
+            resetCode.resetTrigger = IfxScuRcu_Trigger_stm3;
+            break;
+#endif
+
+#if (IFXCPU_NUM_MODULES > 4U)
+        case IFXSCURCU_STM4_MASK:
+            resetCode.resetType    = (IfxScuRcu_ResetType)Rstcon.B.STM4;
+            resetCode.resetTrigger = IfxScuRcu_Trigger_stm4;
+            break;
+#endif
+
+#if (IFXCPU_NUM_MODULES > 5U)
+        case IFXSCURCU_STM5_MASK:
+            resetCode.resetType    = (IfxScuRcu_ResetType)Rstcon.B.STM5;
+            resetCode.resetTrigger = IfxScuRcu_Trigger_stm5;
+            break;
+#endif
+        default:
+            resetCode.resetTrigger = IfxScuRcu_Trigger_undefined;
+            break;
+        }
+    }
+    else if ((cldRbits != 0u) || ((warmRbits != 0u) && (asRbits != 0u)))
+    {
+        resetCode.resetType = IfxScuRcu_ResetType_undefined;
+    }
+    else if ((cldRbits == 0u) && ((warmRbits != 0u) && (asRbits != 0u)))
+    {
+        resetCode.resetType = IfxScuRcu_ResetType_undefined;
+    }
+    else if (RstStat.B.CB0)
+    {
+        resetCode.resetTrigger = IfxScuRcu_Trigger_cb0;
+        resetCode.resetType    = IfxScuRcu_ResetType_system;
+    }
+    else if (RstStat.B.CB1)
+    {
+        resetCode.resetTrigger = IfxScuRcu_Trigger_cb1;
+        resetCode.resetType    = IfxScuRcu_ResetType_debug;
+    }
+    else if (RstStat.B.CB3)
+    {
+        resetCode.resetTrigger = IfxScuRcu_Trigger_cb3;
+        resetCode.resetType    = IfxScuRcu_ResetType_application;
+    }
+
+    return resetCode;
 }

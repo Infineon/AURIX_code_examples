@@ -3,8 +3,9 @@
  * \brief CAN CAN details
  * \ingroup IfxLld_Can
  *
- * \version iLLD_1_0_1_12_0
- * \copyright Copyright (c) 2019 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0_1
+ * \copyright Copyright (c) 2023 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
@@ -37,6 +38,7 @@
  * FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
+ *
  *
  *
  * \defgroup IfxLld_Can_Can_Usage How to use the CAN Interface driver?
@@ -106,6 +108,10 @@
  * The Node initialisation can be done as followed:
  * \code
  *     // create node configuration
+ *     //Regarding messageRAM address offsets:
+ *     //1. The baseAddress will point to module's start address from the handle.
+ *     //.baseAddress                    =(uint32)(can->can),
+ *     //2. All Other offsets in messageRAM must be uniquely calculated for each node based on number of elements of each section. This application needs to perform after call to initNodeConfig.
  *
  *     // Node 0 as receive node
  *     {
@@ -120,9 +126,9 @@
  *
  *         nodeConfig.filterConfig.standardListSize = 2;
  *
- *         nodeConfig.messageRAM.standardFilterListStartAddress = 0x100;
- *         nodeConfig.messageRAM.rxBuffersStartAddress          = 0x200;
- *         nodeConfig.messageRAM.baseAddress                    = MODULE_CAN0_RAM + NODE0_RAM_OFFSET;
+ *         nodeConfig.messageRAM.standardFilterListStartAddress = 0x100 + NODE0_RAM_OFFSET;
+ *         nodeConfig.messageRAM.rxBuffersStartAddress          = 0x200 + NODE0_RAM_OFFSET;
+ *         //nodeConfig.messageRAM.baseAddress                    = MODULE_CAN0_RAM;// No longer needed, driver derives it from module handle. Check line .baseAddress = (uint32)(can->can),
  *
  *      // enable the required interrupts with respective to group interrupts configuration at module level
  *      nodeConfig.interruptConfig.messageStoredToDedicatedRxBufferEnabled = TRUE;
@@ -143,8 +149,8 @@
  *
  *         nodeConfig.txConfig.dedicatedTxBuffersNumber = 2;
  *
- *         nodeConfig.messageRAM.txBuffersStartAddress = 0x400;
- *         nodeConfig.messageRAM.baseAddress           = MODULE_CAN0_RAM + NODE1_RAM_OFFSET;
+ *         nodeConfig.messageRAM.txBuffersStartAddress = 0x400 + NODE1_RAM_OFFSET;
+ *         //nodeConfig.messageRAM.baseAddress           = MODULE_CAN0_RAM;// No longer needed, driver derives it from module handle. Check line .baseAddress = (uint32)(can->can),
  *
  *      // enable the required interrupts with respective to group interrupts configuration at module level
  *      nodeConfig.interruptConfig.transmissionCompletedEnabled = TRUE;
@@ -225,9 +231,9 @@
  * \code
  *     // Receiving Data
  *
- *     // will be replaced by the received values
- *     rxData[0] = 0xdeadbeef;
- *     rxData[1] = 0xdeadbeef;
+ *     // Initial Rx values. It should be replaced by the received values
+ *     rxData[0] = 0xdeaddead;
+ *     rxData[1] = 0xdeaddead;
  *
  *     // Initialise the message structure with default values, will be replaced by the received values
  *     IfxCan_Message rxMsg;
@@ -281,9 +287,9 @@
  *
  *         nodeConfig.filterConfig.standardListSize = 2;
  *
- *         nodeConfig.messageRAM.standardFilterListStartAddress = 0x100;
- *         nodeConfig.messageRAM.rxBuffersStartAddress          = 0x200;
- *         nodeConfig.messageRAM.baseAddress                    = MODULE_CAN0_RAM + NODE0_RAM_OFFSET;
+ *         nodeConfig.messageRAM.standardFilterListStartAddress = 0x100 + NODE0_RAM_OFFSET;
+ *         nodeConfig.messageRAM.rxBuffersStartAddress          = 0x200 + NODE0_RAM_OFFSET;
+ *         //nodeConfig.messageRAM.baseAddress                    = MODULE_CAN0_RAM ; // No longer needed, driver derives it from module handle. Check line .baseAddress = (uint32)(can->can),
  *
  *         // initialize Node 0
  *         IfxCan_Can_initNode(&canNode[0], &nodeConfig);
@@ -305,8 +311,8 @@
  *         nodeConfig.txConfig.txBufferDataFieldSize = IfxCan_DataFieldSize_64;   // choose the data field size to allocate tx elements in the message RAM
  *                                                                                                                     // this is not the data length (DLC) of the message
  *
- *         nodeConfig.messageRAM.txBuffersStartAddress = 0x400;
- *         nodeConfig.messageRAM.baseAddress           = MODULE_CAN0_RAM + NODE1_RAM_OFFSET;
+ *         nodeConfig.messageRAM.txBuffersStartAddress = 0x400 + NODE1_RAM_OFFSET;
+ *         //nodeConfig.messageRAM.baseAddress           = MODULE_CAN0_RAM ; // No longer needed, driver derives it from module handle. Check line .baseAddress = (uint32)(can->can),
  *
  *         // initialize Node 1;
  *         IfxCan_Can_initNode(&canNode[1], &nodeConfig);
@@ -393,10 +399,10 @@
  *         nodeConfig.rxConfig.rxMode = IfxCan_RxMode_sharedFifo0;    // see the Rx mode optins to select between Rx buffers and Rx fifos or the combination
  *         nodeConfig.rxConfig.rxFifo0Size = 64;
  *
- *         nodeConfig.messageRAM.standardFilterListStartAddress = 0x100;
- *         nodeConfig.messageRAM.rxBuffersStartAddress          = 0x200;
- *         nodeConfig.messageRAM.rxFifo0StartAddress            = 0x300;
- *         nodeConfig.messageRAM.baseAddress                    = MODULE_CAN0_RAM + NODE0_RAM_OFFSET;
+ *         nodeConfig.messageRAM.standardFilterListStartAddress = 0x100 + NODE0_RAM_OFFSET;
+ *         nodeConfig.messageRAM.rxBuffersStartAddress          = 0x200 + NODE0_RAM_OFFSET;
+ *         nodeConfig.messageRAM.rxFifo0StartAddress            = 0x300 + NODE0_RAM_OFFSET;
+ *         //nodeConfig.messageRAM.baseAddress                    = MODULE_CAN0_RAM ; // No longer needed, driver derives it from module handle. Check line .baseAddress = (uint32)(can->can),
  *
  *         // initialize Node 0
  *         IfxCan_Can_initNode(&canNode[0], &nodeConfig);
@@ -416,8 +422,8 @@
  *         nodeConfig.txConfig.dedicatedTxBuffersNumber = 0;    // since Tx mode is chosen as only FIFO
  *         nodeConfig.txConfig.txFifoQueueSize = 32;
  *
- *         nodeConfig.messageRAM.txBuffersStartAddress = 0x400;
- *         nodeConfig.messageRAM.baseAddress           = MODULE_CAN0_RAM + NODE1_RAM_OFFSET;
+ *         nodeConfig.messageRAM.txBuffersStartAddress = 0x400 + NODE1_RAM_OFFSET;
+ *         //nodeConfig.messageRAM.baseAddress           = MODULE_CAN0_RAM ;// No longer needed, driver derives it from module handle. Check line .baseAddress = (uint32)(can->can),
  *
  *         // initialize Node 1;
  *         IfxCan_Can_initNode(&canNode[1], &nodeConfig);
@@ -469,9 +475,9 @@
  *     txData[0] = 0x55555555;
  *     txData[1] = 0xAAAAAAAA;
  *
- *     // will be replaced by the received values
- *     rxData[0] = 0xdeadbeef;
- *     rxData[1] = 0xdeadbeef;
+ *     // Initial Rx values. It should be replaced by the received values
+ *     rxData[0] = 0xdeaddead;
+ *     rxData[1] = 0xdeaddead;
  *
  *     // Initialise the tx message structure with defualt values
  *     IfxCan_Message txMsg;

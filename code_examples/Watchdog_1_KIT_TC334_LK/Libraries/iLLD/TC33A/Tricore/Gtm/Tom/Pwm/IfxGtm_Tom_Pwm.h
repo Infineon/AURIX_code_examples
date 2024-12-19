@@ -3,8 +3,9 @@
  * \brief GTM PWM details
  * \ingroup IfxLld_Gtm
  *
- * \version iLLD_1_0_1_12_0_1
- * \copyright Copyright (c) 2019 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0
+ * \copyright Copyright (c) 2023 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
@@ -37,6 +38,7 @@
  * FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
+ *
  *
  * \defgroup IfxLld_Gtm_Tom_Pwm_Usage How to use the GTM TOM PWM Driver
  * \ingroup IfxLld_Gtm_Tom_Pwm
@@ -164,8 +166,8 @@ typedef struct
     IfxGtm_Tom               tom;                            /**< \brief Index of the TOM object used */
     IfxGtm_Tom_Ch            tomChannel;                     /**< \brief TOM channel used for the timer */
     IfxGtm_Tom_Ch_ClkSrc     clock;                          /**< \brief Timer input clock */
-    uint32                   period;                         /**< \brief Period */
-    uint32                   dutyCycle;                      /**< \brief Duty Cycle */
+    uint16                   period;                         /**< \brief Period in ticks (TOM only supports 16 bits) */
+    uint16                   dutyCycle;                      /**< \brief Duty Cycle in ticks (TOM only supports 16 bits) */
     Ifx_ActiveState          signalLevel;                    /**< \brief Signal Level */
     boolean                  oneShotModeEnabled;             /**< \brief Enable/Disable the one shot mode */
     IfxGtm_Dtm_ClockSource   dtmClockSource;                 /**< \brief DTM clock source */
@@ -228,5 +230,4 @@ IFX_EXTERN void IfxGtm_Tom_Pwm_start(IfxGtm_Tom_Pwm_Driver *driver, boolean imme
  * \return None
  */
 IFX_EXTERN void IfxGtm_Tom_Pwm_stop(IfxGtm_Tom_Pwm_Driver *driver, boolean immediate);
-
 #endif /* IFXGTM_TOM_PWM_H */

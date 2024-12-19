@@ -2,8 +2,9 @@
  * \file IfxSdmmc_Emmc.c
  * \brief SDMMC EMMC details
  *
- * \version iLLD_1_0_1_12_0_1
- * \copyright Copyright (c) 2019 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0_1
+ * \copyright Copyright (c) 2023 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
@@ -36,6 +37,7 @@
  * FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
+ *
  *
  */
 
@@ -313,7 +315,14 @@ IfxSdmmc_Status IfxSdmmc_Emmc_readBlock(IfxSdmmc_Emmc *emmc, uint32 address, uin
 
         if (emmc->dmaUsed == TRUE)
         {
-            status = IfxSdmmc_Emmc_singleBlockDmaTransfer(emmc, IfxSdmmc_Command_readSingleBlock, address, IFXSDMMC_BLOCK_SIZE_DEFAULT, data, IfxSdmmc_TransferDirection_read);
+            if (emmc->dmaType == IfxSdmmc_DmaType_adma2)
+            {
+                status = IfxSdmmc_Emmc_singleBlockAdma2Transfer(emmc, IfxSdmmc_Command_readSingleBlock, address, IFXSDMMC_BLOCK_SIZE_DEFAULT, data, IfxSdmmc_TransferDirection_read);
+            }
+            else
+            {
+                status = IfxSdmmc_Emmc_singleBlockDmaTransfer(emmc, IfxSdmmc_Command_readSingleBlock, address, IFXSDMMC_BLOCK_SIZE_DEFAULT, data, IfxSdmmc_TransferDirection_read);
+            }
         }
         else
         {
@@ -1160,7 +1169,7 @@ IfxSdmmc_Status IfxSdmmc_Emmc_multiBlockAdma2Transfer(IfxSdmmc_Emmc *emmc, IfxSd
     {
         IfxSdmmc_setBlockCount(emmc->sdmmcSFR, numBlocks);
         IfxSdmmc_setMultiBlockSelect(emmc->sdmmcSFR, TRUE);
-        IfxSdmmc_disableBlockCount(emmc->sdmmcSFR);  // ADMA is used
+        IfxSdmmc_enableBlockCount(emmc->sdmmcSFR);  // ADMA is used
     }
     else
     {

@@ -2,8 +2,8 @@
  * \file IfxSmu.c
  * \brief SMU  basic functionality
  *
- * \version iLLD_1_0_1_12_0
- * \copyright Copyright (c) 2019 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0_1
+ * \copyright Copyright (c) 2021 Infineon Technologies AG. All rights reserved.
  *
  *
  *                                 IMPORTANT NOTICE
@@ -173,7 +173,8 @@ boolean IfxSmu_getAlarmAction(IfxSmu_Alarm alarm, IfxSmu_InternalAlarmAction *in
                                                    MODULE_SMU.AGCF[alarmGroup][2].U << 2);
 
     /* Assign the FSP action configured to out parameter */
-    alarmFSPAction = (MODULE_SMU.AGFSP[alarmGroup].U >> alarmPos);
+    alarmFSPAction = (boolean)((MODULE_SMU.AGFSP[alarmGroup].U >> alarmPos) & 0x1);
+
     return alarmFSPAction;
 }
 

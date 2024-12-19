@@ -3,8 +3,9 @@
  * \brief EDSADC  basic functionality
  * \ingroup IfxLld_Edsadc
  *
- * \version iLLD_1_0_1_15_0_1
- * \copyright Copyright (c) 2021 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0
+ * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
@@ -37,6 +38,7 @@
  * FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
+ *
  *
  * \defgroup IfxLld_Edsadc_Std_Enum Enumerations
  * \ingroup IfxLld_Edsadc_Std
@@ -815,8 +817,8 @@ IFX_INLINE uint32 *IfxEdsadc_getResultRegisterAddress(Ifx_EDSADC *edsadc, IfxEds
  * \param channel specifies channel Id
  * \param voltage select Fractional reference Voltage
  * \param refMode Fractional Reference Voltage Enable/ Disable
- * \param positiveInput Defines the connection of the respective positive input y to the common mode hold voltage
- * \param negativeInput Defines the connection of the respective negative input y to the common mode hold voltage.
+ * \param positiveInput Defines the connection of the respective positive input y to the common mode hold voltage. This is a mask where with the 1st bit is channel 0, second channel 1, ... . With 0=disable and 1=enable
+ * \param negativeInput Defines the connection of the respective negative input y to the common mode hold voltage. This is a mask where with the 1st bit is channel 0, second channel 1, ... . With 0=disable and 1=enable
  * \return None
  */
 IFX_EXTERN void IfxEdsadc_setCommonModeVoltage(Ifx_EDSADC *edsadc, IfxEdsadc_ChannelId channel, IfxEdsadc_FractionalRefVoltageSelection voltage, IfxEdsadc_FractionalRefVoltage refMode, uint8 positiveInput, uint8 negativeInput);

@@ -3,7 +3,7 @@
  * \brief IOM DRIVER details
  * \ingroup IfxLld_Iom
  *
- * \version iLLD_1_0_1_12_0
+ * \version iLLD_1_0_1_17_0
  * \copyright Copyright (c) 2018 Infineon Technologies AG. All rights reserved.
  *
  *

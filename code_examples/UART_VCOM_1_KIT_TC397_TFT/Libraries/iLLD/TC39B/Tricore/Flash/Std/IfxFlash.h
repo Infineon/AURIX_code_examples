@@ -3,8 +3,9 @@
  * \brief FLASH  basic functionality
  * \ingroup IfxLld_Flash
  *
- * \version iLLD_1_0_1_12_0
- * \copyright Copyright (c) 2019 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0_1
+ * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
@@ -37,6 +38,7 @@
  * FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
+ *
  *
  *
  * \defgroup IfxLld_Flash_Std_Enumerations Enumerations
@@ -525,12 +527,12 @@ IFX_INLINE void IfxFlash_loadPage2X32(uint32 pageAddr, uint32 wordL, uint32 word
     IFX_UNUSED_PARAMETER(pageAddr);
 
     volatile uint32 *addr1 = (volatile uint32 *)(IFXFLASH_CMD_BASE_ADDRESS | 0x55f0);
-
+    __dsync(); /* Ensure residual operations are out of the store buffers */
     *addr1 = wordL;
     addr1++;
+    __dsync(); /* Purge store buffers to avoid merging into 64-bit writes */
     *addr1 = wordU;
-
-    __dsync();
+    __dsync(); /* Purge store buffers to avoid merging into 64-bit writes */
 }
 
 

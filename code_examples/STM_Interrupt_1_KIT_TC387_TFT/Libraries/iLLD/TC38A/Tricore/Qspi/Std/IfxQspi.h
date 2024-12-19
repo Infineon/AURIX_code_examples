@@ -3,8 +3,8 @@
  * \brief QSPI  basic functionality
  * \ingroup IfxLld_Qspi
  *
- * \version iLLD_1_0_1_12_0
- * \copyright Copyright (c) 2019 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0
+ * \copyright Copyright (c) 2023 Infineon Technologies AG. All rights reserved.
  *
  *
  *
@@ -107,7 +107,8 @@ typedef enum
     IfxQspi_ChannelId_11,    /**< \brief Channel #11  */
     IfxQspi_ChannelId_12,    /**< \brief Channel #12  */
     IfxQspi_ChannelId_13,    /**< \brief Channel #13  */
-    IfxQspi_ChannelId_14     /**< \brief Channel #14  */
+    IfxQspi_ChannelId_14,    /**< \brief Channel #14  */
+    IfxQspi_ChannelId_15     /**< \brief Channel #15  */
 } IfxQspi_ChannelId;
 
 /** \brief Data length unit of a frame (BACON.BYTE)
@@ -117,6 +118,38 @@ typedef enum
     IfxQspi_DataLengthUnit_bit  = 0, /**< \brief Data Length in Bits */
     IfxQspi_DataLengthUnit_byte = 1  /**< \brief Data length in Bytes */
 } IfxQspi_DataLengthUnit;
+
+/** \brief Length of Delay for Idle, Leading and Trailing Delays
+ * Length in TPER units. Length = Value + 1. Refer Figure "Calculation of the delays".
+ * Definition in BACON.B.IDLE, BACON.B.LEAD and BACON.B.TRAIL
+ */
+typedef enum
+{
+    IfxQspi_DelayLength_1 = 0,  /**< \brief length of 1 TPER unit */
+    IfxQspi_DelayLength_2 = 1,  /**< \brief length of 2 TPER units */
+    IfxQspi_DelayLength_3 = 2,  /**< \brief length of 3 TPER units */
+    IfxQspi_DelayLength_4 = 3,  /**< \brief length of 4 TPER units */
+    IfxQspi_DelayLength_5 = 4,  /**< \brief length of 5 TPER units */
+    IfxQspi_DelayLength_6 = 5,  /**< \brief length of 6 TPER units */
+    IfxQspi_DelayLength_7 = 6,  /**< \brief length of 7 TPER units */
+    IfxQspi_DelayLength_8 = 7   /**< \brief length of 8 TPER units */
+} IfxQspi_DelayLength;
+
+/** \brief Prescalar for Delay Parameters (Idle Delay, Leading Delay and Trailing Delay)
+ * Length in TPER units. Prescalar = 4^(Value). Refer Figure "Calculation of the delays".
+ * Definition in BACON.B.IPRE, BACON.B.LPRE and BACON.B.TPRE
+ */
+typedef enum
+{
+    IfxQspi_DelayPrescalar_1     = 0, /**< \brief prescalar of 1 */
+    IfxQspi_DelayPrescalar_4     = 1, /**< \brief prescalar of 4 */
+    IfxQspi_DelayPrescalar_16    = 2, /**< \brief prescalar of 16 */
+    IfxQspi_DelayPrescalar_64    = 3, /**< \brief prescalar of 64 */
+    IfxQspi_DelayPrescalar_256   = 4, /**< \brief prescalar of 256 */
+    IfxQspi_DelayPrescalar_1024  = 5, /**< \brief prescalar of 1024 */
+    IfxQspi_DelayPrescalar_4096  = 6, /**< \brief prescalar of 4096 */
+    IfxQspi_DelayPrescalar_16384 = 7  /**< \brief prescalar of 16384 */
+} IfxQspi_DelayPrescalar;
 
 /** \brief QSPI Error Flags (STATUS.ERRORFLAGS)
  */
@@ -311,6 +344,19 @@ typedef struct
     uint8 pre;         /**< \brief specifies the prescalar value */
     uint8 delay;       /**< \brief delay multiplier */
 } IfxQspi_DelayConst;
+
+/** \brief Delay Parameters for Idle, Leading and Trailing Delays
+ * To be populated into BACON register and handle after delay calculation by application.
+ */
+typedef struct
+{
+    IfxQspi_DelayPrescalar idlePrescalar;           /**< \brief prescalar value for Idle delay */
+    IfxQspi_DelayLength    idleDelay;               /**< \brief length of Idle delay */
+    IfxQspi_DelayPrescalar leadingPrescalar;        /**< \brief prescalar value for Leading delay */
+    IfxQspi_DelayLength    leadingDelay;            /**< \brief length of Leading delay */
+    IfxQspi_DelayPrescalar trailingPrescalar;       /**< \brief prescalar value for Trailing delay */
+    IfxQspi_DelayLength    trailingDelay;           /**< \brief length of Trailing delay */
+} IfxQspi_DelayParameters;
 
 /** \addtogroup IfxLld_Qspi_Std_Operative
  * \{ */
@@ -953,6 +999,13 @@ IFX_INLINE void IfxQspi_initSclkInPinWithPadLevel(const IfxQspi_Sclk_In *sclkIn,
  */
 IFX_INLINE void IfxQspi_initSlsiWithPadLevel(const IfxQspi_Slsi_In *slsi, IfxPort_InputMode slsiMode, IfxPort_PadDriver padDriver);
 
+/** \brief Write delay parameters into BACON register. Recommended to use the interface API IfxQspi_SpiMaster_updateDelayParameters, which will update both handle and sfr.
+ * \param qspi Pointer to QSPI module registers
+ * \param config delay values to be entered into BACON register
+ * \return None
+ */
+IFX_INLINE void IfxQspi_setBaconDelayParameters(Ifx_QSPI *qspi, IfxQspi_DelayParameters *config);
+
 /******************************************************************************/
 /*---------------------Inline Function Implementations------------------------*/
 /******************************************************************************/
@@ -1403,6 +1456,21 @@ IFX_INLINE void IfxQspi_initSlsiWithPadLevel(const IfxQspi_Slsi_In *slsi, IfxPor
     /* PISEL */
     IfxPort_setPinPadDriver(slsi->pin.port, slsi->pin.pinIndex, padDriver);
     slsi->module->PISEL.B.SLSIS = slsi->select + 1;
+}
+
+
+IFX_INLINE void IfxQspi_setBaconDelayParameters(Ifx_QSPI *qspi, IfxQspi_DelayParameters *config)
+{
+    Ifx_QSPI_BACON bacon;
+    bacon.U            = qspi->BACON.U;
+    bacon.B.IPRE       = config->idlePrescalar;
+    bacon.B.IDLE       = config->idleDelay;
+    bacon.B.LPRE       = config->leadingPrescalar;
+    bacon.B.LEAD       = config->leadingDelay;
+    bacon.B.TPRE       = config->trailingPrescalar;
+    bacon.B.TRAIL      = config->trailingDelay;
+
+    qspi->BACONENTRY.U = bacon.U;
 }
 
 

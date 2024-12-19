@@ -32,12 +32,12 @@
  *              Any CRC kernel calculation error is indicated by switching ON an LED.
  *
  * \name FCE_CRC_1_KIT_TC334_LK
- * \version V1.0.0
+ * \version V2.0.0
  * \board AURIX TC334 lite Kit, KIT_A2G_TC334_LITE, TC33xLP_A-Step
  * \keywords AURIX, CRC16, CRC32, CRC8, FCE, FCE_CRC_1, Hardware Acceleration
- * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_FCE_CRC_1_KIT_TC334_LK-TR-v01_00_00-EN.pdf
- * \documents https://www.infineon.com/aurix-expert-training/TC33A_iLLD_UM_1_0_1_12_1.chm
- * \lastUpdated 2021-12-16
+ * \documents README.MD
+ * \documents https://www.infineon.com/aurix-expert-training/TC33A_iLLD_UM_1_0_1_17_0.chm
+ * \lastUpdated 2024-02-28
  *********************************************************************************************************************/
 #include "Ifx_Types.h"
 #include "IfxCpu.h"

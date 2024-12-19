@@ -3,8 +3,9 @@
  * \brief GTM  basic functionality
  * \ingroup IfxLld_Gtm
  *
- * \version iLLD_1_0_1_15_0_1
- * \copyright Copyright (c) 2019 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0
+ * \copyright Copyright (c) 2023 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
@@ -40,6 +41,7 @@
  *
  *
  *
+ *
  * \defgroup IfxLld_Gtm_Std_Tom Tom Basic Functionality
  * \ingroup IfxLld_Gtm_Std
  * \defgroup IfxLld_Gtm_Std_Tom_Enumerations TOM Enumerations
@@ -63,6 +65,8 @@
 #include "IfxGtm.h"
 #include "IfxGtm_Tbu.h"
 #include "Src/Std/IfxSrc.h"
+#include "IfxGtm_bf.h"
+#include "IfxGtm_Cmu.h"
 
 /******************************************************************************/
 /*-----------------------------------Macros-----------------------------------*/
@@ -71,6 +75,19 @@
 /** \brief Number of channels per TOM TGC
  */
 #define IFXGTM_TOM_NUM_TGC_CHANNELS (8)
+
+/** \brief Macro to calculate shift for each channel
+ * Each channel occupies two bits hence multiply by 2 (left shift by 1) and then add offset
+ */
+#define IFXGTM_TOM_TGC_CHANNEL_SHIFT(channel, offset) ((((uint32)((uint32)channel & 0x7u)) << 1u) + offset)
+
+/** \brief Macro to mask one channel bitfield in TGC registers
+ */
+#define IFXGTM_TOM_TGC_CHANNEL_MASK (3u)
+
+/** \brief Macro to calculate channel bitfield value in TGC registers depending on whether it is enabled or not
+ */
+#define IFXGTM_TOM_TGC_CHANNEL_VALUE(enabled)         ((enabled == TRUE) ? IfxGtm_FeatureControl_enable : IfxGtm_FeatureControl_disable)
 
 /******************************************************************************/
 /*--------------------------------Enumerations--------------------------------*/
@@ -115,6 +132,20 @@ typedef enum
 /*-------------------------Inline Function Prototypes-------------------------*/
 /******************************************************************************/
 
+/** \brief Clears the channel One notification
+ * \param tom Pointer to the TOM object
+ * \param channel Channel index
+ * \return None
+ */
+IFX_INLINE void IfxGtm_Tom_Ch_clearOneNotification(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel);
+
+/** \brief Clears the channel Zero notification
+ * \param tom Pointer to the TOM object
+ * \param channel Channel index
+ * \return None
+ */
+IFX_INLINE void IfxGtm_Tom_Ch_clearZeroNotification(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel);
+
 /** \brief Returns the base addredd of selected Tom channel
  * \param tom Pointer to the TOM object
  * \param channel Channel index
@@ -122,73 +153,55 @@ typedef enum
  */
 IFX_INLINE Ifx_GTM_TOM_CH *IfxGtm_Tom_Ch_getChannelPointer(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel);
 
-/******************************************************************************/
-/*-------------------------Global Function Prototypes-------------------------*/
-/******************************************************************************/
-
-/** \brief Clears the channel One notification
- * \param tom Pointer to the TOM object
- * \param channel Channel index
- * \return None
- */
-IFX_EXTERN void IfxGtm_Tom_Ch_clearOneNotification(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel);
-
-/** \brief Clears the channel Zero notification
- * \param tom Pointer to the TOM object
- * \param channel Channel index
- * \return None
- */
-IFX_EXTERN void IfxGtm_Tom_Ch_clearZeroNotification(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel);
-
 /** \brief Returns the TOM channel input clock frequency in Hz
  * \param gtm Pointer to GTM module
  * \param tom Pointer to the TOM object
  * \param channel Channel index
  * \return TOM channel input clock frequency in Hz
  */
-IFX_EXTERN float32 IfxGtm_Tom_Ch_getClockFrequency(Ifx_GTM *gtm, Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel);
+IFX_INLINE float32 IfxGtm_Tom_Ch_getClockFrequency(Ifx_GTM *gtm, Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel);
 
 /** \brief Returns the channel clock source
  * \param tom Pointer to the TOM object
  * \param channel Channel index
  * \return The clock source
  */
-IFX_EXTERN IfxGtm_Tom_Ch_ClkSrc IfxGtm_Tom_Ch_getClockSource(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel);
+IFX_INLINE IfxGtm_Tom_Ch_ClkSrc IfxGtm_Tom_Ch_getClockSource(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel);
 
 /** \brief Returns the compare one value
  * \param tom Pointer to the TOM object
  * \param channel Channel index
  * \return compare one value
  */
-IFX_EXTERN uint32 IfxGtm_Tom_Ch_getCompareOne(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel);
+IFX_INLINE uint32 IfxGtm_Tom_Ch_getCompareOne(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel);
 
 /** \brief Returns the compare one pointer
  * \param tom Pointer to the TOM object
  * \param channel Channel index
  * \return compare one pointer
  */
-IFX_EXTERN volatile uint32 *IfxGtm_Tom_Ch_getCompareOnePointer(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel);
+IFX_INLINE volatile uint32 *IfxGtm_Tom_Ch_getCompareOnePointer(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel);
 
 /** \brief Returns the compare zero value
  * \param tom Pointer to the TOM object
  * \param channel Channel index
  * \return compare zero value
  */
-IFX_EXTERN uint32 IfxGtm_Tom_Ch_getCompareZero(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel);
+IFX_INLINE uint32 IfxGtm_Tom_Ch_getCompareZero(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel);
 
 /** \brief Returns the compare zero pointer
  * \param tom Pointer to the TOM object
  * \param channel Channel index
  * \return compare zero pointer
  */
-IFX_EXTERN volatile uint32 *IfxGtm_Tom_Ch_getCompareZeroPointer(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel);
+IFX_INLINE volatile uint32 *IfxGtm_Tom_Ch_getCompareZeroPointer(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel);
 
 /** \brief Gets the TOM output level
  * \param tom Pointer to the TOM object
  * \param channel Channel index
  * \return TRUE the output is high, FALSE the output is low
  */
-IFX_EXTERN boolean IfxGtm_Tom_Ch_getOutputLevel(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel);
+IFX_INLINE boolean IfxGtm_Tom_Ch_getOutputLevel(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel);
 
 /** \brief Returns a pointer to the TOM channel SRC
  * \param gtm Pointer to GTM module
@@ -196,49 +209,49 @@ IFX_EXTERN boolean IfxGtm_Tom_Ch_getOutputLevel(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch 
  * \param channel Channel index
  * \return Pointer to the TOM channel SRC
  */
-IFX_EXTERN volatile Ifx_SRC_SRCR *IfxGtm_Tom_Ch_getSrcPointer(Ifx_GTM *gtm, IfxGtm_Tom tom, IfxGtm_Tom_Ch channel);
+IFX_INLINE volatile Ifx_SRC_SRCR *IfxGtm_Tom_Ch_getSrcPointer(Ifx_GTM *gtm, IfxGtm_Tom tom, IfxGtm_Tom_Ch channel);
 
 /** \brief Returns the TGC pointer
  * \param tom Pointer to the TOM object
  * \param tgcIndex TGC index
  * \return TOM TGC object pointer
  */
-IFX_EXTERN Ifx_GTM_TOM_TGC *IfxGtm_Tom_Ch_getTgcPointer(Ifx_GTM_TOM *tom, uint32 tgcIndex);
+IFX_INLINE Ifx_GTM_TOM_TGC *IfxGtm_Tom_Ch_getTgcPointer(Ifx_GTM_TOM *tom, uint32 tgcIndex);
 
 /** \brief Returns the Timer pointer
  * \param tom Pointer to the TOM object
  * \param channel Channel index
  * \return Timer pointer
  */
-IFX_EXTERN volatile uint32 *IfxGtm_Tom_Ch_getTimerPointer(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel);
+IFX_INLINE volatile uint32 *IfxGtm_Tom_Ch_getTimerPointer(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel);
 
 /** \brief Returns the status of channel One notification
  * \param tom Pointer to the TOM object
  * \param channel Channel index
  * \return Status of channel One notification
  */
-IFX_EXTERN boolean IfxGtm_Tom_Ch_isOneNotification(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel);
+IFX_INLINE boolean IfxGtm_Tom_Ch_isOneNotification(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel);
 
 /** \brief Returns the status of channel Zero notification
  * \param tom Pointer to the TOM object
  * \param channel Channel index
  * \return Status of channel Zero notification
  */
-IFX_EXTERN boolean IfxGtm_Tom_Ch_isZeroNotification(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel);
+IFX_INLINE boolean IfxGtm_Tom_Ch_isZeroNotification(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel);
 
 /** \brief Raises the interrupt for Compare 1
  * \param tom Pointer to the TOM object
  * \param channel Channel index
  * \return None
  */
-IFX_EXTERN void IfxGtm_Tom_Ch_raiseInterruptOne(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel);
+IFX_INLINE void IfxGtm_Tom_Ch_raiseInterruptOne(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel);
 
 /** \brief Raises the interrupt for Compare 0
  * \param tom Pointer to the TOM object
  * \param channel Channel index
  * \return None
  */
-IFX_EXTERN void IfxGtm_Tom_Ch_raiseInterruptZero(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel);
+IFX_INLINE void IfxGtm_Tom_Ch_raiseInterruptZero(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel);
 
 /** \brief Sets the channel clock source
  * \param tom Pointer to the TOM object
@@ -246,7 +259,7 @@ IFX_EXTERN void IfxGtm_Tom_Ch_raiseInterruptZero(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch
  * \param clock Channel clock source
  * \return None
  */
-IFX_EXTERN void IfxGtm_Tom_Ch_setClockSource(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel, IfxGtm_Tom_Ch_ClkSrc clock);
+IFX_INLINE void IfxGtm_Tom_Ch_setClockSource(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel, IfxGtm_Tom_Ch_ClkSrc clock);
 
 /** \brief Sets the compare 0 and 1 values
  * \param tom Pointer to the TOM object
@@ -255,7 +268,7 @@ IFX_EXTERN void IfxGtm_Tom_Ch_setClockSource(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch cha
  * \param compareOne Compare one value
  * \return None
  */
-IFX_EXTERN void IfxGtm_Tom_Ch_setCompare(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel, uint32 compareZero, uint32 compareOne);
+IFX_INLINE void IfxGtm_Tom_Ch_setCompare(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel, uint16 compareZero, uint16 compareOne);
 
 /** \brief Sets the compare 1 value
  * \param tom Pointer to the TOM object
@@ -263,7 +276,7 @@ IFX_EXTERN void IfxGtm_Tom_Ch_setCompare(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel
  * \param compareOne Compare one value
  * \return None
  */
-IFX_EXTERN void IfxGtm_Tom_Ch_setCompareOne(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel, uint32 compareOne);
+IFX_INLINE void IfxGtm_Tom_Ch_setCompareOne(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel, uint16 compareOne);
 
 /** \brief Sets the compare 1 shadow value
  * \param tom Pointer to the TOM object
@@ -271,7 +284,7 @@ IFX_EXTERN void IfxGtm_Tom_Ch_setCompareOne(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch chan
  * \param shadowOne Compare one shadow value
  * \return None
  */
-IFX_EXTERN void IfxGtm_Tom_Ch_setCompareOneShadow(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel, uint32 shadowOne);
+IFX_INLINE void IfxGtm_Tom_Ch_setCompareOneShadow(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel, uint16 shadowOne);
 
 /** \brief Sets the compare 0 and 1 shadow values
  * \param tom Pointer to the TOM object
@@ -280,7 +293,7 @@ IFX_EXTERN void IfxGtm_Tom_Ch_setCompareOneShadow(Ifx_GTM_TOM *tom, IfxGtm_Tom_C
  * \param shadowOne Compare one shadow value
  * \return None
  */
-IFX_EXTERN void IfxGtm_Tom_Ch_setCompareShadow(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel, uint32 shadowZero, uint32 shadowOne);
+IFX_INLINE void IfxGtm_Tom_Ch_setCompareShadow(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel, uint16 shadowZero, uint16 shadowOne);
 
 /** \brief Sets the compare 0 value
  * \param tom Pointer to the TOM object
@@ -288,7 +301,7 @@ IFX_EXTERN void IfxGtm_Tom_Ch_setCompareShadow(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch c
  * \param compareZero Compare zero value
  * \return None
  */
-IFX_EXTERN void IfxGtm_Tom_Ch_setCompareZero(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel, uint32 compareZero);
+IFX_INLINE void IfxGtm_Tom_Ch_setCompareZero(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel, uint16 compareZero);
 
 /** \brief Sets the compare 0 shadow value
  * \param tom Pointer to the TOM object
@@ -296,7 +309,7 @@ IFX_EXTERN void IfxGtm_Tom_Ch_setCompareZero(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch cha
  * \param shadowZero Compare zero shadow value
  * \return None
  */
-IFX_EXTERN void IfxGtm_Tom_Ch_setCompareZeroShadow(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel, uint32 shadowZero);
+IFX_INLINE void IfxGtm_Tom_Ch_setCompareZeroShadow(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel, uint16 shadowZero);
 
 /** \brief Sets the counter value
  * \param tom Pointer to the TOM object
@@ -304,7 +317,7 @@ IFX_EXTERN void IfxGtm_Tom_Ch_setCompareZeroShadow(Ifx_GTM_TOM *tom, IfxGtm_Tom_
  * \param value Counter value
  * \return None
  */
-IFX_EXTERN void IfxGtm_Tom_Ch_setCounterValue(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel, uint32 value);
+IFX_INLINE void IfxGtm_Tom_Ch_setCounterValue(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel, uint32 value);
 
 /** \brief Enable/disable the gated counter mode (channel 0 to 7 only)
  * \param tom Pointer to the TOM object
@@ -312,7 +325,7 @@ IFX_EXTERN void IfxGtm_Tom_Ch_setCounterValue(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch ch
  * \param enabled If TRUE, the feature is enabled, else disabled
  * \return None
  */
-IFX_EXTERN void IfxGtm_Tom_Ch_setGatedCounter(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel, boolean enabled);
+IFX_INLINE void IfxGtm_Tom_Ch_setGatedCounter(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel, boolean enabled);
 
 /** \brief Sets the channel notification
  * \param tom Pointer to the TOM object
@@ -322,7 +335,7 @@ IFX_EXTERN void IfxGtm_Tom_Ch_setGatedCounter(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch ch
  * \param interruptOnCompareOne If TRUE, an interrupt is generated on compare 1, else no interrupt is generated
  * \return None
  */
-IFX_EXTERN void IfxGtm_Tom_Ch_setNotification(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel, IfxGtm_IrqMode mode, boolean interruptOnCompareZero, boolean interruptOnCompareOne);
+IFX_INLINE void IfxGtm_Tom_Ch_setNotification(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel, IfxGtm_IrqMode mode, boolean interruptOnCompareZero, boolean interruptOnCompareOne);
 
 /** \brief Enable/disable the one shot mode
  * \param tom Pointer to the TOM object
@@ -330,7 +343,7 @@ IFX_EXTERN void IfxGtm_Tom_Ch_setNotification(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch ch
  * \param enabled If TRUE, the feature is enabled, else disabled
  * \return None
  */
-IFX_EXTERN void IfxGtm_Tom_Ch_setOneShotMode(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel, boolean enabled);
+IFX_INLINE void IfxGtm_Tom_Ch_setOneShotMode(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel, boolean enabled);
 
 /** \brief Enable/disable the PCM mode (channel 15 only)
  * \param tom Pointer to the TOM object
@@ -338,7 +351,7 @@ IFX_EXTERN void IfxGtm_Tom_Ch_setOneShotMode(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch cha
  * \param enabled If TRUE, the feature is enabled, else disabled
  * \return None
  */
-IFX_EXTERN void IfxGtm_Tom_Ch_setPcm(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel, boolean enabled);
+IFX_INLINE void IfxGtm_Tom_Ch_setPcm(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel, boolean enabled);
 
 /** \brief Sets the channel clock source either from local or from previous channel
  * \param tom Pointer to the TOM object
@@ -346,7 +359,7 @@ IFX_EXTERN void IfxGtm_Tom_Ch_setPcm(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel, bo
  * \param event Channel reset event
  * \return None
  */
-IFX_EXTERN void IfxGtm_Tom_Ch_setResetSource(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel, IfxGtm_Tom_Ch_ResetEvent event);
+IFX_INLINE void IfxGtm_Tom_Ch_setResetSource(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel, IfxGtm_Tom_Ch_ResetEvent event);
 
 /** \brief Sets the signal level
  * \param tom Pointer to the TOM object
@@ -354,7 +367,7 @@ IFX_EXTERN void IfxGtm_Tom_Ch_setResetSource(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch cha
  * \param activeState Signal level active state. In case the channel is reset, the output is set to not active. The signal is active between 0 and the leading edge (CM1) and inactive between the leading edge and the trailing edge (CM0).
  * \return None
  */
-IFX_EXTERN void IfxGtm_Tom_Ch_setSignalLevel(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel, Ifx_ActiveState activeState);
+IFX_INLINE void IfxGtm_Tom_Ch_setSignalLevel(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel, Ifx_ActiveState activeState);
 
 /** \brief Enable/disable the SPE mode (channel 0 to 7 only)
  * \param tom Pointer to the TOM object
@@ -362,7 +375,7 @@ IFX_EXTERN void IfxGtm_Tom_Ch_setSignalLevel(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch cha
  * \param enabled If TRUE, the feature is enabled, else disabled
  * \return None
  */
-IFX_EXTERN void IfxGtm_Tom_Ch_setSpe(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel, boolean enabled);
+IFX_INLINE void IfxGtm_Tom_Ch_setSpe(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel, boolean enabled);
 
 /** \brief Sets the channel trigger output
  * \param tom Pointer to the TOM object
@@ -370,7 +383,7 @@ IFX_EXTERN void IfxGtm_Tom_Ch_setSpe(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel, bo
  * \param trigger Channel trigger output mode
  * \return None
  */
-IFX_EXTERN void IfxGtm_Tom_Ch_setTriggerOutput(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel, IfxGtm_Tom_Ch_OutputTrigger trigger);
+IFX_INLINE void IfxGtm_Tom_Ch_setTriggerOutput(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel, IfxGtm_Tom_Ch_OutputTrigger trigger);
 
 /** \} */
 
@@ -380,6 +393,106 @@ IFX_EXTERN void IfxGtm_Tom_Ch_setTriggerOutput(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch c
 /******************************************************************************/
 /*-------------------------Inline Function Prototypes-------------------------*/
 /******************************************************************************/
+
+/** \brief Enable/disable one channel (ENDIS)
+ * \param tgc Pointer to the TGC object
+ * \param channel Channel index
+ * \param enabled Enable/ Disable choise of the feature
+ * \param immediate If TRUE, the action is done immediately else, the action is done on TGC trigger (CTRL_TRIG)
+ * \return None
+ */
+IFX_INLINE void IfxGtm_Tom_Tgc_enableChannel(Ifx_GTM_TOM_TGC *tgc, IfxGtm_Tom_Ch channel, boolean enabled, boolean immediate);
+
+/** \brief Enable/disable one channel output (OUTEN)
+ * \param tgc Pointer to the TGC object
+ * \param channel Channel index
+ * \param enabled Enable/ Disable choise of the feature
+ * \param immediate If TRUE, the action is done immediately else, the action is done on TGC trigger (CTRL_TRIG)
+ * \return None
+ */
+IFX_INLINE void IfxGtm_Tom_Tgc_enableChannelOutput(Ifx_GTM_TOM_TGC *tgc, IfxGtm_Tom_Ch channel, boolean enabled, boolean immediate);
+
+/** \brief Enable/disable one channel for update (UPEN)
+ * \param tgc Pointer to the TGC object
+ * \param channel Channel index
+ * \param enabled Enable/ Disable choise of the feature
+ * \return None
+ */
+IFX_INLINE void IfxGtm_Tom_Tgc_enableChannelUpdate(Ifx_GTM_TOM_TGC *tgc, IfxGtm_Tom_Ch channel, boolean enabled);
+
+/** \brief Enable/disable one or more channels (ENDIS)
+ * \param tgc Pointer to the TGC object
+ * \param enableMask Mask for the channel feature enable (bit 0: Channel 0, bit 1: channel 1, ...)
+ * \param disableMask Mask for the channel feature disable (bit 0: Channel 0, bit 1: channel 1, ...)
+ * \param immediate If TRUE, the action is done immediately else, the action is done on TGC trigger (CTRL_TRIG)
+ * \return None
+ */
+IFX_INLINE void IfxGtm_Tom_Tgc_enableChannels(Ifx_GTM_TOM_TGC *tgc, uint16 enableMask, uint16 disableMask, boolean immediate);
+
+/** \brief Enable/disable one or more channels output (OUTEN)
+ * \param tgc Pointer to the TGC object
+ * \param enableMask Mask for the channel feature enable (bit 0: Channel 0, bit 1: channel 1, ...)
+ * \param disableMask Mask for the channel feature disable (bit 0: Channel 0, bit 1: channel 1, ...)
+ * \param immediate If TRUE, the action is done immediately else, the action is done on TGC trigger (CTRL_TRIG)
+ * \return None
+ */
+IFX_INLINE void IfxGtm_Tom_Tgc_enableChannelsOutput(Ifx_GTM_TOM_TGC *tgc, uint16 enableMask, uint16 disableMask, boolean immediate);
+
+/** \brief Enable/disable the TGC channels trigger
+ * \param tgc Pointer to the TGC object
+ * \param enableMask Mask for the channel feature enable (bit 0: Channel 0, bit 1: channel 1, ...)
+ * \param disableMask Mask for the channel feature disable (bit 0: Channel 0, bit 1: channel 1, ...)
+ * \return None
+ */
+IFX_INLINE void IfxGtm_Tom_Tgc_enableChannelsTrigger(Ifx_GTM_TOM_TGC *tgc, uint16 enableMask, uint16 disableMask);
+
+/** \brief Enable/disable one or more channels for update (UPEN)
+ * \param tgc Pointer to the TGC object
+ * \param enableMask Mask for the channel feature enable (bit 0: Channel 0, bit 1: channel 1, ...)
+ * \param disableMask Mask for the channel feature disable (bit 0: Channel 0, bit 1: channel 1, ...)
+ * \return None
+ */
+IFX_INLINE void IfxGtm_Tom_Tgc_enableChannelsUpdate(Ifx_GTM_TOM_TGC *tgc, uint16 enableMask, uint16 disableMask);
+
+/** \brief Enable/disable the time base trigger
+ * \param tgc Pointer to the TGC object
+ * \param enabled If TRUE, the trigger is enabled else disabled
+ * \return None
+ */
+IFX_INLINE void IfxGtm_Tom_Tgc_enableTimeTrigger(Ifx_GTM_TOM_TGC *tgc, boolean enabled);
+
+/** \brief Enable/disable one channel for update (FUPD)
+ * \param tgc Pointer to the TGC object
+ * \param channel Channel index
+ * \param enabled Enable/ Disable choise of the feature
+ * \param resetEnabled Enable/ Disable reset choise of the feature
+ * \return None
+ */
+IFX_INLINE void IfxGtm_Tom_Tgc_setChannelForceUpdate(Ifx_GTM_TOM_TGC *tgc, IfxGtm_Tom_Ch channel, boolean enabled, boolean resetEnabled);
+
+/** \brief Enable/disable one or more channels for the force update feature (FUPD)
+ * \param tgc Pointer to the TGC object
+ * \param enableMask Mask for the channel feature enable (bit 0: Channel 0, bit 1: channel 1, ...)
+ * \param disableMask Mask for the channel feature disable (bit 0: Channel 0, bit 1: channel 1, ...)
+ * \param resetEnableMask Mask for the enabled channels counter reset on force update (bit 0: Channel 0, bit 1: channel 1, ...) Channel 0, bit 1: channel 1, ...)
+ * \param resetDisableMask Mask for the disabled channels with no counter reset on force update (bit 0: Channel 0, bit 1: channel 1, ...)
+ * \return None
+ */
+IFX_INLINE void IfxGtm_Tom_Tgc_setChannelsForceUpdate(Ifx_GTM_TOM_TGC *tgc, uint16 enableMask, uint16 disableMask, uint16 resetEnableMask, uint16 resetDisableMask);
+
+/** \brief Sets the trigger time base and time base value
+ * \param tgc Pointer to the TGC object
+ * \param base Time base used for comparison
+ * \param value Compare value that raise the trigger
+ * \return None
+ */
+IFX_INLINE void IfxGtm_Tom_Tgc_setTimeTrigger(Ifx_GTM_TOM_TGC *tgc, IfxGtm_Tbu_Ts base, uint32 value);
+
+/** \brief Raise the trigger for the channel enable/disable settings,  output enable settings, and force update event (CTRL_TRIG)
+ * \param tgc Pointer to the TGC object
+ * \return None
+ */
+IFX_INLINE void IfxGtm_Tom_Tgc_trigger(Ifx_GTM_TOM_TGC *tgc);
 
 /** \brief Sets the tgc global control value
  * \param tgc Pointer to the TGC object
@@ -408,112 +521,12 @@ IFX_EXTERN uint32 IfxGtm_Tom_Tgc_buildFeature(uint16 enableMask, uint16 disableM
  */
 IFX_EXTERN uint32 IfxGtm_Tom_Tgc_buildFeatureForChannel(IfxGtm_Tom_Ch channel, boolean enabled, uint8 bitfieldOffset);
 
-/** \brief Enable/disable one channel (ENDIS)
- * \param tgc Pointer to the TGC object
- * \param channel Channel index
- * \param enabled Enable/ Disable choise of the feature
- * \param immediate If TRUE, the action is done immediately else, the action is done on TGC trigger (CTRL_TRIG)
- * \return None
- */
-IFX_EXTERN void IfxGtm_Tom_Tgc_enableChannel(Ifx_GTM_TOM_TGC *tgc, IfxGtm_Tom_Ch channel, boolean enabled, boolean immediate);
-
-/** \brief Enable/disable one channel output (OUTEN)
- * \param tgc Pointer to the TGC object
- * \param channel Channel index
- * \param enabled Enable/ Disable choise of the feature
- * \param immediate If TRUE, the action is done immediately else, the action is done on TGC trigger (CTRL_TRIG)
- * \return None
- */
-IFX_EXTERN void IfxGtm_Tom_Tgc_enableChannelOutput(Ifx_GTM_TOM_TGC *tgc, IfxGtm_Tom_Ch channel, boolean enabled, boolean immediate);
-
-/** \brief Enable/disable one channel for update (UPEN)
- * \param tgc Pointer to the TGC object
- * \param channel Channel index
- * \param enabled Enable/ Disable choise of the feature
- * \return None
- */
-IFX_EXTERN void IfxGtm_Tom_Tgc_enableChannelUpdate(Ifx_GTM_TOM_TGC *tgc, IfxGtm_Tom_Ch channel, boolean enabled);
-
-/** \brief Enable/disable one or more channels (ENDIS)
- * \param tgc Pointer to the TGC object
- * \param enableMask Mask for the channel feature enable (bit 0: Channel 0, bit 1: channel 1, ...)
- * \param disableMask Mask for the channel feature disable (bit 0: Channel 0, bit 1: channel 1, ...)
- * \param immediate If TRUE, the action is done immediately else, the action is done on TGC trigger (CTRL_TRIG)
- * \return None
- */
-IFX_EXTERN void IfxGtm_Tom_Tgc_enableChannels(Ifx_GTM_TOM_TGC *tgc, uint16 enableMask, uint16 disableMask, boolean immediate);
-
-/** \brief Enable/disable one or more channels output (OUTEN)
- * \param tgc Pointer to the TGC object
- * \param enableMask Mask for the channel feature enable (bit 0: Channel 0, bit 1: channel 1, ...)
- * \param disableMask Mask for the channel feature disable (bit 0: Channel 0, bit 1: channel 1, ...)
- * \param immediate If TRUE, the action is done immediately else, the action is done on TGC trigger (CTRL_TRIG)
- * \return None
- */
-IFX_EXTERN void IfxGtm_Tom_Tgc_enableChannelsOutput(Ifx_GTM_TOM_TGC *tgc, uint16 enableMask, uint16 disableMask, boolean immediate);
-
-/** \brief Enable/disable the TGC channels trigger
- * \param tgc Pointer to the TGC object
- * \param enableMask Mask for the channel feature enable (bit 0: Channel 0, bit 1: channel 1, ...)
- * \param disableMask Mask for the channel feature disable (bit 0: Channel 0, bit 1: channel 1, ...)
- * \return None
- */
-IFX_EXTERN void IfxGtm_Tom_Tgc_enableChannelsTrigger(Ifx_GTM_TOM_TGC *tgc, uint16 enableMask, uint16 disableMask);
-
-/** \brief Enable/disable one or more channels for update (UPEN)
- * \param tgc Pointer to the TGC object
- * \param enableMask Mask for the channel feature enable (bit 0: Channel 0, bit 1: channel 1, ...)
- * \param disableMask Mask for the channel feature disable (bit 0: Channel 0, bit 1: channel 1, ...)
- * \return None
- */
-IFX_EXTERN void IfxGtm_Tom_Tgc_enableChannelsUpdate(Ifx_GTM_TOM_TGC *tgc, uint16 enableMask, uint16 disableMask);
-
-/** \brief Enable/disable the time base trigger
- * \param tgc Pointer to the TGC object
- * \param enabled If TRUE, the trigger is enabled else disabled
- * \return None
- */
-IFX_EXTERN void IfxGtm_Tom_Tgc_enableTimeTrigger(Ifx_GTM_TOM_TGC *tgc, boolean enabled);
-
 /** \brief Reset one or more channels
  * \param tgc Pointer to the TGC object
  * \param resetMask Mask for the channel reset (bit 0: Channel 0, bit 1: channel 1, ...)
  * \return None
  */
 IFX_EXTERN void IfxGtm_Tom_Tgc_resetChannels(Ifx_GTM_TOM_TGC *tgc, uint32 resetMask);
-
-/** \brief Enable/disable one channel for update (FUPD)
- * \param tgc Pointer to the TGC object
- * \param channel Channel index
- * \param enabled Enable/ Disable choise of the feature
- * \param resetEnabled Enable/ Disable reset choise of the feature
- * \return None
- */
-IFX_EXTERN void IfxGtm_Tom_Tgc_setChannelForceUpdate(Ifx_GTM_TOM_TGC *tgc, IfxGtm_Tom_Ch channel, boolean enabled, boolean resetEnabled);
-
-/** \brief Enable/disable one or more channels for the force update feature (FUPD)
- * \param tgc Pointer to the TGC object
- * \param enableMask Mask for the channel feature enable (bit 0: Channel 0, bit 1: channel 1, ...)
- * \param disableMask Mask for the channel feature disable (bit 0: Channel 0, bit 1: channel 1, ...)
- * \param resetEnableMask Mask for the enabled channels counter reset on force update (bit 0: Channel 0, bit 1: channel 1, ...) Channel 0, bit 1: channel 1, ...)
- * \param resetDisableMask Mask for the disabled channels with no counter reset on force update (bit 0: Channel 0, bit 1: channel 1, ...)
- * \return None
- */
-IFX_EXTERN void IfxGtm_Tom_Tgc_setChannelsForceUpdate(Ifx_GTM_TOM_TGC *tgc, uint16 enableMask, uint16 disableMask, uint16 resetEnableMask, uint16 resetDisableMask);
-
-/** \brief Sets the trigger time base and time base value
- * \param tgc Pointer to the TGC object
- * \param base Time base used for comparison
- * \param value Compare value that raise the trigger
- * \return None
- */
-IFX_EXTERN void IfxGtm_Tom_Tgc_setTimeTrigger(Ifx_GTM_TOM_TGC *tgc, IfxGtm_Tbu_Ts base, uint32 value);
-
-/** \brief Raise the trigger for the channel enable/disable settings,  output enable settings, and force update event (CTRL_TRIG)
- * \param tgc Pointer to the TGC object
- * \return None
- */
-IFX_EXTERN void IfxGtm_Tom_Tgc_trigger(Ifx_GTM_TOM_TGC *tgc);
 
 /** \} */
 
@@ -537,9 +550,442 @@ IFX_INLINE void IfxGtm_Tom_setTout(uint32 toutNum, uint32 toutSel);
 /*---------------------Inline Function Implementations------------------------*/
 /******************************************************************************/
 
+IFX_INLINE void IfxGtm_Tom_Ch_clearOneNotification(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel)
+{
+    Ifx_GTM_TOM_CH *tomCh = IfxGtm_Tom_Ch_getChannelPointer(tom, channel);
+    tomCh->IRQ.NOTIFY.B.CCU1TC = 1;
+}
+
+
+IFX_INLINE void IfxGtm_Tom_Ch_clearZeroNotification(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel)
+{
+    Ifx_GTM_TOM_CH *tomCh = IfxGtm_Tom_Ch_getChannelPointer(tom, channel);
+    tomCh->IRQ.NOTIFY.B.CCU0TC = 1;
+}
+
+
 IFX_INLINE Ifx_GTM_TOM_CH *IfxGtm_Tom_Ch_getChannelPointer(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel)
 {
     return (Ifx_GTM_TOM_CH *)((uint32)&tom->CH0.CTRL.U + 0x40 * channel);
+}
+
+
+IFX_INLINE float32 IfxGtm_Tom_Ch_getClockFrequency(Ifx_GTM *gtm, Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel)
+{
+    IfxGtm_Tom_Ch_ClkSrc clk;
+    IfxGtm_Cmu_Fxclk     clkIndex[5] = {
+        IfxGtm_Cmu_Fxclk_0,      /*IfxGtm_Tom_Ch_ClkSrc_cmuFxclk0 */
+        IfxGtm_Cmu_Fxclk_1,      /*IfxGtm_Tom_Ch_ClkSrc_cmuFxclk1 */
+        IfxGtm_Cmu_Fxclk_2,      /*IfxGtm_Tom_Ch_ClkSrc_cmuFxclk2 */
+        IfxGtm_Cmu_Fxclk_3,      /*IfxGtm_Tom_Ch_ClkSrc_cmuFxclk3 */
+        IfxGtm_Cmu_Fxclk_4       /*IfxGtm_Tom_Ch_ClkSrc_cmuFxclk4 */
+    };
+
+    clk = IfxGtm_Tom_Ch_getClockSource(tom, channel);
+
+    if (clk == IfxGtm_Tom_Ch_ClkSrc_noClock)
+    {
+        return (float32)0.0f;
+    }
+    else
+    {
+        return IfxGtm_Cmu_getFxClkFrequency(gtm, clkIndex[clk], TRUE);
+    }
+}
+
+
+IFX_INLINE IfxGtm_Tom_Ch_ClkSrc IfxGtm_Tom_Ch_getClockSource(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel)
+{
+    IfxGtm_Tom_Ch_ClkSrc clk   = IfxGtm_Tom_Ch_ClkSrc_noClock;
+
+    Ifx_GTM_TOM_CH      *tomCh = IfxGtm_Tom_Ch_getChannelPointer(tom, channel);
+
+    clk = (IfxGtm_Tom_Ch_ClkSrc)tomCh->CTRL.B.CLK_SRC_SR;
+
+    return clk;
+}
+
+
+IFX_INLINE uint32 IfxGtm_Tom_Ch_getCompareOne(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel)
+{
+    Ifx_GTM_TOM_CH *tomCh = IfxGtm_Tom_Ch_getChannelPointer(tom, channel);
+
+    return tomCh->CM1.U;
+}
+
+
+IFX_INLINE volatile uint32 *IfxGtm_Tom_Ch_getCompareOnePointer(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel)
+{
+    Ifx_GTM_TOM_CH *tomCh = IfxGtm_Tom_Ch_getChannelPointer(tom, channel);
+
+    return (volatile uint32 *)&tomCh->CM1.U;
+}
+
+
+IFX_INLINE uint32 IfxGtm_Tom_Ch_getCompareZero(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel)
+{
+    Ifx_GTM_TOM_CH *tomCh = IfxGtm_Tom_Ch_getChannelPointer(tom, channel);
+
+    return tomCh->CM0.U;
+}
+
+
+IFX_INLINE volatile uint32 *IfxGtm_Tom_Ch_getCompareZeroPointer(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel)
+{
+    Ifx_GTM_TOM_CH *tomCh = IfxGtm_Tom_Ch_getChannelPointer(tom, channel);
+    return (volatile uint32 *)&tomCh->CM0.U;
+}
+
+
+IFX_INLINE boolean IfxGtm_Tom_Ch_getOutputLevel(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel)
+{
+    boolean         level;
+    Ifx_GTM_TOM_CH *tomCh = IfxGtm_Tom_Ch_getChannelPointer(tom, channel);
+
+    level = (tomCh->STAT.B.OL == 1u) ? TRUE : FALSE;
+
+    return level;
+}
+
+
+IFX_INLINE volatile Ifx_SRC_SRCR *IfxGtm_Tom_Ch_getSrcPointer(Ifx_GTM *gtm, IfxGtm_Tom tom, IfxGtm_Tom_Ch channel)
+{
+    IFX_UNUSED_PARAMETER(gtm)
+    return &MODULE_SRC.GTM_TOM[tom][channel >> 1];
+}
+
+
+IFX_INLINE Ifx_GTM_TOM_TGC *IfxGtm_Tom_Ch_getTgcPointer(Ifx_GTM_TOM *tom, uint32 tgcIndex)
+{
+    Ifx_GTM_TOM_TGC *pointer;
+
+    if (tgcIndex == 0)
+    {
+        pointer = (Ifx_GTM_TOM_TGC *)&tom->TGC0_GLB_CTRL;
+    }
+    else
+    {
+        pointer = (Ifx_GTM_TOM_TGC *)&tom->TGC1_GLB_CTRL;
+    }
+
+    return pointer;
+}
+
+
+IFX_INLINE volatile uint32 *IfxGtm_Tom_Ch_getTimerPointer(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel)
+{
+    Ifx_GTM_TOM_CH *tomCh = IfxGtm_Tom_Ch_getChannelPointer(tom, channel);
+    return (volatile uint32 *)&tomCh->CN0.U;
+}
+
+
+IFX_INLINE boolean IfxGtm_Tom_Ch_isOneNotification(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel)
+{
+    boolean         notify;
+    Ifx_GTM_TOM_CH *tomCh = IfxGtm_Tom_Ch_getChannelPointer(tom, channel);
+    notify = (tomCh->IRQ.NOTIFY.B.CCU1TC != 0u) ? TRUE : FALSE;
+    return notify;
+}
+
+
+IFX_INLINE boolean IfxGtm_Tom_Ch_isZeroNotification(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel)
+{
+    boolean         notify;
+    Ifx_GTM_TOM_CH *tomCh = IfxGtm_Tom_Ch_getChannelPointer(tom, channel);
+    notify = (tomCh->IRQ.NOTIFY.B.CCU0TC != 0u) ? TRUE : FALSE;
+    return notify;
+}
+
+
+IFX_INLINE void IfxGtm_Tom_Ch_raiseInterruptOne(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel)
+{
+    Ifx_GTM_TOM_CH *tomCh = IfxGtm_Tom_Ch_getChannelPointer(tom, channel);
+    tomCh->IRQ.FORCINT.B.TRG_CCU1TC0 = 1u;
+}
+
+
+IFX_INLINE void IfxGtm_Tom_Ch_raiseInterruptZero(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel)
+{
+    Ifx_GTM_TOM_CH *tomCh = IfxGtm_Tom_Ch_getChannelPointer(tom, channel);
+    tomCh->IRQ.FORCINT.B.TRG_CCU0TC0 = 1u;
+}
+
+
+IFX_INLINE void IfxGtm_Tom_Ch_setClockSource(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel, IfxGtm_Tom_Ch_ClkSrc clock)
+{
+    Ifx_GTM_TOM_CH *tomCh = IfxGtm_Tom_Ch_getChannelPointer(tom, channel);
+
+    tomCh->CTRL.B.CLK_SRC_SR = (uint8)clock;
+}
+
+
+IFX_INLINE void IfxGtm_Tom_Ch_setCompare(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel, uint16 compareZero, uint16 compareOne)
+{
+    Ifx_GTM_TOM_CH *tomCh = IfxGtm_Tom_Ch_getChannelPointer(tom, channel);
+
+    tomCh->CM0.U = compareZero;
+    tomCh->CM1.U = compareOne;
+}
+
+
+IFX_INLINE void IfxGtm_Tom_Ch_setCompareOne(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel, uint16 compareOne)
+{
+    Ifx_GTM_TOM_CH *tomCh = IfxGtm_Tom_Ch_getChannelPointer(tom, channel);
+
+    tomCh->CM1.U = compareOne;
+}
+
+
+IFX_INLINE void IfxGtm_Tom_Ch_setCompareOneShadow(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel, uint16 shadowOne)
+{
+    Ifx_GTM_TOM_CH *tomCh = IfxGtm_Tom_Ch_getChannelPointer(tom, channel);
+
+    tomCh->SR1.U = shadowOne;
+}
+
+
+IFX_INLINE void IfxGtm_Tom_Ch_setCompareShadow(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel, uint16 shadowZero, uint16 shadowOne)
+{
+    Ifx_GTM_TOM_CH *tomCh = IfxGtm_Tom_Ch_getChannelPointer(tom, channel);
+
+    tomCh->SR0.U = shadowZero;
+    tomCh->SR1.U = shadowOne;
+}
+
+
+IFX_INLINE void IfxGtm_Tom_Ch_setCompareZero(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel, uint16 compareZero)
+{
+    Ifx_GTM_TOM_CH *tomCh = IfxGtm_Tom_Ch_getChannelPointer(tom, channel);
+
+    tomCh->CM0.U = compareZero;
+}
+
+
+IFX_INLINE void IfxGtm_Tom_Ch_setCompareZeroShadow(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel, uint16 shadowZero)
+{
+    Ifx_GTM_TOM_CH *tomCh = IfxGtm_Tom_Ch_getChannelPointer(tom, channel);
+
+    tomCh->SR0.U = shadowZero;
+}
+
+
+IFX_INLINE void IfxGtm_Tom_Ch_setCounterValue(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel, uint32 value)
+{
+    Ifx_GTM_TOM_CH *tomCh = IfxGtm_Tom_Ch_getChannelPointer(tom, channel);
+
+    tomCh->CN0.U = value;
+}
+
+
+IFX_INLINE void IfxGtm_Tom_Ch_setGatedCounter(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel, boolean enabled)
+{
+    if (channel <= IfxGtm_Tom_Ch_7)
+    {
+        Ifx_GTM_TOM_CH *tomCh = IfxGtm_Tom_Ch_getChannelPointer(tom, channel);
+
+        tomCh->CTRL.B.GCM = (uint8)enabled;
+    }
+}
+
+
+IFX_INLINE void IfxGtm_Tom_Ch_setNotification(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel, IfxGtm_IrqMode mode, boolean interruptOnCompareZero, boolean interruptOnCompareOne)
+{
+    Ifx_GTM_TOM_CH       *tomCh = IfxGtm_Tom_Ch_getChannelPointer(tom, channel);
+
+    Ifx_GTM_TOM_CH_IRQ_EN en;
+    en.U = tomCh->IRQ.EN.U;
+
+    /* Disable all interrupts of the interrupt set to change mode */
+    tomCh->IRQ.EN.U            = IFX_ZEROS;
+    tomCh->IRQ.MODE.B.IRQ_MODE = mode;
+    tomCh->IRQ.EN.U            = en.U; /* Set the values back */
+
+    en.B.CCU0TC_IRQ_EN         = interruptOnCompareZero ? 1 : 0;
+    en.B.CCU1TC_IRQ_EN         = interruptOnCompareOne ? 1 : 0;
+    tomCh->IRQ.EN.U            = en.U;
+}
+
+
+IFX_INLINE void IfxGtm_Tom_Ch_setOneShotMode(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel, boolean enabled)
+{
+    Ifx_GTM_TOM_CH *tomCh = IfxGtm_Tom_Ch_getChannelPointer(tom, channel);
+
+    tomCh->CTRL.B.OSM = (uint8)enabled;
+}
+
+
+IFX_INLINE void IfxGtm_Tom_Ch_setPcm(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel, boolean enabled)
+{
+    if (channel == IfxGtm_Tom_Ch_15)
+    {
+        tom->CH15.CTRL.B.BITREV = (uint8)enabled;
+    }
+}
+
+
+IFX_INLINE void IfxGtm_Tom_Ch_setResetSource(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel, IfxGtm_Tom_Ch_ResetEvent event)
+{
+    Ifx_GTM_TOM_CH *tomCh = IfxGtm_Tom_Ch_getChannelPointer(tom, channel);
+
+    tomCh->CTRL.B.RST_CCU0 = (uint8)event;
+}
+
+
+IFX_INLINE void IfxGtm_Tom_Ch_setSignalLevel(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel, Ifx_ActiveState activeState)
+{
+    Ifx_GTM_TOM_CH *tomCh = IfxGtm_Tom_Ch_getChannelPointer(tom, channel);
+
+    tomCh->CTRL.B.SL = (activeState == Ifx_ActiveState_high) ? 1u : 0u;
+}
+
+
+IFX_INLINE void IfxGtm_Tom_Ch_setSpe(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel, boolean enabled)
+{
+    if (channel <= IfxGtm_Tom_Ch_7)
+    {
+        Ifx_GTM_TOM_CH *tomCh = IfxGtm_Tom_Ch_getChannelPointer(tom, channel);
+
+        tomCh->CTRL.B.SPEM = (uint8)enabled;
+    }
+}
+
+
+IFX_INLINE void IfxGtm_Tom_Ch_setTriggerOutput(Ifx_GTM_TOM *tom, IfxGtm_Tom_Ch channel, IfxGtm_Tom_Ch_OutputTrigger trigger)
+{
+    Ifx_GTM_TOM_CH *tomCh = IfxGtm_Tom_Ch_getChannelPointer(tom, channel);
+
+    tomCh->CTRL.B.TRIGOUT = (uint8)trigger;
+}
+
+
+IFX_INLINE void IfxGtm_Tom_Tgc_enableChannel(Ifx_GTM_TOM_TGC *tgc, IfxGtm_Tom_Ch channel, boolean enabled, boolean immediate)
+{
+    uint32 shift = IFXGTM_TOM_TGC_CHANNEL_SHIFT(channel, IFX_GTM_TOM_TGC_ENDIS_CTRL_ENDIS_CTRL0_OFF);
+
+    uint32 value = (uint32)IFXGTM_TOM_TGC_CHANNEL_VALUE(enabled) << shift;
+    uint32 mask  = (uint32)IFXGTM_TOM_TGC_CHANNEL_MASK << shift;
+
+    Ifx__ldmst(&(tgc->ENDIS_CTRL.U), mask, value);
+
+    if (immediate == TRUE)
+    {
+        Ifx__ldmst(&(tgc->ENDIS_STAT.U), mask, value);
+    }
+}
+
+
+IFX_INLINE void IfxGtm_Tom_Tgc_enableChannelOutput(Ifx_GTM_TOM_TGC *tgc, IfxGtm_Tom_Ch channel, boolean enabled, boolean immediate)
+{
+    uint32 shift = IFXGTM_TOM_TGC_CHANNEL_SHIFT(channel, IFX_GTM_TOM_TGC_OUTEN_CTRL_OUTEN_CTRL0_OFF);
+
+    uint32 value = (uint32)IFXGTM_TOM_TGC_CHANNEL_VALUE(enabled) << shift;
+    uint32 mask  = (uint32)((uint32)IFXGTM_TOM_TGC_CHANNEL_MASK << shift);
+
+    Ifx__ldmst(&(tgc->OUTEN_CTRL.U), mask, value);
+
+    if (immediate == TRUE)
+    {
+        Ifx__ldmst(&(tgc->OUTEN_STAT.U), mask, value);
+    }
+}
+
+
+IFX_INLINE void IfxGtm_Tom_Tgc_enableChannelUpdate(Ifx_GTM_TOM_TGC *tgc, IfxGtm_Tom_Ch channel, boolean enabled)
+{
+    tgc->GLB_CTRL.U = IfxGtm_Tom_Tgc_buildFeatureForChannel(channel, enabled, IFX_GTM_TOM_TGC_GLB_CTRL_UPEN_CTRL0_OFF);
+}
+
+
+IFX_INLINE void IfxGtm_Tom_Tgc_enableChannels(Ifx_GTM_TOM_TGC *tgc, uint16 enableMask, uint16 disableMask, boolean immediate)
+{
+    uint32 value;
+
+    value = IfxGtm_Tom_Tgc_buildFeature(enableMask, disableMask, IFX_GTM_TOM_TGC_ENDIS_CTRL_ENDIS_CTRL0_OFF);
+
+    if (immediate)
+    {
+        tgc->ENDIS_CTRL.U = value;
+        tgc->ENDIS_STAT.U = value;
+    }
+    else
+    {
+        tgc->ENDIS_CTRL.U = value;
+    }
+}
+
+
+IFX_INLINE void IfxGtm_Tom_Tgc_enableChannelsOutput(Ifx_GTM_TOM_TGC *tgc, uint16 enableMask, uint16 disableMask, boolean immediate)
+{
+    uint32 value;
+
+    value = IfxGtm_Tom_Tgc_buildFeature(enableMask, disableMask, IFX_GTM_TOM_TGC_OUTEN_CTRL_OUTEN_CTRL0_OFF);
+
+    if (immediate)
+    {
+        tgc->OUTEN_CTRL.U = value;
+        tgc->OUTEN_STAT.U = value;
+    }
+    else
+    {
+        tgc->OUTEN_CTRL.U = value;
+    }
+}
+
+
+IFX_INLINE void IfxGtm_Tom_Tgc_enableChannelsTrigger(Ifx_GTM_TOM_TGC *tgc, uint16 enableMask, uint16 disableMask)
+{
+    tgc->INT_TRIG.U = IfxGtm_Tom_Tgc_buildFeature(enableMask, disableMask, IFX_GTM_TOM_TGC_INT_TRIG_INT_TRIG0_OFF);
+}
+
+
+IFX_INLINE void IfxGtm_Tom_Tgc_enableChannelsUpdate(Ifx_GTM_TOM_TGC *tgc, uint16 enableMask, uint16 disableMask)
+{
+    tgc->GLB_CTRL.U = IfxGtm_Tom_Tgc_buildFeature(enableMask, disableMask, IFX_GTM_TOM_TGC_GLB_CTRL_UPEN_CTRL0_OFF);
+}
+
+
+IFX_INLINE void IfxGtm_Tom_Tgc_enableTimeTrigger(Ifx_GTM_TOM_TGC *tgc, boolean enabled)
+{
+    tgc->ACT_TB.B.TB_TRIG = enabled ? 1 : 0;
+}
+
+
+IFX_INLINE void IfxGtm_Tom_Tgc_setChannelForceUpdate(Ifx_GTM_TOM_TGC *tgc, IfxGtm_Tom_Ch channel, boolean enabled, boolean resetEnabled)
+{
+    uint32 regEnable, regReset;
+
+    regEnable        = IfxGtm_Tom_Tgc_buildFeatureForChannel(channel, enabled, IFX_GTM_TOM_TGC_FUPD_CTRL_FUPD_CTRL0_OFF);
+    regReset         = IfxGtm_Tom_Tgc_buildFeatureForChannel(channel, resetEnabled, IFX_GTM_TOM_TGC_FUPD_CTRL_RSTCN0_CH0_OFF);
+
+    tgc->FUPD_CTRL.U = regEnable | (regReset);
+}
+
+
+IFX_INLINE void IfxGtm_Tom_Tgc_setChannelsForceUpdate(Ifx_GTM_TOM_TGC *tgc, uint16 enableMask, uint16 disableMask, uint16 resetEnableMask, uint16 resetDisableMask)
+{
+    uint32 regEnable, regReset;
+
+    regEnable        = IfxGtm_Tom_Tgc_buildFeature(enableMask, disableMask, IFX_GTM_TOM_TGC_FUPD_CTRL_FUPD_CTRL0_OFF);
+    regReset         = IfxGtm_Tom_Tgc_buildFeature(resetEnableMask, resetDisableMask, IFX_GTM_TOM_TGC_FUPD_CTRL_RSTCN0_CH0_OFF);
+
+    tgc->FUPD_CTRL.U = regEnable | regReset;
+}
+
+
+IFX_INLINE void IfxGtm_Tom_Tgc_setTimeTrigger(Ifx_GTM_TOM_TGC *tgc, IfxGtm_Tbu_Ts base, uint32 value)
+{
+    Ifx_GTM_TOM_TGC_ACT_TB act_tb;
+
+    act_tb.U         = tgc->ACT_TB.U;
+    act_tb.B.TBU_SEL = (uint8)base;
+    act_tb.B.ACT_TB  = value;
+    tgc->ACT_TB.U    = act_tb.U;
+}
+
+
+IFX_INLINE void IfxGtm_Tom_Tgc_trigger(Ifx_GTM_TOM_TGC *tgc)
+{
+    tgc->GLB_CTRL.U = 1 << IFX_GTM_TOM_TGC_GLB_CTRL_HOST_TRIG_OFF;
 }
 
 

@@ -2,8 +2,9 @@
  * \file IfxStm_Timer.c
  * \brief STM TIMER details
  *
- * \version iLLD_1_0_1_12_0
- * \copyright Copyright (c) 2019 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0
+ * \copyright Copyright (c) 2023 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
@@ -36,6 +37,7 @@
  * FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
+ *
  *
  */
 
@@ -78,7 +80,7 @@ boolean IfxStm_Timer_acknowledgeTimerIrq(IfxStm_Timer *driver)
 
 float32 IfxStm_Timer_getFrequency(IfxStm_Timer *driver)
 {
-    return 1.0 / IfxStdIf_Timer_tickToS(driver->base.clockFreq, driver->base.period);
+    return 1.0f / IfxStdIf_Timer_tickToS(driver->base.clockFreq, driver->base.period);
 }
 
 
@@ -96,7 +98,7 @@ Ifx_TimerValue IfxStm_Timer_getPeriod(IfxStm_Timer *driver)
 
 float32 IfxStm_Timer_getResolution(IfxStm_Timer *driver)
 {
-    return 1.0 / driver->base.clockFreq;
+    return 1.0f / driver->base.clockFreq;
 }
 
 
@@ -118,7 +120,7 @@ void IfxStm_Timer_run(IfxStm_Timer *driver)
 
 boolean IfxStm_Timer_setFrequency(IfxStm_Timer *driver, float32 frequency)
 {
-    Ifx_TimerValue period = IfxStdIf_Timer_sToTick(driver->base.clockFreq, 1.0 / frequency);
+    Ifx_TimerValue period = IfxStdIf_Timer_sToTick(driver->base.clockFreq, 1.0f / frequency);
 
     return IfxStm_Timer_setPeriod(driver, period);
 }
@@ -206,7 +208,7 @@ boolean IfxStm_Timer_init(IfxStm_Timer *driver, const IfxStm_Timer_Config *confi
 
     IfxStm_Timer_updateInputFrequency(driver);
 
-    if ((config->base.minResolution > 0) && ((1.0 / base->clockFreq) > config->base.minResolution))
+    if ((config->base.minResolution > 0) && ((1.0f / base->clockFreq) > config->base.minResolution))
     {
         result = FALSE;
         IFX_ASSERT(IFX_VERBOSE_LEVEL_ERROR, FALSE);

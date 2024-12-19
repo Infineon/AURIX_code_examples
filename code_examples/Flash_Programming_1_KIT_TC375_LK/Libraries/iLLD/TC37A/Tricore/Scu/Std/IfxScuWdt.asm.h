@@ -3,7 +3,7 @@
  * \brief SCU  basic functionality
  * \ingroup IfxLld_Scu
  *
- * \version iLLD_1_0_1_12_0
+ * \version iLLD_1_0_1_17_0
  * \copyright Copyright (c) 2019 Infineon Technologies AG. All rights reserved.
  *
  *
@@ -65,21 +65,6 @@ IFX_INLINE uint16 IfxScuWdt_calculateLfsr(uint16 password);
 /**
  * \brief SCUWDT Inline API utility to Calculte new 14-bit LFSR.
  */
-#if defined(__HIGHTEC__)
-IFX_INLINE uint16 IfxScuWdt_calculateLfsr(uint16 pwd)
-{
-    /* *INDENT-OFF* */
-    uint32 temp = pwd;
-    uint16 res;
-
-    __asm("xor.t  %0,%1,13,%1,12 \n\
-           xor.t  %0,%0,0,%1,11  \n\
-           sh.xor.t %1,%0,0,%1,1  \n\
-           extr.u %0,%1,0,14     \n" : "=&d" (res) : "d" (temp));
-    return res;
-    /* *INDENT-ON* */
-}
-#endif
 #if defined(__TASKING__)
 IFX_INLINE uint16 IfxScuWdt_calculateLfsr(uint16 pwd)
 {
@@ -96,8 +81,35 @@ IFX_INLINE uint16 IfxScuWdt_calculateLfsr(uint16 pwd)
     return res;
     /* *INDENT-ON* */
 }
-#endif
-#if defined(__DCC__)
+#elif defined(__HIGHTEC__)
+IFX_INLINE uint16 IfxScuWdt_calculateLfsr(uint16 pwd)
+{
+    /* *INDENT-OFF* */
+    uint32 temp = pwd;
+    uint16 res;
+
+    __asm("xor.t  %0,%1,13,%1,12 \n\
+           xor.t  %0,%0,0,%1,11  \n\
+           sh.xor.t %1,%0,0,%1,1  \n\
+           extr.u %0,%1,0,14     \n" : "=&d" (res) : "d" (temp));
+    return res;
+    /* *INDENT-ON* */
+}
+#elif defined(__GNUC__) && !defined(__HIGHTEC__)
+IFX_INLINE uint16 IfxScuWdt_calculateLfsr(uint16 pwd)
+{
+    /* *INDENT-OFF* */
+    uint32 temp = pwd;
+    uint16 res;
+
+    __asm("xor.t  %0,%1,13,%1,12 \n\
+           xor.t  %0,%0,0,%1,11  \n\
+           sh.xor.t %1,%0,0,%1,1  \n\
+           extr.u %0,%1,0,14     \n" : "=&d" (res) : "d" (temp));
+    return res;
+    /* *INDENT-ON* */
+}
+#elif defined(__DCC__)
 /* *INDENT-OFF* */
 asm uint16 IfxScuWdt_calculateLfsr_asm(uint16 password)
 {
@@ -113,8 +125,7 @@ IFX_INLINE uint16 IfxScuWdt_calculateLfsr(uint16 pwd)
 {
     return IfxScuWdt_calculateLfsr_asm(pwd);
 }
-#endif
-#if defined(__ghs__)
+#elif defined(__ghs__)
 IFX_INLINE uint16 IfxScuWdt_calculateLfsr(uint16 pwd)
 {
     /* *INDENT-OFF* */

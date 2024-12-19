@@ -66,7 +66,14 @@ void initPeripherals(void)
  * Note: The start-up procedure can overwrite up to 1 kByte at the beginning of CPU0 PSPR. If the application needs to
  * save program code which must be preserved through a reset, this area (the first 1 kByte) should not be used.
  */
-#pragma section code cpu0_psram
+#ifdef __TASKING__
+    #pragma section code cpu0_psram
+#endif
+
+#ifdef __GNUC__
+    #pragma section .cpu0_psram ax
+#endif
+
 void toggleLedSram(void)
 {
     /* Switch On LED1 */
@@ -81,7 +88,14 @@ void toggleLedSram(void)
     /* Wait one second */
     wait_ms(TOGGLE_TIME_MS);
 }
-#pragma section code restore
+
+#ifdef __TASKING__
+    #pragma section code restore
+#endif
+
+#ifdef __GNUC__
+    #pragma section
+#endif
 
 /* Toggle LED2: code is executed from Flash memory */
 void toggleLedFlash(void)

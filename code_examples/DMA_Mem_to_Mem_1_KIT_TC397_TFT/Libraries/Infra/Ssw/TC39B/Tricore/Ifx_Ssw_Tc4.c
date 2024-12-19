@@ -2,7 +2,7 @@
  * \file Ifx_Ssw_Tc4.c
  * \brief Startup Software for Core4
  *
- * \version iLLD_1_0_1_12_0
+ * \version iLLD_1_0_1_17_0_1
  * \copyright Copyright (c) 2018 Infineon Technologies AG. All rights reserved.
  *
  *
@@ -81,6 +81,9 @@ __asm("\t .extern core4_main");
 *********************************************************************************/
 /*Add options to eliminate usage of stack pointers unnecessarily*/
 #if defined(__HIGHTEC__)
+#pragma GCC optimize "O2"
+#endif
+#if defined(__GNUC__) && !defined(__HIGHTEC__)
 #pragma GCC optimize "O2"
 #endif
 
@@ -168,18 +171,18 @@ void __Core4_start(void)
 /******************************************************************************
  *                        reset vector address                                *
  *****************************************************************************/
-#if defined(__HIGHTEC__)
-#pragma section
-#pragma section ".start_cpu4" x
-#endif
 #if defined(__TASKING__)
 #pragma protect on
 #pragma section code "start_cpu4"
-#endif
-#if defined(__DCC__)
+#elif defined(__HIGHTEC__)
+#pragma section
+#pragma section ".start_cpu4" x
+#elif defined(__GNUC__) && !defined(__HIGHTEC__)
+#pragma section
+#pragma section ".start_cpu4" x
+#elif defined(__DCC__)
 #pragma section CODE ".start_cpu4" X
-#endif
-#if defined(__ghs__)
+#elif defined(__ghs__)
 #pragma ghs section text=".start_cpu4"
 #endif
 
@@ -189,21 +192,22 @@ void _START4(void)
 }
 
 /* reset the sections defined above, to normal region */
-#if defined(__HIGHTEC__)
-#pragma section
-#endif
 #if defined(__TASKING__)
 #pragma protect restore
 #pragma section code restore
-#endif
-#if defined(__DCC__)
+#elif defined(__HIGHTEC__)
+#pragma section
+#elif defined(__GNUC__) && !defined(__HIGHTEC__)
+#pragma section
+#elif defined(__DCC__)
 #pragma section CODE
-#endif
-#if defined(__ghs__)
+#elif defined(__ghs__)
 #pragma ghs section text=default
 #endif
 
 /*Restore the options to command line provided ones*/
 #if defined(__HIGHTEC__)
+#pragma GCC reset_options
+#elif defined(__GNUC__) && !defined(__HIGHTEC__)
 #pragma GCC reset_options
 #endif

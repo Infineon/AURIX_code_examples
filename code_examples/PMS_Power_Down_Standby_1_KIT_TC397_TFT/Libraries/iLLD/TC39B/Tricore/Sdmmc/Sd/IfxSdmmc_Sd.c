@@ -2,8 +2,9 @@
  * \file IfxSdmmc_Sd.c
  * \brief SDMMC SD details
  *
- * \version iLLD_1_0_1_15_0_1
- * \copyright Copyright (c) 2019 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0_1
+ * \copyright Copyright (c) 2023 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
@@ -36,6 +37,7 @@
  * FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
+ *
  *
  */
 
@@ -2033,6 +2035,246 @@ IfxSdmmc_Status IfxSdmmc_Sd_ioEnableMultiBlockInterrupt(IfxSdmmc_Sd *sd)
         {
             status = IfxSdmmc_Status_failure;
         }
+    }
+
+    return status;
+}
+
+
+IfxSdmmc_Status IfxSdmmc_Sd_readMultiBlock(IfxSdmmc_Sd *sd, uint32 address, uint32 *data, uint32 blockCount)
+{
+    IfxSdmmc_Status status  = IfxSdmmc_Status_success;
+    uint32          timeout = 0;
+
+    /* If the card is not initialized */
+    if ((sd->cardState & (uint8)IfxSdmmc_CardState_notInitialised) != 0U)
+    {
+        status = IfxSdmmc_Status_cardNotInitialised;
+    }
+    else if ((sd->cardState & (uint8)IfxSdmmc_CardState_locked) != 0U)
+    {
+        status = IfxSdmmc_Status_cardLocked;
+    }
+    else
+    {
+        /* If not block addressing, then multiply by 512 bytes */
+        if (((uint32)sd->cardCapacity & (uint32)IfxSdmmc_SdCardCapacity_blockAddressing) == 0U)
+        {
+            address = (uint32)(address * 512U);
+        }
+
+        if (sd->dmaUsed == TRUE)
+        {
+            status = IfxSdmmc_Sd_multiBlockDmaTransfer(sd, IfxSdmmc_Command_readMultipleBLock, address, IFXSDMMC_BLOCK_SIZE_DEFAULT, data, IfxSdmmc_TransferDirection_read, blockCount);
+        }
+        else
+        {
+            /* Multi block transfer are done through DMA only */
+            status = IfxSdmmc_Status_configurationNotSupported;
+        }
+    }
+
+    /* Wait for until the command OR data lines aren't busy */
+    /* check if command and data lines are free */
+    timeout = 1000000;
+
+    while ((IfxSdmmc_isDataLineBusy(sd->sdmmcSFR) || (IfxSdmmc_isCommandLineBusy(sd->sdmmcSFR))) && (timeout > 0))
+    {
+        timeout--;
+    }
+
+    if (timeout == 0)
+    {
+        status = IfxSdmmc_Status_timeout;
+    }
+
+    return status;
+}
+
+
+IfxSdmmc_Status IfxSdmmc_Sd_multiBlockAdma2Transfer(IfxSdmmc_Sd *sd, IfxSdmmc_Command command, uint32 address, uint16 blockSize, uint32 *descrAddress, IfxSdmmc_TransferDirection direction, uint32 blockCount)
+{
+    IfxSdmmc_Status   status  = IfxSdmmc_Status_success;
+    IfxSdmmc_Response response;
+    uint32            timeout = 0;
+
+    /* set the system address */
+    IfxSdmmc_setSystemAddressForDma(sd->sdmmcSFR, (uint32)descrAddress);
+
+    IfxSdmmc_setBlockSize(sd->sdmmcSFR, blockSize);
+    IfxSdmmc_setMultiBlockSelect(sd->sdmmcSFR, TRUE);
+
+    IfxSdmmc_enableBlockCount(sd->sdmmcSFR);
+    IfxSdmmc_setBlockCount(sd->sdmmcSFR, blockCount);
+
+    IfxSdmmc_enableDmaTransfers(sd->sdmmcSFR);
+    IfxSdmmc_setAutoCmdEnable(sd->sdmmcSFR, IfxSdmmc_AutoCmdSelect_cmd12);
+
+    /* set transfer direction in host controller */
+    if (direction == IfxSdmmc_TransferDirection_read)
+    {
+        IfxSdmmc_setTransferDirection(sd->sdmmcSFR, IfxSdmmc_TransferDirection_read);
+    }
+    else
+    {
+        IfxSdmmc_setTransferDirection(sd->sdmmcSFR, IfxSdmmc_TransferDirection_write);
+    }
+
+    status = IfxSdmmc_sendCommand(sd->sdmmcSFR, command, address, IfxSdmmc_ResponseType_r1, &response);
+
+    if (status == IfxSdmmc_Status_success)
+    {
+        timeout = 100000;
+
+        /* wait until transfer complete or adma error flags are set */
+        while ((IfxSdmmc_isNormalInterruptOccured(sd->sdmmcSFR, IfxSdmmc_NormalInterrupt_transferComplete) == 0) \
+               && (IfxSdmmc_isErrorInterruptOccured(sd->sdmmcSFR, IfxSdmmc_ErrorInterrupt_adma) == 0)            \
+               && (timeout > 0))
+        {
+            timeout--;
+        }
+
+        if ((timeout == 0) || (IfxSdmmc_isErrorInterruptOccured(sd->sdmmcSFR, IfxSdmmc_ErrorInterrupt_adma) != 0))
+        {
+            status = IfxSdmmc_Status_dataError;
+
+            if (IfxSdmmc_isErrorInterruptOccured(sd->sdmmcSFR, IfxSdmmc_ErrorInterrupt_adma) != 0)
+            {
+                IfxSdmmc_clearErrorInterrupt(sd->sdmmcSFR, IfxSdmmc_ErrorInterrupt_adma);
+            }
+        }
+        else
+        {
+            IfxSdmmc_clearNormalInterrupt(sd->sdmmcSFR, IfxSdmmc_NormalInterrupt_transferComplete);
+        }
+    }
+
+    return status;
+}
+
+
+IfxSdmmc_Status IfxSdmmc_Sd_multiBlockDmaTransfer(IfxSdmmc_Sd *sd, IfxSdmmc_Command command, uint32 address, uint16 blockSize, uint32 *data, IfxSdmmc_TransferDirection direction, uint32 blockCount)
+{
+    IfxSdmmc_Status   status  = IfxSdmmc_Status_success;
+    IfxSdmmc_Response response;
+    uint32            timeout = 0;
+
+    /* set the system address */
+    IfxSdmmc_setSystemAddressForDma(sd->sdmmcSFR, (uint32)data);
+
+    IfxSdmmc_setBlockSize(sd->sdmmcSFR, blockSize);
+    IfxSdmmc_setMultiBlockSelect(sd->sdmmcSFR, TRUE);
+
+    IfxSdmmc_enableBlockCount(sd->sdmmcSFR);
+    IfxSdmmc_setBlockCount(sd->sdmmcSFR, blockCount);
+
+    IfxSdmmc_enableDmaTransfers(sd->sdmmcSFR);
+    IfxSdmmc_setAutoCmdEnable(sd->sdmmcSFR, IfxSdmmc_AutoCmdSelect_cmd12);
+
+    /* set transfer direction in host controller */
+    if (direction == IfxSdmmc_TransferDirection_read)
+    {
+        IfxSdmmc_setTransferDirection(sd->sdmmcSFR, IfxSdmmc_TransferDirection_read);
+    }
+    else
+    {
+        IfxSdmmc_setTransferDirection(sd->sdmmcSFR, IfxSdmmc_TransferDirection_write);
+    }
+
+    status = IfxSdmmc_sendCommand(sd->sdmmcSFR, command, address, IfxSdmmc_ResponseType_r1, &response);
+
+    if (status == IfxSdmmc_Status_success)
+    {
+        /* Perform data transfer */
+        timeout = 1000000;
+
+        /* wait until transfer complete flag is set */
+        while ((IfxSdmmc_isNormalInterruptOccured(sd->sdmmcSFR, IfxSdmmc_NormalInterrupt_transferComplete) == 0) && (timeout > 0))
+        {
+            timeout--;
+        }
+
+        if (timeout == 0)
+        {
+            status = IfxSdmmc_Status_dataError;
+            /* FIME: implement abort command process */
+        }
+        else
+        {
+            IfxSdmmc_clearNormalInterrupt(sd->sdmmcSFR, IfxSdmmc_NormalInterrupt_transferComplete);
+        }
+    }
+
+    return status;
+}
+
+
+IfxSdmmc_Status IfxSdmmc_Sd_writeMultiBlock(IfxSdmmc_Sd *sd, uint32 address, uint32 *data, uint32 blockCount)
+{
+    IfxSdmmc_Status status  = IfxSdmmc_Status_success;
+    uint32          timeout = 0;
+
+    /* If the card is not initialized */
+    if ((sd->cardState & (uint8)IfxSdmmc_CardState_notInitialised) != 0U)
+    {
+        status = IfxSdmmc_Status_cardNotInitialised;
+    }
+    else if ((sd->cardState & (uint8)IfxSdmmc_CardState_locked) != 0U)
+    {
+        status = IfxSdmmc_Status_cardLocked;
+    }
+    /* If the card is read only or write protected */
+    else if ((sd->cardState & (uint8)IfxSdmmc_CardState_writeProtected) != 0U)
+    {
+        status = IfxSdmmc_Status_cardWrProtected;
+    }
+    else
+    {
+        /* If not block addressing, then multiply by 512 bytes */
+        if (((uint32)sd->cardCapacity & (uint32)IfxSdmmc_SdCardCapacity_blockAddressing) == 0U)
+        {
+            address = (uint32)(address * 512U);
+        }
+
+        if (sd->dmaUsed == TRUE)
+        {
+            if (sd->dmaType == IfxSdmmc_DmaType_adma2)
+            {
+                status = IfxSdmmc_Sd_multiBlockAdma2Transfer(sd, IfxSdmmc_Command_writeMultipleBlock, address, IFXSDMMC_BLOCK_SIZE_DEFAULT, data, IfxSdmmc_TransferDirection_write, blockCount);
+            }
+            else
+            {
+                status = IfxSdmmc_Sd_multiBlockDmaTransfer(sd, IfxSdmmc_Command_writeMultipleBlock, address, IFXSDMMC_BLOCK_SIZE_DEFAULT, data, IfxSdmmc_TransferDirection_write, blockCount);
+            }
+        }
+        else
+        {
+            /* Multi block transfer are done through DMA only */
+            status = IfxSdmmc_Status_configurationNotSupported;
+        }
+
+        if ((status == IfxSdmmc_Status_success) || (status == IfxSdmmc_Status_bufferReady))
+        {
+            status = IfxSdmmc_Status_success;
+        }
+        else
+        {
+            status = IfxSdmmc_Status_failure;
+        }
+    }
+
+    /* Wait for until the command OR data lines aren't busy */
+    /* check if command and data lines are free */
+    timeout = 1000000;
+
+    while ((IfxSdmmc_isDataLineBusy(sd->sdmmcSFR) || (IfxSdmmc_isCommandLineBusy(sd->sdmmcSFR))) && (timeout > 0))
+    {
+        timeout--;
+    }
+
+    if (timeout == 0)
+    {
+        status = IfxSdmmc_Status_timeout;
     }
 
     return status;

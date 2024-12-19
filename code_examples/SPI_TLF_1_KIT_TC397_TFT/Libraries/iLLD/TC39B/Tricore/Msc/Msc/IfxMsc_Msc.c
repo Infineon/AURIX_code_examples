@@ -2,8 +2,8 @@
  * \file IfxMsc_Msc.c
  * \brief MSC MSC details
  *
- * \version iLLD_1_0_1_12_0_1
- * \copyright Copyright (c) 2019 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0_1
+ * \copyright Copyright (c) 2023 Infineon Technologies AG. All rights reserved.
  *
  *
  *
@@ -119,18 +119,35 @@ void IfxMsc_Msc_initModule(IfxMsc_Msc *msc, const IfxMsc_Msc_Config *config)
         mscSfr->USR.U = usr.U;
     }
 
-    /* Normal divider */
-    if (config->clockConfig.dividerMode == 1)
+    if (config->streamMode == IfxMsc_StreamMode_up) /*Upstream Baudrate Configuration*/
     {
-        /* Initialize MSC BaudRate at 6.25MHz, Fsys = 100MHz */
-        mscSfr->FDR.B.STEP =
-            IfxMsc_upstreamNormalBaudCalculator(mscSfr, config->clockConfig.baudrate);
+        /* Normal divider */
+        if (config->clockConfig.dividerMode == 1)
+        {
+            /* Initialize MSC BaudRate at 6.25MHz, Fsys = 100MHz */
+            mscSfr->FDR.B.STEP =
+                IfxMsc_upstreamNormalBaudCalculator(mscSfr, config->clockConfig.baudrate);
+        }
+        /* Fractional divider */
+        else
+        {
+            /* Initialize MSC BaudRate at 6.25MHz, Fsys = 100MHz */
+            mscSfr->FDR.B.STEP = (uint32)IfxMsc_upstreamFractionalBaudCalculator(mscSfr, config->clockConfig.baudrate);
+        }
     }
-    /* Fractional divider */
-    else
+
+    else /*Downstream Baudrate Configuration*/
     {
-        /* Initialize MSC BaudRate at 6.25MHz, Fsys = 100MHz */
-        mscSfr->FDR.B.STEP = (uint32)IfxMsc_upstreamFractionalBaudCalculator(mscSfr, config->clockConfig.baudrate);
+        /* Normal divider */
+        if (config->clockConfig.dividerMode == IfxMsc_DividerMode_normal)
+        {
+            mscSfr->FDR.B.STEP = IfxMsc_downstreamNormalBaudCalculator(mscSfr, config->clockConfig.baudrate);
+        }
+        /* Fractional divider */
+        else
+        {
+            mscSfr->FDR.B.STEP = (uint32)IfxMsc_downstreamFractionalBaudCalculator(mscSfr, config->clockConfig.baudrate);
+        }
     }
 
     IfxScuWdt_setCpuEndinit(passwd);
@@ -546,7 +563,8 @@ void IfxMsc_Msc_initModuleConfig(IfxMsc_Msc_Config *config, Ifx_MSC *msc)
             .srhBitsShiftedAtDataFramesExtension = IfxMsc_MsbBitDataExtension_notPresent,
             .fastMode                            = IfxMsc_FastMode_disabled,
             .nDividerDownstream                  = IfxMsc_NDividerDownstream_1
-        }
+        },
+        .streamMode                                  = IfxMsc_StreamMode_up
     };
 
     /* Default Configuration */

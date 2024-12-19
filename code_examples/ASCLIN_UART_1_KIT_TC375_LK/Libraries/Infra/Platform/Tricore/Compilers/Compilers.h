@@ -78,11 +78,14 @@
 #if defined(__DCC__)
 #include "CompilerDcc.h"
 
+#elif defined(__TASKING__)
+#include "CompilerTasking.h"
+
 #elif defined(__HIGHTEC__)
 #include "CompilerGnuc.h"
 
-#elif defined(__TASKING__)
-#include "CompilerTasking.h"
+#elif defined(__GNUC__) && !defined(__HIGHTEC__)
+#include "CompilerGcc.h"
 
 #elif defined(__ghs__)
 #include "CompilerGhs.h"
@@ -111,15 +114,19 @@
 #error "Compiler unsupported"
 #endif
 
-#if defined(__HIGHTEC__)
-#define BEGIN_DATA_SECTION(sec) DATA_SECTION(section #sec aw 4)
-#define DATA_SECTION(sec) _Pragma(#sec)
-#define END_DATA_SECTION DATA_SECTION(section)
-#elif defined(__TASKING__)
+#if defined(__TASKING__)
 #define BEGIN_DATA_SECTION(sec) DATA_SECTION(section farbss #sec)
 #define DATA_SECTION(sec) _Pragma(#sec)
 #define END_DATA_SECTION DATA_SECTION(section farbss align restore) \
 		DATA_SECTION(section farbss)
+#elif defined(__HIGHTEC__)
+#define BEGIN_DATA_SECTION(sec) DATA_SECTION(section #sec aw 4)
+#define DATA_SECTION(sec) _Pragma(#sec)
+#define END_DATA_SECTION DATA_SECTION(section)
+#elif defined(__GNUC__) && !defined(__HIGHTEC__)
+#define BEGIN_DATA_SECTION(sec) DATA_SECTION(section #sec aw 4)
+#define DATA_SECTION(sec) _Pragma(#sec)
+#define END_DATA_SECTION DATA_SECTION(section)
 #elif defined(__DCC__)
 #define BEGIN_DATA_SECTION(sec) DATA_SECTION(section #sec WX)
 #define DATA_SECTION(sec) _Pragma(#sec)

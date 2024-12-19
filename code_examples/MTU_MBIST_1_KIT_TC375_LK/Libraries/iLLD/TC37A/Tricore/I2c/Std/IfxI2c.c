@@ -2,8 +2,9 @@
  * \file IfxI2c.c
  * \brief I2C  basic functionality
  *
- * \version iLLD_1_0_1_15_0_1
- * \copyright Copyright (c) 2020 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0
+ * \copyright Copyright (c) 2023 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
@@ -36,6 +37,7 @@
  * FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
+ *
  *
  */
 
@@ -231,13 +233,7 @@ void IfxI2c_releaseBus(Ifx_I2C *i2c)
 void IfxI2c_resetFifo(Ifx_I2C *i2c)
 {
     /* reset FIFO */
-    i2c->FIFOCFG.U      = 0x0;
-    i2c->FIFOCFG.B.TXFC = 0U;
-    i2c->FIFOCFG.B.RXFC = 0U;
-    i2c->FIFOCFG.B.TXBS = 0U;
-    i2c->FIFOCFG.B.RXBS = 0U;
-    i2c->FIFOCFG.B.TXFA = 0U;
-    i2c->FIFOCFG.B.RXFA = 0U;
+    i2c->FIFOCFG.U = 0x0;
 }
 
 
@@ -296,12 +292,12 @@ void IfxI2c_setBaudrate(Ifx_I2C *i2c, float32 baudrate)
         i2c->FDIVCFG.B.DEC     = 0x1D2;
 
         i2c->FDIVHIGHCFG.B.INC = 46;
-        i2c->FDIVHIGHCFG.B.DEC = (uint16)(dec + 0.5);
+        i2c->FDIVHIGHCFG.B.DEC = (uint16)(dec + 0.5f);
     }
     else
     {
         i2c->FDIVCFG.B.INC = 1;
-        i2c->FDIVCFG.B.DEC = (uint16)(dec + 0.5);
+        i2c->FDIVCFG.B.DEC = (uint16)(dec + 0.5f);
     }
 
     i2c->TIMCFG.B.SDA_DEL_HD_DAT = 0x3F;
@@ -313,27 +309,27 @@ void IfxI2c_setBaudrate(Ifx_I2C *i2c, float32 baudrate)
 }
 
 
-void IfxI2c_configureHighSpeedMode(Ifx_I2C *i2c)
+void IfxI2c_configureAsSlave(Ifx_I2C *i2c)
 {
-    // enter config Mode
-    IfxI2c_stop(i2c);
+    i2c->ADDRCFG.B.MNS = 1; // master mode
+}
 
-    i2c->ADDRCFG.B.MCE  = 1; // master code enable
-    i2c->ADDRCFG.B.SONA = 1;
-    i2c->ADDRCFG.B.SOPE = 1;
 
-    IfxI2c_run(i2c);
-    IfxI2c_setTransmitPacketSize(i2c, 1);
-    IfxI2c_writeFifo(i2c, IFXI2C_HIGHSPEED_MASTER_CODE); // Send the Master code to switch to high speed mode
+void IfxI2c_configureAddrFifo(Ifx_I2C *i2c, const IfxI2c_Config *config)
+{
+    // Note: I2C should not be running. Use IfxI2c_stop() before calling this api.
 
-    while (!(IfxI2c_getProtocolInterruptSourceStatus(i2c, IfxI2c_ProtocolInterruptSource_transmissionEnd)))
-    {}
+    i2c->ADDRCFG.B.ADR  = config->addressConfig.slaveAddress;
+    i2c->ADDRCFG.B.GCE  = config->addressConfig.generalCallEnable;
+    i2c->ADDRCFG.B.MCE  = config->addressConfig.masterCodeEnable;
+    i2c->ADDRCFG.B.SONA = config->addressConfig.stopOnNotAcknowledge;
+    i2c->ADDRCFG.B.SOPE = config->addressConfig.stopOnPacketEnd;
+    i2c->ADDRCFG.B.TBAM = config->addressConfig.addressMode;
 
-    IfxI2c_clearAllDtrInterruptSources(i2c);
-    IfxI2c_clearAllProtocolInterruptSources(i2c);
-
-    IfxI2c_stop(i2c);
-
-    while (IfxI2c_getBusStatus(i2c) != 0U)
-    {}
+    i2c->FIFOCFG.B.TXFC = config->fifoConfig.txFifoFlowControl;
+    i2c->FIFOCFG.B.RXFC = config->fifoConfig.rxFifoFlowControl;
+    i2c->FIFOCFG.B.TXBS = config->fifoConfig.txBurstSize;
+    i2c->FIFOCFG.B.RXBS = config->fifoConfig.rxBurstSize;
+    i2c->FIFOCFG.B.TXFA = config->fifoConfig.txFifoAlignment;
+    i2c->FIFOCFG.B.RXFA = config->fifoConfig.rxFifoAlignment;
 }

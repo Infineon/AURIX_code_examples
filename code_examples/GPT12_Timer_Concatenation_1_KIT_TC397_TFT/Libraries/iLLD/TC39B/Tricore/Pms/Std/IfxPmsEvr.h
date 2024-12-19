@@ -3,8 +3,9 @@
  * \brief PMS  basic functionality
  * \ingroup IfxLld_Pms
  *
- * \version iLLD_1_0_1_12_0
- * \copyright Copyright (c) 2019 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0_1
+ * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
@@ -37,6 +38,7 @@
  * FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
+ *
  *
  * \defgroup IfxLld_Pms_Std_Evr EVR
  * \ingroup IfxLld_Pms_Std
@@ -711,7 +713,6 @@ IFX_INLINE void IfxPmsEvr_wait(float32 waitInSec);
 /******************************************************************************/
 /*-------------------Global Exported Variables/Constants----------------------*/
 /******************************************************************************/
-
 IFX_EXTERN IFX_CONST IfxPmsEvr_StepDownRegulatorRegConfig IfxPmsEvr_cfgPhase1Default[];
 
 IFX_EXTERN IFX_CONST IfxPmsEvr_StepDownRegulatorRegConfig IfxPmsEvr_cfgPhase2Default[];
@@ -866,7 +867,7 @@ IFX_INLINE void IfxPmsEvr_fineTrimEvrClock(Ifx_PMS *pms, uint8 trimValue)
 IFX_INLINE float32 IfxPmsEvr_getAdcVddResult(float32 averageADCC)
 {
     float32 vddVoltage = 0;
-    vddVoltage = (IFXPMSEVR_ADC_VDD_LSB * averageADCC + 0.7125);
+    vddVoltage = (IFXPMSEVR_ADC_VDD_LSB * averageADCC + 0.7125f);
     return vddVoltage;
 }
 
@@ -874,7 +875,7 @@ IFX_INLINE float32 IfxPmsEvr_getAdcVddResult(float32 averageADCC)
 IFX_INLINE float32 IfxPmsEvr_getAdcVddp3Result(float32 averageADC33V)
 {
     float32 vddp3Voltage = 0;
-    vddp3Voltage = (IFXPMSEVR_ADC_VDDP3_LSB * averageADC33V + 0.9375);
+    vddp3Voltage = (IFXPMSEVR_ADC_VDDP3_LSB * averageADC33V + 0.9375f);
     return vddp3Voltage;
 }
 
@@ -882,7 +883,7 @@ IFX_INLINE float32 IfxPmsEvr_getAdcVddp3Result(float32 averageADC33V)
 IFX_INLINE float32 IfxPmsEvr_getAdcVextResult(float32 averageADCSWDV)
 {
     float32 vextVoltage = 0;
-    vextVoltage = (IFXPMSEVR_ADC_VEXT_LSB * averageADCSWDV + 1.050);
+    vextVoltage = (IFXPMSEVR_ADC_VEXT_LSB * averageADCSWDV + 1.050f);
     return vextVoltage;
 }
 
@@ -920,6 +921,8 @@ IFX_INLINE uint8 IfxPmsEvr_getPrimaryAdcSwdResult(Ifx_PMS *pms)
 #if defined(__TASKING__)
 #pragma optimize L
 #elif defined(__HIGHTEC__)
+#pragma GCC optimize ("-O2")
+#elif defined(__GNUC__) && !defined(__HIGHTEC__)
 #pragma GCC optimize ("-O2")
 #endif
 IFX_INLINE boolean IfxPmsEvr_runInitSequence(const IfxPmsEvr_initSequence *const sequence)
@@ -980,6 +983,8 @@ IFX_INLINE boolean IfxPmsEvr_runInitSequence(const IfxPmsEvr_initSequence *const
 #if defined(__TASKING__)
 #pragma endoptimize
 #elif defined(__HIGHTEC__)
+#pragma GCC reset_options
+#elif defined(__GNUC__) && !defined(__HIGHTEC__)
 #pragma GCC reset_options
 #endif
 
@@ -1105,10 +1110,10 @@ IFX_INLINE void IfxPmsEvr_setResetTrimValueMv(Ifx_PMS *pms, float32 resetTrimVal
     switch (supply)
     {
     case IfxPmsEvr_SupplyMode_evrc:
-        tempRSTCON.B.RSTCTRIM = ((resetTrimValue - 712.5) / 5);
+        tempRSTCON.B.RSTCTRIM = ((resetTrimValue - 712.5f) / 5);
         break;
     case IfxPmsEvr_SupplyMode_evr33:
-        tempRSTCON.B.RST33TRIM = ((resetTrimValue - 937.5) / 15);
+        tempRSTCON.B.RST33TRIM = ((resetTrimValue - 937.5f) / 15);
         break;
     case IfxPmsEvr_SupplyMode_swd:
         tempRSTCON.B.RSTSWDTRIM = ((resetTrimValue - 1050) / 20);

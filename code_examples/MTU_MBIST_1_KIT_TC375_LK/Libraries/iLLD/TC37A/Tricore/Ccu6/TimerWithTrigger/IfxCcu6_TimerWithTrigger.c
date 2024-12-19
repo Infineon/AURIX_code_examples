@@ -2,28 +2,26 @@
  * \file IfxCcu6_TimerWithTrigger.c
  * \brief CCU6 TIMERWITHTRIGGER details
  *
- * \version iLLD_1_0_1_15_0_1
+ * \version iLLD_1_0_1_17_0
  * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
  *
  *
  *
  *                                 IMPORTANT NOTICE
  *
- *
  * Use of this file is subject to the terms of use agreed between (i) you or
  * the company in which ordinary course of business you are acting and (ii)
- * Infineon Technologies AG or its licensees. If and as long as no such
- * terms of use are agreed, use of this file is subject to following:
- *
+ * Infineon Technologies AG or its licensees. If and as long as no such terms
+ * of use are agreed, use of this file is subject to following:
  *
  * Boost Software License - Version 1.0 - August 17th, 2003
  *
- * Permission is hereby granted, free of charge, to any person or
- * organization obtaining a copy of the software and accompanying
- * documentation covered by this license (the "Software") to use, reproduce,
- * display, distribute, execute, and transmit the Software, and to prepare
- * derivative works of the Software, and to permit third-parties to whom the
- * Software is furnished to do so, all subject to the following:
+ * Permission is hereby granted, free of charge, to any person or organization
+ * obtaining a copy of the software and accompanying documentation covered by
+ * this license (the "Software") to use, reproduce, display, distribute,
+ * execute, and transmit the Software, and to prepare derivative works of the
+ * Software, and to permit third-parties to whom the Software is furnished to
+ * do so, all subject to the following:
  *
  * The copyright notices in the Software and this entire statement, including
  * the above license grant, this restriction and the following disclaimer, must
@@ -102,7 +100,7 @@ void IfxCcu6_TimerWithTrigger_disableUpdate(IfxCcu6_TimerWithTrigger *driver)
 
 float32 IfxCcu6_TimerWithTrigger_getFrequency(IfxCcu6_TimerWithTrigger *driver)
 {
-    return 1.0 / IfxStdIf_Timer_tickToS(driver->base.clockFreq, driver->base.period);
+    return 1.0f / IfxStdIf_Timer_tickToS(driver->base.clockFreq, driver->base.period);
 }
 
 
@@ -126,7 +124,7 @@ volatile uint32 *IfxCcu6_TimerWithTrigger_getPointer(IfxCcu6_TimerWithTrigger *d
 
 float32 IfxCcu6_TimerWithTrigger_getResolution(IfxCcu6_TimerWithTrigger *driver)
 {
-    return 1.0 / driver->base.clockFreq;
+    return 1.0f / driver->base.clockFreq;
 }
 
 
@@ -161,7 +159,7 @@ boolean IfxCcu6_TimerWithTrigger_init(IfxCcu6_TimerWithTrigger *driver, IfxCcu6_
         freqT12   = freqCC6 / (1U << prescaler);
         periodT12 = freqT12 / config->base.frequency;
 
-        if ((periodT12 <= 65535.0) && (periodT12 > config->base.minResolution))
+        if ((periodT12 <= 65535.0f) && (periodT12 > config->base.minResolution))
         {
             break;
         }
@@ -184,7 +182,7 @@ boolean IfxCcu6_TimerWithTrigger_init(IfxCcu6_TimerWithTrigger *driver, IfxCcu6_
 
     IfxCcu6_TimerWithTrigger_updateInputFrequency(driver);
 
-    if ((config->base.minResolution > 0) && ((1.0 / base->clockFreq) > config->base.minResolution))
+    if ((config->base.minResolution > 0) && ((1.0f / base->clockFreq) > config->base.minResolution))
     {
         result = FALSE;
         IFX_ASSERT(IFX_VERBOSE_LEVEL_ERROR, FALSE);
@@ -301,7 +299,7 @@ void IfxCcu6_TimerWithTrigger_run(IfxCcu6_TimerWithTrigger *driver)
 
 boolean IfxCcu6_TimerWithTrigger_setFrequency(IfxCcu6_TimerWithTrigger *driver, float32 frequency)
 {
-    Ifx_TimerValue period = IfxStdIf_Timer_sToTick(driver->base.clockFreq, 1.0 / frequency);
+    Ifx_TimerValue period = IfxStdIf_Timer_sToTick(driver->base.clockFreq, 1.0f / frequency);
 
     return IfxCcu6_TimerWithTrigger_setPeriod(driver, period);
 }

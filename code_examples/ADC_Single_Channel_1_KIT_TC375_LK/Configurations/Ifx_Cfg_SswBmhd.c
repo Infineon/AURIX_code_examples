@@ -34,17 +34,17 @@
 /*********************************************************************************************************************/
 /*--------------------------------------------------BMHD constants---------------------------------------------------*/
 /*********************************************************************************************************************/
-#if defined(__HIGHTEC__)
-#pragma section
-#pragma section ".bmhd_0_orig" a
-#endif
 #if defined(__TASKING__)
 #pragma section farrom "bmhd_0_orig"
-#endif
-#if defined(__DCC__)
+#elif defined(__HIGHTEC__)
+#pragma section
+#pragma section ".bmhd_0_orig" a
+#elif defined(__GNUC__) && !defined(__HIGHTEC__)
+#pragma section
+#pragma section ".bmhd_0_orig" a
+#elif defined(__DCC__)
 #pragma section CONST ".bmhd_0_orig" far-absolute R
-#endif
-#if defined(__ghs__)
+#elif defined(__ghs__)
 #pragma ghs section rodata= ".bmhd_0_orig"
 #endif
 const Ifx_Ssw_Bmhd bmhd_0_orig =
@@ -99,17 +99,17 @@ const Ifx_Ssw_Bmhd bmhd_0_orig =
     0x43211234      /* 0x1F0: .confirmation: 32-bit CODE, (always same)                                 */
 };
 
-#if defined(__HIGHTEC__)
-#pragma section
-#pragma section ".bmhd_0_copy" a
-#endif
 #if defined(__TASKING__)
 #pragma section farrom "bmhd_0_copy"
-#endif
-#if defined(__DCC__)
+#elif defined(__HIGHTEC__)
+#pragma section
+#pragma section ".bmhd_0_copy" a
+#elif defined(__GNUC__) && !defined(__HIGHTEC__)
+#pragma section
+#pragma section ".bmhd_0_copy" a
+#elif defined(__DCC__)
 #pragma section CONST ".bmhd_0_copy" far-absolute R
-#endif
-#if defined(__ghs__)
+#elif defined(__ghs__)
 #pragma ghs section rodata= ".bmhd_0_copy"
 #endif
 const Ifx_Ssw_Bmhd bmhd_0_copy =
@@ -164,17 +164,17 @@ const Ifx_Ssw_Bmhd bmhd_0_copy =
     0x43211234      /* 0x1F0: .confirmation: 32-bit CODE, (always same)                                 */
 };
 
-#if defined(__HIGHTEC__)
-#pragma section
-#pragma section ".bmhd_1_orig" a
-#endif
 #if defined(__TASKING__)
 #pragma section farrom "bmhd_1_orig"
-#endif
-#if defined(__DCC__)
+#elif defined(__HIGHTEC__)
+#pragma section
+#pragma section ".bmhd_1_orig" a
+#elif defined(__GNUC__) && !defined(__HIGHTEC__)
+#pragma section
+#pragma section ".bmhd_1_orig" a
+#elif defined(__DCC__)
 #pragma section CONST ".bmhd_1_orig" far-absolute R
-#endif
-#if defined(__ghs__)
+#elif defined(__ghs__)
 #pragma ghs section rodata= ".bmhd_1_orig"
 #endif
 const Ifx_Ssw_Bmhd bmhd_1_orig =
@@ -229,17 +229,17 @@ const Ifx_Ssw_Bmhd bmhd_1_orig =
     0x43211234      /* 0x1F0: .confirmation: 32-bit CODE, (always same)                                 */
 };
 
-#if defined(__HIGHTEC__)
-#pragma section
-#pragma section ".bmhd_1_copy" a
-#endif
 #if defined(__TASKING__)
 #pragma section farrom "bmhd_1_copy"
-#endif
-#if defined(__DCC__)
+#elif defined(__HIGHTEC__)
+#pragma section
+#pragma section ".bmhd_1_copy" a
+#elif defined(__GNUC__) && !defined(__HIGHTEC__)
+#pragma section
+#pragma section ".bmhd_1_copy" a
+#elif defined(__DCC__)
 #pragma section CONST ".bmhd_1_copy" far-absolute R
-#endif
-#if defined(__ghs__)
+#elif defined(__ghs__)
 #pragma ghs section rodata= ".bmhd_1_copy"
 #endif
 const Ifx_Ssw_Bmhd bmhd_1_copy =
@@ -294,17 +294,17 @@ const Ifx_Ssw_Bmhd bmhd_1_copy =
     0x43211234      /* 0x1F0: .confirmation: 32-bit CODE, (always same)                                 */
 };
 
-#if defined(__HIGHTEC__)
-#pragma section
-#pragma section ".bmhd_2_orig" a
-#endif
 #if defined(__TASKING__)
 #pragma section farrom "bmhd_2_orig"
-#endif
-#if defined(__DCC__)
+#elif defined(__HIGHTEC__)
+#pragma section
+#pragma section ".bmhd_2_orig" a
+#elif defined(__GNUC__) && !defined(__HIGHTEC__)
+#pragma section
+#pragma section ".bmhd_2_orig" a
+#elif defined(__DCC__)
 #pragma section CONST ".bmhd_2_orig" far-absolute R
-#endif
-#if defined(__ghs__)
+#elif defined(__ghs__)
 #pragma ghs section rodata= ".bmhd_2_orig"
 #endif
 const Ifx_Ssw_Bmhd bmhd_2_orig =
@@ -359,17 +359,17 @@ const Ifx_Ssw_Bmhd bmhd_2_orig =
     0x43211234      /* 0x1F0: .confirmation: 32-bit CODE, (always same)                                 */
 };
 
-#if defined(__HIGHTEC__)
-#pragma section
-#pragma section ".bmhd_2_copy" a
-#endif
 #if defined(__TASKING__)
 #pragma section farrom "bmhd_2_copy"
-#endif
-#if defined(__DCC__)
+#elif defined(__HIGHTEC__)
+#pragma section
+#pragma section ".bmhd_2_copy" a
+#elif defined(__GNUC__) && !defined(__HIGHTEC__)
+#pragma section
+#pragma section ".bmhd_2_copy" a
+#elif defined(__DCC__)
 #pragma section CONST ".bmhd_2_copy" far-absolute R
-#endif
-#if defined(__ghs__)
+#elif defined(__ghs__)
 #pragma ghs section rodata= ".bmhd_2_copy"
 #endif
 const Ifx_Ssw_Bmhd bmhd_2_copy =
@@ -424,17 +424,17 @@ const Ifx_Ssw_Bmhd bmhd_2_copy =
     0x43211234      /* 0x1F0: .confirmation: 32-bit CODE, (always same)                                 */
 };
 
-#if defined(__HIGHTEC__)
-#pragma section
-#pragma section ".bmhd_3_orig" a
-#endif
 #if defined(__TASKING__)
 #pragma section farrom "bmhd_3_orig"
-#endif
-#if defined(__DCC__)
+#elif defined(__HIGHTEC__)
+#pragma section
+#pragma section ".bmhd_3_orig" a
+#elif defined(__GNUC__) && !defined(__HIGHTEC__)
+#pragma section
+#pragma section ".bmhd_3_orig" a
+#elif defined(__DCC__)
 #pragma section CONST ".bmhd_3_orig" far-absolute R
-#endif
-#if defined(__ghs__)
+#elif defined(__ghs__)
 #pragma ghs section rodata= ".bmhd_3_orig"
 #endif
 const Ifx_Ssw_Bmhd bmhd_3_orig =
@@ -489,17 +489,17 @@ const Ifx_Ssw_Bmhd bmhd_3_orig =
     0x43211234      /* 0x1F0: .confirmation: 32-bit CODE, (always same)                                 */
 };
 
-#if defined(__HIGHTEC__)
-#pragma section
-#pragma section ".bmhd_3_copy" a
-#endif
 #if defined(__TASKING__)
 #pragma section farrom "bmhd_3_copy"
-#endif
-#if defined(__DCC__)
+#elif defined(__HIGHTEC__)
+#pragma section
+#pragma section ".bmhd_3_copy" a
+#elif defined(__GNUC__) && !defined(__HIGHTEC__)
+#pragma section
+#pragma section ".bmhd_3_copy" a
+#elif defined(__DCC__)
 #pragma section CONST ".bmhd_3_copy" far-absolute R
-#endif
-#if defined(__ghs__)
+#elif defined(__ghs__)
 #pragma ghs section rodata= ".bmhd_3_copy"
 #endif
 const Ifx_Ssw_Bmhd bmhd_3_copy =
@@ -555,5 +555,7 @@ const Ifx_Ssw_Bmhd bmhd_3_copy =
 };
 
 #if defined(__HIGHTEC__)
+#pragma section
+#elif defined(__GNUC__) && !defined(__HIGHTEC__)
 #pragma section
 #endif

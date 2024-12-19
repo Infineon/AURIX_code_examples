@@ -2,8 +2,9 @@
  * \file IfxDts_Dts.c
  * \brief DTS DTS details
  *
- * \version iLLD_1_0_1_12_0
- * \copyright Copyright (c) 2019 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0
+ * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
@@ -37,6 +38,7 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  *
+ *
  */
 
 /******************************************************************************/
@@ -51,7 +53,7 @@
 
 uint16 IfxDts_Dts_convertFromCelsius(float32 temperatureValue)
 {
-    sint32 dtsValue = (sint32)(7.505 * (temperatureValue + 273.15));
+    sint32 dtsValue = (sint32)(7.505f * (temperatureValue + 273.15f));
 
     if (dtsValue < 0)
     {
@@ -68,7 +70,7 @@ uint16 IfxDts_Dts_convertFromCelsius(float32 temperatureValue)
 
 float32 IfxDts_Dts_convertToCelsius(uint16 dtsValue)
 {
-    return (float32)((dtsValue / 7.505) - 273.15);
+    return (float32)((dtsValue / 7.505f) - 273.15f);
 }
 
 

@@ -2,7 +2,7 @@
  * \file Ifx_Ssw_CompilersGnuc.h
  * \brief Startup Software for GNU compiler options
  *
- * \version iLLD_1_0_1_12_0
+ * \version iLLD_1_0_1_17_0_1
  * \copyright Copyright (c) 2018 Infineon Technologies AG. All rights reserved.
  *
  *                                 IMPORTANT NOTICE
@@ -80,7 +80,7 @@
     extern unsigned int __INTTAB_CPU##cpu[];  /**< Interrupt vector table */    \
     extern unsigned int __TRAPTAB_CPU##cpu[]; /**< trap table */                \
     extern unsigned int __CSA##cpu[];         /**< context save area 1 begin */ \
-    extern unsigned int __CSA##cpu##_END[];   /**< context save area 1 begin */
+    extern unsigned int __CSA##cpu##_END[];   /**< context save area 1 end */
 
 #define __USTACK(cpu)      __USTACK##cpu
 #define __ISTACK(cpu)      __ISTACK##cpu
@@ -109,6 +109,8 @@
 #define IFX_SSW_INLINE   static inline __attribute__ ((always_inline))
 
 #define IFX_SSW_NULL_PTR ((void *)0x0U)
+
+#define IFX_SSW_WEAK     __attribute__ ((weak))
 
 /******************************************************************************/
 /*--------------------------------   Typedefs  -------------------------------*/
@@ -193,6 +195,10 @@ IFX_SSW_INLINE void Ifx_Ssw_jumpBackToLink(void)
     __asm__ volatile ("ji %a11");
 }
 
+IFX_SSW_INLINE void Ifx_Ssw_infiniteLoop(void)
+{
+    __asm("x: loopu\t x");
+}
 
 extern unsigned int __clear_table[];  /**< clear table entry */
 extern unsigned int __copy_table[];   /**< copy table entry */

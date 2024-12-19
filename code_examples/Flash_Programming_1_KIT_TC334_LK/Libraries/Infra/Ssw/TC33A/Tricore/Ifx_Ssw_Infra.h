@@ -2,8 +2,8 @@
  * \file Ifx_Ssw_Infra.h
  * \brief Startup Software support functions.
  *
- * \version iLLD_1_0_1_12_0_1
- * \copyright Copyright (c) 2018 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0
+ * \copyright Copyright (c) 2021 Infineon Technologies AG. All rights reserved.
  *
  *
  *                                 IMPORTANT NOTICE
@@ -454,6 +454,8 @@ IFX_SSW_INLINE char Ifx_Ssw_isColdPoweronReset(void)
 /*Add options to eliminate usage of stack pointers unnecessarily*/
 #if defined(__HIGHTEC__)
 #pragma GCC optimize "O2"
+#elif defined(__GNUC__) && !defined(__HIGHTEC__)
+#pragma GCC optimize "O2"
 #endif
 
 IFX_SSW_INLINE unsigned char Ifx_Ssw_isApplicationReset(void)
@@ -501,13 +503,24 @@ IFX_SSW_INLINE unsigned char Ifx_Ssw_isApplicationReset(void)
 /*Restore the options to command line provided ones*/
 #if defined(__HIGHTEC__)
 #pragma GCC reset_options
+#elif defined(__GNUC__) && !defined(__HIGHTEC__)
+#pragma GCC reset_options
 #endif
+
+/** \brief API to initialize the context save area of the CPU where this is called.
+ *
+ * This API can initialize the CSA of the host CPU where this API is called. This API
+ * shall not be used to initialize the CSA of another CPU.
+ * \param csaBegin Pointer to start of context save area, shall not be NULL pointer
+ * \param csaEnd Pointer to end of context save area, shall be higher address than csaBegin
+ * \return None
+ */
 
 IFX_SSW_INLINE void Ifx_Ssw_initCSA(unsigned int *csaBegin, unsigned int *csaEnd)
 {
     unsigned int  k;
     unsigned int  nxt_cxi_val = 0U;
-    unsigned int *prvCsa      = 0U;
+    unsigned int *prvCsa      = csaBegin;
     unsigned int *nxtCsa      = csaBegin;
     unsigned int numOfCsa     = (((unsigned int)csaEnd - (unsigned int)csaBegin) / 64U);
 

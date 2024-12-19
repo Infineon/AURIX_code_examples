@@ -3,8 +3,9 @@
  * \brief ASCLIN ASC details
  * \ingroup IfxLld_Asclin
  *
- * \version iLLD_1_0_1_15_0_1
- * \copyright Copyright (c) 2020 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0
+ * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
@@ -37,6 +38,7 @@
  * FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
+ *
  *
  * \defgroup IfxLld_Asclin_Asc_Usage How to use the ASCLIN ASC Interface driver?
  * \ingroup IfxLld_Asclin
@@ -610,5 +612,4 @@ IFX_EXTERN void IfxAsclin_Asc_initiateTransmission(IfxAsclin_Asc *asclin);
  * \return TRUE on success, else FALSE
  */
 IFX_EXTERN boolean IfxAsclin_Asc_stdIfDPipeInit(IfxStdIf_DPipe *stdif, IfxAsclin_Asc *asclin);
-
 #endif /* IFXASCLIN_ASC_H */

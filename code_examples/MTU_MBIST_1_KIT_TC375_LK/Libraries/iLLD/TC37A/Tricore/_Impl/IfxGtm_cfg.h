@@ -3,8 +3,9 @@
  * \brief GTM on-chip implementation data
  * \ingroup IfxLld_Gtm
  *
- * \version iLLD_1_0_1_15_0_1
- * \copyright Copyright (c) 2020 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0
+ * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
@@ -37,6 +38,7 @@
  * FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
+ *
  *
  * \defgroup IfxLld_Gtm GTM
  * \ingroup IfxLld
@@ -486,7 +488,6 @@ struct IfxGtm_Tom_TGC
 /******************************************************************************/
 /*-------------------Global Exported Variables/Constants----------------------*/
 /******************************************************************************/
-
 /** \brief Table containing the ATOM mapped CDTM index
  */
 IFX_EXTERN IFX_CONST IfxGtm_Cdtm IfxGtm_dtmAtom_map[IFXGTM_NUM_ATOM_OBJECTS];

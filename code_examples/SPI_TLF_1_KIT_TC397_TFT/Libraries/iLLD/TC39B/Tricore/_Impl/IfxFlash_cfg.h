@@ -3,8 +3,9 @@
  * \brief FLASH on-chip implementation data
  * \ingroup IfxLld_Flash
  *
- * \version iLLD_1_0_1_12_0_1
- * \copyright Copyright (c) 2018 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0_1
+ * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
@@ -37,6 +38,7 @@
  * FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
+ *
  *
  * \defgroup IfxLld_Flash FLASH
  * \ingroup IfxLld
@@ -88,7 +90,7 @@
  */
 #define IFXFLASH_DFLASH_NUM_HSM_LOG_SECTORS              (32)
 
-#define IFXFLASH_DFLASH_NUM_LOG_SECTORS                  (256 + 32)
+#define IFXFLASH_DFLASH_NUM_LOG_SECTORS                  (256)
 
 /** \brief Phy sector for DF
  */
@@ -266,7 +268,6 @@ typedef struct
 /******************************************************************************/
 /*-------------------Global Exported Variables/Constants----------------------*/
 /******************************************************************************/
-
 /** \brief
  */
 IFX_EXTERN IFX_CONST IfxFlash_flashSector IfxFlash_dFlashTableCfsLog[IFXFLASH_DFLASH_NUM_CFS_LOG_SECTORS];

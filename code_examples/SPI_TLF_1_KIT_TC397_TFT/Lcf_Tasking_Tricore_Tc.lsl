@@ -1134,7 +1134,7 @@ derivative tc39
                 {
                     select ".data.Ifx_Ssw_Tc4.*";
                     select ".data.Cpu4_Main.*";
-                    select "(.data.data_cpu4|.data.data_cpu3.*)";
+                    select "(.data.data_cpu4|.data.data_cpu4.*)";
                     select ".bss.Ifx_Ssw_Tc4.*";
                     select ".bss.Cpu4_Main.*";
                     select "(.bss.bss_cpu4|.bss.bss_cpu4.*)";

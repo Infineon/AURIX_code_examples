@@ -27,17 +27,17 @@
  /*\title ADC single channel conversion
  * \abstract The Enhanced Versatile Analog-to-Digital Converter (EVADC) is configured to measure an analog signal using queued request.
  * \description An analog input channel is continuously converted using the queued mode.
- *              The input value is determined using the microcontroller’s supply voltage, ground level or letting
+ *              The input value is determined using the microcontrollerâ€™s supply voltage, ground level or letting
  *              the analog pin open and floating. Three LEDs are used, each indicating a voltage interval.
  *              Thus depending on the conversion value, a certain LED will light up.
  *
  * \name ADC_Single_Channel_1_KIT_TC397_TFT
- * \version V1.0.2
+ * \version V2.0.0
  * \board APPLICATION KIT TC3X7 V2.0, KIT_A2G_TC397_5V_TFT, TC39xXX_B-Step
  * \keywords ADC, ADC_Single_Channel_1, EVADC, conversion, single channel scan, AURIX
- * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_ADC_Single_Channel_1_KIT_TC397_TFT-TR-v01_00_02-EN.pdf
- * \documents https://www.infineon.com/aurix-expert-training/TC39B_iLLD_UM_1_0_1_12_1.chm
- * \lastUpdated 2021-03-22
+ * \documents README.MD
+ * \documents https://www.infineon.com/aurix-expert-training/TC39B_iLLD_UM_1_0_1_17_0.chm
+ * \lastUpdated 2024-02-27
  *********************************************************************************************************************/
 #include "Ifx_Types.h"
 #include "IfxCpu.h"

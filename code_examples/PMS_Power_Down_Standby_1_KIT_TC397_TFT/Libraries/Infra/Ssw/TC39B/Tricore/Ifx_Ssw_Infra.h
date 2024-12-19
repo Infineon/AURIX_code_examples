@@ -2,7 +2,7 @@
  * \file Ifx_Ssw_Infra.h
  * \brief Startup Software support functions.
  *
- * \version iLLD_1_0_1_15_0_1
+ * \version iLLD_1_0_1_17_0_1
  * \copyright Copyright (c) 2018 Infineon Technologies AG. All rights reserved.
  *
  *
@@ -461,6 +461,8 @@ IFX_SSW_INLINE char Ifx_Ssw_isColdPoweronReset(void)
 /*Add options to eliminate usage of stack pointers unnecessarily*/
 #if defined(__HIGHTEC__)
 #pragma GCC optimize "O2"
+#elif defined(__GNUC__) && !defined(__HIGHTEC__)
+#pragma GCC optimize "O2"
 #endif
 
 IFX_SSW_INLINE unsigned char Ifx_Ssw_isApplicationReset(void)
@@ -507,6 +509,8 @@ IFX_SSW_INLINE unsigned char Ifx_Ssw_isApplicationReset(void)
 
 /*Restore the options to command line provided ones*/
 #if defined(__HIGHTEC__)
+#pragma GCC reset_options
+#elif defined(__GNUC__) && !defined(__HIGHTEC__)
 #pragma GCC reset_options
 #endif
 

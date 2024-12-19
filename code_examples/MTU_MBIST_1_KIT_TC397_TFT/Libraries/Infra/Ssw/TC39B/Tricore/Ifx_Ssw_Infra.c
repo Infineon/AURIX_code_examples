@@ -2,7 +2,7 @@
  * \file Ifx_Ssw_Infra.c
  * \brief Startup Software support functions.
  *
- * \version iLLD_1_0_1_15_0_1
+ * \version iLLD_1_0_1_17_0_1
  * \copyright Copyright (c) 2021 Infineon Technologies AG. All rights reserved.
  *
  *
@@ -199,31 +199,45 @@ void Ifx_Ssw_doCppInit(void)
 {
     Ifx_Ssw_C_InitInline();
 
-#ifdef __TASKING__
-extern void _main(void); /* cpp initialization */
-    _main();
-#endif
-#ifdef __HIGHTEC__
-extern void _init(void); /* cpp initialization */
-    _init();
-#endif
+	#ifdef __TASKING__
+		extern void _main(void); /* cpp initialization */
+		_main();
+	#elif defined(__HIGHTEC__) && !defined(__clang__)
+		extern void _init(void); /* cpp initialization */
+		_init();
+	#elif defined(__GNUC__) && !defined(__HIGHTEC__)
+		extern void _init(void); /* cpp initialization */
+		_init();
+	#elif defined(__ghs__)
+		extern void _main(void); /* cpp initialization */
+		_main();
+	#endif
 }
 
 void Ifx_Ssw_doCppExit(int status)
 {
-#ifdef __TASKING__
-extern void _doexit(void); /* cpp deinitialization */
-    _doexit();
-#endif
-#ifdef __HIGHTEC__
-extern void exit(int); /* cpp deinitialization */
-    exit(status);
-#endif
+	#ifdef __TASKING__
+		extern void _doexit(void); /* cpp deinitialization */
+		_doexit();
+	#elif defined(__HIGHTEC__) && !defined(__clang__)
+		extern void exit(int); /* cpp deinitialization */
+		exit(status);
+	#elif defined(__GNUC__) && !defined(__HIGHTEC__)
+		extern void exit(int); /* cpp deinitialization */
+		exit(status);
+	#elif __ghs__
+		extern void exit(int); /* cpp deinitialization */
+		exit(0);
+	#endif
+
 }
+
 
 #if defined(__TASKING__)
 #pragma optimize RL
 #elif defined(__HIGHTEC__)
+#pragma GCC optimize "O2"
+#elif defined(__GNUC__) && !defined(__HIGHTEC__)
 #pragma GCC optimize "O2"
 #endif
 
@@ -314,5 +328,7 @@ void Ifx_Ssw_UnlockEmem(void)
 #if defined(__TASKING__)
 #pragma endoptimize
 #elif defined(__HIGHTEC__)
+#pragma GCC reset_options
+#elif defined(__GNUC__) && !defined(__HIGHTEC__)
 #pragma GCC reset_options
 #endif

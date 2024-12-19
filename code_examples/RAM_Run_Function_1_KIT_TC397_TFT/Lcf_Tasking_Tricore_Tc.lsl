@@ -1134,7 +1134,7 @@ derivative tc39
                 {
                     select ".data.Ifx_Ssw_Tc4.*";
                     select ".data.Cpu4_Main.*";
-                    select "(.data.data_cpu4|.data.data_cpu3.*)";
+                    select "(.data.data_cpu4|.data.data_cpu4.*)";
                     select ".bss.Ifx_Ssw_Tc4.*";
                     select ".bss.Cpu4_Main.*";
                     select "(.bss.bss_cpu4|.bss.bss_cpu4.*)";
@@ -1396,12 +1396,6 @@ derivative tc39
                     select "(.text.cpu5_psram|.text.cpu5_psram.*)";
                     select "(.text.psram_text_cpu5|.text.psram_text_cpu5.*)";
                 }
-            }
-            
-            group code_lmuram_nc (ordered, attributes=rwx, copy, run_addr=mem:lmuram/not_cached)
-            {
-                select "(.text.not_cached_lmuram*)";
-                select "(.text.lmuram_not_cached*)";         
             }
         }
     }

@@ -2,8 +2,9 @@
  * \file IfxEray_Eray.c
  * \brief ERAY ERAY details
  *
- * \version iLLD_1_0_1_12_0
- * \copyright Copyright (c) 2019 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0
+ * \copyright Copyright (c) 2023 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
@@ -36,6 +37,7 @@
  * FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
+ *
  *
  */
 
@@ -162,8 +164,11 @@ void IfxEray_Eray_Node_init(IfxEray_Eray *eray, const IfxEray_Eray_NodeConfig *c
         }
     }
 
-    // set the Communication Controller to ready state
-    IfxEray_setPocReady(eraySFR);
+    if (config->loopbackMode == FALSE)
+    {
+        // set the Communication Controller to ready state
+        IfxEray_setPocReady(eraySFR);
+    }
 }
 
 
@@ -276,7 +281,7 @@ void IfxEray_Eray_Node_initConfig(IfxEray_Eray_NodeConfig *config)
                     .channelAMicrotickInitialOffset = 0x19,
                     .channelBMicrotickInitialOffset = 0x19,
                     .channelAMacrotickInitialOffset = 0xA,
-                    .channelBMacrotickInitialOffset = 0x2
+                    .channelBMacrotickInitialOffset = 0xA
                 },
 
                 .gtu04Config                        = {
@@ -325,7 +330,8 @@ void IfxEray_Eray_Node_initConfig(IfxEray_Eray_NodeConfig *config)
                 },
             },
         },
-        .pins                                       = NULL_PTR
+        .pins         = NULL_PTR,
+        .loopbackMode = FALSE
     };
 
     *config = nodeConfig;

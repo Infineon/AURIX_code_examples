@@ -3,7 +3,7 @@
  * \brief SCU on-chip implementation data
  * \ingroup IfxLld_Scu
  *
- * \version iLLD_1_0_1_12_0_1
+ * \version iLLD_1_0_1_17_0_1
  * \copyright Copyright (c) 2012 Infineon Technologies AG. All rights reserved.
  *
  *
@@ -1381,9 +1381,9 @@
     }
 
 /** \brief Macros to configure FLASH.FCON registers */
-#define IFXSCU_CFG_FLASH_WAITSTATE_MSK 0
+#define IFXSCU_CFG_FLASH_WAITSTATE_MSK (0x0000073FU)
 
-#define IFXSCU_CFG_FLASH_WAITSTATE_VAL_BASIC_(pll0Freq) 0
+#define IFXSCU_CFG_FLASH_WAITSTATE_VAL_BASIC_(pll0Freq) (0x00000105U)
 
 #define IFXSCU_CFG_FLASH_WAITSTATE_VAL_BASIC(pll0Freq)  IFXSCU_CFG_FLASH_WAITSTATE_VAL_BASIC_(pll0Freq)
 
@@ -1404,20 +1404,8 @@
 #endif
 #endif
 
-#ifndef IFXSCULBIST_CFG_SIGNATURE_B
-#ifndef IFX_CFG_LBIST_BODY_ENABLED
-#define IFXSCULBIST_CFG_SIGNATURE_B         (0x80835418U)
-#else
-#define IFXSCULBIST_CFG_SIGNATURE_B         (0xDD5B50C5U)
-#endif
-#endif
-
 #ifndef IFXSCULBIST_CFG_PATTERN_A
 #define IFXSCULBIST_CFG_PATTERN_A           (0x80U)
-#endif
-
-#ifndef IFXSCULBIST_CFG_PATTERN_B
-#define IFXSCULBIST_CFG_PATTERN_B           (0x500U)
 #endif
 
 #ifndef IFXSCULBIST_CFG_SCANCHAINLENGTH

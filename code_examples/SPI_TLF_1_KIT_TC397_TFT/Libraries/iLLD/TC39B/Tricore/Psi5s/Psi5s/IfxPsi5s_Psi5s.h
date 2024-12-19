@@ -3,8 +3,8 @@
  * \brief PSI5S PSI5S details
  * \ingroup IfxLld_Psi5s
  *
- * \version iLLD_1_0_1_12_0_1
- * \copyright Copyright (c) 2019 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0_1
+ * \copyright Copyright (c) 2023 Infineon Technologies AG. All rights reserved.
  *
  *
  *
@@ -552,9 +552,9 @@ IFX_EXTERN void IfxPsi5s_Psi5s_enableModule(Ifx_PSI5S *psi5s);
 /** \brief get Baud Rate
  * \param psi5s Pointer to PSI5S Module space
  * \param ascConfig Pointer to ASC configuration structure
- * \return None
+ * \return baudrate
  */
-IFX_EXTERN void IfxPsi5s_Psi5s_getBaudrate(Ifx_PSI5S *psi5s, IfxPsi5s_Psi5s_AscConfig *ascConfig);
+IFX_EXTERN float32 IfxPsi5s_Psi5s_getBaudrate(Ifx_PSI5S *psi5s, IfxPsi5s_Psi5s_AscConfig *ascConfig);
 
 /** \brief Reset PSI5S kernel
  * \param psi5s pointer to the base of PSI5S registers

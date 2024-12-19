@@ -3,8 +3,9 @@
  * \brief SDMMC  basic functionality
  * \ingroup IfxLld_Sdmmc
  *
- * \version iLLD_1_0_1_12_0
- * \copyright Copyright (c) 2019 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0_1
+ * \copyright Copyright (c) 2023 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
@@ -37,6 +38,7 @@
  * FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
+ *
  *
  * \defgroup IfxLld_Sdmmc_Std_Enumerations Enumerations
  * \ingroup IfxLld_Sdmmc_Std
@@ -753,6 +755,7 @@ typedef enum
     IfxSdmmc_ErrorInterrupt_dataCrc,             /**< \brief Data Crc Error */
     IfxSdmmc_ErrorInterrupt_dataEndBit,          /**< \brief Data End Bit Error */
     IfxSdmmc_ErrorInterrupt_currentLimit,        /**< \brief Current Limit Error */
+    IfxSdmmc_ErrorInterrupt_autoCommand,         /**< \brief Auto CMD Error (SD/eMMC Mode only) */
     IfxSdmmc_ErrorInterrupt_adma,                /**< \brief ADMA Error */
     IfxSdmmc_ErrorInterrupt_tuning,              /**< \brief Tuning Error */
     IfxSdmmc_ErrorInterrupt_response,            /**< \brief Response Error */
@@ -924,20 +927,21 @@ typedef enum
  */
 typedef enum
 {
-    IfxSdmmc_Status_success,               /**< \brief Success */
-    IfxSdmmc_Status_failure,               /**< \brief Failure */
-    IfxSdmmc_Status_commandLineBusy,       /**< \brief command Line Busy */
-    IfxSdmmc_Status_dataLineBusy,          /**< \brief data Line Busy */
-    IfxSdmmc_Status_commandError,          /**< \brief Command Error */
-    IfxSdmmc_Status_responseError,         /**< \brief Response Error */
-    IfxSdmmc_Status_timeout,               /**< \brief Timeout */
-    IfxSdmmc_Status_badResponse,           /**< \brief Bad Response */
-    IfxSdmmc_Status_initialisedButLocked,  /**< \brief Initialised but locked */
-    IfxSdmmc_Status_cardNotInitialised,    /**< \brief Card not initialised */
-    IfxSdmmc_Status_cardLocked,            /**< \brief Card Locked */
-    IfxSdmmc_Status_cardWrProtected,       /**< \brief Card Write Protected */
-    IfxSdmmc_Status_bufferReady,           /**< \brief Buffer Ready */
-    IfxSdmmc_Status_dataError              /**< \brief Data Error */
+    IfxSdmmc_Status_success,                   /**< \brief Success */
+    IfxSdmmc_Status_failure,                   /**< \brief Failure */
+    IfxSdmmc_Status_commandLineBusy,           /**< \brief command Line Busy */
+    IfxSdmmc_Status_dataLineBusy,              /**< \brief data Line Busy */
+    IfxSdmmc_Status_commandError,              /**< \brief Command Error */
+    IfxSdmmc_Status_responseError,             /**< \brief Response Error */
+    IfxSdmmc_Status_timeout,                   /**< \brief Timeout */
+    IfxSdmmc_Status_badResponse,               /**< \brief Bad Response */
+    IfxSdmmc_Status_initialisedButLocked,      /**< \brief Initialised but locked */
+    IfxSdmmc_Status_cardNotInitialised,        /**< \brief Card not initialised */
+    IfxSdmmc_Status_cardLocked,                /**< \brief Card Locked */
+    IfxSdmmc_Status_cardWrProtected,           /**< \brief Card Write Protected */
+    IfxSdmmc_Status_bufferReady,               /**< \brief Buffer Ready */
+    IfxSdmmc_Status_dataError,                 /**< \brief Data Error */
+    IfxSdmmc_Status_configurationNotSupported  /**< \brief configuration Not Supported */
 } IfxSdmmc_Status;
 
 /** \brief Transfer Direction\n
@@ -1518,6 +1522,20 @@ IFX_INLINE void IfxSdmmc_writeBufferData(Ifx_SDMMC *sdmmcSFR, uint32 *data);
  */
 IFX_INLINE IfxSdmmc_Status IfxSdmmc_checkErrorInResponseR1(uint32 cardStatus);
 
+/** \brief Clears the status flag of the selected Error Interrupt bits in value param
+ * \param sdmmcSFR pointer to base address of SDMMC register space
+ * \param value Value for Error Interrupt bits to clear
+ * \return None
+ */
+IFX_INLINE void IfxSdmmc_clearErrorInterruptAll(Ifx_SDMMC *sdmmcSFR, uint16 value);
+
+/** \brief Clears the status flag of the selected Normal Interrupt bits in value param
+ * \param sdmmcSFR pointer to base address of SDMMC register space
+ * \param value Value for Normal Interrupt bits to clear
+ * \return None
+ */
+IFX_INLINE void IfxSdmmc_clearNormalInterruptAll(Ifx_SDMMC *sdmmcSFR, uint16 value);
+
 /******************************************************************************/
 /*-------------------------Global Function Prototypes-------------------------*/
 /******************************************************************************/
@@ -1627,7 +1645,6 @@ IFX_EXTERN IfxSdmmc_Status IfxSdmmc_checkerrorInReponseR5(uint32 resp01);
 /******************************************************************************/
 /*-------------------Global Exported Variables/Constants----------------------*/
 /******************************************************************************/
-
 /** \brief Array of all Command Structures defining SD, MMC and Application specific commands
  */
 IFX_EXTERN Ifx_SDMMC_CMD_Bits IfxSdmmc_CMD[IFXSDMMC_NUM_COMMANDS];
@@ -1792,7 +1809,7 @@ IFX_INLINE boolean IfxSdmmc_isDataLineBusy(Ifx_SDMMC *sdmmcSFR)
 IFX_INLINE boolean IfxSdmmc_isErrorInterruptOccured(Ifx_SDMMC *sdmmcSFR, IfxSdmmc_ErrorInterrupt interrupt)
 {
     uint16 flag = (1 << interrupt);
-    return sdmmcSFR->ERROR_INT_STAT.U & flag;
+    return ((sdmmcSFR->ERROR_INT_STAT.U & flag) != 0) ? 1 : 0;
 }
 
 
@@ -1817,7 +1834,7 @@ IFX_INLINE boolean IfxSdmmc_isModuleEnabled(Ifx_SDMMC *sdmmcSFR)
 IFX_INLINE boolean IfxSdmmc_isNormalInterruptOccured(Ifx_SDMMC *sdmmcSFR, IfxSdmmc_NormalInterrupt interrupt)
 {
     uint16 flag = (1 << interrupt);
-    return sdmmcSFR->NORMAL_INT_STAT.U & flag;
+    return ((sdmmcSFR->NORMAL_INT_STAT.U & flag) != 0) ? 1 : 0;
 }
 
 
@@ -2002,6 +2019,18 @@ IFX_INLINE void IfxSdmmc_setAdma2LengthMode(Ifx_SDMMC *sdmmcSFR, IfxSdmmc_Adma2L
 IFX_INLINE void IfxSdmmc_setAutoCmdEnable(Ifx_SDMMC *sdmmcSFR, IfxSdmmc_AutoCmdSelect select)
 {
     sdmmcSFR->XFER_MODE.B.AUTO_CMD_ENABLE = select;
+}
+
+
+IFX_INLINE void IfxSdmmc_clearErrorInterruptAll(Ifx_SDMMC *sdmmcSFR, uint16 value)
+{
+    sdmmcSFR->ERROR_INT_STAT.U = value;
+}
+
+
+IFX_INLINE void IfxSdmmc_clearNormalInterruptAll(Ifx_SDMMC *sdmmcSFR, uint16 value)
+{
+    sdmmcSFR->NORMAL_INT_STAT.U = value;
 }
 
 

@@ -1,6 +1,6 @@
 /**
  * \file Ifx_TypesDcc.h
- * \version iLLD_1_0_1_15_0_1
+ * \version iLLD_1_0_1_17_0
  * \copyright Copyright (c) 2012 Infineon Technologies AG. All rights reserved.
  *
  *

@@ -25,18 +25,18 @@
  * IN THE SOFTWARE.
  *********************************************************************************************************************/
  /*\title PWM input capturing via TIM
- * \abstract The Timer Input Module (TIM) of the GTM is used to capture an external PWM signal and calculate the PWM signal frequency and duty cycle.
+ * \abstract 	The Timer Input Module (TIM) of the GTM is used to capture an external PWM signal and calculate the PWM signal frequency and duty cycle.
  * \description The TIM is used in capture mode. The data from the captured PWM signal is used to calculate the
  *              PWM signal frequency and duty cycle in software. The frequency and the duty cycle are then stored
  *              in variables.
  *
  * \name GTM_TIM_Capture_1_KIT_TC334_LK
- * \version V1.0.0
+ * \version V2.0.0
  * \board AURIX TC334 lite Kit, KIT_A2G_TC334_LITE, TC33xLP_A-Step
  * \keywords AURIX, GTM, GTM_TIM_Capture_1, Generic Timer Module, PWM, TIM, Timer Input Module AURIX, capture
- * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_GTM_TIM_Capture_1_KIT_TC334_LK-TR-v01_00_00-EN.pdf
- * \documents https://www.infineon.com/aurix-expert-training/TC33A_iLLD_UM_1_0_1_12_1.chm
- * \lastUpdated 2021-12-16
+ * \documents README.MD
+ * \documents https://www.infineon.com/aurix-expert-training/TC33A_iLLD_UM_1_0_1_17_0.chm
+ * \lastUpdated 2024-03-07
  *********************************************************************************************************************/
 #include "Ifx_Types.h"
 #include "IfxCpu.h"

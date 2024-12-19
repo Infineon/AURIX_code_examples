@@ -2,8 +2,9 @@
  * \file IfxCan.c
  * \brief CAN  basic functionality
  *
- * \version iLLD_1_0_1_15_0_1
- * \copyright Copyright (c) 2021 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0_1
+ * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
@@ -36,6 +37,7 @@
  * FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
+ *
  *
  *
  */
@@ -441,7 +443,7 @@ void IfxCan_Node_setBitTiming(Ifx_CAN_N *node, float32 moduleFreq, uint32 baudra
             bestTBAUD = tempTBAUD;
             bestError = error;
 
-            if ((tempTBAUD <= 20) && (error < 0.1))
+            if ((tempTBAUD <= 20) && (error < 0.1f))
             {
                 break;      /* optimal condition */
             }
@@ -465,7 +467,7 @@ void IfxCan_Node_setBitTiming(Ifx_CAN_N *node, float32 moduleFreq, uint32 baudra
     }
 
     /* search for best sample point */
-    bestError = samplePoint * 0.25; /* 25% tolerance in sample point as max error */
+    bestError = samplePoint * 0.25f; /* 25% tolerance in sample point as max error */
 
     if (bestTBAUD < maxTSEG1)
     {
@@ -604,7 +606,7 @@ void IfxCan_Node_setFastBitTiming(Ifx_CAN_N *node, float32 moduleFreq, uint32 ba
             bestTBAUD = tempTBAUD;
             bestError = error;
 
-            if ((tempTBAUD <= 20) && (error < 0.1))
+            if ((tempTBAUD <= 20) && (error < 0.1f))
             {
                 break;      /* optimal condition */
             }
@@ -628,7 +630,7 @@ void IfxCan_Node_setFastBitTiming(Ifx_CAN_N *node, float32 moduleFreq, uint32 ba
     }
 
     /* search for best sample point */
-    bestError = samplePoint * 0.25; /* 25% tolerance in sample point as max error */
+    bestError = samplePoint * 0.25f; /* 25% tolerance in sample point as max error */
 
     if (bestTBAUD < maxTSEG1)
     {

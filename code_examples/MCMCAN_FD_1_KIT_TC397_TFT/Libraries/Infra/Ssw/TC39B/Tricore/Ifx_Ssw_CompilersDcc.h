@@ -2,7 +2,7 @@
  * \file Ifx_Ssw_CompilersDcc.h
  * \brief Startup Software for DCC compiler options
  *
- * \version iLLD_1_0_1_12_0
+ * \version iLLD_1_0_1_17_0_1
  * \copyright Copyright (c) 2018 Infineon Technologies AG. All rights reserved.
  *
  *                                 IMPORTANT NOTICE
@@ -102,6 +102,8 @@
 
 #define IFX_SSW_NULL_PTR ((void *)0x0U)
 
+#define IFX_SSW_WEAK     __attribute__ ((weak))
+
 /******************************************************************************/
 /*--------------------------------   Typedefs  -------------------------------*/
 /******************************************************************************/
@@ -176,6 +178,11 @@ IFX_SSW_INLINE void Ifx_Ssw_C_InitInline(void)
 {
     extern void __init_main(void);
     __init_main();              /* initialize data */
+}
+
+IFX_SSW_INLINE void Ifx_Ssw_infiniteLoop(void)
+{
+    __asm("x: loopu\t x");
 }
 
 #endif /* IFX_SSW_COMPILERSDCC_H_ */

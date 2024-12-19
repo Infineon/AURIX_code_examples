@@ -31,12 +31,12 @@
  *              to which LED1 is connected, indicates the successful transfer.
  *
  * \name SPI_CPU_1_KIT_TC334_LK
- * \version V1.0.0
+ * \version V2.0.0
  * \board AURIX TC334 lite Kit, KIT_A2G_TC334_LITE, TC33xLP_A-Step
  * \keywords AURIX, Communication, Master, QSPI, SPI, SPI_CPU_1, Slave, MikroBus
- * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_SPI_CPU_1_KIT_TC334_LK-TR-v01_00_00-EN.pdf
- * \documents https://www.infineon.com/aurix-expert-training/TC33A_iLLD_UM_1_0_1_12_1.chm
- * \lastUpdated 2022-03-28
+ * \documents README.MD
+ * \documents https://www.infineon.com/aurix-expert-training/TC33A_iLLD_UM_1_0_1_17_0.chm
+ * \lastUpdated 2024-04-18
  *********************************************************************************************************************/
 #include "Ifx_Types.h"
 #include "IfxCpu.h"

@@ -59,7 +59,7 @@ static uint8 g_ascRxBuffer[UART_RX_BUFFER_SIZE + sizeof(Ifx_Fifo) + 8];
 
 /* Definition of txData and rxData */
 uint8 g_txData[] = "Hello World!";
-uint8 g_rxData[SIZE] = {''};
+uint8 g_rxData[SIZE] = {""};
 
 /* Size of the message */
 Ifx_SizeT g_count = sizeof(g_txData);

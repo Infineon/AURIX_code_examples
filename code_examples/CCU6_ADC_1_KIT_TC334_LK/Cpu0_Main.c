@@ -32,12 +32,12 @@
  *              communication is used to display all measured values on a terminal monitor.
  *
  * \name CCU6_ADC_1_KIT_TC334_LK
- * \version V1.0.1
+ * \version V2.0.0
  * \board AURIX TC334 lite Kit, KIT_A2G_TC334_LITE, TC33xLP_A-Step
  * \keywords ADC, AURIX, CCU6, CCU6_ADC_1, EVADC, analog, conversion, digital, measurement, timer
- * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_CCU6_ADC_1_KIT_TC334_LK-TR-v01_00_01-EN.pdf
- * \documents https://www.infineon.com/aurix-expert-training/TC33A_iLLD_UM_1_0_1_12_1.chm
- * \lastUpdated 2022-06-30
+ * \documents README.MD
+ * \documents https://www.infineon.com/aurix-expert-training/TC33A_iLLD_UM_1_0_1_17_0.chm
+ * \lastUpdated 2024-02-07
  *********************************************************************************************************************/
 #include "Ifx_Types.h"
 #include "IfxCpu.h"

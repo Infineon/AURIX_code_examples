@@ -31,12 +31,12 @@
  *              state and the other port pin is configured as output to control the LED.
  *
  * \name GPIO_LED_Button_1_KIT_TC334_LK
- * \version V1.0.0
+ * \version V2.0.0
  * \board AURIX TC334 lite Kit, KIT_A2G_TC334_LITE, TC33xLP_A-Step
  * \keywords AURIX, GPIO, GPIO_LED_Button_1, LED, pin, port, port pin, push button, push-pull
- * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_GPIO_LED_Button_1_KIT_TC334_LK-TR-v01_00_00-EN.pdf
- * \documents https://www.infineon.com/aurix-expert-training/TC33A_iLLD_UM_1_0_1_12_1.chm
- * \lastUpdated 2021-12-16
+ * \documents https://www.infineon.com/aurix-expert-training/TC33A_iLLD_UM_1_0_1_17_0.chm
+ * \documents README.MD
+ * \lastUpdated 2024-01-18
  *********************************************************************************************************************/
 #include "GPIO_LED_Button.h"
 #include "Ifx_Types.h"

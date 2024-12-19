@@ -2,8 +2,9 @@
  * \file IfxGtm_Tim_Timer.c
  * \brief GTM TIMER details
  *
- * \version iLLD_1_0_1_12_0
- * \copyright Copyright (c) 2017 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0
+ * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
@@ -36,6 +37,7 @@
  * FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
+ *
  *
  */
 
@@ -86,9 +88,10 @@ void IfxGtm_Tim_Timer_initChannel(IfxGtm_Tim_Timer *driver, IfxGtm_Tim_Timer_Con
 
 void IfxGtm_Tim_Timer_initChannelConfig(IfxGtm_Tim_Timer_Config *config, Ifx_GTM *gtm)
 {
+    IFX_UNUSED_PARAMETER(gtm)
     const IfxGtm_Tim_Timer_Config IfxGtm_Tim_Timer_defaultChannelConfig = {
-        .timIndex       = 0,
-        .channel        = 0,
+        .timIndex       = IfxGtm_Tim_0,
+        .channel        = IfxGtm_Tim_Ch_0,
         .channelControl = {        //
             .enable                       = 1,
             .mode                         = IfxGtm_Tim_Mode_pwmMeasurement,
@@ -108,7 +111,7 @@ void IfxGtm_Tim_Timer_initChannelConfig(IfxGtm_Tim_Timer_Config *config, Ifx_GTM
             .filterCounterModeRisingEdge  = IfxGtm_Tim_FilterCounter_upDown,
             .filterModeFallingEdge        = IfxGtm_Tim_FilterMode_immediateEdgePropagation,
             .filterCounterModeFallingEdge = IfxGtm_Tim_FilterCounter_upDown,
-            .clkSel                       = 0,
+            .clkSel                       = IfxGtm_Cmu_Clk_0,
             .extendEdgeCounterOverflow    = 0,
             .egpr0Sel                     = 0,
             .egpr1Sel                     = 0,

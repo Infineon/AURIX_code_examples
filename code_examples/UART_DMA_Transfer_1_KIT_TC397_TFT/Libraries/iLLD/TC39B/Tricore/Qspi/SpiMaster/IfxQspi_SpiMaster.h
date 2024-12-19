@@ -3,8 +3,8 @@
  * \brief QSPI SPIMASTER details
  * \ingroup IfxLld_Qspi
  *
- * \version iLLD_1_0_1_12_0
- * \copyright Copyright (c) 2020 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0_1
+ * \copyright Copyright (c) 2023 Infineon Technologies AG. All rights reserved.
  *
  *
  *
@@ -929,6 +929,20 @@ IFX_EXTERN void IfxQspi_SpiMaster_moveCounterControlConfiguration(Ifx_QSPI *qspi
  * \return Status of Channel (busy or ok or failure)
  */
 IFX_EXTERN SpiIf_Status IfxQspi_SpiMaster_setChannelBaudrate(IfxQspi_SpiMaster_Channel *chHandle, float32 baudrate);
+
+/** \brief Reads the delay parameters (Idle, Leading and Trailing Delays) configured in handle and populates the params structure. To be called after call to IfxQspi_SpiMaster_initChannel or IfxQspi_SpiMaster_updateDelayParameters.
+ * \param chHandle Module Channel handle
+ * \param params structure pointer to store Bacon delay parameters by API
+ * \return None
+ */
+IFX_EXTERN void IfxQspi_SpiMaster_getHandleDelayParameters(IfxQspi_SpiMaster_Channel *chHandle, IfxQspi_DelayParameters *params);
+
+/** \brief Update the delay parameters (Idle, Leading and Trailing Delays) in handle and SFR. To be called after call to IfxQspi_SpiMaster_initChannel. Used for re-configuring by application (optional).
+ * \param chHandle Module Channel handle
+ * \param config structure pointer to store Bacon delay parameters for input to the API
+ * \return None
+ */
+IFX_EXTERN void IfxQspi_SpiMaster_updateDelayParameters(IfxQspi_SpiMaster_Channel *chHandle, IfxQspi_DelayParameters *config);
 
 /******************************************************************************/
 /*---------------------Inline Function Implementations------------------------*/

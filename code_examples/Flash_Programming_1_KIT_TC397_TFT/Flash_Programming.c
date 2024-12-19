@@ -56,13 +56,13 @@
 #define DFLASH_NUM_SECTORS          1                           /* Number of DFLASH sectors to be erased            */
 
 /* Reserved space for erase and program routines in bytes */
-#define ERASESECTOR_LEN             (100)
-#define WAITUNBUSY_LEN              (100)
-#define ENTERPAGEMODE_LEN           (100)
-#define LOADPAGE2X32_LEN            (100)
-#define WRITEPAGE_LEN               (100)
-#define ERASEPFLASH_LEN             (0x100)
-#define WRITEPFLASH_LEN             (0x200)
+#define ERASESECTOR_LEN             (110)
+#define WAITUNBUSY_LEN              (110)
+#define ENTERPAGEMODE_LEN           (110)
+#define LOADPAGE2X32_LEN            (110)
+#define WRITEPAGE_LEN               (110)
+#define ERASEPFLASH_LEN             (0x186)
+#define WRITEPFLASH_LEN             (0x228)
 
 /* Relocation address for the erase and program routines: Program Scratch-Pad SRAM (PSPR) of CPU0 */
 #define RELOCATION_START_ADDR       (0x70100000U)

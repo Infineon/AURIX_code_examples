@@ -3,8 +3,9 @@
  * \brief ERAY ERAY details
  * \ingroup IfxLld_Eray
  *
- * \version iLLD_1_0_1_15_0_1
- * \copyright Copyright (c) 2021 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0_1
+ * \copyright Copyright (c) 2023 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
@@ -37,6 +38,7 @@
  * FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
+ *
  *
  * \defgroup IfxLld_Eray_Eray_Usage How to use the ERAY Interface driver?
  * \ingroup IfxLld_Eray
@@ -837,6 +839,7 @@ typedef struct
     IfxEray_Eray_MessageRAMConfig messageRAMConfig;       /**< \brief Message RAM configuration structure. */
     IfxEray_Eray_ControllerConfig controllerConfig;       /**< \brief Communication Controller configuration structure. */
     IFX_CONST IfxEray_Eray_Pins  *pins;                   /**< \brief Pins configuration structure. */
+    boolean                       loopbackMode;           /**< \brief Bypass switch for loopback mode */
 } IfxEray_Eray_NodeConfig;
 
 /** \brief Receive control properties structure.

@@ -2,8 +2,9 @@
  * \file IfxGpt12_IncrEnc.c
  * \brief GPT12 INCRENC details
  *
- * \version iLLD_1_0_1_12_0
- * \copyright Copyright (c) 2020 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0
+ * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
@@ -36,6 +37,7 @@
  * FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
+ *
  *
  */
 
@@ -83,7 +85,7 @@ IFX_STATIC void IfxGpt12_IncrEnc_updateSpeedFromT3(IfxGpt12_IncrEnc *driver, sin
 
 float32 IfxGpt12_IncrEnc_getAbsolutePosition(IfxGpt12_IncrEnc *driver)
 {
-    return ((float32)driver->turn + (float32)driver->rawPosition / (float32)driver->resolution) * 2.0 * IFX_PI;
+    return ((float32)driver->turn + (float32)driver->rawPosition / (float32)driver->resolution) * 2.0f * IFX_PI;
 }
 
 
@@ -164,7 +166,7 @@ boolean IfxGpt12_IncrEnc_init(IfxGpt12_IncrEnc *driver, const IfxGpt12_IncrEnc_C
 
     driver->offset             = config->base.offset;
     driver->resolution         = config->base.resolution * config->base.resolutionFactor;
-    driver->positionConst      = 1.0 / (float32)driver->resolution * 2.0 * IFX_PI;
+    driver->positionConst      = 1.0f / (float32)driver->resolution * 2.0f * IFX_PI;
     driver->speedModeThreshold = config->base.speedModeThreshold;
     IfxGpt12_IncrEnc_setRefreshPeriod(driver, config->base.updatePeriod);
 
@@ -197,7 +199,7 @@ boolean IfxGpt12_IncrEnc_init(IfxGpt12_IncrEnc *driver, const IfxGpt12_IncrEnc_C
         }
 
         IfxGpt12_T3_setDirectionSource(gpt12, IfxGpt12_TimerDirectionSource_external);
-        IfxGpt12_T3_setTimerDirection(gpt12, config->base.reversed ? IfxGpt12_TimerDirection_up : IfxGpt12_TimerDirection_down);
+        IfxGpt12_T3_setTimerDirection(gpt12, config->base.reversed ? IfxGpt12_TimerDirection_down : IfxGpt12_TimerDirection_up);
         IfxGpt12_T3_enableOutput(gpt12, FALSE);
         IfxGpt12_T3_run(gpt12, IfxGpt12_TimerRun_start);
 
@@ -254,7 +256,7 @@ boolean IfxGpt12_IncrEnc_init(IfxGpt12_IncrEnc *driver, const IfxGpt12_IncrEnc_C
         }
 
         IfxGpt12_T2_setDirectionSource(gpt12, IfxGpt12_TimerDirectionSource_external);
-        IfxGpt12_T2_setTimerDirection(gpt12, config->base.reversed ? IfxGpt12_TimerDirection_up : IfxGpt12_TimerDirection_down);
+        IfxGpt12_T2_setTimerDirection(gpt12, config->base.reversed ? IfxGpt12_TimerDirection_down : IfxGpt12_TimerDirection_up);
         IfxGpt12_T2_run(gpt12, IfxGpt12_TimerRun_start);
 
         if (config->pinZ != NULL_PTR)
@@ -284,7 +286,7 @@ boolean IfxGpt12_IncrEnc_init(IfxGpt12_IncrEnc *driver, const IfxGpt12_IncrEnc_C
     }
 
     driver->speedConstTimeDiff =
-        (2.0 * IFX_PI) / (config->base.resolution * 2) * IfxGpt12_T5_getFrequency(gpt12);
+        (2.0f * IFX_PI) / (config->base.resolution * 2) * IfxGpt12_T5_getFrequency(gpt12);
 
     return status;
 }
@@ -294,8 +296,8 @@ void IfxGpt12_IncrEnc_initConfig(IfxGpt12_IncrEnc_Config *config, Ifx_GPT12 *gpt
 {
     IfxStdIf_Pos_initConfig(&config->base);
     config->base.resolutionFactor          = IfxStdIf_Pos_ResolutionFactor_twoFold;
-    config->base.minSpeed                  = 1.0 / 60.0 * (2 * IFX_PI);     // 1 rpm
-    config->base.maxSpeed                  = 20000.0 / 60.0 * (2 * IFX_PI); // 20000 rpm
+    config->base.minSpeed                  = 1.0f / 60.0f * (2 * IFX_PI);     // 1 rpm
+    config->base.maxSpeed                  = 20000.0f / 60.0f * (2 * IFX_PI); // 20000 rpm
     config->base.speedFilerCutOffFrequency = config->base.maxSpeed / 2 * IFX_PI * 10;
 
     config->pinA                           = NULL_PTR;
@@ -358,8 +360,8 @@ void IfxGpt12_IncrEnc_setOffset(IfxGpt12_IncrEnc *driver, sint32 offset)
 void IfxGpt12_IncrEnc_setRefreshPeriod(IfxGpt12_IncrEnc *driver, float32 updatePeriod)
 {
     driver->updatePeriod           = updatePeriod;
-    driver->speedConstPulseCount   = (2.0 * IFX_PI) / driver->resolution / updatePeriod;
-    driver->speedModeThresholdTick = driver->speedModeThreshold * driver->resolution * updatePeriod / (2.0 * IFX_PI);
+    driver->speedConstPulseCount   = (2.0f * IFX_PI) / driver->resolution / updatePeriod;
+    driver->speedModeThresholdTick = driver->speedModeThreshold * driver->resolution * updatePeriod / (2.0f * IFX_PI);
 }
 
 
@@ -525,7 +527,7 @@ IFX_STATIC void IfxGpt12_IncrEnc_updateSpeedFromT3(IfxGpt12_IncrEnc *driver, sin
         {                       // T5 overflow detected
             // Delete Overflow Request bit
             srcT5->B.CLRR = 1;
-            speed         = 0.0;
+            speed         = 0.0f;
         }
     }
 

@@ -63,7 +63,14 @@ void initPeripherals(void)
 }
 
 /* Toggle LED1: code is executed from LMURAM memory */
-#pragma section code not_cached_lmuram
+#ifdef __TASKING__
+    #pragma section code cpu0_psram
+#endif
+
+#ifdef __GNUC__
+    #pragma section .cpu0_psram ax
+#endif
+
 void toggleLedSram(void)
 {
     /* Switch On LED1 */
@@ -78,7 +85,14 @@ void toggleLedSram(void)
     /* Wait one second */
     wait_ms(TOGGLE_TIME_MS);
 }
-#pragma section code restore
+
+#ifdef __TASKING__
+    #pragma section code restore
+#endif
+
+#ifdef __GNUC__
+    #pragma section
+#endif
 
 /* Toggle LED2: code is executed from Flash memory */
 void toggleLedFlash(void)

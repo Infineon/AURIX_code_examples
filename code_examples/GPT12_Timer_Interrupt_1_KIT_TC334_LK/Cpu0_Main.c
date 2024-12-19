@@ -24,18 +24,18 @@
  * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS 
  * IN THE SOFTWARE.
  *********************************************************************************************************************/
- /*\title GPT12 timer interrupt
+ /*\title GPT12 Timer Interrupt
  * \abstract The GPT12 module generates an interrupt each 500 ms and toggles an LED.
  * \description The timer T3 of the GPT12 module is configured to trigger an interrupt each 500 ms.
  *              In its interrupt service routine, an LED is toggled.
  *
  * \name GPT12_Timer_Interrupt_1_KIT_TC334_LK
- * \version V1.0.0
+ * \version V2.0.0
  * \board AURIX TC334 lite Kit, KIT_A2G_TC334_LITE, TC33xLP_A-Step
  * \keywords AURIX, GPT12, GPT12_Timer_Interrupt_1, IR, interrupt, timer
- * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_GPT12_Timer_Interrupt_1_KIT_TC334_LK-TR-v01_00_00-EN.pdf
- * \documents https://www.infineon.com/aurix-expert-training/TC33A_iLLD_UM_1_0_1_12_1.chm
- * \lastUpdated 2021-12-16
+ * \documents README.MD
+ * \documents https://www.infineon.com/aurix-expert-training/TC33A_iLLD_UM_1_0_1_17_0.chm
+ * \lastUpdated 2024-03-07
  *********************************************************************************************************************/
 #include "Ifx_Types.h"
 #include "IfxCpu.h"

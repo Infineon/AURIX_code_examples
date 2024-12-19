@@ -1,7 +1,7 @@
 /**
  * \file IfxCpu_IntrinsicsTasking.h
  *
- * \version iLLD_1_0_1_12_0
+ * \version iLLD_1_0_1_17_0
  * \copyright Copyright (c) 2019 Infineon Technologies AG. All rights reserved.
  *
  *
@@ -354,17 +354,17 @@ IFX_INLINE void Ifx__setStackPointer(void *stackAddr)
     __asm("mov.aa a10, %0": : "a" (stackAddr) :"a10");
 }
 
-IFX_INLINE uint32 IfxCpu_calculateCrc32(uint32 *startaddress, uint8 length) 
+IFX_INLINE uint32 IfxCpu_calculateCrc32(uint32 *startaddress, uint8 length)
 {
     uint32 returnvalue;
     __asm("MOV d0, #0x0"); /* set seed value to 0 */
-    for (;length > 0; length--) 
-    { 
-        /*calculate the CRC over all data */
-        __asm("MOV d1,%0" : : "d" (*startaddress)); 
-        __asm("CRC32B.W d0,d0,d1"); 
-        startaddress++; 
-    } 
+    for (;length > 0; length--)
+    {
+        /* calculate the CRC over all data */
+        __asm("LD.W d1,[%0]" : : "a" (startaddress));
+        __asm("CRC32 d0,d0,d1");
+        startaddress++;
+    }
     __asm("MOV %0,d0" : "=d" (returnvalue)); /* return result of CRC*/
     return returnvalue;
 }

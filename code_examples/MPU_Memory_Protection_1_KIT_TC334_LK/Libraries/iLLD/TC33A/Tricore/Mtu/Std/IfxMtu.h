@@ -3,8 +3,9 @@
  * \brief MTU  basic functionality
  * \ingroup IfxLld_Mtu
  *
- * \version iLLD_1_0_1_12_0_1
- * \copyright Copyright (c) 2018 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0
+ * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
@@ -37,6 +38,7 @@
  * FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
+ *
  *
  *
  * \defgroup IfxLld_Mtu_Usage How to use the Mtu driver?
@@ -558,6 +560,7 @@ IFX_EXTERN void IfxMtu_readSramAddress(IfxMtu_MbistSel mbistSel, uint16 sramAddr
 
 /** \brief Run CheckerBoard test.  This test consists of writing the physical checkerboard pattern into the memory, then reading it back for verification
  * Note: The function clears & sets safety endinit bit while running the test to prevent watchdog TO and automatically restores the endinit state (same state at the time of entering the function) at the end.
+ * Note: Though 8-bit function arguments are used for "range", only 7-bits are valid, and the user must check documentation before passing the correct values.
  * \param mbistSel Memory Selection
  * \param rangeSel enable/disable range Selection (0 - disable, 1- enable)
  * \param rangeAddrUp when range mode is enabled, it specifies the upper logical block address limit in 64 word increments.
@@ -570,6 +573,7 @@ IFX_EXTERN uint8 IfxMtu_runCheckerBoardTest(IfxMtu_MbistSel mbistSel, uint8 rang
 
 /** \brief Run March U test.  This test MARCHES 0 and 1 values through the memory array in an up and down direction. More precisely, 0 and 1 values are propagated through the memory in each direction; i.e. a single bit cell toggles into each direction with the neighboring cells having a given value and, in another run, the inverse given value.
  * Note: The function clears & sets safety endinit bit while running the test to prevent watchdog TO and automatically restores the endinit state (same state at the time of entering the function) at the end.
+ * Note: Though 8-bit function arguments are used for "range", only 7-bits are valid, and the user must check documentation before passing the correct values.
  * \param mbistSel Memory Selection
  * \param rangeSel enable/disable range Selection (0 - disable, 1- enable)
  * \param rangeAddrUp when range mode is enabled, it specifies the upper logical block address limit in 64 word increments.
@@ -589,6 +593,7 @@ IFX_EXTERN uint8 IfxMtu_runMarchUTest(IfxMtu_MbistSel mbistSel, uint8 rangeSel, 
  * At the end of this procedure the user data remains unchanged and and every bit has been set to 0 and 1. Any single Stuck-At error will be visible as a correctable error.
  * Note: The function clears & sets safety endinit bit while running the test to prevent watchdog TO and automatically restores the endinit state (same state at the time of entering the function) at the end.
  * The Error flags need to be cleared to enable further tracking after the test
+ * Note: Though 8-bit function arguments are used for "range", only 7-bits are valid, and the user must check documentation before passing the correct values.
  * \param mbistSel Memory Selection
  * \param rangeSel enable/disable range Selection (0 - disable, 1- enable)
  * \param rangeAddrUp when range mode is enabled, it specifies the upper logical block address limit in 64 word increments.

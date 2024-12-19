@@ -3,8 +3,9 @@
  * \brief STM TIMER details
  * \ingroup IfxLld_Stm
  *
- * \version iLLD_1_0_1_12_0
- * \copyright Copyright (c) 2018 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0
+ * \copyright Copyright (c) 2023 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
@@ -37,6 +38,7 @@
  * FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
+ *
  *
  * The timer driver enabled the generation of periodical interrupt based on the STM module.
  *
@@ -77,7 +79,7 @@
  *      timerConfig.base.frequency       = 1000;
  *      timerConfig.base.isrPriority     = ISR_PRIORITY(INTERRUPT_TIMER_1MS);
  *      timerConfig.base.isrProvider     = ISR_PROVIDER(INTERRUPT_TIMER_1MS);
- *      timerConfig.base.minResolution   = (1.0 / timerConfig.base.frequency) / 1000;
+ *      timerConfig.base.minResolution   = (1.0f / timerConfig.base.frequency) / 1000;
  *      timerConfig.comparator           = IfxStm_Comparator_0;
  *      result                           = IfxStm_Timer_init(&myTimer, &timerConfig);
  *

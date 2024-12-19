@@ -2,7 +2,7 @@
  * \file Ifx_Ssw_Tc1.c
  * \brief Startup Software for Core1
  *
- * \version iLLD_1_0_1_15_0_1
+ * \version iLLD_1_0_1_17_0_1
  * \copyright Copyright (c) 2018 Infineon Technologies AG. All rights reserved.
  *
  *
@@ -67,6 +67,9 @@
 IFX_SSW_COMMON_LINKER_SYMBOLS();
 IFX_SSW_CORE_LINKER_SYMBOLS(1);
 
+#if defined(__TASKING__)
+__asm("\t .extern core1_main");
+#endif
 
 /*******************************************************************************
 **                      Private Constant Definitions                          **
@@ -77,6 +80,9 @@ IFX_SSW_CORE_LINKER_SYMBOLS(1);
 *********************************************************************************/
 /*Add options to eliminate usage of stack pointers unnecessarily*/
 #if defined(__HIGHTEC__)
+#pragma GCC optimize "O2"
+#endif
+#if defined(__GNUC__) && !defined(__HIGHTEC__)
 #pragma GCC optimize "O2"
 #endif
 
@@ -167,36 +173,38 @@ void __Core1_start(void)
 #endif /* #if (IFX_CFG_SSW_ENABLE_TRICORE2 == 0) */
 
     /*Initialize CPU Private Global Variables*/
+    //TODO : This implementation is done once all compilers support this
 #if (IFX_CFG_SSW_ENABLE_INDIVIDUAL_C_INIT != 0)
     /* Hook functions to initialize application specific HW extensions */
-    if(hardware_init_hook)
-    {
-    	hardware_init_hook();
-    }
+        if(hardware_init_hook)
+        {
+        	hardware_init_hook();
+        }
 
-    /* Hook functions to initialize application specific SW extensions */
-    if(software_init_hook)
-    {
-    	software_init_hook();
-    }
+        /* Hook functions to initialize application specific SW extensions */
+        if(software_init_hook)
+        {
+        	software_init_hook();
+        }
 
-    /* Initialization of C runtime variables and CPP constructors and destructors */
-    Ifx_Ssw_doCppInit();
+        /* Initialization of C runtime variables and CPP constructors and destructors */
+        (void)Ifx_Ssw_doCppInit();
 #endif
 
+    /*Call main function of Cpu1 */
 #ifdef IFX_CFG_SSW_RETURN_FROM_MAIN
     {
         extern int core1_main(void);
-        int status= core1_main();        /* Call main function of CPU1 */
+        int status= core1_main();        /* Call main function of CPU2 */
 #if (IFX_CFG_SSW_ENABLE_INDIVIDUAL_C_INIT != 0)
         Ifx_Ssw_doCppExit(status);
 #else /* (IFX_CFG_SSW_ENABLE_INDIVIDUAL_C_INIT != 0) */
-        (void)status;
+        (void)status;     /* Added to avoid "Unused parameter warning" */
 #endif /* (IFX_CFG_SSW_ENABLE_INDIVIDUAL_C_INIT != 0) */
     }
 #else /* IFX_CFG_SSW_RETURN_FROM_MAIN */
     extern void core1_main(void);
-    Ifx_Ssw_jumpToFunction(core1_main);  /* Jump to main function of CPU1 */
+    Ifx_Ssw_jumpToFunction(core1_main);  /* Jump to main function of CPU2 */
 #endif /* IFX_CFG_SSW_RETURN_FROM_MAIN */
 
     /* Go into infinite loop, normally the code shall not reach here */
@@ -206,18 +214,18 @@ void __Core1_start(void)
 /******************************************************************************
  *                        reset vector address                                *
  *****************************************************************************/
-#if defined(__HIGHTEC__)
-#pragma section
-#pragma section ".start_cpu1" x
-#endif
 #if defined(__TASKING__)
 #pragma protect on
 #pragma section code "start_cpu1"
-#endif
-#if defined(__DCC__)
+#elif defined(__HIGHTEC__)
+#pragma section
+#pragma section ".start_cpu1" x
+#elif defined(__GNUC__) && !defined(__HIGHTEC__)
+#pragma section
+#pragma section ".start_cpu1" x
+#elif defined(__DCC__)
 #pragma section CODE ".start_cpu1" X
-#endif
-#if defined(__ghs__)
+#elif defined(__ghs__)
 #pragma ghs section text=".start_cpu1"
 #endif
 
@@ -227,21 +235,22 @@ void _START1(void)
 }
 
 /* reset the sections defined above, to normal region */
-#if defined(__HIGHTEC__)
-#pragma section
-#endif
 #if defined(__TASKING__)
 #pragma protect restore
 #pragma section code restore
-#endif
-#if defined(__DCC__)
+#elif defined(__HIGHTEC__)
+#pragma section
+#elif defined(__GNUC__) && !defined(__HIGHTEC__)
+#pragma section
+#elif defined(__DCC__)
 #pragma section CODE
-#endif
-#if defined(__ghs__)
+#elif defined(__ghs__)
 #pragma ghs section text=default
 #endif
 
 /*Restore the options to command line provided ones*/
 #if defined(__HIGHTEC__)
+#pragma GCC reset_options
+#elif defined(__GNUC__) && !defined(__HIGHTEC__)
 #pragma GCC reset_options
 #endif

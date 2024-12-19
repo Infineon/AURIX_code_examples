@@ -31,12 +31,12 @@
  *              to the current conversion result.
  *
  * \name EDSADC_1_KIT_TC397_TFT
- * \version V1.0.0
+ * \version V2.0.0
  * \board APPLICATION KIT TC3X7 V2.0, KIT_AURIX_TC397_5V_TFT, TC39xXX_B-Step
  * \keywords ADC, AURIX, EDSADC, EDSADC_1, delta-sigma
- * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_EDSADC_1_KIT_TC397_TFT-TR-v01_00_00-EN.pdf
- * \documents https://www.infineon.com/aurix-expert-training/TC39B_iLLD_UM_1_0_1_12_1.chm
- * \lastUpdated 2020-12-18
+ * \documents README.MD
+ * \documents https://www.infineon.com/aurix-expert-training/TC39B_iLLD_UM_1_0_1_17_0.chm
+ * \lastUpdated 2024-02-22
  *********************************************************************************************************************/
 #include "Ifx_Types.h"
 #include "IfxCpu.h"

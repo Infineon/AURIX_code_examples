@@ -2,8 +2,8 @@
  * \file IfxQspi_SpiMaster.c
  * \brief QSPI SPIMASTER details
  *
- * \version iLLD_1_0_1_12_0_1
- * \copyright Copyright (c) 2019 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0_1
+ * \copyright Copyright (c) 2023 Infineon Technologies AG. All rights reserved.
  *
  *
  *
@@ -1367,4 +1367,38 @@ IFX_STATIC void IfxQspi_SpiMaster_writeLong(IfxQspi_SpiMaster_Channel *chHandle)
     {
         IFX_ASSERT(IFX_VERBOSE_LEVEL_ERROR, IFX_ASSERT_FEATURE_NOT_IMPLEMENTED);
     }
+}
+
+
+void IfxQspi_SpiMaster_getHandleDelayParameters(IfxQspi_SpiMaster_Channel *chHandle, IfxQspi_DelayParameters *params)
+{
+    params->idlePrescalar     = (IfxQspi_DelayPrescalar)chHandle->bacon.B.IPRE;
+    params->idleDelay         = (IfxQspi_DelayLength)chHandle->bacon.B.IDLE;
+    params->leadingPrescalar  = (IfxQspi_DelayPrescalar)chHandle->bacon.B.LPRE;
+    params->leadingDelay      = (IfxQspi_DelayLength)chHandle->bacon.B.LEAD;
+    params->trailingPrescalar = (IfxQspi_DelayPrescalar)chHandle->bacon.B.TPRE;
+    params->trailingDelay     = (IfxQspi_DelayLength)chHandle->bacon.B.TRAIL;
+}
+
+
+void IfxQspi_SpiMaster_updateDelayParameters(IfxQspi_SpiMaster_Channel *chHandle, IfxQspi_DelayParameters *config)
+{
+    /*Update Bacon value in Handle for Interface APIs*/
+    Ifx_QSPI_BACON bacon;
+    bacon.U           = chHandle->bacon.U;
+
+    bacon.B.IPRE      = config->idlePrescalar;
+    bacon.B.IDLE      = config->idleDelay;
+    bacon.B.LPRE      = config->leadingPrescalar;
+    bacon.B.LEAD      = config->leadingDelay;
+    bacon.B.TPRE      = config->trailingPrescalar;
+    bacon.B.TRAIL     = config->trailingDelay;
+
+    chHandle->bacon.U = bacon.U;
+
+    /*Update SFR*/
+    IfxQspi_SpiMaster *handle  = (IfxQspi_SpiMaster *)chHandle->base.driver->driver;
+    Ifx_QSPI          *qspiSFR = handle->qspi;
+
+    qspiSFR->BACONENTRY.U = chHandle->bacon.U;
 }

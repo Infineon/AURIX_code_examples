@@ -32,12 +32,12 @@
  *              program.
  *
  * \name PMS_Power_Down_Standby_1_KIT_TC397_TFT
- * \version V1.0.0
+ * \version V2.0.0
  * \board APPLICATION KIT TC3X7 V2.0, KIT_AURIX_TC397_5V_TFT, TC39xXX_B-Step
  * \keywords AURIX, PMS, PMS_Power_Down_Standby_1, power down, power modes, standby
- * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_PMS_Power_Down_Standby_1_KIT_TC397_TFT-TR-v01_00_00-EN.pdf
- * \documents https://www.infineon.com/aurix-expert-training/TC39B_iLLD_UM_1_0_1_15_0.chm
- * \lastUpdated 2023-03-30
+ * \documents README.MD
+ * \documents https://www.infineon.com/aurix-expert-training/TC39B_iLLD_UM_1_0_1_17_0.chm
+ * \lastUpdated 2024-04-12
  *********************************************************************************************************************/
 #include "PMS_Power_Down_Standby.h"
 #include "Ifx_Types.h"

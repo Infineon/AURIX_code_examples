@@ -2,8 +2,9 @@
  * \file IfxEvadc_Adc.c
  * \brief EVADC ADC details
  *
- * \version iLLD_1_0_1_15_0_1
- * \copyright Copyright (c) 2020 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0_1
+ * \copyright Copyright (c) 2023 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
@@ -36,6 +37,7 @@
  * FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
+ *
  *
  */
 
@@ -597,6 +599,7 @@ IfxEvadc_Status IfxEvadc_Adc_initGroup(IfxEvadc_Adc_Group *group, const IfxEvadc
     IfxEvadc_disablePostCalibration(&evadc->G[groupIndex], groupIndex, config->disablePostCalibration);
     IfxEvadc_setCalibrationSampleTime(&evadc->G[groupIndex], groupIndex, config->calibrationSampleTimeControlMode);
     IfxEvadc_setReferencePrechargeDuration(&evadc->G[groupIndex], groupIndex, config->referencePrechargeControlMode);
+    IfxEvadc_setGroupBoundary(&evadc->G[groupIndex], config->boundary0, config->boundary1);
 
     if (config->referencePrechargeEnabled)
     {
@@ -618,6 +621,7 @@ IfxEvadc_Status IfxEvadc_Adc_initGroup(IfxEvadc_Adc_Group *group, const IfxEvadc
 
     IfxEvadc_selectIdlePrechargeLevel(&evadc->G[groupIndex], groupIndex, config->idlePrechargeLevel);
     IfxEvadc_setAnalogConvertControl(&evadc->G[groupIndex], config->analogConverterMode);
+    IfxScuCcu_wait(0.000003f);
 
     IfxEvadc_disableAccess(evadc, (IfxEvadc_Protection)(IfxEvadc_Protection_initGroup0 + groupIndex));
 
@@ -689,6 +693,7 @@ IfxEvadc_Status IfxEvadc_Adc_initGroup(IfxEvadc_Adc_Group *group, const IfxEvadc
     /* Setup arbiter */
     /* Turn off the group during initialization, see UM for sync mode */
     IfxEvadc_setAnalogConvertControl(evadcG, IfxEvadc_AnalogConverterMode_off);
+    IfxScuCcu_wait(0.000003f);
 
     /* Setup queue0 request if enabled */
     if (config->arbiter.requestSlotQueue0Enabled == TRUE)
@@ -823,9 +828,17 @@ IfxEvadc_Status IfxEvadc_Adc_initGroup(IfxEvadc_Adc_Group *group, const IfxEvadc
         /* do nothing */
     }
 
-    /* turn on group after initialisation, only in master mode */
-    IfxEvadc_AnalogConverterMode convertMode = (config->master == groupIndex) ? IfxEvadc_AnalogConverterMode_normalOperation : IfxEvadc_AnalogConverterMode_off;
-    IfxEvadc_setAnalogConvertControl(evadcG, convertMode);
+    /* turn on group after initialisation */
+    IfxEvadc_setAnalogConvertControl(evadcG, config->analogConverterMode);
+
+    if ((config->analogConverterMode == IfxEvadc_AnalogConverterMode_off) || (config->analogConverterMode == IfxEvadc_AnalogConverterMode_slowStandby))
+    {
+        IfxScuCcu_wait(0.000003f);
+    }
+    else
+    {
+        IfxScuCcu_wait(0.0000002f);
+    }
 
     /*  Post Calibration */
     IfxEvadc_disablePostCalibration(evadcG, groupIndex, config->disablePostCalibration);
@@ -916,6 +929,8 @@ void IfxEvadc_Adc_initGroupConfig(IfxEvadc_Adc_GroupConfig *config, IfxEvadc_Adc
         },
         .analogFrequency    = IFXEVADC_DEFAULT_ANALOG_FREQ,
         .startupCalibration = FALSE,
+        .boundary0          = 0u,
+        .boundary1          = 0u,
     };
 
     *config                                      = IfxEvadc_Adc_defaultGroupConfig;
@@ -956,6 +971,8 @@ IfxEvadc_Status IfxEvadc_Adc_initModule(IfxEvadc_Adc *evadc, const IfxEvadc_Adc_
 
     IfxEvadc_Adc_setGlobalConfigurations(evadcSFR, config);
 
+    IfxEvadc_setGlobalBoundary(evadcSFR, config->boundary0, config->boundary1);
+
     return status;
 }
 
@@ -968,6 +985,8 @@ void IfxEvadc_Adc_initModuleConfig(IfxEvadc_Adc_Config *config, Ifx_EVADC *evadc
     config->startupCalibrationControl          = IfxEvadc_StartupCalibration_noAction;
     config->analogClockGenerationMode          = IfxEvadc_AnalogClockGenerationMode_synchronized;
     config->supplyVoltage                      = IfxEvadc_SupplyVoltageLevelControl_automaticControl;
+    config->boundary0                          = 0u;
+    config->boundary1                          = 0u;
 }
 
 
@@ -976,6 +995,16 @@ void IfxEvadc_Adc_setAnalogConvertControl(Ifx_EVADC *evadc, IfxEvadc_Adc_Group *
     IfxEvadc_GroupId groupIndex = group->groupId;
     IfxEvadc_enableAccess(evadc, (IfxEvadc_Protection)(IfxEvadc_Protection_initGroup0 + groupIndex));
     IfxEvadc_setAnalogConvertControl(&evadc->G[groupIndex], analogConverterMode);
+
+    if ((analogConverterMode == IfxEvadc_AnalogConverterMode_off) || (analogConverterMode == IfxEvadc_AnalogConverterMode_slowStandby))
+    {
+        IfxScuCcu_wait(0.000003f);
+    }
+    else
+    {
+        IfxScuCcu_wait(0.0000002f);
+    }
+
     IfxEvadc_disableAccess(evadc, (IfxEvadc_Protection)(IfxEvadc_Protection_initGroup0 + groupIndex));
 }
 

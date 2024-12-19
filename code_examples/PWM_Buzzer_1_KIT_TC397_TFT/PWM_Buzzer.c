@@ -37,7 +37,7 @@
 /*------------------------------------------------------Macros-------------------------------------------------------*/
 /*********************************************************************************************************************/
 #define PWM_BUZZER_PRIO     0                                   /* Interrupt priority number                        */
-#define VOLUME_LEVEL        2                                   /* Volume level in percentage                       */
+#define VOLUME_LEVEL        1                                   /* Volume level in percentage                       */
 #define MIN_RESOLUTION      0                                   /* Ignore minimum resolution parameter              */
 #define TRIGGER_POINT       0xffff                              /* Trigger point for GTM timer                      */
 #define FREQ_NULL           0                                   /* Initial frequency for GTM timer                  */

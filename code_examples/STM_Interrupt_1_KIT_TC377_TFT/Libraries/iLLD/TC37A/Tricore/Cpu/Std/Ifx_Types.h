@@ -2,7 +2,7 @@
  * \file Ifx_Types.h
  * \brief This files defines all types used by the IFX HAL and libraries
  *
- * \version iLLD_1_0_1_12_0
+ * \version iLLD_1_0_1_17_0
  * \copyright Copyright (c) 2018 Infineon Technologies AG. All rights reserved.
  *
  *
@@ -192,6 +192,9 @@ typedef enum
 #elif defined(__HIGHTEC__)
 #include "Ifx_TypesGnuc.h"
 
+#elif defined(__GNUC__) && !defined(__HIGHTEC__)
+#include "Ifx_TypesGcc.h"
+
 #elif defined(__ghs__)
 #include "Ifx_TypesGhs.h"
 
@@ -216,6 +219,7 @@ typedef struct
 
 #define IFX_PI                  (3.1415926535897932384626433832795f)
 #define IFX_TWO_OVER_PI         (2.0 / IFX_PI)
+#define IFX_ONE_OVER_TWO_PI     (1.0f / (2.0f * IFX_PI))
 #define IFX_ONE_OVER_SQRT_THREE (0.57735026918962576450914878050196f)
 #define IFX_SQRT_TWO            (1.4142135623730950488016887242097f)
 #define IFX_SQRT_THREE          (1.7320508075688772935274463415059f)

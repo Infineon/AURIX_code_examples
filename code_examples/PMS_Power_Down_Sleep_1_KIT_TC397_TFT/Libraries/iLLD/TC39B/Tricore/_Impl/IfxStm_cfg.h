@@ -3,7 +3,7 @@
  * \brief STM on-chip implementation data
  * \ingroup IfxLld_Stm
  *
- * \version iLLD_1_0_1_12_0
+ * \version iLLD_1_0_1_17_0_1
  * \copyright Copyright (c) 2018 Infineon Technologies AG. All rights reserved.
  *
  *

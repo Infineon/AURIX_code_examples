@@ -3,8 +3,9 @@
  * \brief CCU6 on-chip implementation data
  * \ingroup IfxLld_Ccu6
  *
- * \version iLLD_1_0_1_12_0
- * \copyright Copyright (c) 2018 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0
+ * \copyright Copyright (c) 2023 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
@@ -37,6 +38,7 @@
  * FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
+ *
  *
  * \defgroup IfxLld_Ccu6 CCU6
  * \ingroup IfxLld
@@ -104,7 +106,6 @@ typedef enum
 /******************************************************************************/
 /*-------------------Global Exported Variables/Constants----------------------*/
 /******************************************************************************/
-
 IFX_EXTERN IFX_CONST IfxModule_IndexMap IfxCcu6_cfg_indexMap[IFXCCU6_NUM_MODULES];
 
 #endif /* IFXCCU6_CFG_H */

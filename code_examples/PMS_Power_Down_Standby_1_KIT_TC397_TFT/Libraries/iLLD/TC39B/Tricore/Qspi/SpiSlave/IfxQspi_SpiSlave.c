@@ -2,28 +2,26 @@
  * \file IfxQspi_SpiSlave.c
  * \brief QSPI SPISLAVE details
  *
- * \version iLLD_1_0_1_15_0_1
- * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0_1
+ * \copyright Copyright (c) 2023 Infineon Technologies AG. All rights reserved.
  *
  *
  *
  *                                 IMPORTANT NOTICE
  *
- *
  * Use of this file is subject to the terms of use agreed between (i) you or
  * the company in which ordinary course of business you are acting and (ii)
- * Infineon Technologies AG or its licensees. If and as long as no such
- * terms of use are agreed, use of this file is subject to following:
- *
+ * Infineon Technologies AG or its licensees. If and as long as no such terms
+ * of use are agreed, use of this file is subject to following:
  *
  * Boost Software License - Version 1.0 - August 17th, 2003
  *
- * Permission is hereby granted, free of charge, to any person or
- * organization obtaining a copy of the software and accompanying
- * documentation covered by this license (the "Software") to use, reproduce,
- * display, distribute, execute, and transmit the Software, and to prepare
- * derivative works of the Software, and to permit third-parties to whom the
- * Software is furnished to do so, all subject to the following:
+ * Permission is hereby granted, free of charge, to any person or organization
+ * obtaining a copy of the software and accompanying documentation covered by
+ * this license (the "Software") to use, reproduce, display, distribute,
+ * execute, and transmit the Software, and to prepare derivative works of the
+ * Software, and to permit third-parties to whom the Software is furnished to
+ * do so, all subject to the following:
  *
  * The copyright notices in the Software and this entire statement, including
  * the above license grant, this restriction and the following disclaimer, must
@@ -190,10 +188,10 @@ void IfxQspi_SpiSlave_initModule(IfxQspi_SpiSlave *handle, const IfxQspi_SpiSlav
 
         {
             Ifx_QSPI_BACON bacon;
-            uint8          cs = 0; // not relevant for slave
+            uint8          cs = 0;                                                                                                                      // not relevant for slave
 
             qspiSFR->ECON[cs].U = IfxQspi_calculateExtendedConfigurationValue(qspiSFR, cs, &chConfig);
-            bacon.U             = IfxQspi_calculateBasicConfigurationValue(qspiSFR, IfxQspi_ChannelId_0, &chConfig.mode, config->base.maximumBaudrate);
+            bacon.U             = IfxQspi_calculateBasicConfigurationValue(qspiSFR, IfxQspi_ChannelId_0, &chConfig.mode, config->base.maximumBaudrate); /*delay params not applicable to slave*/
             IfxQspi_writeBasicConfigurationBeginStream(qspiSFR, bacon.U);
         }
         handle->dataWidth = protocol->dataWidth;

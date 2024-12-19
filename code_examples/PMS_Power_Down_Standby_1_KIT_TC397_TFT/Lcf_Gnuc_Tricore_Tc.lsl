@@ -2883,11 +2883,6 @@ SECTIONS
      * the -R option of the "strip" and "objcopy" utilities to remove
      * the .eh_frame section from the executable.
      */
-    .eh_frame_hdr :
-    { 
-        *(.eh_frame_hdr)
-    } > default_rom
-	
     .eh_frame  :
     {
         *(.gcc_except_table)

@@ -2,8 +2,8 @@
  * \file IfxAsclin_Spi.c
  * \brief ASCLIN SPI details
  *
- * \version iLLD_1_0_1_12_0_1
- * \copyright Copyright (c) 2019 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0
+ * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
  *
  *
  *
@@ -274,7 +274,7 @@ void IfxAsclin_Spi_initModuleConfig(IfxAsclin_Spi_Config *config, Ifx_ASCLIN *as
 
         /* Default values for baudrate */
         .baudrate                 = {
-            .baudrate     = 100000.0,                       /* default baudrate (the fractional dividier setup will be calculated in initModule) */
+            .baudrate     = 100000.0f,                      /* default baudrate (the fractional dividier setup will be calculated in initModule) */
             .prescaler    = 2,                              /* default prescaler */
             .oversampling = IfxAsclin_OversamplingFactor_8, /* default oversampling factor */
         },

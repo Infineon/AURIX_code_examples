@@ -3,8 +3,9 @@
  * \brief GTM  basic functionality
  * \ingroup IfxLld_Gtm
  *
- * \version iLLD_1_0_1_12_0
- * \copyright Copyright (c) 2019 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0
+ * \copyright Copyright (c) 2023 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
@@ -38,6 +39,7 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  *
+ *
  * \defgroup IfxLld_Gtm_Std_Dpll Dpll Basic Functionality
  * \ingroup IfxLld_Gtm_Std
  * \defgroup IfxLld_Gtm_Std_Dpll_Basic_Functions DPLL Basic Functions
@@ -52,6 +54,7 @@
 /******************************************************************************/
 
 #include "_Impl/IfxGtm_cfg.h"
+
 /** \addtogroup IfxLld_Gtm_Std_Dpll_Basic_Functions
  * \{ */
 

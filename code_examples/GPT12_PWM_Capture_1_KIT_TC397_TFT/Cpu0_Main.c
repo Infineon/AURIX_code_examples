@@ -30,12 +30,12 @@
  *              the PWM frequency in software. The frequency is then stored in a variable.
  *
  * \name GPT12_PWM_Capture_1_KIT_TC397_TFT
- * \version V1.0.2
+ * \version V2.0.0
  * \board APPLICATION KIT TC3X7 V2.0, KIT_A2G_TC397_5V_TFT, TC39xXX_B-Step
  * \keywords GPT12, PWM, timer, frequency, capture, AURIX, GPT12_PWM_Capture_1
- * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_GPT12_PWM_Capture_1_KIT_TC397_TFT-TR-v01_00_02-EN.pdf
- * \documents https://www.infineon.com/aurix-expert-training/TC39B_iLLD_UM_1_0_1_12_1.chm
- * \lastUpdated 2021-03-22
+ * \documents README.MD
+ * \documents https://www.infineon.com/aurix-expert-training/TC39B_iLLD_UM_1_0_1_17_0.chm
+ * \lastUpdated 2024-02-29
  *********************************************************************************************************************/
 #include "Ifx_Types.h"
 #include "IfxCpu.h"

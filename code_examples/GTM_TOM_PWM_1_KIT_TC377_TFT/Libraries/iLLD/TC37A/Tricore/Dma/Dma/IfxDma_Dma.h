@@ -3,7 +3,7 @@
  * \brief DMA DMA details
  * \ingroup IfxLld_Dma
  *
- * \version iLLD_1_0_1_12_0
+ * \version iLLD_1_0_1_17_0
  * \copyright Copyright (c) 2019 Infineon Technologies AG. All rights reserved.
  *
  *

@@ -3,7 +3,7 @@
  * \brief FIFO buffer functions
  * \ingroup IfxLld_lib_datahandling_fifo
  *
- * \version iLLD_1_0_1_12_0
+ * \version iLLD_1_0_1_17_0
  * \copyright Copyright (c) 2013 Infineon Technologies AG. All rights reserved.
  *
  *

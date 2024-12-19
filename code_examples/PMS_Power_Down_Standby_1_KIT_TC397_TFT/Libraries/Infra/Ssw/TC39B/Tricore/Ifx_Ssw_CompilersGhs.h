@@ -2,7 +2,7 @@
  * \file Ifx_Ssw_CompilersGhs.h
  * \brief Startup Software for GHS compiler options
  *
- * \version iLLD_1_0_1_15_0_1
+ * \version iLLD_1_0_1_17_0_1
  * \copyright Copyright (c) 2018 Infineon Technologies AG. All rights reserved.
  *
  *                                 IMPORTANT NOTICE
@@ -107,6 +107,8 @@
 
 #define IFX_SSW_NULL_PTR ((void *)0x0U)
 
+#define IFX_SSW_WEAK     __attribute__ ((weak))
+
 /******************************************************************************/
 /*--------------------------------   Typedefs  -------------------------------*/
 /******************************************************************************/
@@ -188,6 +190,10 @@ IFX_SSW_INLINE void Ifx_Ssw_jumpBackToLink(void)
     __asm__ volatile ("ji a11");
 }
 
+IFX_SSW_INLINE void Ifx_Ssw_infiniteLoop(void)
+{
+    __asm("x: loopu\t x");
+}
 
 typedef int          ptrdiff_t;
 typedef unsigned int syze_t;

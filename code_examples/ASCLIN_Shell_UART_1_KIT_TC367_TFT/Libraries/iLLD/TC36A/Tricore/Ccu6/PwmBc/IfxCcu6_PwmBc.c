@@ -2,8 +2,9 @@
  * \file IfxCcu6_PwmBc.c
  * \brief CCU6 PWMBC details
  *
- * \version iLLD_1_0_1_12_0
- * \copyright Copyright (c) 2019 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0
+ * \copyright Copyright (c) 2023 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
@@ -36,6 +37,7 @@
  * FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
+ *
  *
  *
  */
@@ -152,18 +154,15 @@ void IfxCcu6_PwmBc_initModule(IfxCcu6_PwmBc *pwmBc, const IfxCcu6_PwmBc_Config *
         IfxCcu6_enableModulationOutput(ccu6SFR, IfxCcu6_TimerId_t13, IfxCcu6_ChannelOut_cout3);
     }
 
+    IfxCcu6_enableMultiChannelMode(ccu6SFR);
+
     // output passive logic configuration //
-    //TODO check correct polarity:
-
-    IfxCcu6_setOutputPassiveState(ccu6SFR, IfxCcu6_ChannelOut_cc0, config->base.activeState);
-    IfxCcu6_setOutputPassiveState(ccu6SFR, IfxCcu6_ChannelOut_cc1, config->base.activeState);
-    IfxCcu6_setOutputPassiveState(ccu6SFR, IfxCcu6_ChannelOut_cc2, config->base.activeState);
-
-    if (config->pins->cout63 != NULL_PTR)
-
+    if (config->base.activeState != Ifx_ActiveState_high)
     {
-        IfxCcu6_setOutputPassiveState(ccu6SFR, IfxCcu6_ChannelOut_cout3, config->base.activeState);
+        ccu6SFR->PSLR.U = 0x15u;
     }
+
+    IfxCcu6_enableShadowTransfer(ccu6SFR, TRUE, TRUE);
 
     /* -- Pin mapping -- */
 

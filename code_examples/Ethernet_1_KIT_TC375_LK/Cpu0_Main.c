@@ -33,17 +33,14 @@
  *              The Asynchronous/Synchronous Interface (ASCLIN) module is used for debug logging.
  *
  * \name Ethernet_1_KIT_TC375_LK
- * \version V1.0.0
+ * \version V2.0.0
  * \board AURIX TC375 lite Kit, KIT_A2G_TC375_LITE, TC37xTP_A-Step
  * \keywords Ethernet, communication, Ethernet_1, AURIX, UART
- * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_Ethernet_1_KIT_TC375_LK-TR-v01_00_00-EN.pdf
- * \documents https://www.infineon.com/aurix-expert-training/TC37A_iLLD_UM_1_0_1_12_1.chm
- * \lastUpdated 2021-03-22
+ * \documents README.MD
+ * \documents https://www.infineon.com/aurix-expert-training/TC37A_iLLD_UM_1_0_1_17_0.chm
+ * \lastUpdated 2024-02-27
  *********************************************************************************************************************/
 
-/*********************************************************************************************************************/
-/*-----------------------------------------------------Includes------------------------------------------------------*/
-/*********************************************************************************************************************/
 #include "Ifx_Types.h"
 #include "IfxStm.h"
 #include "Ifx_reg.h"

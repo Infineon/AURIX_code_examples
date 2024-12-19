@@ -2,8 +2,9 @@
  * \file IfxMtu.c
  * \brief MTU  basic functionality
  *
- * \version iLLD_1_0_1_12_0
- * \copyright Copyright (c) 2018 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0
+ * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
@@ -36,6 +37,7 @@
  * FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
+ *
  *
  *
  */
@@ -368,7 +370,7 @@ uint8 IfxMtu_runCheckerBoardTest(IfxMtu_MbistSel mbistSel, uint8 rangeSel, uint8
     {}
 
     /* Set the range register */
-    mc->RANGE.U = (rangeSel << 15) | (rangeAddrUp << 7) | (rangeAddrLow << 0);
+    mc->RANGE.U = ((rangeSel & 0x01) << 15) | ((rangeAddrUp & 0x7F) << 7) | ((rangeAddrLow & 0x7F) << 0);
 
     /* Run the test */
     for (testStep = 0; testStep < 4; ++testStep)
@@ -458,7 +460,7 @@ uint8 IfxMtu_runMarchUTest(IfxMtu_MbistSel mbistSel, uint8 rangeSel, uint8 range
     {}
 
     /* Set the range register */
-    mc->RANGE.U = (rangeSel << 15) | (rangeAddrUp << 7) | (rangeAddrLow << 0);
+    mc->RANGE.U = ((rangeSel & 0x01) << 15) | ((rangeAddrUp & 0x7F) << 7) | ((rangeAddrLow & 0x7F) << 0);
 
     /* Run the test */
     for (testStep = 0; testStep < 6; ++testStep)
@@ -543,7 +545,7 @@ uint8 IfxMtu_runNonDestructiveInversionTest(IfxMtu_MbistSel mbistSel, uint8 rang
     mc->CONFIG0.U        = 0x4005; //NUMACCS=4, ACCSTYPE=5
     mc->CONFIG1.U        = 0x5008; //AG_MOD=5
     /* Set the range register */
-    mc->RANGE.U          = (rangeSel << 15) | (rangeAddrUp << 7) | (rangeAddrLow << 0);
+    mc->RANGE.U          = ((rangeSel & 0x01) << 15) | ((rangeAddrUp & 0x7F) << 7) | ((rangeAddrLow & 0x7F) << 0);
     /* Run the tests */
     mc->MCONTROL.U       = 0x4009;
     mc->MCONTROL.B.START = 0;
@@ -662,6 +664,8 @@ boolean IfxMtu_runMbistAll(const IfxMtu_MbistConfig *const mbistConfig[])
 #if defined(__TASKING__)
 #pragma optimize R
 #elif defined(__HIGHTEC__)
+#pragma GCC optimize ("-O1")
+#elif defined(__GNUC__) && !defined(__HIGHTEC__)
 #pragma GCC optimize ("-O1")
 #endif
 boolean IfxMtu_runMbist(const IfxMtu_MbistConfig *mbistConfig)
@@ -913,5 +917,7 @@ IFX_STATIC boolean IfxMtu_runMbistEnd(uint32 testsDone)
 #if defined(__TASKING__)
 #pragma endoptimize
 #elif defined(__HIGHTEC__)
+#pragma GCC reset_options
+#elif defined(__GNUC__) && !defined(__HIGHTEC__)
 #pragma GCC reset_options
 #endif

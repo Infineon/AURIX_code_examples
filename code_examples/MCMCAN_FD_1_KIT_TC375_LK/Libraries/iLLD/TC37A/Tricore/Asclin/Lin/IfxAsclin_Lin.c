@@ -2,8 +2,8 @@
  * \file IfxAsclin_Lin.c
  * \brief ASCLIN LIN details
  *
- * \version iLLD_1_0_1_12_0
- * \copyright Copyright (c) 2019 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0
+ * \copyright Copyright (c) 2023 Infineon Technologies AG. All rights reserved.
  *
  *
  *
@@ -274,13 +274,6 @@ IfxAsclin_Status IfxAsclin_Lin_initModule(IfxAsclin_Lin *asclin, const IfxAsclin
     /* mode initialisation */
     IfxAsclin_setClockSource(asclinSFR, IfxAsclin_ClockSource_noClock); /* disabling the clock*/
     IfxAsclin_setFrameMode(asclinSFR, IfxAsclin_FrameMode_initialise);  /* setting the module in Initialise mode*/
-    IfxAsclin_setClockSource(asclinSFR, config->clockSource);           /* setting the clock source*/
-
-    /* lin mode initialisation */
-    IfxAsclin_setClockSource(asclinSFR, IfxAsclin_ClockSource_noClock); /* disabling the clock*/
-    IfxAsclin_setFrameMode(asclinSFR, config->frameMode);               /* setting the module in Lin mode*/
-    IfxAsclin_setLinMode(asclinSFR, config->linMode);                   /* configuring lin mode of operation (master/slave)*/
-    IfxAsclin_setRxInput(asclinSFR, config->alti);                      /* selecting the Rx(alternate) input pin*/
     IfxAsclin_setPrescaler(asclinSFR, config->btc.prescaler);           /* setting the prescaler*/
     IfxAsclin_setClockSource(asclinSFR, config->clockSource);           /* setting the clock source*/
 
@@ -290,7 +283,11 @@ IfxAsclin_Status IfxAsclin_Lin_initModule(IfxAsclin_Lin *asclin, const IfxAsclin
         config->bsc.samplePointPosition,
         config->bsc.medianFilter);                                      /* setting the baudrate bit fields to generate the required baudrate*/
 
+    /* lin mode initialisation */
+    IfxAsclin_setRxInput(asclinSFR, config->alti);                      /* selecting the Rx(alternate) input pin*/
     IfxAsclin_setClockSource(asclinSFR, IfxAsclin_ClockSource_noClock); /* disabling the clock again*/
+    IfxAsclin_setFrameMode(asclinSFR, config->frameMode);               /* setting the module in Lin mode*/
+    IfxAsclin_setLinMode(asclinSFR, config->linMode);                   /* configuring lin mode of operation (master/slave)*/
 
     /* auto baud rate detection in slave mode */
     if (config->linMode == IfxAsclin_LinMode_slave)
@@ -356,7 +353,7 @@ IfxAsclin_Status IfxAsclin_Lin_initModule(IfxAsclin_Lin *asclin, const IfxAsclin
     if (config->isInterruptMode)
     {
         Ifx_ASCLIN_FLAGSENABLE flagsenable;
-        flagsenable.U = asclinSFR->FLAGSENABLE.U;
+        flagsenable.U = 0;
 
         if ((config->interrupt.rxPriority > 0) || (tos == IfxSrc_Tos_dma))
         {
@@ -445,7 +442,7 @@ void IfxAsclin_Lin_initModuleConfig(IfxAsclin_Lin_Config *config, Ifx_ASCLIN *as
     config->alti        = IfxAsclin_RxInputSelect_0;                                           /* alternate input 0;*/
 
     /* Default values for baudrate */
-    config->brg.baudrate                   = 19200.0;                                          /* default baudrate (the fractional dividier setup will be calculated in initModule)*/
+    config->brg.baudrate                   = 19200.0f;                                         /* default baudrate (the fractional dividier setup will be calculated in initModule)*/
     /* Default Values for Bit Timings */
     config->btc.prescaler                  = 4;                                                /* default prescaler*/
     config->btc.oversampling               = IfxAsclin_OversamplingFactor_16;                  /* default oversampling factor*/
@@ -885,7 +882,7 @@ void IfxAsclin_Lin_sendFrame(IfxAsclin_Lin *asclin, IfxAsclin_Lin_PduType *pdupt
 
         /*Enable Interrupt flags for Header Transmission*/
         Ifx_ASCLIN_FLAGSENABLE flagsenable;
-        flagsenable.U            = asclinSFR->FLAGSENABLE.U;
+        flagsenable.U            = 0;
         flagsenable.B.THE        = 1;
         flagsenable.B.HTE        = 1;
         flagsenable.B.CEE        = 1;
@@ -924,7 +921,7 @@ void IfxAsclin_Lin_sendFrame(IfxAsclin_Lin *asclin, IfxAsclin_Lin_PduType *pdupt
         IfxAsclin_Lin_clearFlagsStatus(asclin);
 
         Ifx_ASCLIN_FLAGSENABLE flagsenable;
-        flagsenable.U = asclinSFR->FLAGSENABLE.U;
+        flagsenable.U = 0;
 
         if (pduptr->direction == IfxAsclin_Lin_Direction_TransmitHeaderAndResponse)
         {

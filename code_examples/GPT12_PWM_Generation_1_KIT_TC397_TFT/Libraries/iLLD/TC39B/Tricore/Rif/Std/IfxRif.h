@@ -3,8 +3,9 @@
  * \brief RIF  basic functionality
  * \ingroup IfxLld_Rif
  *
- * \version iLLD_1_0_1_12_0
- * \copyright Copyright (c) 2019 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0_1
+ * \copyright Copyright (c) 2023 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
@@ -37,6 +38,7 @@
  * FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
+ *
  *
  *
  *
@@ -119,6 +121,7 @@ typedef enum
  */
 typedef enum
 {
+    IfxRif_CommonLvdsPadControl_3vMode,       /**< \brief disable 5V modes and low speed mode for all LVDS pads */
     IfxRif_CommonLvdsPadControl_5vMode,       /**< \brief enable 5V Mode for all LVDS pads */
     IfxRif_CommonLvdsPadControl_lowSpeedMode  /**< \brief enable low speed mode for all LVDS pads */
 } IfxRif_CommonLvdsPadControl;

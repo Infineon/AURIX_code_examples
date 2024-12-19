@@ -28,12 +28,12 @@
  * \abstract The watchdog is serviced in order to prevent a reset.
  * \description This example is showing how to service the WatchDog Timer (WDT) periodically.
  * \name Watchdog_1_KIT_TC375_LK
- * \version V1.0.1
+ * \version V2.0.0
  * \board AURIX TC375 lite Kit, KIT_A2G_TC375_LITE, TC37xTP_A-Step
  * \keywords AURIX, SCU, WDT, Watchdog_1, system control unit, timer, watchdog
- * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_Watchdog_1_KIT_TC375_LK-TR-v01_00_01-EN.pdf
- * \documents https://www.infineon.com/aurix-expert-training/TC37A_iLLD_UM_1_0_1_12_1.chm
- * \lastUpdated 2021-06-29
+ * \documents README.MD
+ * \documents https://www.infineon.com/aurix-expert-training/TC37A_iLLD_UM_1_0_1_17_0.chm
+ * \lastUpdated 2024-04-25
  *********************************************************************************************************************/
 #include "Ifx_Types.h"
 #include "IfxCpu.h"

@@ -2,8 +2,8 @@
  * \file IfxPsi5s_Psi5s.c
  * \brief PSI5S PSI5S details
  *
- * \version iLLD_1_0_1_12_0
- * \copyright Copyright (c) 2019 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0
+ * \copyright Copyright (c) 2023 Infineon Technologies AG. All rights reserved.
  *
  *
  *
@@ -94,11 +94,13 @@ void IfxPsi5s_Psi5s_enableModule(Ifx_PSI5S *psi5s)
 }
 
 
-void IfxPsi5s_Psi5s_getBaudrate(Ifx_PSI5S *psi5s, IfxPsi5s_Psi5s_AscConfig *ascConfig)
+float32 IfxPsi5s_Psi5s_getBaudrate(Ifx_PSI5S *psi5s, IfxPsi5s_Psi5s_AscConfig *ascConfig)
 {
     boolean synchMode = (ascConfig->receiveMode == IfxPsi5s_AscMode_sync) || (ascConfig->transmitMode == IfxPsi5s_AscMode_sync);
     boolean divMode   = (ascConfig->fractionalDividerEnabled == FALSE);
-    IfxPsi5s_getBaudrate(psi5s, synchMode, divMode, ascConfig->baudrateSelection);
+    float32 baudrate  = IfxPsi5s_getBaudrate(psi5s, synchMode, divMode, ascConfig->baudrateSelection);
+
+    return baudrate;
 }
 
 

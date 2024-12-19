@@ -2,8 +2,8 @@
  * \file IfxAsclin.c
  * \brief ASCLIN  basic functionality
  *
- * \version iLLD_1_0_1_12_0
- * \copyright Copyright (c) 2019 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0
+ * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
  *
  *
  *
@@ -101,7 +101,7 @@ float32 IfxAsclin_getFaFrequency(Ifx_ASCLIN *asclin)
     switch (clockSource)
     {
     case IfxAsclin_ClockSource_noClock: /* gets the respective frequency*/
-        frequency = 0.0;
+        frequency = 0.0f;
         break;
     case IfxAsclin_ClockSource_ascFastClock:
         frequency = IfxScuCcu_getAsclinFFrequency();
@@ -110,7 +110,7 @@ float32 IfxAsclin_getFaFrequency(Ifx_ASCLIN *asclin)
         frequency = IfxScuCcu_getAsclinSFrequency();
         break;
     default:
-        frequency = 0.0;
+        frequency = 0.0f;
         break;
     }
 
@@ -152,7 +152,7 @@ float32 IfxAsclin_getPdFrequency(Ifx_ASCLIN *asclin)
 
 float32 IfxAsclin_getShiftFrequency(Ifx_ASCLIN *asclin)
 {
-    return IfxAsclin_getOvsFrequency(asclin) / asclin->BITCON.B.OVERSAMPLING;
+    return IfxAsclin_getOvsFrequency(asclin) / (asclin->BITCON.B.OVERSAMPLING + 1);
 }
 
 
@@ -341,7 +341,7 @@ boolean IfxAsclin_setBitTiming(Ifx_ASCLIN *asclin, float32 baudrate, IfxAsclin_O
     samplepoint  = (IfxAsclin_SamplePointPosition)__maxu(samplepoint, 1);
     fOvs         = baudrate * oversampling;
     float32               relError   = fOvs;
-    float32               limit      = 0.001 * fOvs;                     // save the error limit
+    float32               limit      = 0.001f * fOvs;                    // save the error limit
 
     boolean               terminated = FALSE;
     float32               newRelError;                                   //modified by Hassan

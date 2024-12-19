@@ -2,8 +2,9 @@
  * \file IfxPmsEvr.c
  * \brief PMS  basic functionality
  *
- * \version iLLD_1_0_1_15_0_1
- * \copyright Copyright (c) 2018 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0
+ * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
@@ -36,6 +37,7 @@
  * FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
+ *
  *
  */
 
@@ -215,22 +217,22 @@ void IfxPmsEvr_setSecondaryOverVoltageThresholdMv(Ifx_PMS *pms, float32 threshol
     switch (supply)
     {
     case IfxPmsEvr_SupplyMode_evrc:
-        tempOVMON.B.EVRCOVVAL = (uint8)((thresholdLevel / 5.7692) + 1);
+        tempOVMON.B.EVRCOVVAL = (uint8)((thresholdLevel / 5.7692f) + 1);
         break;
     case IfxPmsEvr_SupplyMode_evr33:
         tempOVMON.B.EVR33OVVAL = (uint8)((thresholdLevel / 15) + 1);
         break;
     case IfxPmsEvr_SupplyMode_swd:
-        tempOVMON.B.SWDOVVAL = (uint8)((thresholdLevel / 23.077) + 1);
+        tempOVMON.B.SWDOVVAL = (uint8)((thresholdLevel / 23.077f) + 1);
         break;
     case IfxPmsEvr_SupplyMode_evrpr:
-        tempOVMON2.B.PREOVVAL = (uint8)((thresholdLevel / 5.7692) + 1);
+        tempOVMON2.B.PREOVVAL = (uint8)((thresholdLevel / 5.7692f) + 1);
         break;
     case IfxPmsEvr_SupplyMode_vddm:
-        tempOVMON2.B.VDDMOVVAL = (uint8)((thresholdLevel / 23.077) + 1);
+        tempOVMON2.B.VDDMOVVAL = (uint8)((thresholdLevel / 23.077f) + 1);
         break;
     case IfxPmsEvr_SupplyMode_sb:
-        tempOVMON2.B.SBOVVAL = (uint8)((thresholdLevel / 23.077) + 1);
+        tempOVMON2.B.SBOVVAL = (uint8)((thresholdLevel / 23.077f) + 1);
         break;
     }
 
@@ -254,22 +256,22 @@ void IfxPmsEvr_setSecondaryUnderVoltageThresholdMv(Ifx_PMS *pms, float32 thresho
     switch (supply)
     {
     case IfxPmsEvr_SupplyMode_evrc:
-        tempUVMON.B.EVRCUVVAL = (uint8)((thresholdLevel / 5.7692) + 1);
+        tempUVMON.B.EVRCUVVAL = (uint8)((thresholdLevel / 5.7692f) + 1);
         break;
     case IfxPmsEvr_SupplyMode_evr33:
         tempUVMON.B.EVR33UVVAL = (uint8)((thresholdLevel / 15) + 1);
         break;
     case IfxPmsEvr_SupplyMode_swd:
-        tempUVMON.B.SWDUVVAL = (uint8)((thresholdLevel / 23.077) + 1);
+        tempUVMON.B.SWDUVVAL = (uint8)((thresholdLevel / 23.077f) + 1);
         break;
     case IfxPmsEvr_SupplyMode_evrpr:
-        tempUVMON2.B.PREUVVAL = (uint8)((thresholdLevel / 5.7692) + 1);
+        tempUVMON2.B.PREUVVAL = (uint8)((thresholdLevel / 5.7692f) + 1);
         break;
     case IfxPmsEvr_SupplyMode_vddm:
-        tempUVMON2.B.VDDMUVVAL = (uint8)((thresholdLevel / 23.077) + 1);
+        tempUVMON2.B.VDDMUVVAL = (uint8)((thresholdLevel / 23.077f) + 1);
         break;
     case IfxPmsEvr_SupplyMode_sb:
-        tempUVMON2.B.SBUVVAL = (uint8)((thresholdLevel / 23.077) + 1);
+        tempUVMON2.B.SBUVVAL = (uint8)((thresholdLevel / 23.077f) + 1);
         break;
     }
 

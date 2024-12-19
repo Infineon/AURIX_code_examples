@@ -36,12 +36,12 @@
  *              confirm successful message reception.
  *
  * \name MCMCAN_Filtering_1_KIT_TC397_TFT
- * \version V1.0.0
+ * \version V2.0.0
  * \board APPLICATION KIT TC3X7 V2.0, KIT_A2G_TC397_5V_TFT, TC39xXX_B-Step
  * \keywords CAN, MCMCAN, AURIX, INTERRUPT, LOOP-BACK, CAN FD, MCMCAN_Filtering_1, Filter
- * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_MCMCAN_Filtering_1_KIT_TC397_TFT-TR-v01_00_00-EN.pdf
- * \documents https://www.infineon.com/aurix-expert-training/TC39B_iLLD_UM_1_0_1_12_1.chm
- * \lastUpdated 2021-03-22
+ * \documents README.MD
+ * \documents https://www.infineon.com/aurix-expert-training/TC39B_iLLD_UM_1_0_1_17_0.chm
+ * \lastUpdated 2024-03-21
  *********************************************************************************************************************/
 #include "Ifx_Types.h"
 #include "IfxCpu.h"

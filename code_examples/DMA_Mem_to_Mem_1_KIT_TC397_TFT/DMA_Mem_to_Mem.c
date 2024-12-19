@@ -41,11 +41,25 @@
 /*********************************************************************************************************************/
 dmaParams g_DMA;                                    /* Global DMA configuration and control structure   */
 
-/* DMA Source buffer for DMA transfer stored inside DSPR0: 0x70000000 */
-uint32 g_dataForDmaTransfer[DATA_ARRAY_LENGTH] __at(0x70000000);
+#ifdef __TASKING__
+    /* DMA Source buffer for DMA transfer stored inside DSPR0 */
+    uint32 g_dataForDmaTransfer[DATA_ARRAY_LENGTH] __at(0x70000000);
 
-/* DMA Destination buffer stored inside DLMU RAM (of CPU0): 0xB0000000 */
-uint32  g_dmaLmuDestination[DATA_ARRAY_LENGTH] __at(0xB0000000);
+    /* DMA Destination buffer stored inside DLMU RAM (of CPU0) */
+    uint32  g_dmaLmuDestination[DATA_ARRAY_LENGTH] __at(0xB0000000);
+#endif
+
+#ifdef __GNUC__
+    /* DMA Source buffer for DMA transfer stored inside DSPR0 */
+    #pragma section .bss_cpu0 awc0
+    uint32 g_dataForDmaTransfer[DATA_ARRAY_LENGTH] __attribute__((section(".bss_cpu0")));
+    #pragma section
+
+    /* DMA Destination buffer stored inside DLMU RAM (of CPU0) */
+    #pragma section .lmubss_cpu0 awc0
+    uint32 g_dmaLmuDestination[DATA_ARRAY_LENGTH] __attribute__((section(".lmubss_cpu0")));
+    #pragma section
+#endif
 
 /*********************************************************************************************************************/
 /*-----------------------------------------------Function Prototypes-------------------------------------------------*/

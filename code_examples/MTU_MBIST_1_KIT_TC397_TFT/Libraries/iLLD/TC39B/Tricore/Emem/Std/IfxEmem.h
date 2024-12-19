@@ -3,7 +3,7 @@
  * \brief EMEM  basic functionality
  * \ingroup IfxLld_Emem
  *
- * \version iLLD_1_0_1_15_0_1
+ * \version iLLD_1_0_1_17_0_1
  * \copyright Copyright (c) 2018 Infineon Technologies AG. All rights reserved.
  *
  *

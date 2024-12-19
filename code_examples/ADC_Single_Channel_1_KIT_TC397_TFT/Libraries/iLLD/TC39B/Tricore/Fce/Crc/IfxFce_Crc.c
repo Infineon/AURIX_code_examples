@@ -2,8 +2,9 @@
  * \file IfxFce_Crc.c
  * \brief FCE CRC details
  *
- * \version iLLD_1_0_1_12_0
- * \copyright Copyright (c) 2017 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0_1
+ * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
@@ -36,6 +37,7 @@
  * FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
+ *
  *
  *
  */
@@ -111,6 +113,9 @@ uint32 IfxFce_Crc_calculateCrc(IfxFce_Crc_Crc *fce, const uint32 *crcData, uint1
         }
     }
 
+    /* A delay of 2 clock cycles is needed after the write into IR register
+     * Hence another Dummy read is added */
+    crcResultValue = fceSFR->IN[fce->crcChannel].RES.U;
     crcResultValue = fceSFR->IN[fce->crcChannel].RES.U;
 
     return crcResultValue;

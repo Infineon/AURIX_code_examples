@@ -2,28 +2,26 @@
  * \file IfxCan_Can.c
  * \brief CAN CAN details
  *
- * \version iLLD_1_0_1_15_0_1
- * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0
+ * \copyright Copyright (c) 2023 Infineon Technologies AG. All rights reserved.
  *
  *
  *
  *                                 IMPORTANT NOTICE
  *
- *
  * Use of this file is subject to the terms of use agreed between (i) you or
  * the company in which ordinary course of business you are acting and (ii)
- * Infineon Technologies AG or its licensees. If and as long as no such
- * terms of use are agreed, use of this file is subject to following:
- *
+ * Infineon Technologies AG or its licensees. If and as long as no such terms
+ * of use are agreed, use of this file is subject to following:
  *
  * Boost Software License - Version 1.0 - August 17th, 2003
  *
- * Permission is hereby granted, free of charge, to any person or
- * organization obtaining a copy of the software and accompanying
- * documentation covered by this license (the "Software") to use, reproduce,
- * display, distribute, execute, and transmit the Software, and to prepare
- * derivative works of the Software, and to permit third-parties to whom the
- * Software is furnished to do so, all subject to the following:
+ * Permission is hereby granted, free of charge, to any person or organization
+ * obtaining a copy of the software and accompanying documentation covered by
+ * this license (the "Software") to use, reproduce, display, distribute,
+ * execute, and transmit the Software, and to prepare derivative works of the
+ * Software, and to permit third-parties to whom the Software is furnished to
+ * do so, all subject to the following:
  *
  * The copyright notices in the Software and this entire statement, including
  * the above license grant, this restriction and the following disclaimer, must
@@ -141,7 +139,7 @@ boolean IfxCan_Can_initNode(IfxCan_Can_Node *node, const IfxCan_Can_NodeConfig *
         }
         else
         {
-            IfxCan_Node_setFastBitTimingValues(nodeSfr, config->baudRate.syncJumpWidth, config->baudRate.timeSegment2, config->baudRate.timeSegment1, config->baudRate.prescaler);
+            IfxCan_Node_setFastBitTimingValues(nodeSfr, config->fastBaudRate.syncJumpWidth, config->fastBaudRate.timeSegment2, config->fastBaudRate.timeSegment1, config->fastBaudRate.prescaler);
         }
 
         /* set transceiver delay compensation offset */
@@ -846,6 +844,9 @@ void IfxCan_Can_readMessage(IfxCan_Can_Node *node, IfxCan_Message *message, uint
 
     /* get CAN frame mode of operation */
     message->frameMode = IfxCan_Node_getFrameMode(rxBufferElement);
+
+    /*get message bufferNumber*/
+    message->bufferNumber = bufferId;
 
     /* read data */
     IfxCan_Node_readData(rxBufferElement, message->dataLengthCode, data);

@@ -2,8 +2,9 @@
  * \file IfxEdsadc.c
  * \brief EDSADC  basic functionality
  *
- * \version iLLD_1_0_1_15_0_1
- * \copyright Copyright (c) 2021 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0
+ * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
@@ -36,6 +37,7 @@
  * FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
+ *
  *
  */
 
@@ -117,7 +119,7 @@ float32 IfxEdsadc_getMainGroupDelay(Ifx_EDSADC *edsadc, IfxEdsadc_ChannelId chan
     Ifx_EDSADC_CH_IWCTR iwctr = edsadc->CH[channel].IWCTR;
 
     /* Modulator period */
-    float32             tsMod = 1.0 / IfxEdsadc_getModulatorClockFreq(edsadc, channel);
+    float32             tsMod = 1.0f / IfxEdsadc_getModulatorClockFreq(edsadc, channel);
 
     /* Decimation factor */
     uint32              N = fcfgc.B.CFMDF + 1;
@@ -132,19 +134,19 @@ float32 IfxEdsadc_getMainGroupDelay(Ifx_EDSADC *edsadc, IfxEdsadc_ChannelId chan
     uint32              F1  = (fcfgm.B.FIR1EN != 0) && (fcfgm.B.FIR1DEC != 0) ? 2 : 1;
 
     /* On-chip modulator delay */
-    float32             onChipModulator  = 1.0;
+    float32             onChipModulator  = 1.0f;
     /* Input select/adjust unit delay */
-    float32             inputSelectUnit  = 0.5;
+    float32             inputSelectUnit  = 0.5f;
     /* CIC3 delay */
-    float32             cic3             = 3.0 * (N * PRE - 1) / 2.0;
+    float32             cic3             = 3.0f * (N * PRE - 1) / 2.0f;
     /* FIR0 */
-    float32             fir0             = (3.5 * N) * PRE;
+    float32             fir0             = (3.5f * N) * PRE;
     /* FIR1 */
-    float32             fir1             = 13.5 * N * PRE * F0;
+    float32             fir1             = 13.5f * N * PRE * F0;
     /* Offset correction/compensation */
     float32             offsetCorrection = 0;
     /* Integrator */
-    float32             integrator       = (X - 1.0) * N * PRE * F0 * F1 / 2.0;
+    float32             integrator       = (X - 1.0f) * N * PRE * F0 * F1 / 2.0f;
 
     return (
         onChipModulator

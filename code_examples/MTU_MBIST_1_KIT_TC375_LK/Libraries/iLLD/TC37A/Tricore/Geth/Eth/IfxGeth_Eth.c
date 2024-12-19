@@ -2,28 +2,26 @@
  * \file IfxGeth_Eth.c
  * \brief GETH ETH details
  *
- * \version iLLD_1_0_1_15_0_1
- * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0
+ * \copyright Copyright (c) 2023 Infineon Technologies AG. All rights reserved.
  *
  *
  *
  *                                 IMPORTANT NOTICE
  *
- *
  * Use of this file is subject to the terms of use agreed between (i) you or
  * the company in which ordinary course of business you are acting and (ii)
- * Infineon Technologies AG or its licensees. If and as long as no such
- * terms of use are agreed, use of this file is subject to following:
- *
+ * Infineon Technologies AG or its licensees. If and as long as no such terms
+ * of use are agreed, use of this file is subject to following:
  *
  * Boost Software License - Version 1.0 - August 17th, 2003
  *
- * Permission is hereby granted, free of charge, to any person or
- * organization obtaining a copy of the software and accompanying
- * documentation covered by this license (the "Software") to use, reproduce,
- * display, distribute, execute, and transmit the Software, and to prepare
- * derivative works of the Software, and to permit third-parties to whom the
- * Software is furnished to do so, all subject to the following:
+ * Permission is hereby granted, free of charge, to any person or organization
+ * obtaining a copy of the software and accompanying documentation covered by
+ * this license (the "Software") to use, reproduce, display, distribute,
+ * execute, and transmit the Software, and to prepare derivative works of the
+ * Software, and to permit third-parties to whom the Software is furnished to
+ * do so, all subject to the following:
  *
  * The copyright notices in the Software and this entire statement, including
  * the above license grant, this restriction and the following disclaimer, must
@@ -55,6 +53,7 @@
 /******************************************************************************/
 
 IfxGeth_RxDescrList IfxGeth_Eth_rxDescrList[IFXGETH_NUM_MODULES][IFXGETH_NUM_RX_CHANNELS];
+
 IfxGeth_TxDescrList IfxGeth_Eth_txDescrList[IFXGETH_NUM_MODULES][IFXGETH_NUM_TX_CHANNELS];
 
 /******************************************************************************/
@@ -292,11 +291,27 @@ void IfxGeth_Eth_initModule(IfxGeth_Eth *geth, IfxGeth_Eth_Config *config)
         }
     }
 
+    gethSFR->GPCTL.B.EPR = 0; /*GETH_TC.002*/
+    gethSFR->SKEWCTL.U   = 0; /*GETH_TC.002*/
+
     /* reset the Module */
     IfxGeth_resetModule(gethSFR);
+
+    IfxStm_waitTicks(&MODULE_STM0, 35); /*GETH_TC.002. Wait min 35 fSPB cycles after reset for RGMII*/
+
     /* select the Phy Interface Mode */
     IfxGeth_setPhyInterfaceMode(gethSFR, config->phyInterfaceMode);
+
+    if (config->phyInterfaceMode == IfxGeth_PhyInterfaceMode_rgmii)
+    {
+        /*Skew Control is optional for RGMII and only applicable in RGMII mode*/
+        gethSFR->SKEWCTL.B.TXCFG = config->rgmiiTxSkewControl;     /*GETH_TC.002*/
+        gethSFR->SKEWCTL.B.RXCFG = config->rgmiiRxSkewControl;     /*GETH_TC.002*/
+    }
+
     IfxGeth_dma_applySoftwareReset(gethSFR);
+
+    IfxStm_waitTicks(&MODULE_STM0, 4); /*GETH_TC.002. Wait min 4 fSPB cycles after s/w reset*/
 
     /* wait until reset is finished or timeout. */
     {
@@ -546,7 +561,9 @@ void IfxGeth_Eth_initModuleConfig(IfxGeth_Eth_Config *config, Ifx_GETH *gethSFR)
                     .provider  = IfxSrc_Tos_cpu0,
                 },
             },
-        }
+        },
+        .rgmiiTxSkewControl = 0,
+        .rgmiiRxSkewControl = 0
     };
 
     /* Default Configuration */

@@ -3,7 +3,7 @@
  * \brief GTM  basic functionality
  * \ingroup IfxLld_Gtm
  *
- * \version iLLD_1_0_1_15_0_1
+ * \version iLLD_1_0_1_17_0
  * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
  *
  *
@@ -174,14 +174,14 @@ IFX_INLINE void IfxGtm_Atom_Ch_setCompareShadow(Ifx_GTM_ATOM *atom, IfxGtm_Atom_
 /*-------------------------Global Function Prototypes-------------------------*/
 /******************************************************************************/
 
-/** \brief Clears the channel One notification
+/** \brief Clears IR notification for CCU1 events
  * \param atom Pointer to the ATOM object
  * \param channel Channel index
  * \return None
  */
 IFX_EXTERN void IfxGtm_Atom_Ch_clearOneNotification(Ifx_GTM_ATOM *atom, IfxGtm_Atom_Ch channel);
 
-/** \brief Clears the channel Zero notification
+/** \brief Clears IR notification for CCU0 events
  * \param atom Pointer to the ATOM object
  * \param channel Channel index
  * \return None

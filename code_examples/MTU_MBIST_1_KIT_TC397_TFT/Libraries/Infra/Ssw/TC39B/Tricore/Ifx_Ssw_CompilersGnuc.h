@@ -2,7 +2,7 @@
  * \file Ifx_Ssw_CompilersGnuc.h
  * \brief Startup Software for GNU compiler options
  *
- * \version iLLD_1_0_1_15_0_1
+ * \version iLLD_1_0_1_17_0_1
  * \copyright Copyright (c) 2018 Infineon Technologies AG. All rights reserved.
  *
  *                                 IMPORTANT NOTICE
@@ -195,6 +195,10 @@ IFX_SSW_INLINE void Ifx_Ssw_jumpBackToLink(void)
     __asm__ volatile ("ji %a11");
 }
 
+IFX_SSW_INLINE void Ifx_Ssw_infiniteLoop(void)
+{
+    __asm("x: loopu\t x");
+}
 
 extern unsigned int __clear_table[];  /**< clear table entry */
 extern unsigned int __copy_table[];   /**< copy table entry */
@@ -278,11 +282,6 @@ IFX_SSW_INLINE void Ifx_Ssw_C_InitInline(void)
             *pBlockDest.ucPtr = *pBlockSrc.ucPtr;
         }
     }
-}
-
-IFX_SSW_INLINE void Ifx_Ssw_infiniteLoop(void)
-{
-    __asm("x: loopu\t x");
 }
 
 

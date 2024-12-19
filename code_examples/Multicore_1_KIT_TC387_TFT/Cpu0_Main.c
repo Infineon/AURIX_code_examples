@@ -30,12 +30,12 @@
  *              Core 2 is controlling the state of the LED flag.
  *
  * \name Multicore_1_KIT_TC387_TFT
- * \version V1.0.0
+ * \version V2.0.0
  * \board APPLICATION KIT TC3X7 V2.0, KIT_A2G_TC387_5V_TFT, TC38xQP_A-Step
  * \keywords multicore, LED, AURIX, Multicore_1
- * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_Multicore_1_KIT_TC387_TFT-TR-v01_00_00-EN.pdf
- * \documents https://www.infineon.com/aurix-expert-training/TC38A_iLLD_UM_1_0_1_12_1.chm
- * \lastUpdated 2020-12-18
+ * \documents README.MD
+ * \documents https://www.infineon.com/aurix-expert-training/TC38A_iLLD_UM_1_0_1_17_0.chm
+ * \lastUpdated 2024-04-04
  *********************************************************************************************************************/
 #include "Ifx_Types.h"
 #include "IfxCpu.h"

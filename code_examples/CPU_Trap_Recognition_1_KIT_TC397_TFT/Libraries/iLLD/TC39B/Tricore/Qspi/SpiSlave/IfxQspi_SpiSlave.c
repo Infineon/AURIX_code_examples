@@ -2,8 +2,8 @@
  * \file IfxQspi_SpiSlave.c
  * \brief QSPI SPISLAVE details
  *
- * \version iLLD_1_0_1_12_0
- * \copyright Copyright (c) 2019 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0_1
+ * \copyright Copyright (c) 2023 Infineon Technologies AG. All rights reserved.
  *
  *
  *
@@ -188,10 +188,10 @@ void IfxQspi_SpiSlave_initModule(IfxQspi_SpiSlave *handle, const IfxQspi_SpiSlav
 
         {
             Ifx_QSPI_BACON bacon;
-            uint8          cs = 0; // not relevant for slave
+            uint8          cs = 0;                                                                                                                      // not relevant for slave
 
             qspiSFR->ECON[cs].U = IfxQspi_calculateExtendedConfigurationValue(qspiSFR, cs, &chConfig);
-            bacon.U             = IfxQspi_calculateBasicConfigurationValue(qspiSFR, IfxQspi_ChannelId_0, &chConfig.mode, config->base.maximumBaudrate);
+            bacon.U             = IfxQspi_calculateBasicConfigurationValue(qspiSFR, IfxQspi_ChannelId_0, &chConfig.mode, config->base.maximumBaudrate); /*delay params not applicable to slave*/
             IfxQspi_writeBasicConfigurationBeginStream(qspiSFR, bacon.U);
         }
         handle->dataWidth = protocol->dataWidth;
@@ -376,6 +376,7 @@ void IfxQspi_SpiSlave_initModuleConfig(IfxQspi_SpiSlave_Config *config, Ifx_QSPI
     config->dma.rxDmaChannelId         = IfxDma_ChannelId_none;
     config->dma.txDmaChannelId         = IfxDma_ChannelId_none;
     config->dma.useDma                 = FALSE;
+    config->base.maximumBaudrate       = 50000000;
 }
 
 

@@ -32,12 +32,12 @@
  *              value, one or both LEDs are on.
  *
  * \name ADC_Single_Channel_1_KIT_TC375_LK
- * \version V1.0.1
+ * \version V2.0.0
  * \board AURIX TC375 lite Kit, KIT_A2G_TC375_LITE, TC37xTP_A-Step
  * \keywords ADC, ADC_Single_Channel_1, EVADC, conversion, single channel scan, AURIX
- * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_ADC_Single_Channel_1_KIT_TC375_LK-TR-v01_00_01-EN.pdf
- * \documents https://www.infineon.com/aurix-expert-training/TC37A_iLLD_UM_1_0_1_12_1.chm
- * \lastUpdated 2021-06-29
+ * \documents README.MD
+ * \documents https://www.infineon.com/aurix-expert-training/TC37A_iLLD_UM_1_0_1_17_0.chm
+ * \lastUpdated 2024-02-27
  *********************************************************************************************************************/
 #include "Ifx_Types.h"
 #include "IfxCpu.h"

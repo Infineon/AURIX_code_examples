@@ -3,8 +3,9 @@
  * \brief CAN  basic functionality
  * \ingroup IfxLld_Can
  *
- * \version iLLD_1_0_1_15_0_1
- * \copyright Copyright (c) 2021 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0_1
+ * \copyright Copyright (c) 2023 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
@@ -37,6 +38,7 @@
  * FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
+ *
  *
  *
  *
@@ -1703,6 +1705,13 @@ IFX_INLINE void IfxCan_Node_setTxEventFifoStartAddress(Ifx_CAN_N *node, uint16 a
  */
 IFX_INLINE void IfxCan_Node_setTxEventFifoWatermarkLevel(Ifx_CAN_N *node, uint8 level);
 
+/** \brief Sets Tx Event FIFO Acknowledge Index for given node
+ * \param node Specifies the pointer to the CAN Node registers
+ * \param TxEventBufferNumber Tx event buffer element number
+ * \return None
+ */
+IFX_INLINE void IfxCan_Node_setTxEventFifoAcknowledgeIndex(Ifx_CAN_N *node, IfxCan_TxBufferId TxEventBufferNumber);
+
 /******************************************************************************/
 /*-------------------------Global Function Prototypes-------------------------*/
 /******************************************************************************/
@@ -2540,6 +2549,12 @@ IFX_INLINE IfxCan_DataLengthCode IfxCan_Node_getCodeFromDataLengthInBytes(uint32
     }
 
     return (IfxCan_DataLengthCode)code;
+}
+
+
+IFX_INLINE void IfxCan_Node_setTxEventFifoAcknowledgeIndex(Ifx_CAN_N *node, IfxCan_TxBufferId TxEventBufferNumber)
+{
+    node->TX.EFA.B.EFAI = TxEventBufferNumber;
 }
 
 

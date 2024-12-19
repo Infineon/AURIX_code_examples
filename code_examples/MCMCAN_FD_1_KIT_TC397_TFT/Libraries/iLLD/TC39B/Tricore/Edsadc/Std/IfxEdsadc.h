@@ -3,8 +3,9 @@
  * \brief EDSADC  basic functionality
  * \ingroup IfxLld_Edsadc
  *
- * \version iLLD_1_0_1_12_0
- * \copyright Copyright (c) 2019 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0_1
+ * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
@@ -37,6 +38,7 @@
  * FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
+ *
  *
  * \defgroup IfxLld_Edsadc_Std_Enum Enumerations
  * \ingroup IfxLld_Edsadc_Std
@@ -107,14 +109,6 @@ typedef enum
     IfxEdsadc_CarrierWaveformMode_triangle = 2,  /**< \brief Carrier Generator generates triangle wave */
     IfxEdsadc_CarrierWaveformMode_sine     = 3   /**< \brief Carrier Generator generates sine wave */
 } IfxEdsadc_CarrierWaveformMode;
-
-/** \brief Common Mode Hold Voltage Enable
- */
-typedef enum
-{
-    IfxEdsadc_CommonModeHoldVoltage_disable = 0,  /**< \brief VCMH is off */
-    IfxEdsadc_CommonModeHoldVoltage_enable  = 1   /**< \brief VCMH is generated */
-} IfxEdsadc_CommonModeHoldVoltage;
 
 /** \brief Select the data to be returned when register RESM is read
  * Definition in Ifx_DSADC.DICFG.B.DRM
@@ -198,14 +192,6 @@ typedef enum
     IfxEdsadc_FractionalRefVoltageSelection_div8  = 2, /**< \brief VREFX = VAREF / 8 */
     IfxEdsadc_FractionalRefVoltageSelection_div16 = 3  /**< \brief VREFX = VAREF / 2 */
 } IfxEdsadc_FractionalRefVoltageSelection;
-
-/** \brief Half Supply Voltage Enable
- */
-typedef enum
-{
-    IfxEdsadc_HalfSupplyVoltage_disable = 0,  /**< \brief VDDM / 2 is not connected */
-    IfxEdsadc_HalfSupplyVoltage_enable  = 1   /**< \brief VDDM / 2 is connected */
-} IfxEdsadc_HalfSupplyVoltage;
 
 /** \brief Modulator configuration of positive/negative input line\n
  * Definition in Ifx_DSADC.MODCFGx.B.INCFGP and Ifx_DSADC.MODCFGx.B.INCFGN
@@ -831,13 +817,11 @@ IFX_INLINE uint32 *IfxEdsadc_getResultRegisterAddress(Ifx_EDSADC *edsadc, IfxEds
  * \param channel specifies channel Id
  * \param voltage select Fractional reference Voltage
  * \param refMode Fractional Reference Voltage Enable/ Disable
- * \param hsvMode Enable / Disable Half Supply Voltage
- * \param cmhvMode Enable / Disable Common Mode Hold Voltage
- * \param positiveInput Defines the connection of the respective positive input y to the common mode hold voltage
- * \param negativeInput Defines the connection of the respective negative input y to the common mode hold voltage.
+ * \param positiveInput Defines the connection of the respective positive input y to the common mode hold voltage. This is a mask where with the 1st bit is channel 0, second channel 1, ... . With 0=disable and 1=enable
+ * \param negativeInput Defines the connection of the respective negative input y to the common mode hold voltage. This is a mask where with the 1st bit is channel 0, second channel 1, ... . With 0=disable and 1=enable
  * \return None
  */
-IFX_EXTERN void IfxEdsadc_setCommonModeVoltage(Ifx_EDSADC *edsadc, IfxEdsadc_ChannelId channel, IfxEdsadc_FractionalRefVoltageSelection voltage, IfxEdsadc_FractionalRefVoltage refMode, IfxEdsadc_HalfSupplyVoltage hsvMode, IfxEdsadc_CommonModeHoldVoltage cmhvMode, uint8 positiveInput, uint8 negativeInput);
+IFX_EXTERN void IfxEdsadc_setCommonModeVoltage(Ifx_EDSADC *edsadc, IfxEdsadc_ChannelId channel, IfxEdsadc_FractionalRefVoltageSelection voltage, IfxEdsadc_FractionalRefVoltage refMode, uint8 positiveInput, uint8 negativeInput);
 
 /** \brief configure gain correction
  * \param edsadc Pointer to the EDSADC register space

@@ -3,8 +3,9 @@
  * \brief GTM DTM_PWMHL details
  * \ingroup IfxLld_Gtm
  *
- * \version iLLD_1_0_1_12_0
- * \copyright Copyright (c) 2020 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0
+ * \copyright Copyright (c) 2023 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
@@ -37,6 +38,7 @@
  * FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
+ *
  *
  * \defgroup IfxLld_Gtm_Atom_PwmHl_Usage How to use the GTM ATOM PWM Driver
  * \ingroup IfxLld_Gtm_Atom_PwmHl
@@ -266,5 +268,4 @@ IFX_EXTERN void IfxGtm_Atom_Dtm_PwmHl_setupChannels(IfxGtm_AtomDtm_PwmHl *driver
  * \return TRUE on success else FALSE
  */
 IFX_EXTERN boolean IfxGtm_Atom_Dtm_PwmHl_stdIfPwmHlInit(IfxStdIf_PwmHl *stdif, IfxGtm_AtomDtm_PwmHl *driver);
-
 #endif /* IFXGTM_ATOM_DTM_PWMHL_H */

@@ -3,8 +3,9 @@
  * \brief GTM  basic functionality
  * \ingroup IfxLld_Gtm
  *
- * \version iLLD_1_0_1_12_0
- * \copyright Copyright (c) 2020 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0
+ * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
@@ -38,6 +39,7 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  *
+ *
  * \defgroup IfxLld_Gtm_Std_Dtm Dtm Basic Functionality
  * \ingroup IfxLld_Gtm_Std
  * \defgroup IfxLld_Gtm_Std_Dtm_Enumerations DTM Enumerations
@@ -57,6 +59,7 @@
 #include "IfxGtm_reg.h"
 #include "IfxGtm_Cmu.h"
 #include "Scu/Std/IfxScuCcu.h"
+#include "IfxGtm_bf.h"
 
 /******************************************************************************/
 /*--------------------------------Enumerations--------------------------------*/
@@ -105,6 +108,14 @@ typedef enum
     IfxGtm_Dtm_DeadTimePath_feedThrough,  /**< \brief Feed through from DTM input to output (DTM[i]_INx to DTM[i]_OUTx (i = 0 to 35 and x = 0 to 4) */
     IfxGtm_Dtm_DeadTimePath_enable        /**< \brief Dead Time Path enabled */
 } IfxGtm_Dtm_DeadTimePath;
+
+/** \brief Polarity on output
+ */
+typedef enum
+{
+    IfxGtm_Dtm_OutputPolarity_notInverted = 0,  /**< \brief Output signal not inverted */
+    IfxGtm_Dtm_OutputPolarity_inverted          /**< \brief Output signal inverted */
+} IfxGtm_Dtm_OutputPolarity;
 
 /** \addtogroup IfxLld_Gtm_Std_Dtm_Functions
  * \{ */
@@ -177,13 +188,21 @@ IFX_INLINE IfxGtm_Dtm_Ch IfxGtm_Dtm_getDtmChannel(IfxGtm_Atom_Ch atomChannel);
  * \param fallingEdge Deadtime for falling edge
  * \return None
  */
-IFX_INLINE void IfxGtm_Dtm_setDeadtime(Ifx_GTM_CDTM_DTM *dtm, IfxGtm_Dtm_Ch channel, uint32 risingEdge, float32 fallingEdge);
+IFX_INLINE void IfxGtm_Dtm_setDeadtime(Ifx_GTM_CDTM_DTM *dtm, IfxGtm_Dtm_Ch channel, uint32 risingEdge, uint32 fallingEdge);
 
 /** \brief Return the clock source of  the DTM object
  * \param dtm Pointer to the DTM object
  * \return Return the clock source of  the DTM object
  */
 IFX_INLINE IfxGtm_Dtm_ClockSource IfxGtm_Dtm_getClockSource(Ifx_GTM_CDTM_DTM *dtm);
+
+/** \brief Set signal polarity at output 1
+ * \param dtm Pointer to the DTM object
+ * \param channel DTM Channel
+ * \param polarity Polarity on Output 1 Channel x
+ * \return None
+ */
+IFX_INLINE void IfxGtm_Dtm_setOutput1Polarity(Ifx_GTM_CDTM_DTM *dtm, IfxGtm_Dtm_Ch channel, IfxGtm_Dtm_OutputPolarity polarity);
 
 /******************************************************************************/
 /*-------------------------Global Function Prototypes-------------------------*/
@@ -295,7 +314,7 @@ IFX_INLINE IfxGtm_Dtm_Ch IfxGtm_Dtm_getDtmChannel(IfxGtm_Atom_Ch atomChannel)
 }
 
 
-IFX_INLINE void IfxGtm_Dtm_setDeadtime(Ifx_GTM_CDTM_DTM *dtm, IfxGtm_Dtm_Ch channel, uint32 risingEdge, float32 fallingEdge)
+IFX_INLINE void IfxGtm_Dtm_setDeadtime(Ifx_GTM_CDTM_DTM *dtm, IfxGtm_Dtm_Ch channel, uint32 risingEdge, uint32 fallingEdge)
 {
     dtm->CH[channel].DTV.B.RELRISE = risingEdge;
     dtm->CH[channel].DTV.B.RELFALL = fallingEdge;
@@ -305,6 +324,16 @@ IFX_INLINE void IfxGtm_Dtm_setDeadtime(Ifx_GTM_CDTM_DTM *dtm, IfxGtm_Dtm_Ch chan
 IFX_INLINE IfxGtm_Dtm_ClockSource IfxGtm_Dtm_getClockSource(Ifx_GTM_CDTM_DTM *dtm)
 {
     return (IfxGtm_Dtm_ClockSource)dtm->CTRL.B.CLK_SEL;
+}
+
+
+IFX_INLINE void IfxGtm_Dtm_setOutput1Polarity(Ifx_GTM_CDTM_DTM *dtm, IfxGtm_Dtm_Ch channel, IfxGtm_Dtm_OutputPolarity polarity)
+{
+    uint32 shift = ((uint32)channel << 3) + IFX_GTM_CDTM_DTM_CH_CTRL2_POL1_0_OFF;
+    uint32 mask  = (uint32)IFX_GTM_CDTM_DTM_CH_CTRL2_POL1_0_MSK << shift;
+    uint32 value = (uint32)polarity << shift;
+
+    Ifx__ldmst(&(dtm->CH_CTRL2), mask, value);
 }
 
 

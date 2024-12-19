@@ -30,12 +30,12 @@
  *              Core 2 is controlling the state of the LED flag.
  *
  * \name Multicore_1_KIT_TC375_LK
- * \version V1.0.1
+ * \version V2.0.0
  * \board AURIX TC375 lite Kit, KIT_A2G_TC375_LITE, TC37xTP_A-Step
  * \keywords multicore, LED, AURIX, Multicore_1
- * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_Multicore_1_KIT_TC375_LK-TR-v01_00_01-EN.pdf
- * \documents https://www.infineon.com/aurix-expert-training/TC37A_iLLD_UM_1_0_1_12_1.chm
- * \lastUpdated 2021-03-22
+ * \documents README.MD
+ * \documents https://www.infineon.com/aurix-expert-training/TC37A_iLLD_UM_1_0_1_17_0.chm
+ * \lastUpdated 2024-04-04
  *********************************************************************************************************************/
 #include "Ifx_Types.h"
 #include "IfxCpu.h"

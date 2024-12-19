@@ -3,8 +3,9 @@
  * \brief I2C  basic functionality
  * \ingroup IfxLld_I2c
  *
- * \version iLLD_1_0_1_15_0_1
- * \copyright Copyright (c) 2020 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0_1
+ * \copyright Copyright (c) 2023 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
@@ -37,6 +38,7 @@
  * FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
+ *
  *
  * \defgroup IfxLld_I2c_Std_enums Enumerations
  * \ingroup IfxLld_I2c_Std
@@ -158,9 +160,114 @@ typedef enum
 
 /** \} */
 
+/** \brief set interrupt request
+ * Definition in Ifx.I2C.ISR.U
+ */
+typedef enum
+{
+    IfxI2c_InterruptRequest_lastSingleRequest = IFX_I2C_ISR_LSREQ_INT_OFF,   /**< \brief last single request interrupt */
+    IfxI2c_InterruptRequest_SingleRequest     = IFX_I2C_ISR_SREQ_INT_OFF,    /**< \brief single request interrupt */
+    IfxI2c_InterruptRequest_lastBurstRequest  = IFX_I2C_ISR_LBREQ_INT_OFF,   /**< \brief last burst request interrupt */
+    IfxI2c_InterruptRequest_burstRequest      = IFX_I2C_ISR_BREQ_INT_OFF,    /**< \brief burst request interrupt */
+    IfxI2c_InterruptRequest_i2cError          = IFX_I2C_ISR_I2C_ERR_INT_OFF, /**< \brief i2c error interrupt */
+    IfxI2c_InterruptRequest_i2cProtocol       = IFX_I2C_ISR_I2C_P_INT_OFF    /**< \brief i2c protocol interrupt */
+} IfxI2c_InterruptRequest;
+
+/** \brief Configure as master or slave
+ * Definition in Ifx_I2C.ADDRCFG.B.MnS
+ */
+typedef enum
+{
+    IfxI2c_MasterNotSlave_slave  = 0, /**< \brief sets as slave */
+    IfxI2c_MasterNotSlave_master = 1  /**< \brief sets as master */
+} IfxI2c_MasterNotSlave;
+
+/** \brief Selects RX burst size
+ * Definition in Ifx_I2C.FIFOCFG.B.RXBS
+ */
+typedef enum
+{
+    IfxI2c_RxBurstSize_1Word = 0,  /**< \brief one word */
+    IfxI2c_RxBurstSize_2Word = 1,  /**< \brief two word */
+    IfxI2c_RxBurstSize_4Word = 2   /**< \brief four word */
+} IfxI2c_RxBurstSize;
+
+/** \brief Selects RX FIFO alignment
+ * Definition in Ifx_I2C.FIFOCFG.B.RXFA
+ */
+typedef enum
+{
+    IfxI2c_RxFifoAlignment_byte     = 0,  /**< \brief byte aligned */
+    IfxI2c_RxFifoAlignment_halfWord = 1,  /**< \brief half word aligned */
+    IfxI2c_RxFifoAlignment_word     = 2   /**< \brief word aligned */
+} IfxI2c_RxFifoAlignment;
+
+/** \brief Selects RX FIFO flow control
+ * Definition in Ifx_I2C.FIFOCFG.B.RXFC
+ */
+typedef enum
+{
+    IfxI2c_RxFifoFlowControl_disable = 0,  /**< \brief rx fifo not as flow controller */
+    IfxI2c_RxFifoFlowControl_enable  = 1   /**< \brief rx fifo as flow controller */
+} IfxI2c_RxFifoFlowControl;
+
+/** \brief Selects TX burst size
+ * Definition in Ifx_I2C.FIFOCFG.B.TXBS
+ */
+typedef enum
+{
+    IfxI2c_TxBurstSize_1Word = 0,  /**< \brief one word */
+    IfxI2c_TxBurstSize_2Word = 1,  /**< \brief two word */
+    IfxI2c_TxBurstSize_4Word = 2   /**< \brief four word */
+} IfxI2c_TxBurstSize;
+
+/** \brief Selects TX FIFO alignment
+ * Definition in Ifx_I2C.FIFOCFG.B.TXFA
+ */
+typedef enum
+{
+    IfxI2c_TxFifoAlignment_byte     = 0,  /**< \brief byte aligned */
+    IfxI2c_TxFifoAlignment_halfWord = 1,  /**< \brief half word aligned */
+    IfxI2c_TxFifoAlignment_word     = 2   /**< \brief word aligned */
+} IfxI2c_TxFifoAlignment;
+
+/** \brief Selects TX FIFO flow control
+ * Definition in Ifx_I2C.FIFOCFG.B.TXFC
+ */
+typedef enum
+{
+    IfxI2c_TxFifoFlowControl_disable = 0,  /**< \brief tx fifo not as flow controller */
+    IfxI2c_TxFifoFlowControl_enable  = 1   /**< \brief tx fifo as flow controller */
+} IfxI2c_TxFifoFlowControl;
+
 /******************************************************************************/
 /*-----------------------------Data Structures--------------------------------*/
 /******************************************************************************/
+
+/** \brief Structure for Address configuration register
+ */
+typedef struct
+{
+    uint32             slaveAddress;               /**< \brief slave address, use default value 0 when used in master mode */
+    IfxI2c_AddressMode addressMode;                /**< \brief Ten bit address mode */
+    boolean            generalCallEnable;          /**< \brief General call enable */
+    boolean            masterCodeEnable;           /**< \brief Master code enable */
+    boolean            stopOnNotAcknowledge;       /**< \brief stop on Not-acknowledge */
+    boolean            stopOnPacketEnd;            /**< \brief stop on packet end */
+} IfxI2c_AddrConfig;
+
+/** \brief Structure for FIFO configuration register
+ */
+typedef struct
+{
+    IfxI2c_RxBurstSize       rxBurstSize;                /**< \brief rx burst size */
+    IfxI2c_TxBurstSize       txBurstSize;                /**< \brief tx burst size */
+    IfxI2c_RxFifoAlignment   rxFifoAlignment;            /**< \brief rx fifo alignment */
+    IfxI2c_TxFifoAlignment   txFifoAlignment;            /**< \brief tx fifo alignment */
+    IfxI2c_RxFifoFlowControl rxFifoFlowControl;          /**< \brief rx fifo flow control */
+    IfxI2c_TxFifoFlowControl txFifoFlowControl;          /**< \brief tx fifo flow control */
+    boolean                  clearRequestBehavior;       /**< \brief clear request behavior configuration */
+} IfxI2c_FifoConfig;
 
 /** \addtogroup IfxLld_I2c_Std_structures
  * \{ */
@@ -174,6 +281,14 @@ typedef struct
 } IfxI2c_Pins;
 
 /** \} */
+
+/** \brief Structure for Address and FIFO configuration registers
+ */
+typedef struct
+{
+    IfxI2c_AddrConfig addressConfig;       /**< \brief address config */
+    IfxI2c_FifoConfig fifoConfig;          /**< \brief fifo config */
+} IfxI2c_Config;
 
 /** \addtogroup IfxLld_I2c_Std_functions
  * \{ */
@@ -519,14 +634,32 @@ IFX_EXTERN void IfxI2c_setBaudrate(Ifx_I2C *i2c, float32 baudrate);
 /** \} */
 
 /******************************************************************************/
+/*-------------------------Inline Function Prototypes-------------------------*/
+/******************************************************************************/
+
+/** \brief sets the interrupt request
+ * \param i2c pointer to I2C registers
+ * \param source Interrupt request source
+ * \return None
+ */
+IFX_INLINE void IfxI2c_setInterruptRequest(Ifx_I2C *i2c, IfxI2c_InterruptRequest source);
+
+/******************************************************************************/
 /*-------------------------Global Function Prototypes-------------------------*/
 /******************************************************************************/
 
-/** \brief Configure the i2c master to high speed mode baudrate > 400kbits/s
+/** \brief Configures the Module as Slave
  * \param i2c pointer to i2c registers
  * \return None
  */
-IFX_EXTERN void IfxI2c_configureHighSpeedMode(Ifx_I2C *i2c);
+IFX_EXTERN void IfxI2c_configureAsSlave(Ifx_I2C *i2c);
+
+/** \brief Configures the Address and Fifo registers
+ * \param i2c pointer to i2c registers
+ * \param config pointer to address and fifo configuration structures
+ * \return None
+ */
+IFX_EXTERN void IfxI2c_configureAddrFifo(Ifx_I2C *i2c, const IfxI2c_Config *config);
 
 /******************************************************************************/
 /*---------------------Inline Function Implementations------------------------*/
@@ -786,6 +919,12 @@ IFX_INLINE void IfxI2c_waitBusFree(Ifx_I2C *i2c)
 IFX_INLINE void IfxI2c_writeFifo(Ifx_I2C *i2c, uint32 packet)
 {
     i2c->TXD.U = packet;
+}
+
+
+IFX_INLINE void IfxI2c_setInterruptRequest(Ifx_I2C *i2c, IfxI2c_InterruptRequest source)
+{
+    i2c->ISR.U |= (1 << source);
 }
 
 

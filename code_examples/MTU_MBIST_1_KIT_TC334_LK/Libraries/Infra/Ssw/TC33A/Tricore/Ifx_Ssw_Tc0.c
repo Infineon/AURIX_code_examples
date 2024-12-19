@@ -2,7 +2,7 @@
  * \file Ifx_Ssw_Tc0.c
  * \brief Startup Software for Core0
  *
- * \version iLLD_1_0_1_15_0_1
+ * \version iLLD_1_0_1_17_0
  * \copyright Copyright (c) 2018 Infineon Technologies AG. All rights reserved.
  *
  *
@@ -118,12 +118,25 @@ IFX_SSW_CORE_LINKER_SYMBOLS(0);
 **                       Defines                                              **
 *******************************************************************************/
 
-/*Add options to eliminate usage of stack pointers unnecessarily*/
-#if defined(__HIGHTEC__)
-#pragma GCC optimize "O2"
-#elif defined(__TASKING__)
-#pragma optimize R
+#if defined(__TASKING__)
+__asm("\t .extern core0_main");
 #endif
+
+/*Add options to eliminate usage of stack pointers unnecessarily*/
+#if defined(__TASKING__)
+#pragma optimize R
+#elif defined(__HIGHTEC__)
+#pragma GCC optimize "O2"
+#elif defined(__GNUC__) && !defined(__HIGHTEC__)
+#pragma GCC optimize "O2"
+#endif
+
+
+IFX_SSW_WEAK void hardware_init_hook(void)
+{}
+
+IFX_SSW_WEAK void software_init_hook(void)
+{}
 
 static void __StartUpSoftware(void)
 {
@@ -268,19 +281,13 @@ static void __Core0_start(void)
     Ifx_Ssw_disableSafetyWatchdog(safetyWdtPassword);
 
     /* Hook functions to initialize application specific HW extensions */
-    if(hardware_init_hook)
-    {
-    	hardware_init_hook();
-    }
+	hardware_init_hook();
 
-    /* Hook functions to initialize application specific SW extensions */
-    if(software_init_hook)
-    {
-    	software_init_hook();
-    }
+	/* Initialization of C runtime variables and CPP constructors and destructors */
+	(void)Ifx_Ssw_doCppInit();
 
-    /* Initialization of C runtime variables and CPP constructors and destructors */
-    Ifx_Ssw_doCppInit();
+	/* Hook functions to initialize application specific SW extensions */
+	software_init_hook();
 
     Ifx_Ssw_enableSafetyWatchdog(safetyWdtPassword);
 
@@ -291,6 +298,7 @@ static void __Core0_start(void)
 
     Ifx_Ssw_enableCpuWatchdog(&MODULE_SCU.WDTCPU[0], cpuWdtPassword);
 
+    /*Call main function of Cpu0 */
 #ifdef IFX_CFG_SSW_RETURN_FROM_MAIN
     {
         extern int core0_main(void);
@@ -302,26 +310,26 @@ static void __Core0_start(void)
     Ifx_Ssw_jumpToFunction(core0_main);    /* Jump to main function of CPU0 */
 #endif /* IFX_CFG_SSW_RETURN_FROM_MAIN */
 
-    /* Go into infinite loop, normally the code shall not reach here */
-    Ifx_Ssw_infiniteLoop();
+	/* Go into infinite loop, normally the code shall not reach here */
+	Ifx_Ssw_infiniteLoop();
 }
 
 
 /******************************************************************************
  *                        reset vector address                                *
  *****************************************************************************/
-#if defined(__HIGHTEC__)
-#pragma section
-#pragma section ".start" x
-#endif
 #if defined(__TASKING__)
 #pragma protect on
 #pragma section code "start"
-#endif
-#if defined(__DCC__)
+#elif defined(__HIGHTEC__)
+#pragma section
+#pragma section ".start" x
+#elif defined(__GNUC__) && !defined(__HIGHTEC__)
+#pragma section
+#pragma section ".start" x
+#elif defined(__DCC__)
 #pragma section CODE ".start" X
-#endif
-#if defined(__ghs__)
+#elif defined(__ghs__)
 #pragma ghs section text=".start"
 #endif
 
@@ -332,23 +340,24 @@ void _START(void)
 
 
 /* reset the sections defined above, to normal region */
-#if defined(__HIGHTEC__)
-#pragma section
-#endif
 #if defined(__TASKING__)
 #pragma protect restore
 #pragma section code restore
-#endif
-#if defined(__DCC__)
+#elif defined(__HIGHTEC__)
+#pragma section
+#elif defined(__GNUC__) && !defined(__HIGHTEC__)
+#pragma section
+#elif defined(__DCC__)
 #pragma section CODE
-#endif
-#if defined(__ghs__)
+#elif defined(__ghs__)
 #pragma ghs section text=default
 #endif
 
 /*Restore the options to command line provided ones*/
-#if defined(__HIGHTEC__)
-#pragma GCC reset_options
-#elif defined(__TASKING__)
+#if defined(__TASKING__)
 #pragma endoptimize
+#elif defined(__HIGHTEC__)
+#pragma GCC reset_options
+#elif defined(__GNUC__) && !defined(__HIGHTEC__)
+#pragma GCC reset_options
 #endif

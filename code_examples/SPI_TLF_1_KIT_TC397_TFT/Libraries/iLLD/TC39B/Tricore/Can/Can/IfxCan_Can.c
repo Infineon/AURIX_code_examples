@@ -2,8 +2,9 @@
  * \file IfxCan_Can.c
  * \brief CAN CAN details
  *
- * \version iLLD_1_0_1_12_0_1
- * \copyright Copyright (c) 2019 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0_1
+ * \copyright Copyright (c) 2023 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
@@ -36,6 +37,7 @@
  * FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
+ *
  *
  *
  */
@@ -137,7 +139,7 @@ boolean IfxCan_Can_initNode(IfxCan_Can_Node *node, const IfxCan_Can_NodeConfig *
         }
         else
         {
-            IfxCan_Node_setFastBitTimingValues(nodeSfr, config->baudRate.syncJumpWidth, config->baudRate.timeSegment2, config->baudRate.timeSegment1, config->baudRate.prescaler);
+            IfxCan_Node_setFastBitTimingValues(nodeSfr, config->fastBaudRate.syncJumpWidth, config->fastBaudRate.timeSegment2, config->fastBaudRate.timeSegment1, config->fastBaudRate.prescaler);
         }
 
         /* set transceiver delay compensation offset */
@@ -673,7 +675,7 @@ void IfxCan_Can_initNodeConfig(IfxCan_Can_NodeConfig *config, IfxCan_Can *can)
             .rxFifo1Size           = 0
         },
         .messageRAM                                  = {
-            .baseAddress                    = (uint32)&MODULE_CAN0,
+            .baseAddress                    = (uint32)(can->can),
             .standardFilterListStartAddress = 0x0,
             .extendedFilterListStartAddress = 0x80,
             .rxFifo0StartAddress            = 0x100,
@@ -834,11 +836,17 @@ void IfxCan_Can_readMessage(IfxCan_Can_Node *node, IfxCan_Message *message, uint
     /*get message ID */
     message->messageId = IfxCan_Node_getMesssageId(rxBufferElement);
 
+    /* get message ID length */
+    message->messageIdLength = (IfxCan_MessageIdLength)rxBufferElement->R0.B.XTD;
+
     /* get data length code*/
     message->dataLengthCode = (IfxCan_DataLengthCode)IfxCan_Node_getDataLengthCode(rxBufferElement);
 
     /* get CAN frame mode of operation */
     message->frameMode = IfxCan_Node_getFrameMode(rxBufferElement);
+
+    /*get message bufferNumber*/
+    message->bufferNumber = bufferId;
 
     /* read data */
     IfxCan_Node_readData(rxBufferElement, message->dataLengthCode, data);

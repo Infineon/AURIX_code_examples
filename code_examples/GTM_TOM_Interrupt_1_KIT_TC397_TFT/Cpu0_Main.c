@@ -30,12 +30,12 @@
  *              where the LED is connected, is toggled inside the Interrupt Service Routine (ISR).
  *
  * \name GTM_TOM_Interrupt_1_KIT_TC397_TFT
- * \version V1.0.1
+ * \version V2.0.0
  * \board APPLICATION KIT TC3X7 V2.0, KIT_A2G_TC397_5V_TFT, TC39xXX_B-Step
  * \keywords AURIX, GTM, GTM_TOM_Interrupt_1, IR, interrupt
- * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_GTM_TOM_Interrupt_1_KIT_TC397_TFT-TR-v01_00_01-EN.pdf
- * \documents https://www.infineon.com/aurix-expert-training/TC39B_iLLD_UM_1_0_1_12_1.chm
- * \lastUpdated 2021-06-29
+ * \documents README.MD
+ * \documents https://www.infineon.com/aurix-expert-training/TC39B_iLLD_UM_1_0_1_17_0.chm
+ * \lastUpdated 2024-03-08
  *********************************************************************************************************************/
 #include "Ifx_Types.h"
 #include "IfxCpu.h"

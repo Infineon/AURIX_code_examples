@@ -39,6 +39,8 @@
 #pragma optimize RL
 #elif defined(__HIGHTEC__)
 #pragma GCC optimize ("O1")
+#elif defined(__GNUC__) && !defined(__HIGHTEC__)
+#pragma GCC optimize ("O1")
 #endif
 
 #if (IFX_CFG_SSW_ENABLE_PMS_INIT == 1U)
@@ -85,5 +87,7 @@ void Ifx_Ssw_Lbist(void)
 #if defined(__TASKING__)
 #pragma endoptimize
 #elif defined(__HIGHTEC__)
+#pragma GCC reset_options
+#elif defined(__GNUC__) && !defined(__HIGHTEC__)
 #pragma GCC reset_options
 #endif

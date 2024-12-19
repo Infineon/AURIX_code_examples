@@ -3,8 +3,9 @@
  * \brief GETH ETH details
  * \ingroup IfxLld_Geth
  *
- * \version iLLD_1_0_1_12_0
- * \copyright Copyright (c) 2019 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0
+ * \copyright Copyright (c) 2023 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
@@ -37,6 +38,7 @@
  * FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
+ *
  *
  *
  * \defgroup IfxLld_Geth_Eth_Usage How to use the Geth Eth Interface driver?
@@ -127,10 +129,10 @@
  * config.dmaConfig.rxChannel[0].rxBuffer1Size = IFXGETH_MAX_RX_BUFFER_SIZE; // user defined variable
  *
  * config.dmaConfig.txInterrupt[0].channelId = IfxGeth_DmaChannel_0;
- * config.dmaConfig.txInterrupt[0].priority = 10;	// priority
+ * config.dmaConfig.txInterrupt[0].priority = 10;  // priority
  * config.dmaConfig.txInterrupt[0].provider = IfxSrc_Tos_cpu0;
  * config.dmaConfig.rxInterrupt[0].channelId = IfxGeth_DmaChannel_0;
- * config.dmaConfig.rxInterrupt[0].priority = 11;	// priority
+ * config.dmaConfig.rxInterrupt[0].priority = 11;  // priority
  * config.dmaConfig.rxInterrupt[0].provider = IfxSrc_Tos_cpu0;
  *
  * // initialise themodule
@@ -370,6 +372,7 @@ typedef struct
     IfxGeth_TxDescrList   *txDescrList;                 /**< \brief pointer to TX descriptors RAM */
     uint32                *txBuffer1StartAddress;       /**< \brief Start address of Tx Buffer 1 */
     uint16                 txBuffer1Size;               /**< \brief Size of Tx Buffer 1 */
+    boolean                enableOSF;                   /**< \brief Operate on Second Frame, True: Enabled, False: Disabled */
 } IfxGeth_Eth_TxChannelConfig;
 
 /** \brief Tx Queue Configuration
@@ -473,12 +476,14 @@ typedef struct
  */
 typedef struct
 {
-    Ifx_GETH                *gethSFR;                /**< \brief Pointer to GETH register base address */
-    IfxGeth_PhyInterfaceMode phyInterfaceMode;       /**< \brief External Phy Interface RMII Mode */
-    IfxGeth_Eth_PinConfig    pins;                   /**< \brief COnfiguration structure for Pins */
-    IfxGeth_Eth_MacConfig    mac;                    /**< \brief Configuration Structure for the the MAC initialisation */
-    IfxGeth_Eth_MtlConfig    mtl;                    /**< \brief Configuration Structure for the MTL initialisation */
-    IfxGeth_Eth_DmaConfig    dma;                    /**< \brief Configuration Structure for the DMA initialisation */
+    Ifx_GETH                *gethSFR;                  /**< \brief Pointer to GETH register base address */
+    IfxGeth_PhyInterfaceMode phyInterfaceMode;         /**< \brief External Phy Interface Mode */
+    IfxGeth_Eth_PinConfig    pins;                     /**< \brief COnfiguration structure for Pins */
+    IfxGeth_Eth_MacConfig    mac;                      /**< \brief Configuration Structure for the the MAC initialisation */
+    IfxGeth_Eth_MtlConfig    mtl;                      /**< \brief Configuration Structure for the MTL initialisation */
+    IfxGeth_Eth_DmaConfig    dma;                      /**< \brief Configuration Structure for the DMA initialisation */
+    uint8                    rgmiiTxSkewControl;       /**< \brief TX Clock delay control for RGMII Mode - TXCFG. Refer to SKEWCTL.B.TXCFG */
+    uint8                    rgmiiRxSkewControl;       /**< \brief RX Clock delay control for RGMII Mode - RXCFG. Refer to SKEWCTL.B.RXCFG */
 } IfxGeth_Eth_Config;
 
 /** \} */
@@ -689,7 +694,7 @@ IFX_EXTERN void IfxGeth_Eth_writeHeader(IfxGeth_Eth *geth, uint8 *txBuffer, uint
  * mtlConfig.rxArbitrationAlgorithm       =    IfxGeth_RxArbitrationAlgorithm_sp;
  * mtlConfig.txQueueConfig[0].storeAndForward              =    FALSE;
  * mtlConfig.txQueueConfig[0].txQueueSize                  =    IfxGeth_QueueSize_256Bytes;
- * mtlConfig.txQueueConfig[0].txQueueUnderflowInterruptEnabled = FLASE;	// enable if required
+ * mtlConfig.txQueueConfig[0].txQueueUnderflowInterruptEnabled = FLASE;  // enable if required
  *
  * mtlConfig.rxQueueConfig[0].storeAndForward              =    FALSE;
  * mtlConfig.rxQueueConfig[0].rxQueueSize                  =    IfxGeth_QueueSize_256Bytes;
@@ -697,10 +702,10 @@ IFX_EXTERN void IfxGeth_Eth_writeHeader(IfxGeth_Eth *geth, uint8 *txBuffer, uint
  * mtlConfig.rxQueueConfig[0].forwardUndersizeedGoodPacket    =    FALSE;
  * mtlConfig.rxQueueConfig[0].daBasedDmaChannelEnabled     =    FALSE;
  * mtlConfig.rxQueueConfig[0].rxDmaChannelMap              =    IfxEth_RxDmaChannel_0;
- * mtlConfig.rxQueueConfig[0].rxQueueOverflowInterruptEnabled = FALSE;	// enable if required
+ * mtlConfig.rxQueueConfig[0].rxQueueOverflowInterruptEnabled = FALSE; // enable if required
  *
  * mtlConfig.interrupt.serviceRequest = IfxGeth_ServiceRequest_1;
- * mtlConfig.interrupt.priority = 0;	// choose priority
+ * mtlConfig.interrupt.priority = 0; // choose priority
  * mtlConfig.interrupt.provider = IfxSrc_Tos_cpu0;
  *
  * IfxGeth_Eth_configureMTL(&geth, &mtlConfig);
@@ -787,11 +792,11 @@ IFX_INLINE boolean IfxGeth_Eth_isRxDataAvailable(IfxGeth_Eth *geth, IfxGeth_RxDm
  * dmaConfig.rxChannel[0].rxBuffer1Size = RX_BUFFER1_SIZE; // user defined variable
  *
  * dmaConfig.txInterrupt[0].channelId = IfxGeth_DmaChannel_0;
- * dmaConfig.txInterrupt[0].priority = 0;	// choose priority
+ * dmaConfig.txInterrupt[0].priority = 0;  // choose priority
  * dmaConfig.txInterrupt[0].provider = IfxSrc_Tos_cpu0;
  *
  * dmaConfig.rxInterrupt[0].channelId = IfxGeth_DmaChannel_0;
- * dmaConfig.rxInterrupt[0].priority = 0;	// choose priority
+ * dmaConfig.rxInterrupt[0].priority = 0;  // choose priority
  * dmaConfig.rxInterrupt[0].provider = IfxSrc_Tos_cpu0;
  *
  * IfxGeth_Eth_configureDMA(&geth, &dmaConfig);
@@ -1063,7 +1068,6 @@ IFX_EXTERN void IfxGeth_Eth_freeReceiveBuffer(IfxGeth_Eth *geth, IfxGeth_RxDmaCh
 /******************************************************************************/
 /*-------------------Global Exported Variables/Constants----------------------*/
 /******************************************************************************/
-
 /** \brief Actual rx descriptor lists of all availabe rx channels
  */
 IFX_EXTERN IfxGeth_RxDescrList IfxGeth_Eth_rxDescrList[IFXGETH_NUM_MODULES][IFXGETH_NUM_RX_CHANNELS];

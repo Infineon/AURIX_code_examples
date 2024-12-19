@@ -3,8 +3,8 @@
  * \brief MSC MSC details
  * \ingroup IfxLld_Msc
  *
- * \version iLLD_1_0_1_15_0_1
- * \copyright Copyright (c) 2019 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0
+ * \copyright Copyright (c) 2023 Infineon Technologies AG. All rights reserved.
  *
  *
  *
@@ -422,6 +422,7 @@ typedef struct
     IfxMsc_Target                               target[IFXMSC_NUM_ENABLE_SELECT_LINES];       /**< \brief Specifies the Downstream targets */
     IfxMsc_Msc_Io                               io;                                           /**< \brief Specifies the IO Pin configuration */
     IfxMsc_Msc_CommandExtensionConfig           commandExtensionConfig;                       /**< \brief Configuration for CX mode. */
+    IfxMsc_StreamMode                           streamMode;                                   /**< \brief Configuration for Stream mode (upstream or downstream) */
 } IfxMsc_Msc_Config;
 
 /** \} */

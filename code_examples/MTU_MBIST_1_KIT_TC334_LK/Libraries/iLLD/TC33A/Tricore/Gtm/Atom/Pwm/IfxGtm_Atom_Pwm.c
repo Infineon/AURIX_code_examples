@@ -2,7 +2,7 @@
  * \file IfxGtm_Atom_Pwm.c
  * \brief GTM PWM details
  *
- * \version iLLD_1_0_1_15_0_1
+ * \version iLLD_1_0_1_17_0
  * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
  *
  *
@@ -58,26 +58,10 @@ boolean IfxGtm_Atom_Pwm_init(IfxGtm_Atom_Pwm_Driver *driver, const IfxGtm_Atom_P
     driver->gtm       = config->gtm;
     driver->atomIndex = config->atom;
 
-    Ifx_GTM_ATOM *atomSFR = &config->gtm->ATOM[config->atom];
+    Ifx_GTM_ATOM     *atomSFR = &config->gtm->ATOM[config->atom];
     driver->atom        = atomSFR;
     driver->atomChannel = config->atomChannel;
-#if defined(IFXGTM_DTM_AVAILABLE)
 
-    IfxGtm_Dtm dtmIndex     = IfxGtm_Dtm_getTomChannelDtmIndex(config->tom, config->timerChannel);
-    boolean    dtmAvailable = FALSE;
-
-    if (dtmIndex != IfxGtm_Dtm_none)
-    {
-        driver->dtm        = &config->gtm->CDTM.DTM[dtmIndex];
-        driver->dtmChannel = (IfxGtm_Dtm_Ch)(config->timerChannel % 4);
-        dtmAvailable       = TRUE;
-    }
-    else
-    {
-        dtmAvailable = FALSE;
-    }
-
-#endif
     Ifx_GTM_ATOM_AGC *agc = &atomSFR->AGC;
     driver->agc = agc;
 
@@ -126,20 +110,6 @@ boolean IfxGtm_Atom_Pwm_init(IfxGtm_Atom_Pwm_Driver *driver, const IfxGtm_Atom_P
         IfxGtm_Atom_Agc_trigger(driver->agc);
     }
 
-#if defined(IFXGTM_DTM_AVAILABLE)
-
-    if (dtmAvailable)
-    {
-        // bypassing the DTM functionality
-        IfxGtm_Dtm_setClockSource(driver->dtm, config->dtmClockSource);
-        IfxGtm_Dtm_setOutput0DeadTimePath(driver->dtm, driver->dtmChannel, IfxGtm_Dtm_DeadTimePath_feedThrough);
-
-        IfxGtm_Dtm_setOutput1Select(driver->dtm, driver->dtmChannel, IfxGtm_Dtm_Output1Select_specialFunction);
-        IfxGtm_Dtm_setOutput1Function(driver->dtm, driver->dtmChannel, IfxGtm_Dtm_Output1Function_dtmInputSignal);
-        IfxGtm_Dtm_setOutput1DeadTimePath(driver->dtm, driver->dtmChannel, IfxGtm_Dtm_DeadTimePath_enable);
-    }
-
-#endif
     return result;
 }
 
@@ -164,10 +134,6 @@ void IfxGtm_Atom_Pwm_initConfig(IfxGtm_Atom_Pwm_Config *config, Ifx_GTM *gtm)
     config->pin.outputPin            = NULL_PTR;
     config->pin.outputMode           = IfxPort_OutputMode_pushPull;
     config->pin.padDriver            = IfxPort_PadDriver_cmosAutomotiveSpeed1;
-
-#if defined(IFXGTM_DTM_AVAILABLE)
-    config->dtmClockSource = IfxGtm_Dtm_ClockSource_cmuClock1;
-#endif
 }
 
 

@@ -3,8 +3,9 @@
  * \brief SCU  basic functionality
  * \ingroup IfxLld_Scu
  *
- * \version iLLD_1_0_1_12_0_1
- * \copyright Copyright (c) 2018 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0
+ * \copyright Copyright (c) 2023 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
@@ -37,6 +38,7 @@
  * FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
+ *
  *
  *
  * This file contains the APIs for Reset related functions.
@@ -112,8 +114,6 @@ typedef enum
     IfxScuRcu_Trigger_cb0       = 18,  /**< \brief Cerberus System Reset */
     IfxScuRcu_Trigger_cb1       = 19,  /**< \brief Cerberus Debug Reset */
     IfxScuRcu_Trigger_cb3       = 20,  /**< \brief Cerberus Application Reset */
-    IfxScuRcu_Trigger_tp        = 21,  /**< \brief Tuning protection */
-    IfxScuRcu_Trigger_tcu       = 22,  /**< \brief TCU */
     IfxScuRcu_Trigger_evrc      = 23,  /**< \brief EVRC */
     IfxScuRcu_Trigger_evr33     = 24,  /**< \brief EVR33 */
     IfxScuRcu_Trigger_swd       = 25,  /**< \brief Supply Watchdog */
@@ -174,6 +174,11 @@ IFX_EXTERN IfxScuRcu_ResetCode IfxScuRcu_evaluateReset(void);
  * \return None
  */
 IFX_EXTERN void IfxScuRcu_performReset(IfxScuRcu_ResetType resetType, uint16 userResetInfo);
+
+/** \brief This function Evaluate the Reset and returns the reset cause/details.
+ * \return Reset code which contains Reset type, trigger and reason details.
+ */
+IFX_EXTERN IfxScuRcu_ResetCode IfxScuRcu_getResetReason(void);
 
 /******************************************************************************/
 /*---------------------Inline Function Implementations------------------------*/

@@ -2,28 +2,26 @@
  * \file IfxQspi.c
  * \brief QSPI  basic functionality
  *
- * \version iLLD_1_0_1_15_0_1
- * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0_1
+ * \copyright Copyright (c) 2023 Infineon Technologies AG. All rights reserved.
  *
  *
  *
  *                                 IMPORTANT NOTICE
  *
- *
  * Use of this file is subject to the terms of use agreed between (i) you or
  * the company in which ordinary course of business you are acting and (ii)
- * Infineon Technologies AG or its licensees. If and as long as no such
- * terms of use are agreed, use of this file is subject to following:
- *
+ * Infineon Technologies AG or its licensees. If and as long as no such terms
+ * of use are agreed, use of this file is subject to following:
  *
  * Boost Software License - Version 1.0 - August 17th, 2003
  *
- * Permission is hereby granted, free of charge, to any person or
- * organization obtaining a copy of the software and accompanying
- * documentation covered by this license (the "Software") to use, reproduce,
- * display, distribute, execute, and transmit the Software, and to prepare
- * derivative works of the Software, and to permit third-parties to whom the
- * Software is furnished to do so, all subject to the following:
+ * Permission is hereby granted, free of charge, to any person or organization
+ * obtaining a copy of the software and accompanying documentation covered by
+ * this license (the "Software") to use, reproduce, display, distribute,
+ * execute, and transmit the Software, and to prepare derivative works of the
+ * Software, and to permit third-parties to whom the Software is furnished to
+ * do so, all subject to the following:
  *
  * The copyright notices in the Software and this entire statement, including
  * the above license grant, this restriction and the following disclaimer, must
@@ -103,7 +101,7 @@ uint32 IfxQspi_calculateExtendedConfigurationValue(Ifx_QSPI *qspi, const uint8 c
     econ.U = 0;
 
     const int     maxB   = 3;
-    float32       tQspi  = 1.0 / IfxQspi_getTimeQuantaFrequency(qspi);
+    float32       tQspi  = 1.0f / IfxQspi_getTimeQuantaFrequency(qspi);
     float32       fBaud  = (chConfig->baudrate);
     int           abcMin = (2);
     int           abcMax = (4 + 0 + 4);
@@ -113,20 +111,20 @@ uint32 IfxQspi_calculateExtendedConfigurationValue(Ifx_QSPI *qspi, const uint8 c
     float32       tTmp, tBaudTmp;
     boolean       done = FALSE;
 
-    if (fBaud == 0.0)
+    if (fBaud == 0.0f)
     {
         IFX_ASSERT(IFX_VERBOSE_LEVEL_WARNING, FALSE);   /* chosen baud rate is 0 */
-        fBaud = 1.0;
+        fBaud = 1.0f;
     }
 
-    float32 tBaud = 1.0 / fBaud;
+    float32 tBaud = 1.0f / fBaud;
 
     bestError = 1e6;
 
     for (abc = abcMax; abc >= abcMin; abc--)
     {
         tTmp = tQspi * abc;
-        q    = (int)((tBaud / tTmp) + 0.5F);
+        q    = (int)((tBaud / tTmp) + 0.5f);
 
         if (q > 64)
         {
@@ -159,7 +157,7 @@ uint32 IfxQspi_calculateExtendedConfigurationValue(Ifx_QSPI *qspi, const uint8 c
             /* break out if ABC is even and error = 0 */
             if (((uint32)bestAbc & (uint32)0x1) == 0)
             {
-                done = (__neqf(error, 0.0)) ? FALSE : TRUE;
+                done = (__neqf(error, 0.0f)) ? FALSE : TRUE;
 
                 if (done != FALSE)
                 {
@@ -243,19 +241,19 @@ uint32 IfxQspi_calculateTimeQuantumLength(Ifx_QSPI *qspi, float maxBaudrate)
     float  realTQ, deltaMax, bestDelta, achievedMax, tq;
     float  fQspi = IfxScuCcu_getQspiFrequency();
 
-    if (__leqf(maxBaudrate, 0.0))
+    if (__leqf(maxBaudrate, 0.0f))
     {
         IFX_ASSERT(IFX_VERBOSE_LEVEL_ERROR, FALSE); /* Max baud rate is 0!! */
     }
 
-    realTQ    = fQspi / (4.0 * maxBaudrate);
+    realTQ    = fQspi / (4.0f * maxBaudrate);
     bestTq    = __max((uint32)__roundf(realTQ), 1);
     bestDelta = __absf(maxBaudrate - (fQspi / bestTq));
 
     for (abcq = ABCQMIN; abcq <= ABCQMAX; abcq++)
     {
         realTQ      = fQspi / (maxBaudrate * abcq);
-        tq          = (float)(realTQ + 0.5F);
+        tq          = (float)(realTQ + 0.5f);
         achievedMax = fQspi / (tq * abcq);
         deltaMax    = __absf(maxBaudrate - achievedMax);
 
@@ -479,7 +477,7 @@ void IfxQspi_calculateDelayConstants(const Ifx_QSPI *qspi, const IfxQspi_Channel
 
         for (preTemp = 0; preTemp < 8; preTemp++)
         {
-            delayTemp = (uint8)((scaleTemp / (1 << (2 * preTemp))) + 0.5F); /* divide the scale_temp by ( 4 ^ pre_temp) to find delay_temp */
+            delayTemp = (uint8)((scaleTemp / (1 << (2 * preTemp))) + 0.5f); /* divide the scale_temp by ( 4 ^ pre_temp) to find delay_temp */
 
             if (delayTemp <= 8)                                             /* if delay_temp is <= 8; we can get a good value pair */
             {

@@ -31,12 +31,12 @@
  *              emergency stop is activated.
  *
  * \name SMU_Emergency_Stop_Alarm_1_KIT_TC334_LK
- * \version V1.0.0
+ * \version V2.0.0
  * \board AURIX TC334 lite Kit, KIT_A2G_TC334_LITE, TC33xLP_A-Step
  * \keywords AURIX, SMU, SMU_Emergency_Stop_Alarm_1, alarm, emergency stop
- * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_SMU_Emergency_Stop_Alarm_1_KIT_TC334_LK-TR-v01_00_00-EN.pdf
- * \documents https://www.infineon.com/aurix-expert-training/TC33A_iLLD_UM_1_0_1_12_1.chm
- * \lastUpdated 2021-12-16
+ * \documents README.MD
+ * \documents https://www.infineon.com/aurix-expert-training/TC33A_iLLD_UM_1_0_1_17_0.chm
+ * \lastUpdated 2024-04-17
  *********************************************************************************************************************/
 #include "Ifx_Types.h"
 #include "IfxCpu.h"

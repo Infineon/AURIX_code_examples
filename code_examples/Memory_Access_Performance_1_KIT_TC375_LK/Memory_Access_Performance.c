@@ -42,20 +42,41 @@
 /*********************************************************************************************************************/
 /*-------------------------------------------------Global variables--------------------------------------------------*/
 /*********************************************************************************************************************/
-/* Force the compiler to put the following global variable into the LMU memory */
-#pragma section farbss lmubss
-uint32 g_DataLMU[BUFFERSIZE];                                   /* Data Field in LMU memory                         */
+#ifdef __TASKING__
+    /* Force the compiler to put the following global variable into the LMU memory */
+    #pragma section farbss lmubss
+    uint32 g_DataLMU[BUFFERSIZE];                                   /* Data Field in LMU memory                      */
 
-/* Force the compiler to put the following global variable into the DSPR0 memory */
-#pragma section farbss bss_cpu0
-uint32 g_DataDSPR0[BUFFERSIZE];                                 /* Data Field in DSPR0 memory                       */
+    /* Force the compiler to put the following global variable into the DSPR0 memory */
+    #pragma section farbss bss_cpu0
+    uint32 g_DataDSPR0[BUFFERSIZE];                                 /* Data Field in DSPR0 memory                    */
 
-/* Force the compiler to put the following global variable into the DSPR1 memory */
-#pragma section farbss bss_cpu1
-uint32 g_DataDSPR1[BUFFERSIZE];                                 /* Data Field in DSPR1 memory                       */
+    /* Force the compiler to put the following global variable into the DSPR1 memory */
+    #pragma section farbss bss_cpu1
+    uint32 g_DataDSPR1[BUFFERSIZE];                                 /* Data Field in DSPR1 memory                       */
 
-/* Restore the initial address settings */
-#pragma section farbss restore
+    /* Restore the initial address settings */
+    #pragma section farbss restore
+#endif
+
+#ifdef __GNUC__
+    /* Force the compiler to put the following global variable into the LMU memory */
+    #pragma section .lmubss_cpu0 awc0
+    uint32 g_DataLMU[BUFFERSIZE];                                   /* Data Field in LMU memory                      */
+    #pragma section
+
+    /* Force the compiler to put the following global variable into the DSPR0 memory */
+    #pragma section .bss_cpu0 awc0
+    uint32 g_DataDSPR0[BUFFERSIZE];                                 /* Data Field in DSPR0 memory                    */
+    #pragma section
+
+    /* Force the compiler to put the following global variable into the DSPR1 memory */
+    #pragma section .bss_cpu1 awc1
+    uint32 g_DataDSPR1[BUFFERSIZE];                                 /* Data Field in DSPR1 memory                       */
+
+    /* Restore the initial address settings */
+    #pragma section
+#endif
 
 IfxCpu_Perf g_perfCounts[NUM_OF_TESTS];                         /* Data Field to store the Performance Values       */
 
@@ -63,7 +84,13 @@ IfxCpu_Perf g_perfCounts[NUM_OF_TESTS];                         /* Data Field to
 /*---------------------------------------------Function Implementations----------------------------------------------*/
 /*********************************************************************************************************************/
 /* Force the compiler to put the following functions into PSPR0 memory */
-#pragma section code cpu0_psram
+#ifdef __TASKING__
+    #pragma section code cpu0_psram
+#endif
+
+#ifdef __GNUC__
+    #pragma section cpu0_psram ax
+#endif
 
 /* Function to execute the performance measurement */
 void accessData(volatile uint32 *dataField, IfxCpu_Perf *result)
@@ -90,4 +117,10 @@ void measurePerformance(void)
     accessData(g_DataLMU,   &g_perfCounts[2]);                  /* Execute read and write accesses to LMU memory    */
 }
 
-#pragma section code restore
+#ifdef __TASKING__
+    #pragma section code restore
+#endif
+
+#ifdef __GNUC__
+    #pragma section
+#endif

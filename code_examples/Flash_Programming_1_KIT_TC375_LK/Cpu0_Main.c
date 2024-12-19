@@ -32,12 +32,12 @@
  *              memory is turned ON.
  *
  * \name Flash_Programming_1_KIT_TC375_LK
- * \version V1.0.0
+ * \version V2.0.0
  * \board AURIX TC375 lite Kit, KIT_A2G_TC375_LITE, TC37xTP_A-Step
  * \keywords AURIX, DFLASH, Flash, Flash_Programming_1, PFLASH, data, erase, page, page mode, program, programming, verify, write page
- * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_Flash_Programming_1_KIT_TC375_LK-TR-v01_00_00-EN.pdf
- * \documents https://www.infineon.com/aurix-expert-training/TC37A_iLLD_UM_1_0_1_12_1.chm
- * \lastUpdated 2021-03-22
+ * \documents README.MD
+ * \documents https://www.infineon.com/aurix-expert-training/TC37A_iLLD_UM_1_0_1_17_0.chm
+ * \lastUpdated 2024-02-28
  *********************************************************************************************************************/
 #include "Ifx_Types.h"
 #include "IfxCpu.h"

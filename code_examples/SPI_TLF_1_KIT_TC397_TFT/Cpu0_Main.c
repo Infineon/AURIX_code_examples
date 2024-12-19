@@ -32,12 +32,12 @@
  *              Typical application use case and the features of the TLF35584 device are not covered by this training.
  *
  * \name SPI_TLF_1_KIT_TC397_TFT
- * \version V1.0.1
+ * \version V2.0.0
  * \board APPLICATION KIT TC3X7 V2.0, KIT_A2G_TC397_5V_TFT, TC39xXX_B-Step
  * \keywords AURIX, SPI, QSPI, TLF, TLF35584, SPI_TLF_1
- * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_SPI_TLF_1_KIT_TC397_TFT-TR-v01_00_01-EN.pdf
- * \documents https://www.infineon.com/aurix-expert-training/TC39B_iLLD_UM_1_0_1_12_1.chm
- * \lastUpdated 2023-03-30
+ * \documents README.MD
+ * \documents https://www.infineon.com/aurix-expert-training/TC39B_iLLD_UM_1_0_1_17_0.chm
+ * \lastUpdated 2024-04-23
  *********************************************************************************************************************/
 #include "SPI_TLF.h"
 #include "Bsp.h"

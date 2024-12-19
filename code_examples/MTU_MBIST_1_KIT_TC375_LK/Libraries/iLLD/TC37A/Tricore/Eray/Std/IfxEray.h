@@ -3,28 +3,26 @@
  * \brief ERAY  basic functionality
  * \ingroup IfxLld_Eray
  *
- * \version iLLD_1_0_1_15_0_1
- * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0
+ * \copyright Copyright (c) 2023 Infineon Technologies AG. All rights reserved.
  *
  *
  *
  *                                 IMPORTANT NOTICE
  *
- *
  * Use of this file is subject to the terms of use agreed between (i) you or
  * the company in which ordinary course of business you are acting and (ii)
- * Infineon Technologies AG or its licensees. If and as long as no such
- * terms of use are agreed, use of this file is subject to following:
- *
+ * Infineon Technologies AG or its licensees. If and as long as no such terms
+ * of use are agreed, use of this file is subject to following:
  *
  * Boost Software License - Version 1.0 - August 17th, 2003
  *
- * Permission is hereby granted, free of charge, to any person or
- * organization obtaining a copy of the software and accompanying
- * documentation covered by this license (the "Software") to use, reproduce,
- * display, distribute, execute, and transmit the Software, and to prepare
- * derivative works of the Software, and to permit third-parties to whom the
- * Software is furnished to do so, all subject to the following:
+ * Permission is hereby granted, free of charge, to any person or organization
+ * obtaining a copy of the software and accompanying documentation covered by
+ * this license (the "Software") to use, reproduce, display, distribute,
+ * execute, and transmit the Software, and to prepare derivative works of the
+ * Software, and to permit third-parties to whom the Software is furnished to
+ * do so, all subject to the following:
  *
  * The copyright notices in the Software and this entire statement, including
  * the above license grant, this restriction and the following disclaimer, must
@@ -288,8 +286,8 @@ typedef enum
     IfxEray_PocCommand_reset        = 10,  /**< \brief command to controller to enter RESET */
     IfxEray_PocCommand_monitor      = 11,  /**< \brief command to controller to enter MONITOR */
     IfxEray_PocCommand_clearRam     = 12,  /**< \brief command to controller to enter CLEAR_RAM */
-    IfxEray_PocCommand_Asynchronous = 14,  /**< \brief command to controller to enter Asynchronous transmit mode */
-    IfxEray_PocCommand_LoopBack     = 15   /**< \brief command to controller to enter Loop back mode */
+    IfxEray_PocCommand_asynchronous = 14,  /**< \brief command to controller to enter asynchronous transmit mode */
+    IfxEray_PocCommand_loopBack     = 15   /**< \brief command to controller to enter Loop back mode */
 } IfxEray_PocCommand;
 
 /** \brief State of Communication Controller Protocol operation control, defined in MODULE_ERAY0.CCSV.B.POCS.
@@ -302,8 +300,8 @@ typedef enum
     IfxEray_PocState_normalPassive               = 3,   /**< \brief controller entered normal-passive state */
     IfxEray_PocState_halt                        = 4,   /**< \brief controller entered halt state */
     IfxEray_PocState_monitor                     = 5,   /**< \brief controller entered monitor state */
-    IfxEray_PocState_LoopBack                    = 13,  /**< \brief controller entered Loop Back mode. */
-    IfxEray_PocState_Asynchronous                = 14,  /**< \brief controller entered Asynchronous transfer mode. */
+    IfxEray_PocState_loopBack                    = 13,  /**< \brief controller entered loop back mode. */
+    IfxEray_PocState_asynchronous                = 14,  /**< \brief controller entered asynchronous transfer mode. */
     IfxEray_PocState_config                      = 15,  /**< \brief controller entered config state */
     IfxEray_PocState_wakeupStandby               = 16,  /**< \brief controller entered wakeup standby state */
     IfxEray_PocState_wakeupListen                = 17,  /**< \brief controller entered wakeup-listen state */
@@ -319,8 +317,8 @@ typedef enum
     IfxEray_PocState_integrationListen           = 39,  /**< \brief controller entered integration-listen state. */
     IfxEray_PocState_integrationConsistencyCheck = 40,  /**< \brief controller entered integration consistency check state */
     IfxEray_PocState_initializeSchedule          = 41,  /**< \brief controller entered initialise schedule state */
-    IfxEray_PocState_staruAborted                = 42,  /**< \brief controller entered startup-abort state */
-    IfxEray_PocState_startupSucced               = 43   /**< \brief controller entered startup succeed state. */
+    IfxEray_PocState_startupAborted              = 42,  /**< \brief controller entered startup-abort state */
+    IfxEray_PocState_startupSucceed              = 43   /**< \brief controller entered startup succeed state. */
 } IfxEray_PocState;
 
 /** \brief Receiving channel, defined in MODULE_ERAY0.FRF.B.CH.
@@ -1299,6 +1297,12 @@ IFX_INLINE void IfxEray_configureSuc1Register(Ifx_ERAY *eray, uint32 configValue
  */
 IFX_INLINE void IfxEray_setMacroTickValue(Ifx_ERAY *eray, uint32 tickValue);
 
+/** \brief Returns the Cycle Counter Value
+ * \param eray pointer to ERAY module registers.
+ * \return Cycle Count Value
+ */
+IFX_INLINE uint8 IfxEray_getCycleCountValue(Ifx_ERAY *eray);
+
 /******************************************************************************/
 /*---------------------Inline Function Implementations------------------------*/
 /******************************************************************************/
@@ -2030,6 +2034,12 @@ IFX_INLINE void IfxEray_configureSuc1Register(Ifx_ERAY *eray, uint32 configValue
 IFX_INLINE void IfxEray_setMacroTickValue(Ifx_ERAY *eray, uint32 tickValue)
 {
     eray->MTCCV.U = tickValue;
+}
+
+
+IFX_INLINE uint8 IfxEray_getCycleCountValue(Ifx_ERAY *eray)
+{
+    return (uint8)eray->MTCCV.B.CCV;
 }
 
 

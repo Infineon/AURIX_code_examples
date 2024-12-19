@@ -2,7 +2,7 @@
  * \file IfxCpu_Intrinsics.h
  * \ingroup IfxLld_Cpu_Intrinsics Intrinsics
  *
- * \version iLLD_1_0_1_12_0
+ * \version iLLD_1_0_1_17_0
  * \copyright Copyright (c) 2013 Infineon Technologies AG. All rights reserved.
  *
  *
@@ -49,11 +49,14 @@
 #if defined(__DCC__)
 #include "IfxCpu_IntrinsicsDcc.h"
 
+#elif defined(__TASKING__)
+#include "IfxCpu_IntrinsicsTasking.h"
+
 #elif defined(__HIGHTEC__)
 #include "IfxCpu_IntrinsicsGnuc.h"
 
-#elif defined(__TASKING__)
-#include "IfxCpu_IntrinsicsTasking.h"
+#elif defined(__GNUC__) && !defined(__HIGHTEC__)
+#include "IfxCpu_IntrinsicsGcc.h"
 
 #elif defined(__ghs__)
 #include "IfxCpu_IntrinsicsGhs.h"

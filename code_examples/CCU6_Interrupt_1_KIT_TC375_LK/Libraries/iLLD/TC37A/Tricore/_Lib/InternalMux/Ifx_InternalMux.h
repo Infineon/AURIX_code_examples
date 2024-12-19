@@ -2,7 +2,7 @@
  * \file Ifx_InternalMux.h
  * \brief Mux configuration functions
  *
- * \version iLLD_1_0_1_12_0
+ * \version iLLD_1_0_1_17_0
  * \copyright Copyright (c) 2015 Infineon Technologies AG. All rights reserved.
  *
  *

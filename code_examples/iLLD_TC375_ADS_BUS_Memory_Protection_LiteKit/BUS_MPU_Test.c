@@ -122,35 +122,35 @@ void Test1_DLMU_configuration(void)
      * lowerBoundAddress <= x < upperBoundAddress and the master tag of the access is enabled.
      * If any of these conditions are not satisfied, the access is seen as invalid.
      */
-    /* Define the Protection Range 0: from 0xB0000000 up to 0xB0000032 */
+    /* Define the Protection Range 0: from 0xB0000000 up to 0xB000001F */
     define_DLMU0_bus_protection_range((uint32) &DLMU_Array[REGION_SIZE * 0],
             (uint32) &DLMU_Array[REGION_SIZE * 1], BUS_PROTECTION_RANGE_0);
 
-    /* Define the Protection Range 1: from 0xB0000032 up to 0xB0000064 */
+    /* Define the Protection Range 1: from 0xB0000020 up to 0xB000003F */
     define_DLMU0_bus_protection_range((uint32) &DLMU_Array[REGION_SIZE * 1],
             (uint32) &DLMU_Array[REGION_SIZE * 2], BUS_PROTECTION_RANGE_1);
 
-    /* Define the Protection Range 2: from 0xB0000064 up to 0xB0000096 */
+    /* Define the Protection Range 2: from 0xB0000040 up to 0xB000005F */
     define_DLMU0_bus_protection_range((uint32) &DLMU_Array[REGION_SIZE * 2],
             (uint32) &DLMU_Array[REGION_SIZE * 3], BUS_PROTECTION_RANGE_2);
 
-    /* Define the Protection Range 3: from 0xB0000096 up to 0xB00000C8 */
+    /* Define the Protection Range 3: from 0xB0000060 up to 0xB000007F */
     define_DLMU0_bus_protection_range((uint32) &DLMU_Array[REGION_SIZE * 3],
             (uint32) &DLMU_Array[REGION_SIZE * 4], BUS_PROTECTION_RANGE_3);
 
-    /* Define the Protection Range 4: from 0xB00000C8 up to 0xB00000FA */
+    /* Define the Protection Range 4: from 0xB0000080 up to 0xB000009F */
     define_DLMU0_bus_protection_range((uint32) &DLMU_Array[REGION_SIZE * 4],
             (uint32) &DLMU_Array[REGION_SIZE * 5], BUS_PROTECTION_RANGE_4);
 
-    /* Define the Protection Range 5: from 0xB00000FA up to 0xB000012C */
+    /* Define the Protection Range 5: from 0xB00000A0 up to 0xB00000BF */
     define_DLMU0_bus_protection_range((uint32) &DLMU_Array[REGION_SIZE * 5],
             (uint32) &DLMU_Array[REGION_SIZE * 6], BUS_PROTECTION_RANGE_5);
 
-    /* Define the Protection Range 6: from 0xB000012C up to 0xB000015E */
+    /* Define the Protection Range 6: from 0xB00000C0 up to 0xB00000DF */
     define_DLMU0_bus_protection_range((uint32) &DLMU_Array[REGION_SIZE * 6],
             (uint32) &DLMU_Array[REGION_SIZE * 7], BUS_PROTECTION_RANGE_6);
 
-    /* Define the Protection Range 7: from 0xB000015E up to the end of DLMU0 local memory */
+    /* Define the Protection Range 7: from 0xB00000E0 up to the end of DLMU0 local memory */
     define_DLMU0_bus_protection_range((uint32) &DLMU_Array[REGION_SIZE * 7],
             (uint32) 0xB000FFFF, BUS_PROTECTION_RANGE_7);
 
@@ -238,35 +238,35 @@ void Test1_SPR_configuration(void)
        lowerBoundAddress <= x < upperBoundAddress and the master tag of the access is enabled.
      * If any of these conditions are not satisfied, the access is seen as invalid.
      */
-    /* Define the Protection Range 0: from 0x70000000 up to 0x70000032 */
+    /* Define the Protection Range 0: from 0x70000000 up to 0x7000001F */
     define_SPR0_bus_protection_range((uint32) &SPR_Array[REGION_SIZE * 0],
             (uint32) &SPR_Array[REGION_SIZE * 1], BUS_PROTECTION_RANGE_0);
 
-    /* Define the Protection Range 1: from 0x70000032 up to 0x70000064 */
+    /* Define the Protection Range 1: from 0x70000020 up to 0x7000003F */
     define_SPR0_bus_protection_range((uint32) &SPR_Array[REGION_SIZE * 1],
             (uint32) &SPR_Array[REGION_SIZE * 2], BUS_PROTECTION_RANGE_1);
 
-    /* Define the Protection Range 2: from 0x70000064 up to 0x70000096 */
+    /* Define the Protection Range 2: from 0x70000040 up to 0x7000005F */
     define_SPR0_bus_protection_range((uint32) &SPR_Array[REGION_SIZE * 2],
             (uint32) &SPR_Array[REGION_SIZE * 3], BUS_PROTECTION_RANGE_2);
 
-    /* Define the Protection Range 3: from 0x70000096 up to 0x700000C8 */
+    /* Define the Protection Range 3: from 0x70000060 up to 0x7000007F */
     define_SPR0_bus_protection_range((uint32) &SPR_Array[REGION_SIZE * 3],
             (uint32) &SPR_Array[REGION_SIZE * 4], BUS_PROTECTION_RANGE_3);
 
-    /* Define the Protection Range 4: from 0x700000C8 up to 0x700000FA */
+    /* Define the Protection Range 4: from 0x70000080 up to 0x7000009F */
     define_SPR0_bus_protection_range((uint32) &SPR_Array[REGION_SIZE * 4],
             (uint32) &SPR_Array[REGION_SIZE * 5], BUS_PROTECTION_RANGE_4);
 
-    /* Define the Protection Range 5: from 0x700000FA up to 0x7000012C */
+    /* Define the Protection Range 5: from 0x700000A0 up to 0x700000BF */
     define_SPR0_bus_protection_range((uint32) &SPR_Array[REGION_SIZE * 5],
             (uint32) &SPR_Array[REGION_SIZE * 6], BUS_PROTECTION_RANGE_5);
 
-    /* Define the Protection Range 6: from 0x7000012C up to 0x7000015E */
+    /* Define the Protection Range 6: from 0x700000C0 up to 0x700000DF */
     define_SPR0_bus_protection_range((uint32) &SPR_Array[REGION_SIZE * 6],
             (uint32) &SPR_Array[REGION_SIZE * 7], BUS_PROTECTION_RANGE_6);
 
-    /* Define the Protection Range 7: from 0x7000015E up to the end of DSPR0/PSPR0 local memory */
+    /* Define the Protection Range 7: from 0x700000E0 up to the end of DSPR0/PSPR0 local memory */
     define_SPR0_bus_protection_range((uint32) &SPR_Array[REGION_SIZE * 7],
             (uint32) 0x7000FFFF, BUS_PROTECTION_RANGE_7);
 
@@ -415,35 +415,35 @@ void Test2_DLMU_configuration(void)
        lowerBoundAddress <= x < upperBoundAddress and the master tag of the access is enabled.
      * If any of these conditions are not satisfied, the access is seen as invalid.
      */
-    /* Define the Protection Range 0: from 0xB0000000 up to 0xB0000032 */
+    /* Define the Protection Range 0: from 0xB0000000 up to 0xB000001F */
     define_DLMU0_bus_protection_range((uint32) &DLMU_Array[REGION_SIZE * 0],
             (uint32) &DLMU_Array[REGION_SIZE * 1], BUS_PROTECTION_RANGE_0);
 
-    /* Define the Protection Range 1: from 0xB0000032 up to 0xB0000064 */
+    /* Define the Protection Range 1: from 0xB0000020 up to 0xB000003F */
     define_DLMU0_bus_protection_range((uint32) &DLMU_Array[REGION_SIZE * 1],
             (uint32) &DLMU_Array[REGION_SIZE * 2], BUS_PROTECTION_RANGE_1);
 
-    /* Define the Protection Range 2: from 0xB0000064 up to 0xB0000096 */
+    /* Define the Protection Range 2: from 0xB0000040 up to 0xB000005F */
     define_DLMU0_bus_protection_range((uint32) &DLMU_Array[REGION_SIZE * 2],
             (uint32) &DLMU_Array[REGION_SIZE * 3], BUS_PROTECTION_RANGE_2);
 
-    /* Define the Protection Range 3: from 0xB0000096 up to 0xB00000C8 */
+    /* Define the Protection Range 3: from 0xB0000060 up to 0xB000007F */
     define_DLMU0_bus_protection_range((uint32) &DLMU_Array[REGION_SIZE * 3],
             (uint32) &DLMU_Array[REGION_SIZE * 4], BUS_PROTECTION_RANGE_3);
 
-    /* Define the Protection Range 4: from 0xB00000C8 up to 0xB00000FA */
+    /* Define the Protection Range 4: from 0xB0000080 up to 0xB000009F */
     define_DLMU0_bus_protection_range((uint32) &DLMU_Array[REGION_SIZE * 4],
             (uint32) &DLMU_Array[REGION_SIZE * 5], BUS_PROTECTION_RANGE_4);
 
-    /* Define the Protection Range 5: from 0xB00000FA up to 0xB000012C */
+    /* Define the Protection Range 5: from 0xB00000A0 up to 0xB00000BF */
     define_DLMU0_bus_protection_range((uint32) &DLMU_Array[REGION_SIZE * 5],
             (uint32) &DLMU_Array[REGION_SIZE * 6], BUS_PROTECTION_RANGE_5);
 
-    /* Define the Protection Range 6: from 0xB000012C up to 0xB000015E */
+    /* Define the Protection Range 6: from 0xB00000C0 up to 0xB00000DF */
     define_DLMU0_bus_protection_range((uint32) &DLMU_Array[REGION_SIZE * 6],
             (uint32) &DLMU_Array[REGION_SIZE * 7], BUS_PROTECTION_RANGE_6);
 
-    /* Define the Protection Range 7: from 0xB000015E up to the end of DLMU0 memory*/
+    /* Define the Protection Range 7: from 0xB00000E0 up to the end of DLMU0 memory*/
     define_DLMU0_bus_protection_range((uint32) &DLMU_Array[REGION_SIZE * 7],
             (uint32) 0xB000FFFF, BUS_PROTECTION_RANGE_7);
 
@@ -534,35 +534,35 @@ void Test2_SPR_configuration(void)
      * lowerBoundAddress <= x < upperBoundAddress and the master tag of the access is enabled.
      * If any of these conditions are not satisfied, the access is seen as invalid.
      */
-    /* Define the Protection Range 0: from 0x70000000 up to 0x70000032 */
+    /* Define the Protection Range 0: from 0x70000000 up to 0x7000001F */
     define_SPR0_bus_protection_range((uint32) &SPR_Array[REGION_SIZE * 0],
             (uint32) &SPR_Array[REGION_SIZE * 1], BUS_PROTECTION_RANGE_0);
 
-    /* Define the Protection Range 1: from 0x70000032 up to 0x70000064 */
+    /* Define the Protection Range 1: from 0x70000020 up to 0x7000003F */
     define_SPR0_bus_protection_range((uint32) &SPR_Array[REGION_SIZE * 1],
             (uint32) &SPR_Array[REGION_SIZE * 2], BUS_PROTECTION_RANGE_1);
 
-    /* Define the Protection Range 2: from 0x70000064 up to 0x70000096 */
+    /* Define the Protection Range 2: from 0x70000040 up to 0x7000005F */
     define_SPR0_bus_protection_range((uint32) &SPR_Array[REGION_SIZE * 2],
             (uint32) &SPR_Array[REGION_SIZE * 3], BUS_PROTECTION_RANGE_2);
 
-    /* Define the Protection Range 3: from 0x70000096 up to 0x700000C8 */
+    /* Define the Protection Range 3: from 0x70000060 up to 0x7000007F */
     define_SPR0_bus_protection_range((uint32) &SPR_Array[REGION_SIZE * 3],
             (uint32) &SPR_Array[REGION_SIZE * 4], BUS_PROTECTION_RANGE_3);
 
-    /* Define the Protection Range 4: from 0x700000C8 up to 0x700000FA */
+    /* Define the Protection Range 4: from 0x70000080 up to 0x7000009F */
     define_SPR0_bus_protection_range((uint32) &SPR_Array[REGION_SIZE * 4],
             (uint32) &SPR_Array[REGION_SIZE * 5], BUS_PROTECTION_RANGE_4);
 
-    /* Define the Protection Range 5: from 0x700000FA up to 0x7000012C */
+    /* Define the Protection Range 5: from 0x700000A0 up to 0x700000BF */
     define_SPR0_bus_protection_range((uint32) &SPR_Array[REGION_SIZE * 5],
             (uint32) &SPR_Array[REGION_SIZE * 6], BUS_PROTECTION_RANGE_5);
 
-    /* Define the Protection Range 6: from 0x7000012C up to 0x7000015E */
+    /* Define the Protection Range 6: from 0x700000C0 up to 0x700000DF */
     define_SPR0_bus_protection_range((uint32) &SPR_Array[REGION_SIZE * 6],
             (uint32) &SPR_Array[REGION_SIZE * 7], BUS_PROTECTION_RANGE_6);
 
-    /* Define the Protection Range 7: from 0x7000015E up to the end of DSPR0/PSPR0 memory */
+    /* Define the Protection Range 7: from 0x700000E0 up to the end of DSPR0/PSPR0 memory */
     define_SPR0_bus_protection_range((uint32) &SPR_Array[REGION_SIZE * 7],
             (uint32) 0x7000FFFF, BUS_PROTECTION_RANGE_7);
 
@@ -715,35 +715,35 @@ void Test3_DLMU_configuration(void)
      * All other ranges (2..8), configured as Non-overlap ranges.
      * Test3 "execution" has been done for both overlap, and Non-overlap regions.
      */
-    /* Define the Protection Range 0: from 0xB0000000 up to 0xB0000064 */
+    /* Define the Protection Range 0: from 0xB0000000 up to 0xB000003F */
     define_DLMU0_bus_protection_range((uint32) &DLMU_Array[REGION_SIZE * 0],
             (uint32) &DLMU_Array[REGION_SIZE * 2], BUS_PROTECTION_RANGE_0);
 
-    /* Define the Protection Range 1: from 0xB0000032 up to 0xB0000064 */
+    /* Define the Protection Range 1: from 0xB0000020 up to 0xB000003F */
     define_DLMU0_bus_protection_range((uint32) &DLMU_Array[REGION_SIZE * 1],
             (uint32) &DLMU_Array[REGION_SIZE * 2], BUS_PROTECTION_RANGE_1);
 
-    /* Define the Protection Range 2: from 0xB0000064 up to 0xB0000096 */
+    /* Define the Protection Range 2: from 0xB0000040 up to 0xB000005F */
     define_DLMU0_bus_protection_range((uint32) &DLMU_Array[REGION_SIZE * 2],
             (uint32) &DLMU_Array[REGION_SIZE * 3], BUS_PROTECTION_RANGE_2);
 
-    /* Define the Protection Range 3: from 0xB0000096 up to 0xB00000C8 */
+    /* Define the Protection Range 3: from 0xB0000060 up to 0xB000007F */
     define_DLMU0_bus_protection_range((uint32) &DLMU_Array[REGION_SIZE * 3],
             (uint32) &DLMU_Array[REGION_SIZE * 4], BUS_PROTECTION_RANGE_3);
 
-    /* Define the Protection Range 4: from 0xB00000C8 up to 0xB00000FA */
+    /* Define the Protection Range 4: from 0xB0000080 up to 0xB000009F */
     define_DLMU0_bus_protection_range((uint32) &DLMU_Array[REGION_SIZE * 4],
             (uint32) &DLMU_Array[REGION_SIZE * 5], BUS_PROTECTION_RANGE_4);
 
-    /* Define the Protection Range 5: from 0xB00000FA up to 0xB000012C */
+    /* Define the Protection Range 5: from 0xB00000A0 up to 0xB00000BF */
     define_DLMU0_bus_protection_range((uint32) &DLMU_Array[REGION_SIZE * 5],
             (uint32) &DLMU_Array[REGION_SIZE * 6], BUS_PROTECTION_RANGE_5);
 
-    /* Define the Protection Range 6: from 0xB000012C up to 0xB000015E */
+    /* Define the Protection Range 6: from 0xB00000C0 up to 0xB00000DF */
     define_DLMU0_bus_protection_range((uint32) &DLMU_Array[REGION_SIZE * 6],
             (uint32) &DLMU_Array[REGION_SIZE * 7], BUS_PROTECTION_RANGE_6);
 
-    /* Define the Protection Range 7: from 0xB000015E up to the end of DLMU0 local memory */
+    /* Define the Protection Range 7: from 0xB00000E0 up to the end of DLMU0 local memory */
     define_DLMU0_bus_protection_range((uint32) &DLMU_Array[REGION_SIZE * 7],
             (uint32) 0xB000FFFF, BUS_PROTECTION_RANGE_7);
 
@@ -759,7 +759,7 @@ void Test3_DLMU_configuration(void)
     disable_DLMU0_read_bus_protection_range(BUS_PROTECTION_RANGE_0, CORE_1);
     disable_DLMU0_write_bus_protection_range(BUS_PROTECTION_RANGE_0, CORE_1);
 
-    /*---Read and write access of Core1 to Range 1 of DLMU0 ----*/
+    /*---Enable Read and write access of Core1 to Range 1 of DLMU0 ----*/
     enable_DLMU0_read_bus_protection_range(BUS_PROTECTION_RANGE_1, CORE_1);
     enable_DLMU0_write_bus_protection_range(BUS_PROTECTION_RANGE_1, CORE_1);
 
@@ -884,35 +884,35 @@ void Test3_SPR_configuration(void)
      * All other ranges (2..8), configured as Non-overlap ranges.
      * Configuration for Test3 SPR0 Overlap/non-overlap are the same.
      */
-    /* Define the Protection Range 0: from 0x70000000 up to 0x70000064 */
+    /* Define the Protection Range 0: from 0x70000000 up to 0x7000003F */
     define_SPR0_bus_protection_range((uint32) &SPR_Array[REGION_SIZE * 0],
             (uint32) &SPR_Array[REGION_SIZE * 2], BUS_PROTECTION_RANGE_0);
 
-    /* Define the Protection Range 1: from 0x70000032 up to 0x70000064 */
+    /* Define the Protection Range 1: from 0x70000020 up to 0x7000003F */
     define_SPR0_bus_protection_range((uint32) &SPR_Array[REGION_SIZE * 1],
             (uint32) &SPR_Array[REGION_SIZE * 2], BUS_PROTECTION_RANGE_1);
 
-    /* Define the Protection Range 2: from 0x70000064 up to 0x70000096 */
+    /* Define the Protection Range 2: from 0x70000040 up to 0x7000005F */
     define_SPR0_bus_protection_range((uint32) &SPR_Array[REGION_SIZE * 2],
             (uint32) &SPR_Array[REGION_SIZE * 3], BUS_PROTECTION_RANGE_2);
 
-    /* Define the Protection Range 3: from 0x70000096 up to 0x700000C8 */
+    /* Define the Protection Range 3: from 0x70000060 up to 0x7000007F */
     define_SPR0_bus_protection_range((uint32) &SPR_Array[REGION_SIZE * 3],
             (uint32) &SPR_Array[REGION_SIZE * 4], BUS_PROTECTION_RANGE_3);
 
-    /* Define the Protection Range 4: from 0x700000C8 up to 0x700000FA */
+    /* Define the Protection Range 4: from 0x70000080 up to 0x7000009F */
     define_SPR0_bus_protection_range((uint32) &SPR_Array[REGION_SIZE * 4],
             (uint32) &SPR_Array[REGION_SIZE * 5], BUS_PROTECTION_RANGE_4);
 
-    /* Define the Protection Range 5: from 0x700000FA up to 0x7000012C */
+    /* Define the Protection Range 5: from 0x700000A0 up to 0x700000BF */
     define_SPR0_bus_protection_range((uint32) &SPR_Array[REGION_SIZE * 5],
             (uint32) &SPR_Array[REGION_SIZE * 6], BUS_PROTECTION_RANGE_5);
 
-    /* Define the Protection Range 6: from 0x7000012C up to 0x7000015E */
+    /* Define the Protection Range 6: from 0x700000C0 up to 0x700000DF */
     define_SPR0_bus_protection_range((uint32) &SPR_Array[REGION_SIZE * 6],
             (uint32) &SPR_Array[REGION_SIZE * 7], BUS_PROTECTION_RANGE_6);
 
-    /* Define the Protection Range 7: from 0x7000015E up to the end of SPR0 local memory */
+    /* Define the Protection Range 7: from 0x700000E0 up to the end of SPR0 local memory */
     define_SPR0_bus_protection_range((uint32) &SPR_Array[REGION_SIZE * 7],
             (uint32) 0x7000FFFF, BUS_PROTECTION_RANGE_7);
 
@@ -928,7 +928,7 @@ void Test3_SPR_configuration(void)
     disable_SPR0_read_bus_protection_range(BUS_PROTECTION_RANGE_0, CORE_1);
     disable_SPR0_write_bus_protection_range(BUS_PROTECTION_RANGE_0, CORE_1);
 
-    /*---Read and write access of Core1 to Range 1 of SPR0 ----*/
+    /*---Enable read and write access of Core1 to Range 1 of SPR0 ----*/
     enable_SPR0_read_bus_protection_range(BUS_PROTECTION_RANGE_1, CORE_1);
     enable_SPR0_write_bus_protection_range(BUS_PROTECTION_RANGE_1, CORE_1);
 

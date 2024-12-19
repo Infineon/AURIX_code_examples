@@ -81,7 +81,7 @@ typedef union
 typedef struct
 {
     FirstFft    rangeMap;
-    csint16     average16[RADAR_NUM_RAMPS+8][RADAR_NUM_RX][RADAR_NUM_RANGE_GATES];
+    csint16     average16[RADAR_NUM_RAMPS][RADAR_NUM_RX][RADAR_NUM_RANGE_GATES];
     csint32     average32[RADAR_NUM_RX][RADAR_NUM_RANGE_GATES];
     csint16     rMapCR[RADAR_NUM_RAMPS][RADAR_NUM_RX][RADAR_NUM_RANGE_GATES];
 } SPU_Emem_Map_t;

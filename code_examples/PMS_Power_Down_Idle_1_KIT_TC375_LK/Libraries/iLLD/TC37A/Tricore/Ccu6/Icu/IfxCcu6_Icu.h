@@ -3,8 +3,9 @@
  * \brief CCU6 ICU details
  * \ingroup IfxLld_Ccu6
  *
- * \version iLLD_1_0_1_12_0
- * \copyright Copyright (c) 2018 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0
+ * \copyright Copyright (c) 2023 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
@@ -39,6 +40,7 @@
  * DEALINGS IN THE SOFTWARE.
  *
  *
+ *
  * \defgroup IfxLld_Ccu6_Icu_Usage How to use the CCU6 ICU Interface driver?
  * \ingroup IfxLld_Ccu6_Icu
  *
@@ -67,7 +69,7 @@
  * \code
  *     // used globally
  *     static IfxCcu6_Icu icu;
- *     static IfxCcu6_IcuChannel icuChannel;
+ *     static IfxCcu6_Icu_Channel icuChannel;
  * \endcode
  *
  * \subsection IfxLld_Ccu6_Icu_Interrupt Interrupt Handler Installation
@@ -131,31 +133,31 @@
  *     // ---- when not using inconjunction with Timer driver ---- //
  *     // after initialising the timer
  *     IfxCcu6_Timer timer;
- *     IfxCcu6_TimerConfig timerConfig;
+ *     IfxCcu6_Timer_Config timerConfig;
  *     IfxCcu6_Timer_initModule(&timer, &timerConfig); // e.g. Timer 12 is specified previously in timerConfig.
  *     // -------------------------------------------------------- //
  *
  *     // create Icu channel config
- *     IfxCcu6_Icu_channelConfig icuChannelConfig;
+ *     IfxCcu6_Icu_ChannelConfig icuChannelConfig;
  *     IfxCcu6_Icu_initChannelConfig(&icuChannelConfig, &MODULE_CCU60);
  *
  *     // ---- when using inconjunction with Timer driver ---- //
- *     icuChannelConfig.timer = (Timer*)&timer;
+ *     icuChannelConfig.timer = timer;
  *     // ---------------------------------------------------- //
  *
  *     // configure the channel
- *     icuChannelConfig.channelNumber     = IfxCcu6_T12Channel_0;
+ *     icuChannelConfig.channelId    = IfxCcu6_T12Channel_0;
  *     icuChannelConfig.channelMode     = IfxCcu6_T12ChannelMode_doubleRegisterCaptureRising;
  *
  *     // configure the interrupts
- *     icuChannelConfig.interrupt1.interruptSource = IfxCcu6_InterruptSource_cc60RisingEdge;
+ *     icuChannelConfig.interrupt1.source = IfxCcu6_InterruptSource_cc60RisingEdge;
  *     icuChannelConfig.interrupt1.serviceRequest  = IfxCcu6_ServiceRequest_2;
  *     icuChannelConfig.interrupt1.priority        = IFX_INTRPRIO_CCU6;
  *     icuChannelConfig.interrupt1.typeOfService   = IfxSrc_Tos_cpu0;
  *
  *     // ---- when not using inconjunction with Timer driver ---- //
  *     // configure input and output triggers
- *     icuChannelConfig.trigger.extInputTrigger   = IfxCcu60_T12HRB_P00_7_IN;
+ *     icuChannelConfig.trigger.extInputTrigger   = &IfxCcu60_T12HRB_P00_7_IN;
  *     icuChannelConfig.trigger.extInputTriggerMode  = IfxCcu6_ExternalTriggerMode_risingEdge;
  *     // -------------------------------------------------------- //
  *
@@ -168,7 +170,11 @@
  *         NULL,	// CCPOS1In pin not used
  *         NULL,	// CCPOS2In pin not used
  *         IfxPort_InputMode_pullUp,
- *         IfxPort_InputMode_pullUp
+ *         IfxPort_InputMode_pullUp,
+ *         NULL,	// T12HRIn pin not used
+ *         NULL,	// T13HRIn pin not used
+ *         IfxPort_InputMode_pullUp,
+ *         IfxPort_PadDriver_cmosAutomotiveSpeed1   // Pad driver mode
  *     };
  *     IcuConfig.pins = &pins;
  *

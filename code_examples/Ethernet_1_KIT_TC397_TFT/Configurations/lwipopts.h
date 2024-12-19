@@ -61,5 +61,10 @@
 #define NETIF_DEBUG             LWIP_DBG_ON         /* Enable NETIF Debug                                                   */
 #define LWIP_DBG_TYPES_ON       LWIP_DBG_STATE      /* Enable only module state debug messages                              */
 
+#ifdef __GNUC__
+    /* to avoid compiler error for double declaration we inform GNUC that ssize_t is declared by lwip */
+    #define _SSIZE_T_DECLARED
+#endif
+
 #endif /* __LWIPOPTS_H__ */
 

@@ -3,8 +3,9 @@
  * \brief SDMMC EMMC details
  * \ingroup IfxLld_Sdmmc
  *
- * \version iLLD_1_0_1_15_0_1
- * \copyright Copyright (c) 2019 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0_1
+ * \copyright Copyright (c) 2023 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
@@ -37,6 +38,7 @@
  * FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
+ *
  *
  * \defgroup IfxLld_Sdmmc_Emmc_Usage How to use the Sdmmc Driver Interface driver?
  * \ingroup IfxLld_Sdmmc_Emmc
@@ -529,5 +531,4 @@ IFX_EXTERN IfxSdmmc_Status IfxSdmmc_Emmc_validateAccessMode(IfxSdmmc_Emmc *emmc)
  * \return Status of execution
  */
 IFX_EXTERN IfxSdmmc_Status IfxSdmmc_Emmc_eraseBlocks(IfxSdmmc_Emmc *emmc, uint32 startAddress, uint32 endAddress);
-
 #endif /* IFXSDMMC_EMMC_H */

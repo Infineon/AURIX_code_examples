@@ -2,8 +2,9 @@
  * \file IfxPort.c
  * \brief PORT  basic functionality
  *
- * \version iLLD_1_0_1_15_0_1
- * \copyright Copyright (c) 2019 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0_1
+ * \copyright Copyright (c) 2023 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
@@ -36,6 +37,7 @@
  * FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
+ *
  *
  */
 
@@ -336,186 +338,20 @@ void IfxPort_setPinPadDriver(Ifx_P *port, uint8 pinIndex, IfxPort_PadDriver padD
 
 void IfxPort_setPinControllerSelection(Ifx_P *port, uint8 pinIndex)
 {
-    boolean       select    = 0, lock = 0;
-    IfxPort_Index portIndex = IfxPort_getIndex(port);
-
-    switch (portIndex)
-    {
-    case IfxPort_Index_00:
-
-        if ((pinIndex == 10) || (pinIndex == 11))
-
-        {
-            select = 1;
-        }
-
-        break;
-
-    case IfxPort_Index_11:
-
-        if ((pinIndex == 0) || (pinIndex == 1) || (pinIndex == 2) || (pinIndex == 3) || (pinIndex == 4) || (pinIndex == 6))
-        {
-            select = 1;
-        }
-
-        break;
-
-    case IfxPort_Index_22:
-
-        if ((pinIndex == 10) || (pinIndex == 11))
-        {
-            select = 1;
-        }
-
-        break;
-
-    case IfxPort_Index_23:
-
-        if ((pinIndex == 2) || (pinIndex == 3) || (pinIndex == 4))
-
-        {
-            select = 1;
-        }
-
-        break;
-
-    case IfxPort_Index_33:
-
-        select = 1;
-        lock   = 1;
-        break;
-    case IfxPort_Index_34:
-
-        if (pinIndex == 1)
-        {
-            select = 1;
-            lock   = 1;
-        }
-
-        break;
-
-    case IfxPort_Index_40:
-
-        if ((pinIndex == 1) || (pinIndex == 2) || (pinIndex == 3) || (pinIndex == 5) || (pinIndex == 10) || (pinIndex == 11) || (pinIndex == 12) || (pinIndex == 15))
-        {
-            select = 1;
-        }
-
-        break;
-
-    default:
-        break;
-    }
-
-    if (select == 1)
-    {
-        uint16 passwd = IfxScuWdt_getSafetyWatchdogPassword();
-
-        IfxScuWdt_clearSafetyEndinit(passwd);
-
-        if ((lock == 1) && (port->PCSR.B.LCK == 1))
-        {
-            IFX_ASSERT(IFX_VERBOSE_LEVEL_WARNING, FALSE);
-        }
-
-        __ldmst(&port->PCSR.U, 1U << pinIndex, 1U << pinIndex);
-
-        IfxScuWdt_setSafetyEndinit(passwd);
-    }
+    IfxPort_modifyPinControllerSelection(port, pinIndex, TRUE);
 }
 
 
 void IfxPort_resetPinControllerSelection(Ifx_P *port, uint8 pinIndex)
 {
-    uint16 passwd = IfxScuWdt_getSafetyWatchdogPassword();
-
-    IfxScuWdt_clearSafetyEndinit(passwd);
-    __ldmst(&port->PCSR.U, 1U << pinIndex, 0);
-    IfxScuWdt_setSafetyEndinit(passwd);
+    IfxPort_modifyPinControllerSelection(port, pinIndex, FALSE);
 }
 
 
 void IfxPort_modifyPinControllerSelection(Ifx_P *port, uint8 pinIndex, boolean mode)
 {
-    boolean       select    = 0, lock = 0;
-    IfxPort_Index portIndex = IfxPort_getIndex(port);
-
-    switch (portIndex)
-    {
-    case IfxPort_Index_00:
-
-        if ((pinIndex == 10) || (pinIndex == 11))
-        {
-            select = 1;
-        }
-
-        break;
-
-    case IfxPort_Index_11:
-
-        if ((pinIndex == 0) || (pinIndex == 1) || (pinIndex == 2) || (pinIndex == 3) || (pinIndex == 4) || (pinIndex == 6))
-        {
-            select = 1;
-        }
-
-        break;
-
-    case IfxPort_Index_22:
-
-        if ((pinIndex == 10) || (pinIndex == 11) || (pinIndex == 12))
-        {
-            select = 1;
-        }
-
-        break;
-    case IfxPort_Index_23:
-
-        if ((pinIndex == 2) || (pinIndex == 3) || (pinIndex == 4))
-        {
-            select = 1;
-        }
-
-        break;
-
-    case IfxPort_Index_33:
-
-        select = 1;
-        lock   = 1;
-        break;
-    case IfxPort_Index_34:
-
-        if (pinIndex == 1)
-        {
-            select = 1;
-            lock   = 1;
-        }
-
-        break;
-    case IfxPort_Index_40:
-
-        if ((pinIndex == 1) || (pinIndex == 2) || (pinIndex == 3) || (pinIndex == 5) || (pinIndex == 10) || (pinIndex == 11) || (pinIndex == 12) || (pinIndex == 15))
-        {
-            select = 1;
-        }
-
-        break;
-    default:
-        break;
-    }
-
-    if (select == 1)
-    {
-        uint16 passwd = IfxScuWdt_getSafetyWatchdogPassword();
-
-        IfxScuWdt_clearSafetyEndinit(passwd);
-
-        if ((lock == 1) && (port->PCSR.B.LCK == 1))
-        {
-            IFX_ASSERT(IFX_VERBOSE_LEVEL_WARNING, FALSE);
-        }
-
-        __ldmst(&port->PCSR.U, 1U << pinIndex, mode << pinIndex);
-
-        IfxScuWdt_setSafetyEndinit(passwd);
-    }
+    uint16 passwd = IfxScuWdt_getSafetyWatchdogPassword();
+    IfxScuWdt_clearSafetyEndinit(passwd);
+    __ldmst(&port->PCSR.U, 1U << pinIndex, mode << pinIndex);
+    IfxScuWdt_setSafetyEndinit(passwd);
 }

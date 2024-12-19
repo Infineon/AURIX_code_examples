@@ -3,8 +3,8 @@
  * \brief ASCLIN SPI details
  * \ingroup IfxLld_Asclin
  *
- * \version iLLD_1_0_1_12_0
- * \copyright Copyright (c) 2019 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0_1
+ * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
  *
  *
  *
@@ -476,5 +476,4 @@ IFX_EXTERN void IfxAsclin_Spi_write(IfxAsclin_Spi *asclin);
  * \return status of the on going job
  */
 IFX_EXTERN IfxAsclin_Spi_Status IfxAsclin_Spi_getStatus(IfxAsclin_Spi *asclin);
-
 #endif /* IFXASCLIN_SPI_H */

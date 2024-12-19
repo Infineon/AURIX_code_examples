@@ -3,8 +3,9 @@
  * \brief GTM TRIG details
  * \ingroup IfxLld_Gtm
  *
- * \version iLLD_1_0_1_15_0_1
- * \copyright Copyright (c) 2018 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0_1
+ * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
@@ -37,6 +38,7 @@
  * FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
+ *
  *
  * \defgroup IfxLld_Gtm_Trig GTM Trigger Configuration
  * \ingroup IfxLld_Gtm
@@ -471,6 +473,20 @@ typedef enum
 } IfxGtm_Trig_SentTrigSource;
 
 /** \} */
+
+/******************************************************************************/
+/*-----------------------------Data Structures--------------------------------*/
+/******************************************************************************/
+
+/** \brief MSC Trigger Configuration
+ */
+typedef struct
+{
+    IfxGtm_Trig_MscTrigSignal  signal;        /**< \brief MSC Signal */
+    IfxGtm_Trig_MscTrigSet     mscSet;        /**< \brief MSC Set */
+    IfxGtm_Trig_MscTrigSource  source;        /**< \brief Trigger Source */
+    IfxGtm_Trig_MscTrigChannel channel;       /**< \brief MSC Channel */
+} IfxGtm_Trig_MscOut;
 
 /** \addtogroup IfxLld_Gtm_Trig_Trigger_Functions
  * \{ */

@@ -3,8 +3,8 @@
  * \brief QSPI SPISLAVE details
  * \ingroup IfxLld_Qspi
  *
- * \version iLLD_1_0_1_12_0
- * \copyright Copyright (c) 2019 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0
+ * \copyright Copyright (c) 2023 Infineon Technologies AG. All rights reserved.
  *
  *
  *
@@ -383,14 +383,15 @@ typedef struct
  */
 typedef struct
 {
-    SpiIf                       base;             /**< \brief Module SPI interface handle */
-    Ifx_QSPI                   *qspi;             /**< \brief Pointer to QSPI module registers */
-    uint8                       dataWidth;        /**< \brief Number of bits which will be written into the FIFO */
-    SpiIf_Job                   rxJob;            /**< \brief Rx Stream which has been received */
-    SpiIf_Job                   txJob;            /**< \brief Tx Stream which should be sent */
-    boolean                     onTransfer;       /**< \brief set to TRUE during ongoing transfer */
-    IfxQspi_SpiSlave_Dma        dma;              /**< \brief Dma handle */
-    IfxQspi_SpiSlave_ErrorFlags errorFlags;       /**< \brief Spi Slave Error Flags */
+    SpiIf                       base;                  /**< \brief Module SPI interface handle */
+    Ifx_QSPI                   *qspi;                  /**< \brief Pointer to QSPI module registers */
+    uint8                       dataWidth;             /**< \brief Number of bits which will be written into the FIFO */
+    SpiIf_Job                   rxJob;                 /**< \brief Rx Stream which has been received */
+    SpiIf_Job                   txJob;                 /**< \brief Tx Stream which should be sent */
+    boolean                     onTransfer;            /**< \brief set to TRUE during ongoing transfer */
+    IfxQspi_SpiSlave_Dma        dma;                   /**< \brief Dma handle */
+    IfxQspi_SpiSlave_ErrorFlags errorFlags;            /**< \brief Spi Slave Error Flags */
+    float32                     maximumBaudrate;       /**< \brief Maximum Baud Rate for the SPI Module. */
 } IfxQspi_SpiSlave;
 
 /** \brief Module configuration structure

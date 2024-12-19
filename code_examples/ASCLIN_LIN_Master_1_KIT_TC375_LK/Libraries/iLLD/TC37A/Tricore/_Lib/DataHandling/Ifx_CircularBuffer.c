@@ -2,7 +2,7 @@
  * \file Ifx_CircularBuffer.c
  * \brief Circular buffer functions in C language.
  *
- * \version iLLD_1_0_1_12_0
+ * \version iLLD_1_0_1_17_0
  * \copyright Copyright (c) 2013 Infineon Technologies AG. All rights reserved.
  *
  *

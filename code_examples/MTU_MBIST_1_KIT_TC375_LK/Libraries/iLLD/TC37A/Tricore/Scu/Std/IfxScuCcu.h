@@ -3,8 +3,9 @@
  * \brief SCU  basic functionality
  * \ingroup IfxLld_Scu
  *
- * \version iLLD_1_0_1_15_0_1
- * \copyright Copyright (c) 2019 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0
+ * \copyright Copyright (c) 2023 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
@@ -37,6 +38,7 @@
  * FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
+ *
  *
  *
  * \defgroup IfxLld_Scu SCU
@@ -104,15 +106,15 @@
  * static const IfxScuCcu_PllStepConfig IfxScuCcu_defaultPllConfigSteps[] = {
  *     {                   //Step 0 Config: 150MHz
  *         (4 - 1),        //uint8 k2Step;
- *         0.000100,       //float32 waitTime;
+ *         0.000100f,       //float32 waitTime;
  *     },
  *     {                   //Step 1 Config: 200MHz
  *         (3 - 1),       //uint8 k2Step;
- *         0.000100,       //float32 waitTime;
+ *         0.000100f,       //float32 waitTime;
  *     },
  *     {                   //Step 2 Config: 300MHz
  *         (2 - 1),        //uint8 k2Step;
- *         0.000100,       //float32 waitTime;
+ *         0.000100f,       //float32 waitTime;
  *     }
  * };
  *     IfxScuCcu_Config        IfxScuCcu_sampleClockConfig;
@@ -197,6 +199,7 @@
 #include "IfxScu_reg.h"
 #include "_PinMap/IfxScu_PinMap.h"
 #include "IfxSmu_reg.h"
+#include "IfxDmu_reg.h"
 
 /******************************************************************************/
 /*-----------------------------------Macros-----------------------------------*/
@@ -264,7 +267,7 @@
 
 /** \brief Get RGAin HEX from RGain Nominal value
  */
-#define IFXSCUCCU_GET_RGAIN_HEX(RGain_Nom) ((uint16)((RGain_Nom * 32) + 0.5))
+#define IFXSCUCCU_GET_RGAIN_HEX(RGain_Nom) ((uint16)((RGain_Nom * 32) + 0.5f))
 
 /** \brief Get MODCFG from RGAIN_HEX
  */
@@ -525,6 +528,63 @@ typedef enum
 } IfxScuCcu_Traprequest;
 
 /** \} */
+
+/** \brief divider mode selection for EXTCLK0
+ */
+typedef enum
+{
+    IfxScuCcu_Clk0Mode_normal     = 1, /**< \brief Select normal mode */
+    IfxScuCcu_Clk0Mode_fractional = 2  /**< \brief Select fractional mode */
+} IfxScuCcu_Clk0Mode;
+
+/** \brief clock line negation selection for EXTCLK1
+ */
+typedef enum
+{
+    IfxScuCcu_Clk1Negation_inverted     = 0, /**< \brief Select inverted signal for EXTCLK1 */
+    IfxScuCcu_Clk1Negation_Clk1Negation = 1  /**< \brief Select non inverted signal for EXTCLK1 */
+} IfxScuCcu_Clk1Negation;
+
+/** \brief External Clock Selection for EXTCLK0
+ */
+typedef enum
+{
+    IfxScuCcu_ClkSel0_fOUT  = 0,   /**< \brief Select fOUT as EXTCLK0 */
+    IfxScuCcu_ClkSel0_fPLL0 = 1,   /**< \brief Select fPLL0 as EXTCLK0 */
+    IfxScuCcu_ClkSel0_fPLL1 = 2,   /**< \brief Select fPLL1 as EXTCLK0 */
+    IfxScuCcu_ClkSel0_fOSC0 = 3,   /**< \brief Select fOSC0 as EXTCLK0 */
+    IfxScuCcu_ClkSel0_fBACK = 4,   /**< \brief Select fBACK as EXTCLK0 */
+    IfxScuCcu_ClkSel0_fPLL2 = 5,   /**< \brief Select fPLL2 as EXTCLK0 */
+    IfxScuCcu_ClkSel0_fBBB  = 6,   /**< \brief Select fBBB as EXTCLK0 */
+    IfxScuCcu_ClkSel0_fSRI  = 8,   /**< \brief Select fSRI as EXTCLK0 */
+    IfxScuCcu_ClkSel0_fSPB  = 9,   /**< \brief Select fSPB as EXTCLK0 */
+    IfxScuCcu_ClkSel0_fFSI  = 10,  /**< \brief Select fFSI as EXTCLK0 */
+    IfxScuCcu_ClkSel0_fSTM  = 11,  /**< \brief Select fSTM as EXTCLK0 */
+    IfxScuCcu_ClkSel0_fGTM  = 12,  /**< \brief Select fGTM as EXTCLK0 */
+    IfxScuCcu_ClkSel0_fFSI2 = 14,  /**< \brief Select fFSI2 as EXTCLK0 */
+    IfxScuCcu_ClkSel0_fMT0  = 15   /**< \brief Select fMT0 as EXTCLK0 */
+} IfxScuCcu_ClkSel0;
+
+/** \brief External Clock Selection for EXTCLK1
+ */
+typedef enum
+{
+    IfxScuCcu_ClkSel1_fOUT     = 0,   /**< \brief Select fOUT as EXTCLK1 */
+    IfxScuCcu_ClkSel1_fPLL0    = 1,   /**< \brief Select fPLL0 as EXTCLK1 */
+    IfxScuCcu_ClkSel1_fPLL1    = 2,   /**< \brief Select fPLL1 as EXTCLK1 */
+    IfxScuCcu_ClkSel1_fEBU     = 3,   /**< \brief Select fEBU as EXTCLK1 */
+    IfxScuCcu_ClkSel1_fBACK    = 4,   /**< \brief Select fBACK as EXTCLK1 */
+    IfxScuCcu_ClkSel1_fMCAN    = 5,   /**< \brief Select fMCAN as EXTCLK1 */
+    IfxScuCcu_ClkSel1_fADC     = 6,   /**< \brief Select fADC as EXTCLK1 */
+    IfxScuCcu_ClkSel1_fQSPI    = 7,   /**< \brief Select fQSPI as EXTCLK1 */
+    IfxScuCcu_ClkSel1_fSRI     = 8,   /**< \brief Select fSRI as EXTCLK1 */
+    IfxScuCcu_ClkSel1_fSPB     = 9,   /**< \brief Select fSPB as EXTCLK1 */
+    IfxScuCcu_ClkSel1_fI2C     = 10,  /**< \brief Select fI2C as EXTCLK1 */
+    IfxScuCcu_ClkSel1_fMSC     = 11,  /**< \brief Select fMSC as EXTCLK1 */
+    IfxScuCcu_ClkSel1_fERAY    = 12,  /**< \brief Select fERAY as EXTCLK1 */
+    IfxScuCcu_ClkSel1_fASCLINF = 13,  /**< \brief Select fASCLINF as EXTCLK1 */
+    IfxScuCcu_ClkSel1_fASCLINS = 14   /**< \brief Select fASCLINS as EXTCLK1 */
+} IfxScuCcu_ClkSel1;
 
 /** \brief modulation enable
  */
@@ -865,7 +925,7 @@ IFX_EXTERN float32 IfxScuCcu_getPerPllFrequency1(void);
 
 /** \brief API to get actual PER PLL2 (K3 Divider) frequency
  * This API returns the PER PLL2 frequency based on the K3 divider value in PLLCON and the VCO frequency.
- * Fpll2= (Fosc*N)/(P*K3*1.6)  // DIVBY = 0,
+ * Fpll2= (Fosc*N)/(P*K3*1.6f)  // DIVBY = 0,
  * Fpll2= (Fosc*N)/(P*K3*2)  // DIVBY = 1
  * \return PER PLL2 (K3 Divider ) frequency in Hz
  */
@@ -1048,7 +1108,7 @@ IFX_EXTERN void IfxScuCcu_distributeClock(IfxScuCcu_ClockDistributionConfig *clo
  * This API initialize the Sys PLL with ramp steps, BUS dividers and Per PLL for the configuration provided by the configuration structure.
  * FSyspll = (Fosc * Nsys)/(Psys * K2sys);
  * Fpll1= (Fosc * Nper)/(Pper * K2per);
- * Fpll2= (Fosc * Nper)/(Pper * K3per * 1.6); // if DIVBY = 0, else Fpll2= (Fosc * Nper)/(Pper * K3per * 2) // if DIVBY = 1
+ * Fpll2= (Fosc * Nper)/(Pper * K3per * 1.6f); // if DIVBY = 0, else Fpll2= (Fosc * Nper)/(Pper * K3per * 2) // if DIVBY = 1
  *
  * Note: Following SMU alarms are disabled before the PLL configuration and Enabled at the end of PLL lock in the function.
  * PLL0,1,2 clock out of range frequency
@@ -1138,10 +1198,25 @@ IFX_EXTERN void IfxScuCcu_modulation_init(const IfxScuCcu_Mod_Config *Mod_Cfg);
  */
 IFX_EXTERN void IfxScuCcu_throttleSysPllClock(IfxScuCcu_PllThrottleConfig *pllThrottleConfig);
 
+/** \brief Configure the external clock output 0
+ * \param Clk_Sel Select the output clock line
+ * \param freqHz Frequency in Hz for in case of Clk_Sel = IfxScuCcu_ClkSel0_fOUT
+ * \param mode Select the divider mode
+ * \return None
+ */
+IFX_EXTERN void IfxScuCcu_enableExtClockOut0(IfxScuCcu_ClkSel0 Clk_Sel, const uint32 freqHz, IfxScuCcu_Clk0Mode mode);
+
+/** \brief Configure the external clock output 1
+ * \param Clk_Sel Select the output clock line
+ * \param freqHz Frequency in Hz for in case of Clk_Sel = IfxScuCcu_ClkSel1_fOUT
+ * \param sel Output clock line negation selection
+ * \return None
+ */
+IFX_EXTERN void IfxScuCcu_enableExtClockOut1(IfxScuCcu_ClkSel1 Clk_Sel, const uint32 freqHz, IfxScuCcu_Clk1Negation sel);
+
 /******************************************************************************/
 /*-------------------Global Exported Variables/Constants----------------------*/
 /******************************************************************************/
-
 /** \brief maps to the IfxScuCcu_ModulationAmplitude enum
  */
 IFX_EXTERN IFX_CONST float32 IfxScuCcu_MA_percent[IfxScuCcu_ModulationAmplitude_count];
@@ -1595,7 +1670,7 @@ IFX_INLINE float32 IfxScuCcu_getGtmFrequency(void)
 
     if (gtmDiv == 0u)
     {
-        gtmFreq = 0.0;
+        gtmFreq = 0.0f;
     }
     else if (gtmDiv == 1U)
     {
@@ -1648,7 +1723,7 @@ IFX_INLINE float32 IfxScuCcu_getOscFrequency(void)
     else
     {
         /* Reserved values, this */
-        freq = 0.0;
+        freq = 0.0f;
     }
 
     return freq;

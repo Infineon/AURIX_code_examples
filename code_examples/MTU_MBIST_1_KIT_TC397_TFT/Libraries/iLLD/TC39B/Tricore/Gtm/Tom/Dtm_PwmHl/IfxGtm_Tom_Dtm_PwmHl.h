@@ -3,8 +3,9 @@
  * \brief GTM DTM_PWMHL details
  * \ingroup IfxLld_Gtm
  *
- * \version iLLD_1_0_1_15_0_1
- * \copyright Copyright (c) 2020 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0_1
+ * \copyright Copyright (c) 2023 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
@@ -38,10 +39,11 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  *
+ *
  * \defgroup IfxLld_Gtm_Tom_PwmHl_Usage How to use the GTM TOM PWM Driver
  * \ingroup IfxLld_Gtm_Tom_PwmHl
  *
- *   This driver implements the PWM functionalities as defined by \ref library_srvsw_stdif_pwmhl.
+ *  This driver implements the PWM functionalities as defined by \ref library_srvsw_stdif_pwmhl.
  *   The user is free to use either the driver specific APIs below or to used the \ref library_srvsw_stdif_pwmhl "standard interface APIs".
  *
  * \section Specific Specific implementation
@@ -108,11 +110,11 @@
 
 typedef struct IfxGtm_Tom_Dtm_PwmHl_s IfxGtm_TomDtm_PwmHl;
 
-typedef void                         (*IfxGtm_Tom_Dtm_PwmHl_Update)(IfxGtm_TomDtm_PwmHl *driver, Ifx_TimerValue *tOn);
+typedef void                        (*IfxGtm_Tom_Dtm_PwmHl_Update)(IfxGtm_TomDtm_PwmHl *driver, Ifx_TimerValue *tOn);
 
-typedef void                         (*IfxGtm_Tom_Dtm_PwmHl_UpdateShift)(IfxGtm_TomDtm_PwmHl *driver, Ifx_TimerValue *tOn, Ifx_TimerValue *shift);
+typedef void                        (*IfxGtm_Tom_Dtm_PwmHl_UpdateShift)(IfxGtm_TomDtm_PwmHl *driver, Ifx_TimerValue *tOn, Ifx_TimerValue *shift);
 
-typedef void                         (*IfxGtm_Tom_Dtm_PwmHl_UpdatePulse)(IfxGtm_TomDtm_PwmHl *driver, float32 *tOn, float32 *offset);
+typedef void                        (*IfxGtm_Tom_Dtm_PwmHl_UpdatePulse)(IfxGtm_TomDtm_PwmHl *driver, float32 *tOn, float32 *offset);
 
 /******************************************************************************/
 /*-----------------------------Data Structures--------------------------------*/
@@ -137,21 +139,21 @@ typedef struct
  */
 typedef struct
 {
-    IfxStdIf_PwmHl_Config           base;                /**< \brief PWM HL standard interface configuration */
+    IfxStdIf_PwmHl_Config          base;                /**< \brief PWM HL standard interface configuration */
     IfxGtm_Tom_Timer              *timer;               /**< \brief Pointer to the linked timer object */
-    IfxGtm_Tom                     tom;                /**< \brief TOM unit used */
+    IfxGtm_Tom                     tom;                 /**< \brief TOM unit used */
     IFX_CONST IfxGtm_Tom_ToutMapP *ccx;                 /**< \brief Pointer to an array of size pwmHl.channels.channelCount containing the channels used. Channels must be adjacent channels */
     IFX_CONST IfxGtm_Tom_ToutMapP *coutx;               /**< \brief Pointer to an array of size pwmHl.channels.channelCount containing the channels used. Channels must be adjacent channels */
-    IfxGtm_Dtm_ClockSource          deadTimeClock;       /**< \brief Clock used for the dead time generation */
-    boolean                         initPins;            /**< \brief TRUE: Initialize pins in driver, FALSE: Don't initialize pins in driver. User handles separately. */
+    IfxGtm_Dtm_ClockSource         deadTimeClock;       /**< \brief Clock used for the dead time generation */
+    boolean                        initPins;            /**< \brief TRUE: Initialize pins in driver, FALSE: Don't initialize pins in driver. User handles separately. */
 } IfxGtm_Tom_Dtm_PwmHl_Config;
 
 /** \brief Structure for PWM configuration
  */
 typedef struct
 {
-    Ifx_Pwm_Mode                      mode;                 /**< \brief PWM mode */
-    boolean                           inverted;             /**< \brief Inverted configuration for the selected mode */
+    Ifx_Pwm_Mode                     mode;                 /**< \brief PWM mode */
+    boolean                          inverted;             /**< \brief Inverted configuration for the selected mode */
     IfxGtm_Tom_Dtm_PwmHl_Update      update;               /**< \brief update call back function for the selected mode */
     IfxGtm_Tom_Dtm_PwmHl_UpdateShift updateAndShift;       /**< \brief update shift call back function for the selected mode */
     IfxGtm_Tom_Dtm_PwmHl_UpdatePulse updatePulse;          /**< \brief update pulse call back function for the selected mode */
@@ -161,18 +163,18 @@ typedef struct
  */
 struct IfxGtm_Tom_Dtm_PwmHl_s
 {
-    IfxGtm_Tom_Dtm_PwmHl_Base        base;                                                     /**< \brief Multi-channels PWM object definition (channels only) */
-    IfxGtm_Tom_Timer                *timer;                                                    /**< \brief Pointer to the linked timer object */
-    IfxGtm_Tom_Dtm_PwmHl_Update      update;                                                   /**< \brief update call back function for the selected mode */
-    IfxGtm_Tom_Dtm_PwmHl_UpdateShift updateAndShift;                                           /**< \brief update shift call back function for the selected mode */
-    IfxGtm_Tom_Dtm_PwmHl_UpdatePulse updatePulse;                                              /**< \brief update pulse call back function for the selected mode */
+    IfxGtm_Tom_Dtm_PwmHl_Base        base;                                                    /**< \brief Multi-channels PWM object definition (channels only) */
+    IfxGtm_Tom_Timer                *timer;                                                   /**< \brief Pointer to the linked timer object */
+    IfxGtm_Tom_Dtm_PwmHl_Update      update;                                                  /**< \brief update call back function for the selected mode */
+    IfxGtm_Tom_Dtm_PwmHl_UpdateShift updateAndShift;                                          /**< \brief update shift call back function for the selected mode */
+    IfxGtm_Tom_Dtm_PwmHl_UpdatePulse updatePulse;                                             /**< \brief update pulse call back function for the selected mode */
     Ifx_GTM_TOM                     *tom;                                                     /**< \brief TOM unit used */
-    Ifx_GTM_TOM_TGC                 *tgc;                                                      /**< \brief TGC unit used */
+    Ifx_GTM_TOM_TGC                 *tgc;                                                     /**< \brief TGC unit used */
     IfxGtm_Tom_Ch                    ccx[IFXGTM_TOM_DTM_PWMHL_MAX_NUM_CHANNELS];              /**< \brief TOM channels used for the CCCX outputs */
     IfxGtm_Tom_Ch                    coutx[IFXGTM_TOM_DTM_PWMHL_MAX_NUM_CHANNELS];            /**< \brief TOM channels used for the OUTX outputs */
-    Ifx_GTM_CDTM_DTM                 *dtm[IFXGTM_TOM_DTM_PWMHL_MAX_NUM_CHANNELS];              /**< \brief Dead time module (DTM) used. Matching the Tom */
-    IfxGtm_Dtm_Ch                     dtmChannel[IFXGTM_TOM_DTM_PWMHL_MAX_NUM_CHANNELS];       /**< \brief DTM channel used */
-    float32                           dtmClockFreq;                                             /**< \brief Deadtime module input clock frequency (cached value) */
+    Ifx_GTM_CDTM_DTM                *dtm[IFXGTM_TOM_DTM_PWMHL_MAX_NUM_CHANNELS];              /**< \brief Dead time module (DTM) used. Matching the Tom */
+    IfxGtm_Dtm_Ch                    dtmChannel[IFXGTM_TOM_DTM_PWMHL_MAX_NUM_CHANNELS];       /**< \brief DTM channel used */
+    float32                          dtmClockFreq;                                            /**< \brief Deadtime module input clock frequency (cached value) */
 };
 
 /******************************************************************************/
@@ -266,5 +268,4 @@ IFX_EXTERN void IfxGtm_Tom_Dtm_PwmHl_setupChannels(IfxGtm_TomDtm_PwmHl *driver, 
  * \return TRUE on success else FALSE
  */
 IFX_EXTERN boolean IfxGtm_Tom_Dtm_PwmHl_stdIfPwmHlInit(IfxStdIf_PwmHl *stdif, IfxGtm_TomDtm_PwmHl *driver);
-
 #endif /* IFXGTM_TOM_DTM_PWMHL_H */

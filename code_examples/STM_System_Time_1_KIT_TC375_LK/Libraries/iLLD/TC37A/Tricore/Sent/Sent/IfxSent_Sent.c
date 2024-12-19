@@ -2,8 +2,8 @@
  * \file IfxSent_Sent.c
  * \brief SENT SENT details
  *
- * \version iLLD_1_0_1_12_0
- * \copyright Copyright (c) 2019 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0
+ * \copyright Copyright (c) 2023 Infineon Technologies AG. All rights reserved.
  *
  *
  *
@@ -349,4 +349,28 @@ boolean IfxSent_Sent_readChannelSerialMessageFrame(IfxSent_Sent_Channel *channel
     message->crc        = sds.B.SCRC;
 
     return result;
+}
+
+
+void IfxSent_Sent_spcPulseUpdate(IfxSent_Sent_Channel *channel, uint8 pulseLength, uint8 delay)
+{
+    Ifx_SENT_CH_SCR regSCR;
+
+    regSCR.U      = channel->channel->SCR.U;
+    regSCR.B.DEL  = delay;
+    regSCR.B.PLEN = pulseLength;
+
+    /* For IfxSent_TriggerSource_immediate mode  */
+    if (regSCR.B.TRIG == IfxSent_TriggerSource_immediate)
+    {
+        regSCR.B.TRIG = IfxSent_TriggerSource_off;
+    }
+
+    channel->channel->SCR.U = regSCR.U;
+}
+
+
+void IfxSent_Sent_spcPulseTrigger(IfxSent_Sent_Channel *channel)
+{
+    channel->channel->SCR.B.TRIG = IfxSent_TriggerSource_immediate;
 }

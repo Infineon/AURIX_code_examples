@@ -2,7 +2,7 @@
  * \file Ifx_Ssw_Compilers.h
  * \brief Startup Software for compiler options
  *
- * \version iLLD_1_0_1_15_0_1
+ * \version iLLD_1_0_1_17_0
  * \copyright Copyright (c) 2017 Infineon Technologies AG. All rights reserved.
  *
  *
@@ -43,7 +43,7 @@
 #define IFX_SSW_COMPILERS_H_
 
 /*Macro definition to show GNUC macros with the editor*/
-#if ((!defined(__ghs__)) && (!defined(__DCC__)) && (!defined(__TASKING__)) && (!defined(__HIGHTEC__)))
+#if ((!defined(__ghs__)) && (!defined(__DCC__)) && (!defined(__TASKING__)) && (!defined(__GNUC__)))
 #define __HIGHTEC__
 #endif
 
@@ -51,11 +51,14 @@
 #ifdef __DCC__
 #include "Ifx_Ssw_CompilersDcc.h"
 
+#elif defined(__TASKING__)
+#include "Ifx_Ssw_CompilersTasking.h"
+
 #elif defined(__HIGHTEC__)
 #include "Ifx_Ssw_CompilersGnuc.h"
 
-#elif defined(__TASKING__)
-#include "Ifx_Ssw_CompilersTasking.h"
+#elif defined(__GNUC__) && !defined(__HIGHTEC__)
+#include "Ifx_Ssw_CompilersGcc.h"
 
 #elif defined(__ghs__)
 #include "Ifx_Ssw_CompilersGhs.h"

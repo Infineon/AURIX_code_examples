@@ -3,8 +3,9 @@
  * \brief EVADC  basic functionality
  * \ingroup IfxLld_Evadc
  *
- * \version iLLD_1_0_1_12_0
- * \copyright Copyright (c) 2020 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0_1
+ * \copyright Copyright (c) 2023 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
@@ -37,6 +38,7 @@
  * FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
+ *
  *
  * \defgroup IfxLld_Evadc_Std_Enum Enumerations
  * \ingroup IfxLld_Evadc_Std
@@ -977,6 +979,14 @@ IFX_INLINE Ifx_EVADC_G_RES IfxEvadc_getResult(Ifx_EVADC_G *group, uint32 resultI
  */
 IFX_INLINE void IfxEvadc_setGlobalSampleTime(Ifx_EVADC *evadc, uint8 groupInputClassNum, float32 analogFrequency, float32 sampleTime);
 
+/** \brief Sets global boundary value.
+ * \param evadc pointer to EVADC module
+ * \param bound0 Boundary 0 value (12 Bits).
+ * \param bound1 Boundary 1 value (12 Bits).
+ * \return None
+ */
+IFX_INLINE void IfxEvadc_setGlobalBoundary(Ifx_EVADC *evadc, uint16 bound0, uint16 bound1);
+
 /******************************************************************************/
 /*-------------------------Global Function Prototypes-------------------------*/
 /******************************************************************************/
@@ -1441,6 +1451,14 @@ IFX_INLINE void IfxEvadc_spreadEarlySamplePointEMUXConversions(Ifx_EVADC_G *evad
  * \return None
  */
 IFX_INLINE void IfxEvadc_spreadEarlySamplePointStandardConversions(Ifx_EVADC_G *evadcG, uint8 inputClassNum, IfxEvadc_SpreadEarlySamplePointStandardConversionsMode mode);
+
+/** \brief Sets group specific boundary value.
+ * \param evadcG pointer to EVADC group registers.
+ * \param bound0 Boundary 0 value (12 Bits).
+ * \param bound1 Boundary 1 value (12 Bits).
+ * \return None
+ */
+IFX_INLINE void IfxEvadc_setGroupBoundary(Ifx_EVADC_G *evadcG, uint16 bound0, uint16 bound1);
 
 /******************************************************************************/
 /*-------------------------Global Function Prototypes-------------------------*/
@@ -3237,6 +3255,28 @@ IFX_INLINE void IfxEvadc_configureIclass(Ifx_EVADC_G *evadcG, uint8 inputClassNu
 IFX_INLINE volatile uint32 *IfxEvadc_getResultRegisterAddress(Ifx_EVADC_G *evadcG, IfxEvadc_ChannelId channel)
 {
     return (volatile uint32 *)&(evadcG->RES[channel].U);
+}
+
+
+IFX_INLINE void IfxEvadc_setGlobalBoundary(Ifx_EVADC *evadc, uint16 bound0, uint16 bound1)
+{
+    Ifx_EVADC_G_BOUND gBound;
+    gBound.U            = evadc->GLOB.BOUND.U;
+
+    gBound.B.BOUNDARY0  = bound0;
+    gBound.B.BOUNDARY1  = bound1;
+
+    evadc->GLOB.BOUND.U = gBound.U;
+}
+
+
+IFX_INLINE void IfxEvadc_setGroupBoundary(Ifx_EVADC_G *evadcG, uint16 bound0, uint16 bound1)
+{
+    Ifx_EVADC_G_BOUND grpBound;
+    grpBound.U           = evadcG->BOUND.U;
+    grpBound.B.BOUNDARY0 = bound0;
+    grpBound.B.BOUNDARY1 = bound1;
+    evadcG->BOUND.U      = grpBound.U;
 }
 
 

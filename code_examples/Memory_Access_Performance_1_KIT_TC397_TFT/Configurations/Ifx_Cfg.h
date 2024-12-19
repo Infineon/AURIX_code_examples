@@ -42,9 +42,6 @@
 /* Peripheral PLL2 frequency in Hz */
 #define IFX_CFG_SCU_PLL2_FREQUENCY      (200000000) /* Allowed values are: 200000000 */
 
-/* The Data Cache must be disabled */
-#define IFX_CFG_SSW_ENABLE_TRICORE0_DCACHE   (0)
-
 /*********************************************************************************************************************/
 /*-----------------------------------Configuration for Software managed interrupt------------------------------------*/
 /*********************************************************************************************************************/

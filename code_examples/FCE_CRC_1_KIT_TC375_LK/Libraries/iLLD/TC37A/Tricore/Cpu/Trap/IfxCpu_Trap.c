@@ -3,7 +3,7 @@
  * \brief This file contains the APIs for Trap related functions.
  *
  *
- * \version iLLD_1_0_1_12_0
+ * \version iLLD_1_0_1_17_0
  * \copyright Copyright (c) 2012 Infineon Technologies AG. All rights reserved.
  *
  *
@@ -263,20 +263,21 @@ void IfxCpu_Trap_nonMaskableInterrupt(uint32 tin)
 }
 
 
-#if defined(__HIGHTEC__)
-#pragma section
-#pragma section ".traptab_cpu0" awx
-#pragma GCC optimize ("O2")
-#endif
-#if defined(__DCC__)
-#pragma section
-#pragma section CODE ".traptab_cpu0" X
-#endif
 #if defined(__TASKING__)
 #pragma protect on
 #pragma section code "traptab_cpu0"
-#endif
-#if defined(__ghs__)
+#elif defined(__HIGHTEC__)
+#pragma section
+#pragma section ".traptab_cpu0" awx
+#pragma GCC optimize ("O2")
+#elif defined(__GNUC__) && !defined(__HIGHTEC__)
+#pragma section
+#pragma section ".traptab_cpu0" awx
+#pragma GCC optimize ("O2")
+#elif defined(__DCC__)
+#pragma section
+#pragma section CODE ".traptab_cpu0" X
+#elif defined(__ghs__)
 #pragma ghs section
 #pragma ghs section text=".traptab_cpu0"
 #endif
@@ -294,18 +295,18 @@ void IfxCpu_Trap_vectorTable0(void)
 
 
 #if IFXCPU_NUM_MODULES >= 2
-#if defined(__HIGHTEC__)
-#pragma section
-#pragma section ".traptab_cpu1" awx
-#endif
-#if defined(__DCC__)
-#pragma section
-#pragma section CODE ".traptab_cpu1" X
-#endif
 #if defined(__TASKING__)
 #pragma section code "traptab_cpu1"
-#endif
-#if defined(__ghs__)
+#elif defined(__HIGHTEC__)
+#pragma section
+#pragma section ".traptab_cpu1" awx
+#elif defined(__GNUC__) && !defined(__HIGHTEC__)
+#pragma section
+#pragma section ".traptab_cpu1" awx
+#elif defined(__DCC__)
+#pragma section
+#pragma section CODE ".traptab_cpu1" X
+#elif defined(__ghs__)
 #pragma ghs section
 #pragma ghs section text=".traptab_cpu1"
 #endif
@@ -325,18 +326,18 @@ void IfxCpu_Trap_vectorTable1(void)
 #endif
 
 #if IFXCPU_NUM_MODULES >= 3
-#if defined(__HIGHTEC__)
-#pragma section
-#pragma section ".traptab_cpu2" awx
-#endif
-#if defined(__DCC__)
-#pragma section
-#pragma section CODE ".traptab_cpu2" X
-#endif
 #if defined(__TASKING__)
 #pragma section code "traptab_cpu2"
-#endif
-#if defined(__ghs__)
+#elif defined(__HIGHTEC__)
+#pragma section
+#pragma section ".traptab_cpu2" awx
+#elif defined(__GNUC__) && !defined(__HIGHTEC__)
+#pragma section
+#pragma section ".traptab_cpu2" awx
+#elif defined(__DCC__)
+#pragma section
+#pragma section CODE ".traptab_cpu2" X
+#elif defined(__ghs__)
 #pragma ghs section
 #pragma ghs section text=".traptab_cpu2"
 #endif
@@ -357,18 +358,18 @@ void IfxCpu_Trap_vectorTable2(void)
 #endif
 
 #if IFXCPU_NUM_MODULES >= 4
-#if defined(__HIGHTEC__)
-#pragma section
-#pragma section ".traptab_cpu3" awx
-#endif
-#if defined(__DCC__)
-#pragma section
-#pragma section CODE ".traptab_cpu3" X
-#endif
 #if defined(__TASKING__)
 #pragma section code "traptab_cpu3"
-#endif
-#if defined(__ghs__)
+#elif defined(__HIGHTEC__)
+#pragma section
+#pragma section ".traptab_cpu3" awx
+#elif defined(__GNUC__) && !defined(__HIGHTEC__)
+#pragma section
+#pragma section ".traptab_cpu3" awx
+#elif defined(__DCC__)
+#pragma section
+#pragma section CODE ".traptab_cpu3" X
+#elif defined(__ghs__)
 #pragma ghs section
 #pragma ghs section text=".traptab_cpu3"
 #endif
@@ -390,18 +391,18 @@ void IfxCpu_Trap_vectorTable3(void)
 #endif
 
 #if IFXCPU_NUM_MODULES >= 5
-#if defined(__HIGHTEC__)
-#pragma section
-#pragma section ".traptab_cpu4" awx
-#endif
-#if defined(__DCC__)
-#pragma section
-#pragma section CODE ".traptab_cpu4" X
-#endif
 #if defined(__TASKING__)
 #pragma section code "traptab_cpu4"
-#endif
-#if defined(__ghs__)
+#elif defined(__HIGHTEC__)
+#pragma section
+#pragma section ".traptab_cpu4" awx
+#elif defined(__GNUC__) && !defined(__HIGHTEC__)
+#pragma section
+#pragma section ".traptab_cpu4" awx
+#elif defined(__DCC__)
+#pragma section
+#pragma section CODE ".traptab_cpu4" X
+#elif defined(__ghs__)
 #pragma ghs section
 #pragma ghs section text=".traptab_cpu4"
 #endif
@@ -422,18 +423,18 @@ void IfxCpu_Trap_vectorTable4(void)
 #endif
 
 #if IFXCPU_NUM_MODULES >= 6
-#if defined(__HIGHTEC__)
-#pragma section
-#pragma section ".traptab_cpu5" awx
-#endif
-#if defined(__DCC__)
-#pragma section
-#pragma section CODE ".traptab_cpu5" X
-#endif
 #if defined(__TASKING__)
 #pragma section code "traptab_cpu5"
-#endif
-#if defined(__ghs__)
+#elif defined(__HIGHTEC__)
+#pragma section
+#pragma section ".traptab_cpu5" awx
+#elif defined(__GNUC__) && !defined(__HIGHTEC__)
+#pragma section
+#pragma section ".traptab_cpu5" awx
+#elif defined(__DCC__)
+#pragma section
+#pragma section CODE ".traptab_cpu5" X
+#elif defined(__ghs__)
 #pragma ghs section
 #pragma ghs section text=".traptab_cpu5"
 #endif
@@ -453,18 +454,16 @@ void IfxCpu_Trap_vectorTable5(void)
 
 #endif
 
-#if defined(__HIGHTEC__)
-#pragma section
-#endif
-#if defined(__DCC__)
-#pragma section
-#endif
-#if defined(__DCC__)
-#pragma interrupt IfxInterruptEx
-#endif
 #if defined(__TASKING__)
 #pragma endprotect
-#endif
-#if defined(__ghs__)
+#elif defined(__HIGHTEC__)
+#pragma section
+#elif defined(__GNUC__) && !defined(__HIGHTEC__)
+#pragma section
+#elif defined(__DCC__)
+#pragma section
+#elif defined(__DCC__)
+#pragma interrupt IfxInterruptEx
+#elif defined(__ghs__)
 #pragma ghs section
 #endif

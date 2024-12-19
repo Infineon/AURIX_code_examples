@@ -3,8 +3,9 @@
  * \brief DTS DTS details
  * \ingroup IfxLld_Dts
  *
- * \version iLLD_1_0_1_12_0
- * \copyright Copyright (c) 2017 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0
+ * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
@@ -37,6 +38,7 @@
  * FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
+ *
  *
  * \defgroup IfxLld_Dts_Dts_Usage How to use the DTS Interface driver?
  * \ingroup IfxLld_Dts

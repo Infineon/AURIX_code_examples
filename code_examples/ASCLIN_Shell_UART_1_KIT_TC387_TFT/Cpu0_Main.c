@@ -31,12 +31,12 @@
  *              user like "info", "toggle [x]" or "help".
  *
  * \name ASCLIN_Shell_UART_1_KIT_TC387_TFT
- * \version V1.0.1
+ * \version V2.0.0
  * \board APPLICATION KIT TC3X7 V2.0, KIT_A2G_TC387_5V_TFT, TC38xQP_A-Step
  * \keywords ASC, ASCLIN_Shell_UART_1, AURIX, UART, VCOM, serial communication, shell
- * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_ASCLIN_Shell_UART_1_KIT_TC387_TFT-TR-v01_00_01-EN.pdf
- * \documents https://www.infineon.com/aurix-expert-training/TC38A_iLLD_UM_1_0_1_12_1.chm
- * \lastUpdated 2021-03-22
+ * \documents README.MD
+ * \documents https://www.infineon.com/aurix-expert-training/TC38A_iLLD_UM_1_0_1_17_0.chm
+ * \lastUpdated 2024-01-25
  *********************************************************************************************************************/
 #include "Ifx_Types.h"
 #include "IfxCpu.h"

@@ -2,8 +2,9 @@
  * \file IfxGtm_Atom_Dtm_PwmHl.c
  * \brief GTM DTM_PWMHL details
  *
- * \version iLLD_1_0_1_12_0_1
- * \copyright Copyright (c) 2020 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0
+ * \copyright Copyright (c) 2023 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
@@ -37,6 +38,7 @@
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  *
+ *
  */
 
 /******************************************************************************/
@@ -47,6 +49,7 @@
 #include "_Utilities/Ifx_Assert.h"
 #include "stddef.h"
 #include "string.h"
+#include "IfxGtm_Atom_PwmHl.h"
 
 /******************************************************************************/
 /*------------------------Inline Function Prototypes--------------------------*/
@@ -352,7 +355,7 @@ boolean IfxGtm_Atom_Dtm_PwmHl_setMode(IfxGtm_AtomDtm_PwmHl *driver, Ifx_Pwm_Mode
             result = FALSE;
         }
 
-        IFX_ASSERT(IFX_VERBOSE_LEVEL_ERROR, mode == IfxGtm_AtomDtm_PwmHl_modes[mode].mode);
+        IFX_ASSERT(IFX_VERBOSE_LEVEL_ERROR, mode == IfxGtm_Atom_Dtm_PwmHl_modes[mode].mode);
 
         base->mode             = mode;
         driver->update         = IfxGtm_Atom_Dtm_PwmHl_modes[mode].update;

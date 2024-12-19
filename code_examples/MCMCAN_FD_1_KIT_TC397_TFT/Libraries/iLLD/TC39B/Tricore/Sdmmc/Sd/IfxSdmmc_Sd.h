@@ -3,8 +3,9 @@
  * \brief SDMMC SD details
  * \ingroup IfxLld_Sdmmc
  *
- * \version iLLD_1_0_1_12_0
- * \copyright Copyright (c) 2018 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0_1
+ * \copyright Copyright (c) 2023 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
@@ -37,6 +38,7 @@
  * FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
+ *
  *
  * \defgroup IfxLld_Sdmmc_Sd_Usage How to use the Sdmmc Driver Interface driver?
  * \ingroup IfxLld_Sdmmc_Sd
@@ -456,6 +458,48 @@ IFX_EXTERN IfxSdmmc_Status IfxSdmmc_Sd_ioReadRegister(IfxSdmmc_Sd *sd, IfxSdmmc_
  */
 IFX_EXTERN IfxSdmmc_Status IfxSdmmc_Sd_ioWriteRegister(IfxSdmmc_Sd *sd, IfxSdmmc_SdIoFunction func, uint32 addr, uint8 reg);
 
+/** \brief Reads multi block of data from Card
+ * \param sd Handle for SD interface
+ * \param address Address where to read the data from
+ * \param data Pointer of the buffer to read the data into
+ * \param blockCount Number of data block to read
+ * \return Status
+ */
+IFX_EXTERN IfxSdmmc_Status IfxSdmmc_Sd_readMultiBlock(IfxSdmmc_Sd *sd, uint32 address, uint32 *data, uint32 blockCount);
+
+/** \brief Transfers multi block of data from Hostcontroller to Card or Vice versa using ADMA2
+ * \param sd Handle for SD interface
+ * \param command Command to send
+ * \param address Address where to send the data
+ * \param blockSize Size of the block
+ * \param descrAddress Pointer to the descriptor containing data to read/write
+ * \param direction Transfer direction
+ * \param blockCount Number of block to transfer
+ * \return Status
+ */
+IFX_EXTERN IfxSdmmc_Status IfxSdmmc_Sd_multiBlockAdma2Transfer(IfxSdmmc_Sd *sd, IfxSdmmc_Command command, uint32 address, uint16 blockSize, uint32 *descrAddress, IfxSdmmc_TransferDirection direction, uint32 blockCount);
+
+/** \brief Transfers one block of data from Hostcontroller to Card or Vice versa using SDMA
+ * \param sd Handle for SD interface
+ * \param command Command to send
+ * \param address Address where to send the data
+ * \param blockSize Size of the block
+ * \param data Pointer of the buffer containing data to read/write
+ * \param direction Transfer direction
+ * \param blockCount Number of block to transfer
+ * \return Status
+ */
+IFX_EXTERN IfxSdmmc_Status IfxSdmmc_Sd_multiBlockDmaTransfer(IfxSdmmc_Sd *sd, IfxSdmmc_Command command, uint32 address, uint16 blockSize, uint32 *data, IfxSdmmc_TransferDirection direction, uint32 blockCount);
+
+/** \brief Sends multi block of data from Hostcontroller to Card
+ * \param sd Handle for SD interface
+ * \param address Address where to send the data
+ * \param data Pointer of the buffer containing data to write
+ * \param blockCount Number of data block to write
+ * \return Status
+ */
+IFX_EXTERN IfxSdmmc_Status IfxSdmmc_Sd_writeMultiBlock(IfxSdmmc_Sd *sd, uint32 address, uint32 *data, uint32 blockCount);
+
 /** \} */
 
 /** \addtogroup IfxLld_Sdmmc_Sd_SupportFunctions
@@ -650,5 +694,4 @@ IFX_EXTERN IfxSdmmc_Status IfxSdmmc_Sd_ioClearPendingInterrupt(IfxSdmmc_Sd *sd, 
  * \return Status
  */
 IFX_EXTERN IfxSdmmc_Status IfxSdmmc_Sd_ioEnableMultiBlockInterrupt(IfxSdmmc_Sd *sd);
-
 #endif /* IFXSDMMC_SD_H */

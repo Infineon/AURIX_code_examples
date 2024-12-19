@@ -2,7 +2,7 @@
  * \file IfxMtu.c
  * \brief MTU  basic functionality
  *
- * \version iLLD_1_0_1_15_0_1
+ * \version iLLD_1_0_1_17_0
  * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
  *
  *
@@ -652,6 +652,8 @@ boolean IfxMtu_runMbistAll(const IfxMtu_MbistConfig *const mbistConfig[])
 #pragma optimize R
 #elif defined(__HIGHTEC__)
 #pragma GCC optimize ("-O1")
+#elif defined(__GNUC__) && !defined(__HIGHTEC__)
+#pragma GCC optimize ("-O1")
 #endif
 boolean IfxMtu_runMbist(const IfxMtu_MbistConfig *mbistConfig)
 {
@@ -902,5 +904,7 @@ IFX_STATIC boolean IfxMtu_runMbistEnd(uint32 testsDone)
 #if defined(__TASKING__)
 #pragma endoptimize
 #elif defined(__HIGHTEC__)
+#pragma GCC reset_options
+#elif defined(__GNUC__) && !defined(__HIGHTEC__)
 #pragma GCC reset_options
 #endif
