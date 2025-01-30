@@ -42,7 +42,7 @@
  * \board AURIX TC375 lite Kit, KIT_A2G_TC375_LITE, TC37xTP_A-Step
  * \keywords AURIX, Data Access Overlay, OVC, Overlay Memory, Redirect Memory, Redirecting
  * \documents See README.MD
- * \lastUpdated 2024-08-27
+ * \lastUpdated 2025-01-09
  **********************************************************************************************************************/
 #include "Ifx_Types.h"
 #include "IfxCpu.h"

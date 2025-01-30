@@ -755,7 +755,7 @@ void Test_9(void)
         /* Disable Overlay */
         IfxCpu_disableOverlayBlock(IfxCpu_ResourceCpu_0, 0);
 
-        /* Verification for Overlay functionality  */
+        /* Verification for Overlay functionality  */\
         Test_MemoryValidation((uint8*) TEST_9_BUF_FLASH, (uint8*) TEST_9_BUF_LMU, sizeof(TEST_9_BUF_FLASH));
     }
     else

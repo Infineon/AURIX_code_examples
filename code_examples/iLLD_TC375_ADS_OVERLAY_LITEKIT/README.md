@@ -10,38 +10,29 @@ The device used in this example is AURIX™ TC37xTP_A-Step.
 The board used for testing is the AURIX™ TC375 lite Kit (KIT_A2G_TC375_LITE).
 
 ## Scope of work
-The data overlay functionality provides the possibility of redirecting data read access from a non-volatile memory
-(Target Memory/Code Memory) to a volatile memory (Overlay Memory) for execution. The process usually involves copying code 
-from a (non-volatile/Code Memory) to volatile memory, that makes it possible, for example, to modify program parameters 
-(which are typically stored in the code memory) during run time of program. Once copied, an overlay mechanism is instituted 
-(configure required Overlay Control registers). The registers are prepared to enable/disable the redirection
-from non-volatile memory (usually Flash) into volatile memory (SRAM). The CPU convert the addresses to access the volatile 
-memory (SRAM) instead the non-volatile memory (Flash). Once the redirecting process has been completed, the modified parameters 
-that are in the volatile memory will be stored back to the non-volatile memory (which is not addressed in the provided code example). 
-Different test scenarios has been provided in this code example, focused on ensuring that the redirection of memory accesses is 
-accurately configured.
+The data overlay functionality provides the possibility of redirecting data read access from a Target memory (Code Memory) to Overlay Memory for execution. The process usually involves copying code from a non-volatile Code memory (usually Flash) to volatile Overlay memory (usually SRAM), that makes it possible, for example, to modify program parameters (which are typically stored in the code memory) during run time of program. Once copied, an overlay mechanism is instituted (configure required Overlay Control registers). The registers are prepared to enable/disable the redirection from Target memory (usually Flash) into volatile Overlay memory (SRAM). The CPU convert the addresses to access the Overlay memory instead the Target memory. Once the redirecting process has been completed, the modified parameters that are in the Overlay memory will be stored back to the Target memory (which is not addressed in the provided code example). Different test scenarios have been provided in this code example, focused on ensuring that the redirection of memory accesses is accurately configured.
 
 ## Introduction
-The Overlay function serves the purpose of enabling modification of an application's test that are typically stored in PFlash memory. This is achieved by copying PFlash code to SRAM . To illustrate, consider the following Figure.
+The Overlay function serves the purpose of enabling modification of an application's test that are typically stored in PFlash memory. This is achieved by copying PFlash code to SRAM. To illustrate, consider the following Figure.
 
 <img src="./Images/OverlayFunction.PNG" width="620" /> 
 <br><br><br>
 
 **Summary of OVC features:**
   
-Possibility of redirecting **data accesses** addressing:
+Possibility of redirecting **data accesses** addressing: 
 - On-chip PFlash  
 - Online Data Acquisition OLDA (virtual space) 
 - Extended EBU Space (if present)
 
-**Note:** Target memory specified should be NVM Memory.<br>
-It means that redirection can happen from the PFlash (NVM Memory) to another memory, but not the opposite.   
-
-Support redirection to Overlay memory located in: 
+Support redirection to Overlay memory (Destination) located in: 
 - Local Memory (LMU) (if present)
 - Emulation Device Memory
 - External EBU space (if present)
 - DSPR or PSPR memory
+
+**Note:** <br>
+Redirection can happen from the Target memories (Source) to Overlay memories (Destination), but not the opposite.   
 
 Overlay Control: 
 - Core DMI (Individual overlay system per processor core) 
@@ -148,7 +139,7 @@ If the value written in *ExpecteBufferContent* and *SRAM* will not be equal (eve
 
 *Test 3*: 
  
-- Implementing Overlay Configuration, which is <u>multiple overlay blocks</u> <u>simultaneously</u> activated/deactivated, where the Target Memory is PFlash bank (Non-cached), and the MU(DLMU)(Non-cached) as Overlay(Redirect) Memory (2 concurrent Blocks with 32 Byte address range are provided in the code example, and can be applied also for more blocks).
+- Implementing Overlay Configuration, which is <u>multiple overlay blocks</u> <u>simultaneously</u> activated/deactivated, where the Target Memory is PFlash bank (Non-cached), and the LMU(DLMU)(Non-cached) as Overlay(Redirect) Memory (2 concurrent Blocks with 32 Byte address range are provided in the code example, and can be applied also for more blocks).
 
 **Important Note in Test3 **:<br>
 There is a latency needed for overlay block disabling, where the effect is not instantaneous. So, before checking the disabling of overlay blocks, the instruction **isync()** and
@@ -188,7 +179,7 @@ Data Synchronous Trap Register (DSTR), Data Asynchronous Trap Register (DATR), D
 
 - Overlay configuration for <u>2KB block size</u>, where PFlash (Non-cached) as the Target Memory, and the PSPR/DSPR as the Overlay(Redirect) Memory. 
 
-**Note:** All tests are provided by the *Overlay_Test.h*. <br><br>
+**Note:** All tests are provided by the *Overlay_Test.h*. <br>
 
 ## Compiling and programming
 Before testing this code example:  

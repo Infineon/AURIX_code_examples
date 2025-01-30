@@ -73,7 +73,7 @@
  *
  * Test 1 : Full Access
  * Test 2 : Non-Overlap Region => CPU0 -> R0, CPU0 !-> R1, CPU1 !-> R0, CPU1 !-> R1
- * Test 3 : Overlap Region => CPU0 -> R0, CPU0 !-> R1, CPU1 !-> R0, CPU1 !-> R1
+ * Test 3 : Overlap Region => CPU0 -> R0, CPU0 !-> R1, CPU1 !-> R0, CPU1 -> R1
  * (Note: in Test3 "configuration" has been done for overlapping R0 and R1, but "execution"
    done for both overlap, and Non-overlap regions.)
  */

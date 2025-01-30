@@ -1943,6 +1943,33 @@
       "lastModified": "2023-09-09T00:00:00.000Z"
     },
     {
+      "title": "GTM to TGO signal routing",
+      "name": "BMETAL_TC375_ADS_GTM_TIM_TGO_Debug",
+      "description": "Two ATOM channels are used to generate two PWM signals and these signals are XORed using the LUT of the TIM channel. The filtered output of the TIM channel is routed to the TGO (Trigger Output) pin. This is intended only for debug purpose as it uses OCDS module.",
+      "abstract": "This example demonstrates how the GTM signals can be routed to OCDS trigger output pins TGO.",
+      "folder": "BMETAL_TC375_ADS_GTM_TIM_TGO_Debug",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC375 lite Kit",
+          "id": "KIT_A2G_TC375_LITE",
+          "device_id": "TC37xTP_A-Step"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "GTM",
+        "general timer",
+        "TIM",
+        "OTGB",
+        "TGO"
+      ],
+      "documents": [
+        "See README.md"
+      ],
+      "lastModified": "2024-03-11T00:00:00.000Z"
+    },
+    {
       "title": "BMETAL_TC375_ADS_WSS_GTM_TSSM_HW",
       "name": "BMETAL_TC375_ADS_WSS_GTM_TSSM_HW",
       "description": "The TIM block within the GTM is used to decode the AK protocol. The are five TIM channels used in this example, three of them perform the manchester decoding, the fourth is used to measure the period of the speed pulse signal and the fifth is used to count the number of bits transmitted in the AK frame for handling the shorten frame.",
@@ -6413,7 +6440,7 @@
       "documents": [
         "See README.MD"
       ],
-      "lastModified": "2024-08-27T00:00:00.000Z"
+      "lastModified": "2025-01-09T00:00:00.000Z"
     },
     {
       "title": "iLLD TC375 ADS printf scanf",
