@@ -1,0 +1,25 @@
+<html>
+  <head>
+    <title>Lite Gateway Web Server CGI Demo</title>
+	<style>
+    html *
+   {
+      font-family: Verdana  !important;
+   }
+    </style>
+  </head>
+
+  <body>
+    <h1 align=center style='text-align:center'><img id="logo" src="img_sics.gif"></h1>
+    <h1 align=center style='text-align:center'>Lite Gateway Web Server CGI Demo</h1>
+    <h3 align=center style='text-align:center'>Press the buttons below to toggle the LEDs</h3>
+    <form action="ledcontrol.cgi" method="get">
+    <div align=center>    
+      <button type="submit" name="toggle" value="led1">Switch Red LED</button> 
+      <button type="submit" name="toggle" value="led2">Switch Green LED</button>    
+      <button type="submit" name="toggle" value="led3">Switch Blue LED</button>    
+    </div>
+    </form>
+
+   </body>
+</html>

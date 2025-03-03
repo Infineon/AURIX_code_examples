@@ -6520,6 +6520,62 @@
       "lastModified": "2024-08-21T00:00:00.000Z"
     },
     {
+      "title": "iLLD_TC375_ADS_SCR_RTC_70kHz_trimming_LK",
+      "name": "iLLD_TC375_ADS_SCR_RTC_70kHz_trimming_LK",
+      "description": "This is a minimal code example presenting a solution to application scenario 3 from Application Note AP32465.\r\nThe goal is to periodically trim the low power 70kHz low frequency (LF) oscillator. This oscillator is specially for low power application but naturally very imprecise and usually used by the Wake-up Timer (WUT) and Standby Controller (SCR) Real-Time Clock (RTC) timers.\r\nUsing the WUT and the Capture/Compare Unit 6 (CCU6) a calibration coefficient is calculated and transferred to the SCR domain.",
+      "abstract": "This code example demonstrates Standby Controller Real-Time Clock calibration using Wake-up Timer and Capture-Compare Unit.",
+      "folder": "iLLD_TC375_ADS_SCR_RTC_70kHz_trimming_LK",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC375 lite Kit",
+          "id": "KIT_A2G_TC375_LITE",
+          "device_id": "TC37xTP_A-Step"
+        }
+      ],
+      "keywords": [
+        "SCR",
+        "CCU",
+        "WUT",
+        "RTC",
+        "LED",
+        "PORT",
+        "Interrupt",
+        "AURIX"
+      ],
+      "documents": [
+        "See README.md"
+      ],
+      "lastModified": "2025-02-17T00:00:00.000Z"
+    },
+    {
+      "title": "iLLD_TC375_ADS_SCR_RTC_periodic-wakeup_LK",
+      "name": "iLLD_TC375_ADS_SCR_RTC_periodic-wakeup_LK",
+      "description": "This is a minimal code example presenting a solution to application scenario 1 from Application Note AP32465.\r\nThe goal is to periodically monitor I/O lines for logic level change in Standby Mode and wake-up the TriCore(TM) Cpu to perform communication with external components (e.g. via LIN channels).\r\nThe TriCore(TM) CPU is used to mirror the port line P33.4 to P00.5 which has LED1 connected on the TC375 lite Kit.",
+      "abstract": "This code example demonstrates periodic pin monitoring in standby mode using SCR (Standby Controller).",
+      "folder": "iLLD_TC375_ADS_SCR_RTC_periodic-wakeup_LK",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC375 lite Kit",
+          "id": "KIT_A2G_TC375_LITE",
+          "device_id": "TC37xTP_A-Step"
+        }
+      ],
+      "keywords": [
+        "SCR",
+        "RTC",
+        "LED",
+        "PORT",
+        "Interrupt",
+        "AURIX"
+      ],
+      "documents": [
+        "See README.md"
+      ],
+      "lastModified": "2025-02-17T00:00:00.000Z"
+    },
+    {
       "title": "Example of simple SENT communication to interface TLE5014 GMR angle sensor with AURIX(TM) TC3x Device.",
       "name": "iLLD_TC375_ADS_TLE5014_Interface_SENT_Simple",
       "description": "With this example, SENT interfacing using AURIX(TM) TC3x Device with TLE5014 angle sensor is demonstrated.",
@@ -6544,6 +6600,33 @@
         "README.md"
       ],
       "lastModified": "2023-12-07T00:00:00.000Z"
+    },
+    {
+      "title": "iLLD_TC377TP_ADS_LWIP-HTTP-Server",
+      "name": "iLLD_TC377TP_ADS_LWIP-HTTP-Server",
+      "description": "The die temperature is read from an HTTP server implemented in the LWIP 2.2.0 stack. LED manipulation is done via the HTTP server.\r\nA CAN node and a LIN master node are also implemented. The CAN implementation can be configured to be used in loop-back mode or with an external CAN node. The LIN implementation configures a LIN Master node that sends a header and a data block on the LIN bus.\r\nThe MCU\u0027s IEEE 1588 capabilities are also enabled.",
+      "abstract": "This code example demonstrates the TC377 peripheral capabilities by implementing a CAN and LIN node together with an HTTP server using the LWIP 2.2.0 stack. The server reads the die temperature and it can manipulate LEDs. Also, this code example demonstrates how to enable the MCU\u0027s IEEE 1588 capabilities.",
+      "folder": "iLLD_TC377TP_ADS_LWIP-HTTP-Server",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "KIT_A2G_TC377_LITE_GTW",
+          "id": "KIT_A2G_TC377_LITE_GTW",
+          "device_id": "TC377TP_A-Step"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "LWIP",
+        "C",
+        "CAN",
+        "LIN",
+        "IEEE 1588 ENABLED"
+      ],
+      "documents": [
+        "SEE README.MD"
+      ],
+      "lastModified": "2025-01-23T00:00:00.000Z"
     },
     {
       "title": "iLLD_TC377TX_ADS_LWIP-HTTP-Server",
