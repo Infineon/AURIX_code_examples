@@ -6520,12 +6520,40 @@
       "lastModified": "2024-08-21T00:00:00.000Z"
     },
     {
+      "title": "Safe application development for AURIX(TM) TC375 safety lite kit",
+      "name": "iLLD_TC375_ADS_SAFETY_LITE_KIT",
+      "description": "This project is written for system and software engineers and functional safety managers\r\ninvolved in the design or development of a safety-related system who are considering\r\nintegrating the AURIX(TM) TC3xx micro-controller hardware as a safety element out of\r\ncontext (SEooC) into their system.",
+      "abstract": "This source code is an easy step to start and understand the functional safety aspects",
+      "folder": "iLLD_TC375_ADS_SAFETY_LITE_KIT",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC375 lite Kit",
+          "id": "KIT_A2G_TC375_LITE",
+          "device_id": "TC37xTP_A-Step"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "QSPI",
+        "FUSA",
+        "PMS",
+        "PORT"
+      ],
+      "documents": [
+        "AURIX(TM) TC3xx Safety Manual V2.0",
+        "Application Note AN0029",
+        "README.md"
+      ],
+      "lastModified": "2025-03-19T00:00:00.000Z"
+    },
+    {
       "title": "iLLD_TC375_ADS_SCR_RTC_70kHz_trimming_LK",
       "name": "iLLD_TC375_ADS_SCR_RTC_70kHz_trimming_LK",
       "description": "This is a minimal code example presenting a solution to application scenario 3 from Application Note AP32465.\r\nThe goal is to periodically trim the low power 70kHz low frequency (LF) oscillator. This oscillator is specially for low power application but naturally very imprecise and usually used by the Wake-up Timer (WUT) and Standby Controller (SCR) Real-Time Clock (RTC) timers.\r\nUsing the WUT and the Capture/Compare Unit 6 (CCU6) a calibration coefficient is calculated and transferred to the SCR domain.",
       "abstract": "This code example demonstrates Standby Controller Real-Time Clock calibration using Wake-up Timer and Capture-Compare Unit.",
       "folder": "iLLD_TC375_ADS_SCR_RTC_70kHz_trimming_LK",
-      "version": "V1.0.0",
+      "version": "V1.0.1",
       "platforms": [
         {
           "name": "AURIX TC375 lite Kit",
@@ -6546,15 +6574,43 @@
       "documents": [
         "See README.md"
       ],
-      "lastModified": "2025-02-17T00:00:00.000Z"
+      "lastModified": "2025-03-13T00:00:00.000Z"
+    },
+    {
+      "title": "iLLD_TC375_ADS_SCR_RTC_ADCOMP_wakeup_LK",
+      "name": "iLLD_TC375_ADS_SCR_RTC_ADCOMP_wakeup_LK",
+      "description": "This is a minimal code example presenting a solution to application scenario 2 from Application Note AP32465.\r\nThe goal is to perform a periodic evaluation of a few analog channels and trigger a wake-up if threshold crossing is detected.\r\nHigh ADC resolution is not required (LSB \u003d 25 mV or better) in this mode.",
+      "abstract": "This code example demonstrates periodic ADC (Analog Digital Converter) measurement in standby mode using SCR (Standby Controller).",
+      "folder": "iLLD_TC375_ADS_SCR_RTC_ADCOMP_wakeup_LK",
+      "version": "V1.0.1",
+      "platforms": [
+        {
+          "name": "AURIX TC375 lite Kit",
+          "id": "KIT_A2G_TC375_LITE",
+          "device_id": "TC37xTP_A-Step"
+        }
+      ],
+      "keywords": [
+        "SCR",
+        "ADC",
+        "RTC",
+        "LED",
+        "PORT",
+        "Interrupt",
+        "AURIX"
+      ],
+      "documents": [
+        "See README.md"
+      ],
+      "lastModified": "2025-03-13T00:00:00.000Z"
     },
     {
       "title": "iLLD_TC375_ADS_SCR_RTC_periodic-wakeup_LK",
       "name": "iLLD_TC375_ADS_SCR_RTC_periodic-wakeup_LK",
-      "description": "This is a minimal code example presenting a solution to application scenario 1 from Application Note AP32465.\r\nThe goal is to periodically monitor I/O lines for logic level change in Standby Mode and wake-up the TriCore(TM) Cpu to perform communication with external components (e.g. via LIN channels).\r\nThe TriCore(TM) CPU is used to mirror the port line P33.4 to P00.5 which has LED1 connected on the TC375 lite Kit.",
+      "description": "This is a minimal code example presenting a solution to application scenario 1 from Application Note AP32465.\r\nThe goal is to periodically monitor I/O lines for logic level change in Standby Mode and wake-up the TriCore(TM) Cpu to perform communication with external components (e.g. via LIN channels).\r\nThe TriCore(TM) CPU is used to mirror the port line P33.4 to P00.5 which has LED1 connected on the AURIX(TM) TC375 lite Kit V2.",
       "abstract": "This code example demonstrates periodic pin monitoring in standby mode using SCR (Standby Controller).",
       "folder": "iLLD_TC375_ADS_SCR_RTC_periodic-wakeup_LK",
-      "version": "V1.0.0",
+      "version": "V1.0.1",
       "platforms": [
         {
           "name": "AURIX TC375 lite Kit",
@@ -6573,7 +6629,7 @@
       "documents": [
         "See README.md"
       ],
-      "lastModified": "2025-02-17T00:00:00.000Z"
+      "lastModified": "2025-03-13T00:00:00.000Z"
     },
     {
       "title": "Example of simple SENT communication to interface TLE5014 GMR angle sensor with AURIX(TM) TC3x Device.",

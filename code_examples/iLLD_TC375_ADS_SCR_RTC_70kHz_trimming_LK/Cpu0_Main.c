@@ -31,11 +31,11 @@
  *              Using the WUT and the Capture/Compare Unit 6 (CCU6) a calibration coefficient is calculated and transferred to the SCR domain.
  *
  * \name iLLD_TC375_ADS_SCR_RTC_70kHz_trimming_LK
- * \version V1.0.0
+ * \version V1.0.1
  * \board AURIX TC375 lite Kit, KIT_A2G_TC375_LITE, TC37xTP_A-Step
  * \keywords SCR, CCU, WUT, RTC, LED, PORT, Interrupt, AURIX
  * \documents See README.md
- * \lastUpdated 2025-02-17
+ * \lastUpdated 2025-03-13
  *********************************************************************************************************************/
 #include "Ifx_Types.h"
 #include "IfxCpu.h"
@@ -111,8 +111,7 @@ void core0_main(void)
                                            the protection has to be removed and set again afterward. */
         IfxScuWdt_setCpuEndinit(endinitCpu_pw);
         while(SCU_RSTSTAT.B.STBYR)      /* Wait until status is finally reset */
-        {
-        }
+        {}
     }
 
     /* Clear the SCROVRUN register to prevent immediate wake-up after entering standby */
@@ -123,8 +122,7 @@ void core0_main(void)
                                                the protection has to be removed and set again afterward. */
         IfxScuWdt_setSafetyEndinit(endinitSfty_pw);
         while(PMS_PMSWSTAT2.B.SCROVRUN)     /* Wait until status is finally reset */
-        {
-        }
+        {}
     }
 
     configureAppBspStatusLeds();
@@ -140,7 +138,7 @@ void core0_main(void)
     enable_CCU6_service_request();
 
     /* check if it was ESR1 edge wake-up trigger */
-    if (PMS_PMSWSTAT2.B.ESR1WKP ==1)
+    if(PMS_PMSWSTAT2.B.ESR1WKP == 1)
     {
         blinkLedCntTimes(STATUSLED_ESR1WAKEUP, 4u);
 
@@ -149,11 +147,10 @@ void core0_main(void)
                                                    the protection has to be removed and set again afterward. */
         IfxScuWdt_setSafetyEndinit(endinitSfty_pw);
         while(PMS_PMSWSTAT2.B.ESR1WKP)          /* Wait until status is finally reset */
-        {
-        }
+        {}
     }
     /* check if it was PINB edge wake-up trigger */
-    else if (PMS_PMSWSTAT2.B.PINBWKP ==1)
+    else if(PMS_PMSWSTAT2.B.PINBWKP == 1)
     {
         blinkLedCntTimes(STATUSLED_PINBWAKEUP, 3u);
         activateAppBspStateLed(STATUSLED_PINBWAKEUP);
@@ -163,11 +160,10 @@ void core0_main(void)
                                                    the protection has to be removed and set again afterward. */
         IfxScuWdt_setSafetyEndinit(endinitSfty_pw);
         while(PMS_PMSWSTAT2.B.PINBWKP)          /* Wait until status is finally reset */
-        {
-        }
+        {}
     }
     /* check if it was SCR wake-up trigger */
-    else if (PMS_PMSWSTAT2.B.SCRWKP == 1)
+    else if(PMS_PMSWSTAT2.B.SCRWKP == 1)
     {
         activateAppBspStateLed(STATUSLED_SCRWAKEUP);
 
@@ -176,8 +172,7 @@ void core0_main(void)
                                                    the protection has to be removed and set again afterward. */
         IfxScuWdt_setSafetyEndinit(endinitSfty_pw);
         while(PMS_PMSWSTAT2.B.SCRWKP)           /* Wait until status is finally reset */
-        {
-        }
+        {}
 
         if(WAKEUP_REASON_TRIM == IfxScr_getWakeUpCause(XRAM_EXCHANGE_ADDRESS(XRAM_EXCHANGE_OFFSET2)))
         {
@@ -201,10 +196,10 @@ void core0_main(void)
         }
         else
         {
-            /* Add some delay (~200ms) to debounce the button */
+            /* Add some delay to debounce the button */
             delayMs(200U);
             waitForButtonPress();
-            /* Add some delay (~200ms) to debounce the button */
+            /* Add some delay to debounce the button */
             delayMs(200U);
         }
 
@@ -270,7 +265,7 @@ void core0_main(void)
         IfxScuWdt_setSafetyEndinit(endinitSfty_pw);
 
         waitForButtonPress();
-        /* Add some delay (~200ms) to debounce the button */
+        /* Add some delay to debounce the button */
         delayMs(200U);
 
         /* Issue standby request */

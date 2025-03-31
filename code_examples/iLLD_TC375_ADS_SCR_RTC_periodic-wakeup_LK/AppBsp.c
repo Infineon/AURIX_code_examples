@@ -79,7 +79,7 @@
     #define APP_BSP_PINB                AppBspScrPin_P1_4 /* SCR_P01.4 (TriCore P33.12) */
 #endif /* USE_KIT_A2G_TC397_5V_TFT */
 
-#if USE_TC3X7_TH_V2
+#if USE_KIT_TC397_TRB
     /* Available Pins on TriBoard TC3X7 TH V2.0(1)
      *
      *  P20.11 -> LED D306
@@ -100,30 +100,7 @@
 
     #define APP_BSP_SCR_ACTIVITY        AppBspScrPin_P0_4 /* SCR_P00.4 (TriCore P33.4) */
     #define APP_BSP_PINB                AppBspScrPin_P1_4 /* SCR_P01.4 (TriCore P33.12) */
-#endif /* USE_TC3X7_TH_V2 */
-
-#if USE_TC4X7_STD_V1
-    /* Available Pins on TriBoard TC4X7 STD V1.0
-     *
-     *  P13.0  -> LED D406
-     *  P13.1  -> LED D407
-     *  P13.2  -> LED D408
-     *  P13.3  -> LED D409
-     *  P33.11 -> Button S301
-     *  P33.12 -> free (PINB wake-up, set internal pullup)
-     */
-    #define APP_BSP_LED_1               0u
-    #define APP_BSP_LED_2               1u
-    #define APP_BSP_LED_3               2u
-    #define APP_BSP_LED_4               3u
-
-    #define APP_BSP_LED_MODULE          MODULE_P13
-    #define APP_BSP_FIRST_LED_INDEX     APP_BSP_LED_1
-    #define APP_BSP_LED_MASK            0xFu
-
-    #define APP_BSP_SCR_ACTIVITY        AppBspScrPin_P0_1 /* SCR_P00.1 (TriCore P33.1) */
-    #define APP_BSP_PINB                AppBspScrPin_P1_5 /* SCR_P01.5 (TriCore P33.13) */
-#endif /* USE_TC4X7_STD_V1 */
+#endif /* USE_KIT_TC397_TRB */
 
 /*********************************************************************************************************************/
 /*-------------------------------------------------Global variables--------------------------------------------------*/
@@ -160,8 +137,7 @@ void configureAppBspScrPorts(void)
      */
     uint32 newRegValue;
     while(P33_PCSR.B.LCK)   /* Wait while any previous update of PCSR is done */
-    {
-    }
+    {}
     /* handover P33.0 - P33.6, P33.9 - P33.13 to the SCR */
     newRegValue = P33_PCSR.U;
     newRegValue |= 0x3E7F;
@@ -188,15 +164,14 @@ void configureAppBspScrPorts(void)
      */
     uint32 newRegValue;
     while(P33_PCSR.B.LCK)   /* Wait while any previous update of PCSR is done */
-    {
-    }
+    {}
     /* handover P33.0 - P33.6, P33.10 - P33.12 to the SCR */
     newRegValue = P33_PCSR.U;
     newRegValue |= 0x1C7F;
     P33_PCSR.U = newRegValue;
 #endif /* USE_KIT_A2G_TC397_5V_TFT */
 
-#if USE_TC3X7_TH_V2
+#if USE_KIT_TC397_TRB
     /* Available Pins on TriBoard TC3X7 TH V2.0(1) (under control of TriCore per default)
      *
      *   SCR I/O   |   TC3 I/O   |   TriBoard TC3X7 TH V2.0   |   SCR I/O   |   TC3 I/O   |   TriBoard TC3X7 TH V2.0
@@ -215,51 +190,18 @@ void configureAppBspScrPorts(void)
      */
     uint32 newRegValue;
     while(P33_PCSR.B.LCK)   /* Wait while any previous update of PCSR is done */
-    {
-    }
+    {}
     /* handover P33.0 - P33.7, P33.11 - P33.15 to the SCR */
     newRegValue = P33_PCSR.U;
     newRegValue |= 0xF8FF;
     P33_PCSR.U = newRegValue;
     while(P34_PCSR.B.LCK)   /* Wait while any previous update of PCSR is done */
-    {
-    }
+    {}
     /* handover P34.1 to the SCR */
     newRegValue = P34_PCSR.U;
     newRegValue |= 0x0002;
     P34_PCSR.U = newRegValue;
-#endif /* USE_TC3X7_TH_V2 */
-
-#if USE_TC4X7_STD_V1
-    /* Available Pins on TriBoard TC3X7 TH V2.0 (under control of SCR per default)
-     *
-     *   SCR I/O   |   TC4 I/O   |   TriBoard TC4X7 STD V1.0   |   SCR I/O   |   TC4 I/O   |   TriBoard TC4X7 STD V1.0
-     * ----------- | ----------- | --------------------------- | ----------- | ----------- | ---------------------------
-     *    P00.0    |   P33.0     |   X703-66 (LED D402)        |    P01.0    |   P33.8     |   X704-56 (free)
-     *    P00.1    |   P33.1     |   X703-67 (LED D403)        |    P01.1    |   P33.9     |   X704-58 (free)
-     *    P00.2    |   P33.2     |   X703-65 (free)            |    P01.2    |   P33.10    |   X704-60 (free)
-     *    P00.3    |   P33.3     |   X703-63 (free)            |    P01.3    |   P33.11    |   X703-79 (Button S301)
-     *    P00.4    |   P33.4     |   X703-68 (LED D404)        |    P01.4    |   P33.12    |   X703-80 (see [^2])
-     *    P00.5    |   P33.5     |   X702-41 (LED D405)        |    P01.5    |   P33.13    |   X704-62 (free)
-     *    P00.6    |   P33.6     |   X703-64 (see [^1])        |    P01.6    |   P33.14    |   X704-64 (free)
-     *    P00.7    |   P33.7     |   X703-77 (free)            |    P01.7    |   P33.15    |   X704-66 (free)
-     * ----------- | ----------- | --------------------------- | ----------- | ----------- | ---------------------------
-     *    P02.0    |   P32.2     |   X704-50 (see [^2])        |    P03.0    |   P34.1     |   X704-69 (free)
-     *    P02.1    |   P32.4     |   X702-52 (free)            |    P03.1    |   P34.2     |   X704-71 (free)
-     *    P02.2    |   P32.5     |   X704-54 (free)            |    P03.2    |   P34.3     |   X704-73 (free)
-     *    P02.3    |   P32.6     |   X704-68 (free)            |    P03.3    |   P34.4     |   X704-72 (free)
-     *    P02.4    |   P32.7     |   X704-70 (free)            |    P03.4    |   P34.5     |   X704-74 (free)
-     *
-     * [^1]: Output for Wake/Inhibit Input of TLF35584/TLF38885
-     * [^2]: Output for ERRx Input of TLF38885
-     */
-    /* handover P33.11 from the SCR to TC */
-    while(P33_PCSRSEL.U & (1<<31))  /* Wait while any previous update of PCSRSEL is done */
-    {
-    }
-    /* Hand over the control of pins from SCR to TC */
-    IfxPort_resetPinControllerSelection(&MODULE_P33, IfxPort_P33_11.pinIndex);
-#endif /* USE_TC4X7_STD_V1 */
+#endif /* USE_KIT_TC397_TRB */
 }
 
 void configureAppBspStatusLeds(void)
@@ -379,12 +321,7 @@ boolean getPinState(AppBspScrPin pin)
             pinState = IfxPort_getPinState(&MODULE_P33, IfxPort_P33_7.pinIndex);
             break;
         case AppBspScrPin_P1_0:
-#if (USE_KIT_A2G_TC397_5V_TFT || USE_TC3X7_TH_V2 || USE_KIT_A2G_TC375_LITE)
             pinState = IfxPort_getPinState(&MODULE_P34, IfxPort_P34_1.pinIndex);
-#endif /* (USE_KIT_A2G_TC397_5V_TFT || USE_TC3X7_TH_V2 || USE_KIT_A2G_TC375_LITE) */
-#if USE_TC4X7_STD_V1
-            pinState = IfxPort_getPinState(&MODULE_P33, IfxPort_P33_8.pinIndex);
-#endif /* USE_TC4X7_STD_V1 */
             break;
         case AppBspScrPin_P1_1:
             pinState = IfxPort_getPinState(&MODULE_P33, IfxPort_P33_9.pinIndex);
@@ -407,38 +344,6 @@ boolean getPinState(AppBspScrPin pin)
         case AppBspScrPin_P1_7:
             pinState = IfxPort_getPinState(&MODULE_P33, IfxPort_P33_15.pinIndex);
             break;
-#if USE_TC4X7_STD_V1
-        case AppBspScrPin_P2_0:
-            pinState = IfxPort_getPinState(&MODULE_P32, IfxPort_P32_2.pinIndex);
-            break;
-        case AppBspScrPin_P2_1:
-            pinState = IfxPort_getPinState(&MODULE_P32, IfxPort_P32_4.pinIndex);
-            break;
-        case AppBspScrPin_P2_2:
-            pinState = IfxPort_getPinState(&MODULE_P32, IfxPort_P32_5.pinIndex);
-            break;
-        case AppBspScrPin_P2_3:
-            pinState = IfxPort_getPinState(&MODULE_P32, IfxPort_P32_6.pinIndex);
-            break;
-        case AppBspScrPin_P2_4:
-            pinState = IfxPort_getPinState(&MODULE_P32, IfxPort_P32_7.pinIndex);
-            break;
-        case AppBspScrPin_P3_0:
-            pinState = IfxPort_getPinState(&MODULE_P34, IfxPort_P34_1.pinIndex);
-            break;
-        case AppBspScrPin_P3_1:
-            pinState = IfxPort_getPinState(&MODULE_P34, IfxPort_P34_2.pinIndex);
-            break;
-        case AppBspScrPin_P3_2:
-            pinState = IfxPort_getPinState(&MODULE_P34, IfxPort_P34_3.pinIndex);
-            break;
-        case AppBspScrPin_P3_3:
-            pinState = IfxPort_getPinState(&MODULE_P34, IfxPort_P34_4.pinIndex);
-            break;
-        case AppBspScrPin_P3_4:
-            pinState = IfxPort_getPinState(&MODULE_P34, IfxPort_P34_5.pinIndex);
-            break;
-#endif /* USE_TC4X7_STD_V1 */
         default:
             /* intentional fall through */
             break;
@@ -486,12 +391,7 @@ void setPinState(AppBspScrPin pin, boolean high)
             IfxPort_setPinState(&MODULE_P33, IfxPort_P33_7.pinIndex, action);
             break;
         case AppBspScrPin_P1_0:
-#if (USE_KIT_A2G_TC397_5V_TFT || USE_TC3X7_TH_V2 || USE_KIT_A2G_TC375_LITE)
             IfxPort_setPinState(&MODULE_P34, IfxPort_P34_1.pinIndex, action);
-#endif /* (USE_KIT_A2G_TC397_5V_TFT || USE_TC3X7_TH_V2 || USE_KIT_A2G_TC375_LITE) */
-#if USE_TC4X7_STD_V1
-            IfxPort_setPinState(&MODULE_P33, IfxPort_P33_8.pinIndex, action);
-#endif /* USE_TC4X7_STD_V1 */
             break;
         case AppBspScrPin_P1_1:
             IfxPort_setPinState(&MODULE_P33, IfxPort_P33_9.pinIndex, action);
@@ -514,38 +414,6 @@ void setPinState(AppBspScrPin pin, boolean high)
         case AppBspScrPin_P1_7:
             IfxPort_setPinState(&MODULE_P33, IfxPort_P33_15.pinIndex, action);
             break;
-#if USE_TC4X7_STD_V1
-        case AppBspScrPin_P2_0:
-            IfxPort_setPinState(&MODULE_P33, IfxPort_P33_15.pinIndex, action);
-            break;
-        case AppBspScrPin_P2_1:
-            IfxPort_setPinState(&MODULE_P33, IfxPort_P33_15.pinIndex, action);
-            break;
-        case AppBspScrPin_P2_2:
-            IfxPort_setPinState(&MODULE_P33, IfxPort_P33_15.pinIndex, action);
-            break;
-        case AppBspScrPin_P2_3:
-            IfxPort_setPinState(&MODULE_P33, IfxPort_P33_15.pinIndex, action);
-            break;
-        case AppBspScrPin_P2_4:
-            IfxPort_setPinState(&MODULE_P33, IfxPort_P33_15.pinIndex, action);
-            break;
-        case AppBspScrPin_P3_0:
-            IfxPort_setPinState(&MODULE_P33, IfxPort_P33_15.pinIndex, action);
-            break;
-        case AppBspScrPin_P3_1:
-            IfxPort_setPinState(&MODULE_P33, IfxPort_P33_15.pinIndex, action);
-            break;
-        case AppBspScrPin_P3_2:
-            IfxPort_setPinState(&MODULE_P33, IfxPort_P33_15.pinIndex, action);
-            break;
-        case AppBspScrPin_P3_3:
-            IfxPort_setPinState(&MODULE_P33, IfxPort_P33_15.pinIndex, action);
-            break;
-        case AppBspScrPin_P3_4:
-            IfxPort_setPinState(&MODULE_P33, IfxPort_P33_15.pinIndex, action);
-            break;
-#endif /* USE_TC4X7_STD_V1 */
         default:
             /* intentional fall through */
             break;

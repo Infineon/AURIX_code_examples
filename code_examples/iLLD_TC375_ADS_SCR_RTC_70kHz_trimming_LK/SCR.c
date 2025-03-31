@@ -41,15 +41,13 @@ void IfxScr_initSCR(ScrBootMode const bootMode)
     PMS_PMSWCR4.U |= 0x3 | (((uint8)bootMode) << 16);
     /* Wait for SCR to be reset */
     while(!PMS_PMSWSTAT.B.SCRST)
-    {
-    }
+    {}
     /* Clear reset status */
     PMS_PMSWSTATCLR.B.SCRSTCLR = 1; 
 
     /* The SCR should have booted up by and have status 0x80 */
     while(PMS_PMSWCR2.B.SCRINT != 0x80)
-    {
-    }
+    {}
 }
 
 void IfxScr_copySCRprogram(void)
@@ -74,8 +72,7 @@ void IfxScr_disableSCR(void)
     PMS_PMSWCR4.U = 0x01000000;
     /* Confirm SCR is disabled */
     while(PMS_PMSWSTAT.B.SCR)
-    {
-    }
+    {}
 }
 
 void IfxScr_enableSCR(void)
@@ -86,8 +83,7 @@ void IfxScr_enableSCR(void)
     PMS_PMSWCR0.U |= (0x1 << 29);
     /* Confirm that SCR is enabled */
     while(!PMS_PMSWSTAT.B.SCR)
-    {
-    }
+    {}
 }
 
 void IfxScr_resetSCR(void)
@@ -95,14 +91,12 @@ void IfxScr_resetSCR(void)
     PMS_PMSWCR4.U |= 0x3;
     /* Wait for SCR to be reset */
     while(!PMS_PMSWSTAT.B.SCRST)
-    {
-    }
+    {}
     /* Clear reset status */
     PMS_PMSWSTATCLR.B.SCRSTCLR = 1;
     /* The SCR should have booted up by and have status 0x80 */
     while(PMS_PMSWCR2.B.SCRINT != 0x80)
-    {
-    }
+    {}
 }
 
 /*

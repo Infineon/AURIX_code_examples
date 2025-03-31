@@ -47,15 +47,10 @@
     #define STATUSLED_TCACTIVITY    (AppBspStatusLed_4) /* LED showing TriCore(TM) activity */
 #endif /* USE_KIT_A2G_TC397_5V_TFT */
 
-#if USE_TC3X7_TH_V2
+#if USE_KIT_TC397_TRB
     #define TICKS_FOR_1_MS          (100000UL)
     #define STATUSLED_TCACTIVITY    (AppBspStatusLed_4) /* LED showing TriCore(TM) activity */
-#endif /* USE_TC3X7_TH_V2 */
-
-#if USE_TC4X7_STD_V1
-    #define TICKS_FOR_1_MS          (100000UL)
-    #define STATUSLED_TCACTIVITY    (AppBspStatusLed_4) /* LED showing TriCore(TM) activity */
-#endif /* USE_TC4X7_STD_V1 */
+#endif /* USE_KIT_TC397_TRB */
 
 /*********************************************************************************************************************/
 /*-------------------------------------------------Global variables--------------------------------------------------*/
@@ -66,10 +61,10 @@
 /*********************************************************************************************************************/
 typedef enum
 {
-    AppBspStatusLed_1,  /* LED 1 / D107 / D306 / D406 / D1 */
-    AppBspStatusLed_2,  /* LED 2 / D108 / D307 / D407 / D2 */
-    AppBspStatusLed_3,  /* LED 3 / D109 / D308 / D408 */
-    AppBspStatusLed_4   /* LED 4 / D110 / D309 / D409 */
+    AppBspStatusLed_1,  /* LED 1 / D107 / D306 / D1 */
+    AppBspStatusLed_2,  /* LED 2 / D108 / D307 / D2 */
+    AppBspStatusLed_3,  /* LED 3 / D109 / D308 */
+    AppBspStatusLed_4   /* LED 4 / D110 / D309 */
 } AppBspStatusLed;
 
 typedef enum
@@ -91,20 +86,6 @@ typedef enum
     AppBspScrPin_P1_5,  /* SCR Port 1, Pin 5 */
     AppBspScrPin_P1_6,  /* SCR Port 1, Pin 6 */
     AppBspScrPin_P1_7,  /* SCR Port 1, Pin 7 */
-
-#if USE_TC4X7_STD_V1
-    AppBspScrPin_P2_0,  /* SCR Port 2, Pin 0 , only TC4 */
-    AppBspScrPin_P2_1,  /* SCR Port 2, Pin 1 , only TC4 */
-    AppBspScrPin_P2_2,  /* SCR Port 2, Pin 2 , only TC4 */
-    AppBspScrPin_P2_3,  /* SCR Port 2, Pin 3 , only TC4 */
-    AppBspScrPin_P2_4,  /* SCR Port 2, Pin 4 , only TC4 */
-
-    AppBspScrPin_P3_0,  /* SCR Port 3, Pin 0 , only TC4 */
-    AppBspScrPin_P3_1,  /* SCR Port 3, Pin 1 , only TC4 */
-    AppBspScrPin_P3_2,  /* SCR Port 3, Pin 2 , only TC4 */
-    AppBspScrPin_P3_3,  /* SCR Port 3, Pin 3 , only TC4 */
-    AppBspScrPin_P3_4,  /* SCR Port 3, Pin 4 , only TC4 */
-#endif /* USE_TC4X7_STD_V1 */
 } AppBspScrPin;
 
 /*********************************************************************************************************************/

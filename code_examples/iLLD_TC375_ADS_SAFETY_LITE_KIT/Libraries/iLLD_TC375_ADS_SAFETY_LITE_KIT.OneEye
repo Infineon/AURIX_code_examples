@@ -1,0 +1,1845 @@
+<root version="2.46.0">
+    <signals>
+        <var name="elf" type="group" offset="0" access="read-write">
+            <var name="g_LbistStatus" type="group" offset="0" access="read-write">
+                <item-configuration>
+                    <title><![CDATA[g_LbistStatus]]></title>
+                </item-configuration>
+                <var name="lbistNotTerminatedByPORST" type="uint8" offset="0" access="read-write" default="0">
+                    <item-configuration>
+                        <title><![CDATA[lbistNotTerminatedByPORST]]></title>
+                    </item-configuration>
+                </var>
+                <var name="lbistTerminatedProperly" type="uint8" offset="0" access="read-write" default="0">
+                    <item-configuration>
+                        <title><![CDATA[lbistTerminatedProperly]]></title>
+                    </item-configuration>
+                </var>
+                <var name="lbistDone" type="uint8" offset="0" access="read-write" default="0">
+                    <item-configuration>
+                        <title><![CDATA[lbistDone]]></title>
+                    </item-configuration>
+                </var>
+                <var name="lbistDefect" type="uint8" offset="0" access="read-write" default="0">
+                    <item-configuration>
+                        <title><![CDATA[lbistDefect]]></title>
+                    </item-configuration>
+                </var>
+                <var name="deviceNotDefect" type="uint8" offset="0" access="read-write" default="0">
+                    <item-configuration>
+                        <title><![CDATA[deviceNotDefect]]></title>
+                    </item-configuration>
+                </var>
+            </var>
+            <var name="g_SlkStatus" type="group" offset="0" access="read-write">
+                <item-configuration>
+                    <title><![CDATA[g_SlkStatus]]></title>
+                </item-configuration>
+                <var name="sswStatus" type="group" offset="0" access="read-write">
+                    <item-configuration>
+                        <title><![CDATA[sswStatus]]></title>
+                    </item-configuration>
+                    <var name="lbistStatus" type="bit" data-size="8" offset="0" access="read-write" default="0" enum="true">
+                        <item-configuration>
+                            <title><![CDATA[lbistStatus]]></title>
+                        </item-configuration>
+                        <option data="0">
+                            <item-configuration>
+                                <value><![CDATA[failed]]></value>
+                                <title><![CDATA[failed]]></title>
+                            </item-configuration>
+                        </option>
+                        <option data="1">
+                            <item-configuration>
+                                <value><![CDATA[passed]]></value>
+                                <title><![CDATA[passed]]></title>
+                            </item-configuration>
+                        </option>
+                        <option data="2">
+                            <item-configuration>
+                                <value><![CDATA[notEvaluated]]></value>
+                                <title><![CDATA[notEvaluated]]></title>
+                            </item-configuration>
+                        </option>
+                    </var>
+                    <var name="monbistStatus" type="bit" data-size="8" offset="0" access="read-write" default="0" enum="true">
+                        <item-configuration>
+                            <title><![CDATA[monbistStatus]]></title>
+                        </item-configuration>
+                        <option data="0">
+                            <item-configuration>
+                                <value><![CDATA[failed]]></value>
+                                <title><![CDATA[failed]]></title>
+                            </item-configuration>
+                        </option>
+                        <option data="1">
+                            <item-configuration>
+                                <value><![CDATA[passed]]></value>
+                                <title><![CDATA[passed]]></title>
+                            </item-configuration>
+                        </option>
+                        <option data="2">
+                            <item-configuration>
+                                <value><![CDATA[notEvaluated]]></value>
+                                <title><![CDATA[notEvaluated]]></title>
+                            </item-configuration>
+                        </option>
+                    </var>
+                    <var name="mcuFwcheckStatus" type="bit" data-size="8" offset="0" access="read-write" default="0" enum="true">
+                        <item-configuration>
+                            <title><![CDATA[mcuFwcheckStatus]]></title>
+                        </item-configuration>
+                        <option data="0">
+                            <item-configuration>
+                                <value><![CDATA[failed]]></value>
+                                <title><![CDATA[failed]]></title>
+                            </item-configuration>
+                        </option>
+                        <option data="1">
+                            <item-configuration>
+                                <value><![CDATA[passed]]></value>
+                                <title><![CDATA[passed]]></title>
+                            </item-configuration>
+                        </option>
+                        <option data="2">
+                            <item-configuration>
+                                <value><![CDATA[notEvaluated]]></value>
+                                <title><![CDATA[notEvaluated]]></title>
+                            </item-configuration>
+                        </option>
+                    </var>
+                    <var name="mcuStartupStatus" type="bit" data-size="8" offset="0" access="read-write" default="0" enum="true">
+                        <item-configuration>
+                            <title><![CDATA[mcuStartupStatus]]></title>
+                        </item-configuration>
+                        <option data="0">
+                            <item-configuration>
+                                <value><![CDATA[failed]]></value>
+                                <title><![CDATA[failed]]></title>
+                            </item-configuration>
+                        </option>
+                        <option data="1">
+                            <item-configuration>
+                                <value><![CDATA[passed]]></value>
+                                <title><![CDATA[passed]]></title>
+                            </item-configuration>
+                        </option>
+                        <option data="2">
+                            <item-configuration>
+                                <value><![CDATA[notEvaluated]]></value>
+                                <title><![CDATA[notEvaluated]]></title>
+                            </item-configuration>
+                        </option>
+                    </var>
+                    <var name="aliveAlarmTestStatus" type="bit" data-size="8" offset="0" access="read-write" default="0" enum="true">
+                        <item-configuration>
+                            <title><![CDATA[aliveAlarmTestStatus]]></title>
+                        </item-configuration>
+                        <option data="0">
+                            <item-configuration>
+                                <value><![CDATA[failed]]></value>
+                                <title><![CDATA[failed]]></title>
+                            </item-configuration>
+                        </option>
+                        <option data="1">
+                            <item-configuration>
+                                <value><![CDATA[passed]]></value>
+                                <title><![CDATA[passed]]></title>
+                            </item-configuration>
+                        </option>
+                        <option data="2">
+                            <item-configuration>
+                                <value><![CDATA[notEvaluated]]></value>
+                                <title><![CDATA[notEvaluated]]></title>
+                            </item-configuration>
+                        </option>
+                    </var>
+                    <var name="mbistStatus" type="bit" data-size="8" offset="0" access="read-write" default="0" enum="true">
+                        <item-configuration>
+                            <title><![CDATA[mbistStatus]]></title>
+                        </item-configuration>
+                        <option data="0">
+                            <item-configuration>
+                                <value><![CDATA[failed]]></value>
+                                <title><![CDATA[failed]]></title>
+                            </item-configuration>
+                        </option>
+                        <option data="1">
+                            <item-configuration>
+                                <value><![CDATA[passed]]></value>
+                                <title><![CDATA[passed]]></title>
+                            </item-configuration>
+                        </option>
+                        <option data="2">
+                            <item-configuration>
+                                <value><![CDATA[notEvaluated]]></value>
+                                <title><![CDATA[notEvaluated]]></title>
+                            </item-configuration>
+                        </option>
+                    </var>
+                </var>
+                <var name="smuStatus" type="group" offset="0" access="read-write">
+                    <item-configuration>
+                        <title><![CDATA[smuStatus]]></title>
+                    </item-configuration>
+                    <var name="smuCoreAliveTestSts" type="bit" data-size="8" offset="0" access="read-write" default="0" enum="true">
+                        <item-configuration>
+                            <title><![CDATA[smuCoreAliveTestSts]]></title>
+                        </item-configuration>
+                        <option data="0">
+                            <item-configuration>
+                                <value><![CDATA[NA]]></value>
+                                <title><![CDATA[NA]]></title>
+                            </item-configuration>
+                        </option>
+                        <option data="1">
+                            <item-configuration>
+                                <value><![CDATA[fail]]></value>
+                                <title><![CDATA[fail]]></title>
+                            </item-configuration>
+                        </option>
+                        <option data="2">
+                            <item-configuration>
+                                <value><![CDATA[pass]]></value>
+                                <title><![CDATA[pass]]></title>
+                            </item-configuration>
+                        </option>
+                    </var>
+                    <var name="smuCoreAliveTestClearSts" type="bit" data-size="8" offset="0" access="read-write" default="0" enum="true">
+                        <item-configuration>
+                            <title><![CDATA[smuCoreAliveTestClearSts]]></title>
+                        </item-configuration>
+                        <option data="0">
+                            <item-configuration>
+                                <value><![CDATA[NA]]></value>
+                                <title><![CDATA[NA]]></title>
+                            </item-configuration>
+                        </option>
+                        <option data="1">
+                            <item-configuration>
+                                <value><![CDATA[fail]]></value>
+                                <title><![CDATA[fail]]></title>
+                            </item-configuration>
+                        </option>
+                        <option data="2">
+                            <item-configuration>
+                                <value><![CDATA[pass]]></value>
+                                <title><![CDATA[pass]]></title>
+                            </item-configuration>
+                        </option>
+                    </var>
+                    <var name="smuSafetyFlipFlopTriggerTestSts" type="bit" data-size="8" offset="0" access="read-write" default="0" enum="true">
+                        <item-configuration>
+                            <title><![CDATA[smuSafetyFlipFlopTriggerTestSts]]></title>
+                        </item-configuration>
+                        <option data="0">
+                            <item-configuration>
+                                <value><![CDATA[NA]]></value>
+                                <title><![CDATA[NA]]></title>
+                            </item-configuration>
+                        </option>
+                        <option data="1">
+                            <item-configuration>
+                                <value><![CDATA[fail]]></value>
+                                <title><![CDATA[fail]]></title>
+                            </item-configuration>
+                        </option>
+                        <option data="2">
+                            <item-configuration>
+                                <value><![CDATA[pass]]></value>
+                                <title><![CDATA[pass]]></title>
+                            </item-configuration>
+                        </option>
+                    </var>
+                    <var name="smuSafetyFlipFlopTestResultCheckSts" type="bit" data-size="8" offset="0" access="read-write" default="0" enum="true">
+                        <item-configuration>
+                            <title><![CDATA[smuSafetyFlipFlopTestResultCheckSts]]></title>
+                        </item-configuration>
+                        <option data="0">
+                            <item-configuration>
+                                <value><![CDATA[NA]]></value>
+                                <title><![CDATA[NA]]></title>
+                            </item-configuration>
+                        </option>
+                        <option data="1">
+                            <item-configuration>
+                                <value><![CDATA[fail]]></value>
+                                <title><![CDATA[fail]]></title>
+                            </item-configuration>
+                        </option>
+                        <option data="2">
+                            <item-configuration>
+                                <value><![CDATA[pass]]></value>
+                                <title><![CDATA[pass]]></title>
+                            </item-configuration>
+                        </option>
+                    </var>
+                    <var name="smuSafetyFlipFlopTestAlarmFlagClearSts" type="bit" data-size="8" offset="0" access="read-write" default="0" enum="true">
+                        <item-configuration>
+                            <title><![CDATA[smuSafetyFlipFlopTestAlarmFlagClearSts]]></title>
+                        </item-configuration>
+                        <option data="0">
+                            <item-configuration>
+                                <value><![CDATA[NA]]></value>
+                                <title><![CDATA[NA]]></title>
+                            </item-configuration>
+                        </option>
+                        <option data="1">
+                            <item-configuration>
+                                <value><![CDATA[fail]]></value>
+                                <title><![CDATA[fail]]></title>
+                            </item-configuration>
+                        </option>
+                        <option data="2">
+                            <item-configuration>
+                                <value><![CDATA[pass]]></value>
+                                <title><![CDATA[pass]]></title>
+                            </item-configuration>
+                        </option>
+                    </var>
+                    <var name="regMonitorTestSmu" type="bit" data-size="8" offset="0" access="read-write" default="0" enum="true">
+                        <item-configuration>
+                            <title><![CDATA[regMonitorTestSmu]]></title>
+                        </item-configuration>
+                        <option data="0">
+                            <item-configuration>
+                                <value><![CDATA[NA]]></value>
+                                <title><![CDATA[NA]]></title>
+                            </item-configuration>
+                        </option>
+                        <option data="1">
+                            <item-configuration>
+                                <value><![CDATA[fail]]></value>
+                                <title><![CDATA[fail]]></title>
+                            </item-configuration>
+                        </option>
+                        <option data="2">
+                            <item-configuration>
+                                <value><![CDATA[pass]]></value>
+                                <title><![CDATA[pass]]></title>
+                            </item-configuration>
+                        </option>
+                    </var>
+                </var>
+                <var name="dieTempStatus" type="group" offset="0" access="read-write">
+                    <item-configuration>
+                        <title><![CDATA[dieTempStatus]]></title>
+                    </item-configuration>
+                    <var name="dieTemperaturePms" type="float" offset="0" access="read-write" default="0">
+                        <item-configuration>
+                            <title><![CDATA[dieTemperaturePms]]></title>
+                        </item-configuration>
+                    </var>
+                    <var name="dieTemperatureCore" type="float" offset="0" access="read-write" default="0">
+                        <item-configuration>
+                            <title><![CDATA[dieTemperatureCore]]></title>
+                        </item-configuration>
+                    </var>
+                </var>
+                <var name="slkRunTask" type="group" offset="0" access="read-write">
+                    <item-configuration>
+                        <title><![CDATA[slkRunTask]]></title>
+                    </item-configuration>
+                    <var name="triggerStmAlarm" type="uint8" offset="0" access="read-write" default="0">
+                        <item-configuration>
+                            <title><![CDATA[triggerStmAlarm]]></title>
+                        </item-configuration>
+                    </var>
+                </var>
+                <var name="timeDiffQspiClockPlaus" type="float" offset="0" access="read-write" default="0">
+                    <item-configuration>
+                        <title><![CDATA[timeDiffQspiClockPlaus]]></title>
+                    </item-configuration>
+                </var>
+                <var name="portLoopbackAlarmOnOff" type="uint8" offset="0" access="read-write" default="0">
+                    <item-configuration>
+                        <title><![CDATA[portLoopbackAlarmOnOff]]></title>
+                    </item-configuration>
+                </var>
+                <var name="portRedundancyAlarmOnOff" type="uint8" offset="0" access="read-write" default="0">
+                    <item-configuration>
+                        <title><![CDATA[portRedundancyAlarmOnOff]]></title>
+                    </item-configuration>
+                </var>
+                <var name="digitalAcqActFucSelect" type="bit" data-size="8" offset="0" access="read-write" default="0" enum="true">
+                    <item-configuration>
+                        <title><![CDATA[digitalAcqActFucSelect]]></title>
+                    </item-configuration>
+                    <option data="0">
+                        <item-configuration>
+                            <value><![CDATA[None Selected]]></value>
+                            <title><![CDATA[noDigitalAcquisition]]></title>
+                        </item-configuration>
+                    </option>
+                    <option data="1">
+                        <item-configuration>
+                            <value><![CDATA[Init Digital Acquisition Fuc0]]></value>
+                            <title><![CDATA[initializeDAcqFuc0]]></title>
+                        </item-configuration>
+                    </option>
+                    <option data="2">
+                        <item-configuration>
+                            <value><![CDATA[Init Digital Acquisition Fuc1]]></value>
+                            <title><![CDATA[initializeDAcqFuc1]]></title>
+                        </item-configuration>
+                    </option>
+                    <option data="3">
+                        <item-configuration>
+                            <value><![CDATA[Init Digital Acquisition Fuc2]]></value>
+                            <title><![CDATA[initializeDAcqFuc2]]></title>
+                        </item-configuration>
+                    </option>
+                    <option data="4">
+                        <item-configuration>
+                            <value><![CDATA[Init Digital Acquisition Fuc3]]></value>
+                            <title><![CDATA[initializeDAcqFuc3]]></title>
+                        </item-configuration>
+                    </option>
+                    <option data="5">
+                        <item-configuration>
+                            <value><![CDATA[Init Digital Acquisition Fuc4]]></value>
+                            <title><![CDATA[initializeDActFuc0]]></title>
+                        </item-configuration>
+                    </option>
+                    <option data="6">
+                        <item-configuration>
+                            <value><![CDATA[Init Digital Actuation Fuc0]]></value>
+                            <title><![CDATA[initializeDActFuc1]]></title>
+                        </item-configuration>
+                    </option>
+                    <option data="7">
+                        <item-configuration>
+                            <value><![CDATA[Init Digital Actuation Fuc1]]></value>
+                            <title><![CDATA[initializeDActFuc2]]></title>
+                        </item-configuration>
+                    </option>
+                    <option data="8">
+                        <item-configuration>
+                            <value><![CDATA[Init Digital Actuation Fuc2]]></value>
+                            <title><![CDATA[initializeDActFuc3]]></title>
+                        </item-configuration>
+                    </option>
+                    <option data="9">
+                        <item-configuration>
+                            <value><![CDATA[Init Digital Actuation Fuc3]]></value>
+                            <title><![CDATA[initializeDActFuc3]]></title>
+                        </item-configuration>
+                    </option>
+                </var>
+                <var name="analogAcqFucSelect" type="bit" data-size="8" offset="0" access="read-write" default="0" enum="true">
+                    <item-configuration>
+                        <title><![CDATA[analogAcqFucSelect]]></title>
+                    </item-configuration>
+                    <option data="0">
+                        <item-configuration>
+                            <value><![CDATA[noAnalogAcquisitionMode]]></value>
+                            <title><![CDATA[noAnalogAcquisitionMode]]></title>
+                        </item-configuration>
+                    </option>
+                    <option data="1">
+                        <item-configuration>
+                            <value><![CDATA[initAAcqFuc0Mode]]></value>
+                            <title><![CDATA[initAAcqFuc0Mode]]></title>
+                        </item-configuration>
+                    </option>
+                    <option data="2">
+                        <item-configuration>
+                            <value><![CDATA[initAAcqFuc1Mode]]></value>
+                            <title><![CDATA[initAAcqFuc1Mode]]></title>
+                        </item-configuration>
+                    </option>
+                    <option data="3">
+                        <item-configuration>
+                            <value><![CDATA[initAAcqFuc2Mode]]></value>
+                            <title><![CDATA[initAAcqFuc2Mode]]></title>
+                        </item-configuration>
+                    </option>
+                    <option data="4">
+                        <item-configuration>
+                            <value><![CDATA[initAAcqFuc3Mode]]></value>
+                            <title><![CDATA[initAAcqFuc3Mode]]></title>
+                        </item-configuration>
+                    </option>
+                    <option data="5">
+                        <item-configuration>
+                            <value><![CDATA[initAAcqFuc4BrokenWRMode]]></value>
+                            <title><![CDATA[initAAcqFuc4BrokenWRMode]]></title>
+                        </item-configuration>
+                    </option>
+                </var>
+                <var name="provokeTrapsSelect" type="bit" data-size="8" offset="0" access="read-write" default="0" enum="true">
+                    <item-configuration>
+                        <title><![CDATA[provokeTrapsSelect]]></title>
+                    </item-configuration>
+                    <option data="0">
+                        <item-configuration>
+                            <value><![CDATA[No Trap Provoke]]></value>
+                            <title><![CDATA[noTrapProvoke]]></title>
+                        </item-configuration>
+                    </option>
+                    <option data="1">
+                        <item-configuration>
+                            <value><![CDATA[Provoke Synchronous Hardware Trap]]></value>
+                            <title><![CDATA[provokeSynchronousHardwareTrap]]></title>
+                        </item-configuration>
+                    </option>
+                    <option data="2">
+                        <item-configuration>
+                            <value><![CDATA[Provoke Asynchronous Hardware Trap]]></value>
+                            <title><![CDATA[provokeAsynchronousHardwareTrap]]></title>
+                        </item-configuration>
+                    </option>
+                    <option data="3">
+                        <item-configuration>
+                            <value><![CDATA[Provoke Synchronous Software Trap]]></value>
+                            <title><![CDATA[provokeSynchronousSoftwareTrap]]></title>
+                        </item-configuration>
+                    </option>
+                    <option data="4">
+                        <item-configuration>
+                            <value><![CDATA[Provoke Protection Trap]]></value>
+                            <title><![CDATA[provokeProtectionTrap]]></title>
+                        </item-configuration>
+                    </option>
+                    <option data="5">
+                        <item-configuration>
+                            <value><![CDATA[Provoke Nmi Trap]]></value>
+                            <title><![CDATA[provokeNmiTrap]]></title>
+                        </item-configuration>
+                    </option>
+                </var>
+            </var>
+            <var name="g_MonbistStatus" type="group" offset="0" access="read-write">
+                <item-configuration>
+                    <title><![CDATA[g_MonbistStatus]]></title>
+                </item-configuration>
+                <var name="testOkFlag" type="uint8" offset="0" access="read-write" default="0">
+                    <item-configuration>
+                        <title><![CDATA[testOkFlag]]></title>
+                    </item-configuration>
+                </var>
+                <var name="smuErrorFlag" type="uint8" offset="0" access="read-write" default="0">
+                    <item-configuration>
+                        <title><![CDATA[smuErrorFlag]]></title>
+                    </item-configuration>
+                </var>
+                <var name="pmsErrorFlag" type="uint8" offset="0" access="read-write" default="0">
+                    <item-configuration>
+                        <title><![CDATA[pmsErrorFlag]]></title>
+                    </item-configuration>
+                </var>
+            </var>
+            <var name="g_mcuFwCheckStatus" type="group" offset="0" access="read-write">
+                <item-configuration>
+                    <title><![CDATA[g_mcuFwCheckStatus]]></title>
+                </item-configuration>
+                <var name="mcuFwCheckSmu" type="uint8" offset="0" access="read-write" default="0">
+                    <item-configuration>
+                        <title><![CDATA[mcuFwCheckSmu]]></title>
+                    </item-configuration>
+                </var>
+                <var name="mcuFwCheckScuStem" type="uint8" offset="0" access="read-write" default="0">
+                    <item-configuration>
+                        <title><![CDATA[mcuFwCheckScuStem]]></title>
+                    </item-configuration>
+                </var>
+                <var name="mcuFwCheckScuLclcon" type="uint8" offset="0" access="read-write" default="0">
+                    <item-configuration>
+                        <title><![CDATA[mcuFwCheckScuLclcon]]></title>
+                    </item-configuration>
+                </var>
+                <var name="mcuFwCheckSsh" type="uint8" offset="0" access="read-write" default="0">
+                    <item-configuration>
+                        <title><![CDATA[mcuFwCheckSsh]]></title>
+                    </item-configuration>
+                </var>
+            </var>
+            <var name="g_mcuStartupStatus" type="group" offset="0" access="read-write">
+                <item-configuration>
+                    <title><![CDATA[g_mcuStartupStatus]]></title>
+                </item-configuration>
+                <var name="mcuStartupCrcXorFF" type="uint8" offset="0" access="read-write" default="0">
+                    <item-configuration>
+                        <title><![CDATA[mcuStartupCrcXorFF]]></title>
+                    </item-configuration>
+                </var>
+                <var name="mcuStartupCrcXor00" type="uint8" offset="0" access="read-write" default="0">
+                    <item-configuration>
+                        <title><![CDATA[mcuStartupCrcXor00]]></title>
+                    </item-configuration>
+                </var>
+            </var>
+            <var name="g_count" type="uint32" offset="0" access="read-write" default="0">
+                <item-configuration>
+                    <title><![CDATA[g_count]]></title>
+                </item-configuration>
+            </var>
+            <var name="g_MbistStatus" type="group" offset="0" access="read-write">
+                <item-configuration>
+                    <title><![CDATA[g_MbistStatus]]></title>
+                </item-configuration>
+                <var name="noMbistError" type="uint8" offset="0" access="read-write" default="0">
+                    <item-configuration>
+                        <title><![CDATA[noMbistError]]></title>
+                    </item-configuration>
+                </var>
+            </var>
+            <var name="g_triggerSMU" type="uint8" offset="0" access="read-write" default="0">
+                <item-configuration>
+                    <title><![CDATA[g_triggerSMU]]></title>
+                </item-configuration>
+            </var>
+            <var name="g_returnSMU" type="uint32" offset="0" access="read-write" default="0" on-updated="{script:outputPrintedSMU.js}">
+                <item-configuration>
+                    <title><![CDATA[g_returnSMU]]></title>
+                </item-configuration>
+            </var>
+            <var name="g_clearSMU" type="uint8" offset="0" access="read-write" default="0">
+                <item-configuration>
+                    <title><![CDATA[g_clearSMU]]></title>
+                </item-configuration>
+            </var>
+            <var name="g_texte" type="group" offset="0" access="read-write">
+                <item-configuration>
+                    <title><![CDATA[g_texte]]></title>
+                </item-configuration>
+                <var name="*g_texte" type="sint8" offset="0" access="read-write" default="0">
+                    <item-configuration>
+                        <title><![CDATA[*]]></title>
+                    </item-configuration>
+                </var>
+            </var>
+            <var name="g_resetSys" type="uint8" offset="0" access="read-write" default="0">
+                <item-configuration>
+                    <title><![CDATA[g_resetSys]]></title>
+                </item-configuration>
+            </var>
+            <var name="g_resetAlm" type="uint8" offset="0" access="read-write" default="0">
+                <item-configuration>
+                    <title><![CDATA[g_resetAlm]]></title>
+                </item-configuration>
+            </var>
+            <var name="g_CpuStatus" type="group" offset="0" access="read-write">
+                <item-configuration>
+                    <title><![CDATA[g_CpuStatus]]></title>
+                </item-configuration>
+                <var name="AP_CHECK_FLAG" type="uint8" offset="0" access="read-write" default="0">
+                    <item-configuration>
+                        <title><![CDATA[AP_CHECK_FLAG]]></title>
+                    </item-configuration>
+                </var>
+                <var name="MPU_INIT_FLAG" type="uint8" offset="0" access="read-write" default="0">
+                    <item-configuration>
+                        <title><![CDATA[MPU_INIT_FLAG]]></title>
+                    </item-configuration>
+                </var>
+                <var name="CODE_MPU_FLAG" type="uint8" offset="0" access="read-write" default="0">
+                    <item-configuration>
+                        <title><![CDATA[CODE_MPU_FLAG]]></title>
+                    </item-configuration>
+                </var>
+                <var name="ERROR_INJECTION" type="uint8" offset="0" access="read-write" default="0">
+                    <item-configuration>
+                        <title><![CDATA[ERROR_INJECTION]]></title>
+                    </item-configuration>
+                </var>
+                <var name="CPU_ALARM_TRIGGER" type="uint8" offset="0" access="read-write" default="0">
+                    <item-configuration>
+                        <title><![CDATA[CPU_ALARM_TRIGGER]]></title>
+                    </item-configuration>
+                </var>
+                <var name="DATA_MPU_FLAG" type="uint8" offset="0" access="read-write" default="0">
+                    <item-configuration>
+                        <title><![CDATA[DATA_MPU_FLAG]]></title>
+                    </item-configuration>
+                </var>
+                <var name="SFR_FLAG" type="uint8" offset="0" access="read-write" default="0">
+                    <item-configuration>
+                        <title><![CDATA[SFR_FLAG]]></title>
+                    </item-configuration>
+                </var>
+                <var name="SBST_ERROR" type="uint8" offset="0" access="read-write" default="0">
+                    <item-configuration>
+                        <title><![CDATA[SBST_ERROR]]></title>
+                    </item-configuration>
+                </var>
+                <var name="selectCpuTest" type="bit" data-size="8" offset="0" access="read-write" default="0" enum="true">
+                    <item-configuration>
+                        <title><![CDATA[selectCpuTest]]></title>
+                    </item-configuration>
+                    <option data="0">
+                        <item-configuration>
+                            <value><![CDATA[None Selected]]></value>
+                            <title><![CDATA[noneSelected]]></title>
+                        </item-configuration>
+                    </option>
+                    <option data="1">
+                        <item-configuration>
+                            <value><![CDATA[Access Protection Check]]></value>
+                            <title><![CDATA[apCheck]]></title>
+                        </item-configuration>
+                    </option>
+                    <option data="2">
+                        <item-configuration>
+                            <value><![CDATA[MPU Init Check]]></value>
+                            <title><![CDATA[mpuInitCheck]]></title>
+                        </item-configuration>
+                    </option>
+                    <option data="3">
+                        <item-configuration>
+                            <value><![CDATA[Code MPU Check]]></value>
+                            <title><![CDATA[codeMpuCheck]]></title>
+                        </item-configuration>
+                    </option>
+                    <option data="4">
+                        <item-configuration>
+                            <value><![CDATA[Data MPU Check]]></value>
+                            <title><![CDATA[dataMpuCheck]]></title>
+                        </item-configuration>
+                    </option>
+                    <option data="5">
+                        <item-configuration>
+                            <value><![CDATA[SFR Test]]></value>
+                            <title><![CDATA[sfrTest]]></title>
+                        </item-configuration>
+                    </option>
+                </var>
+                <var name="sbstStatus" type="group" offset="0" access="read-write">
+                    <item-configuration>
+                        <title><![CDATA[sbstStatus]]></title>
+                    </item-configuration>
+                    <var name="SBST_ERROR" type="uint8" offset="0" access="read-write" default="0">
+                        <item-configuration>
+                            <title><![CDATA[SBST_ERROR]]></title>
+                        </item-configuration>
+                    </var>
+                    <var name="sbstTestSelection" type="bit" data-size="8" offset="0" access="read-write" default="0" enum="true">
+                        <item-configuration>
+                            <title><![CDATA[sbstTestSelection]]></title>
+                        </item-configuration>
+                        <option data="0">
+                            <item-configuration>
+                                <value><![CDATA[defaultTest]]></value>
+                                <title><![CDATA[defaultTest]]></title>
+                            </item-configuration>
+                        </option>
+                        <option data="1">
+                            <item-configuration>
+                                <value><![CDATA[SbstFullTest]]></value>
+                                <title><![CDATA[SbstFullTest]]></title>
+                            </item-configuration>
+                        </option>
+                        <option data="2">
+                            <item-configuration>
+                                <value><![CDATA[SbstSlicesTest]]></value>
+                                <title><![CDATA[SbstSlicesTest]]></title>
+                            </item-configuration>
+                        </option>
+                    </var>
+                </var>
+            </var>
+            <var name="slkSelectCpuError" type="uint8" offset="0" access="read-write" default="0">
+                <item-configuration>
+                    <title><![CDATA[slkSelectCpuError]]></title>
+                </item-configuration>
+            </var>
+            <var name="test_result" type="uint8" offset="0" access="read-write" default="0">
+                <item-configuration>
+                    <title><![CDATA[test_result]]></title>
+                </item-configuration>
+            </var>
+            <var name="watchdogTicks" type="uint32" offset="0" access="read-write" default="0">
+                <item-configuration>
+                    <title><![CDATA[watchdogTicks]]></title>
+                </item-configuration>
+            </var>
+            <var name="g_DmaErrorInjection" type="group" offset="0" access="read-write">
+                <item-configuration>
+                    <title><![CDATA[g_DmaErrorInjection]]></title>
+                </item-configuration>
+                <var name="injectCrcError" type="uint8" offset="0" access="read-write" default="0">
+                    <item-configuration>
+                        <title><![CDATA[injectCrcError]]></title>
+                    </item-configuration>
+                </var>
+                <var name="injectDestinationError" type="uint8" offset="0" access="read-write" default="0">
+                    <item-configuration>
+                        <title><![CDATA[injectDestinationError]]></title>
+                    </item-configuration>
+                </var>
+                <var name="injectTimestampError" type="uint8" offset="0" access="read-write" default="0">
+                    <item-configuration>
+                        <title><![CDATA[injectTimestampError]]></title>
+                    </item-configuration>
+                </var>
+            </var>
+            <var name="g_triggerNvmPflashBitsError" type="group" offset="0" access="read-write">
+                <item-configuration>
+                    <title><![CDATA[g_triggerNvmPflashBitsError]]></title>
+                </item-configuration>
+                <var name="triggerSBE" type="uint8" offset="0" access="read-write" default="0">
+                    <item-configuration>
+                        <title><![CDATA[triggerSBE]]></title>
+                    </item-configuration>
+                </var>
+                <var name="triggerDBE" type="uint8" offset="0" access="read-write" default="0">
+                    <item-configuration>
+                        <title><![CDATA[triggerDBE]]></title>
+                    </item-configuration>
+                </var>
+                <var name="triggerMBE" type="uint8" offset="0" access="read-write" default="0">
+                    <item-configuration>
+                        <title><![CDATA[triggerMBE]]></title>
+                    </item-configuration>
+                </var>
+            </var>
+            <var name="g_trigerSriError" type="group" offset="0" access="read-write">
+                <item-configuration>
+                    <title><![CDATA[g_trigerSriError]]></title>
+                </item-configuration>
+                <var name="SriError" type="uint8" offset="0" access="read-write" default="0">
+                    <item-configuration>
+                        <title><![CDATA[SriError]]></title>
+                    </item-configuration>
+                </var>
+                <var name="EccErrorDma" type="uint8" offset="0" access="read-write" default="0">
+                    <item-configuration>
+                        <title><![CDATA[EccErrorDma]]></title>
+                    </item-configuration>
+                </var>
+            </var>
+            <var name="slkSelectTrap" type="uint8" offset="0" access="read-write" default="0">
+                <item-configuration>
+                    <title><![CDATA[slkSelectTrap]]></title>
+                </item-configuration>
+            </var>
+            <var name="g_triggerLmuDamCrcError" type="uint8" offset="0" access="read-write" default="0">
+                <item-configuration>
+                    <title><![CDATA[g_triggerLmuDamCrcError]]></title>
+                </item-configuration>
+            </var>
+            <var name="enableQspiSafeCommunication" type="uint8" offset="0" access="read-write" default="0">
+                <item-configuration>
+                    <title><![CDATA[enableQspiSafeCommunication]]></title>
+                </item-configuration>
+            </var>
+            <var name="g_ErrorTypeQspiSafe" type="uint8" offset="0" access="read-write" default="0">
+                <item-configuration>
+                    <title><![CDATA[g_ErrorTypeQspiSafe]]></title>
+                </item-configuration>
+            </var>
+            <var name="g_dmaErrorStatus" type="uint32" offset="0" access="read-write" default="0">
+                <item-configuration>
+                    <title><![CDATA[g_dmaErrorStatus]]></title>
+                </item-configuration>
+            </var>
+            <var name="g_analogAcquisitionStatus" type="group" offset="0" access="read-write">
+                <item-configuration>
+                    <title><![CDATA[g_analogAcquisitionStatus]]></title>
+                </item-configuration>
+                <var name="evadcMissionResult" type="float" offset="0" access="read-write" default="0">
+                    <item-configuration>
+                        <title><![CDATA[evadcMissionResult]]></title>
+                    </item-configuration>
+                </var>
+                <var name="evadcMonitorResult" type="float" offset="0" access="read-write" default="0">
+                    <item-configuration>
+                        <title><![CDATA[evadcMonitorResult]]></title>
+                    </item-configuration>
+                </var>
+                <var name="evadcVoltageResults" type="group" offset="0" access="read-write">
+                    <item-configuration>
+                        <title><![CDATA[evadcVoltageResults]]></title>
+                    </item-configuration>
+                    <var name="evadcVoltageResults[0]" type="float" offset="0" access="read-write" default="0">
+                        <item-configuration>
+                            <title><![CDATA[0]]></title>
+                        </item-configuration>
+                    </var>
+                    <var name="evadcVoltageResults[1]" type="float" offset="0" access="read-write" default="0">
+                        <item-configuration>
+                            <title><![CDATA[1]]></title>
+                        </item-configuration>
+                    </var>
+                    <var name="evadcVoltageResults[2]" type="float" offset="0" access="read-write" default="0">
+                        <item-configuration>
+                            <title><![CDATA[2]]></title>
+                        </item-configuration>
+                    </var>
+                </var>
+                <var name="edsadcVoltageResults" type="group" offset="0" access="read-write">
+                    <item-configuration>
+                        <title><![CDATA[edsadcVoltageResults]]></title>
+                    </item-configuration>
+                    <var name="edsadcVoltageResults[0]" type="float" offset="0" access="read-write" default="0">
+                        <item-configuration>
+                            <title><![CDATA[0]]></title>
+                        </item-configuration>
+                    </var>
+                    <var name="edsadcVoltageResults[1]" type="float" offset="0" access="read-write" default="0">
+                        <item-configuration>
+                            <title><![CDATA[1]]></title>
+                        </item-configuration>
+                    </var>
+                    <var name="edsadcVoltageResults[2]" type="float" offset="0" access="read-write" default="0">
+                        <item-configuration>
+                            <title><![CDATA[2]]></title>
+                        </item-configuration>
+                    </var>
+                </var>
+            </var>
+            <var name="g_qspiMasterSafe" type="group" offset="0" access="read-write">
+                <item-configuration>
+                    <title><![CDATA[g_qspiMasterSafe]]></title>
+                </item-configuration>
+                <var name="qpsiSafeTimingErrorInjection" type="bit" data-size="8" offset="0" access="read-write" default="0" enum="true">
+                    <item-configuration>
+                        <title><![CDATA[qpsiSafeTimingErrorInjection]]></title>
+                    </item-configuration>
+                    <option data="0">
+                        <item-configuration>
+                            <value><![CDATA[Normal Frame]]></value>
+                            <title><![CDATA[normalFrame]]></title>
+                        </item-configuration>
+                    </option>
+                    <option data="1">
+                        <item-configuration>
+                            <value><![CDATA[Early Frame]]></value>
+                            <title><![CDATA[earlyFrame]]></title>
+                        </item-configuration>
+                    </option>
+                    <option data="2">
+                        <item-configuration>
+                            <value><![CDATA[Late Frame]]></value>
+                            <title><![CDATA[lateFrame]]></title>
+                        </item-configuration>
+                    </option>
+                </var>
+            </var>
+            <var name="g_digitalAcqActStatus" type="group" offset="0" access="read-write">
+                <item-configuration>
+                    <title><![CDATA[g_digitalAcqActStatus]]></title>
+                </item-configuration>
+                <var name="pwmFrequency" type="group" offset="0" access="read-write">
+                    <item-configuration>
+                        <title><![CDATA[pwmFrequency]]></title>
+                    </item-configuration>
+                    <var name="pwmFrequency[0]" type="float" offset="0" access="read-write" default="0">
+                        <item-configuration>
+                            <title><![CDATA[0]]></title>
+                        </item-configuration>
+                    </var>
+                    <var name="pwmFrequency[1]" type="float" offset="0" access="read-write" default="0">
+                        <item-configuration>
+                            <title><![CDATA[1]]></title>
+                        </item-configuration>
+                    </var>
+                </var>
+                <var name="pwmDutyCylce" type="group" offset="0" access="read-write">
+                    <item-configuration>
+                        <title><![CDATA[pwmDutyCylce]]></title>
+                    </item-configuration>
+                    <var name="pwmDutyCylce[0]" type="float" offset="0" access="read-write" default="0">
+                        <item-configuration>
+                            <title><![CDATA[0]]></title>
+                        </item-configuration>
+                    </var>
+                    <var name="pwmDutyCylce[1]" type="float" offset="0" access="read-write" default="0">
+                        <item-configuration>
+                            <title><![CDATA[1]]></title>
+                        </item-configuration>
+                    </var>
+                </var>
+            </var>
+            <var name="g_injectLockstepError" type="uint8" offset="0" access="read-write" default="0">
+                <item-configuration>
+                    <title><![CDATA[g_injectLockstepError]]></title>
+                </item-configuration>
+            </var>
+            <var name="g_boardAliveLed" type="uint8" offset="0" access="read-write" default="0">
+                <item-configuration>
+                    <title><![CDATA[g_boardAliveLed]]></title>
+                </item-configuration>
+            </var>
+            <var name="g_alarmDetectLed" type="uint8" offset="0" access="read-write" default="0">
+                <item-configuration>
+                    <title><![CDATA[g_alarmDetectLed]]></title>
+                </item-configuration>
+            </var>
+        </var>
+        <var name="smuAlarmStatus" type="char" offset="0" access="read-write"/>
+        <var name="smuAlarmStatus2" type="char" offset="0" access="read-write"/>
+    </signals>
+    <layout>
+        <tab>
+            <item-configuration>
+                <style-sheet><![CDATA[#__tab{ color: green; font-weight : Bold; font-size:12pt } QWidget{ background-color:rgba(10,130,118,1); } ]]></style-sheet>
+            </item-configuration>
+            <tabPage>
+                <item-configuration>
+                    <title><![CDATA[Menu 1]]></title>
+                    <style-sheet><![CDATA[#__group { color : Black; font-weight : Bold; font-size: 12pt; background-color:#FC107 }#__lineEdit { color : rgba(100, 200,100,1);  background-color: lightgray; font-size: 14pt; font-weight : Bold;max-width:400; max-height:30; min-width:400; }  #__unit { color:blue } #__title { color: rgba(100, 200,100,1); font-weight : Bold; font-size: 12pt;max-width:800; max-height:30;qproperty-alignment: AlignLeft; }#__comboBox { color: rgba(100, 200,100,1); font-weight : Bold; font-size: 10pt;max-width:400; mx-height:30; }]]></style-sheet>
+                </item-configuration>
+                <group layout-item="false">
+                    <item-configuration>
+                        <title><![CDATA[Information]]></title>
+                        <style-sheet><![CDATA[#__group { color : white; font-weight : Bold; font-size: 16pt ;}]]></style-sheet>
+                    </item-configuration>
+                    <label>
+                        <item-configuration>
+                            <title><![CDATA[AURIX(TM) TC375 Safety Lite Kit V1.0]]></title>
+                            <style-sheet><![CDATA[#__title { color: white; font-weight : Bold; font-size: 12pt }#__lineEdit { color: rgba(100, 200,100,1);  background-color: lightgray; font-size: 14pt; font-weight : Bold }  #__unit { color:blue }]]></style-sheet>
+                        </item-configuration>
+                    </label>
+                    <group layout="horizontal" layout-item="false">
+                        <label>
+                            <item-configuration>
+                                <title><![CDATA[If the value is equal to "1", it means the test is passed]]></title>
+                                <style-sheet><![CDATA[#__title { color: rgba(100, 200,100,1); font : Italic;  font-weight: Bold;font-size: 11pt }]]></style-sheet>
+                            </item-configuration>
+                        </label>
+                        <label>
+                            <item-configuration>
+                                <title><![CDATA[If the value is equal to "0", it means the test is failed]]></title>
+                                <style-sheet><![CDATA[#__title { color: rgba(120,30,30,1); font : Italic;  font-weight: Bold;font-size: 11pt }]]></style-sheet>
+                            </item-configuration>
+                        </label>
+                        <label>
+                            <item-configuration>
+                                <title><![CDATA[If the value is equal to "2", it means the test is not executed]]></title>
+                                <style-sheet><![CDATA[#__title { color: blue;  font : Italic;  font-weight: Bold;font-size: 11pt }]]></style-sheet>
+                            </item-configuration>
+                        </label>
+                    </group>
+                </group>
+                <group layout="horizontal" layout-item="false">
+                    <item-configuration>
+                        <title><![CDATA[Safety Mechanisms test and status]]></title>
+                        <style-sheet><![CDATA[#__group { color : white; font-weight : Bold; font-size: 16pt }]]></style-sheet>
+                    </item-configuration>
+                    <group layout-item="false">
+                        <group layout-item="false">
+                            <item-configuration>
+                                <title><![CDATA[Safe computation NLS-CPU]]></title>
+                                <style-sheet><![CDATA[#__group { color : White; font-weight : Bold; font-size: 14pt }]]></style-sheet>
+                            </item-configuration>
+                            <lineEdit data-in="elf.g_CpuStatus.AP_CHECK_FLAG">
+                                <item-configuration>
+                                    <id><![CDATA[AP_CHECK_FLAG]]></id>
+                                    <title><![CDATA[CPU:AP_CHECK status                            ]]></title>
+                                    <style-sheet><![CDATA[#__title { color : rgba(100, 200,100,1); font-weight : Bold; font-size: 10pt }#__lineEdit { color : rgba(100, 200,100,1);  background-color: lightgray; font-size: 14pt; font-weight : Bold }  #__unit { color:blue } ]]></style-sheet>
+                                </item-configuration>
+                            </lineEdit>
+                            <lineEdit data-in="elf.g_CpuStatus.MPU_INIT_FLAG">
+                                <item-configuration>
+                                    <id><![CDATA[MPU_INIT_FLAG]]></id>
+                                    <title><![CDATA[CPU:BUS:MPU_INITCHECK status  ]]></title>
+                                    <style-sheet><![CDATA[#__title { color : rgba(100, 200,100,1); font-weight : Bold; font-size: 10pt }#__lineEdit { color : rgba(100, 200,100,1);  background-color: lightgray; font-size: 14pt; font-weight : Bold }  #__unit { color:blue } ]]></style-sheet>
+                                </item-configuration>
+                            </lineEdit>
+                            <lineEdit data-in="elf.g_CpuStatus.CODE_MPU_FLAG">
+                                <item-configuration>
+                                    <id><![CDATA[CODE_MPU_FLAG]]></id>
+                                    <title><![CDATA[CPU:CODE_MPU_CHECK status       ]]></title>
+                                    <style-sheet><![CDATA[#__title { color : rgba(100, 200,100,1); font-weight : Bold; font-size: 10pt }#__lineEdit { color : rgba(100, 200,100,1);  background-color: lightgray; font-size: 14pt; font-weight : Bold }  #__unit { color:blue } ]]></style-sheet>
+                                </item-configuration>
+                            </lineEdit>
+                            <lineEdit data-in="elf.g_CpuStatus.DATA_MPU_FLAG">
+                                <item-configuration>
+                                    <id><![CDATA[DATA_MPU_FLAG]]></id>
+                                    <title><![CDATA[CPU:DATA_MPU_CHECK status        ]]></title>
+                                    <style-sheet><![CDATA[#__title { color : rgba(100, 200,100,1); font-weight : Bold; font-size: 10pt }#__lineEdit { color : rgba(100, 200,100,1);  background-color: lightgray; font-size: 14pt; font-weight : Bold }  #__unit { color:blue } ]]></style-sheet>
+                                </item-configuration>
+                            </lineEdit>
+                            <lineEdit data-in="elf.g_CpuStatus.SFR_FLAG">
+                                <item-configuration>
+                                    <id><![CDATA[SFR_TEST]]></id>
+                                    <title><![CDATA[CPU:SFR_TEST status                              ]]></title>
+                                    <style-sheet><![CDATA[#__title { color : rgba(100, 200,100,1); font-weight : Bold; font-size: 10pt }#__lineEdit { color : rgba(100, 200,100,1);  background-color: lightgray; font-size: 14pt; font-weight : Bold }  #__unit { color:blue } ]]></style-sheet>
+                                </item-configuration>
+                            </lineEdit>
+                            <image/>
+                            <comboBox auto-connect="elf.g_CpuStatus.selectCpuTest">
+                                <item-configuration>
+                                    <title><![CDATA[Select CPU error injection : ]]></title>
+                                    <style-sheet><![CDATA[#__title { color : rgba(100, 200,100,1); font-weight : Bold; font-size: 10pt }#__comboBox { color : rgba(100, 200,100,1);  background-color: lightgray; font-size: 12pt; font-weight : Bold }  #__unit { color: rgba(100, 200,100,1) } ]]></style-sheet>
+                                </item-configuration>
+                            </comboBox>
+                            <label>
+                                <item-configuration>
+                                    <title><![CDATA[                                                 ! When a trap is triggered, perform at minimum a system reset]]></title>
+                                    <style-sheet><![CDATA[#__title { color: rgba(120,30,30,1); font-weight : Bold; font-size: 10pt }]]></style-sheet>
+                                </item-configuration>
+                            </label>
+                            <comboBox auto-connect="elf.g_SlkStatus.provokeTrapsSelect">
+                                <item-configuration>
+                                    <title><![CDATA[Select TRAP error injection : ]]></title>
+                                    <style-sheet><![CDATA[#__title { color : rgba(100, 200,100,1); font-weight : Bold; font-size: 10pt }#__comboBox { color : rgba(100, 200,100,1);  background-color: lightgray; font-size: 12pt; font-weight : Bold }  #__unit { color: rgba(100, 200,100,1) } ]]></style-sheet>
+                                </item-configuration>
+                            </comboBox>
+                            <group layout-item="false">
+                                <item-configuration>
+                                    <title><![CDATA[SBST]]></title>
+                                    <style-sheet><![CDATA[#__group { color : ; font-weight : Bold; font-size: 11pt }]]></style-sheet>
+                                </item-configuration>
+                                <comboBox auto-connect="elf.g_CpuStatus.sbstStatus.sbstTestSelection">
+                                    <item-configuration>
+                                        <title><![CDATA[Select SBST Test Type]]></title>
+                                        <style-sheet><![CDATA[#__title { color : rgba(100, 200,100,1); font-weight : Bold; font-size: 10pt }#__comboBox { color : rgba(100, 200,100,1);  background-color: lightgray; font-size: 12pt; font-weight : Bold }  #__unit { color: rgba(100, 200,100,1) } ]]></style-sheet>
+                                    </item-configuration>
+                                </comboBox>
+                                <checkBox auto-connect="elf.g_CpuStatus.sbstStatus.SBST_ERROR">
+                                    <item-configuration>
+                                        <title><![CDATA[Trigger SBST Error Injection]]></title>
+                                        <style-sheet><![CDATA[#__checkBox { color: rgba(100, 200,100,1); font-weight : Bold; font-size: 12pt }QCheckBox::indicator:checked {
+image: url([:CWD:]/stop.png);
+}QCheckBox::indicator:unchecked {
+image: url([:CWD:]/play.png);
+}]]></style-sheet>
+                                    </item-configuration>
+                                </checkBox>
+                            </group>
+                            <label>
+                                <item-configuration>
+                                    <title><![CDATA[                                                 ! CPU service watchdog latest every 10ms ]]></title>
+                                    <style-sheet><![CDATA[#__title{ color : rgba(120,30,30,1); font-weight : Bold; font-size: 10pt }]]></style-sheet>
+                                </item-configuration>
+                            </label>
+                            <slider data-in="elf.watchdogTicks" max="10" tick-count="10" page-size="1">
+                                <item-configuration>
+                                    <title><![CDATA[CPU watchdog real service time   ]]></title>
+                                    <style-sheet><![CDATA[#__title { color : rgba(100, 200,100,1); font-weight : Bold; font-size: 10pt }#__slider{background-color : rgba(120,30,30,1);}#__min{color:rgba(120,30,30,1);font-size:20px}#__max{color:rgba(120,30,30,1);font-size:20px}]]></style-sheet>
+                                </item-configuration>
+                            </slider>
+                        </group>
+                        <group layout-item="false">
+                            <item-configuration>
+                                <title><![CDATA[Safe computation LS-CPU]]></title>
+                                <style-sheet><![CDATA[#__group { color : White; font-weight : Bold; font-size: 14pt }]]></style-sheet>
+                            </item-configuration>
+                            <group layout-item="false">
+                                <item-configuration>
+                                    <title><![CDATA[DMA]]></title>
+                                    <style-sheet><![CDATA[#__group { color : Black; font-weight : Bold; font-size: 11pt }QCheckBox::indicator:checked {
+image: url([:CWD:]/stop.png);
+}QCheckBox::indicator:unchecked {
+image: url([:CWD:]/play.png);
+}]]></style-sheet>
+                                </item-configuration>
+                                <checkBox auto-connect="elf.g_DmaErrorInjection.injectCrcError">
+                                    <item-configuration>
+                                        <title><![CDATA[Inject CRC Error]]></title>
+                                        <style-sheet><![CDATA[#__checkBox { color: rgba(100, 200,100,1); font-weight : Bold; font-size: 12pt }]]></style-sheet>
+                                    </item-configuration>
+                                </checkBox>
+                                <checkBox auto-connect="elf.g_DmaErrorInjection.injectDestinationError">
+                                    <item-configuration>
+                                        <title><![CDATA[Inject Destination Error]]></title>
+                                        <style-sheet><![CDATA[#__checkBox { color: rgba(100, 200,100,1); font-weight : Bold; font-size: 12pt }]]></style-sheet>
+                                    </item-configuration>
+                                </checkBox>
+                                <checkBox auto-connect="elf.g_DmaErrorInjection.injectTimestampError">
+                                    <item-configuration>
+                                        <title><![CDATA[Inject Timestamp Error]]></title>
+                                        <style-sheet><![CDATA[#__checkBox { color: rgba(100, 200,100,1); font-weight : Bold; font-size: 12pt }]]></style-sheet>
+                                    </item-configuration>
+                                </checkBox>
+                            </group>
+                            <group layout-item="false">
+                                <item-configuration>
+                                    <title><![CDATA[NVM]]></title>
+                                    <style-sheet><![CDATA[#__group { color : Black; font-weight : Bold; font-size: 11pt }QCheckBox::indicator:checked {
+image: url([:CWD:]/stop.png);
+}QCheckBox::indicator:unchecked {
+image: url([:CWD:]/play.png);
+}]]></style-sheet>
+                                </item-configuration>
+                                <checkBox auto-connect="elf.g_triggerNvmPflashBitsError.triggerSBE">
+                                    <item-configuration>
+                                        <title><![CDATA[Trigger Single Bit Error]]></title>
+                                        <style-sheet><![CDATA[#__checkBox { color: rgba(100, 200,100,1); font-weight : Bold; font-size: 12pt }]]></style-sheet>
+                                    </item-configuration>
+                                </checkBox>
+                                <checkBox auto-connect="elf.g_triggerNvmPflashBitsError.triggerDBE">
+                                    <item-configuration>
+                                        <title><![CDATA[Trigger Double Bit Error]]></title>
+                                        <style-sheet><![CDATA[#__checkBox { color: rgba(100, 200,100,1); font-weight : Bold; font-size: 12pt }]]></style-sheet>
+                                    </item-configuration>
+                                </checkBox>
+                                <checkBox auto-connect="elf.g_triggerNvmPflashBitsError.triggerMBE">
+                                    <item-configuration>
+                                        <title><![CDATA[Trigger Multiple Bit Error]]></title>
+                                        <style-sheet><![CDATA[#__checkBox { color: rgba(100, 200,100,1); font-weight : Bold; font-size: 12pt }]]></style-sheet>
+                                    </item-configuration>
+                                </checkBox>
+                            </group>
+                            <group layout-item="false">
+                                <item-configuration>
+                                    <title><![CDATA[SRI]]></title>
+                                    <style-sheet><![CDATA[#__group { color : Black; font-weight : Bold; font-size: 11pt }#__checkBox { color: rgba(100, 200,100,1); font-weight : Bold; font-size: 12pt }QCheckBox::indicator:checked {
+image: url([:CWD:]/stop.png);
+}QCheckBox::indicator:unchecked {
+image: url([:CWD:]/play.png);
+}]]></style-sheet>
+                                </item-configuration>
+                                <checkBox auto-connect="elf.g_trigerSriError.SriError">
+                                    <item-configuration>
+                                        <title><![CDATA[Trigger SRI Error]]></title>
+                                        <style-sheet><![CDATA[#__checkBox { color: rgba(100, 200,100,1); font-weight : Bold; font-size: 12pt }]]></style-sheet>
+                                    </item-configuration>
+                                </checkBox>
+                                <checkBox auto-connect="elf.g_trigerSriError.EccErrorDma">
+                                    <item-configuration>
+                                        <title><![CDATA[Trigger ECC Error Dma]]></title>
+                                        <style-sheet><![CDATA[#__checkBox { color: rgba(100, 200,100,1); font-weight : Bold; font-size: 12pt }]]></style-sheet>
+                                    </item-configuration>
+                                </checkBox>
+                            </group>
+                            <group layout-item="false">
+                                <item-configuration>
+                                    <title><![CDATA[STM and DAM]]></title>
+                                    <style-sheet><![CDATA[#__group { color : Black; font-weight : Bold; font-size: 11pt }#__checkBox { color: rgba(100, 200,100,1); font-weight : Bold; font-size: 12pt }QCheckBox::indicator:checked {
+image: url([:CWD:]/stop.png);
+}QCheckBox::indicator:unchecked {
+image: url([:CWD:]/play.png);
+}]]></style-sheet>
+                                </item-configuration>
+                                <label>
+                                    <item-configuration>
+                                        <title><![CDATA[                                             ! When a STM error injection is triggered, perform an application reset ]]></title>
+                                        <style-sheet><![CDATA[#__title { color: rgba(120,30,30,1); font-weight : Bold; font-size: 10pt }]]></style-sheet>
+                                    </item-configuration>
+                                </label>
+                                <checkBox auto-connect="elf.g_SlkStatus.slkRunTask.triggerStmAlarm">
+                                    <item-configuration>
+                                        <title><![CDATA[Trigger an STM alarm]]></title>
+                                    </item-configuration>
+                                </checkBox>
+                                <checkBox auto-connect="elf.g_triggerLmuDamCrcError">
+                                    <item-configuration>
+                                        <title><![CDATA[Trigger LMU DAM CRC error]]></title>
+                                    </item-configuration>
+                                </checkBox>
+                            </group>
+                        </group>
+                    </group>
+                    <group layout-item="false">
+                        <item-configuration>
+                            <style-sheet><![CDATA[#__group { color : Black; font-weight : Bold; font-size: 14pt }#__lineEdit { color : rgba(100, 200,100,1);  background-color: lightgray; font-size: 14pt; font-weight : Bold;max-width:400; max-height:30; }  #__unit { color:blue } #__title { color: rgba(100, 200,100,1); font-weight : Bold; font-size: 12pt;max-width:800; max-height:30;qproperty-alignment: AlignLeft; }#__comboBox { color: rgba(100, 200,100,1); font-weight : Bold; font-size: 10pt;max-width:400; mx-height:30; }#__checkBox { color: rgba(100, 200,100,1); font-weight : Bold; font-size: 12pt }]]></style-sheet>
+                        </item-configuration>
+                        <group layout-item="false">
+                            <item-configuration>
+                                <title><![CDATA[Safe startup]]></title>
+                                <style-sheet><![CDATA[#__group { color : White; font-weight : Bold; font-size: 14pt }]]></style-sheet>
+                            </item-configuration>
+                            <lineEdit data-in="elf.g_SlkStatus.sswStatus.lbistStatus">
+                                <item-configuration>
+                                    <id><![CDATA[LBIST]]></id>
+                                    <title><![CDATA[LBIST  status                                 ]]></title>
+                                    <style-sheet><![CDATA[#__title { color : rgba(100, 200,100,1); font-weight : Bold; font-size: 10pt }#__lineEdit { color : rgba(100, 200,100,1);  background-color: lightgray; font-size: 14pt; font-weight : Bold }  #__unit { color:blue } ]]></style-sheet>
+                                </item-configuration>
+                            </lineEdit>
+                            <lineEdit data-in="elf.g_SlkStatus.sswStatus.monbistStatus">
+                                <item-configuration>
+                                    <id><![CDATA[MONBIST]]></id>
+                                    <title><![CDATA[MONBIST status                      ]]></title>
+                                    <user-data><![CDATA[ ]]></user-data>
+                                    <style-sheet><![CDATA[#__title { color : rgba(100, 200,100,1); font-weight : Bold; font-size: 10pt }#__lineEdit { color : rgba(100, 200,100,1);  background-color: lightgray; font-size: 14pt; font-weight : Bold }  #__unit { color:blue } ]]></style-sheet>
+                                </item-configuration>
+                            </lineEdit>
+                            <lineEdit data-in="elf.g_SlkStatus.sswStatus.mcuFwcheckStatus">
+                                <item-configuration>
+                                    <id><![CDATA[MCUFWCHECK]]></id>
+                                    <title><![CDATA[McuFwCheck status          ]]></title>
+                                    <style-sheet><![CDATA[#__title { color : rgba(100, 200,100,1); font-weight : Bold; font-size: 10pt }#__lineEdit { color : rgba(100, 200,100,1);  background-color: lightgray; font-size: 14pt; font-weight : Bold }  #__unit { color:blue } ]]></style-sheet>
+                                </item-configuration>
+                            </lineEdit>
+                            <lineEdit data-in="elf.g_SlkStatus.sswStatus.mcuStartupStatus">
+                                <item-configuration>
+                                    <id><![CDATA[MCUSTARTUP]]></id>
+                                    <title><![CDATA[McuStartup  status              ]]></title>
+                                    <style-sheet><![CDATA[#__title { color : rgba(100, 200,100,1); font-weight : Bold; font-size: 10pt }#__lineEdit { color : rgba(100, 200,100,1);  background-color: lightgray; font-size: 14pt; font-weight : Bold }  #__unit { color:blue } ]]></style-sheet>
+                                </item-configuration>
+                            </lineEdit>
+                            <lineEdit data-in="elf.g_SlkStatus.sswStatus.aliveAlarmTestStatus">
+                                <item-configuration>
+                                    <id><![CDATA[ALIVETEST]]></id>
+                                    <title><![CDATA[Alive Alarm Test status                           ]]></title>
+                                    <style-sheet><![CDATA[#__title { color : rgba(100, 200,100,1); font-weight : Bold; font-size: 10pt }#__lineEdit { color : rgba(100, 200,100,1);  background-color: lightgray; font-size: 14pt; font-weight : Bold }  #__unit { color:blue } ]]></style-sheet>
+                                </item-configuration>
+                            </lineEdit>
+                            <lineEdit data-in="elf.g_SlkStatus.smuStatus.regMonitorTestSmu">
+                                <item-configuration>
+                                    <id><![CDATA[REGMONITOR]]></id>
+                                    <title><![CDATA[Register Monitor status      ]]></title>
+                                    <style-sheet><![CDATA[#__title { color : rgba(100, 200,100,1); font-weight : Bold; font-size: 10pt }#__lineEdit { color : rgba(100, 200,100,1);  background-color: lightgray; font-size: 14pt; font-weight : Bold }  #__unit { color:blue } ]]></style-sheet>
+                                </item-configuration>
+                            </lineEdit>
+                            <lineEdit data-in="elf.g_SlkStatus.sswStatus.mbistStatus">
+                                <item-configuration>
+                                    <id><![CDATA[MBIST]]></id>
+                                    <title><![CDATA[MBIST  status                            ]]></title>
+                                    <style-sheet><![CDATA[#__title { color : rgba(100, 200,100,1); font-weight : Bold; font-size: 10pt }#__lineEdit { color : rgba(100, 200,100,1);  background-color: lightgray; font-size: 14pt; font-weight : Bold }  #__unit { color:blue } ]]></style-sheet>
+                                </item-configuration>
+                            </lineEdit>
+                        </group>
+                        <group layout="horizontal" layout-item="false">
+                            <item-configuration>
+                                <title><![CDATA[Board status]]></title>
+                                <style-sheet><![CDATA[#__group { color : White; font-weight : Bold; font-size: 14pt }]]></style-sheet>
+                            </item-configuration>
+                            <checkBox auto-connect="elf.g_alarmDetectLed">
+                                <item-configuration>
+                                    <title><![CDATA[Alarm LED]]></title>
+                                    <style-sheet><![CDATA[QCheckBox::indicator:checked {
+image: url([:CWD:]/1_red.png);
+}QCheckBox::indicator:unchecked {
+image: url([:CWD:]/2_off.png);
+}]]></style-sheet>
+                                </item-configuration>
+                            </checkBox>
+                            <checkBox auto-connect="elf.g_boardAliveLed">
+                                <item-configuration>
+                                    <title><![CDATA[Board Alive LED]]></title>
+                                    <style-sheet><![CDATA[QCheckBox::indicator:checked {
+image: url([:CWD:]/0_green.png);
+}QCheckBox::indicator:unchecked {
+image: url([:CWD:]/2_off.png);
+}]]></style-sheet>
+                                </item-configuration>
+                            </checkBox>
+                            <clockGauge data-in="elf.g_SlkStatus.dieTempStatus.dieTemperaturePms" min="-40" max="140" angle-start="-280" angle-end="25" tick-inc-major="1" tick-inc-minor="0.5" tick-inc-label="40">
+                                <item-configuration>
+                                    <title><![CDATA[DIE Temp]]></title>
+                                    <style-sheet><![CDATA[qproperty-axis_font_size:12px; qproperty-axis_color:rgba(120,30,30,1);qproperty-needle_fill_color:rgba(120,30,30,1);qproperty-needle_zone_color:rgba(120,30,30,1);qproperty-needle_zone_fill_color:rgba(100, 200,100,1);qproperty-needle_color:rgba(120,30,30,1);
+font-size:14px;]]></style-sheet>
+                                </item-configuration>
+                            </clockGauge>
+                            <clockGauge auto-connect="elf.g_SlkStatus.dieTempStatus.dieTemperatureCore" min="-40" max="140" angle-start="-280" angle-end="25" tick-inc-major="1" tick-inc-minor="0.5" tick-inc-label="40">
+                                <item-configuration>
+                                    <title><![CDATA[Core Temp]]></title>
+                                    <style-sheet><![CDATA[qproperty-axis_font_size:12px; qproperty-axis_color:rgba(120,30,30,1);qproperty-needle_fill_color:rgba(120,30,30,1);qproperty-needle_zone_color:rgba(120,30,30,1);qproperty-needle_zone_fill_color:rgba(100, 200,100,1);qproperty-needle_color:rgba(120,30,30,1);
+font-size:14px;]]></style-sheet>
+                                </item-configuration>
+                            </clockGauge>
+                        </group>
+                        <group layout-item="false">
+                            <item-configuration>
+                                <title><![CDATA[External communication]]></title>
+                                <style-sheet><![CDATA[#__group { color : White; font-weight : Bold; font-size: 14pt }QCheckBox::indicator:checked {
+image: url([:CWD:]/stop.png);
+}QCheckBox::indicator:unchecked {
+image: url([:CWD:]/play.png);
+}]]></style-sheet>
+                            </item-configuration>
+                            <comboBox auto-connect="elf.g_qspiMasterSafe.qpsiSafeTimingErrorInjection">
+                                <item-configuration>
+                                    <title><![CDATA[Select QSPI Safe Communication error injection : ]]></title>
+                                    <style-sheet><![CDATA[#__title { color : rgba(100, 200,100,1); font-weight : Bold; font-size: 10pt }#__comboBox { color : rgba(100, 200,100,1);  background-color: lightgray; font-size: 12pt; font-weight : Bold }  #__unit { color: rgba(100, 200,100,1) } ]]></style-sheet>
+                                </item-configuration>
+                            </comboBox>
+                            <checkBox auto-connect="elf.enableQspiSafeCommunication">
+                                <item-configuration>
+                                    <title><![CDATA[Enable QSPI Safe Communication if the pin connection is done correctly]]></title>
+                                    <style-sheet><![CDATA[#__checkBox { color: rgba(100, 200,100,1); font-weight : Bold; font-size: 12pt }]]></style-sheet>
+                                </item-configuration>
+                            </checkBox>
+                        </group>
+                        <group layout-item="false">
+                            <item-configuration>
+                                <title><![CDATA[Avoidance or detection of CCF]]></title>
+                                <style-sheet><![CDATA[#__group { color : White; font-weight : Bold; font-size: 14pt }QCheckBox::indicator:checked {
+image: url([:CWD:]/stop.png);
+}QCheckBox::indicator:unchecked {
+image: url([:CWD:]/play.png);
+}]]></style-sheet>
+                            </item-configuration>
+                            <checkBox auto-connect="elf.g_SlkStatus.portLoopbackAlarmOnOff">
+                                <item-configuration>
+                                    <title><![CDATA[Port loopback alarm on/off]]></title>
+                                    <style-sheet><![CDATA[#__checkBox { color: rgba(100, 200,100,1); font-weight : Bold; font-size: 12pt }]]></style-sheet>
+                                </item-configuration>
+                            </checkBox>
+                            <checkBox auto-connect="elf.g_SlkStatus.portRedundancyAlarmOnOff">
+                                <item-configuration>
+                                    <title><![CDATA[Port redundancy alarm on/off]]></title>
+                                    <style-sheet><![CDATA[#__checkBox { color: rgba(100, 200,100,1); font-weight : Bold; font-size: 12pt }]]></style-sheet>
+                                </item-configuration>
+                            </checkBox>
+                            <lineEdit auto-connect="elf.g_SlkStatus.timeDiffQspiClockPlaus">
+                                <item-configuration>
+                                    <id><![CDATA[CLOCK_PLAUS]]></id>
+                                    <title><![CDATA[Clock Plausibility]]></title>
+                                    <style-sheet><![CDATA[#__title { color : rgba(100, 200,100,1); font-weight : Bold; font-size: 12pt }#__lineEdit { color : rgba(100, 200,100,1);  background-color: lightgray; font-size: 14pt; font-weight : Bold }  #__unit { color:blue } ]]></style-sheet>
+                                </item-configuration>
+                            </lineEdit>
+                        </group>
+                        <group layout-item="false">
+                            <item-configuration>
+                                <title><![CDATA[SMU status]]></title>
+                                <style-sheet><![CDATA[#__group { color : White; font-weight : Bold; font-size: 14pt }#__checkBox { color: rgba(100, 200,100,1); font-weight : Bold; font-size: 12pt }QCheckBox::indicator:checked {
+image: url([:CWD:]/stop.png);
+}QCheckBox::indicator:unchecked {
+image: url([:CWD:]/play.png);
+}]]></style-sheet>
+                            </item-configuration>
+                            <lineEdit data-in="smuAlarmStatus">
+                                <item-configuration>
+                                    <id><![CDATA[SMUSTATUS]]></id>
+                                    <title><![CDATA[Alarm status :]]></title>
+                                    <style-sheet><![CDATA[#__title { color : rgba(100, 200,100,1); font-weight : Bold; font-size: 18pt }#__lineEdit { color : rgba(100, 200,100,1);  background-color: lightgray; font-size: 12pt; font-weight : Bold }  #__unit { color:blue } ]]></style-sheet>
+                                </item-configuration>
+                            </lineEdit>
+                            <checkBox auto-connect="elf.g_injectLockstepError">
+                                <item-configuration>
+                                    <title><![CDATA[Cpu1: Inject Lockstep error]]></title>
+                                </item-configuration>
+                            </checkBox>
+                            <lineEdit data-out="elf.g_triggerSMU">
+                                <item-configuration>
+                                    <title><![CDATA[Trigger a Software Alarm (Enter a number (0-15)) :]]></title>
+                                    <style-sheet><![CDATA[#__title { color : rgba(100, 200,100,1); font-weight : Bold; font-size: 13pt }#__lineEdit { color : rgba(100, 200,100,1);  background-color: lightgray; font-size: 14pt; font-weight : Bold;  }  #__unit { color:blue } ]]></style-sheet>
+                                </item-configuration>
+                            </lineEdit>
+                            <checkBox auto-connect="elf.g_clearSMU">
+                                <item-configuration>
+                                    <title><![CDATA[Reset the SMU]]></title>
+                                </item-configuration>
+                            </checkBox>
+                            <checkBox auto-connect="elf.g_resetSys">
+                                <item-configuration>
+                                    <title><![CDATA[Reset the System]]></title>
+                                </item-configuration>
+                            </checkBox>
+                            <checkBox auto-connect="elf.g_resetAlm">
+                                <item-configuration>
+                                    <title><![CDATA[Reset the Alarm]]></title>
+                                </item-configuration>
+                            </checkBox>
+                        </group>
+                        <group layout="horizontal" layout-item="false">
+                            <image/>
+                            <script button-execute-visible="true" button-save-visible="false" script-visible="false">
+                                <item-configuration>
+                                    <style-sheet><![CDATA[#__execute { color: rgba(100, 200,100,1);font-size: 14pt; font-weight : Bold}]]></style-sheet>
+                                    <path><![CDATA[colorStatusOutput.js]]></path>
+                                    <inline-script></inline-script>
+                                    <button-execute-title><![CDATA[REFRESH]]></button-execute-title>
+                                    <script-remote></script-remote>
+                                </item-configuration>
+                            </script>
+                        </group>
+                    </group>
+                </group>
+            </tabPage>
+            <tabPage layout="horizontal">
+                <item-configuration>
+                    <title><![CDATA[Menu 2]]></title>
+                </item-configuration>
+                <group layout="horizontal" layout-item="false">
+                    <item-configuration>
+                        <title><![CDATA[Safety Mechanisms test and status]]></title>
+                        <style-sheet><![CDATA[#__group { color : white; font-weight : Bold; font-size: 16pt }]]></style-sheet>
+                    </item-configuration>
+                    <group layout-item="false">
+                        <group layout-item="false">
+                            <item-configuration>
+                                <title><![CDATA[Digital acquisition and actuation]]></title>
+                                <style-sheet><![CDATA[#__group { color : white; font-weight : Bold; font-size: 14pt }]]></style-sheet>
+                            </item-configuration>
+                            <label>
+                                <item-configuration>
+                                    <title><![CDATA[! Please connect the pin as describe in application note to run each function use case (FUC)]]></title>
+                                    <style-sheet><![CDATA[#__title { color: rgba(120,30,30,1); font-weight : Bold; font-size: 10pt }]]></style-sheet>
+                                </item-configuration>
+                            </label>
+                            <comboBox auto-connect="elf.g_SlkStatus.digitalAcqActFucSelect">
+                                <item-configuration>
+                                    <title><![CDATA[Select Fuc  for Digital Acquistion or Actuation]]></title>
+                                    <style-sheet><![CDATA[#__title { color : rgba(100, 200,100,1); font-weight : Bold; font-size: 12pt }#__comboBox { color : rgba(100, 200,100,1);  background-color: lightgray; font-size: 12pt; font-weight : Bold }  #__unit { color: rgba(100, 200,100,1) } ]]></style-sheet>
+                                </item-configuration>
+                            </comboBox>
+                            <group layout-item="false">
+                                <item-configuration>
+                                    <title><![CDATA[PWM Frequency]]></title>
+                                    <style-sheet><![CDATA[#__group { color : Black; font-weight : Bold; font-size: 11pt }]]></style-sheet>
+                                </item-configuration>
+                                <lineEdit auto-connect="elf.g_digitalAcqActStatus.pwmFrequency.pwmFrequency[0]">
+                                    <item-configuration>
+                                        <title><![CDATA[Mission  ]]></title>
+                                        <style-sheet><![CDATA[#__title { color : rgba(100, 200,100); font-weight : Bold; font-size: 10pt }#__lineEdit { color : rgba(100, 200,100);  background-color: lightgray; font-size: 14pt; font-weight : Bold }  #__unit { color:blue } ]]></style-sheet>
+                                    </item-configuration>
+                                </lineEdit>
+                                <lineEdit auto-connect="elf.g_digitalAcqActStatus.pwmFrequency.pwmFrequency[1]">
+                                    <item-configuration>
+                                        <title><![CDATA[Monitor  ]]></title>
+                                        <style-sheet><![CDATA[#__title { color : rgba(100, 200,100); font-weight : Bold; font-size: 10pt }#__lineEdit { color : rgba(100, 200,100);  background-color: lightgray; font-size: 14pt; font-weight : Bold }  #__unit { color:blue } ]]></style-sheet>
+                                    </item-configuration>
+                                </lineEdit>
+                            </group>
+                        </group>
+                        <group layout-item="false">
+                            <item-configuration>
+                                <title><![CDATA[SMU status]]></title>
+                                <style-sheet><![CDATA[#__group { color : white; font-weight : Bold; font-size: 14pt }]]></style-sheet>
+                            </item-configuration>
+                            <lineEdit data-in="smuAlarmStatus2">
+                                <item-configuration>
+                                    <id><![CDATA[SMUSTATUS2]]></id>
+                                    <title><![CDATA[Alarm status :]]></title>
+                                    <style-sheet><![CDATA[#__title { color : rgba(100, 200,100,1); font-weight : Bold; font-size: 18pt }#__lineEdit { color : rgba(100, 200,100,1);  background-color: lightgray; font-size: 12pt; font-weight : Bold }  #__unit { color:blue } ]]></style-sheet>
+                                </item-configuration>
+                            </lineEdit>
+                            <checkBox auto-connect="elf.g_alarmDetectLed">
+                                <item-configuration>
+                                    <id><![CDATA[LED]]></id>
+                                    <title><![CDATA[SMU status LED]]></title>
+                                    <style-sheet><![CDATA[#__checkBox { color: rgba(100, 200,100,1); font-weight : Bold; font-size: 12pt }QCheckBox::indicator:checked {
+image: url([:CWD:]/1_red.png);
+}QCheckBox::indicator:unchecked {
+image: url([:CWD:]/2_off.png);
+}]]></style-sheet>
+                                </item-configuration>
+                            </checkBox>
+                            <checkBox auto-connect="elf.g_boardAliveLed">
+                                <item-configuration>
+                                    <title><![CDATA[Board Alive LED]]></title>
+                                    <style-sheet><![CDATA[#__checkBox { color: rgba(100, 200,100,1); font-weight : Bold; font-size: 12pt }QCheckBox::indicator:checked {
+image: url([:CWD:]/0_green.png);
+}QCheckBox::indicator:unchecked {
+image: url([:CWD:]/2_off.png);
+}]]></style-sheet>
+                                </item-configuration>
+                            </checkBox>
+                            <checkBox auto-connect="elf.g_clearSMU">
+                                <item-configuration>
+                                    <title><![CDATA[SMU Reset]]></title>
+                                    <style-sheet><![CDATA[#__checkBox { color: rgba(100, 200,100,1); font-weight : Bold; font-size: 12pt }QCheckBox::indicator:checked {
+image: url([:CWD:]/stop.png);
+}QCheckBox::indicator:unchecked {
+image: url([:CWD:]/play.png);
+}]]></style-sheet>
+                                </item-configuration>
+                            </checkBox>
+                            <checkBox auto-connect="elf.g_resetSys">
+                                <item-configuration>
+                                    <title><![CDATA[System Reset]]></title>
+                                    <style-sheet><![CDATA[#__checkBox { color: rgba(100, 200,100,1); font-weight : Bold; font-size: 12pt }QCheckBox::indicator:checked {
+image: url([:CWD:]/stop.png);
+}QCheckBox::indicator:unchecked {
+image: url([:CWD:]/play.png);
+}]]></style-sheet>
+                                </item-configuration>
+                            </checkBox>
+                            <checkBox auto-connect="elf.g_resetAlm">
+                                <item-configuration>
+                                    <title><![CDATA[Alarm Reset]]></title>
+                                    <style-sheet><![CDATA[#__checkBox { color: rgba(100, 200,100,1); font-weight : Bold; font-size: 12pt }QCheckBox::indicator:checked {
+image: url([:CWD:]/stop.png);
+}QCheckBox::indicator:unchecked {
+image: url([:CWD:]/play.png);
+}]]></style-sheet>
+                                </item-configuration>
+                            </checkBox>
+                        </group>
+                    </group>
+                    <group layout-item="false">
+                        <group layout-item="false">
+                            <item-configuration>
+                                <title><![CDATA[Analog acquisition]]></title>
+                                <style-sheet><![CDATA[#__group { color : white; font-weight : Bold; font-size: 14pt }]]></style-sheet>
+                            </item-configuration>
+                            <label>
+                                <item-configuration>
+                                    <title><![CDATA[! Please connect the pin as describe in application note to run each function use case (FUC)]]></title>
+                                    <style-sheet><![CDATA[#__title { color: rgba(120,30,30,1); font-weight : Bold; font-size: 10pt }]]></style-sheet>
+                                </item-configuration>
+                            </label>
+                            <comboBox auto-connect="elf.g_SlkStatus.analogAcqFucSelect">
+                                <item-configuration>
+                                    <title><![CDATA[Select Fuc for Analog Acquisition]]></title>
+                                    <style-sheet><![CDATA[#__title { color : rgba(100, 200,100,1); font-weight : Bold; font-size: 12pt }#__comboBox { color : rgba(100, 200,100,1);  background-color: lightgray; font-size: 12pt; font-weight : Bold }  #__unit { color: rgba(100, 200,100,1) } ]]></style-sheet>
+                                </item-configuration>
+                            </comboBox>
+                            <group layout-item="false">
+                                <item-configuration>
+                                    <title><![CDATA[EVADC ]]></title>
+                                    <style-sheet><![CDATA[#__group { color : Black; font-weight : Bold; font-size: 11pt }]]></style-sheet>
+                                </item-configuration>
+                                <lineEdit auto-connect="elf.g_analogAcquisitionStatus.evadcVoltageResults.evadcVoltageResults[0]">
+                                    <item-configuration>
+                                        <title><![CDATA[EVADC 1     ]]></title>
+                                        <style-sheet><![CDATA[#__title { color : rgba(100, 200,100); font-weight : Bold; font-size: 10pt }#__lineEdit { color : rgba(100, 200,100);  background-color: lightgray; font-size: 14pt; font-weight : Bold }  #__unit { color:blue } ]]></style-sheet>
+                                    </item-configuration>
+                                </lineEdit>
+                                <lineEdit auto-connect="elf.g_analogAcquisitionStatus.evadcVoltageResults.evadcVoltageResults[2]">
+                                    <item-configuration>
+                                        <title><![CDATA[EVADC 2     ]]></title>
+                                        <style-sheet><![CDATA[#__title { color : rgba(100, 200,100); font-weight : Bold; font-size: 10pt }#__lineEdit { color : rgba(100, 200,100);  background-color: lightgray; font-size: 14pt; font-weight : Bold }  #__unit { color:blue } ]]></style-sheet>
+                                    </item-configuration>
+                                </lineEdit>
+                            </group>
+                            <group layout-item="false">
+                                <item-configuration>
+                                    <title><![CDATA[EDSADC]]></title>
+                                    <style-sheet><![CDATA[#__group { color : Black; font-weight : Bold; font-size: 11pt }]]></style-sheet>
+                                </item-configuration>
+                                <lineEdit auto-connect="elf.g_analogAcquisitionStatus.edsadcVoltageResults.edsadcVoltageResults[0]">
+                                    <item-configuration>
+                                        <title><![CDATA[EDSADC 1    ]]></title>
+                                        <style-sheet><![CDATA[#__title { color : rgba(100, 200,100); font-weight : Bold; font-size: 10pt }#__lineEdit { color : rgba(100, 200,100);  background-color: lightgray; font-size: 14pt; font-weight : Bold }  #__unit { color:blue } ]]></style-sheet>
+                                    </item-configuration>
+                                </lineEdit>
+                                <lineEdit auto-connect="elf.g_analogAcquisitionStatus.edsadcVoltageResults.edsadcVoltageResults[2]">
+                                    <item-configuration>
+                                        <title><![CDATA[EDSADC 2    ]]></title>
+                                        <style-sheet><![CDATA[#__title { color : rgba(100, 200,100); font-weight : Bold; font-size: 10pt }#__lineEdit { color : rgba(100, 200,100);  background-color: lightgray; font-size: 14pt; font-weight : Bold }  #__unit { color:blue } ]]></style-sheet>
+                                    </item-configuration>
+                                </lineEdit>
+                            </group>
+                        </group>
+                        <group layout-item="false">
+                            <item-configuration>
+                                <title><![CDATA[Safe startup status detailed]]></title>
+                                <style-sheet><![CDATA[#__group { color : white; font-weight : Bold; font-size: 14pt }]]></style-sheet>
+                            </item-configuration>
+                            <script button-execute-visible="true" button-save-visible="false" script-visible="false">
+                                <item-configuration>
+                                    <style-sheet><![CDATA[#__execute { color: rgba(100, 200,100,1);font-size: 13pt; font-weight : Bold}]]></style-sheet>
+                                    <path><![CDATA[colorStatusOutput.js]]></path>
+                                    <inline-script></inline-script>
+                                    <button-execute-title><![CDATA[REFRESH]]></button-execute-title>
+                                    <script-remote></script-remote>
+                                </item-configuration>
+                            </script>
+                            <group layout="float" layout-item="false">
+                                <item-configuration>
+                                    <title><![CDATA[LBIST]]></title>
+                                    <style-sheet><![CDATA[#__group { color : Black; font-weight : Bold; font-size: 11pt }]]></style-sheet>
+                                </item-configuration>
+                                <lineEdit data-in="elf.g_LbistStatus.deviceNotDefect" pos-x="760" pos-y="25" pos-width="180" pos-hight="30">
+                                    <item-configuration>
+                                        <id><![CDATA[LbistDefect]]></id>
+                                        <title><![CDATA[DeviceNotDefect]]></title>
+                                        <style-sheet><![CDATA[#__title { color : rgba(100, 200,100); font-weight : Bold; font-size: 10pt }#__lineEdit { color : rgba(100, 200,100);  background-color: lightgray; font-size: 14pt; font-weight : Bold }  #__unit { color:blue } ]]></style-sheet>
+                                    </item-configuration>
+                                </lineEdit>
+                                <lineEdit data-in="elf.g_LbistStatus.lbistNotTerminatedByPORST" pos-x="570" pos-y="25" pos-width="180" pos-hight="30">
+                                    <item-configuration>
+                                        <id><![CDATA[TerminatedPORST]]></id>
+                                        <title><![CDATA[TerminatedPORST    ]]></title>
+                                        <style-sheet><![CDATA[#__title { color : rgba(100, 200,100,1); font-weight : Bold; font-size: 10pt }#__lineEdit { color : rgba(100, 200,100,1);  background-color: lightgray; font-size: 14pt; font-weight : Bold }  #__unit { color:blue } ]]></style-sheet>
+                                    </item-configuration>
+                                </lineEdit>
+                                <lineEdit data-in="elf.g_LbistStatus.lbistTerminatedProperly" pos-x="380" pos-y="25" pos-width="180" pos-hight="30">
+                                    <item-configuration>
+                                        <id><![CDATA[TerminatedProperly]]></id>
+                                        <title><![CDATA[TerminatedProperly]]></title>
+                                        <style-sheet><![CDATA[#__title { color : rgba(100, 200,100,1); font-weight : Bold; font-size: 10pt }#__lineEdit { color : rgba(100, 200,100,1);  background-color: lightgray; font-size: 14pt; font-weight : Bold }  #__unit { color:blue } ]]></style-sheet>
+                                    </item-configuration>
+                                </lineEdit>
+                                <lineEdit data-in="elf.g_LbistStatus.lbistDone" pos-x="190" pos-y="25" pos-width="180" pos-hight="30">
+                                    <item-configuration>
+                                        <id><![CDATA[LbistDone]]></id>
+                                        <title><![CDATA[LbistDone           ]]></title>
+                                        <style-sheet><![CDATA[#__title { color : rgba(100, 200,100,1); font-weight : Bold; font-size: 10pt }#__lineEdit { color : rgba(100, 200,100,1);  background-color: lightgray; font-size: 14pt; font-weight : Bold }  #__unit { color:blue } ]]></style-sheet>
+                                    </item-configuration>
+                                </lineEdit>
+                                <lineEdit data-in="elf.g_SlkStatus.sswStatus.lbistStatus" pos-y="25" pos-width="180" pos-hight="30">
+                                    <item-configuration>
+                                        <id><![CDATA[LBIST_copy]]></id>
+                                        <title><![CDATA[LBIST status           ]]></title>
+                                        <style-sheet><![CDATA[#__title { color : rgba(100, 200,100,1); font-weight : Bold; font-size: 10pt }#__lineEdit { color : rgba(100, 200,100,1);  background-color: lightgray; font-size: 14pt; font-weight : Bold }  #__unit { color:blue } ]]></style-sheet>
+                                    </item-configuration>
+                                </lineEdit>
+                            </group>
+                            <group layout="float" layout-item="false">
+                                <item-configuration>
+                                    <title><![CDATA[MONBIST]]></title>
+                                    <style-sheet><![CDATA[#__group { color : Black; font-weight : Bold; font-size: 11pt }]]></style-sheet>
+                                </item-configuration>
+                                <lineEdit data-in="elf.g_MonbistStatus.testOkFlag" pos-x="570" pos-y="25" pos-width="180" pos-hight="30">
+                                    <item-configuration>
+                                        <id><![CDATA[TestOk]]></id>
+                                        <title><![CDATA[SmuStdby BIST         ]]></title>
+                                        <style-sheet><![CDATA[#__title { color : rgba(100, 200,100,1); font-weight : Bold; font-size: 10pt }#__lineEdit { color : rgba(100, 200,100,1);  background-color: lightgray; font-size: 14pt; font-weight : Bold }  #__unit { color:blue } ]]></style-sheet>
+                                    </item-configuration>
+                                </lineEdit>
+                                <lineEdit data-in="elf.g_MonbistStatus.smuErrorFlag" pos-x="380" pos-y="25" pos-width="180" pos-hight="30">
+                                    <item-configuration>
+                                        <id><![CDATA[SmuError]]></id>
+                                        <title><![CDATA[SmuError test                       ]]></title>
+                                        <style-sheet><![CDATA[#__title { color : rgba(100, 200,100,1); font-weight : Bold; font-size: 10pt }#__lineEdit { color : rgba(100, 200,100,1);  background-color: lightgray; font-size: 14pt; font-weight : Bold }  #__unit { color:blue } ]]></style-sheet>
+                                    </item-configuration>
+                                </lineEdit>
+                                <lineEdit data-in="elf.g_MonbistStatus.pmsErrorFlag" pos-x="190" pos-y="25" pos-width="180" pos-hight="30">
+                                    <item-configuration>
+                                        <id><![CDATA[PmsError]]></id>
+                                        <title><![CDATA[PmsError test      ]]></title>
+                                        <style-sheet><![CDATA[#__title { color : rgba(100, 200,100,1); font-weight : Bold; font-size: 10pt }#__lineEdit { color : rgba(100, 200,100,1);  background-color: lightgray; font-size: 14pt; font-weight : Bold }  #__unit { color:blue } ]]></style-sheet>
+                                    </item-configuration>
+                                </lineEdit>
+                                <lineEdit data-in="elf.g_SlkStatus.sswStatus.monbistStatus" pos-y="25" pos-width="180" pos-hight="30">
+                                    <item-configuration>
+                                        <id><![CDATA[MONBIST_copy]]></id>
+                                        <title><![CDATA[MONBIST status   ]]></title>
+                                        <style-sheet><![CDATA[#__title { color : rgba(100, 200,100,1); font-weight : Bold; font-size: 10pt }#__lineEdit { color : rgba(100, 200,100,1);  background-color: lightgray; font-size: 14pt; font-weight : Bold }  #__unit { color:blue } ]]></style-sheet>
+                                    </item-configuration>
+                                </lineEdit>
+                            </group>
+                            <group layout="float" layout-item="false">
+                                <item-configuration>
+                                    <title><![CDATA[MCU FW CHECK]]></title>
+                                    <style-sheet><![CDATA[#__group { color : Black; font-weight : Bold; font-size: 11pt }]]></style-sheet>
+                                </item-configuration>
+                                <lineEdit data-in="elf.g_mcuFwCheckStatus.mcuFwCheckSmu" pos-y="25" pos-width="180" pos-hight="30">
+                                    <item-configuration>
+                                        <id><![CDATA[CheckSMU]]></id>
+                                        <title><![CDATA[CheckSMU test      ]]></title>
+                                        <style-sheet><![CDATA[#__title { color : rgba(100, 200,100); font-weight : Bold; font-size: 10pt }#__lineEdit { color : rgba(100, 200,100);  background-color: lightgray; font-size: 14pt; font-weight : Bold }  #__unit { color:blue } ]]></style-sheet>
+                                    </item-configuration>
+                                </lineEdit>
+                                <lineEdit data-in="elf.g_mcuFwCheckStatus.mcuFwCheckScuStem" pos-x="190" pos-y="25" pos-width="180" pos-hight="30">
+                                    <item-configuration>
+                                        <id><![CDATA[CheckScuStem]]></id>
+                                        <title><![CDATA[CheckScuStem    ]]></title>
+                                        <style-sheet><![CDATA[#__title { color : rgba(100, 200,100,1); font-weight : Bold; font-size: 10pt }#__lineEdit { color : rgba(100, 200,100,1);  background-color: lightgray; font-size: 14pt; font-weight : Bold }  #__unit { color:blue } ]]></style-sheet>
+                                    </item-configuration>
+                                </lineEdit>
+                                <lineEdit data-in="elf.g_mcuFwCheckStatus.mcuFwCheckScuLclcon" pos-x="380" pos-y="25" pos-width="180" pos-hight="30">
+                                    <item-configuration>
+                                        <id><![CDATA[CheckScuLclcon]]></id>
+                                        <title><![CDATA[CheckScuLclcon       ]]></title>
+                                        <style-sheet><![CDATA[#__title { color : rgba(100, 200,100,1); font-weight : Bold; font-size: 10pt }#__lineEdit { color : rgba(100, 200,100,1);  background-color: lightgray; font-size: 14pt; font-weight : Bold }  #__unit { color:blue } ]]></style-sheet>
+                                    </item-configuration>
+                                </lineEdit>
+                                <lineEdit data-in="elf.g_mcuFwCheckStatus.mcuFwCheckSsh" pos-x="572" pos-y="25" pos-width="180" pos-hight="30">
+                                    <item-configuration>
+                                        <id><![CDATA[CheckSsh]]></id>
+                                        <title><![CDATA[CheckSsh                    ]]></title>
+                                        <style-sheet><![CDATA[#__title { color : rgba(100, 200,100,1); font-weight : Bold; font-size: 10pt }#__lineEdit { color : rgba(100, 200,100,1);  background-color: lightgray; font-size: 14pt; font-weight : Bold }  #__unit { color:blue } ]]></style-sheet>
+                                    </item-configuration>
+                                </lineEdit>
+                                <lineEdit data-in="elf.g_SlkStatus.sswStatus.mcuFwcheckStatus" pos-x="760" pos-y="25" pos-width="180" pos-hight="30">
+                                    <item-configuration>
+                                        <id><![CDATA[MCUFWCHECK_copy]]></id>
+                                        <title><![CDATA[McuFwCheck           ]]></title>
+                                        <user-data><![CDATA[ ]]></user-data>
+                                        <style-sheet><![CDATA[#__title { color : rgba(100, 200,100,1); font-weight : Bold; font-size: 10pt }#__lineEdit { color : rgba(100, 200,100,1);  background-color: lightgray; font-size: 14pt; font-weight : Bold }  #__unit { color:blue } ]]></style-sheet>
+                                    </item-configuration>
+                                </lineEdit>
+                            </group>
+                            <group layout="float" layout-item="false">
+                                <item-configuration>
+                                    <title><![CDATA[MCU STARTUP]]></title>
+                                    <style-sheet><![CDATA[#__group { color : Black; font-weight : Bold; font-size: 11pt }]]></style-sheet>
+                                </item-configuration>
+                                <lineEdit data-in="elf.g_SlkStatus.sswStatus.mcuStartupStatus" pos-y="25" pos-width="180" pos-hight="30">
+                                    <item-configuration>
+                                        <id><![CDATA[MCUSTARTUP_copy]]></id>
+                                        <title><![CDATA[McuStartup status]]></title>
+                                        <style-sheet><![CDATA[#__title { color : rgba(100, 200,100,1); font-weight : Bold; font-size: 10pt }#__lineEdit { color : rgba(100, 200,100,1);  background-color: lightgray; font-size: 14pt; font-weight : Bold }  #__unit { color:blue } ]]></style-sheet>
+                                    </item-configuration>
+                                </lineEdit>
+                            </group>
+                            <group layout="float" layout-item="false">
+                                <item-configuration>
+                                    <title><![CDATA[ALIVE TEST]]></title>
+                                    <style-sheet><![CDATA[#__group { color : Black; font-weight : Bold; font-size: 11pt }]]></style-sheet>
+                                </item-configuration>
+                                <lineEdit data-in="elf.g_SlkStatus.smuStatus.smuCoreAliveTestSts" pos-y="25" pos-width="180" pos-hight="30">
+                                    <item-configuration>
+                                        <id><![CDATA[TestSts]]></id>
+                                        <title><![CDATA[STS  test                  ]]></title>
+                                        <style-sheet><![CDATA[#__title { color : rgba(100, 200,100,1); font-weight : Bold; font-size: 10pt }#__lineEdit { color : rgba(100, 200,100,1);  background-color: lightgray; font-size: 14pt; font-weight : Bold }  #__unit { color:blue } ]]></style-sheet>
+                                    </item-configuration>
+                                </lineEdit>
+                                <lineEdit data-in="elf.g_SlkStatus.smuStatus.smuCoreAliveTestClearSts" pos-x="190" pos-y="25" pos-width="180" pos-hight="30">
+                                    <item-configuration>
+                                        <id><![CDATA[TestClearSts]]></id>
+                                        <title><![CDATA[Clear STS test    ]]></title>
+                                        <style-sheet><![CDATA[#__title { color : rgba(100, 200,100,1); font-weight : Bold; font-size: 10pt }#__lineEdit { color : rgba(100, 200,100,1);  background-color: lightgray; font-size: 14pt; font-weight : Bold }  #__unit { color:blue } ]]></style-sheet>
+                                    </item-configuration>
+                                </lineEdit>
+                                <lineEdit data-in="elf.g_SlkStatus.sswStatus.aliveAlarmTestStatus" pos-x="380" pos-y="25" pos-width="180" pos-hight="30">
+                                    <item-configuration>
+                                        <id><![CDATA[ALIVETEST_copy]]></id>
+                                        <title><![CDATA[Alive Test status     ]]></title>
+                                        <style-sheet><![CDATA[#__title { color : rgba(100, 200,100,1); font-weight : Bold; font-size: 10pt }#__lineEdit { color : rgba(100, 200,100,1);  background-color: lightgray; font-size: 14pt; font-weight : Bold }  #__unit { color:blue } ]]></style-sheet>
+                                    </item-configuration>
+                                </lineEdit>
+                            </group>
+                            <group layout="float" layout-item="false">
+                                <item-configuration>
+                                    <title><![CDATA[REG MONITOR TEST]]></title>
+                                    <style-sheet><![CDATA[#__group { color : Black; font-weight : Bold; font-size: 11pt }]]></style-sheet>
+                                </item-configuration>
+                                <lineEdit data-in="elf.g_SlkStatus.smuStatus.smuSafetyFlipFlopTriggerTestSts" pos-y="25" pos-width="180" pos-hight="30">
+                                    <item-configuration>
+                                        <id><![CDATA[FlipFlopTriggerTestSts]]></id>
+                                        <title><![CDATA[FF Sts test              ]]></title>
+                                        <style-sheet><![CDATA[#__title { color : rgba(100, 200,100,1); font-weight : Bold; font-size: 10pt }#__lineEdit { color : rgba(100, 200,100,1);  background-color: lightgray; font-size: 14pt; font-weight : Bold }  #__unit { color:blue } ]]></style-sheet>
+                                    </item-configuration>
+                                </lineEdit>
+                                <lineEdit data-in="elf.g_SlkStatus.smuStatus.smuSafetyFlipFlopTestResultCheckSts" pos-x="190" pos-y="25" pos-width="180" pos-hight="30">
+                                    <item-configuration>
+                                        <id><![CDATA[FlipFlopTestResultCheckSts]]></id>
+                                        <title><![CDATA[FF result check  ]]></title>
+                                        <style-sheet><![CDATA[#__title { color : rgba(100, 200,100,1); font-weight : Bold; font-size: 10pt }#__lineEdit { color : rgba(100, 200,100,1);  background-color: lightgray; font-size: 14pt; font-weight : Bold }  #__unit { color:blue } ]]></style-sheet>
+                                    </item-configuration>
+                                </lineEdit>
+                                <lineEdit data-in="elf.g_SlkStatus.smuStatus.smuSafetyFlipFlopTestAlarmFlagClearSts" pos-x="380" pos-y="25" pos-width="180" pos-hight="30">
+                                    <item-configuration>
+                                        <id><![CDATA[FlipFlopTestAlarmFlagClearSts]]></id>
+                                        <title><![CDATA[FF clear STS test    ]]></title>
+                                        <user-data><![CDATA[FlipFlopTestAlarmFlagClearSts]]></user-data>
+                                        <style-sheet><![CDATA[#__title { color : rgba(100, 200,100,1); font-weight : Bold; font-size: 10pt }#__lineEdit { color : rgba(100, 200,100,1);  background-color: lightgray; font-size: 14pt; font-weight : Bold }  #__unit { color:blue } ]]></style-sheet>
+                                    </item-configuration>
+                                </lineEdit>
+                                <lineEdit data-in="elf.g_SlkStatus.smuStatus.regMonitorTestSmu" pos-x="570" pos-y="25" pos-width="180" pos-hight="30">
+                                    <item-configuration>
+                                        <id><![CDATA[REGMONITOR_copy]]></id>
+                                        <title><![CDATA[Register Mon status]]></title>
+                                        <style-sheet><![CDATA[#__title { color : rgba(100, 200,100,1); font-weight : Bold; font-size: 10pt }#__lineEdit { color : rgba(100, 200,100,1);  background-color: lightgray; font-size: 14pt; font-weight : Bold }  #__unit { color:blue } ]]></style-sheet>
+                                    </item-configuration>
+                                </lineEdit>
+                            </group>
+                            <group layout="float" layout-item="false">
+                                <item-configuration>
+                                    <title><![CDATA[MBIST]]></title>
+                                    <style-sheet><![CDATA[#__group { color : Black; font-weight : Bold; font-size: 11pt }]]></style-sheet>
+                                </item-configuration>
+                                <lineEdit data-in="elf.g_SlkStatus.sswStatus.mbistStatus" pos-y="25" pos-width="180" pos-hight="30">
+                                    <item-configuration>
+                                        <id><![CDATA[MBIST_copy]]></id>
+                                        <title><![CDATA[MBIST status        ]]></title>
+                                        <style-sheet><![CDATA[#__title { color : rgba(100, 200,100,1); font-weight : Bold; font-size: 10pt }#__lineEdit { color : rgba(100, 200,100,1);  background-color: lightgray; font-size: 14pt; font-weight : Bold }  #__unit { color:blue } ]]></style-sheet>
+                                    </item-configuration>
+                                </lineEdit>
+                                <lineEdit data-in="elf.g_MbistStatus.noMbistError" pos-x="190" pos-y="25" pos-width="182" pos-hight="30">
+                                    <item-configuration>
+                                        <id><![CDATA[MbistErrors]]></id>
+                                        <title><![CDATA[No Mbist error]]></title>
+                                        <style-sheet><![CDATA[#__title { color : rgba(100, 200,100,1); font-weight : Bold; font-size: 10pt }#__lineEdit { color : rgba(100, 200,100,1);  background-color: lightgray; font-size: 14pt; font-weight : Bold }  #__unit { color:blue } ]]></style-sheet>
+                                    </item-configuration>
+                                </lineEdit>
+                            </group>
+                        </group>
+                    </group>
+                </group>
+            </tabPage>
+        </tab>
+    </layout>
+    <interface>
+        <item-configuration>
+            <id><![CDATA[das-itf]]></id>
+        </item-configuration>
+        <port plugin="PCom_DAS::DAS" connect="true" system-key="{ADS}"/>
+    </interface>
+    <config update-timer-period="5">
+        <item-configuration>
+            <on-timer-script><![CDATA[{script:colorStatusOutput.js}]]></on-timer-script>
+        </item-configuration>
+    </config>
+    <debugBox elf-path="..\TriCore Debug (TASKING)\iLLD_TC375_ADS_SAFETY_LITE_KIT.elf" watches="g_SlkStatus;g_MonbistStatus;g_MbistStatus;g_LbistStatus;g_mcuFwCheckStatus;g_triggerSMU;g_returnSMU;g_clearSMU;g_SswRunCount;g_resetSys;g_resetAlm;g_CpuStatus;g_AppCpu0;watchdogTicks;g_DmaErrorInjection;g_triggerNvmPflashBitsError;g_trigerSriError;sbst_cpu_state;g_triggerLmuDamCrcError;enableQspiSafeCommunication;g_ErrorTypeQspiSafe;g_dmaErrorStatus;g_analogAcquisitionStatus;g_qspiMasterSafe;g_digitalAcqActStatus;g_injectLockstepError;g_boardAliveLed;g_alarmDetectLed" com-interface-id="das-itf" title="" id="elf"/>
+</root>

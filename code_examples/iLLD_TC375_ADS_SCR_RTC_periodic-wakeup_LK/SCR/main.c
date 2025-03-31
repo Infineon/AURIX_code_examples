@@ -129,12 +129,12 @@ void main(void)
      * Clear P01.2 (P33.10) to ensure a low level at the beginning, otherwise
      * it is possible that the RTC will not start.
      */
-     SCR_SET_IO_PAGE(MOD_PAGE_0);
-     SCR_IO_P01_OUT &= (~ScrIoPin2);
-     /* Set P01.2 (P33.10) as output, push-pull */
-     SCR_SET_IO_PAGE(MOD_PAGE_1);
-     SCR_IO_P01_IOCR2 = ScrPortMode_outputPushPullGeneral;
-     /* ~Errata SCR_TC.021 */
+    SCR_SET_IO_PAGE(MOD_PAGE_0);
+    SCR_IO_P01_OUT &= (~ScrIoPin2);
+    /* Set P01.2 (P33.10) as output, push-pull */
+    SCR_SET_IO_PAGE(MOD_PAGE_1);
+    SCR_IO_P01_IOCR2 = ScrPortMode_outputPushPullGeneral;
+    /* ~Errata SCR_TC.021 */
 #endif /* USE_KIT_A2G_TC375_LITE */
 
 #if USE_KIT_A2G_TC397_5V_TFT
@@ -159,7 +159,7 @@ void main(void)
     SCR_IO_P01_IOCR4 = ScrPortMode_inputPullUp;
 #endif /* USE_KIT_A2G_TC397_5V_TFT */
 
-#if USE_TC3X7_TH_V2
+#if USE_KIT_TC397_TRB
     /* Enable available pins 
        P33.0 - P33.7, P34.1, P33.11 - P33.15 */
     SCR_SET_IO_PAGE(MOD_PAGE_2);
@@ -179,7 +179,7 @@ void main(void)
     SCR_IO_P01_IOCR3 = ScrPortMode_inputNoPullDevice;
     /* Set P01.4 (P33.12) as input, pull up (PINB) */
     SCR_IO_P01_IOCR4 = ScrPortMode_inputPullUp;
-#endif /* USE_TC3X7_TH_V2 */
+#endif /* USE_KIT_TC397_TRB */
 
     /* Enable 20MHz clock to SCR */
     Scr_set_fsys(DIV5);
@@ -221,6 +221,9 @@ void main(void)
     SCR_RTC_CR0 = g_exchangeBytes[0];
     /*** ~Initialize RTC ***/
 
+    /* Enable Real-Time clock compare interrupt, 9-bit prescaler is bypassed, 70 kHz clock is selected */
+    SCR_RTC_CON = (ECRTC_MASK | RTPBYP_MASK);
+
     while(1)
     {
         /* Check if HF clock is enabled in the application */
@@ -241,9 +244,8 @@ void main(void)
             /* Set HF mode flag to disabled */
             g_disabledHF = TRUE;
 
-            /* Enable Real-Time clock compare interrupt, 9-bit prescaler is bypassed,
-             * 70 kHz clock is selected, Start Real-Time clock operation */
-            SCR_RTC_CON =  (ECRTC_MASK | RTPBYP_MASK | RTCC_MASK);
+            /* Start Real-Time clock operation */
+            Scr_start_rtc();
         }
     }
 }

@@ -64,7 +64,7 @@ MEMORY
   bit    (rw!x) : ORIGIN = 0, LENGTH = 0x80
   data   (rw!x) : ORIGIN = 0, LENGTH = 256
   pdata  (rw!x) : ORIGIN = 0, LENGTH = 256
-  xdata  (rw!x) : ORIGIN = 0x1C00, LENGTH = 1K
+  xdata  (rw!x) : ORIGIN = 0x1C00, LENGTH = (1K-8)
   edata  (rw!x) : ORIGIN = 0, LENGTH = 0K
   eeprom (rw!x) : ORIGIN = 0, LENGTH = 0K
 }

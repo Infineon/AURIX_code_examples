@@ -16,7 +16,7 @@ The board used for testing is the AURIX™ TC375 lite Kit V2 (KIT_A2G_TC375_LITE
 
 This is a minimal code example presenting a solution to application scenario 1 from Application Note AP32465.
 The goal is to periodically monitor I/O lines for logic level change in Standby Mode and wake-up the TriCore™ Cpu to perform communication with external components (e.g. via LIN channels).
-The TriCore™ CPU is used to mirror the port line P33.4 to P00.5 which has LED1 connected on the TC375 lite Kit.
+The TriCore™ CPU is used to mirror the port line P33.4 to P00.5 which has LED1 connected on the AURIX™ TC375 lite Kit V2.
 
 ## Introduction
 
@@ -46,7 +46,7 @@ Top view of the AURIX™ TC375 lite Kit V2. Used button and LEDs are marked with
 
 ### Bottom view
 
-Bottom view of the AURIX™ lite Kit TC3X7. Used Pins are marked with a green frame.
+Bottom view of the AURIX™ TC375 lite Kit V2. Used Pins are marked with a green frame.
 
 <img src="./Images/LiteKit_V2_Bottom.png" />
 
@@ -65,7 +65,7 @@ For the example some additional external hardware is needed as shown in the belo
 
 ### Available I/O signals
 
-<table>
+<table border="1px" cellpadding="5px" width="600">
 <tr><th>   SCR I/O   </th><th>   TC3 I/O   </th><th>   AURIX™ lite Kit V2.0    </th><th>   Code Example    </th></tr>
 <tr><td>    P00.0    </td><td>   P33.0     </td><td>   X2-28 (free)            </td><td>                   </td></tr>
 <tr><td>    P00.1    </td><td>   P33.1     </td><td>   X2-29 (free)            </td><td>                   </td></tr>
@@ -97,7 +97,9 @@ For the example some additional external hardware is needed as shown in the belo
 
 ### Embedding of the SCR code into the TriCore™ project
 
-While the build process, the SCR code is compiled to a binary output which is translated into SCR_AURIX_TC3x.h and SCR_AURIX_TC3x.c files. These two files are generated and included into the TriCore™ project automatically. The file SCR_AURIX_TC3x.c contains the binary SCR code and is loaded by code execution of Cpu0 to the SCR XRAM memory.
+While the build process, the SCR code is compiled to a binary output which is translated into SCR_AURIX_TC3x.h and SCR_AURIX_TC3x.c files.
+These two files are generated and included into the TriCore™ project automatically.
+The file SCR_AURIX_TC3x.c contains the binary SCR code and is loaded by code execution of CPU0 to the SCR XRAM memory.
 
 ### CPU0 code
 
@@ -134,7 +136,7 @@ Next step is to check the wake-up cause to be one of the following:
    To debug the SCR firmware (which is not possible during *Standby Mode*) another compile time switch (`DEBUG_SCR_NO_STBY`) can be used to prevent entering *Standby Mode*.
    If `DEBUG_SCR_NO_STBY` is set to *FALSE* a region of shared XRAM is programmed with the desired RTC wake-up period `SCR_RTC_PERIOD_MS` (default 200 ms).
 
-   Finally, via register *PMS_PMSWCR0* the wake-up triggers are configured and the software waits for a button press event to occur (falling edge on P33.11/SCR P01.3) which can be triggered by pressing BUTTON1. The toggling SCR port P00.4 can't directly be observed on the used AURIX™ lite Kit TC3X7, just by using an oscilloscope or an LED connecting to the port. The SCR port P00 is equivalent to port P33 of the TriCore™ CPU. To observe the SCR P00.4 (P33.4) line the TriCore™ Cpu0 is mirroring the P33.4 state to the port line P00.5 which is connected to LED D1 on the AURIX™ lite Kit TC3X7.
+   Finally, via register *PMS_PMSWCR0* the wake-up triggers are configured and the software waits for a button press event to occur (falling edge on P33.11/SCR P01.3) which can be triggered by pressing BUTTON1. The toggling SCR port P00.4 can't directly be observed on the used AURIX™ TC375 lite Kit V2, just by using an oscilloscope or an LED connecting to the port. The SCR port P00 is equivalent to port P33 of the TriCore™ CPU. To observe the SCR P00.4 (P33.4) line the TriCore™ Cpu0 is mirroring the P33.4 state to the port line P00.5 which is connected to LED D1 on the AURIX™ TC375 lite Kit V2.
 
    After the button press event the TriCore™ Cpu0 enters *Standby Mode* and gives further control to SCR.
 
