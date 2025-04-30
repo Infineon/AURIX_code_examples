@@ -31,11 +31,11 @@
  *              Using the WUT and the Capture/Compare Unit 6 (CCU6) a calibration coefficient is calculated and transferred to the SCR domain.
  *
  * \name iLLD_TC375_ADS_SCR_RTC_70kHz_trimming_LK
- * \version V1.0.1
+ * \version V1.0.2
  * \board AURIX TC375 lite Kit, KIT_A2G_TC375_LITE, TC37xTP_A-Step
- * \keywords SCR, CCU, WUT, RTC, LED, PORT, Interrupt, AURIX
+ * \keywords SCR, WUT, CCU6, RTC, 70kHz, STANDBY, AURIX
  * \documents See README.md
- * \lastUpdated 2025-03-13
+ * \lastUpdated 2025-04-16
  *********************************************************************************************************************/
 #include "Ifx_Types.h"
 #include "IfxCpu.h"
@@ -44,6 +44,7 @@
 #include "AppBsp.h"
 #include "WakeupTimer.h"
 #include "CaptureCompare.h"
+#include "SCR_AURIX_TC3x.h"
 
 /*********************************************************************************************************************/
 /*------------------------------------------------------Macros-------------------------------------------------------*/
@@ -56,13 +57,21 @@
 
 #define NUMBER_CALIBRATION_CYCLES       (5u)    /* Number of calibration rounds for the 70kHz clock*/
 
-/* Helper macro to calculate XRAM memory address information for RTC data exchange */
-#define XRAM_EXCHANGE_ADDRESS(offset)   (uint32*)((uint8*)PMS_XRAM + (offset & (PMS_XRAM_SIZE-1)))
-
 #define STATUSLED_POWERON               (AppBspStatusLed_2) /* LED showing PowerOn state */
 #define STATUSLED_PINBWAKEUP            (AppBspStatusLed_2) /* LED showing PINBWKP state */
 #define STATUSLED_ESR1WAKEUP            (AppBspStatusLed_2) /* LED showing ESR1WKP state */
 #define STATUSLED_SCRWAKEUP             (AppBspStatusLed_2) /* LED showing SCRWKP state */
+
+/* Helper macro to calculate XRAM memory address information for RTC data exchange */
+#define XRAM_EXCHANGE_ADDRESS(offset)   (uint32*)((uint8*)PMS_XRAM + (offset & (PMS_XRAM_SIZE-1)))
+
+/* XRAM memory address for TriCore <-> SCR data exchange.
+ * - Size and structure need to be aligned with global variables in SCR/main.c
+ * - Adresses accessed from TriCore need to be 32-bit aligned!
+ * - XRAM offsets are listed in 'SCR_AURIX_TC3x.h' and can be found by searching for SCR code variable names!
+ */
+#define XRAM_EXCHANGE_OFFSET            (LABEL_scr_xram__g_exchangeBytes)
+#define XRAM_EXCHANGE_OFFSET2           (LABEL_scr_xram__g_wakeUpReason)
 
 /*********************************************************************************************************************/
 /*-------------------------------------------------Global variables--------------------------------------------------*/

@@ -1,0 +1,349 @@
+<root version="2.42.0">
+    <signals>
+        <var name="elf" type="group" offset="0" access="read-write">
+            <var name="g_ErrorTypeQspiSafe" type="uint8" offset="0" access="read-write" default="0">
+                <item-configuration>
+                    <title><![CDATA[g_ErrorTypeQspiSafe]]></title>
+                </item-configuration>
+            </var>
+            <var name="g_cyclTimeQSPI" type="uint8" offset="0" access="read-write" default="0">
+                <item-configuration>
+                    <title><![CDATA[g_cyclTimeQSPI]]></title>
+                </item-configuration>
+            </var>
+            <var name="g_qspiMasterSafe" type="group" offset="0" access="read-write">
+                <item-configuration>
+                    <title><![CDATA[g_qspiMasterSafe]]></title>
+                </item-configuration>
+                <var name="qpsiSafeTimingErrorInjection" type="bit" data-size="8" offset="0" access="read-write" default="0" enum="true">
+                    <item-configuration>
+                        <title><![CDATA[qpsiSafeTimingErrorInjection]]></title>
+                    </item-configuration>
+                    <option data="0">
+                        <item-configuration>
+                            <value><![CDATA[ExpectedFrame]]></value>
+                            <title><![CDATA[ExpectedFrame]]></title>
+                        </item-configuration>
+                    </option>
+                    <option data="1">
+                        <item-configuration>
+                            <value><![CDATA[EarlyFrame]]></value>
+                            <title><![CDATA[EarlyFrame]]></title>
+                        </item-configuration>
+                    </option>
+                    <option data="2">
+                        <item-configuration>
+                            <value><![CDATA[LateFrame]]></value>
+                            <title><![CDATA[LateFrame]]></title>
+                        </item-configuration>
+                    </option>
+                </var>
+                <var name="qspiMasterTx" type="group" offset="0" access="read-write">
+                    <item-configuration>
+                        <title><![CDATA[qspiMasterTx]]></title>
+                    </item-configuration>
+                    <var name="dataM" type="group" offset="0" access="read-write">
+                        <item-configuration>
+                            <title><![CDATA[dataM]]></title>
+                        </item-configuration>
+                        <var name="data_id" type="uint32" offset="0" access="read-write" default="0">
+                            <item-configuration>
+                                <title><![CDATA[data_id]]></title>
+                            </item-configuration>
+                        </var>
+                        <var name="spi4MasterTxBuffer" type="group" offset="0" access="read-write">
+                            <item-configuration>
+                                <title><![CDATA[spi4MasterTxBuffer]]></title>
+                            </item-configuration>
+                            <var name="spi4MasterTxBuffer[0]" type="uint32" offset="0" access="read-write" default="0">
+                                <item-configuration>
+                                    <title><![CDATA[0]]></title>
+                                </item-configuration>
+                            </var>
+                            <var name="spi4MasterTxBuffer[1]" type="uint32" offset="0" access="read-write" default="0">
+                                <item-configuration>
+                                    <title><![CDATA[1]]></title>
+                                </item-configuration>
+                            </var>
+                            <var name="spi4MasterTxBuffer[2]" type="uint32" offset="0" access="read-write" default="0">
+                                <item-configuration>
+                                    <title><![CDATA[2]]></title>
+                                </item-configuration>
+                            </var>
+                            <var name="spi4MasterTxBuffer[3]" type="uint32" offset="0" access="read-write" default="0">
+                                <item-configuration>
+                                    <title><![CDATA[3]]></title>
+                                </item-configuration>
+                            </var>
+                        </var>
+                        <var name="frame_counter" type="uint32" offset="0" access="read-write" default="0">
+                            <item-configuration>
+                                <title><![CDATA[frame_counter]]></title>
+                            </item-configuration>
+                        </var>
+                        <var name="crc" type="uint32" offset="0" access="read-write" default="0">
+                            <item-configuration>
+                                <title><![CDATA[crc]]></title>
+                            </item-configuration>
+                        </var>
+                    </var>
+                </var>
+            </var>
+            <var name="g_qspiSlaveSafe" type="group" offset="0" access="read-write">
+                <item-configuration>
+                    <title><![CDATA[g_qspiSlaveSafe]]></title>
+                </item-configuration>
+                <var name="qspiSlaveRx" type="group" offset="0" access="read-write">
+                    <item-configuration>
+                        <title><![CDATA[qspiSlaveRx]]></title>
+                    </item-configuration>
+                    <var name="dataS" type="group" offset="0" access="read-write">
+                        <item-configuration>
+                            <title><![CDATA[dataS]]></title>
+                        </item-configuration>
+                        <var name="data_id" type="uint32" offset="0" access="read-write" default="0">
+                            <item-configuration>
+                                <title><![CDATA[data_id]]></title>
+                            </item-configuration>
+                        </var>
+                        <var name="spi3SlaveRxBuffer" type="group" offset="0" access="read-write">
+                            <item-configuration>
+                                <title><![CDATA[spi3SlaveRxBuffer]]></title>
+                            </item-configuration>
+                            <var name="spi3SlaveRxBuffer[0]" type="uint32" offset="0" access="read-write" default="0">
+                                <item-configuration>
+                                    <title><![CDATA[0]]></title>
+                                </item-configuration>
+                            </var>
+                            <var name="spi3SlaveRxBuffer[1]" type="uint32" offset="0" access="read-write" default="0">
+                                <item-configuration>
+                                    <title><![CDATA[1]]></title>
+                                </item-configuration>
+                            </var>
+                            <var name="spi3SlaveRxBuffer[2]" type="uint32" offset="0" access="read-write" default="0">
+                                <item-configuration>
+                                    <title><![CDATA[2]]></title>
+                                </item-configuration>
+                            </var>
+                            <var name="spi3SlaveRxBuffer[3]" type="uint32" offset="0" access="read-write" default="0">
+                                <item-configuration>
+                                    <title><![CDATA[3]]></title>
+                                </item-configuration>
+                            </var>
+                        </var>
+                        <var name="frame_counter" type="uint32" offset="0" access="read-write" default="0">
+                            <item-configuration>
+                                <title><![CDATA[frame_counter]]></title>
+                            </item-configuration>
+                        </var>
+                        <var name="crc" type="uint32" offset="0" access="read-write" default="0">
+                            <item-configuration>
+                                <title><![CDATA[crc]]></title>
+                            </item-configuration>
+                        </var>
+                    </var>
+                </var>
+            </var>
+            <var name="g_qspiSafeCommDiagnose" type="group" offset="0" access="read-write">
+                <item-configuration>
+                    <title><![CDATA[g_qspiSafeCommDiagnose]]></title>
+                </item-configuration>
+                <var name="g_ErrorTypeQspiSafe" type="group" offset="0" access="read-write">
+                    <item-configuration>
+                        <title><![CDATA[g_ErrorTypeQspiSafe]]></title>
+                    </item-configuration>
+                    <var name="dataMisMatchError" type="uint8" offset="0" access="read-write" default="0">
+                        <item-configuration>
+                            <title><![CDATA[dataMisMatchError]]></title>
+                        </item-configuration>
+                    </var>
+                    <var name="earlyFrameArriveError" type="uint8" offset="0" access="read-write" default="0">
+                        <item-configuration>
+                            <title><![CDATA[earlyFrameArriveError]]></title>
+                        </item-configuration>
+                    </var>
+                    <var name="lateFrameArriveError" type="uint8" offset="0" access="read-write" default="0">
+                        <item-configuration>
+                            <title><![CDATA[lateFrameArriveError]]></title>
+                        </item-configuration>
+                    </var>
+                    <var name="frameTimeOutError" type="uint8" offset="0" access="read-write" default="0">
+                        <item-configuration>
+                            <title><![CDATA[frameTimeOutError]]></title>
+                        </item-configuration>
+                    </var>
+                </var>
+            </var>
+            <var name="g_systemReset" type="uint8" offset="0" access="read-write" default="0">
+                <item-configuration>
+                    <title><![CDATA[g_systemReset]]></title>
+                </item-configuration>
+            </var>
+        </var>
+    </signals>
+    <layout>
+        <tab>
+            <item-configuration>
+                <style-sheet><![CDATA[#__tab{ color: green; font-weight : Bold; font-size:22pt } QWidget{ background-color:rgba(10,130,118,1); } ]]></style-sheet>
+            </item-configuration>
+            <tabPage>
+                <item-configuration>
+                    <title><![CDATA[Menu]]></title>
+                    <style-sheet><![CDATA[#__group { color : Black; font-weight : Bold; font-size: 12pt; background-color:#FC107 }#__lineEdit { color : rgba(100, 200,100,1);  background-color: lightgray; font-size: 14pt; font-weight : Bold;max-width:400; max-height:30; min-width:400; }  #__unit { color:blue } #__title { color: rgba(100, 200,100,1); font-weight : Bold; font-size: 12pt;max-width:800; max-height:30;qproperty-alignment: AlignLeft; }#__comboBox { color: rgba(100, 200,100,1); font-weight : Bold; font-size: 10pt;max-width:400; mx-height:30; }]]></style-sheet>
+                </item-configuration>
+                <group layout="float" layout-item="false">
+                    <item-configuration>
+                        <title><![CDATA[QSPI Safe Communication Status]]></title>
+                        <style-sheet><![CDATA[#__group { color : White; font-weight : Bold; font-size: 16pt }]]></style-sheet>
+                    </item-configuration>
+                    <checkBox auto-connect="elf.g_systemReset" pos-x="453" pos-y="526" pos-width="283" pos-hight="70">
+                        <item-configuration>
+                            <title><![CDATA[System Reset]]></title>
+                            <style-sheet><![CDATA[ #__checkBox { color: rgba(100, 250,100,1); font-weight : Bold; font-size: 20pt }QCheckBox::indicator:checked {
+image: url([:CWD:]/1_red.png);
+}QCheckBox::indicator:unchecked {
+image: url([:CWD:]/push.png);
+}]]></style-sheet>
+                        </item-configuration>
+                    </checkBox>
+                    <group layout="float" pos-x="14" pos-y="45" pos-width="550" pos-hight="470" layout-item="false">
+                        <item-configuration>
+                            <title><![CDATA[Master (running on Core 0)]]></title>
+                            <style-sheet><![CDATA[#__title { color : rgba(100, 250,100); font-weight : Bold; font-size: 12pt }#__lineEdit { color : rgba(100, 200,100);  background-color: lightgray; font-size: 14pt; font-weight : Bold }  #__unit { color:blue } #__checkBox { color: rgba(100, 250,100,1); font-weight : Bold; font-size: 12pt }]]></style-sheet>
+                        </item-configuration>
+                        <comboBox auto-connect="elf.g_qspiMasterSafe.qpsiSafeTimingErrorInjection" pos-x="10" pos-y="400" pos-width="300" pos-hight="40">
+                            <item-configuration>
+                                <title><![CDATA[Error Injection]]></title>
+                                <style-sheet><![CDATA[#__comboBox { color : rgba(100, 200,100,1);  background-color: lightgray; font-size: 12pt; font-weight : Bold }  #__unit { color: rgba(100, 200,100,1) } ]]></style-sheet>
+                            </item-configuration>
+                        </comboBox>
+                        <lineEdit auto-connect="elf.g_qspiMasterSafe.qspiMasterTx.dataM.spi4MasterTxBuffer.spi4MasterTxBuffer[0]" pos-x="10" pos-y="180" pos-width="300" pos-hight="40">
+                            <item-configuration>
+                                <title><![CDATA[Data 0                        ]]></title>
+                            </item-configuration>
+                        </lineEdit>
+                        <lineEdit auto-connect="elf.g_qspiMasterSafe.qspiMasterTx.dataM.spi4MasterTxBuffer.spi4MasterTxBuffer[2]" pos-x="10" pos-y="260" pos-width="300" pos-hight="40">
+                            <item-configuration>
+                                <title><![CDATA[Data 2                       ]]></title>
+                            </item-configuration>
+                        </lineEdit>
+                        <lineEdit auto-connect="elf.g_qspiMasterSafe.qspiMasterTx.dataM.spi4MasterTxBuffer.spi4MasterTxBuffer[3]" pos-x="10" pos-y="300" pos-width="300" pos-hight="40">
+                            <item-configuration>
+                                <title><![CDATA[Date 3                                  ]]></title>
+                            </item-configuration>
+                        </lineEdit>
+                        <lineEdit auto-connect="elf.g_qspiMasterSafe.qspiMasterTx.dataM.spi4MasterTxBuffer.spi4MasterTxBuffer[1]" pos-x="10" pos-y="220" pos-width="300" pos-hight="40">
+                            <item-configuration>
+                                <title><![CDATA[Data 1                        ]]></title>
+                            </item-configuration>
+                        </lineEdit>
+                        <lineEdit auto-connect="elf.g_qspiMasterSafe.qspiMasterTx.dataM.frame_counter" pos-x="10" pos-y="140" pos-width="300" pos-hight="40">
+                            <item-configuration>
+                                <title><![CDATA[Frame Counter      ]]></title>
+                            </item-configuration>
+                        </lineEdit>
+                        <lineEdit auto-connect="elf.g_qspiMasterSafe.qspiMasterTx.dataM.crc" pos-x="10" pos-y="100" pos-width="300" pos-hight="40">
+                            <item-configuration>
+                                <title><![CDATA[CRC                                             ]]></title>
+                            </item-configuration>
+                        </lineEdit>
+                        <lineEdit auto-connect="elf.g_qspiMasterSafe.qspiMasterTx.dataM.data_id" pos-x="10" pos-y="60" pos-width="300" pos-hight="40">
+                            <item-configuration>
+                                <title><![CDATA[ID                                              ]]></title>
+                            </item-configuration>
+                        </lineEdit>
+                    </group>
+                    <group layout="float" pos-x="576" pos-y="45" pos-width="550" pos-hight="470" layout-item="false">
+                        <item-configuration>
+                            <title><![CDATA[Slave (running on Core 1)]]></title>
+                            <style-sheet><![CDATA[#__title { color : rgba(100, 250,100); font-weight : Bold; font-size: 12pt }#__lineEdit { color : rgba(100, 200,100);  background-color: lightgray; font-size: 14pt; font-weight : Bold }  #__unit { color:blue } #__checkBox { color: rgba(100, 250,100,1); font-weight : Bold; font-size: 12pt }]]></style-sheet>
+                        </item-configuration>
+                        <lineEdit auto-connect="elf.g_qspiSlaveSafe.qspiSlaveRx.dataS.spi3SlaveRxBuffer.spi3SlaveRxBuffer[1]" pos-x="10" pos-y="220" pos-width="300" pos-hight="40">
+                            <item-configuration>
+                                <title><![CDATA[Data 1                            ]]></title>
+                            </item-configuration>
+                        </lineEdit>
+                        <lineEdit auto-connect="elf.g_qspiSlaveSafe.qspiSlaveRx.dataS.spi3SlaveRxBuffer.spi3SlaveRxBuffer[2]" pos-x="10" pos-y="260" pos-width="300" pos-hight="40">
+                            <item-configuration>
+                                <title><![CDATA[Data 2                             ]]></title>
+                            </item-configuration>
+                        </lineEdit>
+                        <lineEdit auto-connect="elf.g_qspiSlaveSafe.qspiSlaveRx.dataS.spi3SlaveRxBuffer.spi3SlaveRxBuffer[3]" pos-x="10" pos-y="300" pos-width="300" pos-hight="40">
+                            <item-configuration>
+                                <title><![CDATA[Data 3                               ]]></title>
+                            </item-configuration>
+                        </lineEdit>
+                        <lineEdit auto-connect="elf.g_qspiSlaveSafe.qspiSlaveRx.dataS.spi3SlaveRxBuffer.spi3SlaveRxBuffer[0]" pos-x="10" pos-y="180" pos-width="300" pos-hight="40">
+                            <item-configuration>
+                                <title><![CDATA[Data 0                                 ]]></title>
+                            </item-configuration>
+                        </lineEdit>
+                        <lineEdit auto-connect="elf.g_qspiSlaveSafe.qspiSlaveRx.dataS.frame_counter" pos-x="10" pos-y="140" pos-width="300" pos-hight="40">
+                            <item-configuration>
+                                <title><![CDATA[Frame Counter     ]]></title>
+                            </item-configuration>
+                        </lineEdit>
+                        <lineEdit auto-connect="elf.g_qspiSlaveSafe.qspiSlaveRx.dataS.crc" pos-x="10" pos-y="100" pos-width="300" pos-hight="40">
+                            <item-configuration>
+                                <title><![CDATA[CRC                                         ]]></title>
+                            </item-configuration>
+                        </lineEdit>
+                        <lineEdit auto-connect="elf.g_qspiSlaveSafe.qspiSlaveRx.dataS.data_id" pos-x="10" pos-y="60" pos-width="300" pos-hight="40">
+                            <item-configuration>
+                                <title><![CDATA[ID                                            ]]></title>
+                            </item-configuration>
+                        </lineEdit>
+                        <checkBox auto-connect="elf.g_qspiSafeCommDiagnose.g_ErrorTypeQspiSafe.dataMisMatchError" pos-x="10" pos-y="350" pos-width="250" pos-hight="50">
+                            <item-configuration>
+                                <title><![CDATA[Data Mismatch Error]]></title>
+                                <style-sheet><![CDATA[ QCheckBox::indicator:checked {
+image: url([:CWD:]/1_red.png);
+}QCheckBox::indicator:unchecked {
+image: url([:CWD:]/2_off.png);
+}]]></style-sheet>
+                            </item-configuration>
+                        </checkBox>
+                        <checkBox auto-connect="elf.g_qspiSafeCommDiagnose.g_ErrorTypeQspiSafe.frameTimeOutError" pos-x="290" pos-y="350" pos-width="250" pos-hight="50">
+                            <item-configuration>
+                                <title><![CDATA[Time Out error]]></title>
+                                <style-sheet><![CDATA[ QCheckBox::indicator:checked {
+image: url([:CWD:]/1_red.png);
+}QCheckBox::indicator:unchecked {
+image: url([:CWD:]/2_off.png);
+}]]></style-sheet>
+                            </item-configuration>
+                        </checkBox>
+                        <checkBox auto-connect="elf.g_qspiSafeCommDiagnose.g_ErrorTypeQspiSafe.earlyFrameArriveError" pos-x="290" pos-y="400" pos-width="250" pos-hight="50">
+                            <item-configuration>
+                                <title><![CDATA[Early Frame Error]]></title>
+                                <style-sheet><![CDATA[ QCheckBox::indicator:checked {
+image: url([:CWD:]/1_red.png);
+}QCheckBox::indicator:unchecked {
+image: url([:CWD:]/2_off.png);
+}]]></style-sheet>
+                            </item-configuration>
+                        </checkBox>
+                        <checkBox auto-connect="elf.g_qspiSafeCommDiagnose.g_ErrorTypeQspiSafe.lateFrameArriveError" pos-x="10" pos-y="400" pos-width="250" pos-hight="50">
+                            <item-configuration>
+                                <title><![CDATA[Late Frame Error ]]></title>
+                                <style-sheet><![CDATA[ QCheckBox::indicator:checked {
+image: url([:CWD:]/1_red.png);
+}QCheckBox::indicator:unchecked {
+image: url([:CWD:]/2_off.png);
+}]]></style-sheet>
+                            </item-configuration>
+                        </checkBox>
+                    </group>
+                </group>
+            </tabPage>
+        </tab>
+    </layout>
+    <interface>
+        <item-configuration>
+            <id><![CDATA[das-itf]]></id>
+        </item-configuration>
+        <port plugin="PCom_DAS::DAS" connect="true" system-key="{ADS}"/>
+    </interface>
+    <config/>
+    <debugBox elf-path="..\TriCore Debug (TASKING)\iLLD_TC375_ADS_QSPI_SAFE_COMMUNICATION.elf" watches="g_cyclTimeQSPI;g_qspiMasterSafe;g_qspiSlaveSafe;g_qspiSafeCommDiagnose;g_systemReset" com-interface-id="das-itf" title="" id="elf"/>
+</root>

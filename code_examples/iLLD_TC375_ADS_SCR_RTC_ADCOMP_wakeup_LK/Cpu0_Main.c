@@ -31,17 +31,18 @@
  *              High ADC resolution is not required (LSB = 25 mV or better) in this mode.
  *
  * \name iLLD_TC375_ADS_SCR_RTC_ADCOMP_wakeup_LK
- * \version V1.0.1
+ * \version V1.0.2
  * \board AURIX TC375 lite Kit, KIT_A2G_TC375_LITE, TC37xTP_A-Step
- * \keywords SCR, ADC, RTC, LED, PORT, Interrupt, AURIX
+ * \keywords SCR, RTC, ADCOMP, STANDBY, AURIX
  * \documents See README.md
- * \lastUpdated 2025-03-13
+ * \lastUpdated 2025-04-16
  *********************************************************************************************************************/
 #include "Ifx_Types.h"
 #include "IfxCpu.h"
 #include "IfxScuWdt.h"
 #include "SCR.h"
 #include "AppBsp.h"
+#include "SCR_AURIX_TC3x.h"
 
 /*********************************************************************************************************************/
 /*------------------------------------------------------Macros-------------------------------------------------------*/
@@ -50,18 +51,22 @@
 #define DEBUG_SCR_NO_STBY               FALSE   /* Set to TRUE to prevent entering standby mode */
 
 #define SCR_RTC_PERIOD_MS               (200u)  /* Expected RTC period in milliseconds */
-
-/* Helper macro to calculate XRAM memory address information for RTC data exchange */
-#define XRAM_EXCHANGE_ADDRESS(offset)   (uint32*)((uint8*)PMS_XRAM + (offset & (PMS_XRAM_SIZE-1)))
+#define SCR_RTC_CALIBRATION_FACTOR      (1.0f)
 
 #define STATUSLED_POWERON               (AppBspStatusLed_2) /* LED showing PowerOn state */
 #define STATUSLED_PINBWAKEUP            (AppBspStatusLed_2) /* LED showing PINBWKP state */
 #define STATUSLED_ESR1WAKEUP            (AppBspStatusLed_2) /* LED showing ESR1WKP state */
 #define STATUSLED_SCRWAKEUP             (AppBspStatusLed_2) /* LED showing SCRWKP state */
 
-#define DEFAULT_TIMER_FREQUENCY         (70000u)
-#define DEFAULT_TIMER_PERIOD            (0x0FFFu)
-#define DEFAULT_CALIBRATION_FACTOR      (1.0f)
+/* Helper macro to calculate XRAM memory address information for RTC data exchange */
+#define XRAM_EXCHANGE_ADDRESS(offset)   (uint32*)((uint8*)PMS_XRAM + (offset & (PMS_XRAM_SIZE-1)))
+
+/* XRAM memory address for TriCore <-> SCR data exchange.
+ * - Size and structure need to be aligned with global variables in SCR/main.c
+ * - Adresses accessed from TriCore need to be 32-bit aligned!
+ * - XRAM offsets are listed in 'SCR_AURIX_TC3x.h' and can be found by searching for SCR code variable names!
+ */
+#define XRAM_EXCHANGE_OFFSET            (LABEL_scr_xram__g_exchangeBytes)
 
 /*********************************************************************************************************************/
 /*-------------------------------------------------Global variables--------------------------------------------------*/
@@ -69,31 +74,10 @@
 IFX_ALIGN(4) IfxCpu_syncEvent g_cpuSyncEvent = 0;
 
 /*********************************************************************************************************************/
-/*-------------------------------------------------Data Structures---------------------------------------------------*/
-/*********************************************************************************************************************/
-
-/* Calibration parameters of the WUT.
- * Calibration data can be reused for other timers clock from 70kHz source.
- */
-typedef struct
-{
-    uint32 freq;        /* base clock frequency of the timer */
-    uint32 period;      /* period in WUT clock ticks of frequency freq */
-    float32 calibCoeff; /* calibration coefficient as the deviation factor from base clock frequency */
-} WUTcalibValues;
-
-/*********************************************************************************************************************/
 /*------------------------------------------------Function Prototypes------------------------------------------------*/
 /*********************************************************************************************************************/
 IFX_INLINE void delayMs(const uint32 msCnt);
 IFX_INLINE void blinkLedCntTimes(const AppBspStatusLed ledId, const uint32 cnt);
-
-/*********************************************************************************************************************/
-/*--------------------------------------------Private Variables/Constants--------------------------------------------*/
-/*********************************************************************************************************************/
-WUTcalibValues sWUTcalib = { DEFAULT_TIMER_FREQUENCY,   /* Initial calibration parameters for the WUT */
-                             DEFAULT_TIMER_PERIOD,
-                             DEFAULT_CALIBRATION_FACTOR };
 
 /*********************************************************************************************************************/
 /*---------------------------------------------Function Implementations----------------------------------------------*/
@@ -229,7 +213,7 @@ void core0_main(void)
 #endif
 
         /* Set the new RTC period */
-        IfxScr_setRTCperiodOn70kHz(SCR_RTC_PERIOD_MS, sWUTcalib.calibCoeff, XRAM_EXCHANGE_ADDRESS(XRAM_EXCHANGE_OFFSET));
+        IfxScr_setRTCperiodOn70kHz(SCR_RTC_PERIOD_MS, SCR_RTC_CALIBRATION_FACTOR, XRAM_EXCHANGE_ADDRESS(XRAM_EXCHANGE_OFFSET));
 
         IfxScuWdt_clearSafetyEndinit(endinitSfty_pw);
         /* [29]    SCRWKEN      (Standby Controller Wake-up enable from Standby)

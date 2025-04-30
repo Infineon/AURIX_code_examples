@@ -36,18 +36,6 @@
 #define USE_KIT_A2G_TC397_5V_TFT        FALSE   /* Application Kit TC3X7 V2.0   - SAL-TC397XX-256F300S BD */
 #define USE_KIT_TC397_TRB               FALSE   /* TriBoard TC3X7 TH V2.0(1)    - SAL-TC397XP-256F300S BD */
 
-/* XRAM memory address for TriCore <-> SCR data exchange.
- * - Size and structure need to be aligned with global variables in SCR/main.c
- * - Needs to be 32-bit aligned!
- *
- * ATTENTION: Automatic (local) variables and parameters to functions are placed on the stack by SCR. The default
- *            action of the compiler is to place these variables in the internal RAM (for small model) or external
- *            RAM (for medium or large model). In this example we use the "large model" so set the exchange offset
- *            address near the end of XRAM section to avoid overlapping!
- */
-#define XRAM_EXCHANGE_OFFSET            (0x1F00)
-#define XRAM_EXCHANGE_OFFSET2           (0x1F04)
-
 #define WAKEUP_REASON_NONE              (0x00)
 #define WAKEUP_REASON_TRIM              (0x80)
 #define WAKEUP_REASON_EXTI              (0x01)

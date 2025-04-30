@@ -64,7 +64,7 @@ SCR_INLINE void Scr_set_fsys(ScrClkDiv div)
 
     SCR_SET_SCU_PAGE(MOD_PAGE_1);
     /* Change the Clock Control register
-     *      DIV5    = 0, fSYS = 20MHz
+     *      DIV     = div
      *      OSCWAKE = 1, modules can clear OSCPD and enable 100 MHz oscillator
      *      OSCPD   = 0, 100 MHz oscillator is not powered down in standby mode */
     SCR_SCU_CMCON = ((div & DIV_MASK) | OSCWAKE_MASK);
@@ -77,11 +77,12 @@ SCR_INLINE void Scr_set_fsys_70kHz(void)
     SCR_UNLOCK_PROTECTED_BITS();          /* Open access to write protected bits  */
 
     SCR_SET_SCU_PAGE(MOD_PAGE_1);
+    uint8 cmcon = SCR_SCU_CMCON;
     /* Change the Clock Control register
-     *      DIV5    = not modified
+     *      DIV     = not modified
      *      OSCWAKE = 0, Modules cannot clear OSCPD
      *      OSCPD   = 1, 100 MHz oscillator is powered down in standby mode     */
-    SCR_SCU_CMCON &= (OSCPD_MASK | DIV_MASK);
+    SCR_SCU_CMCON = (OSCPD_MASK | (cmcon & DIV_MASK));
 
     SCR_LOCK_PROTECTED_BITS();            /* Close access to write protected bits */
 }
@@ -89,6 +90,11 @@ SCR_INLINE void Scr_set_fsys_70kHz(void)
 SCR_INLINE boolean Scr_is_in_standby(void)
 {
     return (SCR_SCU_SR == STBY_MASK);
+}
+
+SCR_INLINE void Scr_request_idle(void)
+{
+    SCR_PCON |= IDLE_MASK;
 }
 
 #endif /* SCR_COMMON_H_ */

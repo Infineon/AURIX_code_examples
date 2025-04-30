@@ -5922,6 +5922,30 @@
       "lastModified": "2024-03-20T00:00:00.000Z"
     },
     {
+      "title": "This example shows how to inject an error in CPU0 DSPR memory and run an MBIST to detect it.",
+      "name": "iLLD_TC334_ADS_DSPR_MBIST",
+      "description": "This example handles the particular case of single core CPU microcontroller and how it\u0027s possible to test the CPU0 DSPR while respecting the condition of not accessing the memory during the test.",
+      "abstract": "This example shows how to inject an error in CPU0 DSPR memory and run an MBIST to detect it.",
+      "folder": "iLLD_TC334_ADS_DSPR_MBIST",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC334 lite Kit",
+          "id": "KIT_A2G_TC334_LITE",
+          "device_id": "TC33xLP_A-Step"
+        }
+      ],
+      "keywords": [
+        "TC33x",
+        "MTU",
+        "MBIST"
+      ],
+      "documents": [
+        "See README.md"
+      ],
+      "lastModified": "2025-03-24T00:00:00.000Z"
+    },
+    {
       "title": "Create a random number in the 0 to 255 range using the ADC readings as generator",
       "name": "iLLD_TC375_ADS_ADC_Random_Number_Generator",
       "description": "The Enhanced Delta-Sigma Analog to Digital Converter (EDSADC) is used to read a value on channel 3, connected to port pin AN0.\r\nThe ASCLIN module is configured for UART communication. The Shell from Infineon low level drivers (iLLDs) exploits the Asynchronous/Synchronous Interface (ASCLIN) module to interpret and manage commands from the user like \"info\", \"random\" and \"help\"\r\nwhich have been developed and are easily expandable. Random command returns a random number between 0 and 255.\r\nUsing the EDSADC to select the less significant bit of 8 consecutive readings of the analog channel separated by a predefined wait time helps impoving the quality of the random number. The user restrict the range by predefining the value of n (e.g. random 10 will provide a random number between 0 and 10).",
@@ -6496,6 +6520,26 @@
       "lastModified": "2024-10-22T00:00:00.000Z"
     },
     {
+      "title": "QSPI Safe Communication",
+      "name": "iLLD_TC375_ADS_QSPI_SAFE_COMMUNICATION",
+      "description": "The code example explains how to ensure the safety and integrity of data transmitted through Queued\r\nSynchronous Peripheral Interface (QSPI)",
+      "abstract": "The example code is about the implementation of QSPI safe communication safety mechanism",
+      "folder": "iLLD_TC375_ADS_QSPI_SAFE_COMMUNICATION",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC375 lite Kit",
+          "id": "KIT_A2G_TC375_LITE",
+          "device_id": "TC37xTP_A-Step"
+        }
+      ],
+      "keywords": [
+        ""
+      ],
+      "documents": [],
+      "lastModified": "2025-04-07T00:00:00.000Z"
+    },
+    {
       "title": "iLLD_TC375_ADS_REDUNDANT_ADC_STM_SMU",
       "name": "iLLD_TC375_ADS_REDUNDANT_ADC_STM_SMU",
       "description": "This project uses a EVADC channel and a DSADC channel to periodically sense the voltage at the output of a potentiometer, using STM (System Timer) to trigger the conversions. The difference between the two voltages is then saved in an array where the mean value is calculated. Whenever the mean value of the differences array is over a certain treshold an alarm is activated and an interrupt is triggered as reaction from SMU (Safety Management Unit). The interrupt routine in turn activates one of the LEDs on the board. The voltages sensed by the ADCs are also printed into the Console using UART.",
@@ -6553,7 +6597,7 @@
       "description": "This is a minimal code example presenting a solution to application scenario 3 from Application Note AP32465.\r\nThe goal is to periodically trim the low power 70kHz low frequency (LF) oscillator. This oscillator is specially for low power application but naturally very imprecise and usually used by the Wake-up Timer (WUT) and Standby Controller (SCR) Real-Time Clock (RTC) timers.\r\nUsing the WUT and the Capture/Compare Unit 6 (CCU6) a calibration coefficient is calculated and transferred to the SCR domain.",
       "abstract": "This code example demonstrates Standby Controller Real-Time Clock calibration using Wake-up Timer and Capture-Compare Unit.",
       "folder": "iLLD_TC375_ADS_SCR_RTC_70kHz_trimming_LK",
-      "version": "V1.0.1",
+      "version": "V1.0.2",
       "platforms": [
         {
           "name": "AURIX TC375 lite Kit",
@@ -6563,18 +6607,17 @@
       ],
       "keywords": [
         "SCR",
-        "CCU",
         "WUT",
+        "CCU6",
         "RTC",
-        "LED",
-        "PORT",
-        "Interrupt",
+        "70kHz",
+        "STANDBY",
         "AURIX"
       ],
       "documents": [
         "See README.md"
       ],
-      "lastModified": "2025-03-13T00:00:00.000Z"
+      "lastModified": "2025-04-16T00:00:00.000Z"
     },
     {
       "title": "iLLD_TC375_ADS_SCR_RTC_ADCOMP_wakeup_LK",
@@ -6582,7 +6625,7 @@
       "description": "This is a minimal code example presenting a solution to application scenario 2 from Application Note AP32465.\r\nThe goal is to perform a periodic evaluation of a few analog channels and trigger a wake-up if threshold crossing is detected.\r\nHigh ADC resolution is not required (LSB \u003d 25 mV or better) in this mode.",
       "abstract": "This code example demonstrates periodic ADC (Analog Digital Converter) measurement in standby mode using SCR (Standby Controller).",
       "folder": "iLLD_TC375_ADS_SCR_RTC_ADCOMP_wakeup_LK",
-      "version": "V1.0.1",
+      "version": "V1.0.2",
       "platforms": [
         {
           "name": "AURIX TC375 lite Kit",
@@ -6592,25 +6635,23 @@
       ],
       "keywords": [
         "SCR",
-        "ADC",
         "RTC",
-        "LED",
-        "PORT",
-        "Interrupt",
+        "ADCOMP",
+        "STANDBY",
         "AURIX"
       ],
       "documents": [
         "See README.md"
       ],
-      "lastModified": "2025-03-13T00:00:00.000Z"
+      "lastModified": "2025-04-16T00:00:00.000Z"
     },
     {
       "title": "iLLD_TC375_ADS_SCR_RTC_periodic-wakeup_LK",
       "name": "iLLD_TC375_ADS_SCR_RTC_periodic-wakeup_LK",
-      "description": "This is a minimal code example presenting a solution to application scenario 1 from Application Note AP32465.\r\nThe goal is to periodically monitor I/O lines for logic level change in Standby Mode and wake-up the TriCore(TM) Cpu to perform communication with external components (e.g. via LIN channels).\r\nThe TriCore(TM) CPU is used to mirror the port line P33.4 to P00.5 which has LED1 connected on the AURIX(TM) TC375 lite Kit V2.",
+      "description": "This is a minimal code example presenting a solution to application scenario 1 from Application Note AP32465.\r\nThe goal is to periodically monitor I/O lines for logic level change in standby mode and wake-up the TriCore(TM) Cpu to perform communication with external components (e.g. via LIN channels).\r\nThe TriCore(TM) CPU is used to mirror the port line P33.4 to P00.5 which has LED1 connected on the AURIX(TM) TC375 lite Kit V2.",
       "abstract": "This code example demonstrates periodic pin monitoring in standby mode using SCR (Standby Controller).",
       "folder": "iLLD_TC375_ADS_SCR_RTC_periodic-wakeup_LK",
-      "version": "V1.0.1",
+      "version": "V1.0.2",
       "platforms": [
         {
           "name": "AURIX TC375 lite Kit",
@@ -6621,15 +6662,13 @@
       "keywords": [
         "SCR",
         "RTC",
-        "LED",
-        "PORT",
-        "Interrupt",
+        "STANDBY",
         "AURIX"
       ],
       "documents": [
         "See README.md"
       ],
-      "lastModified": "2025-03-13T00:00:00.000Z"
+      "lastModified": "2025-04-16T00:00:00.000Z"
     },
     {
       "title": "Example of simple SENT communication to interface TLE5014 GMR angle sensor with AURIX(TM) TC3x Device.",

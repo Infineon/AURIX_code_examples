@@ -47,14 +47,17 @@
 /*-------------------------------------------------Global variables--------------------------------------------------*/
 /*********************************************************************************************************************/
 
-/* XRAM memory for TriCore <-> SCR data exchange.
- * - Size and structure need to be aligned with section '.xdata' in scr.ld
+/* XRAM memory address for TriCore <-> SCR data exchange.
+ * - Adresses accessed from TriCore need to be 32-bit aligned!
  *
- * ATTENTION: The compiler does not reserve any space for variables declared in this way (they are implemented with
- *            an equate in the assembler). Thus it is left to the programmer to make sure there are no overlaps with
- *            other variables that are declared without the absolute address!
+ * ATTENTION: Provide an initializer to make sure there memory allocation will take place and overlaps will
+ *            be detected by the linker. The assembler listing file (.lst) and the linker output files (.rst)
+ *            and (.map) are good places to look for to ensure 32-bit alignment for TriCore.
+ *            It is left to the programmer to add padding bytes if variables need to be accessed by TriCore
+ *            are not correctly aligned!
  */
-__xdata volatile uint8 __at (XRAM_EXCHANGE_OFFSET) g_exchangeBytes[4];
+__xdata volatile uint8 g_paddingBytes1[3] = {0};    /* Ensure g_exchangeBytes is 32-bit aligned! */
+__xdata volatile uint8 g_exchangeBytes[4] = {0};
 
 /* Place global helper variables in internal data memory */
 __data volatile uint8 g_debugCounter;

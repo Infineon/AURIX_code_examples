@@ -46,12 +46,14 @@
 #define SCR_ENABLE_PROTECTION_SCHEME()  SCR_PASSWD = 0xC3
 
 /* Open access to write protected bits
- *      PASS = 0x13 (PROT_OPEN), MODE = 11b */
-#define SCR_UNLOCK_PROTECTED_BITS()     SCR_PASSWD = 0x9B
+ *      PASS = 0x13 (PROT_OPEN), MODE = 00b */
+#define SCR_UNLOCK_PROTECTED_BITS()     SCR_PASSWD = 0x98
 
 /* Close access to write protected bits
- *      PASS = 0x15 PROT_CLOSE), MODE = 11b */
-#define SCR_LOCK_PROTECTED_BITS()       SCR_PASSWD = 0xAB
+ *      PASS = 0x15 PROT_CLOSE), MODE = 00b */
+#define SCR_LOCK_PROTECTED_BITS()       SCR_PASSWD = 0xA8
+
+#define IDLE_MASK                       (0x01)
 
 /*********************************************************************************************************************/
 /*-------------------------------------------------------SFRs--------------------------------------------------------*/

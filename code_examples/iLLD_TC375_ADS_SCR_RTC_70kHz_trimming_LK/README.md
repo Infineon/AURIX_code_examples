@@ -1,4 +1,4 @@
-<img src="./Images/IFX_LOGO_600.gif" align="right" width="150" />  
+<img src="./Images/IFX_LOGO_600.gif" align="right" width="150" />
 
 # iLLD_TC375_ADS_SCR_RTC_70kHz_trimming_LK
 
@@ -28,13 +28,13 @@ The Standby Controller (SCR) is intended to perform basic operation while the re
 
 One of the SCR peripherals is the Real-Time Clock (RTC) that, once started, can work independently of the state of the rest of the microcontroller.
 
-The real-time clock consists of an up-counting 32-bit timer register (Real-Time Clock Counter) with an upstream 9-bit prescaler. It contains a set of 4 (8-bit) count registers that shows the current count value or the current time of the real-time clock. Another set of registers (RTC compare registers) that consists of 4 (8-bit) registers can be used for interrupt generation. It can also be used to wake-up the device from *Standby Mode*.
+The real-time clock consists of an up-counting 32-bit timer register (Real-Time Clock Counter) with an upstream 9-bit prescaler. It contains a set of 4 (8-bit) count registers that shows the current count value or the current time of the real-time clock. Another set of registers (RTC compare registers) that consists of 4 (8-bit) registers can be used for interrupt generation. It can also be used to wake-up the device from *standby mode*.
 
 ### WUT
 
-The Wake-up Timer is a basic low power counter which may be used to wake-up the system periodically from *Standby Mode*. The timer may also be used during RUN, IDLE or SLEEP modes.
+The Wake-up Timer is a basic low power counter which may be used to wake-up the system periodically from *standby mode*. The timer may also be used during RUN, IDLE or SLEEP modes.
 
-The Wake-up Timer consists of an 24 bit counter running on 70 kHz clock source with programmable reload value. It has a 24 bit counter status register providing the current count value and can be programmed for either *Auto Reload* mode (WUT is started and stopped via Software. Automatic reload on counter underflow and triggers a system wake-up) or *Standby Auto Stop* mode (Counter starts counting down from reload value on Standby entry. Counter stops on underflow and triggers a system wake-up). The capture trigger on counter underflow can be routed to CCU60_CC60IND, CU61_CC60IND and GTM (TIM 0.7) for trimming purpose.
+The Wake-up Timer consists of an 24 bit counter running on 70 kHz clock source with programmable reload value. It has a 24 bit counter status register providing the current count value and can be programmed for either *Auto Reload* mode (WUT is started and stopped via Software. Automatic reload on counter underflow and triggers a system wake-up) or *Standby Auto Stop* mode (Counter starts counting down from reload value on standby entry. Counter stops on underflow and triggers a system wake-up). The capture trigger on counter underflow can be routed to CCU60_CC60IND, CU61_CC60IND and GTM (TIM 0.7) for trimming purpose.
 
 ### CCU6
 
@@ -63,7 +63,7 @@ Bottom view of the AURIX™ TC375 lite Kit V2. Used Pins are marked with a green
 <img src="./Images/LiteKit_V2_Bottom.png" />
 
 - **X1** is the 40-pin connector on the top. Pin 1 marking is on the top left.
-- **X2** is the 40-pin connector in the bottom, near the Infineon logo. Pin 1 marking is on the bottom right.
+- **X2** is the 40-pin connector on the bottom, near the Infineon logo. Pin 1 marking is on the bottom right.
 
 ### Additional hardware
 
@@ -73,8 +73,8 @@ For the example some additional external hardware is needed as shown in the belo
 
 - To see SCR RTC activity a LED shall be connected between X2-32 (P33.4) and X2-39 (+3V3).
 - To see CCU6/WUT activity a 100 kOhm pull-up shall be connected between X2-07 (P00.6) and X2-39 (+3V3).
-- For triggering the state change from *Run Mode* to *Standby Mode* and vice versa a connection between X2-10 (P00.7) and X1-03 (P33.11) is needed to generate a falling edge.
-- For triggering the *PINB Wake-up* a switch shall be connected to X1-04 (P33.12) and X1-01 (GND) to generate a falling edge.
+- For triggering the state change from *run mode* to *standby mode* and vice versa a connection between X2-10 (P00.7) and X1-03 (P33.11) is needed to generate a falling edge.
+- For triggering the *PINB wake-up* a switch shall be connected to X1-04 (P33.12) and X1-01 (GND) to generate a falling edge.
 
 ### Available I/O signals
 
@@ -118,9 +118,9 @@ The file SCR_AURIX_TC3x.c contains the binary SCR code and is loaded by code exe
 
 After startup the first part of the code is responsible to turn off *WATCHDOG0* and *SAFETY WATCHDOG* to ensure they won't affect the example code.
 
-For proper SCR handling, the user software must take care to reset *SCU_RSTSTAT.STBYR* flag via *SCU_RSTCON2.CLRC* according to the application - e.g. after the initial system power-on, if SCR usage during stand-by mode is intended.
+For proper SCR handling, the user software must take care to reset *SCU_RSTSTAT.STBYR* flag via *SCU_RSTCON2.CLRC* according to the application - e.g. after the initial system power-on, if SCR usage during *standby mode* is intended.
 
-Wake-up from SCR via register *STDBYWKP.SCRWKP* in turn caused by following events. *PMSWSTAT2.SCRWKP* set on wake-up. *PMSWSTAT2.SCROVRUN* set to indicate overrun behavior in case of multiple un-serviced wake-ups. *PMSWSTAT2.SCROVRUN* needs to be cleared to avoid immediate wake-up on next time entering *Standby mode*.
+Wake-up from SCR via register *STDBYWKP.SCRWKP* in turn caused by following events. *PMSWSTAT2.SCRWKP* set on wake-up. *PMSWSTAT2.SCROVRUN* set to indicate overrun behavior in case of multiple un-serviced wake-ups. *PMSWSTAT2.SCROVRUN* needs to be cleared to avoid immediate wake-up on next time entering *standby mode*.
 
 The function `configureAppBspStatusLeds()` configures all output pins of the available status LEDs (D1 and D2).
 The function `configureWUT()` configures the WUT with the expected SCR RTC timer period.
@@ -142,7 +142,7 @@ Next step is to check the wake-up cause to be one of the following:
    If SCR wake-up trigger has occurred the SCR wake-up status LED (D2) turns on and the wake-up reason provided by the SCR code is read from the shared XRAM memory location.
    If the wake-up reason is `WAKEUP_REASON_TRIM` a new trimming cycle of the 70 kHz clock source in the application can be achieved with the use of the integrated mechanism, which involves the WUT and CCU6. After `NUMBER_CALIBRATION_CYCLES` the function `IfxScr_setRTCperiodOn70kHz()` is used to calculate the new SCR RTC compare value using the expected SCR RTC period and the calibration coefficient provided by the CCU6 measurement and writes it back to the shared XRAM memory location.
    If the wake-up reason is `WAKEUP_REASON_EXTI` the software waits for a button press event to occur (falling edge on P33.11/SCR P01.3) which can be triggered by pressing BUTTON1.
-   Now the counter to specify the interval until next trimming wake-up is reset to `SCR_TRIM_COUNT` and written to the shared XRAM memory location. After this status LED (D2) turns off and the TriCore™ enters *Standby Mode* again.
+   Now the counter to specify the interval until next trimming wake-up is reset to `SCR_TRIM_COUNT` and written to the shared XRAM memory location. After this status LED (D2) turns off and the TriCore™ enters *standby mode* again.
 
 4. No wake-up trigger
 
@@ -152,11 +152,11 @@ Next step is to check the wake-up cause to be one of the following:
 
    First the SCR is reset and disabled by setting the SCR Boot Mode to *User Mode 0* (XRAM not programmed). The function `IfxScr_copySCRprogram()` is copying the binary SCR program from the NVM Flash to the SCR XRAM. The copying begins at the XRAM start address (*0xF0240000*) until the length of `SIZE_scr_xram`. In addition, the magic pattern (*0xAA55AA55*) at the end of the XRAM (*0xF0241FF8*) is written to validate the stored code. 
    The function `IfxScr_initSCR()` now configures the SCR Boot Mode either to *User Mode 1* or *OCDS boot* which can be selected during compile time via define `DEBUG_SCR_DAP`.
-   To debug the SCR firmware (which is not possible during *Standby Mode*) another compile time switch (`DEBUG_SCR_NO_STBY`) can be used to prevent entering *Standby Mode*.
+   To debug the SCR firmware (which is not possible during *standby mode*) another compile time switch (`DEBUG_SCR_NO_STBY`) can be used to prevent entering *standby mode*.
 
    Finally, via register *PMS_PMSWCR0* the wake-up triggers are configured and the software waits for a button press event to occur (falling edge on P33.11/SCR P01.3) which can be triggered by pressing BUTTON1. The toggling SCR port P00.4 can't directly be observed on the used AURIX™ TC375 lite Kit V2, just by using an oscilloscope or an LED connecting to the port. The SCR port P00 is equivalent to port P33 of the TriCore™ CPU. To observe the SCR P00.4 (P33.4) line the TriCore™ Cpu0 is mirroring the P33.4 state to the port line P00.5 which is connected to LED D1 on the AURIX™ TC375 lite Kit V2.
 
-   After the button press event the TriCore™ Cpu0 enters *Standby Mode* and gives further control to SCR.
+   After the button press event the TriCore™ Cpu0 enters *standby mode* and gives further control to SCR.
 
 ### SCR code
 
@@ -164,7 +164,7 @@ First the global SCR data structures (status flags, SCR/TC data exchange, ...) a
 
 Second step is the configuration of the used I/O interface. Pins P00.0 to P00.6 and P01.1 to P01.5 are enabled by writing to the *SCR_IO_P00_PDISC* and *SCR_IO_P01_PDISC* registers. Set SCR_P00.4 to high (LED off) by writing to the *SCR_IO_P00_OUT* register and finally P00.4 is set as push-pull output and P01.3 and P01.4 are configured as input writing to the *SCR_IO_P00_IOCR4*, *SCR_IO_P01_IOCR3* and *SCR_IO_P01_IOCR4* registers.
 
-Third step is to enable the high frequency (HF) system clock (20 MHz) by setting *DIV5=0*, *OSCWAKE=1* and *OSPD=0* in *SCR_SCU_CMCON* register and waiting for the TriCore™ to enter *Standby Mode*.
+Third step is to enable the high frequency (HF) system clock (20 MHz) by setting *DIV5=0*, *OSCWAKE=1* and *OSPD=0* in *SCR_SCU_CMCON* register and waiting for the TriCore™ to enter *standby mode*.
 
 During the fourth step the used SCR modules like RTC and for debug purpose the OCDS (On-Chip Debug Support) module are enabled by clearing the corresponding bit in the register *SCR_SCU_PMCON1* (Note: *The OCDS module is not required for the SCR code execution.*).
 
@@ -176,18 +176,18 @@ The next step is to enable the low frequency system clock (70 kHz) by setting *O
 
 Finally, the code enters an endless loop where the global status flags `g_RTCtick`, `g_trimRTC` and `g_extTrigger` are monitored. 
 If flag `g_RTCtick` is *TRUE* it is reset, the SCR_P00.4 LED is toggled to show RTC activity and *SCR_RTC_CRx* registers are updated with the latest value set by TriCore™ Cpu0.
-If flag `g_trimRTC` is *TRUE* it is reset, the `g_wakeUpReason` is set to *WAKEUP_REASON_TRIM* to start the next RTC trimming cycle and an SCRWKP event is generated to wake-up the TriCore™ domain from *Standby Mode*.
-If flag `g_extTrigger` is *TRUE* it is reset, the `g_wakeUpReason` is set to *WAKEUP_REASON_EXTI* and an SCRWKP event is generated to wake-up the TriCore™ domain from *Standby Mode*.
+If flag `g_trimRTC` is *TRUE* it is reset, the `g_wakeUpReason` is set to *WAKEUP_REASON_TRIM* to start the next RTC trimming cycle and an SCRWKP event is generated to wake-up the TriCore™ domain from *standby mode*.
+If flag `g_extTrigger` is *TRUE* it is reset, the `g_wakeUpReason` is set to *WAKEUP_REASON_EXTI* and an SCRWKP event is generated to wake-up the TriCore™ domain from *standby mode*.
 
 ### RTC interrupt code
 
 An interrupt will be generated when the contents of *SCR_RTC_CRx* and *SCR_RTC_CNTx* are equal and *ECRTC* is set to 1 and the bit *CFRTC* in register *SCR_RTC_CON* will be set. The *CFRTC* flag has to be cleared to 0 by user software. In such situation, the real-time clock counter is reset and starts counting from zero again.
 
-The flag `g_RTCtick` is set to *TRUE* to signal the next RTC event has occurred. If the TriCore™ domain is in *Standby Mode* the global `g_nextTrimCounter` is decremented to delay the next trimming cycle. If the counter reaches *0* the flag `g_trimRTC` is to *TRUE* to start the next trimming cycle.
+The flag `g_RTCtick` is set to *TRUE* to signal the next RTC event has occurred. If the TriCore™ domain is in *standby mode* the global `g_nextTrimCounter` is decremented to delay the next trimming cycle. If the counter reaches *0* the flag `g_trimRTC` is to *TRUE* to start the next trimming cycle.
 
 ### External interrupt code
 
-An external interrupt will be generated when the configured event (falling edge trigger on SCR_P01.3) has occurred and the bit *EXINT6* in register *SCR_IRCON0* will be set. However, the status flag of the associated interrupt source is not automatically cleared and must be cleared by software (preferably in the service routine). Finally, the global flag `g_extTrigger` is to *TRUE* to trigger a wake-up of the TriCore™ domain from *Standby Mode*.
+An external interrupt will be generated when the configured event (falling edge trigger on SCR_P01.3) has occurred and the bit *EXINT6* in register *SCR_IRCON0* will be set. However, the status flag of the associated interrupt source is not automatically cleared and must be cleared by software (preferably in the service routine). Finally, the global flag `g_extTrigger` is to *TRUE* to trigger a wake-up of the TriCore™ domain from *standby mode*.
 
 ## Compiling and programming
 
@@ -201,20 +201,20 @@ Before testing this code example:
 
 - After powering the board LED2 flashes 5 times and turns on permanently.
   This is the indication that the software has started successfully and is now waiting for user interaction.
-- By pressing BUTTON1 the TriCore™ Cpu0 enters *Standby Mode* and gives further control to SCR.
+- By pressing BUTTON1 the TriCore™ Cpu0 enters *standby mode* and gives further control to SCR.
   Now LED1 and LED2 stop blinking and RTC activity can only be seen on the external LED connected to P33.4 (X2-32).
 - The external LED connected to P33.4 (X2-32) flashes slowly (interval 1s) 3 times before the first trimming cycle is started.
-- For this the TriCore™ domain exits *Standby Mode*, starts the trimming cycle, updates the RTC compare value and
-  the counter for next trimming cycle in shared XRAM memory and returns to *Standby Mode* which can be observed by LED2 turning on for a short time.
-- After the first trimming cycle the RTC interval is changed to ~0.2s and the *Standby Mode* should last for approximately 5s
+- For this the TriCore™ domain exits *standby mode*, starts the trimming cycle, updates the RTC compare value and
+  the counter for next trimming cycle in shared XRAM memory and returns to *standby mode* which can be observed by LED2 turning on for a short time.
+- After the first trimming cycle the RTC interval is changed to ~0.2s and the *standby mode* should last for approximately 5s
   before the next periodic trimming cycle is started.
-- A short press of BUTTON1 causes a wake-up of the TriCore™ domain from *Standby Mode* via external interrupt.
+- A short press of BUTTON1 causes a wake-up of the TriCore™ domain from *standby mode* via external interrupt.
   This is shown by LED2 turning on permanently and LED1 blinking in RTC interval (same interval as external LED connected to P33.4).
   Now the software is now waiting for user interaction.
-- Another short press of BUTTON1 causes a reset of the counter for next trimming cycle in shared XRAM memory, the return to *Standby Mode*
+- Another short press of BUTTON1 causes a reset of the counter for next trimming cycle in shared XRAM memory, the return to *standby mode*
   and a restart of the periodic trimming approximately every 5s.
-- Pressing the external button connected to P33.12 (X1-04) triggers the *PINB Wake-up* event which causes the TriCore™ domain
-  to exit *Standby Mode*. This is indicated by LED2 flashing 3 times and turn on permanently.
+- Pressing the external button connected to P33.12 (X1-04) triggers the *PINB wake-up* event which causes the TriCore™ domain
+  to exit *standby mode*. This is indicated by LED2 flashing 3 times and turn on permanently.
 - Now LED1 starts to blink in RTC interval indicating that the software has entered the final endless loop.
 
 ## References
