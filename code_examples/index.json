@@ -7401,6 +7401,703 @@
       "lastModified": "2023-05-12T00:00:00.000Z"
     },
     {
+      "title": "iLLD_TC4D7_LITE_KIT_ADS_ETH_DEMO",
+      "name": "iLLD_TC4D7_lite_kit_ADS_ETH_Demo",
+      "description": "This code example implements an ethernet echo server replying to Layer 2 packets. The demo configures GETH module using DMA Channel 0 and Tx/Rx Queues 0.",
+      "abstract": "This code example implements an ethernet echo server (raw Ethernet) using GETH port 0.",
+      "folder": "iLLD_TC4D7_lite_kit_ADS_ETH_Demo",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC4D7 lite Kit",
+          "id": "KIT_A3G_TC4D7_LITE",
+          "device_id": "TC4D7XP_A-Step_CC_COM"
+        }
+      ],
+      "keywords": [
+        "GETH"
+      ],
+      "documents": [
+        "README.md",
+        "changelog.md"
+      ],
+      "lastModified": "2025-04-23T00:00:00.000Z"
+    },
+    {
+      "title": "TMADC CDSP Filtering with Interrupts",
+      "name": "iLLD_TC4D7_LK_ADC_CDSP_TMADC_Filtering",
+      "description": "An amplitude modulated sine wave is fed to the Time-Multiplexed ADC (TMADC) as input.\r\nThe Converter Digital Signal Processor (CDSP) as a FIR filter removes high frequency harmonics from the\r\nTMADC output signal. TMADC output is fed as input to the CDSP. During their respective service request\r\nevents, the CDSP and TMADC outputs are stored in an array and traced.",
+      "abstract": "The CDSP filters out high frequency components of the signal sampled by TMADC",
+      "folder": "iLLD_TC4D7_LK_ADC_CDSP_TMADC_Filtering",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC4D7 lite Kit",
+          "id": "KIT_A3G_TC4D7_LITE",
+          "device_id": "TC4D7XP_A-Step_CC_COM"
+        }
+      ],
+      "keywords": [
+        "TMADC",
+        "ADC",
+        "AURIX",
+        "CDSP",
+        "Filtering",
+        "Interrupt Mode"
+      ],
+      "documents": [
+        "See README.md"
+      ],
+      "lastModified": "2025-05-06T00:00:00.000Z"
+    },
+    {
+      "title": "LIN master communication via ASCLIN module",
+      "name": "iLLD_TC4D7_LK_ADS_ASCLIN_LIN_Send",
+      "description": "The string \"Hello!\" is sent via an ASCLIN module configured as LIN master.\r\nThe signal can be visualized using an oscilloscope.",
+      "abstract": "An ASCLIN module is configured as LIN master to send \"Hello!\"",
+      "folder": "iLLD_TC4D7_LK_ADS_ASCLIN_LIN_Send",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC4D7 lite Kit",
+          "id": "KIT_A3G_TC4D7_LITE",
+          "device_id": "TC4D7XP_A-Step_CC_COM"
+        }
+      ],
+      "keywords": [
+        "LIN",
+        "ASCLIN",
+        "ASCLIN_LIN_Master_1",
+        "AURIX",
+        "communication"
+      ],
+      "documents": [
+        "See README.md"
+      ],
+      "lastModified": "2025-05-21T00:00:00.000Z"
+    },
+    {
+      "title": "Shell via UART communication",
+      "name": "iLLD_TC4D7_LK_ADS_ASCLIN_Shell_UART",
+      "description": "The ASCLIN module is configured for UART communication.\r\nThe Shell from iLLDs exploits the ASCLIN module to interpret and manage commands from the\r\nuser like \"info\", \"toggle [x]\" or \"help\".",
+      "abstract": "Shell is used to parse a command line and call the corresponding command execution. The ASCLIN module is used to interface with the Shell through the USB port via UART.",
+      "folder": "iLLD_TC4D7_LK_ADS_ASCLIN_Shell_UART",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC4D7 lite Kit",
+          "id": "KIT_A3G_TC4D7_LITE",
+          "device_id": "TC4D7XP_A-Step_CC_COM"
+        }
+      ],
+      "keywords": [
+        "UART",
+        "VCOM",
+        "serial communication",
+        "ASCLIN_Shell_UART",
+        "AURIX",
+        "shell"
+      ],
+      "documents": [
+        "See README.md"
+      ],
+      "lastModified": "2025-05-21T00:00:00.000Z"
+    },
+    {
+      "title": "SPI master communication via ASCLIN module",
+      "name": "iLLD_TC4D7_LK_ADS_ASCLIN_SPI_Master",
+      "description": "An ASCLIN module configured as SPI master sends a two byte message.\r\nThe two byte message is sent through MTSR (MOSI) port pin P15.4 with SCLK on port P20.10 in loopback\r\nmode. This signal can be visualized on the oscilloscope screen.",
+      "abstract": "An ASCLIN module configured as SPI master sends a two byte message.",
+      "folder": "iLLD_TC4D7_LK_ADS_ASCLIN_SPI_Master",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC4D7 lite Kit",
+          "id": "KIT_A3G_TC4D7_LITE",
+          "device_id": "TC4D7XP_A-Step_CC_COM"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "ASCLIN_SPI_Master_1",
+        "ASCLIN",
+        "SPI",
+        "comunicaiton",
+        "master",
+        "Oscilloscope"
+      ],
+      "documents": [
+        "See README.md"
+      ],
+      "lastModified": "2025-05-21T00:00:00.000Z"
+    },
+    {
+      "title": "UART communication via ASCLIN module",
+      "name": "iLLD_TC4D7_LK_ADS_ASCLIN_UART",
+      "description": "The string \"Hello World!\" is sent and received via UART through one pin due to the internal loopback.\r\nThe data can be visualized using an oscilloscope.",
+      "abstract": "An ASCLIN module configured for UART communication sends \"Hello World!\" and receives the string back via the internal loopback.",
+      "folder": "iLLD_TC4D7_LK_ADS_ASCLIN_UART",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC4D7 lite Kit",
+          "id": "KIT_A3G_TC4D7_LITE",
+          "device_id": "TC4D7XP_A-Step_CC_COM"
+        }
+      ],
+      "keywords": [
+        "UART",
+        "ASCLIN",
+        "AURIX",
+        "ASC"
+      ],
+      "documents": [
+        "See README.md"
+      ],
+      "lastModified": "2025-05-15T00:00:00.000Z"
+    },
+    {
+      "title": "Assembly language in C code",
+      "name": "iLLD_TC4D7_LK_ADS_Assembly_C_Code",
+      "description": "Two LEDs are switched on then switched off using assembly code functions.",
+      "abstract": "Inline assembler and assembler files are used in combination in a C project.",
+      "folder": "iLLD_TC4D7_LK_ADS_Assembly_C_Code",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC4D7 lite Kit",
+          "id": "KIT_A3G_TC4D7_LITE",
+          "device_id": "TC4D7XP_A-Step_CC_COM"
+        }
+      ],
+      "keywords": [
+        "Assembly",
+        "C",
+        "AURIX",
+        "Assembly_C_Code_1"
+      ],
+      "documents": [
+        "See README.md"
+      ],
+      "lastModified": "2025-05-22T00:00:00.000Z"
+    },
+    {
+      "title": "Blinky LED",
+      "name": "iLLD_TC4D7_LK_ADS_Blinky_LED",
+      "description": "A wait function is used to add delays between switching on and switching off an LED on port pin P03.9",
+      "abstract": "An LED is blinking based on the timing given by a wait function.",
+      "folder": "iLLD_TC4D7_LK_ADS_Blinky_LED",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC4D7 lite Kit",
+          "id": "KIT_A3G_TC4D7_LITE",
+          "device_id": "TC4D7XP_A-Step_CC_COM"
+        }
+      ],
+      "keywords": [
+        "LED",
+        "Blinky",
+        "GPIO",
+        "AURIX"
+      ],
+      "documents": [
+        "See README.md"
+      ],
+      "lastModified": "2025-04-08T00:00:00.000Z"
+    },
+    {
+      "title": "CPU_Perf_Counters",
+      "name": "iLLD_TC4D7_LK_ADS_CPU_Perf_Counters",
+      "description": "The CPU performance counters are counting the number of instructions, clock ticks and multi counters ticks.\r\nThey are used to measure the run-time of a c-function. The result is stored in a global variable.",
+      "abstract": "Measure code performance via the CPU performance counters",
+      "folder": "iLLD_TC4D7_LK_ADS_CPU_Perf_Counters",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC4D7 lite Kit",
+          "id": "KIT_A3G_TC4D7_LITE",
+          "device_id": "TC4D7XP_A-Step_CC_COM"
+        }
+      ],
+      "keywords": [
+        "Perf Counters",
+        "AURIX"
+      ],
+      "documents": [
+        "See README.md"
+      ],
+      "lastModified": "2025-04-11T00:00:00.000Z"
+    },
+    {
+      "title": "Trap error recognition and reaction",
+      "name": "iLLD_TC4D7_LK_ADS_CPU_Trap_Recognition",
+      "description": "The tutorial describes what types of traps are supported by the AURIX (TM)\r\nmicrocontroller, their root causes and how to identify them. AURIX (TM)\r\narchitecture supports different types of traps. Three different traps can be\r\nprovoked with this example and the tutorial guides the user through the\r\nneeded steps to observe the root cause of each trap.",
+      "abstract": "This example shows how to identify the root cause of a trap.",
+      "folder": "iLLD_TC4D7_LK_ADS_CPU_Trap_Recognition",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC4D7 lite Kit",
+          "id": "KIT_A3G_TC4D7_LITE",
+          "device_id": "TC4D7XP_A-Step_CC_COM"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "TC4XX",
+        "Asynchronouns Trap",
+        "Synchronous Trap",
+        "Hardware Trap",
+        "Software Trap",
+        "CPU Trap"
+      ],
+      "documents": [
+        "See README.md"
+      ],
+      "lastModified": "2025-04-27T00:00:00.000Z"
+    },
+    {
+      "title": "DMA Linked List Mode usage",
+      "name": "iLLD_TC4D7_LK_ADS_DMA_Linked_List_Mode",
+      "description": "In this example, four DMA transactions are configured in DMA Linked List mode.\r\nTriggering one DMA transaction leads to the execution of all DMA transactions consecutively.\r\nAn interrupt is triggered at the completion of the last DMA transaction.\r\nIf DMA has correctly transferred the data, the LED 1 driven by port pin 03.9 toggles and a new cycle\r\nstarts again. Otherwise, the LED 2 driven by port pin 03.10 turns ON and no more DMA transfers are done.",
+      "abstract": "DMA Linked Lists are used to execute a series of DMA transactions without CPU intervention.",
+      "folder": "iLLD_TC4D7_LK_ADS_DMA_Linked_List_Mode",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC4D7 lite Kit",
+          "id": "KIT_A3G_TC4D7_LITE",
+          "device_id": "TC4D7XP_A-Step_CC_COM"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "DMA",
+        "DMA_Linked_List_Mode_1",
+        "Linked list",
+        "data transfer"
+      ],
+      "documents": [
+        "See README.md"
+      ],
+      "lastModified": "2025-05-14T00:00:00.000Z"
+    },
+    {
+      "title": "EGTM PWM input capturing via TIM",
+      "name": "iLLD_TC4D7_LK_ADS_EGTM_TIM_Capture",
+      "description": "The Timer Input Module (TIM) of the Enhanced Generic Timer Module (EGTM) is used in capture mode.\r\nThe data from the captured PWM signal is used to calculate the PWM signal frequency and duty cycle in software.\r\nThe frequency and the duty cycle are then stored in variables.",
+      "abstract": "A timer is used to capture an external PWM signal and calculate the PWM signal frequency and duty cycle.",
+      "folder": "iLLD_TC4D7_LK_ADS_EGTM_TIM_Capture",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC4D7 lite Kit",
+          "id": "KIT_A3G_TC4D7_LITE",
+          "device_id": "TC4D7XP_A-Step_CC_COM"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "EGTM",
+        "EGTM_TIM_Capture_1",
+        "Enhanced Generic Timer Module",
+        "PWM",
+        "TIM",
+        "capture",
+        "xEV"
+      ],
+      "documents": [
+        "See README.md"
+      ],
+      "lastModified": "2025-05-16T00:00:00.000Z"
+    },
+    {
+      "title": "EGTM TOM PWM generation",
+      "name": "iLLD_TC4D7_LK_ADS_EGTM_TOM_PWM",
+      "description": "The LED 1 is driven by pin 9 of the port 3. The state of the pin is controlled by the PWM signal generated\r\nby the Enhanced Generic Timer Module (EGTM) in-built Timer Output Module (TOM).",
+      "abstract": "EGTM TOM is used to generate a PWM signal, which is driving the intensity of an LED.",
+      "folder": "iLLD_TC4D7_LK_ADS_EGTM_TOM_PWM",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC4D7 lite Kit",
+          "id": "KIT_A3G_TC4D7_LITE",
+          "device_id": "TC4D7XP_A-Step_CC_COM"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "EGTM",
+        "EGTM_TOM_PWM_1",
+        "PWM",
+        "general timer",
+        "timer",
+        "xEV"
+      ],
+      "documents": [
+        "See README.md"
+      ],
+      "lastModified": "2025-05-14T00:00:00.000Z"
+    },
+    {
+      "title": "Flash Programming",
+      "name": "iLLD_TC4D7_LK_ADS_Flash_Programming",
+      "description": "Simple example showing the needed steps for Pflash and Dflash erase and programming operations.",
+      "abstract": "This example shows how to erase, program, and run a verify loop on the PFlash and the DFlash memories of the TC4Dx.",
+      "folder": "iLLD_TC4D7_LK_ADS_Flash_Programming",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC4D7 lite Kit",
+          "id": "KIT_A3G_TC4D7_LITE",
+          "device_id": "TC4D7XP_A-Step_CC_COM"
+        }
+      ],
+      "keywords": [
+        "Aurix",
+        "Flash Programming",
+        "Erase",
+        "Verify",
+        "Pflash",
+        "Dflash"
+      ],
+      "documents": [
+        "See README.md"
+      ],
+      "lastModified": "2025-04-12T00:00:00.000Z"
+    },
+    {
+      "title": "LED controlled via a push button",
+      "name": "iLLD_TC4D7_LK_ADS_GPIO_LED_Button",
+      "description": "Upon pressure of a push button, an LED is turned on and the LED is turned off when\r\nreleasing the button. One port pin is configured as input for checking the push button\r\nstate and the other port pin is configured as output to control the LED.",
+      "abstract": "An LED is controlled via a push button.",
+      "folder": "iLLD_TC4D7_LK_ADS_GPIO_LED_Button",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC4D7 lite Kit",
+          "id": "KIT_A3G_TC4D7_LITE",
+          "device_id": "TC4D7XP_A-Step_CC_COM"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "GPIO",
+        "GPIO_LED_Button_1",
+        "LED",
+        "pin",
+        "port",
+        "port pin",
+        "push button",
+        "push-pull"
+      ],
+      "documents": [
+        "See README.md"
+      ],
+      "lastModified": "2025-04-27T00:00:00.000Z"
+    },
+    {
+      "title": "I2C_Read_Ext_Device",
+      "name": "iLLD_TC4D7_LK_ADS_I2C_Read_Ext_Device",
+      "description": "An I2C module configured as I2C master is used to read the MAC address stored in the Microchip 2K I2C Serial EEPROM mounted on the board KIT_A3G_TC4D7_LITE. The AURIX\u0026trade; device reads the MAC address through the I2C module and stores it into a global variable.",
+      "abstract": "An I2C module configured as I2C master is used to read a register of an external device.",
+      "folder": "iLLD_TC4D7_LK_ADS_I2C_Read_Ext_Device",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC4D7 lite Kit",
+          "id": "KIT_A3G_TC4D7_LITE",
+          "device_id": "TC4D7XP_A-Step_CC_COM"
+        }
+      ],
+      "keywords": [
+        "I2C"
+      ],
+      "documents": [
+        "See README.md"
+      ],
+      "lastModified": "2025-04-14T00:00:00.000Z"
+    },
+    {
+      "title": "Interrupt Priority",
+      "name": "iLLD_TC4D7_LK_ADS_Interrupt_Prio",
+      "description": "On Core 0, two STM interrupts are configured to control the state of two LEDs (P03.9 \u0026 P03.10) along with incrementing respective ISRs counters and third interrupt is being generated by Core1 STM to Core 0 which only incrementing respective ISR counter. Based on their priority, the interrupts toggle the appropriate LED and increment counters. In this example, the interrupts are triggered by STM module.",
+      "abstract": "Three interrupts with different priorities are used to toggle available two LEDs and incrementing respective ISRs counters.",
+      "folder": "iLLD_TC4D7_LK_ADS_Interrupt_Prio",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC4D7 lite Kit",
+          "id": "KIT_A3G_TC4D7_LITE",
+          "device_id": "TC4D7XP_A-Step_CC_COM"
+        }
+      ],
+      "keywords": [
+        "Interrupt",
+        "LED",
+        "AURIX",
+        "STM"
+      ],
+      "documents": [
+        "See README.md"
+      ],
+      "lastModified": "2025-05-22T00:00:00.000Z"
+    },
+    {
+      "title": "illd_tc4d7_lk_ads_mpu_memory_protection",
+      "name": "iLLD_TC4D7_LK_ADS_MPU_Memory_Protection",
+      "description": "The MPU module is configured to enable the first half and protect the second half of an array from read/write accesses.\r\nTo test the function of the read protection, each element of the array is read in a loop.\r\nTwo LEDs are used to indicate the progression of the CPU read accesses.\r\nWhen the loop reads the last accessible element, the first LED is turned on.\r\nWhen the first protected element is read, a trap is raised.\r\nThe second LED is only turned on if the CPU reads a protected element.",
+      "abstract": "The MPU is used to protect a part of an array from read/write accesses.",
+      "folder": "iLLD_TC4D7_LK_ADS_MPU_Memory_Protection",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC4D7 lite Kit",
+          "id": "KIT_A3G_TC4D7_LITE",
+          "device_id": "TC4D7XP_A-Step_CC_COM"
+        }
+      ],
+      "keywords": [
+        "MPU",
+        "AURIX",
+        "Memory",
+        "Protection"
+      ],
+      "documents": [
+        "See README.md"
+      ],
+      "lastModified": "2025-03-31T00:00:00.000Z"
+    },
+    {
+      "title": "Multicore LED control",
+      "name": "iLLD_TC4D7_LK_ADS_Multicore",
+      "description": "Core 0 is switching on an LED. When the LED flag is set, Core 1 is switching off the LED.\r\nCore 2 is controlling the state of the LED flag.",
+      "abstract": "One LED is controlled by using three different cores.",
+      "folder": "iLLD_TC4D7_LK_ADS_Multicore",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC4D7 lite Kit",
+          "id": "KIT_A3G_TC4D7_LITE",
+          "device_id": "TC4D7XP_A-Step_CC_COM"
+        }
+      ],
+      "keywords": [
+        "multicore",
+        "LED",
+        "AURIX"
+      ],
+      "documents": [
+        "See README.md"
+      ],
+      "lastModified": "2025-04-11T00:00:00.000Z"
+    },
+    {
+      "title": "Measuring the MCU supply voltage rails",
+      "name": "iLLD_TC4D7_LK_ADS_PMS_VMON",
+      "description": "The Power Management System (PMS) allows the measurement of the AURIX(TM) supply voltage values by using the primary voltage monitors. In this example, a terminal application can be used to display the measured voltage values for each supply rail. CPU0 toggles an LED by using the system timer (STM).",
+      "abstract": "The supply voltage values of the MCU are measured by the primary voltage monitors and printed to a terminal application.",
+      "folder": "iLLD_TC4D7_LK_ADS_PMS_VMON",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC4D7 lite Kit",
+          "id": "KIT_A3G_TC4D7_LITE",
+          "device_id": "TC4D7XP_A-Step_CC_COM"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "Supply rails"
+      ],
+      "documents": [
+        "See README.md"
+      ],
+      "lastModified": "2025-05-28T00:00:00.000Z"
+    },
+    {
+      "title": "iLLD_TC4D7_LK_ADS_Printf",
+      "name": "iLLD_TC4D7_LK_ADS_Printf",
+      "description": "The printf function is retargeted for GCC compiler to send data via ASCLIN in ASC (UART) mode.\r\nSpecific serialio library is provided for the scope.",
+      "abstract": "The printf is used to send data with ASCLIN.",
+      "folder": "iLLD_TC4D7_LK_ADS_Printf",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC4D7 lite Kit",
+          "id": "KIT_A3G_TC4D7_LITE",
+          "device_id": "TC4D7XP_A-Step_CC_COM"
+        }
+      ],
+      "keywords": [
+        "Printf",
+        "ASCLIN"
+      ],
+      "documents": [
+        "See README.md"
+      ],
+      "lastModified": "2025-04-11T00:00:00.000Z"
+    },
+    {
+      "title": "SMU triggers an interrupt upon assertion of a software alarm",
+      "name": "iLLD_TC4D7_LK_ADS_SMU_IR_Alarm",
+      "description": "This code example shows how to configure a reaction for a safety alarm in the Safety and Security alarm Management Unit (SMU).\r\nIn particular, an interrupt is triggered which in turn activates one of the LEDs on the board.",
+      "abstract": "SMU_SAFE0 Software Alarm 0 triggers an interrupt request to CPU0",
+      "folder": "iLLD_TC4D7_LK_ADS_SMU_IR_Alarm",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC4D7 lite Kit",
+          "id": "KIT_A3G_TC4D7_LITE",
+          "device_id": "TC4D7XP_A-Step_CC_COM"
+        }
+      ],
+      "keywords": [
+        "SMU",
+        "Alarm",
+        "Interrupt"
+      ],
+      "documents": [
+        "See Readme.me"
+      ],
+      "lastModified": "2025-04-23T00:00:00.000Z"
+    },
+    {
+      "title": "SPI communication via QSPI",
+      "name": "iLLD_TC4D7_LK_ADS_SPI_CPU",
+      "description": "QSPI0 is configured in master mode and used to send five bytes to QSPI2 configured in slave mode. The received data is read by the CPU and\r\ncompared against the transmitted data. Port pin P03.9, to which an LED is connected, indicates the successful transfer.",
+      "abstract": "A QSPI module configured as SPI master sends five bytes to another QSPI module which is configured as SPI slave.",
+      "folder": "iLLD_TC4D7_LK_ADS_SPI_CPU",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC4D7 lite Kit",
+          "id": "KIT_A3G_TC4D7_LITE",
+          "device_id": "TC4D7XP_A-Step_CC_COM"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "Communication",
+        "QSPI",
+        "Master",
+        "SPI",
+        "SPI_CPU_1",
+        "Slave"
+      ],
+      "documents": [
+        "See README.md"
+      ],
+      "lastModified": "2025-05-14T00:00:00.000Z"
+    },
+    {
+      "title": "Interrupt generation via STM trigger",
+      "name": "iLLD_TC4D7_LK_ADS_STM_Interrupt",
+      "description": "The STM is configured to trigger an interrupt every 500 ms. The interrupt toggles an LED.\r\nThe STM counts up and on reaching a preconfigured compare value, it triggers an interrupt.\r\nOn each interrupt, the compare value is incremented and an LED is toggled.",
+      "abstract": "The STM is configured to trigger an interrupt every 500 ms. The interrupt toggles an LED.",
+      "folder": "iLLD_TC4D7_LK_ADS_STM_Interrupt",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC4D7 lite Kit",
+          "id": "KIT_A3G_TC4D7_LITE",
+          "device_id": "TC4D7XP_A-Step_CC_COM"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "Interrupt",
+        "LED",
+        "STM",
+        "STM_Interrupt_1",
+        "blink"
+      ],
+      "documents": [
+        "See README.md"
+      ],
+      "lastModified": "2025-04-27T00:00:00.000Z"
+    },
+    {
+      "title": "TMADC Single Channel",
+      "name": "iLLD_TC4D7_LK_ADS_TMADC_Single_Channel",
+      "description": "An analog input channel of Time-Multiplexed Analog-to-Digital Converter (TMADC) will be continuously converted.\r\nWhen a result is available, an interrupt service request is generated.\r\nThe input value can be determined by the on-board potentiometer (R32) which is connected to AN0 pin.\r\nTwo LEDs are used to indicate a voltage interval, thus depending on the conversion value, one or both LEDs are on.",
+      "abstract": "The TMADC is configured to continuously measure an analog signal, generating an interrupt request when a result is available.",
+      "folder": "iLLD_TC4D7_LK_ADS_TMADC_Single_Channel",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC4D7 lite Kit",
+          "id": "KIT_A3G_TC4D7_LITE",
+          "device_id": "TC4D7XP_A-Step_CC_COM"
+        }
+      ],
+      "keywords": [
+        "TMADC",
+        "ADC",
+        "AURIX",
+        "LED",
+        "GPIO",
+        "ISR"
+      ],
+      "documents": [
+        "See README.md"
+      ],
+      "lastModified": "2025-04-28T00:00:00.000Z"
+    },
+    {
+      "title": "iLLD_TC4D7_LK_ADS_Virtualization_Hypervisor",
+      "name": "iLLD_TC4D7_LK_ADS_Virtualization_Hypervisor",
+      "description": "This project aims to provide a first user experience on new Virtualization/Hypervisor mechanism of TC4D7 Lite Kit.",
+      "abstract": "TC4D7 Lite Kit Virtualization/Hypervisor Demonstrator",
+      "folder": "iLLD_TC4D7_LK_ADS_Virtualization_Hypervisor",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC4D7 lite Kit",
+          "id": "KIT_A3G_TC4D7_LITE",
+          "device_id": "TC4D7XP_A-Step_CC_COM"
+        }
+      ],
+      "keywords": [
+        "Virtualization",
+        "Hypervisor",
+        "Virtual Machines"
+      ],
+      "documents": [
+        "See README.md"
+      ],
+      "lastModified": "2025-05-12T00:00:00.000Z"
+    },
+    {
+      "title": "Watchdog configuration",
+      "name": "iLLD_TC4D7_LK_ADS_Watchdog",
+      "description": "This example shows how to initialize and service the CPU0 Watchdog.\r\nThe Watchdog is configured to trigger a reset after approximately 1.3s if not serviced.\r\nPressing the on-board button stops the Watchdog from being serviced by the CPU, which then resets the device when the Watchdog timer expires.\r\nThis example also shows how to implement logical monitoring using or without using automatic password sequencing provided by WDT. In this case if a button is pressed a wrong password is provided to WDT which then resets the device.",
+      "abstract": "The watchdog is serviced with correct password in order to prevent a reset.",
+      "folder": "iLLD_TC4D7_LK_ADS_Watchdog",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC4D7 lite Kit",
+          "id": "KIT_A3G_TC4D7_LITE",
+          "device_id": "TC4D7XP_A-Step_CC_COM"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "SCU",
+        "WDT",
+        "Watchdog_1",
+        "system control unit",
+        "timer",
+        "watchdog"
+      ],
+      "documents": [
+        "See README.md"
+      ],
+      "lastModified": "2025-05-22T00:00:00.000Z"
+    },
+    {
       "title": "Interrupts prioritization",
       "name": "Interrupt_Prio_1_KIT_TC275_LK",
       "description": "Each interrupt sends a message on a terminal when the ISR starts and ends.\r\nIn this example, the interrupts are triggered by GPT12 module.",

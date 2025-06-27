@@ -1,0 +1,245 @@
+{
+	"name" : "Install AURIX Libraries and Linker scripts",
+	
+	"maps": [
+		{"variable": "device", "from": "TC499XE_AA-Step_CS_STD", "to": "TC49A"},
+		{"variable": "device", "from": "TC499XE_AA-Step_CC_COM", "to": "TC49A"},
+		{"variable": "device", "from": "TC499XE_A-Step_CS_STD", "to": "TC49A"},
+		{"variable": "device", "from": "TC499XE_A-Step_CC_COM", "to": "TC49A"},
+		{"variable": "device", "from": "TC497XE_A-Step_CS_STD", "to": "TC49A"},
+		{"variable": "device", "from": "TC497XE_A-Step_CC_COM", "to": "TC49A"},
+		{"variable": "device", "from": "TC4D7XP_A-Step_CC_COM", "to": "TC4DA"},
+		{"variable": "device", "from": "TC4D7XE_A-Step_MC_COM", "to": "TC4DA"},
+		{"variable": "device", "from": "TC4D7XQ_A-Step_MC_COM", "to": "TC4DA"},
+		{"variable": "device", "from": "TC4D9XP_A-Step_CC_COM", "to": "TC4DA"},
+		{"variable": "device", "from": "TC4D9XE_A-Step_MC_COM", "to": "TC4DA"},
+		{"variable": "device", "from": "TC4D9XQ_A-Step_MC_COM", "to": "TC4DA"},
+		{"variable": "device", "from": "TC499PQ_A-Step_MS_STD", "to": "TC49xN"},
+		{"variable": "device", "from": "TC499PP_A-Step_MS_STD", "to": "TC49xN"},
+		{"variable": "device", "from": "TC499PE_A-Step_MS_STD", "to": "TC49xN"},
+		{"variable": "device", "from": "TC497PQ_A-Step_MS_STD", "to": "TC49xN"},
+		{"variable": "device", "from": "TC497PP_A-Step_MS_STD", "to": "TC49xN"},
+		{"variable": "device", "from": "TC497PE_A-Step_MS_STD", "to": "TC49xN"},
+		{"variable": "device", "from": "TC489QP_A-Step_MC_COM", "to": "TC48x"},
+		{"variable": "device", "from": "TC487QP_A-Step_MS_STD", "to": "TC48x"},
+		{"variable": "device", "from": "TC487QP_A-Step_MC_COM", "to": "TC48x"},
+		{"variable": "device", "from": "TC486QP_A-Step_MS_STD", "to": "TC48x"},
+		{"variable": "device", "from": "TC489QQ_A-Step_MC_COM", "to": "TC48x"},
+		{"variable": "device", "from": "TC487QQ_A-Step_MS_STD", "to": "TC48x"},
+		{"variable": "device", "from": "TC487QQ_A-Step_MC_COM", "to": "TC48x"},
+		{"variable": "device", "from": "TC486QQ_A-Step_MS_STD", "to": "TC48x"},
+		{"variable": "device", "from": "TC489QE_A-Step_MC_COM", "to": "TC48x"},
+		{"variable": "device", "from": "TC487QE_A-Step_MC_COM", "to": "TC48x"},
+		{"variable": "device", "from": "TC487QE_A-Step_MS_STD", "to": "TC48x"},
+		{"variable": "device", "from": "TC486QE_A-Step_MS_STD", "to": "TC48x"},
+		{"variable": "device", "from": "TC469QP_A-Step_MS_STD", "to": "TC46A"},
+		{"variable": "device", "from": "TC467QP_A-Step_MS_STD", "to": "TC46A"},
+		{"variable": "device", "from": "TC466QP_A-Step_MS_STD", "to": "TC46A"},
+		{"variable": "device", "from": "TC469QQ_A-Step_MS_STD", "to": "TC46A"},
+		{"variable": "device", "from": "TC467QQ_A-Step_MS_STD", "to": "TC46A"},
+		{"variable": "device", "from": "TC466QQ_A-Step_MS_STD", "to": "TC46A"},
+		{"variable": "device", "from": "TC469QE_A-Step_MS_STD", "to": "TC46A"},
+		{"variable": "device", "from": "TC467QE_A-Step_MS_STD", "to": "TC46A"},
+		{"variable": "device", "from": "TC457DP_A-Step_MR", "to": "TC45x"}
+	],
+	
+	"commands" : [
+		{
+			"type": "CONTENT",
+			"enabledWhen": [
+				{
+					"value": "${device#remap}",
+					"equals": "TC49A"
+				}
+			],
+			"from": "iLLDs/Full_Set/iLLD_2_1_0_0_0__TC49A.zip",
+			"to": "/Libraries",
+			"recipe": ".ads/install.json"
+		},
+		{
+			"type": "CONTENT",
+			"enabledWhen": [
+				{
+					"value": "${device#remap}",
+					"equals": "TC4DA"
+				}
+			],
+			"from": "iLLDs/Full_Set/iLLD_2_1_0_0_0__TC4DA.zip",
+			"to": "/Libraries",
+			"recipe": ".ads/install.json"
+		},
+		{
+			"type": "CONTENT",
+			"enabledWhen": [
+				{
+					"value": "${device#remap}",
+					"equals": "TC49xN"
+				}
+			],
+			"from": "iLLDs/Full_Set/iLLD_2_1_0_0_0__TC49xN.zip",
+			"to": "/Libraries",
+			"recipe": ".ads/install.json"
+		},
+		{
+			"type": "CONTENT",
+			"enabledWhen": [
+				{
+					"value": "${device#remap}",
+					"equals": "TC48x"
+				}
+			],
+			"from": "iLLDs/Full_Set/iLLD_2_1_0_0_0__TC48x.zip",
+			"to": "/Libraries",
+			"recipe": ".ads/install.json"
+		},
+		{
+			"type": "CONTENT",
+			"enabledWhen": [
+				{
+					"value": "${device#remap}",
+					"equals": "TC45x"
+				}
+			],
+			"from": "iLLDs/Full_Set/iLLD_2_1_0_0_0__TC45x.zip",
+			"to": "/Libraries",
+			"recipe": ".ads/install.json"
+		},
+		{
+			"type": "CONTENT",
+			"from": "Linker_conf/Tasking/${device#remap}/TriCore",
+			"to": "/",
+			"enabledWhen": [
+				{
+					"value": "${architectures}",
+					"notContains": "arc"
+				},
+				{
+					"value": "${architectures}",
+					"notContains": "scr"
+				}
+			]
+		},
+		{
+			"type": "CONTENT",
+			"from": "Linker_conf/Tasking/${device#remap}/PPU",
+			"to": "/",
+			"enabledWhen": [
+				{
+					"value": "${architectures}",
+					"contains": "arc"
+				}
+			]
+		},
+		{
+			"type": "CONTENT",
+			"from": "Linker_conf/Tasking/${device#remap}/SCR",
+			"to": "/",
+			"enabledWhen": [
+				{
+					"value": "${architectures}",
+					"contains": "scr"
+				}
+			]
+		},
+		{
+			"type": "CONTENT",
+			"from": "Linker_conf/GnuC/${device#remap}/TriCore",
+			"to": "/",
+			"enabledWhen": [
+				{
+					"value": "${architectures}",
+					"notContains": "arc"
+				},
+				{
+					"value": "${architectures}",
+					"notContains": "scr"
+				},
+				{
+					"value": "${device-without-templates}",
+					"notEquals": "true"
+				}
+			]
+		},
+		{
+			"type": "CONTENT",
+			"from": "Linker_conf/GnuC/${device#remap}/PPU",
+			"to": "/",
+			"enabledWhen": [
+				{
+					"value": "${architectures}",
+					"contains": "arc"
+				},
+				{
+					"value": "${device-without-templates}",
+					"notEquals": "true"
+				}
+			]
+		},
+		{
+			"type": "CONTENT",
+			"from": "Linker_conf/GnuC/${device#remap}/SCR",
+			"to": "/",
+			"enabledWhen": [
+				{
+					"value": "${architectures}",
+					"contains": "scr"
+				},
+				{
+					"value": "${device-without-templates}",
+					"notEquals": "true"
+				}
+			]
+		},
+		{
+			"type": "CONTENT",
+			"from": "Linker_conf/LLVM/${device#remap}/TriCore",
+			"to": "/",
+			"enabledWhen": [
+				{
+					"value": "${architectures}",
+					"notContains": "arc"
+				},
+				{
+					"value": "${architectures}",
+					"notContains": "scr"
+				},
+				{
+					"value": "${device-without-templates}",
+					"notEquals": "true"
+				}
+			]
+		},
+		{
+			"type": "CONTENT",
+			"from": "Linker_conf/LLVM/${device#remap}/PPU",
+			"to": "/",
+			"enabledWhen": [
+				{
+					"value": "${architectures}",
+					"contains": "arc"
+				},
+				{
+					"value": "${device-without-templates}",
+					"notEquals": "true"
+				}
+			]
+		},
+		{
+			"type": "CONTENT",
+			"from": "Linker_conf/LLVM/${device#remap}/SCR",
+			"to": "/",
+			"enabledWhen": [
+				{
+					"value": "${architectures}",
+					"contains": "scr"
+				},
+				{
+					"value": "${device-without-templates}",
+					"notEquals": "true"
+				}
+			]
+		},
+		{"type": "CONTENT", "from": ".ads", "to": "/.ads"},
+		{"type": "CONTENT", "from": "package.json", "to": "/.ads/package.json"}
+	]
+}
