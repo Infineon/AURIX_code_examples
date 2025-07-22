@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project>
+	<configuration id="com.infineon.aurix.buildsystem.managed.configuration.binary.1821579466" name="TriCore Debug (TASKING)">
+		<extension point="org.eclipse.cdt.core.LanguageSettingsProvider">
+			<provider copy-of="extension" id="org.eclipse.cdt.ui.UserLanguageSettingsProvider"/>
+			<provider-reference id="org.eclipse.cdt.core.ReferencedProjectsLanguageSettingsProvider" ref="shared-provider"/>
+			<provider-reference id="org.eclipse.cdt.managedbuilder.core.MBSLanguageSettingsProvider" ref="shared-provider"/>
+			<provider-reference id="com.infineon.aurix.buildsystem.managed.TaskingBuiltintSpecsDetector" ref="shared-provider"/>
+		</extension>
+	</configuration>
+	<configuration id="com.infineon.aurix.buildsystem.managed.external.gcc.builtin.configuration.debug.320038259" name="TriCore Debug (GCC)">
+		<extension point="org.eclipse.cdt.core.LanguageSettingsProvider">
+			<provider copy-of="extension" id="org.eclipse.cdt.ui.UserLanguageSettingsProvider"/>
+			<provider-reference id="org.eclipse.cdt.core.ReferencedProjectsLanguageSettingsProvider" ref="shared-provider"/>
+			<provider-reference id="org.eclipse.cdt.managedbuilder.core.MBSLanguageSettingsProvider" ref="shared-provider"/>
+			<provider class="com.infineon.aurix.buildsystem.managed.gcc.AURIXGCC11BuiltinSpecsDetector" console="false" env-hash="1304289807177882333" id="com.infineon.aurix.buildsystem.managed.CrossGCC11BuiltinSpecsDetector" keep-relative-paths="false" name="AURIXCrossGCC11compilerSpecsDetector" parameter="${COMMAND} ${FLAGS} -E -P -v -dD &quot;${INPUTS}&quot;" prefer-non-shared="true">
+				<language-scope id="org.eclipse.cdt.core.gcc"/>
+				<language-scope id="org.eclipse.cdt.core.g++"/>
+			</provider>
+		</extension>
+	</configuration>
+</project>

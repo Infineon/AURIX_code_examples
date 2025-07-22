@@ -5946,6 +5946,55 @@
       "lastModified": "2025-03-24T00:00:00.000Z"
     },
     {
+      "title": "iLLD_TC356TA_ADS_ICMS_BOARD_3_0_point_cloud",
+      "name": "iLLD_TC356TA_ADS_ICMS_BOARD_3_0_point_cloud",
+      "description": "This software project is intended as a starting point for the application of in cabin monitoring (ICMS) on the ICMS board v3.0. It demonstrates the main processing steps that need to be performed on AURIX TC356 signal processing unit (SPU) and Tricore CPUs to generate point cloud data from raw data recorded by the BGT60 ATR24AIP MMIC.\r\n\r\nBasic understanding of FMCW radar range-doppler signal processing is presumed to follow this code example.",
+      "abstract": "This software project for the ICMS board v3.0 (AURIX TC356 and BGT60 ATR24AIP) demonstrates the main radar signal processing steps to generate point cloud data from raw data recorded by the MMIC.",
+      "folder": "iLLD_TC356TA_ADS_ICMS_BOARD_3_0_point_cloud",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "ICMS board v3.0",
+          "id": "ICMS board v3.0",
+          "device_id": "TC35xTA_A-Step"
+        }
+      ],
+      "keywords": [
+        "ICMS",
+        "RADAR",
+        "POINT CLOUD"
+      ],
+      "documents": [
+        "see README.md"
+      ],
+      "lastModified": "2025-07-11T00:00:00.000Z"
+    },
+    {
+      "title": "ICMS RADAR point cloud generation and breathing rate calculation",
+      "name": "iLLD_TC356TA_ICMS_BOARD_3_0_breathing_rate",
+      "description": "This software project is intended as a starting point for the application of in cabin monitoring (ICMS) on the ICMS board v3.0. It demonstrates the main processing steps that need to be performed on AURIX TC356 signal processing unit (SPU) and Tricore CPUs to generate point cloud data from raw data recorded by the BGT60 ATR24AIP MMIC and to calculate the breathing rate of a detected target.\r\n\r\nBasic understanding of FMCW radar range-doppler signal processing is presumed to follow this code example.",
+      "abstract": "This software project for the ICMS board v3.0 (AURIX TC356 and BGT60 ATR24AIP) demonstrates the main radar signal processing steps to generate point cloud data from raw data recorded by the MMIC and to calculate the breathing rate of a detected target.",
+      "folder": "iLLD_TC356TA_ICMS_BOARD_3_0_breathing_rate",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "ICMS board v3.0",
+          "id": "ICMS board v3.0",
+          "device_id": "TC35xTA_A-Step"
+        }
+      ],
+      "keywords": [
+        "ICMS",
+        "RADAR",
+        "POINT CLOUD",
+        "BREATHING RATE"
+      ],
+      "documents": [
+        "see README.md"
+      ],
+      "lastModified": "2025-07-11T00:00:00.000Z"
+    },
+    {
       "title": "Create a random number in the 0 to 255 range using the ADC readings as generator",
       "name": "iLLD_TC375_ADS_ADC_Random_Number_Generator",
       "description": "The Enhanced Delta-Sigma Analog to Digital Converter (EDSADC) is used to read a value on channel 3, connected to port pin AN0.\r\nThe ASCLIN module is configured for UART communication. The Shell from Infineon low level drivers (iLLDs) exploits the Asynchronous/Synchronous Interface (ASCLIN) module to interpret and manage commands from the user like \"info\", \"random\" and \"help\"\r\nwhich have been developed and are easily expandable. Random command returns a random number between 0 and 255.\r\nUsing the EDSADC to select the less significant bit of 8 consecutive readings of the analog channel separated by a predefined wait time helps impoving the quality of the random number. The user restrict the range by predefining the value of n (e.g. random 10 will provide a random number between 0 and 10).",
