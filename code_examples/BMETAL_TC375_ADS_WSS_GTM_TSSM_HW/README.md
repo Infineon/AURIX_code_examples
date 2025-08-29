@@ -6,14 +6,9 @@
 ## Device  
 The device used in this example is AURIX&trade; TC37xTP_A-Step  
 
-## Board  
-The board used for testing is the AURIX&trade; TC375_LITE(KIT_A2G_TC375_LITE)
- 
-<img src="./Images/TC375 LK.png" width="600" /> 
-
 ## AK protocol  
 
-The WSS modulates periodic current pulses of different magnitudes for speed pulse (14 to 28mA) and data (7mA to 14mA), a sample frame is like below. The width of the speed pulse and the AK data period is 50µs typically. The AK data is manchester coded, the rising and falling edge at the middle of the period corresponds to bits 1 and 0 respsectively.
+The WSS modulates periodic current pulses of different magnitudes for speed pulse (14 to 28mA) and data (7mA to 14mA), a sample frame is like below. The width of the speed pulse and the AK data period is 50µs typically. The AK data is manchester coded, the rising and falling edge at the middle of the period corresponds to bits 1 and 0 respectively.
 
 <img src="./Images/waveform.png" width="1000" />
 
@@ -57,7 +52,12 @@ Note: There are three modes of operation controlled by the macros *WSS_EMULATION
 * WSS Emulation: when *WSS_EMULATION* is TRUE and *USE_FCADC* is FALSE
 
 ## Hardware setup  
-This code example has been developed for the board AURIX&trade TC375 litekit. For the emulation mode, litekit, USB cable and connecting wires are sufficient. For the real WSS, additional WSS sensor board with external comparator(*USE_FCADC* is FALSE) is required.
+
+The board used for testing is the AURIX&trade; TC375_LITE(KIT_A2G_TC375_LITE)
+ 
+<img src="./Images/TC375 LK.png" width="600" /> 
+
+For the emulation mode, litekit, USB cable and connecting wires are sufficient. For the real WSS, additional WSS sensor board with external comparator(*USE_FCADC* is FALSE) is required.
 
 ## Implementation 
 
@@ -67,7 +67,7 @@ There are different modes of operation which is controlled by the *WSS_EMULATION
 
  * *WSS_EMULATION* needs to be FALSE when using real sensor, to be TRUE only when there is no WSS and the speed pulse and data signals needs to be emulated
  * *USE_FCADC* needs to be FALSE when external comparator is used to isolate the speed pulse and the data signals or when *WSS_EMULATION* is TRUE. *USE_FCADC* to be TRUE when the user intends to use internal FCADC.
- * *BIT_1_T* needs to be configured based on the pulse width of the speed pusle BIT_1_T = tp/2. Other bit durations are derived based on this.
+ * *BIT_1_T* needs to be configured based on the pulse width of the speed pulse BIT_1_T = tp/2. Other bit durations are derived based on this.
  * *EMULATION_DATA* to be configured with EMULATION_DATA1/EMULATION_DATA2/EMULATION_DATA3
  * *SPEED_PERIOD* is used as period of the speed pulse for emulation purpose
  * *TDU_COUNTER* is used to create delay of 3/4th of bit period in the TIM1_CH1's TDU
@@ -110,6 +110,10 @@ The function *configTIM1_2()* configures TIM1_CH2 is used to decode the AK data 
 The function *configTIM1_3()* configures TIM1_CH3 is used to measure the period of the speed pulse signal
 The function *configTIM1_4()* configures TIM1_CH4 is used to find the numbers of bits transmitted in the AK frame
 
+**[CPU] ATOM1 Configuration:**
+
+The function *configATOM()* configures four ATOM1_CH2 to generate mask signal when a speed pulse is detected. ATOM1_CH2 operates in one-shot mode and generate pulse of fixed width. This signal is used in the TIM1_CH2 LUT to enable the data decoding when speed pulse occurs.
+
 
 **[CPU] Configure GTM **
 
@@ -126,18 +130,19 @@ The function *speedPulseHandler()* is the handler corresponding to the TIM1_CH3 
 
 **[CPU] FC_Adc.c/h** (when *USE_FCADC* is TRUE)
 
+*startFCAdc* calls the following APIs to enable, configure and start the Fast Compare ADCs
+
 **[CPU] Enabling the EVADC **
 
 The clocking of the EVADC is enabled by calling *initFCAdc()*
 
-**[CPU] Setting fast compare reference **
+**[CPU] Setting fast compare reference and boundary flag**
 
-*initFCAdc()* configures the FCADC channel in software mode with the provided reference value
+*initFCADCchannel()* configures the FCADC channel in software mode with the provided reference value and the boundary flag selection
 
-**[CPU] Configures and starts FCADC channels **
+**[CPU] Starting FCADC channels **
 
-Two FCADC channels are configured by calling *startFCAdc()* which represents the speed pulse and AK data signal in their boundary flags
-
+FCADC channel is started by calling *startFCADCchannel()* 
 
 
 **[CPU] WSS_Emulation.c/h ** (when *WSS_EMULATION* is TRUE)
@@ -181,8 +186,8 @@ This test requires hardware connections, the WSS should be powered externally an
 ** Pin connections **
 
 - WSS signal to be connected AN16 and P00.11
-- P33.4 &rarr; FC0BFLOUT &rarr; FCADC0 boundary flag sorresponding to AK data signal
-- P33.2 &rarr; FC3BFLOUT &rarr; FCADC3 boundary flag sorresponding to speed pulse signal
+- P33.4 &rarr; FC0BFLOUT &rarr; FCADC0 boundary flag corresponding to AK data signal
+- P33.2 &rarr; FC3BFLOUT &rarr; FCADC3 boundary flag corresponding to speed pulse signal
 
 
 
@@ -217,7 +222,7 @@ The signals located in the X1 and X2 connectors can also be observed optionally 
 
 ** WSS Emulation : **
 
-With the WSS emulation is enabled, the speed pulse signal and AK data are emulated using ATOM1_CH3 and ATOM1_CH0 channels respectively. To be similar to the AK frame, ATOM1_CH0 also sends the speed pulse initially before sending the data. It is possible to change the pulse width and frequency of the speed with the provided marcos. ATOM1_CH0 and ATOM1_CH3 are connected to the AUX input of the TIM1_CH0 and TIM1_CH3 respectively, additionally P00.0(ATOM1_CH0) to be connected P21.4(TIM1_CH2)externally. After code compilation and flashing the device, the speed and the decode data are read by the CPU in *speedPulseHandler* interrupt routine. The user can be observe the variables *speedPeriod[]* and *decodedData[]* in the debugger to know the speed and AK data information.
+With the WSS emulation is enabled, the speed pulse signal and AK data are emulated using ATOM1_CH3 and ATOM1_CH0 channels respectively. To be similar to the AK frame, ATOM1_CH0 also sends the speed pulse initially before sending the data. It is possible to change the pulse width and frequency of the speed with the provided macros. ATOM1_CH0 and ATOM1_CH3 are connected to the AUX input of the TIM1_CH0 and TIM1_CH3 respectively, additionally P00.0(ATOM1_CH0) to be connected P21.4(TIM1_CH2)externally. After code compilation and flashing the device, the speed and the decode data are read by the CPU in *speedPulseHandler* interrupt routine. The user can be observe the variables *speedPeriod[]* and *decodedData[]* in the debugger to know the speed and AK data information.
 
 ** Pin connections **
 

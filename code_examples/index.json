@@ -1975,7 +1975,7 @@
       "description": "The TIM block within the GTM is used to decode the AK protocol. The are five TIM channels used in this example, three of them perform the manchester decoding, the fourth is used to measure the period of the speed pulse signal and the fifth is used to count the number of bits transmitted in the AK frame for handling the shorten frame.",
       "abstract": "This is a demo code for interfacing the TLE5046iC Wheel Speed Sensor (WSS) using GTM block, the AK protocol is decoded by the GTM-TIM using TSSM mode of operation",
       "folder": "BMETAL_TC375_ADS_WSS_GTM_TSSM_HW",
-      "version": "V1.0.1",
+      "version": "V1.0.2",
       "platforms": [
         {
           "name": "AURIX TC375 lite Kit",
@@ -1992,7 +1992,59 @@
       "documents": [
         "See README.md"
       ],
-      "lastModified": "2024-07-22T00:00:00.000Z"
+      "lastModified": "2025-08-08T00:00:00.000Z"
+    },
+    {
+      "title": "BMETAL_TC377_ADS_EVADC_Daisy_Chain_1",
+      "name": "BMETAL_TC377_ADS_EVADC_Daisy_Chain_1",
+      "description": "Daisy Chain can be used to connect conversions on multiple EVADC instances. Note, the same queue entry shall be used on each participating EVADC.",
+      "abstract": "This example demonstrates the daisy chain method, to connect multiple conversions on different EVADC groups using just one trigger.",
+      "folder": "BMETAL_TC377_ADS_EVADC_Daisy_Chain_1",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "TriBoard TC377",
+          "id": "Custom Board",
+          "device_id": "TC37xTP_A-Step"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "TC3xx",
+        "EVADC",
+        "Daisy chain"
+      ],
+      "documents": [
+        "See README.MD"
+      ],
+      "lastModified": "2025-08-13T00:00:00.000Z"
+    },
+    {
+      "title": "BMETAL_TC377_ADS_EVADC_Master_Slave_1",
+      "name": "BMETAL_TC377_ADS_EVADC_Master_Slave_1",
+      "description": "This example demonstrates how to properly configure multiple EVADC groups (up to 4, within the same synchronization group) for master-slave synchronous conversion. In addition, Alias feature (channel redirection) is explained, too.\r\n\r\nThe master will trigger the same channel(s) on the slave(s) at the same time. If other channel is expected, \"Alias feature\" will help.",
+      "abstract": "TC3xx EVADC master-slave synchronous conversion and Alias feature",
+      "folder": "BMETAL_TC377_ADS_EVADC_Master_Slave_1",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "TriBoard TC377",
+          "id": "Custom Board",
+          "device_id": "TC37xTP_A-Step"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "TC3xx",
+        "EVADC",
+        "Master",
+        "Slave",
+        "Synchronized conversion"
+      ],
+      "documents": [
+        "See README.MD"
+      ],
+      "lastModified": "2025-08-13T00:00:00.000Z"
     },
     {
       "title": "BMETAL_TC387_ADS_EDSADC_FIFO_1",
@@ -2019,6 +2071,31 @@
         "See README.md"
       ],
       "lastModified": "2024-08-11T00:00:00.000Z"
+    },
+    {
+      "title": "BMETAL_TC4D7_LITE_ADS_TMADC_Timestamp_1",
+      "name": "BMETAL_TC4D7_LITE_ADS_TMADC_Timestamp_1",
+      "description": "The TC4x Time-Multiplexed Analog-to-Digital Converter (TMADC) generates a timestamp for each new conversion result (the time point when the sampling phase finishes) to qualify the result. The timestamp has a fixed resolution of 200ns. This demo shows the generated timestamps for user\u0027s reference.",
+      "abstract": "This example demonstrates how to generate timestamp for each new TMADC result.",
+      "folder": "BMETAL_TC4D7_LITE_ADS_TMADC_Timestamp_1",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC4D7 lite Kit",
+          "id": "KIT_A3G_TC4D7_LITE",
+          "device_id": "TC4D7XP_A-Step_CC_COM"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "TC4D",
+        "TMADC",
+        "Timestamp"
+      ],
+      "documents": [
+        "See README.md"
+      ],
+      "lastModified": "2025-08-13T00:00:00.000Z"
     },
     {
       "title": "Register Access Protection",
@@ -7035,6 +7112,32 @@
         "Readme.md"
       ],
       "lastModified": "2024-06-04T00:00:00.000Z"
+    },
+    {
+      "title": "iLLD_TC397_ADS_CAN_Gateway_ISR",
+      "name": "iLLD_TC397_ADS_CAN_Gateway_ISR",
+      "description": "Some applications require an automatic CAN frames re-routing between two different CAN busses without CPU interaction.\r\nSuch a \"gateway\" feature is not available in MCMCAN module of TC3xx family devices.\r\nThis example shows how to implement a \"SW gateway“ for routing CAN frame by using the ISR (Interrupt service routine).\r\n\r\nCAN0 (CAN0 node0) is configured as \"gateway source\" and CAN1 (CAN1 node0) as \"gateway destination\".\r\nThe defined messages restored in the RxFIFO on the \"gateway source\" will be rerouted to \"gateway destination\" by using the ISR.\r\nIn order to avoid message losing due to CPU latency the RxFIFO is configured on the source node; while TxFIFO is configured on\r\nthe destination node in order to avoid delayed transmission due to higher load on the destination bus.",
+      "abstract": "This example shows how to use the ISR for routing CAN frame received on one bus to another bus",
+      "folder": "iLLD_TC397_ADS_CAN_Gateway_ISR",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "TC397 ADAS TriBoard",
+          "id": "KIT_A2G_TC397XA_TRB",
+          "device_id": "TC39xB-step"
+        }
+      ],
+      "keywords": [
+        "CAN",
+        "DMA",
+        "CANFD",
+        "Gateway",
+        "MCAN"
+      ],
+      "documents": [
+        "README.md"
+      ],
+      "lastModified": "2025-06-16T00:00:00.000Z"
     },
     {
       "title": "Clock Plausibility",

@@ -28,25 +28,25 @@
  * \abstract This is a demo code for interfacing the TLE5046iC Wheel Speed Sensor (WSS) using GTM block, the AK protocol is decoded by the GTM-TIM using TSSM mode of operation
  * \description The TIM block within the GTM is used to decode the AK protocol. The are five TIM channels used in this example, three of them perform the manchester decoding, the fourth is used to measure the period of the speed pulse signal and the fifth is used to count the number of bits transmitted in the AK frame for handling the shorten frame.
  * \name BMETAL_TC375_ADS_WSS_GTM_TSSM_HW
- * \version V1.0.1
+ * \version V1.0.2
  * \board AURIX TC375 lite Kit, KIT_A2G_TC375_LITE, TC37xTP_A-Step
  * \keywords GTM, TIM, TSSM, WSS
  * \documents See README.md
- * \lastUpdated 2024-07-22
+ * \lastUpdated 2025-08-08
  *********************************************************************************************************************/
 
 #include "Ifx_Types.h"
 #include "IfxCpu.h"
 #include "IfxScuWdt.h"
-#include "WSS_GTM_demo.h"
 #include "WSS_Configurations.h"
+#include "WSS_GTM.h"
 
 #if(WSS_EMULATION == TRUE)
 #include "WSS_Emulation.h"
 #endif
 
 #if(USE_FCADC == TRUE)
-#include "FC_Adc.h"
+#include "WSS_FCADC.h"
 #endif
 
 
@@ -66,15 +66,14 @@ void core0_main(void)
     IfxCpu_emitEvent(&g_cpuSyncEvent);
     IfxCpu_waitEvent(&g_cpuSyncEvent, 1);
 
-    /* Configures GTM modules for WSS interface */
+    /* Configures and enables GTM modules for WSS interface */
     configureGTM();
-
-    /*  Starts the TIM0_CH0 to detect the speed pulse and further decoding */
-    startDemo();
 
     /* Configures FCADC modules for isolating speed pulse and AK data if enabled */
     #if(USE_FCADC == TRUE)
     startFCAdc();
+    startFCADCchannel(FCADC0, DATA_THRESHOLD);
+    startFCADCchannel(FCADC3, SPEED_PULSE_THRESHOLD);
     #endif
 
     /* Configures GTM modules for WSS emulation if enabled */
