@@ -1,0 +1,92 @@
+<root version="2.56.0">
+    <signals>
+        <var name="elf" type="group" offset="0" access="read-write">
+            <var name="g_phaseCurrentSense" type="group" offset="0" access="read-write">
+                <item-configuration>
+                    <title><![CDATA[g_phaseCurrentSense]]></title>
+                </item-configuration>
+                <var name="phaseUResult" type="uint32" offset="0" access="read-write" default="0">
+                    <item-configuration>
+                        <title><![CDATA[phaseUResult]]></title>
+                    </item-configuration>
+                </var>
+                <var name="phaseVResult" type="uint32" offset="0" access="read-write" default="0">
+                    <item-configuration>
+                        <title><![CDATA[phaseVResult]]></title>
+                    </item-configuration>
+                </var>
+                <var name="phaseWResult" type="uint32" offset="0" access="read-write" default="0">
+                    <item-configuration>
+                        <title><![CDATA[phaseWResult]]></title>
+                    </item-configuration>
+                </var>
+            </var>
+            <var name="g_gtmTom3phInv" type="group" offset="0" access="read-write">
+                <item-configuration>
+                    <title><![CDATA[g_gtmTom3phInv]]></title>
+                </item-configuration>
+                <var name="dutyCycles" type="group" offset="0" access="read-write">
+                    <item-configuration>
+                        <title><![CDATA[dutyCycles]]></title>
+                    </item-configuration>
+                    <var name="dutyCycles[0]" type="float" offset="0" access="read-write" default="0">
+                        <item-configuration>
+                            <title><![CDATA[0]]></title>
+                        </item-configuration>
+                    </var>
+                    <var name="dutyCycles[1]" type="float" offset="0" access="read-write" default="0">
+                        <item-configuration>
+                            <title><![CDATA[1]]></title>
+                        </item-configuration>
+                    </var>
+                    <var name="dutyCycles[2]" type="float" offset="0" access="read-write" default="0">
+                        <item-configuration>
+                            <title><![CDATA[2]]></title>
+                        </item-configuration>
+                    </var>
+                </var>
+            </var>
+        </var>
+    </signals>
+    <layout>
+        <item-configuration>
+            <title><![CDATA[The EVADC synchronous sampling and GTM TOM 3-Phase Inverter PWM generation]]></title>
+        </item-configuration>
+        <group layout-item="false">
+            <item-configuration>
+                <title><![CDATA[EVADC Results]]></title>
+            </item-configuration>
+            <lineEdit auto-connect="elf.g_phaseCurrentSense.phaseUResult"/>
+            <lineEdit auto-connect="elf.g_phaseCurrentSense.phaseVResult"/>
+            <lineEdit auto-connect="elf.g_phaseCurrentSense.phaseWResult"/>
+        </group>
+        <group layout-item="false">
+            <item-configuration>
+                <title><![CDATA[PWM Duty Cycles]]></title>
+            </item-configuration>
+            <lineEdit auto-connect="elf.g_gtmTom3phInv.dutyCycles.dutyCycles[0]">
+                <item-configuration>
+                    <title><![CDATA[dutyCycles U]]></title>
+                </item-configuration>
+            </lineEdit>
+            <lineEdit auto-connect="elf.g_gtmTom3phInv.dutyCycles.dutyCycles[1]">
+                <item-configuration>
+                    <title><![CDATA[dutyCycles V]]></title>
+                </item-configuration>
+            </lineEdit>
+            <lineEdit auto-connect="elf.g_gtmTom3phInv.dutyCycles.dutyCycles[2]">
+                <item-configuration>
+                    <title><![CDATA[dutyCycles W]]></title>
+                </item-configuration>
+            </lineEdit>
+        </group>
+    </layout>
+    <interface>
+        <item-configuration>
+            <id><![CDATA[das-itf]]></id>
+        </item-configuration>
+        <port plugin="PCom_DAS::DAS" connect="true" system-key="{ADS}"/>
+    </interface>
+    <config/>
+    <debugBox elf-path="../TriCore Debug (TASKING)/iLLD_TC387_ADS_GTM_TOM_EVADC_3_Phase_Inverter_PWM_Multiple_Adc_Channels_1.elf" watches="g_phaseCurrentSense;g_gtmTom3phInv;g_dutyCycles" com-interface-id="das-itf" title="" id="elf"/>
+</root>

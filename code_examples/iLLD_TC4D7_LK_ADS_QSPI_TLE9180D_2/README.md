@@ -141,6 +141,8 @@ Before testing this code example:
 
 After code compilation and flashing the device, observe the QSPI and GPIO pin states.
 
+<img src="./Images/Signals.PNG" width="800" />
+
 ## References  
 
 AURIX&trade; Development Studio is available online:  

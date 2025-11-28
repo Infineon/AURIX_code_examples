@@ -40,7 +40,7 @@
 /*********************************************************************************************************************/
 /*-------------------------------------------------Global variables--------------------------------------------------*/
 /*********************************************************************************************************************/
-
+QspiCommunication g_qspi;
 /*********************************************************************************************************************/
 /*--------------------------------------------Private Variables/Constants--------------------------------------------*/
 /*********************************************************************************************************************/
@@ -129,3 +129,44 @@ void Qspi_initQspi(QspiCommunication* const qspiCommunication)
         IfxTLE9180_init(&qspiCommunication->driverTle9180, &tleConfig);
     }
 }
+
+#if (INTERRUPT_PRIORITY_QSPI3_TX > 0)
+/* Interrupt service units for QSPI3 Transmit
+ *
+ */
+IFX_INTERRUPT(Qspi_Tle9180_TxIsr, 0, INTERRUPT_PRIORITY_QSPI3_TX)
+{
+    IfxCpu_enableInterrupts();
+#if (SPI_0_USE_DMA == TRUE)
+    IfxQspi_SpiMaster_isrDmaTransmit(&g_motorControl.inverter.communication.qspi.spiMasterQspi3tle9180);
+#else
+    IfxQspi_SpiMaster_isrTransmit(&g_qspi.spiMasterQspi3tle9180);
+#endif
+}
+#endif /* (INTERRUPT_PRIORITY_QSPI3_TX > 0) */
+
+#if (INTERRUPT_PRIORITY_QSPI3_RX > 0)
+/* Interrupt service units for QSPI4 Receive
+ *
+ */
+IFX_INTERRUPT(Qspi_Tle9180_RxIsr, 0, INTERRUPT_PRIORITY_QSPI3_RX)
+{
+    IfxCpu_enableInterrupts();
+#if (SPI_0_USE_DMA == TRUE)
+    IfxQspi_SpiMaster_isrDmaReceive(&g_motorControl.inverter.communication.qspi.spiMasterQspi3tle9180);
+#else
+    IfxQspi_SpiMaster_isrReceive(&g_qspi.spiMasterQspi3tle9180);
+#endif
+}
+#endif /* (INTERRUPT_PRIORITY_QSPI3_RX > 0) */
+
+#if (INTERRUPT_PRIORITY_QSPI3_ERR > 0)
+/* Interrupt service units for QSPI4 Error
+ *
+ */
+IFX_INTERRUPT(Qspi_Tle9180_ErrIsr, 0, INTERRUPT_PRIORITY_QSPI3_ERR)
+{
+    IfxCpu_enableInterrupts();
+    IfxQspi_SpiMaster_isrError(&g_qspi.spiMasterQspi3tle9180);
+}
+#endif /* (INTERRUPT_PRIORITY_QSPI3_ERR > 0) */
