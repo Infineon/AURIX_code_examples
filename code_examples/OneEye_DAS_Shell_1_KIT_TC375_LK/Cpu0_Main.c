@@ -30,23 +30,22 @@
  *              The example creates a OneEye pipe and the corresponding DPipe that is used to interface the shell.
  *
  * \name OneEye_DAS_Shell_1_KIT_TC375_LK
- * \version V1.0.0
+ * \version V1.0.1
  * \board AURIX TC375 lite Kit, KIT_A2G_TC375_LITE, TC37xTP_A-Step
- * \keywords OneEye, DAS, Shell, Pipe, AURIX
- * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_OneEye_DAS_Shell_1_KIT_TC375_LK-TR-v01_00_00-EN.pdf
- * \documents https://www.infineon.com/aurix-expert-training/TC37A_iLLD_UM_1_0_1_12_1.chm
- * \lastUpdated 2022-03-28
+ * \keywords OneEye, DAS, Shell, Pipe, AURIX, Infineon GUI Designer
+ * \documents see README.md
+ * \lastUpdated 2024-06-18
  *********************************************************************************************************************/
 #include "Ifx_Types.h"
 #include "IfxCpu.h"
 #include "IfxScuWdt.h"
-#include "Ifx_OneEyeDasPipe.h"
-#include "Ifx_Shell.h"
+#include "ifx_oe_daspipe.h"
+#include "ifx_oe_shell.h"
 
 /*********************************************************************************************************************/
 /*------------------------------------------------Function Prototypes------------------------------------------------*/
 /*********************************************************************************************************************/
-boolean printShellInfo(pchar args, void *data, IfxStdIf_DPipe *io);
+boolean printShellInfo(pchar args, void *data, Ifx_Oe_StdIf_DPipe *io);
 
 /*********************************************************************************************************************/
 /*-------------------------------------------------Global variables--------------------------------------------------*/
@@ -56,21 +55,21 @@ boolean printShellInfo(pchar args, void *data, IfxStdIf_DPipe *io);
  * The special Ifx_OneEyeDasPipe type is recognised by OneEye as a pipe object and enables data streaming between
  * OneEye and the ECU.
  */
-Ifx_OneEyeDasPipe g_oneEyeDasPipe;
+Ifx_Oe_DasPipe g_oneEyeDasPipe;
 
-/* The IfxStdIf_DPipe object enables interaction with the pipe, as for example read / write.
+/* The Ifx_Oe_StdIf_DPipe object enables interaction with the pipe, as for example read / write.
  * It can also be used to connect to other objects that support the interface as, for example, a shell.
  */
-IfxStdIf_DPipe  g_dPipe;
+Ifx_Oe_StdIf_DPipe  g_dPipe;
 
 /* Shell object */
-Ifx_Shell       g_shell;
+Ifx_Oe_Shell       g_shell;
 
 /* Array that stores the supported Shell commands */
-const Ifx_Shell_Command g_shellCommands[] = {
-    {"help",   SHELL_HELP_DESCRIPTION_TEXT,    &g_shell, &Ifx_Shell_showHelp },
+const Ifx_Oe_Shell_Command g_shellCommands[] = {
+    {"help",   IFX_OE_SHELL_HELP_DESCRIPTION_TEXT,    &g_shell, &Ifx_Oe_Shell_showHelp },
     {"info",   "     : Dummy info command",    &g_shell, &printShellInfo     },
-    IFX_SHELL_COMMAND_LIST_END
+    IFX_OE_SHELL_COMMAND_LIST_END
 };
 
 IFX_ALIGN(4) IfxCpu_syncEvent g_cpuSyncEvent = 0;
@@ -80,9 +79,9 @@ IFX_ALIGN(4) IfxCpu_syncEvent g_cpuSyncEvent = 0;
 /*********************************************************************************************************************/
 
 /* Function called when the shell command "info" is executed */
-boolean printShellInfo(pchar args, void *data, IfxStdIf_DPipe *io)
+boolean printShellInfo(pchar args, void *data, Ifx_Oe_StdIf_DPipe *io)
 {
-    IfxStdIf_DPipe_print(io, "The shell command was called !" ENDL);
+    Ifx_Oe_StdIf_DPipe_print(io, "The shell command was called !" IFX_OE_ENDL);
     return TRUE;
 }
 
@@ -101,33 +100,33 @@ void core0_main(void)
     IfxCpu_waitEvent(&g_cpuSyncEvent, 1);
     
     /* Initialize Ifx_OneEyeDasPipe to enable data streaming between the controller and OneEye */
-    Ifx_OneEyeDasPipe_Config pipeCfg;
+    Ifx_Oe_DasPipe_Config pipeCfg;
 
-    Ifx_OneEyeDasPipe_initConfig(&pipeCfg);
+    Ifx_Oe_DasPipe_initConfig(&pipeCfg);
     pipeCfg.size = 512; /* Ifx_OneEyeDasPipe requires twice the size in the heap (rx and tx). Maximum size is 1024 i.e. 2kB heap. */
 
-    Ifx_OneEyeDasPipe_init(&g_oneEyeDasPipe, &pipeCfg);
+    Ifx_Oe_DasPipe_init(&g_oneEyeDasPipe, &pipeCfg);
 
-    /* Initialize IfxStdIf_DPipe with the Ifx_OneEyeDasPipe */
-    Ifx_OneEyeDasPipe_stdIfDPipeInit(&g_dPipe, &g_oneEyeDasPipe);
+    /* Initialize Ifx_Oe_StdIf_DPipe with the Ifx_OneEyeDasPipe */
+    Ifx_Oe_DasPipe_stdIfDPipeInit(&g_dPipe, &g_oneEyeDasPipe);
 
     /* Print something directly into the pipe */
-    IfxStdIf_DPipe_print(&g_dPipe, "Hello World !" ENDL);
-    IfxStdIf_DPipe_print(&g_dPipe, "Enter 'help' to see the command list !" ENDL);
+    Ifx_Oe_StdIf_DPipe_print(&g_dPipe, "Hello World !"IFX_OE_ENDL);
+    Ifx_Oe_StdIf_DPipe_print(&g_dPipe, "Enter 'help' to see the command list !"IFX_OE_ENDL);
 
     /* Initialize the shell */
-    Ifx_Shell_Config shellConf;
-    Ifx_Shell_initConfig(&shellConf);                       /* Initialize the structure with default values         */
+    Ifx_Oe_Shell_Config shellConf;
+    Ifx_Oe_Shell_initConfig(&shellConf);                    /* Initialize the structure with default values         */
 
     shellConf.standardIo = &g_dPipe;                        /* Set a pointer to the standard interface              */
     shellConf.commandList[0] = &g_shellCommands[0];         /* Set the supported command list                       */
 
     /* Apply the configuration to the shell */
-    Ifx_Shell_init(&g_shell, &shellConf);                   /* Initialize the Shell with the given configuration    */
+    Ifx_Oe_Shell_init(&g_shell, &shellConf);                /* Initialize the Shell with the given configuration    */
 
     while(1)
     {
         /* Process the shell commands */
-        Ifx_Shell_process(&g_shell);
+        Ifx_Oe_Shell_process(&g_shell);
     }
 }

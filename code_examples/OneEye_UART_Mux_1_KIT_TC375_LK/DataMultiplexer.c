@@ -30,7 +30,6 @@
 /*********************************************************************************************************************/
 #include "DataMultiplexer.h"
 #include "SignalGenerator.h"
-
 /*********************************************************************************************************************/
 /*------------------------------------------------------Macros-------------------------------------------------------*/
 /*********************************************************************************************************************/
@@ -92,7 +91,7 @@ static Ifx_Oe_TickTime g_deadline;
 void initDataMultiplexer(Ifx_Oe_SyncProtocol* syncProtocol)
 {
     /* Initialize the sync protocol channel assigned to the data multiplexer / multiplexer */
-    Ifx_Oe_SyncProtocol_addClient(syncProtocol, &g_dataMultiplexer, BB_LOCAL_PORT_DEMUX, BB_REMOTE_PORT_DEMUX, IFX_OE_SYNCPROTOCOL_MESSAGE_PAYLOAD_MAX_LENGTH, 10);
+    Ifx_Oe_SyncProtocol_addClient(syncProtocol, &g_dataMultiplexer, BB_LOCAL_PORT_DEMUX, BB_REMOTE_PORT_DEMUX, IFX_CFG_OE_SYNCPROTOCOL_MESSAGE_PAYLOAD_MAX_LENGTH, 10);
 
     /* Initialize deadline to 0 so that the data multiplexer sends on the next call */
     g_deadline = 0;

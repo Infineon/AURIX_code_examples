@@ -1,6 +1,8 @@
 /**
  * \file ifx_oe_oscibb.c
  *
+ * oneeye_lib version 0.6
+ *
  * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
  *
  *                                 IMPORTANT NOTICE
@@ -56,7 +58,7 @@ boolean        Ifx_Oe_OsciBb_init(Ifx_Oe_OsciBb* bb, Ifx_Oe_Osci* osci, Ifx_Oe_S
     bb->_osciSignalInfoSend    = 0;
     bb->_osciChannelInfoSend   = 0;
 
-    return Ifx_Oe_SyncProtocol_addClient(protocol, &bb->_bbClient, localPort, remotePort, IFX_OE_SYNCPROTOCOL_MESSAGE_PAYLOAD_MAX_LENGTH, IFX_OE_OSCIBB_TX_BUFFER_LENGTH);
+    return Ifx_Oe_SyncProtocol_addClient(protocol, &bb->_bbClient, localPort, remotePort, IFX_CFG_OE_SYNCPROTOCOL_MESSAGE_PAYLOAD_MAX_LENGTH, IFX_CFG_OE_OSCIBB_TX_BUFFER_LENGTH);
 }
 
 

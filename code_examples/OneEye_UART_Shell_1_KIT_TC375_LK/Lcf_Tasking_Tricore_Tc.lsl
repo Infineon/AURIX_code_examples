@@ -38,7 +38,7 @@
 #define LCF_USTACK2_SIZE 2k
 #define LCF_ISTACK2_SIZE 1k
 
-#define LCF_HEAP_SIZE  8k
+#define LCF_HEAP_SIZE  4k
 
 #define LCF_CPU0 0
 #define LCF_CPU1 1
@@ -266,15 +266,6 @@ derivative tc37
         map not_cached (dest=bus:sri, dest_offset=0xb0020000, reserved, size=64k);
     }
     
-    /*In case of TC37xPD it doesn't contain EMEM, the below memory needs to be commented*/
-    memory edmem
-    {
-        mau = 8;
-        size = 3M;
-        type = ram;
-        map (dest=bus:sri, dest_offset=0x99000000, size=3M);
-        map (dest=bus:sri, dest_offset=0xb9000000, reserved, size=3M);
-    }
 
 #if (__VERSION__ >= 6003)    
     section_setup :vtc:linear

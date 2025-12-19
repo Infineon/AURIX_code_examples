@@ -2,6 +2,8 @@
  * \file ifx_oe_Shell.c
  * \brief shell functions.
  *
+ * oneeye_lib version 0.6
+ *
  *
  * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
  *
@@ -57,16 +59,19 @@
 /* Macro to detect space character */
 #define IFX_OE_SHELL_ISSPACE(c) (((c) == ' ') || ((c) == '\t'))
 
+/* Macro to detect custom character */
+#define IFX_OE_SHELL_CUSTOM_SEP(c, sep) ((c) == (sep))
+
 /* Macro to only execute parameter if echo is enabled for this shell */
 #define IFX_OE_SHELL_IF_ECHO(X) { if (shell->control.echo) { X; } }
 
 /* Macro to write lots of spaces */
 #define IFX_OE_SHELL_WRITE_SPACES(X) \
-    { int ii; for (ii = 0; ii < (X); ii++) { IfxStdIf_DPipe_print(shell->io, " "); } }
+    { int ii; for (ii = 0; ii < (X); ii++) { Ifx_Oe_StdIf_DPipe_print(shell->io, " "); } }
 
 /* Macro to write lots of backspaces */
 #define IFX_OE_SHELL_WRITE_BACKSPACES(X) \
-    { int ii; for (ii = 0; ii < (X); ii++) { IfxStdIf_DPipe_print(shell->io, "\b"); } }
+    { int ii; for (ii = 0; ii < (X); ii++) { Ifx_Oe_StdIf_DPipe_print(shell->io, "\b"); } }
 
 //---------------------------------------------------------------------------
 char Ifx_Oe_Shell_cmdBuffer[IFX_CFG_OE_SHELL_CMD_LINE_SIZE * IFX_CFG_OE_SHELL_CMD_HISTORY_SIZE];
@@ -91,7 +96,7 @@ IFX_OE_INLINE boolean Ifx_Oe_Shell_isEndOfLine(pchar args)
 static boolean Ifx_Oe_Shell_writeResult(Ifx_Oe_Shell* shell, Ifx_Oe_SizeT Code)
 {
     Ifx_Oe_SizeT length = sizeof(Code);
-    boolean      result = IfxStdIf_DPipe_write(shell->io, &Code, &length, IFX_CFG_OE_SHELL_TIMEOUT);
+    boolean      result = Ifx_Oe_StdIf_DPipe_write(shell->io, &Code, &length, IFX_CFG_OE_SHELL_TIMEOUT);
 
     IFX_OE_ASSERT(result != FALSE);
 
@@ -100,7 +105,7 @@ static boolean Ifx_Oe_Shell_writeResult(Ifx_Oe_Shell* shell, Ifx_Oe_SizeT Code)
 
 
 //---------------------------------------------------------------------------
-boolean Ifx_Oe_Shell_showHelpSingle(Ifx_Oe_Shell_CommandListConst commandList, IfxStdIf_DPipe* io, boolean briefOnly, boolean singleCommand)
+boolean Ifx_Oe_Shell_showHelpSingle(Ifx_Oe_Shell_CommandListConst commandList, Ifx_Oe_StdIf_DPipe* io, boolean briefOnly, boolean singleCommand)
 {
     const Ifx_Oe_Shell_Command* command = commandList;
     uint32                      index   = 0;
@@ -114,7 +119,7 @@ boolean Ifx_Oe_Shell_showHelpSingle(Ifx_Oe_Shell_CommandListConst commandList, I
         boolean isSyntax     = FALSE;
         boolean isTitle      = FALSE;
         uint8   sectionLevel = 0;
-        IfxStdIf_DPipe_print(io, "%s%s", space, command->commandLine);
+        Ifx_Oe_StdIf_DPipe_print(io, "%s%s", space, command->commandLine);
 
         while (*help != IFX_OE_SHELL_NULL_CHAR)
         {
@@ -186,23 +191,23 @@ boolean Ifx_Oe_Shell_showHelpSingle(Ifx_Oe_Shell_CommandListConst commandList, I
             {
                 if (sectionLevel == 1)
                 {
-                    IfxStdIf_DPipe_print(io, "%s=================================================="IFX_OE_ENDL, space);
-                    IfxStdIf_DPipe_print(io, "%s ",                                                             space);
-                    IfxStdIf_DPipe_write(io, (void*)help, &count, IFX_CFG_OE_SHELL_TIMEOUT);
-                    IfxStdIf_DPipe_print(io, "%s=================================================="IFX_OE_ENDL, space);
+                    Ifx_Oe_StdIf_DPipe_print(io, "%s=================================================="IFX_OE_ENDL, space);
+                    Ifx_Oe_StdIf_DPipe_print(io, "%s ",                                                             space);
+                    Ifx_Oe_StdIf_DPipe_write(io, (void*)help, &count, IFX_CFG_OE_SHELL_TIMEOUT);
+                    Ifx_Oe_StdIf_DPipe_print(io, "%s=================================================="IFX_OE_ENDL, space);
                 }
                 else if (sectionLevel == 2)
                 {
-                    IfxStdIf_DPipe_print(io, "%s--------------------------------------------------"IFX_OE_ENDL, space);
-                    IfxStdIf_DPipe_print(io, "%s ",                                                             space);
-                    IfxStdIf_DPipe_write(io, (void*)help, &count, IFX_CFG_OE_SHELL_TIMEOUT);
-                    IfxStdIf_DPipe_print(io, "%s--------------------------------------------------"IFX_OE_ENDL, space);
+                    Ifx_Oe_StdIf_DPipe_print(io, "%s--------------------------------------------------"IFX_OE_ENDL, space);
+                    Ifx_Oe_StdIf_DPipe_print(io, "%s ",                                                             space);
+                    Ifx_Oe_StdIf_DPipe_write(io, (void*)help, &count, IFX_CFG_OE_SHELL_TIMEOUT);
+                    Ifx_Oe_StdIf_DPipe_print(io, "%s--------------------------------------------------"IFX_OE_ENDL, space);
                 }
             }
             else
             {
-                IfxStdIf_DPipe_print(io, "%s%s", space, spaceParam);
-                IfxStdIf_DPipe_write(io, (void*)help, &count, IFX_CFG_OE_SHELL_TIMEOUT);
+                Ifx_Oe_StdIf_DPipe_print(io, "%s%s", space, spaceParam);
+                Ifx_Oe_StdIf_DPipe_write(io, (void*)help, &count, IFX_CFG_OE_SHELL_TIMEOUT);
             }
 
             help += count;
@@ -213,7 +218,7 @@ boolean Ifx_Oe_Shell_showHelpSingle(Ifx_Oe_Shell_CommandListConst commandList, I
             }
         }
 
-        IfxStdIf_DPipe_print(io, IFX_OE_ENDL);
+        Ifx_Oe_StdIf_DPipe_print(io, IFX_OE_ENDL);
 
         if ((command->call == NULL_PTR) && (index == 0))
         {
@@ -233,7 +238,7 @@ boolean Ifx_Oe_Shell_showHelpSingle(Ifx_Oe_Shell_CommandListConst commandList, I
 }
 
 
-boolean Ifx_Oe_Shell_showHelpSingleCommand(pchar args, void* shellPtr, IfxStdIf_DPipe* io)
+boolean Ifx_Oe_Shell_showHelpSingleCommand(pchar args, void* shellPtr, Ifx_Oe_StdIf_DPipe* io)
 {
     Ifx_Oe_Shell_CommandListConst commandList  = NULL_PTR;
     const Ifx_Oe_Shell_Command*   shellCommand = Ifx_Oe_Shell_commandListFind(shellPtr, args, &args, &commandList);
@@ -248,7 +253,7 @@ boolean Ifx_Oe_Shell_showHelpSingleCommand(pchar args, void* shellPtr, IfxStdIf_
         {
             if (commandList->call == NULL_PTR)
             {
-                IfxStdIf_DPipe_print(io, "%s ", commandList->commandLine);
+                Ifx_Oe_StdIf_DPipe_print(io, "%s ", commandList->commandLine);
             }
 
             Ifx_Oe_Shell_showHelpSingle(shellCommand, io, FALSE, TRUE);
@@ -258,13 +263,13 @@ boolean Ifx_Oe_Shell_showHelpSingleCommand(pchar args, void* shellPtr, IfxStdIf_
     }
     else
     {
-        IfxStdIf_DPipe_print(io, "unknown command");
+        Ifx_Oe_StdIf_DPipe_print(io, "unknown command");
         return FALSE;
     }
 }
 
 
-boolean Ifx_Oe_Shell_showHelp(pchar args, void* shellPtr, IfxStdIf_DPipe* io)
+boolean Ifx_Oe_Shell_showHelp(pchar args, void* shellPtr, Ifx_Oe_StdIf_DPipe* io)
 {
     sint32        i;
     Ifx_Oe_Shell* shell  = shellPtr;
@@ -289,15 +294,15 @@ boolean Ifx_Oe_Shell_showHelp(pchar args, void* shellPtr, IfxStdIf_DPipe* io)
 }
 
 
-boolean Ifx_Oe_Shell_protocolStart(pchar args, void* data, IfxStdIf_DPipe* io)
+boolean Ifx_Oe_Shell_protocolStart(pchar args, void* data, Ifx_Oe_StdIf_DPipe* io)
 {
     Ifx_Oe_Shell* shell  = data;
     boolean       Result = TRUE;
 
     if (Ifx_Oe_Shell_matchToken(&args, "?") != FALSE)
     {
-        IfxStdIf_DPipe_print(io, "Syntax     : protocol start" IFX_OE_ENDL);
-        IfxStdIf_DPipe_print(io, "           > start a protocol" IFX_OE_ENDL);
+        Ifx_Oe_StdIf_DPipe_print(io, "Syntax     : protocol start" IFX_OE_ENDL);
+        Ifx_Oe_StdIf_DPipe_print(io, "           > start a protocol" IFX_OE_ENDL);
     }
     else if (Ifx_Oe_Shell_matchToken(&args, "start") != FALSE)
     {
@@ -324,14 +329,14 @@ boolean Ifx_Oe_Shell_protocolStart(pchar args, void* data, IfxStdIf_DPipe* io)
 }
 
 
-boolean Ifx_Oe_Shell_bbProtocolStart(pchar args, void* data, IfxStdIf_DPipe* io)
+boolean Ifx_Oe_Shell_bbProtocolStart(pchar args, void* data, Ifx_Oe_StdIf_DPipe* io)
 {
     boolean result = TRUE;
 
     if (Ifx_Oe_Shell_matchToken(&args, "?") != FALSE)
     {
-        IfxStdIf_DPipe_print(io, "Syntax     : protocol start" IFX_OE_ENDL);
-        IfxStdIf_DPipe_print(io, "           > start a protocol" IFX_OE_ENDL);
+        Ifx_Oe_StdIf_DPipe_print(io, "Syntax     : protocol start" IFX_OE_ENDL);
+        Ifx_Oe_StdIf_DPipe_print(io, "           > start a protocol" IFX_OE_ENDL);
     }
     else if (Ifx_Oe_Shell_matchToken(&args, "protocol") != FALSE)
     {
@@ -420,8 +425,8 @@ boolean Ifx_Oe_Shell_init(Ifx_Oe_Shell* shell, const Ifx_Oe_Shell_Config* config
 
     if (shell->control.showPrompt != 0)
     {
-        IfxStdIf_DPipe_print(shell->io, IFX_OE_ENDL);
-        IfxStdIf_DPipe_print(shell->io, IFX_CFG_OE_SHELL_PROMPT);
+        Ifx_Oe_StdIf_DPipe_print(shell->io, IFX_OE_ENDL);
+        Ifx_Oe_StdIf_DPipe_print(shell->io, IFX_CFG_OE_SHELL_PROMPT);
     }
 
     return TRUE;
@@ -453,13 +458,13 @@ void Ifx_Oe_Shell_prefill(Ifx_Oe_Shell* shell, const char* text)
             Cmd->cursor++;
 
             /* Update length of buffer */
-            Cmd->length = __max(Cmd->length, Cmd->cursor);
+            Cmd->length = IFX_OE_MAX(Cmd->length, Cmd->cursor);
 
             if (shell->control.echo != 0)
             {
                 /* echo character to shell output if requested */
                 shell->locals.echo[0] = text[i];
-                IfxStdIf_DPipe_print(shell->io, shell->locals.echo);
+                Ifx_Oe_StdIf_DPipe_print(shell->io, shell->locals.echo);
             }
         }
         else
@@ -512,7 +517,7 @@ Ifx_Oe_Shell_SpecialKey Ifx_Oe_Shell_process(Ifx_Oe_Shell* shell)
 
         count     = 0;
         readCount = IFX_CFG_OE_SHELL_CMD_LINE_SIZE - count;
-        IfxStdIf_DPipe_read(shell->io, &inputbuffer[count], &readCount, Ifx_Oe_Time_0s);
+        Ifx_Oe_StdIf_DPipe_read(shell->io, &inputbuffer[count], &readCount, Ifx_Oe_Time_0s);
         count    += readCount;
 
         for (i = 0; i < count; i++)
@@ -527,7 +532,7 @@ Ifx_Oe_Shell_SpecialKey Ifx_Oe_Shell_process(Ifx_Oe_Shell* shell)
             case '\n':
             case '\r':
                 /* Print new line to terminal if requested */
-                IFX_OE_SHELL_IF_ECHO(IfxStdIf_DPipe_print(shell->io, IFX_OE_ENDL))
+                IFX_OE_SHELL_IF_ECHO(Ifx_Oe_StdIf_DPipe_print(shell->io, IFX_OE_ENDL))
 
                 /* Execute command if length is valid - i.e. not an over-full buffer
                  * (prevents attempted execution of junk) */
@@ -562,7 +567,7 @@ Ifx_Oe_Shell_SpecialKey Ifx_Oe_Shell_process(Ifx_Oe_Shell* shell)
                 /* Show prompt if in main shell */
                 if ((shell->control.showPrompt != 0) && (shell->control.execute == 1))
                 {
-                    IfxStdIf_DPipe_print(shell->io, IFX_CFG_OE_SHELL_PROMPT);
+                    Ifx_Oe_StdIf_DPipe_print(shell->io, IFX_CFG_OE_SHELL_PROMPT);
                 }
 
                 /* Reset command line buffer length */
@@ -587,16 +592,16 @@ Ifx_Oe_Shell_SpecialKey Ifx_Oe_Shell_process(Ifx_Oe_Shell* shell)
                     if (shell->control.echo != 0)
                     {
                         /* Move left one character */
-                        IfxStdIf_DPipe_print(shell->io, "\b");
+                        Ifx_Oe_StdIf_DPipe_print(shell->io, "\b");
 
                         /* Update line with new characters */
                         for (j = Cmd->cursor; j < Cmd->length; j++)
                         {
-                            IfxStdIf_DPipe_print(shell->io, "%c", cmdStr[j]);
+                            Ifx_Oe_StdIf_DPipe_print(shell->io, "%c", cmdStr[j]);
                         }
 
                         /* Write over duplicated character at end */
-                        IfxStdIf_DPipe_print(shell->io, " ");
+                        Ifx_Oe_StdIf_DPipe_print(shell->io, " ");
                         IFX_OE_SHELL_WRITE_BACKSPACES((Cmd->length - Cmd->cursor) + 1)
                     }
 
@@ -725,13 +730,13 @@ Ifx_Oe_Shell_SpecialKey Ifx_Oe_Shell_process(Ifx_Oe_Shell* shell)
                     Cmd->cursor++;
 
                     /* Update length of buffer */
-                    Cmd->length = __max(Cmd->length, Cmd->cursor);
+                    Cmd->length = IFX_OE_MAX(Cmd->length, Cmd->cursor);
 
                     if (shell->control.echo != 0)
                     {
                         /* echo character to shell output if requested */
                         shell->locals.echo[0] = inputbuffer[i];
-                        IfxStdIf_DPipe_print(shell->io, shell->locals.echo);
+                        Ifx_Oe_StdIf_DPipe_print(shell->io, shell->locals.echo);
                     }
                 }
                 else
@@ -878,7 +883,49 @@ boolean Ifx_Oe_Shell_parseToken(pchar* argsPtr, char* tokenBuffer, int bufferLen
     // make sure string is zero terminated
     if (bufferLength > 0)
     {
-        tokenBuffer[__min(mindex, bufferLength - 1)] = IFX_OE_SHELL_NULL_CHAR;
+        tokenBuffer[IFX_OE_MIN(mindex, bufferLength - 1)] = IFX_OE_SHELL_NULL_CHAR;
+    }
+
+    *argsPtr = Ifx_Oe_Shell_skipWhitespace(args);
+
+    return TRUE;
+}
+
+
+boolean Ifx_Oe_Shell_parseTokenToSeparator(pchar* argsPtr, char separator, char* tokenBuffer, int bufferLength)
+{
+    int   mindex = 0;
+    pchar args   = Ifx_Oe_Shell_skipWhitespace(*argsPtr);
+
+    tokenBuffer[0] = IFX_OE_SHELL_NULL_CHAR;
+
+    if (args == NULL_PTR)
+    {
+        return FALSE;
+    }
+
+
+    // don't allow empty tokens
+    if (*args == IFX_OE_SHELL_NULL_CHAR)
+    {
+        return FALSE;
+    }
+
+    while ((*args != IFX_OE_SHELL_NULL_CHAR) && (!IFX_OE_SHELL_CUSTOM_SEP(*args, separator)))
+    {
+        if (mindex < bufferLength)
+        {
+            tokenBuffer[mindex] = *args;
+            mindex++;
+        }
+
+        args = &args[1];
+    }
+
+    // make sure string is zero terminated
+    if (bufferLength > 0)
+    {
+        tokenBuffer[IFX_OE_MIN(mindex, bufferLength - 1)] = IFX_OE_SHELL_NULL_CHAR;
     }
 
     *argsPtr = Ifx_Oe_Shell_skipWhitespace(args);
@@ -1154,7 +1201,7 @@ Ifx_Oe_Shell_ExecuteCode Ifx_Oe_Shell_execute(Ifx_Oe_Shell* shell, pchar command
             }
             else if (shell->control.echoError != 0)
             {
-                IfxStdIf_DPipe_print(shell->io, "\r\nShell command error: %s" IFX_OE_ENDL, commandLine);
+                Ifx_Oe_StdIf_DPipe_print(shell->io, "\r\nShell command error: %s" IFX_OE_ENDL, commandLine);
             }
             else
             {
@@ -1173,7 +1220,7 @@ Ifx_Oe_Shell_ExecuteCode Ifx_Oe_Shell_execute(Ifx_Oe_Shell* shell, pchar command
             }
             else if (shell->control.echoError != 0)
             {
-                IfxStdIf_DPipe_print(shell->io, "\r\nUnknown command: %s" IFX_OE_ENDL, commandLine);
+                Ifx_Oe_StdIf_DPipe_print(shell->io, "\r\nUnknown command: %s" IFX_OE_ENDL, commandLine);
             }
             else
             {
@@ -1255,7 +1302,7 @@ void Ifx_Oe_Shell_cmdEscapeProcess(Ifx_Oe_Shell* shell, char EscapeChar1, char E
             IFX_OE_SHELL_WRITE_BACKSPACES(Cmd->cursor)  /* Move cursor back to start */
             IFX_OE_SHELL_WRITE_SPACES(Cmd->length)      /* Overwrite text with spaces */
             IFX_OE_SHELL_WRITE_BACKSPACES(Cmd->length)  /* Move cursor back to start */
-            IfxStdIf_DPipe_print(shell->io, cmdStr); /* Copy buffer to screen */
+            Ifx_Oe_StdIf_DPipe_print(shell->io, cmdStr); /* Copy buffer to screen */
         }
 
         Cmd->cursor     = (Ifx_Oe_SizeT)strlen(cmdStr); /* Store cursor position */
@@ -1292,7 +1339,7 @@ void Ifx_Oe_Shell_cmdEscapeProcess(Ifx_Oe_Shell* shell, char EscapeChar1, char E
                 IFX_OE_SHELL_WRITE_BACKSPACES(Cmd->cursor)  /* Move cursor back to start */
                 IFX_OE_SHELL_WRITE_SPACES(Cmd->length)      /* Overwrite text with spaces */
                 IFX_OE_SHELL_WRITE_BACKSPACES(Cmd->length)  /* Move cursor back to start */
-                IfxStdIf_DPipe_print(shell->io, cmdStr); /* Copy buffer to screen */
+                Ifx_Oe_StdIf_DPipe_print(shell->io, cmdStr); /* Copy buffer to screen */
             }
 
             Cmd->cursor = (Ifx_Oe_SizeT)strlen(cmdStr);     /* Store cursor position */
@@ -1307,7 +1354,7 @@ void Ifx_Oe_Shell_cmdEscapeProcess(Ifx_Oe_Shell* shell, char EscapeChar1, char E
         if (Cmd->cursor < Cmd->length)
         {
             /* Move cursor one place to right */
-            IFX_OE_SHELL_IF_ECHO(IfxStdIf_DPipe_print(shell->io, "%c", cmdStr[Cmd->cursor])) Cmd->cursor++;
+            IFX_OE_SHELL_IF_ECHO(Ifx_Oe_StdIf_DPipe_print(shell->io, "%c", cmdStr[Cmd->cursor])) Cmd->cursor++;
         }
 
         break;
@@ -1317,7 +1364,7 @@ void Ifx_Oe_Shell_cmdEscapeProcess(Ifx_Oe_Shell* shell, char EscapeChar1, char E
         if (Cmd->cursor > 0)
         {
             /* Move cursor one place to left */
-            IFX_OE_SHELL_IF_ECHO(IfxStdIf_DPipe_print(shell->io, "\b")) Cmd->cursor--;
+            IFX_OE_SHELL_IF_ECHO(Ifx_Oe_StdIf_DPipe_print(shell->io, "\b")) Cmd->cursor--;
         }
 
         break;
@@ -1348,12 +1395,12 @@ void Ifx_Oe_Shell_cmdEscapeProcess(Ifx_Oe_Shell* shell, char EscapeChar1, char E
                 if (shell->control.echo != FALSE)
                 {
                     /* write over duplicated character at cursor */
-                    IfxStdIf_DPipe_print(shell->io, " ");
+                    Ifx_Oe_StdIf_DPipe_print(shell->io, " ");
 
                     /* Update line with new characters */
                     for (i = Cmd->cursor; i < Cmd->length; i++)
                     {
-                        IfxStdIf_DPipe_print(shell->io, "%c", cmdStr[i]);
+                        Ifx_Oe_StdIf_DPipe_print(shell->io, "%c", cmdStr[i]);
                     }
 
                     /* Move cursor back to new place */
@@ -1384,11 +1431,11 @@ void Ifx_Oe_Shell_cmdEscapeProcess(Ifx_Oe_Shell* shell, char EscapeChar1, char E
                     for (i = Cmd->cursor; i < (Cmd->length - 1); i++)
                     {
                         /* Update line with new characters */
-                        IfxStdIf_DPipe_print(shell->io, "%c", cmdStr[i + 1]);
+                        Ifx_Oe_StdIf_DPipe_print(shell->io, "%c", cmdStr[i + 1]);
                     }
 
                     /* write over duplicated character at end */
-                    IfxStdIf_DPipe_print(shell->io, " ");
+                    Ifx_Oe_StdIf_DPipe_print(shell->io, " ");
 
                     /* Move cursor back to right place */
                     IFX_OE_SHELL_WRITE_BACKSPACES(Cmd->length - Cmd->cursor)
@@ -1407,7 +1454,7 @@ void Ifx_Oe_Shell_cmdEscapeProcess(Ifx_Oe_Shell* shell, char EscapeChar1, char E
 
             while (Cmd->cursor < Cmd->length)
             {
-                IFX_OE_SHELL_IF_ECHO(IfxStdIf_DPipe_print(shell->io, "%c", cmdStr[Cmd->cursor])) Cmd->cursor++;
+                IFX_OE_SHELL_IF_ECHO(Ifx_Oe_StdIf_DPipe_print(shell->io, "%c", cmdStr[Cmd->cursor])) Cmd->cursor++;
             }
 
             break;
@@ -1422,7 +1469,7 @@ void Ifx_Oe_Shell_cmdEscapeProcess(Ifx_Oe_Shell* shell, char EscapeChar1, char E
 void Ifx_Oe_Shell_enable(Ifx_Oe_Shell* shell)
 {
     // Clear the Rx buffer!
-    IfxStdIf_DPipe_clearRx(shell->io);
+    Ifx_Oe_StdIf_DPipe_clearRx(shell->io);
     // Enable the shell
     shell->control.enabled = 1;
 }
@@ -1434,14 +1481,14 @@ void Ifx_Oe_Shell_disable(Ifx_Oe_Shell* shell)
 }
 
 
-void Ifx_Oe_Shell_printSyntax(const Ifx_Oe_Shell_Syntax* syntaxList, IfxStdIf_DPipe* io)
+void Ifx_Oe_Shell_printSyntax(const Ifx_Oe_Shell_Syntax* syntaxList, Ifx_Oe_StdIf_DPipe* io)
 {
     const Ifx_Oe_Shell_Syntax* syntax = syntaxList;
 
     while (syntax->syntax != NULL_PTR)
     {
-        IfxStdIf_DPipe_print(io, "Syntax     : %s" IFX_OE_ENDL, syntax->syntax);
-        IfxStdIf_DPipe_print(io, "           > %s" IFX_OE_ENDL, syntax->description);
+        Ifx_Oe_StdIf_DPipe_print(io, "Syntax     : %s" IFX_OE_ENDL, syntax->syntax);
+        Ifx_Oe_StdIf_DPipe_print(io, "           > %s" IFX_OE_ENDL, syntax->description);
         syntax = &syntax[1];
     }
 }

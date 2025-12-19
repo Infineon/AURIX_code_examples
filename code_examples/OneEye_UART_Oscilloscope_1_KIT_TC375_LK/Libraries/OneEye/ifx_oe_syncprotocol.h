@@ -1,6 +1,8 @@
 /**
  * \file ifx_oe_syncprotocol.h
  *
+ * oneeye_lib version 0.6
+ *
  * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
  *
  *                                 IMPORTANT NOTICE
@@ -40,11 +42,14 @@
 #ifndef IFX_OE_SYNCPROTOCOL_H
 #define IFX_OE_SYNCPROTOCOL_H
 
-#define IFX_OE_SYNCPROTOCOL_VARIANT_QT    (1)
-#define IFX_OE_SYNCPROTOCOL_VARIANT_AURIX (2)
-#ifndef IFX_OE_SYNCPROTOCOL_VARIANT
-#define IFX_OE_SYNCPROTOCOL_VARIANT IFX_OE_SYNCPROTOCOL_VARIANT_AURIX
+#define IFX_CFG_OE_SYNCPROTOCOL_VARIANT_QT    (1)
+#define IFX_CFG_OE_SYNCPROTOCOL_VARIANT_AURIX (2)
+#ifndef IFX_CFG_OE_SYNCPROTOCOL_VARIANT
+#define IFX_CFG_OE_SYNCPROTOCOL_VARIANT IFX_CFG_OE_SYNCPROTOCOL_VARIANT_AURIX
 #endif
+
+#include "ifx_oe_pack_structure.h"
+
 /** Synchron, symetric binary protocol with handchecking
  *
  *
@@ -92,14 +97,15 @@
  *
  */
 /*************************************/
-#if IFX_OE_SYNCPROTOCOL_VARIANT == IFX_OE_SYNCPROTOCOL_VARIANT_QT
+#if IFX_CFG_OE_SYNCPROTOCOL_VARIANT == IFX_CFG_OE_SYNCPROTOCOL_VARIANT_QT
 /* QT */
 #include "fifo.h"
 #include "fifodpipe.h"
 
-#define FALSE (false)
-#define TRUE  (true)
-#define IFX_OE_SYNCPROTOCOL_NULL  (nullptr)
+#define FALSE                    (false)
+#define TRUE                     (true)
+#define IFX_OE_SYNCPROTOCOL_NULL (nullptr)
+#define IFX_OE_INLINE            inline
 
 typedef qint8  sint8;
 typedef qint16 sint16;
@@ -115,35 +121,37 @@ typedef bool    boolean;
 
 typedef sint64           Ifx_Oe_SyncProtocol_Time;
 typedef Fifo             Ifx_Oe_SyncProtocol_Fifo;
-typedef FifoDPipe            Ifx_Oe_SyncProtocol_DPipe;
-typedef FifoDPipe   Ifx_Oe_SyncProtocol_DPipeStdIf;
+typedef FifoDPipe        Ifx_Oe_SyncProtocol_DPipe;
+typedef FifoDPipe        Ifx_Oe_SyncProtocol_DPipeStdIf;
 typedef Fifo::BufferSize Ifx_Oe_SyncProtocol_FifoSize;
 
-#elif IFX_OE_SYNCPROTOCOL_VARIANT == IFX_OE_SYNCPROTOCOL_VARIANT_AURIX
+#elif IFX_CFG_OE_SYNCPROTOCOL_VARIANT == IFX_CFG_OE_SYNCPROTOCOL_VARIANT_AURIX
 
 #include "ifx_oe_fifo.h"
 #include "ifx_oe_fifodpipe.h"
-#include "ifx_oe_dpipewrapper.h"
+#include "ifx_oe_stdif_dpipe.h"
 #include "stddef.h"
 
-typedef Ifx_Oe_TickTime  Ifx_Oe_SyncProtocol_Time;
-typedef Ifx_Oe_Fifo      Ifx_Oe_SyncProtocol_Fifo;
-typedef Ifx_Oe_FifoDPipe Ifx_Oe_SyncProtocol_DPipe;
-typedef IfxStdIf_DPipe   Ifx_Oe_SyncProtocol_DPipeStdIf;
-typedef Ifx_Oe_SizeT     Ifx_Oe_SyncProtocol_FifoSize;
+typedef Ifx_Oe_TickTime    Ifx_Oe_SyncProtocol_Time;
+typedef Ifx_Oe_Fifo        Ifx_Oe_SyncProtocol_Fifo;
+typedef Ifx_Oe_FifoDPipe   Ifx_Oe_SyncProtocol_DPipe;
+typedef Ifx_Oe_StdIf_DPipe Ifx_Oe_SyncProtocol_DPipeStdIf;
+typedef Ifx_Oe_SizeT       Ifx_Oe_SyncProtocol_FifoSize;
 
-#ifndef IFX_OE_SYNCPROTOCOL_PRIVATE_HEAP_SIZE
+#ifndef IFX_CFG_OE_SYNCPROTOCOL_PRIVATE_HEAP_SIZE
 /** Use own private heap to protect access when used at different interrupt levels
  * The heap is used to allocate memory for message data
  * Set to 0 to disable private heap
  */
-#define IFX_OE_SYNCPROTOCOL_PRIVATE_HEAP_SIZE (0)
+#define IFX_CFG_OE_SYNCPROTOCOL_PRIVATE_HEAP_SIZE (0)
 #endif
-#define IFX_OE_SYNCPROTOCOL_NULL  (NULL_PTR)
+#define IFX_OE_SYNCPROTOCOL_NULL (NULL_PTR)
+#else
+#error Unknown IFX_CFG_OE_SYNCPROTOCOL_VARIANT
 
 #endif
 
-#if (IFX_OE_SYNCPROTOCOL_VARIANT == IFX_OE_SYNCPROTOCOL_VARIANT_AURIX) && (IFX_OE_SYNCPROTOCOL_PRIVATE_HEAP_SIZE != 0)
+#if (IFX_CFG_OE_SYNCPROTOCOL_VARIANT == IFX_CFG_OE_SYNCPROTOCOL_VARIANT_AURIX) && (IFX_CFG_OE_SYNCPROTOCOL_PRIVATE_HEAP_SIZE != 0)
 #define IFX_OE_SYNCPROTOCOL_USE_PRIVATE_HEAP 1
 #include "ifx_oe_malloc.h"
 #else
@@ -164,7 +172,7 @@ extern "C" {
 #define IFX_OE_SYNCPROTOCOL_HEADER_START_BYTE  0xDE
 #define IFX_OE_SYNCPROTOCOL_PAYLOAD_START_BYTE 0xDF
 
-/** Maximum frame index value. must be (x^2)-1, where x is an integer */
+/** Maximum frame index value. must be (x^2)-1, where x is an integer. limited by Ifx_Oe_SyncProtocol_FrameFlags.B.index */
 #define IFX_OE_SYNCPROTOCOL_FRAME_MAX_INDEX     0x15
 #define IFX_OE_SYNCPROTOCOL_FRAME_INDEX_INVALID 0x0
 
@@ -211,12 +219,9 @@ typedef union
     }X;
     struct
     {
+        /** See Ifx_Oe_SyncProtocol_FrameType */
         uint16 frameType : 3;
-#define Ifx_Oe_SyncProtocol_FrameType_ack        0x0
-#define Ifx_Oe_SyncProtocol_FrameType_data       0x1
-#define Ifx_Oe_SyncProtocol_FrameType_dataStart  0x2
-#define Ifx_Oe_SyncProtocol_FrameType_dataMiddle 0x3
-#define Ifx_Oe_SyncProtocol_FrameType_dataEnd    0x4
+        /** See Ifx_Oe_SyncProtocol_Ack */
         uint16 ack : 3;
         /**
          * @brief Index of the acknowlegde frame
@@ -257,22 +262,31 @@ typedef struct Ifx_Oe_SyncProtocol_FrameHeader_
 
 #define IFX_OE_SYNCPROTOCOL_FRAME_HEADER_SIZE (sizeof(Ifx_Oe_SyncProtocol_FrameHeader))
 #define IFX_OE_SYNCPROTOCOL_FIFO_SIZE         (sizeof(Ifx_Oe_SyncProtocol_FrameHeader) * 2 + IFX_OE_SYNCPROTOCOL_FRAME_PAYLOAD_MAX_LENGTH + 2)
+/** Maximum Number of time the message is resend in case the remote is busy (Ifx_Oe_SyncProtocol_Ack_busy).
+ * 0 disables retry
+ */
+#define IFX_OE_SYNCPROTOCOL_MESSAGE_RESEND_COUNT (3)
 
 /*-------------------------------------------------------------------------*/
 /* Ifx_Oe_SyncProtocol: Message                                                   */
 /*-------------------------------------------------------------------------*/
 /* FIXME allocate RX buffer on demand to avoid fix memory usage when client is not using the RX buffer or only part of it */
-#ifndef IFX_OE_SYNCPROTOCOL_MESSAGE_PAYLOAD_MAX_LENGTH
-#define IFX_OE_SYNCPROTOCOL_MESSAGE_PAYLOAD_MAX_LENGTH 640
+#ifndef IFX_CFG_OE_SYNCPROTOCOL_MESSAGE_PAYLOAD_MAX_LENGTH
+#define IFX_CFG_OE_SYNCPROTOCOL_MESSAGE_PAYLOAD_MAX_LENGTH 640
 #endif
 
 typedef uint16 Ifx_Oe_SyncProtocol_MessageId;
 
 /**
  * Message ID definition
- * 0x00??  used by Ifx_Oe_SyncProtocol, with ?=any value from 0x0 to 0xF
- * 0x1???  used by OneEye
- * 0x2???  reserved
+ * 0x0???  used by Ifx_Oe_SyncProtocol, with ?=any value from 0x0 to 0xF
+ * 0x1???  used by OneEye library
+ *      0x1000-0x11FF Ifx_Oe_SyncProtocol generic data & data buffers
+ *          0x1000  IFX_OE_SYNCPROTOCOL_MESSAGE_ID_RAWDATA
+ *          0x1001  IFX_OE_SYNCPROTOCOL_MESSAGE_ID_RAWBUFFER
+ *      0x1100-0x111F PGuiItem_Oscilloscope_Widget
+ * 0x2???  used by OneEye library
+ *      0x2000-0x201F PGuiItem_RealTimeBoard_Widget
  * 0x3???  reserved
  * 0xY???  free for use by any other application with ((Y>=4))
  *
@@ -325,12 +339,12 @@ typedef struct _Ifx_Oe_SyncProtocol Ifx_Oe_SyncProtocol;
 typedef  struct
 {
     /** Send deadline after which the buffered message is discarded */
-    Ifx_Oe_SyncProtocol_Time deadline;
     Ifx_Oe_SyncProtocol_MessageId id;
     struct
     {
         uint16 valid : 1;   /**< Set to 1 when the message is valid and ready for send */
-        uint16 reserved : 15;
+        uint16 dropRequest : 1; /**< Set to 1 when the message is requested to be dropped */
+        uint16 reserved : 14;
     };
     uint32 dataLength;
     uint8* messagePayload;        /**< Pointer to the message payload. If dataLength is 0, pointer is null */
@@ -359,6 +373,8 @@ typedef struct
         Ifx_Oe_SyncProtocol_Fifo* buffer;
         /** Current message beeing send. Null if no message beeing send */
         Ifx_Oe_SyncProtocol_Message* currentMessage;
+        /** Temporary for maxResendCount handling */
+        uint8 resendCount;
     }send;
     struct
     {
@@ -377,13 +393,13 @@ typedef struct
 
 typedef enum
 {
-    Ifx_Oe_SyncProtocol_SendState_readyForSend,
-    Ifx_Oe_SyncProtocol_SendState_prepareFrame,
-    Ifx_Oe_SyncProtocol_SendState_sendingHeader,
-    Ifx_Oe_SyncProtocol_SendState_waitingForHeaderAck,
-    Ifx_Oe_SyncProtocol_SendState_sendingPayloadStartByte,
-    Ifx_Oe_SyncProtocol_SendState_sendingPayload,
-    Ifx_Oe_SyncProtocol_SendState_waitingForPayloadAck,
+    Ifx_Oe_SyncProtocol_SendState_readyForSend            = 0,
+    Ifx_Oe_SyncProtocol_SendState_prepareFrame            = 1,
+    Ifx_Oe_SyncProtocol_SendState_sendingHeader           = 2,
+    Ifx_Oe_SyncProtocol_SendState_waitingForHeaderAck     = 3,
+    Ifx_Oe_SyncProtocol_SendState_sendingPayloadStartByte = 4,
+    Ifx_Oe_SyncProtocol_SendState_sendingPayload          = 5,
+    Ifx_Oe_SyncProtocol_SendState_waitingForPayloadAck    = 6,
 }Ifx_Oe_SyncProtocol_SendState;
 
 typedef enum
@@ -395,6 +411,14 @@ typedef enum
 
 /** Max lenght of the message that the core can receive */
 #define IFX_OE_SYNCPROTOCOL_CORE_MESSAGE_PAYLOAD_MAX_LENGTH (32)
+
+typedef enum
+{
+    Ifx_Oe_SyncProtocol_VerboseLevel_none,
+    Ifx_Oe_SyncProtocol_VerboseLevel_error,
+    Ifx_Oe_SyncProtocol_VerboseLevel_warning,
+    Ifx_Oe_SyncProtocol_VerboseLevel_info,
+}Ifx_Oe_SyncProtocol_VerboseLevel;
 
 struct _Ifx_Oe_SyncProtocol
 {
@@ -455,6 +479,12 @@ struct _Ifx_Oe_SyncProtocol
         uint8 ackHeaderByteIndex;
         /** Send deadline after which the communication is reset if send is still pending */
         Ifx_Oe_SyncProtocol_Time deadline;
+        /** Minimum send interval between 2 messages, limits the rate the message are send to avoid a busy error from the receiver. 0 disables the rate limiter */
+        Ifx_Oe_SyncProtocol_Time minMessageSendInterval;
+        /** Temporary for minMessageSendInterval handling */
+        Ifx_Oe_SyncProtocol_Time nextMessageSendDeadline;
+        /** Maximum Number of time the message is resend in case the remote is busy (Ifx_Oe_SyncProtocol_Ack_busy). 0 disables retry */
+        uint8 maxResendCount;
     } send;
 
     struct
@@ -491,6 +521,9 @@ struct _Ifx_Oe_SyncProtocol
 
     /** Private memory pool for message data */
     Ifx_Oe_Malloc_Pool* memoryPool;
+
+    /** Define the log verbosity */
+    Ifx_Oe_SyncProtocol_VerboseLevel verboseLevel;
 };
 
 /**
@@ -500,6 +533,17 @@ struct _Ifx_Oe_SyncProtocol
  * @param streamStdif If NULL, the streamStdif DPipe will be created by this API, else this streamStdif DPipe is used
  */
 void Ifx_Oe_SyncProtocol_init(Ifx_Oe_SyncProtocol* protocol, sint32 timeout, Ifx_Oe_SyncProtocol_DPipeStdIf* streamStdif);
+
+/** Set the minimum send interval between 2 messages
+ *  Limits the rate the message are send to avoid a busy error from the receiver
+ *
+ * @param interval interval in ms. 0 disables the rate limiter
+ */
+void Ifx_Oe_SyncProtocol_setMinMessageSendInterval(Ifx_Oe_SyncProtocol* protocol, sint32 interval);
+
+/** @return Return the minimum send interval between 2 messages in ms
+ */
+sint32 Ifx_Oe_SyncProtocol_getMinMessageSendInterval(const Ifx_Oe_SyncProtocol* protocol);
 
 /**
  * @brief Return the RX and TX fifo size.
@@ -537,6 +581,9 @@ boolean Ifx_Oe_SyncProtocol_removeClient(Ifx_Oe_SyncProtocol_Client* client);
 
 /**
  * @brief Allocate the message send buffer and set the message id and length
+ *
+ * Note that the payload is initialized to 0
+ *
  * @param client Protocol client
  * @param id Message ID
  * @param payloadLength Message payload length
@@ -574,7 +621,7 @@ void Ifx_Oe_SyncProtocol_dropMessage(Ifx_Oe_SyncProtocol_Message* message);
  * @param client Client to get the status from
  * @return Return TRUE if the protocol already sending data for the client
  */
-inline boolean Ifx_Oe_SyncProtocol_isSendBusy(Ifx_Oe_SyncProtocol_Client* client)
+IFX_OE_INLINE boolean Ifx_Oe_SyncProtocol_isSendBusy(Ifx_Oe_SyncProtocol_Client* client)
 { return client->send.currentMessage != IFX_OE_SYNCPROTOCOL_NULL; }
 
 /**
@@ -582,7 +629,7 @@ inline boolean Ifx_Oe_SyncProtocol_isSendBusy(Ifx_Oe_SyncProtocol_Client* client
  * @param client Client to get the message from
  * @return Return TRUE if a message is avaiable for read
  */
-inline boolean Ifx_Oe_SyncProtocol_isMessageAvailable(Ifx_Oe_SyncProtocol_Client* client)
+IFX_OE_INLINE boolean Ifx_Oe_SyncProtocol_isMessageAvailable(Ifx_Oe_SyncProtocol_Client* client)
 { return client->receive.messageValid; }
 
 /**
@@ -609,28 +656,39 @@ void Ifx_Oe_SyncProtocol_releaseReadMessageBuffer(Ifx_Oe_SyncProtocol_Client* cl
 void Ifx_Oe_SyncProtocol_execute(Ifx_Oe_SyncProtocol* protocol);
 
 /**
- * @brief Execute the protocol
+ * @brief Set the frame timeout
  * @param protocol Protocol
  * @param timeout Send / receive timeout in ms
  */
-inline void Ifx_Oe_SyncProtocol_setTimeout(Ifx_Oe_SyncProtocol* protocol, uint32 timeout)
+IFX_OE_INLINE void Ifx_Oe_SyncProtocol_setTimeout(Ifx_Oe_SyncProtocol* protocol, uint32 timeout)
 {
-#if IFX_OE_SYNCPROTOCOL_VARIANT == IFX_OE_SYNCPROTOCOL_VARIANT_QT
+#if IFX_CFG_OE_SYNCPROTOCOL_VARIANT == IFX_CFG_OE_SYNCPROTOCOL_VARIANT_QT
     protocol->timeout = timeout;
-#elif IFX_OE_SYNCPROTOCOL_VARIANT == IFX_OE_SYNCPROTOCOL_VARIANT_AURIX
+#elif IFX_CFG_OE_SYNCPROTOCOL_VARIANT == IFX_CFG_OE_SYNCPROTOCOL_VARIANT_AURIX
     protocol->timeout = Ifx_Oe_Time_getTickForMilliseconds(timeout);
 #endif
 }
 
 
 /**
+ * @brief Set the log message level
+ * @param protocol Protocol
+ * @param level Log message level
+ */
+IFX_OE_INLINE void Ifx_Oe_SyncProtocol_setVerboseLevel(Ifx_Oe_SyncProtocol* protocol, Ifx_Oe_SyncProtocol_VerboseLevel level)
+{
+    protocol->verboseLevel = level;
+}
+
+
+/**
  * @return Return the send / receive timeout in ms
  */
-inline sint64 Ifx_Oe_SyncProtocol_getTimeout(Ifx_Oe_SyncProtocol* protocol)
+IFX_OE_INLINE sint64 Ifx_Oe_SyncProtocol_getTimeout(Ifx_Oe_SyncProtocol* protocol)
 {
-#if IFX_OE_SYNCPROTOCOL_VARIANT == IFX_OE_SYNCPROTOCOL_VARIANT_QT
+#if IFX_CFG_OE_SYNCPROTOCOL_VARIANT == IFX_CFG_OE_SYNCPROTOCOL_VARIANT_QT
     return protocol->timeout;
-#elif IFX_OE_SYNCPROTOCOL_VARIANT == IFX_OE_SYNCPROTOCOL_VARIANT_AURIX
+#elif IFX_CFG_OE_SYNCPROTOCOL_VARIANT == IFX_CFG_OE_SYNCPROTOCOL_VARIANT_AURIX
     return protocol->timeout / Ifx_Oe_Time_getTickForMilliseconds(1);
 #endif
 }
@@ -639,7 +697,7 @@ inline sint64 Ifx_Oe_SyncProtocol_getTimeout(Ifx_Oe_SyncProtocol* protocol)
 /**
  * @return Returns a pointer on the stream DPipe
  */
-inline Ifx_Oe_SyncProtocol_DPipeStdIf* Ifx_Oe_SyncProtocol_getStreamDPipeStdif(Ifx_Oe_SyncProtocol* protocol)
+IFX_OE_INLINE Ifx_Oe_SyncProtocol_DPipeStdIf* Ifx_Oe_SyncProtocol_getStreamDPipeStdif(Ifx_Oe_SyncProtocol* protocol)
 { return protocol->streamStdif; }
 
 boolean Ifx_Oe_SyncProtocol_printInfo(Ifx_Oe_SyncProtocol* protocol, char* buffer, size_t maxBufferSize);
@@ -675,13 +733,7 @@ typedef enum
     Ifx_Oe_SyncProtocol_MessageRawData_Type_register = 0xC,
 }Ifx_Oe_SyncProtocol_MessageRawData_Type;
 
-#if defined(__HIGHTEC__) || (IFX_OE_SYNCPROTOCOL_VARIANT == IFX_OE_SYNCPROTOCOL_VARIANT_QT)
-typedef struct __attribute__ ((__packed__))
-#elif defined(__TASKING__)
-typedef struct
-#else
-typedef struct
-#endif
+IFX_OE_PACK_STRUCT_START
 {
     union
     {
@@ -696,18 +748,12 @@ typedef struct
         float32 asFloat32;
     } data;
     uint8 type;
-} Ifx_Oe_SyncProtocol_MessageRawData;
+}  IFX_OE_PACK_STRUCT_END Ifx_Oe_SyncProtocol_MessageRawData;
 
-#if defined(__HIGHTEC__) || (IFX_OE_SYNCPROTOCOL_VARIANT == IFX_OE_SYNCPROTOCOL_VARIANT_QT)
-typedef struct __attribute__ ((__packed__))
-#elif defined(__TASKING__)
-typedef struct
-#else
-typedef struct
-#endif
+IFX_OE_PACK_STRUCT_START
 {
-    char payload[IFX_OE_SYNCPROTOCOL_MESSAGE_PAYLOAD_MAX_LENGTH];
-} Ifx_Oe_SyncProtocol_MessageRawBuffer;
+    char payload[IFX_CFG_OE_SYNCPROTOCOL_MESSAGE_PAYLOAD_MAX_LENGTH];
+} IFX_OE_PACK_STRUCT_END Ifx_Oe_SyncProtocol_MessageRawBuffer;
 
 #ifdef __cplusplus
 }

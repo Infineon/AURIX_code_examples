@@ -31,6 +31,7 @@
 #include "Uart.h"
 #include "IfxAsclin_Asc.h"
 #include "IfxCpu_Irq.h"
+#include  "ifx_oe_al_aurix_illd_uartdpipe.h"
 
 /*********************************************************************************************************************/
 /*------------------------------------------------------Macros-------------------------------------------------------*/
@@ -50,8 +51,7 @@
 /*********************************************************************************************************************/
 /*-------------------------------------------------Global variables--------------------------------------------------*/
 /*********************************************************************************************************************/
-static IfxAsclin_Asc       g_uart;                                  /* UART driver                                  */
-static IfxStdIf_DPipe      g_uartPipe;                              /* UART standard pipe interface                 */
+Ifx_Oe_UartDPipe g_uart;                                            /* UART driver                                  */
 static Ifx_Oe_SyncProtocol g_bb;                                    /* SyncProtocol driver                          */
 
 /*********************************************************************************************************************/
@@ -61,21 +61,24 @@ static Ifx_Oe_SyncProtocol g_bb;                                    /* SyncProto
 IFX_INTERRUPT(uartTxIsr, 0, UART_INT_PRIO_TX);
 void uartTxIsr(void)
 {
-    IfxAsclin_Asc_isrTransmit(&g_uart);
+    IfxAsclin_Asc_isrTransmit(&g_uart.driver);
 }
 
 IFX_INTERRUPT(uartRxIsr, 0, UART_INT_PRIO_RX);
 void uartRxIsr(void)
 {
-    IfxAsclin_Asc_isrReceive(&g_uart);
+    IfxAsclin_Asc_isrReceive(&g_uart.driver);
 }
 
 IFX_INTERRUPT(uartErIsr, 0, UART_INT_PRIO_ER);
 void uartErIsr(void)
 {
-    IfxAsclin_Asc_isrError(&g_uart);
+    IfxAsclin_Asc_isrError(&g_uart.driver);
 }
 
+
+uint8 ONEEYE_0_tx_buffer[sizeof(Ifx_Fifo) + IFX_OE_ALIGN_ON_32 (IFX_OE_SYNCPROTOCOL_FIFO_SIZE) + 8];
+uint8 ONEEYE_0_rx_buffer[sizeof(Ifx_Fifo) + IFX_OE_ALIGN_ON_32 (IFX_OE_SYNCPROTOCOL_FIFO_SIZE) + 8];
 /* This function initializes the ASCLIN UART module */
 Ifx_Oe_SyncProtocol* initUart(void)
 {
@@ -98,6 +101,8 @@ Ifx_Oe_SyncProtocol* initUart(void)
     /* FIFO configuration */
     ascConfig.txBufferSize = Ifx_Oe_SyncProtocol_getFifoSize();
     ascConfig.rxBufferSize = Ifx_Oe_SyncProtocol_getFifoSize();
+    ascConfig.txBuffer     = ONEEYE_0_tx_buffer;
+    ascConfig.rxBuffer     = ONEEYE_0_rx_buffer;
 
     /* Pin configuration */
     const IfxAsclin_Asc_Pins pins =
@@ -115,13 +120,13 @@ Ifx_Oe_SyncProtocol* initUart(void)
     ascConfig.pins = &pins;
 
     /* Initialize module with above parameters */
-    IfxAsclin_Asc_initModule(&g_uart, &ascConfig);
+    IfxAsclin_Asc_initModule(&g_uart.driver, &ascConfig);
 
     /* Initialize the standard interface for the UART */
-    IfxAsclin_Asc_stdIfDPipeInit(&g_uartPipe, &g_uart);
+    Ifx_Oe_UartDPipe_initDPipe(&g_uart.pipe, &g_uart.driver);
 
     /* Initialize the BB protocol */
-    Ifx_Oe_SyncProtocol_init(&g_bb, BB_REMOTE_TIMEOUT, &g_uartPipe);
+    Ifx_Oe_SyncProtocol_init(&g_bb, BB_REMOTE_TIMEOUT, &g_uart.pipe);
 
     return &g_bb;
 }

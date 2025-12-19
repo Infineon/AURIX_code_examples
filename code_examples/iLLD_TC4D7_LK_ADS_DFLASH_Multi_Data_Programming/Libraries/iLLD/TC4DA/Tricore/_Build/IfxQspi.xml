@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<iLLD:filelist driver="IfxQspi" xmlns:iLLD="http://www.infineon.com/cms/xml/iLLD/1.0/EN">
+  <iLLD:class name="mchal"/> <!-- Derivative specific library -->
+  <iLLD:class name="srvsw"/> <!-- Service software library -->
+  <iLLD:file class="mchal">Clock/Std/IfxClock.c</iLLD:file>
+  <iLLD:file class="mchal">Port/Std/IfxPort.c</iLLD:file>
+  <iLLD:file class="mchal">Smu/Std/IfxSmu.c</iLLD:file>
+  <iLLD:file class="mchal">Wtu/Std/IfxWtu.c</iLLD:file>
+  <iLLD:file class="mchal">_Impl/IfxPort_cfg.c</iLLD:file>
+  <iLLD:file class="mchal">_Impl/IfxQspi_cfg.c</iLLD:file>
+  <iLLD:file class="mchal">_Impl/IfxDma_cfg.c</iLLD:file>
+  <iLLD:file class="mchal">Qspi/Std/IfxQspi.c</iLLD:file>
+  <iLLD:file class="mchal">Qspi/SpiMaster/IfxQspi_SpiMaster.c</iLLD:file>
+  <iLLD:file class="mchal">Qspi/SpiSlave/IfxQspi_SpiSlave.c</iLLD:file>
+  <iLLD:file class="mchal">_PinMap/IfxQspi_PinMap.c</iLLD:file>
+  <iLLD:file class="mchal">_PinMap/IfxQspi_PinMap_BGA436_COM.c</iLLD:file>
+  <iLLD:file class="mchal">_PinMap/IfxQspi_PinMap_BGA292_COM.c</iLLD:file>
+  <iLLD:file class="mchal">Dma/Dma/IfxDma_Dma.c</iLLD:file>
+  <iLLD:file class="mchal">Cpu/Irq/IfxCpu_Irq.c</iLLD:file>
+  <iLLD:file class="srvsw">If/SpiIf.c</iLLD:file>,
+  <iLLD:file class="mchal">Ap/Std/IfxApApu.c</iLLD:file>
+  <iLLD:file class="mchal">Ap/Std/IfxApProt.c</iLLD:file>
+</iLLD:filelist>

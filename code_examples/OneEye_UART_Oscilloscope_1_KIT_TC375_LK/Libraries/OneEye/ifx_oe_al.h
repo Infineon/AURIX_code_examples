@@ -1,6 +1,8 @@
 /**
  * \file ifx_oe_al.h
  *
+ * oneeye_lib version 0.6
+ *
  * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
  *
  *                                 IMPORTANT NOTICE
@@ -42,16 +44,29 @@
 #define IFX_OE_AL_H
 
 #include "ifx_oe_cfg.h"
+#include "ifx_oe_pack_structure.h"
 
-#ifdef IFX_OE_AL_USE_AURIX_ILLD
+#if IFX_CFG_OE_AL_UC == IFX_CFG_OE_AL_UC_AURIX_ILLD
 #include "ifx_oe_al_aurix_illd.h"
+#elif (IFX_CFG_OE_AL_UC == IFX_CFG_OE_AL_UC_XMC_XMCLIB) || (IFX_CFG_OE_AL_UC == IFX_CFG_OE_AL_UC_XMC_DAVEAPP)
+#include "xmc\xmclib\ifx_oe_al_xmc.h"
+#elif (IFX_CFG_OE_AL_UC == IFX_CFG_OE_AL_UC_CY_PDL)
+#include "cy\pdl\ifx_oe_al_cy_pdl.h"
+#elif IFX_CFG_OE_AL_UC == IFX_CFG_OE_AL_UC_ARDUINO
+#include "ifx_oe_al_arduino.h"
 #else
 #error "****************************************************************************************************************************"
-#error "OneEye library: No Hardware Abstracton Layer defined, Please define one of the IFX_OE_AL_USE_AURIX_ILLD, ... in ifx_oe_cfg.h"
+#error "OneEye library: No Hardware Abstracton Layer defined, Please define IFX_CFG_OE_AL_UC, ... in ifx_oe_cfg.h"
 #error "****************************************************************************************************************************"
 #endif
+//#include "ifx_oe_def.h"
 
-#include "ifx_oe_def.h"
+#if IFX_CFG_OE_AL_ASSERT == IFX_CFG_OE_AL_ASSERT_STOP_ON_ASSERT
+#define IFX_OE_ASSERT(x) {if (!(x)){ Ifx_Oe_debugInstruction(); while(1);}}
+#else
+#define IFX_OE_ASSERT(x) ((void)0)
+#endif
+
 
 #if 0
 
@@ -84,11 +99,26 @@ typedef sint16 Ifx_Oe_SizeT;                       /**< \brief Type used for dat
 IFX_OE_INLINE boolean Ifx_Oe_disableInterrupts(void);
 
 /**
+ * @brief Enable the interrupts
+ *
+ * Need to be implemented (device specific)
+ *
+ */
+IFX_OE_INLINE void Ifx_Oe_enableInterrupts(void);
+
+/**
  * @brief Restore the interrupts state
  *
  * Need to be implemented (device specific)
  */
 IFX_OE_INLINE void Ifx_Oe_restoreInterrupts(boolean enabled);
+
+/**
+ * @brief Insert a debug instruction to stop the CPU
+ *
+ * Need to be implemented (device specific)
+ */
+IFX_OE_INLINE void Ifx_Oe_debugInstruction();
 
 /**
  * @brief Convert from fixpoint to float
@@ -111,10 +141,15 @@ IFX_OE_INLINE unsigned int Ifx_Oe_cmpAndSwap(unsigned int volatile* address, uns
  */
 IFX_OE_EXTERN sint32 Ifx_Oe_getTimerFrequency(void);
 
+/**
+ * Perform a software reset
+ */
+IFX_OE_EXTERN void Ifx_Oe_softwareReset(void);
+
 #endif
 
 /* Place holder */
 IFX_OE_INLINE void Ifx_Oe_debugPrint(unsigned int pointer, pchar format, ...)
-{ /*Ifx_XLog::debug(...) */ }
+{ /*Ifx_Oe_XLog::debug(...) */ }
 
 #endif /* IFX_OE_AL_H */

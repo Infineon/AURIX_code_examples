@@ -45,7 +45,6 @@
 #ifndef REALTIME_H_
 #define REALTIME_H_ 1
 #include "Cpu/Std/Ifx_Types.h"
-
 typedef struct
 {
     sint32 hours;

@@ -132,7 +132,7 @@ void VecPwrdB_SF(sint16 *R, float32 *X, short nX)
 
     for (i = 0; i < nX; i++)
     {
-        *R = (sint16)(20.0 * log10f(*X));
+        *R = (sint16)(20.0f * log10f(*X));
         R++; X++;
     }
 }

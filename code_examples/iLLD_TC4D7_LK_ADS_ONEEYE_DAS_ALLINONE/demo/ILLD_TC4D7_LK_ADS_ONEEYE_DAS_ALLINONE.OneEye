@@ -1,0 +1,101 @@
+<root version="2.68.0">
+    <signals>
+        <var name="elf" type="group" offset="0" access="read-write">
+            <var name="g_oneEyeDasPipe" type="group" offset="0" access="read-write">
+                <var name="FromTarget" type="char" offset="0" access="read-write">
+                    <item-configuration>
+                        <title><![CDATA[FromTarget]]></title>
+                    </item-configuration>
+                </var>
+                <var name="ToTarget" type="char" offset="0" access="read-write">
+                    <item-configuration>
+                        <title><![CDATA[ToTarget]]></title>
+                    </item-configuration>
+                </var>
+            </var>
+            <var name="g_signalGenerator" type="group" offset="0" access="read-write">
+                <item-configuration>
+                    <title><![CDATA[g_signalGenerator]]></title>
+                </item-configuration>
+                <var name="input" type="group" offset="0" access="read-write">
+                    <item-configuration>
+                        <title><![CDATA[input]]></title>
+                    </item-configuration>
+                    <var name="max" type="float" offset="0" access="read-write" default="0">
+                        <item-configuration>
+                            <title><![CDATA[max]]></title>
+                        </item-configuration>
+                    </var>
+                    <var name="increment" type="float" offset="0" access="read-write" default="0">
+                        <item-configuration>
+                            <title><![CDATA[increment]]></title>
+                        </item-configuration>
+                    </var>
+                </var>
+                <var name="output" type="group" offset="0" access="read-write">
+                    <item-configuration>
+                        <title><![CDATA[output]]></title>
+                    </item-configuration>
+                    <var name="signalA" type="float" offset="0" access="read-write" default="0">
+                        <item-configuration>
+                            <title><![CDATA[signalA]]></title>
+                        </item-configuration>
+                    </var>
+                    <var name="signalB" type="sint32" offset="0" access="read-write" default="0">
+                        <item-configuration>
+                            <title><![CDATA[signalB]]></title>
+                        </item-configuration>
+                    </var>
+                </var>
+            </var>
+            <var name="g_osciDas" type="char" offset="0" access="read-write">
+                <item-configuration>
+                    <title><![CDATA[g_osciDas]]></title>
+                </item-configuration>
+            </var>
+        </var>
+    </signals>
+    <layout>
+        <slider auto-connect="elf.g_signalGenerator.input.max" max="1200"/>
+        <tab>
+            <tabPage>
+                <item-configuration>
+                    <title><![CDATA[Graph]]></title>
+                </item-configuration>
+                <graph mode="rolling-time" buffer-depth="6000" multi-channel="false" legend-pos="top" division-x="10" division-y="10" offset-y="5" time-per-division-x="1" unit-x="s" x-axis-visible="false" x-axis-scale="linear" control-visible="true">
+                    <channel auto-connect="elf.g_signalGenerator.output.signalA" enabled="defined-by-connection" offset-x="0" offset-y="0" unit-per-division-y="200" pen-width="1" color="red" y-axis-visible="false" marker-shape="0" point-marker-size="3"/>
+                    <channel auto-connect="elf.g_signalGenerator.output.signalB" enabled="defined-by-connection" offset-x="0" offset-y="0" unit-per-division-y="200" pen-width="1" color="blue" y-axis-visible="false" marker-shape="0" point-marker-size="3"/>
+                </graph>
+            </tabPage>
+            <tabPage>
+                <item-configuration>
+                    <title><![CDATA[Oscilloscope]]></title>
+                </item-configuration>
+                <oscilloscope data-in="elf.g_osciDas" data-out="elf.g_osciDas" legend-pos="top" division-x="10" protocol-type="ProtocolDma" dma-refresh-period="100" division-y="10" offset-y="5" time-per-division-x="0.5109999775886536" unit-x="s" x-axis-visible="false" control-visible="true">
+                    <oscilloscopeChannel enabled="defined-by-connection" offset-x="0" offset-y="0" unit-per-division-y="200" pen-width="1" color="red" y-axis-visible="false"/>
+                    <oscilloscopeChannel enabled="defined-by-connection" offset-x="0" offset-y="0" unit-per-division-y="200" pen-width="1" color="blue" y-axis-visible="false"/>
+                    <oscilloscopeChannel enabled="defined-by-connection" visible="no" offset-x="0" offset-y="0" unit-per-division-y="1" pen-width="1" color="blue" y-axis-visible="false"/>
+                    <oscilloscopeChannel enabled="defined-by-connection" visible="no" offset-x="0" offset-y="0" unit-per-division-y="1" pen-width="1" color="blue" y-axis-visible="false"/>
+                    <oscilloscopeChannel enabled="defined-by-connection" visible="no" offset-x="0" offset-y="0" unit-per-division-y="1" pen-width="1" color="blue" y-axis-visible="false"/>
+                    <oscilloscopeChannel enabled="defined-by-connection" visible="no" offset-x="0" offset-y="0" unit-per-division-y="1" pen-width="1" color="blue" y-axis-visible="false"/>
+                    <oscilloscopeChannel enabled="defined-by-connection" visible="no" offset-x="0" offset-y="0" unit-per-division-y="1" pen-width="1" color="blue" y-axis-visible="false"/>
+                    <oscilloscopeChannel enabled="defined-by-connection" visible="no" offset-x="0" offset-y="0" unit-per-division-y="1" pen-width="1" color="blue" y-axis-visible="false"/>
+                    <oscilloscopeChannel enabled="defined-by-connection" visible="no" offset-x="0" offset-y="0" unit-per-division-y="1" pen-width="1" color="blue" y-axis-visible="false"/>
+                    <oscilloscopeChannel enabled="defined-by-connection" visible="no" offset-x="0" offset-y="0" unit-per-division-y="1" pen-width="1" color="blue" y-axis-visible="false"/>
+                </oscilloscope>
+            </tabPage>
+            <tabPage>
+                <item-configuration>
+                    <title><![CDATA[Shell]]></title>
+                </item-configuration>
+                <textEdit data-in="elf.g_oneEyeDasPipe.FromTarget" overwrite="false"/>
+                <lineEdit data-out="elf.g_oneEyeDasPipe.ToTarget" capture-key="true"/>
+            </tabPage>
+        </tab>
+    </layout>
+    <interface>
+        <port plugin="PCom_DAS::DAS" connect="true" system-key="{ADS} "/>
+    </interface>
+    <config/>
+    <debugBox elf-path="..\TriCore Debug (TASKING)\OneEye_DAS_AllInOne_1_KIT_TC499_TRB.elf" watches="!g_oneEyeDasPipe;$g_osciDas;g_signalGenerator" com-interface-id="" title="" id="elf"/>
+</root>

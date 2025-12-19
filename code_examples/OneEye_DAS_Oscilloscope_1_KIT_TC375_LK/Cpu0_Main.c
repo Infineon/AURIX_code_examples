@@ -31,20 +31,19 @@
  *              OneEye is used to visualize the signal values.
  *
  * \name OneEye_DAS_Oscilloscope_1_KIT_TC375_LK
- * \version V1.0.0
+ * \version V1.0.1
  * \board AURIX TC375 lite Kit, KIT_A2G_TC375_LITE, TC37xTP_A-Step
- * \keywords OneEye, DAS, Oscilloscope, AURIX
- * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_OneEye_DAS_Oscilloscope_1_KIT_TC375_LK-TR-v01_00_00-EN.pdf
- * \documents https://www.infineon.com/aurix-expert-training/TC37A_iLLD_UM_1_0_1_12_1.chm
- * \lastUpdated 2022-03-28
+ * \keywords OneEye, DAS, Oscilloscope, AURIX, Infineon GUI Designer
+ * \documents see README.md
+ * \lastUpdated 2024-06-18
  *********************************************************************************************************************/
 #include "Ifx_Types.h"
 #include "IfxCpu.h"
 #include "IfxScuWdt.h"
 #include "Bsp.h"
 #include "SignalGenerator.h"
-#include "Ifx_Osci.h"
-
+#include "ifx_oe_osci.h"
+#include "IfxAsclin_Asc.h"
 /*********************************************************************************************************************/
 /*------------------------------------------------------Macros-------------------------------------------------------*/
 /*********************************************************************************************************************/
@@ -57,7 +56,7 @@
 /* Oscilloscope object
  * The special Ifx_Osci type is recognised by OneEye as an oscilloscope object.
  */
-Ifx_Osci g_osciDas;
+Ifx_Oe_Osci g_osciDas;
 
 IFX_ALIGN(4) IfxCpu_syncEvent g_cpuSyncEvent = 0;
 
@@ -83,22 +82,22 @@ void core0_main(void)
     initSignals();
 
     /* Initialize the oscilloscope */
-    Ifx_Osci_Config osciCfg;
-    Ifx_Osci_initConfig(&osciCfg);
+    Ifx_Oe_Osci_Config osciCfg;
+    Ifx_Oe_Osci_initConfig(&osciCfg);
 
     osciCfg.autoAddChannels = TRUE;                         /* When a signal is created, automatically assign the signal to a channel if there is a free one    */
     osciCfg.samplePeriod = SAMPLE_PERIOD;                   /* Sampling period of 1 ms                                                                          */
-    osciCfg.triggerMode = Ifx_Osci_TriggerMode_automatic;   /* Oscilloscope mode after initialization (can be changed at runtime from OneEye)                   */
+    osciCfg.triggerMode = Ifx_Oe_Osci_TriggerMode_automatic;   /* Oscilloscope mode after initialization (can be changed at runtime from OneEye)                   */
 
     /* Apply the configuration to the Oscilloscope */
-    Ifx_Osci_init(&g_osciDas, &osciCfg);
+    Ifx_Oe_Osci_init(&g_osciDas, &osciCfg);
 
     /* Add signals / variables  to be sampled */
-    Ifx_Osci_addSignal(&g_osciDas, "Signal A", Ifx_Osci_DataType_Float32, &g_signalGenerator.output.signalA, 0);
-    Ifx_Osci_addSignal(&g_osciDas, "Signal B", Ifx_Osci_DataType_SInt32, &g_signalGenerator.output.signalB, 0);
+    Ifx_Oe_Osci_addSignal(&g_osciDas, "Signal A", Ifx_Oe_Osci_DataType_Float32, &g_signalGenerator.output.signalA, 0);
+    Ifx_Oe_Osci_addSignal(&g_osciDas, "Signal B", Ifx_Oe_Osci_DataType_SInt32, &g_signalGenerator.output.signalB, 0);
 
     /* Start the oscilloscope */
-    Ifx_Osci_start(&g_osciDas);
+    Ifx_Oe_Osci_start(&g_osciDas);
 
     /* Initialize a time variable to enable sampling every 1ms */
     Ifx_TickTime ticksFor1ms = IfxStm_getTicksFromMilliseconds(BSP_DEFAULT_TIMER, WAIT_TIME);
@@ -118,7 +117,7 @@ void core0_main(void)
             computeSignals();
 
             /* Sample signals */
-            Ifx_Osci_step(&g_osciDas);
+            Ifx_Oe_Osci_step(&g_osciDas);
         }
     }
 }

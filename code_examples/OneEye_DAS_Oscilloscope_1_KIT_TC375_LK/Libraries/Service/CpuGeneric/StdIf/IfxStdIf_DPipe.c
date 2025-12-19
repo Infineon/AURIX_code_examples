@@ -67,3 +67,31 @@ void IfxStdIf_DPipe_print(IfxStdIf_DPipe *stdIf, pchar format, ...)
         //return TRUE;
     }
 }
+
+boolean IfxStdIf_DPipe_ascInit(IfxStdIf_DPipe *stdif, IfxAsclin_Asc *asclin)
+{
+    /* Ensure the stdif is reset to zeros */
+    memset(stdif, 0, sizeof(IfxStdIf_DPipe));
+
+    /* Set the API link */
+    stdif->driver         = asclin;
+    stdif->write          = (IfxStdIf_DPipe_Write) & IfxAsclin_Asc_write;
+    stdif->read           = (IfxStdIf_DPipe_Read) & IfxAsclin_Asc_read;
+    stdif->getReadCount   = (IfxStdIf_DPipe_GetReadCount) & IfxAsclin_Asc_getReadCount;
+    stdif->getReadEvent   = (IfxStdIf_DPipe_GetReadEvent) & IfxAsclin_Asc_getReadEvent;
+    stdif->getWriteCount  = (IfxStdIf_DPipe_GetWriteCount) & IfxAsclin_Asc_getWriteCount;
+    stdif->getWriteEvent  = (IfxStdIf_DPipe_GetWriteEvent) & IfxAsclin_Asc_getWriteEvent;
+    stdif->canReadCount   = (IfxStdIf_DPipe_CanReadCount) & IfxAsclin_Asc_canReadCount;
+    stdif->canWriteCount  = (IfxStdIf_DPipe_CanWriteCount) & IfxAsclin_Asc_canWriteCount;
+    stdif->flushTx        = (IfxStdIf_DPipe_FlushTx) & IfxAsclin_Asc_flushTx;
+    stdif->clearTx        = (IfxStdIf_DPipe_ClearTx) & IfxAsclin_Asc_clearTx;
+    stdif->clearRx        = (IfxStdIf_DPipe_ClearRx) & IfxAsclin_Asc_clearRx;
+    stdif->onReceive      = (IfxStdIf_DPipe_OnReceive) & IfxAsclin_Asc_isrReceive;
+    stdif->onTransmit     = (IfxStdIf_DPipe_OnTransmit) & IfxAsclin_Asc_isrTransmit;
+    stdif->onError        = (IfxStdIf_DPipe_OnError) & IfxAsclin_Asc_isrError;
+    stdif->getSendCount   = (IfxStdIf_DPipe_GetSendCount) & IfxAsclin_Asc_getSendCount;
+    stdif->getTxTimeStamp = (IfxStdIf_DPipe_GetTxTimeStamp) & IfxAsclin_Asc_getTxTimeStamp;
+    stdif->resetSendCount = (IfxStdIf_DPipe_ResetSendCount) & IfxAsclin_Asc_resetSendCount;
+    stdif->txDisabled     = FALSE;
+    return TRUE;
+}

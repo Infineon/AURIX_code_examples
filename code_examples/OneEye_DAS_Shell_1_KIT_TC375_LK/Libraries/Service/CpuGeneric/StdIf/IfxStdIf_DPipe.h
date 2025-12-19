@@ -59,6 +59,7 @@
 #define STDIF_DPIPE_H_ 1
 
 #include "IfxStdIf.h"
+#include "Asclin/Asc/IfxAsclin_Asc.h"
 //----------------------------------------------------------------------------------------
 #ifndef ENDL
 #    define ENDL       "\r\n"
@@ -391,6 +392,10 @@ IFX_INLINE void IfxStdIf_DPipe_resetSendCount(IfxStdIf_DPipe *stdIf)
 
 
 IFX_EXTERN void IfxStdIf_DPipe_print(IfxStdIf_DPipe *stdIf, pchar format, ...);
+
+/** \copydoc IfxStdIf_DPipe_ascInit
+ */
+IFX_EXTERN boolean IfxStdIf_DPipe_ascInit(IfxStdIf_DPipe *stdif, IfxAsclin_Asc *asclin);
 
 /** \} */
 //----------------------------------------------------------------------------------------

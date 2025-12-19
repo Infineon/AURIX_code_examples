@@ -2,6 +2,8 @@
  * \file ifx_oe_circularbuffer.h
  * \brief Circular buffer functions.
  *
+ * oneeye_lib version 0.6
+ *
  * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
  *
  *                                 IMPORTANT NOTICE

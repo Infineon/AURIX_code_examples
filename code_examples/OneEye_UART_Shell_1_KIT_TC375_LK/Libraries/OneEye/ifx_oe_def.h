@@ -1,6 +1,8 @@
 /**
  * \file ifx_oe_def.h
  *
+ * oneeye_lib version 0.6
+ *
  * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
  *
  *                                 IMPORTANT NOTICE
@@ -56,7 +58,6 @@
 
 #define IFX_OE_COUNTOF(x) (sizeof(x) / sizeof(x[0]))
 
-#define IFX_OE_ASSERT(x) ((void)0)
 
 #define IFX_OE_MIN(X, Y) (((X) < (Y)) ? (X) : (Y))
 

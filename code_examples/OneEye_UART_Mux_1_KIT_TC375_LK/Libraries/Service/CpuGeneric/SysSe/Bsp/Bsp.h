@@ -141,11 +141,6 @@ IFX_INLINE void restoreInterrupts(boolean enabled)
     IfxCpu_restoreInterrupts(enabled);
 }
 
-/** \internal
- *  Array containing the time constants. This variable should not be used in the application. TimeConst_0s, TimeConst_10ns, ...  should be used instead
- *
- */
-
 
 /******************************************************************************/
 /*                           Function prototypes                              */
@@ -158,7 +153,6 @@ IFX_INLINE Ifx_TickTime addTTime(Ifx_TickTime a, Ifx_TickTime b);
 IFX_INLINE Ifx_TickTime elapsed(Ifx_TickTime since);
 IFX_INLINE Ifx_TickTime getDeadLine(Ifx_TickTime timeout);
 IFX_INLINE Ifx_TickTime getTimeout(Ifx_TickTime deadline);
-IFX_EXTERN void         initTime(void);
 IFX_INLINE boolean      isDeadLine(Ifx_TickTime deadLine);
 IFX_INLINE Ifx_TickTime now(void);
 IFX_INLINE Ifx_TickTime nowWithoutCriticalSection(void);

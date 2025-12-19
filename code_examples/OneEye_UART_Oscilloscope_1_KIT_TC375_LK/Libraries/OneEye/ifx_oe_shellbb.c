@@ -1,6 +1,8 @@
 /**
  * \file ifx_oe_shellbb.c
  *
+ * oneeye_lib version 0.6
+ *
  * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
  *
  *                                 IMPORTANT NOTICE
@@ -43,9 +45,10 @@
 
 boolean Ifx_Oe_ShellBb_init(Ifx_Oe_ShellBb* bb, Ifx_Oe_SyncProtocol* protocol, Ifx_Oe_SyncProtocol_Port localPort, Ifx_Oe_SyncProtocol_Port remotePort, Ifx_Oe_SizeT rxBufferSize, Ifx_Oe_SizeT txBufferSize)
 {
-    Ifx_Oe_FifoDPipe_init(&bb->_dPipe, rxBufferSize, txBufferSize);
+    Ifx_Oe_FifoDPipe_init(&bb->_dPipe, rxBufferSize, txBufferSize, 1);
+    Ifx_Oe_FifoDPipe_initStdIf(&bb->_dPipe);
 
-    return Ifx_Oe_SyncProtocol_addClient(protocol, &bb->_bbClient, localPort, remotePort, IFX_OE_SYNCPROTOCOL_MESSAGE_PAYLOAD_MAX_LENGTH, IFX_OE_SHELLBB_TX_BUFFER_LENGTH);
+    return Ifx_Oe_SyncProtocol_addClient(protocol, &bb->_bbClient, localPort, remotePort, IFX_CFG_OE_SYNCPROTOCOL_MESSAGE_PAYLOAD_MAX_LENGTH, IFX_CFG_OE_SHELLBB_TX_BUFFER_LENGTH);
 }
 
 
@@ -85,7 +88,7 @@ void Ifx_Oe_ShellBb_processMessagesPrivate(Ifx_Oe_SyncProtocol_Client* bbClient,
 
         length = Ifx_Oe_Fifo_readCount(dPipe->tx);
 
-        length = length > 200 ? 200 : length; /* FIXME Checksum error if payload length is not limited. Check root cause. Check IFX_OE_SYNCPROTOCOL_FRAME_PAYLOAD_MAX_LENGTH, IFX_OE_SYNCPROTOCOL_MESSAGE_PAYLOAD_MAX_LENGTH. Is error still present ?  */
+        length = length > 200 ? 200 : length; /* FIXME Checksum error if payload length is not limited. Check root cause. Check IFX_OE_SYNCPROTOCOL_FRAME_PAYLOAD_MAX_LENGTH, IFX_CFG_OE_SYNCPROTOCOL_MESSAGE_PAYLOAD_MAX_LENGTH. Is error still present ?  */
 
         Ifx_Oe_SyncProtocol_Message* message = Ifx_Oe_SyncProtocol_setSendMessageBuffer(
             bbClient,

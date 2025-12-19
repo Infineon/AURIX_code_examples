@@ -95,7 +95,7 @@ deselected with **OVCx_OSEL** will be deactivated (*see Chapter 9.3.5.1 of User 
 
 - When **OVCCON.OVSTP** set for a selected CPU, will deactivate blocks with overlay. This will clear the **OVEN** field in **OVCx_RABRy**. <br><br> 
   
-- **OVCCON.DCINVAL** invalidate the cache lines which are not changed. <br>  
+- **OVCCON.DCINVAL** invalidate the cache lines which are not changed.<br>  
 Cache invalidation refers to the process whereby entries in cache are replaced or removed, ensuring that the CPU does not use stale or outdated data from the cache when performing read or write operations (thereby maintaining data integrity and consistency between the cache and the main memory). <br><br>
 During invalidation, when OVCCON.DCINVAL is written with one, all the <u>unmodified (clean)</u> data cache lines in the selected cores are invalidated. if there are <u>modified (dirty)</u> cache lines, any modified data is saved to main memory before the cache line is invalidated. (A cache line is called “dirty” when the CPU changes the value in the cache but not in the remote memory). <br>
 Data Cache invalidation can be combined with OVSTRT or OVSTP action. <br><br> 
@@ -172,7 +172,7 @@ Data Synchronous Trap Register (DSTR), Data Asynchronous Trap Register (DATR), D
 
 *Test 8*:
 
-- Implementing Overlay configuration using SRAM (LMU) for both Target Memory and the Overlay (Redirect) Memory.<br>  
+- Implementing Overlay configuration using SRAM for both Target Memory and the Overlay (Redirect) Memory. Using LMU for Target Memory, and DSPR for Redirect Memory. <br>  
 (Since, the Target address just can be in the PFlash, OLDA (virtual space), and Extended EBU Space (if present), so in this scenario, the Overlay is not enabled, and the ERROR is occurred). 
 
 *Test 9*: 

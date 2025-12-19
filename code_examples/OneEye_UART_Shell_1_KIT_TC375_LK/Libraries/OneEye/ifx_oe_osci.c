@@ -2,6 +2,8 @@
  * \file ifx_oe_osci.c
  * \brief  Osci
  *
+ * oneeye_lib version 0.6
+ *
  * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
  *
  *                                 IMPORTANT NOTICE
@@ -464,6 +466,18 @@ void Ifx_Oe_Osci_step(Ifx_Oe_Osci* osci)
 }
 
 
+Ifx_Oe_Osci_Signal* Ifx_Oe_Osci_getSignalInfo(Ifx_Oe_Osci* osci, Ifx_Oe_Osci_SignalId signalId)
+{
+#include "ifx_oe_compiler_push.h"
+#include "ifx_oe_compiler_waddress-of-packed-member.h"
+/* Disable warning warning: taking address of packed member of 'struct Ifx_Oe_Osci_' may result in an unaligned pointer value [-Waddress-of-packed-member]
+ * Alignment is guaranteed by the struct definition
+ */
+    return signalId < osci->usedSignals ? &osci->signalList[signalId] : NULL_PTR;
+#include "ifx_oe_compiler_pop.h"
+}
+
+
 boolean Ifx_Oe_Osci_associateSignalToChannel(Ifx_Oe_Osci* osci, Ifx_Oe_Osci_SignalId signalId, Ifx_Oe_Osci_ChannelId channelId)
 {
     if (channelId < IFX_CFG_OE_OSCI_MAX_NUM_OF_CHANNELS)
@@ -479,7 +493,13 @@ boolean Ifx_Oe_Osci_associateSignalToChannel(Ifx_Oe_Osci* osci, Ifx_Oe_Osci_Sign
         }
         else if (signalId < IFX_CFG_OE_OSCI_MAX_NUM_OF_SIGNALS)
         {
+#include "ifx_oe_compiler_push.h"
+#include "ifx_oe_compiler_waddress-of-packed-member.h"
+            /* Disable warning warning: taking address of packed member of 'struct Ifx_Oe_Osci_' may result in an unaligned pointer value [-Waddress-of-packed-member]
+             * Alignment is guaranteed by the struct definition
+             */
             osci->channels[channelId].signal = &osci->signalList[signalId];
+#include "ifx_oe_compiler_pop.h"
             return TRUE;
         }
     }
@@ -531,7 +551,13 @@ Ifx_Oe_Osci_SignalId Ifx_Oe_Osci_addSignal(Ifx_Oe_Osci* osci, pchar name, Ifx_Oe
     if (osci->usedSignals < IFX_CFG_OE_OSCI_MAX_NUM_OF_SIGNALS)
     {
         /* Add the signal config */
+#include "ifx_oe_compiler_push.h"
+#include "ifx_oe_compiler_waddress-of-packed-member.h"
+        /* Disable warning warning: taking address of packed member of 'struct Ifx_Oe_Osci_' may result in an unaligned pointer value [-Waddress-of-packed-member]
+         * Alignment is guaranteed by the struct definition
+         */
         Ifx_Oe_Osci_Signal* signalPtr = &osci->signalList[osci->usedSignals];
+#include "ifx_oe_compiler_pop.h"
         signalPtr->id                                               = osci->usedSignals;
         signalPtr->type                                             = type;
         signalPtr->getFctPtr                                        = Ifx_Oe_Osci_GetFctPtrArray[signalPtr->type];
@@ -569,7 +595,13 @@ Ifx_Oe_Osci_SignalId Ifx_Oe_Osci_getSignalIdFromName(Ifx_Oe_Osci* osci, pchar na
 
     for (i = 0; i < osci->maxNumOfSignals; i++)
     {
+#include "ifx_oe_compiler_push.h"
+#include "ifx_oe_compiler_waddress-of-packed-member.h"
+        /* Disable warning warning: taking address of packed member of 'struct Ifx_Oe_Osci_' may result in an unaligned pointer value [-Waddress-of-packed-member]
+         * Alignment is guaranteed by the struct definition
+         */
         Ifx_Oe_Osci_Signal* signalPtr = &osci->signalList[i];
+#include "ifx_oe_compiler_pop.h"
 
         if (strcmp(signalPtr->name, name) == 0)
         {
@@ -595,6 +627,7 @@ boolean Ifx_Oe_Osci_init(Ifx_Oe_Osci* osci, Ifx_Oe_Osci_Config* config)
     IFX_OE_ASSERT(sizeof(Ifx_Oe_Osci_OneEye) == IFX_OE_OSCI_ONEEYE_STRUCT_SIZE);
     IFX_OE_ASSERT(sizeof(Ifx_Oe_Osci_Header) == IFX_OE_OSCI_HEADER_STRUCT_SIZE);
     IFX_OE_ASSERT(offsetof(Ifx_Oe_Osci, checkMark) == IFX_OE_OSCI_OSCI_STRUCT_OFFSET_OF_CHECKMARK);
+    IFX_OE_ASSERT((offsetof(Ifx_Oe_Osci, signalList) & 0x3) == 0); /* Check data alignment */
 
     result                         = TRUE;
     osci->oneEyeOsci.Version.major = IFX_OE_OSCI_VERSION_MAJOR;
@@ -660,7 +693,13 @@ boolean Ifx_Oe_Osci_init(Ifx_Oe_Osci* osci, Ifx_Oe_Osci_Config* config)
     for (int i = 0; i < IFX_CFG_OE_OSCI_MAX_NUM_OF_CHANNELS; i++)
     {
         osci->channels[i].signal = NULL_PTR;
+#include "ifx_oe_compiler_push.h"
+#include "ifx_oe_compiler_waddress-of-packed-member.h"
+        /* Disable warning warning: taking address of packed member of 'struct Ifx_Oe_Osci_' may result in an unaligned pointer value [-Waddress-of-packed-member]
+         * Alignment is guaranteed by the struct definition
+         */
         osci->channels[i].values = &osci->values[i][0];
+#include "ifx_oe_compiler_pop.h"
 
         for (int j = 0; j < osci->dataLength; j++)
         {
@@ -686,7 +725,7 @@ boolean Ifx_Oe_Osci_init(Ifx_Oe_Osci* osci, Ifx_Oe_Osci_Config* config)
     }
 
     /* must be done only after complete initialization */
-    strncpy((char*)&osci->oneEyeOsci.marker, IFX_OE_OSCI_MARKER, sizeof(osci->oneEyeOsci.marker));
+    memcpy((char*)&osci->oneEyeOsci.marker, IFX_OE_OSCI_MARKER, sizeof(osci->oneEyeOsci.marker));
 
     return result;
 }

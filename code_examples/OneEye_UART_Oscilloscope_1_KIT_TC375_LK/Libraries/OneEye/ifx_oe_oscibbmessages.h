@@ -1,6 +1,8 @@
 /**
  * \file ifx_oe_oscibbmessages.h
  *
+ * oneeye_lib version 0.6
+ *
  * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
  *
  *                                 IMPORTANT NOTICE
@@ -37,32 +39,24 @@
  * DEALINGS IN THE SOFTWARE.
  *
  */
+
 #ifndef IFX_OE_OSCIMESSAGES_H
 #define IFX_OE_OSCIMESSAGES_H
 
+#include "ifx_oe_pack_structure.h"
 #include "ifx_oe_syncprotocol.h"
 
-#define IFX_OE_SYNCPROTOCOL_VARIANT_QT    (1)
-#define IFX_OE_SYNCPROTOCOL_VARIANT_AURIX (2)
-#ifndef IFX_OE_SYNCPROTOCOL_VARIANT
-#define IFX_OE_SYNCPROTOCOL_VARIANT IFX_OE_SYNCPROTOCOL_VARIANT_AURIX
-#endif
 
-#if IFX_OE_SYNCPROTOCOL_VARIANT == IFX_OE_SYNCPROTOCOL_VARIANT_QT
+#if IFX_CFG_OE_SYNCPROTOCOL_VARIANT == IFX_CFG_OE_SYNCPROTOCOL_VARIANT_QT
 #include <QtGlobal>
 #include "pguiitem_oscilloscope_types.h"
-#elif IFX_OE_SYNCPROTOCOL_VARIANT == IFX_OE_SYNCPROTOCOL_VARIANT_AURIX
+#elif IFX_CFG_OE_SYNCPROTOCOL_VARIANT == IFX_CFG_OE_SYNCPROTOCOL_VARIANT_AURIX
 
 #endif
 
 #define IFX_OE_SYNCPROTOCOL_MESSAGE_ID_OSCILLOSCOPE_CONTROL_CMD (0x1100)    /**< \see Ifx_Oe_Osci_MessageControlCmd */
-#if defined(__HIGHTEC__) || (IFX_OE_SYNCPROTOCOL_VARIANT == IFX_OE_SYNCPROTOCOL_VARIANT_QT)
-typedef struct __attribute__ ((__packed__))
-#elif defined(__TASKING__)
-typedef struct
-#else
-typedef struct
-#endif
+
+IFX_OE_PACK_STRUCT_START
 {
     float32 triggerLevel;
     uint32  depth;
@@ -82,17 +76,13 @@ typedef struct
     uint16 samplingInterval;
     /** index of the channel used for the trigger */
     uint16 triggerChannel;
-} Ifx_Oe_Osci_MessageControlCmd;
+} IFX_OE_PACK_STRUCT_END Ifx_Oe_Osci_MessageControlCmd;
+
 #define IFX_OE_SYNCPROTOCOL_MESSAGE_ID_OSCILLOSCOPE_CONTROL_CMD_SIZE (14)
 
 #define IFX_OE_SYNCPROTOCOL_MESSAGE_ID_OSCILLOSCOPE_STATE (0x1101)    /**< \see Ifx_Oe_Osci_MessageState */
-#if defined(__HIGHTEC__) || (IFX_OE_SYNCPROTOCOL_VARIANT == IFX_OE_SYNCPROTOCOL_VARIANT_QT)
-typedef struct __attribute__ ((__packed__))
-#elif defined(__TASKING__)
-typedef struct
-#else
-typedef struct
-#endif
+
+IFX_OE_PACK_STRUCT_START
 {
     float32 triggerLevel;
     /** Sampling period in s */
@@ -120,77 +110,52 @@ typedef struct
     /** Number of available channeld */
     uint16 numberOfChannels;
     uint16 numberOfSignals;
-} Ifx_Oe_Osci_MessageState;
+} IFX_OE_PACK_STRUCT_END Ifx_Oe_Osci_MessageState;
+
 #define IFX_OE_SYNCPROTOCOL_MESSAGE_ID_OSCILLOSCOPE_STATE_SIZE (26)
 
 #define IFX_OE_SYNCPROTOCOL_MESSAGE_ID_OSCILLOSCOPE_GET_STATE_REQ (0x1102)    /**< \see Ifx_Oe_Osci_MessageGetStateCmd */
-#if defined(__HIGHTEC__) || (IFX_OE_SYNCPROTOCOL_VARIANT == IFX_OE_SYNCPROTOCOL_VARIANT_QT)
-typedef struct __attribute__ ((__packed__))
-#elif defined(__TASKING__)
-typedef struct
-#else
-typedef struct
-#endif
+IFX_OE_PACK_STRUCT_START
 {
     /** Unused, must be 0 */
     uint32 reserved;
-} Ifx_Oe_Osci_MessageGetStateCmd;
+} IFX_OE_PACK_STRUCT_END Ifx_Oe_Osci_MessageGetStateCmd;
+
 #define IFX_OE_SYNCPROTOCOL_MESSAGE_ID_OSCILLOSCOPE_GET_STATE_REQ_SIZE (4)
 
 #define IFX_OE_SYNCPROTOCOL_MESSAGE_ID_OSCILLOSCOPE_SIGNAL_INFO (0x1103)    /**< \see Ifx_Oe_Osci_MessageSignalInfo */
-#if defined(__HIGHTEC__) || (IFX_OE_SYNCPROTOCOL_VARIANT == IFX_OE_SYNCPROTOCOL_VARIANT_QT)
-typedef struct __attribute__ ((__packed__))
-#elif defined(__TASKING__)
-typedef struct
-#else
-typedef struct
-#endif
+IFX_OE_PACK_STRUCT_START
 {
     uint16 signalId;
     uint16 reserved[7];
     uint8  name[256];
-} Ifx_Oe_Osci_MessageSignalInfo;
+} IFX_OE_PACK_STRUCT_END Ifx_Oe_Osci_MessageSignalInfo;
+
 #define IFX_OE_SYNCPROTOCOL_MESSAGE_ID_OSCILLOSCOPE_SIGNAL_INFO_SIZE (272)
 
 #define IFX_OE_SYNCPROTOCOL_MESSAGE_ID_OSCILLOSCOPE_ASSIGN_CHANNEL_CMD (0x1105)    /**< \see Ifx_Oe_Osci_MessageAssignChannel */
-#if defined(__HIGHTEC__) || (IFX_OE_SYNCPROTOCOL_VARIANT == IFX_OE_SYNCPROTOCOL_VARIANT_QT)
-typedef struct __attribute__ ((__packed__))
-#elif defined(__TASKING__)
-typedef struct
-#else
-typedef struct
-#endif
+IFX_OE_PACK_STRUCT_START
 {
     uint16 channelId;
     uint16 signalId;
-} Ifx_Oe_Osci_MessageAssignChannel;
+} IFX_OE_PACK_STRUCT_END Ifx_Oe_Osci_MessageAssignChannel;
+
 #define IFX_OE_SYNCPROTOCOL_MESSAGE_ID_OSCILLOSCOPE_ASSIGN_CHANNEL_CMD_SIZE (4)
 
 #define IFX_OE_SYNCPROTOCOL_MESSAGE_ID_OSCILLOSCOPE_ASSIGNED_CHANNEL (0x1106)    /**< \see Ifx_Oe_Osci_MessageAssignedChannel */
-#if defined(__HIGHTEC__) || (IFX_OE_SYNCPROTOCOL_VARIANT == IFX_OE_SYNCPROTOCOL_VARIANT_QT)
-typedef struct __attribute__ ((__packed__))
-#elif defined(__TASKING__)
-typedef struct
-#else
-typedef struct
-#endif
+IFX_OE_PACK_STRUCT_START
 {
     uint16 channelId;
     uint16 signalId;
     uint32 dataDepth;
-} Ifx_Oe_Osci_MessageAssignedChannel;
+} IFX_OE_PACK_STRUCT_END Ifx_Oe_Osci_MessageAssignedChannel;
+
 #define IFX_OE_SYNCPROTOCOL_MESSAGE_ID_OSCILLOSCOPE_ASSIGNED_CHANNEL_CMD_SIZE (8)
 
 #define IFX_OE_SYNCPROTOCOL_MESSAGE_ID_OSCILLOSCOPE_CHANNEL_DATA (0x1109)    /**< \see Ifx_Oe_Osci_MessageChannelData */
 //#define IFX_OE_SYNCPROTOCOL_MESSAGE_ID_OSCILLOSCOPE_CHANNEL_DATA_MAX_PAYLOAD (128)
 #define IFX_OE_SYNCPROTOCOL_MESSAGE_ID_OSCILLOSCOPE_CHANNEL_DATA_MAX_PAYLOAD (48) /* Pack in one frame*/
-#if defined(__HIGHTEC__) || (IFX_OE_SYNCPROTOCOL_VARIANT == IFX_OE_SYNCPROTOCOL_VARIANT_QT)
-typedef struct __attribute__ ((__packed__))
-#elif defined(__TASKING__)
-typedef struct
-#else
-typedef struct
-#endif
+IFX_OE_PACK_STRUCT_START
 {
     uint16 channelId;
     uint16 signalId;
@@ -206,7 +171,7 @@ typedef struct
     uint16  reserved;
     uint32  dataOffset;
     float32 data[IFX_OE_SYNCPROTOCOL_MESSAGE_ID_OSCILLOSCOPE_CHANNEL_DATA_MAX_PAYLOAD];
-} Ifx_Oe_Osci_MessageChannelData;
+} IFX_OE_PACK_STRUCT_END Ifx_Oe_Osci_MessageChannelData;
 //#define IFX_OE_SYNCPROTOCOL_MESSAGE_ID_OSCILLOSCOPE_CHANNEL_DATA_SIZE (524)
 #define IFX_OE_SYNCPROTOCOL_MESSAGE_ID_OSCILLOSCOPE_CHANNEL_DATA_SIZE (204)
 

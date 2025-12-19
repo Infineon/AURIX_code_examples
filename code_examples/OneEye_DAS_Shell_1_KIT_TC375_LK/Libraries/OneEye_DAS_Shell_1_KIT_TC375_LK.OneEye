@@ -1,4 +1,4 @@
-<root version="2.46.0">
+<root version="2.70.2">
     <signals>
         <var name="elf" type="group" offset="0" access="read-write">
             <var name="g_oneEyeDasPipe" type="group" offset="0" access="read-write">
@@ -16,7 +16,7 @@
         </var>
     </signals>
     <layout>
-        <textEdit data-in="elf.g_oneEyeDasPipe.FromTarget" update-method="on-new-data"/>
+        <textEdit data-in="elf.g_oneEyeDasPipe.FromTarget" update-method="on-new-data" overwrite="false"/>
         <lineEdit data-out="elf.g_oneEyeDasPipe.ToTarget" capture-key="true"/>
     </layout>
     <interface>
@@ -26,5 +26,5 @@
         <port plugin="PCom_DAS::DAS" connect="true" system-key="{ADS}"/>
     </interface>
     <config/>
-    <debugBox elf-path="..\Debug\OneEye_DAS_Shell_1_KIT_TC375_LK.elf" watches="!g_oneEyeDasPipe" com-interface-id="das-itf" title="" id="elf"/>
+    <debugBox elf-path="../TriCore Debug (TASKING)/OneEye_DAS_Shell_1_KIT_TC375_LK.elf" watches="!g_oneEyeDasPipe" com-interface-id="das-itf" title="" id="elf"/>
 </root>

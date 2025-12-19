@@ -32,7 +32,7 @@
 #include "ifx_oe_shell.h"
 #include "ifx_oe_shellbb.h"
 #include "IfxGlobal_cfg.h"
-
+#include "IfxStdIf_DPipe.h"
 /*********************************************************************************************************************/
 /*------------------------------------------------------Macros-------------------------------------------------------*/
 /*********************************************************************************************************************/
@@ -52,7 +52,7 @@
 /*********************************************************************************************************************/
 /*------------------------------------------------Function Prototypes------------------------------------------------*/
 /*********************************************************************************************************************/
-boolean printShellInfo(pchar args, void* data, IfxStdIf_DPipe* io);
+boolean printShellInfo(pchar args, void* data, Ifx_Oe_StdIf_DPipe* io);
 
 /*********************************************************************************************************************/
 /*-------------------------------------------------Global variables--------------------------------------------------*/
@@ -74,9 +74,9 @@ const Ifx_Oe_Shell_Command g_shellCommands[] = {
 /*---------------------------------------------Function Implementations----------------------------------------------*/
 /*********************************************************************************************************************/
 /* Function called when the shell command "info" is executed */
-boolean printShellInfo(pchar args, void* data, IfxStdIf_DPipe* io)
+boolean printShellInfo(pchar args, void* data, Ifx_Oe_StdIf_DPipe* io)
 {
-    IfxStdIf_DPipe_print(io, "The shell command was called !" ENDL);
+    IfxStdIf_DPipe_print(io, "The shell command was called !" IFX_OE_ENDL);
     return TRUE;
 }
 

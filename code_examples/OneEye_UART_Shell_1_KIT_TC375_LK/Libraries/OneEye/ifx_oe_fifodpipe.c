@@ -2,6 +2,8 @@
  * \file ifx_oe_fifodpipe.c
  * \brief FIFO DPipe
  *
+ * oneeye_lib version 0.6
+ *
  *
  * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
  *
@@ -44,7 +46,7 @@
 
 #include <stdlib.h>
 
-Ifx_Oe_FifoDPipe* Ifx_Oe_FifoDPipe_create(Ifx_Oe_SizeT rxBufferSize, Ifx_Oe_SizeT txBufferSize)
+Ifx_Oe_FifoDPipe* Ifx_Oe_FifoDPipe_create(Ifx_Oe_SizeT rxBufferSize, Ifx_Oe_SizeT txBufferSize, Ifx_Oe_SizeT elementSize)
 {
     Ifx_Oe_FifoDPipe* dPipe = NULL_PTR;
 
@@ -53,7 +55,8 @@ Ifx_Oe_FifoDPipe* Ifx_Oe_FifoDPipe_create(Ifx_Oe_SizeT rxBufferSize, Ifx_Oe_Size
 
     if (dPipe != NULL_PTR)
     {
-        Ifx_Oe_FifoDPipe_init(dPipe, rxBufferSize, txBufferSize);
+        Ifx_Oe_FifoDPipe_init(dPipe, rxBufferSize, txBufferSize, elementSize);
+        Ifx_Oe_FifoDPipe_initStdIf(dPipe);
     }
 
     return dPipe;
@@ -67,12 +70,12 @@ void Ifx_Oe_FifoDPipe_destroy(Ifx_Oe_FifoDPipe* dPipe)
 }
 
 
-void Ifx_Oe_FifoDPipe_init(Ifx_Oe_FifoDPipe* dPipe, Ifx_Oe_SizeT rxBufferSize, Ifx_Oe_SizeT txBufferSize)
+void Ifx_Oe_FifoDPipe_init(Ifx_Oe_FifoDPipe* dPipe, Ifx_Oe_SizeT rxBufferSize, Ifx_Oe_SizeT txBufferSize, Ifx_Oe_SizeT elementSize)
 {
     if ((rxBufferSize != 0) && (txBufferSize != 0))
     {
-        dPipe->rx = Ifx_Oe_Fifo_create(rxBufferSize, 1);
-        dPipe->tx = Ifx_Oe_Fifo_create(txBufferSize, 1);
+        dPipe->rx = Ifx_Oe_Fifo_create(rxBufferSize, elementSize);
+        dPipe->tx = Ifx_Oe_Fifo_create(txBufferSize, elementSize);
     }
     else
     {
@@ -81,8 +84,6 @@ void Ifx_Oe_FifoDPipe_init(Ifx_Oe_FifoDPipe* dPipe, Ifx_Oe_SizeT rxBufferSize, I
     }
 
     dPipe->writeTimeout = IFX_CFG_OE_FIFODPIPE_TIMEOUT;
-
-    Ifx_Oe_FifoDPipe_initStdIf(dPipe);
 }
 
 
@@ -102,14 +103,25 @@ void Ifx_Oe_FifoDPipe_deInit(Ifx_Oe_FifoDPipe* dPipe)
 }
 
 
-boolean Ifx_Oe_FifoDPipe_write(Ifx_Oe_FifoDPipe* dPipe, void* data, Ifx_Oe_SizeT* count)
+Ifx_Oe_FifoDPipe Ifx_Oe_FifoDPipe_reversePipe(Ifx_Oe_FifoDPipe* dPipe)
 {
-    Ifx_Oe_SizeT left;
-    boolean      result = TRUE;
+    Ifx_Oe_FifoDPipe reversed;
+    reversed.rx           = dPipe->tx;
+    reversed.tx           = dPipe->rx;
+    reversed.stdif        = dPipe->stdif;
+    reversed.writeTimeout = dPipe->writeTimeout;
+    return reversed;
+}
+
+
+boolean Ifx_Oe_FifoDPipe_write(Ifx_Oe_FifoDPipe* dPipe, void* data, Ifx_Oe_SizeT* count, Ifx_Oe_TickTime timeout)
+{
+    boolean result = TRUE;
 
     if ((*count != 0) && !Ifx_Oe_FifoDPipe_isTxDisabled(dPipe))
     {
-        left    = Ifx_Oe_Fifo_write(dPipe->tx, data, *count, Ifx_Oe_FifoDPipe_getWriteTimeout(dPipe));
+        Ifx_Oe_SizeT left;
+        left    = Ifx_Oe_Fifo_write(dPipe->tx, data, *count, timeout);
 
         *count -= left;
         result  = left == 0;
@@ -128,7 +140,7 @@ void Ifx_Oe_FifoDPipe_writeFormatted(Ifx_Oe_FifoDPipe* dPipe, pchar format, ...)
     vsnprintf((char*)message, sizeof(message), format, args);
     va_end(args);
     count = (Ifx_Oe_SizeT)strlen(message);
-    Ifx_Oe_FifoDPipe_write(dPipe, (void*)message, &count);
+    Ifx_Oe_FifoDPipe_write(dPipe, (void*)message, &count, Ifx_Oe_FifoDPipe_getWriteTimeout(dPipe));
 }
 
 
@@ -136,7 +148,7 @@ void Ifx_Oe_FifoDPipe_writeText(Ifx_Oe_FifoDPipe* dPipe, pchar text)
 {
     Ifx_Oe_SizeT count;
     count = (Ifx_Oe_SizeT)strlen(text);
-    Ifx_Oe_FifoDPipe_write(dPipe, (void*)text, &count);
+    Ifx_Oe_FifoDPipe_write(dPipe, (void*)text, &count, Ifx_Oe_FifoDPipe_getWriteTimeout(dPipe));
 }
 
 
@@ -156,7 +168,7 @@ sint32 Ifx_Oe_FifoDPipe_getReadCount(Ifx_Oe_FifoDPipe* dPipe)
 }
 
 
-IfxStdIf_DPipe_ReadEvent Ifx_Oe_FifoDPipe_getReadEvent(Ifx_Oe_FifoDPipe* dPipe)
+Ifx_Oe_StdIf_DPipe_ReadEvent Ifx_Oe_FifoDPipe_getReadEvent(Ifx_Oe_FifoDPipe* dPipe)
 {
     return &dPipe->rx->eventWriter;
 }
@@ -168,7 +180,7 @@ sint32 Ifx_Oe_FifoDPipe_getWriteCount(Ifx_Oe_FifoDPipe* dPipe)
 }
 
 
-IfxStdIf_DPipe_WriteEvent Ifx_Oe_FifoDPipe_getWriteEvent(Ifx_Oe_FifoDPipe* dPipe)
+Ifx_Oe_StdIf_DPipe_WriteEvent Ifx_Oe_FifoDPipe_getWriteEvent(Ifx_Oe_FifoDPipe* dPipe)
 {
     return &dPipe->tx->eventWriter;
 }
@@ -204,29 +216,65 @@ void Ifx_Oe_FifoDPipe_clearTx(Ifx_Oe_FifoDPipe* dPipe)
 }
 
 
+Ifx_Oe_SizeT Ifx_Oe_FifoDPipe_txSize(Ifx_Oe_FifoDPipe* dPipe)
+{
+    return Ifx_Oe_Fifo_size(dPipe->tx);
+}
+
+
+Ifx_Oe_SizeT Ifx_Oe_FifoDPipe_rxSize(Ifx_Oe_FifoDPipe* dPipe)
+{
+    return Ifx_Oe_Fifo_size(dPipe->rx);
+}
+
+
+boolean Ifx_Oe_FifoDPipe_isTxEmpty(Ifx_Oe_FifoDPipe* dPipe)
+{
+    return Ifx_Oe_Fifo_isEmpty(dPipe->tx);
+}
+
+
+boolean Ifx_Oe_FifoDPipe_isRxEmpty(Ifx_Oe_FifoDPipe* dPipe)
+{
+    return Ifx_Oe_Fifo_isEmpty(dPipe->rx);
+}
+
+
+Ifx_Oe_SizeT Ifx_Oe_FifoDPipe_getTxElementSize(Ifx_Oe_FifoDPipe* dPipe)
+{
+    return Ifx_Oe_Fifo_getElementSize(dPipe->tx);
+}
+
+
+Ifx_Oe_SizeT Ifx_Oe_FifoDPipe_getRxElementSize(Ifx_Oe_FifoDPipe* dPipe)
+{
+    return Ifx_Oe_Fifo_getElementSize(dPipe->rx);
+}
+
+
 boolean Ifx_Oe_FifoDPipe_initStdIf(Ifx_Oe_FifoDPipe* dPipe)
 {
-    IfxStdIf_DPipe_initStdIf(&dPipe->stdif);
+    Ifx_Oe_StdIf_DPipe_initStdIf(&dPipe->stdif);
 
     /* Set the API link */
     dPipe->stdif.driver         = dPipe;
-    dPipe->stdif.write          = (IfxStdIf_DPipe_Write) & Ifx_Oe_FifoDPipe_write;
-    dPipe->stdif.read           = (IfxStdIf_DPipe_Read) & Ifx_Oe_FifoDPipe_read;
-    dPipe->stdif.getReadCount   = (IfxStdIf_DPipe_GetReadCount) & Ifx_Oe_FifoDPipe_getReadCount;
-    dPipe->stdif.getReadEvent   = (IfxStdIf_DPipe_GetReadEvent) & Ifx_Oe_FifoDPipe_getReadEvent;
-    dPipe->stdif.getWriteCount  = (IfxStdIf_DPipe_GetWriteCount) & Ifx_Oe_FifoDPipe_getWriteCount;
-    dPipe->stdif.getWriteEvent  = (IfxStdIf_DPipe_GetWriteEvent) & Ifx_Oe_FifoDPipe_getWriteEvent;
-    dPipe->stdif.canReadCount   = (IfxStdIf_DPipe_CanReadCount) & Ifx_Oe_FifoDPipe_canReadCount;
-    dPipe->stdif.canWriteCount  = (IfxStdIf_DPipe_CanWriteCount) & Ifx_Oe_FifoDPipe_canWriteCount;
-    dPipe->stdif.flushTx        = (IfxStdIf_DPipe_FlushTx) & Ifx_Oe_FifoDPipe_flushTx;
-    dPipe->stdif.clearTx        = (IfxStdIf_DPipe_ClearTx) & Ifx_Oe_FifoDPipe_clearTx;
-    dPipe->stdif.clearRx        = (IfxStdIf_DPipe_ClearRx) & Ifx_Oe_FifoDPipe_clearRx;
-    dPipe->stdif.onReceive      = (IfxStdIf_DPipe_OnReceive) & Ifx_Oe_FifoDPipe_onReceive;
-    dPipe->stdif.onTransmit     = (IfxStdIf_DPipe_OnTransmit) & Ifx_Oe_FifoDPipe_onTransmit;
-    dPipe->stdif.onError        = (IfxStdIf_DPipe_OnError) & Ifx_Oe_FifoDPipe_onError;
-    dPipe->stdif.getSendCount   = (IfxStdIf_DPipe_GetSendCount) & Ifx_Oe_FifoDPipe_getSendCount;
-    dPipe->stdif.getTxTimeStamp = (IfxStdIf_DPipe_GetTxTimeStamp) & Ifx_Oe_FifoDPipe_getTxTimeStamp;
-    dPipe->stdif.resetSendCount = (IfxStdIf_DPipe_ResetSendCount) & Ifx_Oe_FifoDPipe_resetSendCount;
+    dPipe->stdif.write          = (Ifx_Oe_StdIf_DPipe_Write) & Ifx_Oe_FifoDPipe_write;
+    dPipe->stdif.read           = (Ifx_Oe_StdIf_DPipe_Read) & Ifx_Oe_FifoDPipe_read;
+    dPipe->stdif.getReadCount   = (Ifx_Oe_StdIf_DPipe_GetReadCount) & Ifx_Oe_FifoDPipe_getReadCount;
+    dPipe->stdif.getReadEvent   = (Ifx_Oe_StdIf_DPipe_GetReadEvent) & Ifx_Oe_FifoDPipe_getReadEvent;
+    dPipe->stdif.getWriteCount  = (Ifx_Oe_StdIf_DPipe_GetWriteCount) & Ifx_Oe_FifoDPipe_getWriteCount;
+    dPipe->stdif.getWriteEvent  = (Ifx_Oe_StdIf_DPipe_GetWriteEvent) & Ifx_Oe_FifoDPipe_getWriteEvent;
+    dPipe->stdif.canReadCount   = (Ifx_Oe_StdIf_DPipe_CanReadCount) & Ifx_Oe_FifoDPipe_canReadCount;
+    dPipe->stdif.canWriteCount  = (Ifx_Oe_StdIf_DPipe_CanWriteCount) & Ifx_Oe_FifoDPipe_canWriteCount;
+    dPipe->stdif.flushTx        = (Ifx_Oe_StdIf_DPipe_FlushTx) & Ifx_Oe_FifoDPipe_flushTx;
+    dPipe->stdif.clearTx        = (Ifx_Oe_StdIf_DPipe_ClearTx) & Ifx_Oe_FifoDPipe_clearTx;
+    dPipe->stdif.clearRx        = (Ifx_Oe_StdIf_DPipe_ClearRx) & Ifx_Oe_FifoDPipe_clearRx;
+    dPipe->stdif.onReceive      = (Ifx_Oe_StdIf_DPipe_OnReceive) & Ifx_Oe_FifoDPipe_onReceive;
+    dPipe->stdif.onTransmit     = (Ifx_Oe_StdIf_DPipe_OnTransmit) & Ifx_Oe_FifoDPipe_onTransmit;
+    dPipe->stdif.onError        = (Ifx_Oe_StdIf_DPipe_OnError) & Ifx_Oe_FifoDPipe_onError;
+    dPipe->stdif.getSendCount   = (Ifx_Oe_StdIf_DPipe_GetSendCount) & Ifx_Oe_FifoDPipe_getSendCount;
+    dPipe->stdif.getTxTimeStamp = (Ifx_Oe_StdIf_DPipe_GetTxTimeStamp) & Ifx_Oe_FifoDPipe_getTxTimeStamp;
+    dPipe->stdif.resetSendCount = (Ifx_Oe_StdIf_DPipe_ResetSendCount) & Ifx_Oe_FifoDPipe_resetSendCount;
     dPipe->stdif.txDisabled     = FALSE;
     return TRUE;
 }

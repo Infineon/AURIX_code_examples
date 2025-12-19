@@ -2,6 +2,8 @@
  * \file ifx_oe_fifo.c
  * \brief FIFO functions
  *
+ * oneeye_lib version 0.6
+ *
  *
  * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
  *
@@ -94,7 +96,7 @@ Ifx_Oe_Fifo* Ifx_Oe_Fifo_init(void* buffer, Ifx_Oe_SizeT size, Ifx_Oe_SizeT elem
     size = IFX_OE_ALIGN_ON_32(size);     /* data transfer is optimised for 32 bit access */
     IFX_OE_ASSERT(elementSize <= size);
     /* Check size over maximum FIFO size */
-    IFX_OE_ASSERT(size <= IFX_SIZET_MAX);
+    IFX_OE_ASSERT(size <= IFX_OE_SIZET_MAX);
 
     {
         fifo                     = (Ifx_Oe_Fifo*)buffer;
@@ -122,10 +124,10 @@ static Ifx_Oe_SizeT Ifx_Oe_Fifo_beginRead(Ifx_Oe_Fifo* fifo, Ifx_Oe_SizeT count)
     Ifx_Oe_SizeT blockSize;
 
     interruptState           = Ifx_Oe_disableInterrupts();
-    blockSize                = __min(count, Ifx_Oe_Fifo_readCount(fifo));
+    blockSize                = IFX_OE_MIN(count, Ifx_Oe_Fifo_readCount(fifo));
     blockSize               -= blockSize % fifo->elementSize;
     fifo->eventReader        = FALSE;
-    fifo->shared.readerWaitx = __min(count - blockSize, fifo->size);
+    fifo->shared.readerWaitx = IFX_OE_MIN(count - blockSize, fifo->size);
     Ifx_Oe_restoreInterrupts(interruptState);
 
     return blockSize;
@@ -258,6 +260,37 @@ Ifx_Oe_SizeT Ifx_Oe_Fifo_read(Ifx_Oe_Fifo* fifo, void* data, Ifx_Oe_SizeT count,
 }
 
 
+Ifx_Oe_SizeT Ifx_Oe_Fifo_readAndKeep(const Ifx_Oe_Fifo * fifo, void* data, Ifx_Oe_SizeT count)
+{
+    Ifx_Oe_SizeT          blockSize;
+    Ifx_Oe_CircularBuffer buffer;
+
+    IFX_OE_ASSERT(fifo != NULL_PTR);
+    IFX_OE_ASSERT(data != NULL_PTR);
+
+    if (count != 0)
+    {
+        buffer.base   = fifo->buffer;
+        buffer.length = (uint16)fifo->size;         /* size always fit into 16 bit */
+        buffer.index  = (uint16)fifo->startIndex;   /* startIndex always fit into size */
+
+        blockSize                = IFX_OE_MIN(count, Ifx_Oe_Fifo_readCount(fifo));
+        blockSize               -= blockSize % fifo->elementSize;
+
+
+        if (blockSize != 0)
+        {
+            /* read element from the buffer */
+            data  = Ifx_Oe_CircularBuffer_read8(&buffer, data, blockSize);
+            count -= blockSize;
+        }
+
+    }
+
+    return count;
+}
+
+
 Ifx_Oe_SizeT Ifx_Oe_Fifo_remove(Ifx_Oe_Fifo* fifo, Ifx_Oe_SizeT count)
 {
     Ifx_Oe_SizeT          blockSize;
@@ -324,10 +357,10 @@ static Ifx_Oe_SizeT Ifx_Oe_Fifo_beginWrite(Ifx_Oe_Fifo* fifo, Ifx_Oe_SizeT count
     boolean      interruptState;
 
     interruptState           = Ifx_Oe_disableInterrupts();
-    blockSize                = __min(count, fifo->size - Ifx_Oe_Fifo_readCount(fifo));
+    blockSize                = IFX_OE_MIN(count, fifo->size - Ifx_Oe_Fifo_readCount(fifo));
     blockSize               -= blockSize % fifo->elementSize;
     fifo->eventWriter        = FALSE;
-    fifo->shared.writerWaitx = __min(count - blockSize, fifo->size);
+    fifo->shared.writerWaitx = IFX_OE_MIN(count - blockSize, fifo->size);
     Ifx_Oe_restoreInterrupts(interruptState);
 
     return blockSize;
@@ -361,7 +394,7 @@ boolean Ifx_Oe_Fifo_canWriteCount(Ifx_Oe_Fifo* fifo, Ifx_Oe_SizeT count, Ifx_Oe_
         {
             Ifx_Oe_TickTime DeadLine = Ifx_Oe_Time_getDeadLine(timeout);
             fifo->eventWriter        = FALSE;
-            fifo->shared.writerWaitx = __max(0, count - (fifo->size - Ifx_Oe_Fifo_readCount(fifo)));
+            fifo->shared.writerWaitx = IFX_OE_MAX(0, count - (fifo->size - Ifx_Oe_Fifo_readCount(fifo)));
             Ifx_Oe_restoreInterrupts(interruptState);
 
             while ((fifo->eventWriter == FALSE) && (Ifx_Oe_Time_isDeadLine(DeadLine) == FALSE))
@@ -386,7 +419,7 @@ static Ifx_Oe_SizeT Ifx_Oe_Fifo_endWrite(Ifx_Oe_Fifo* fifo, Ifx_Oe_SizeT count, 
     interruptState        = Ifx_Oe_disableInterrupts();
 
     fifo->shared.count   += blockSize;
-    fifo->shared.maxcount = __max(fifo->shared.maxcount, fifo->shared.count);   /* Update maximum value */
+    fifo->shared.maxcount = IFX_OE_MAX(fifo->shared.maxcount, fifo->shared.count);   /* Update maximum value */
 
     if (fifo->shared.readerWaitx != 0)
     {

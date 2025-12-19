@@ -52,7 +52,7 @@ void IfxStdIf_Pos_initConfig (IfxStdIf_Pos_Config * config)
     config->updatePeriod = 0.001;
     config->speedModeThreshold = 0;
     config->minSpeed = 0;       // 0 rpm
-    config->maxSpeed = 20000.0 / 60.0 * (2 * IFX_PI);   // 20000 rpm
+    config->maxSpeed = 20000.0f / 60.0f * (2 * IFX_PI);   // 20000 rpm
     config->speedFilterEnabled = FALSE;
     config->speedFilerCutOffFrequency = 0;
 

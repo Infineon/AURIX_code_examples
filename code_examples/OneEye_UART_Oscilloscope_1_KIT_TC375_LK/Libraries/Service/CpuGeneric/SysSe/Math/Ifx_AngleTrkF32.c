@@ -99,7 +99,7 @@ float32 round_f(float32 val)
     sint32 val_i = (sint32)val;
 
     /*lint +e632 +e633 +e524*/
-    if ((val - (float32)val_i) > 0.5)
+    if ((val - (float32)val_i) > 0.5f)
     {
         val = (float32)(val_i + 1);
     }
@@ -170,7 +170,7 @@ void Ifx_AngleTrkF32_init(Ifx_AngleTrkF32 *aObsv, const Ifx_AngleTrkF32_Config *
     aObsv->base.turn              = 0;
     aObsv->base.status.status     = 0;
     aObsv->base.periodPerRotation = config->periodPerRotation;
-    aObsv->base.positionConst     = 1.0 / (float32)aObsv->base.resolution * 2.0 * IFX_PI;
+    aObsv->base.positionConst     = 1.0f / (float32)aObsv->base.resolution * 2.0f * IFX_PI;
 
     aObsv->cfgData.kd             = config->kd;
     aObsv->cfgData.ki             = config->ki;
@@ -181,9 +181,9 @@ void Ifx_AngleTrkF32_init(Ifx_AngleTrkF32 *aObsv, const Ifx_AngleTrkF32_Config *
     aObsv->sinIn                  = config->sinIn;
     aObsv->cosIn                  = config->cosIn;
 
-    if (!__neqf(config->kp, 0) && !__neqf(config->ki, 0) && !__neqf(config->kp, 0))
+    if (!__neqf(config->kp, 0) && !__neqf(config->ki, 0))
     {   /* all gains are zero, use default */
-        /* FIXME might not be requied as set by Ifx_AngleTrkF32_initConfig() */
+        /* FIXME might not be required as set by Ifx_AngleTrkF32_initConfig() */
         Ifx_AngleTrkF32_setControlGains(&aObsv->cfgData, ATO_K, ATO_T, ATO_PSI);
     }
 
@@ -334,7 +334,7 @@ float32 Ifx_AngleTrkF32_getSpeed(Ifx_AngleTrkF32 *aObsv)
 /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 float32 Ifx_AngleTrkF32_getAbsolutePosition(Ifx_AngleTrkF32 *driver)
 {
-    return ((float32)driver->base.turn + (float32)driver->base.rawPosition / (float32)driver->base.resolution) * 2.0 * IFX_PI;
+    return ((float32)driver->base.turn + (float32)driver->base.rawPosition / (float32)driver->base.resolution) * 2.0f * IFX_PI;
 }
 
 

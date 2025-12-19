@@ -28,12 +28,11 @@
  * \abstract Demonstrate how to use the OneEye DAS interface to access variables
  * \description After configuring the OneEye DAS interface, OneEye is used to read / write variable.
  * \name OneEye_DAS_QuickStart_1_KIT_TC375_LK
- * \version V1.0.0
+ * \version V1.0.1
  * \board AURIX TC375 lite Kit, KIT_A2G_TC375_LITE, TC37xTP_A-Step
- * \keywords OneEye, DAS, Memory, Read, Write, AURIX
- * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_OneEye_DAS_Quickstart_1_KIT_TC375_LK-TR-v01_00_00-EN.pdf
- * \documents https://www.infineon.com/aurix-expert-training/TC37A_iLLD_UM_1_0_1_12_1.chm
- * \lastUpdated 2022-03-28
+ * \keywords OneEye, DAS, Memory, Read, Write, AURIX, Infineon GUI Designer
+ * \documents see README.md
+ * \lastUpdated 2024-06-18
  *********************************************************************************************************************/
 #include "Ifx_Types.h"
 #include "IfxCpu.h"

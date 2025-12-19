@@ -1,6 +1,8 @@
 /**
  * \file ifx_oe_syncprotocol.c
  *
+ * oneeye_lib version 0.6
+ *
  * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
  *
  *                                 IMPORTANT NOTICE
@@ -42,7 +44,7 @@
 #include <string.h>
 #include <stdio.h>
 
-#if IFX_OE_SYNCPROTOCOL_VARIANT == IFX_OE_SYNCPROTOCOL_VARIANT_QT
+#if IFX_CFG_OE_SYNCPROTOCOL_VARIANT == IFX_CFG_OE_SYNCPROTOCOL_VARIANT_QT
 /* QT */
 #include <QDebug>
 #include <QDateTime>
@@ -50,16 +52,21 @@
 /** Print debug information */
 //#define IFX_OE_SYNCPROTOCOL_DEBUG(INFO) qInfo() << INFO
 #define IFX_OE_SYNCPROTOCOL_DEBUG(INFO)
+#define IFX_OE_SYNCPROTOCOL_INFO(INFO)    qInfo() << INFO
 #define IFX_OE_SYNCPROTOCOL_WARNING(INFO) qWarning() << INFO
+#define IFX_OE_SYNCPROTOCOL_ERROR(INFO)   qCritical() << INFO
 //#define IFX_OE_SYNCPROTOCOL_WARNING(INFO)
 #define ASSERT(X) Q_ASSERT_X(X, "", "")
+
 #define IFX_OE_SYNCPROTOCOL_CURRENT_TIME QDateTime::currentMSecsSinceEpoch()
 #define IFX_OE_SYNCPROTOCOL_UNUSED(x) Q_UNUSED(x)
 
-#elif IFX_OE_SYNCPROTOCOL_VARIANT == IFX_OE_SYNCPROTOCOL_VARIANT_AURIX
+#elif IFX_CFG_OE_SYNCPROTOCOL_VARIANT == IFX_CFG_OE_SYNCPROTOCOL_VARIANT_AURIX
 
 #define IFX_OE_SYNCPROTOCOL_DEBUG(INFO)
+#define IFX_OE_SYNCPROTOCOL_INFO(INFO)
 #define IFX_OE_SYNCPROTOCOL_WARNING(INFO)
+#define IFX_OE_SYNCPROTOCOL_ERROR(INFO)
 #define ASSERT(X) IFX_OE_ASSERT(X)
 
 #define IFX_OE_SYNCPROTOCOL_CURRENT_TIME Ifx_Oe_Time_now()
@@ -68,24 +75,24 @@
 #endif
 
 #if IFX_OE_SYNCPROTOCOL_USE_PRIVATE_HEAP != 0
-inline void* Ifx_Oe_SyncProtocol_malloc(Ifx_Oe_Malloc_Pool* memoryPool, size_t size)
+IFX_OE_INLINE void* Ifx_Oe_SyncProtocol_malloc(Ifx_Oe_Malloc_Pool* memoryPool, size_t size)
 { return Ifx_Oe_Malloc_malloc(memoryPool, size); }
 
-inline void Ifx_Oe_SyncProtocol_free(void* ptr)
+IFX_OE_INLINE void Ifx_Oe_SyncProtocol_free(void* ptr)
 { Ifx_Oe_Malloc_free(ptr); }
 
-inline void* Ifx_Oe_SyncProtocol_realloc(void* ptr, size_t size)
+IFX_OE_INLINE void* Ifx_Oe_SyncProtocol_realloc(void* ptr, size_t size)
 { return Ifx_Oe_Malloc_realloc(ptr, size); }
 
 #else
 
-inline void* Ifx_Oe_SyncProtocol_malloc(Ifx_Oe_Malloc_Pool* memoryPool, size_t size)
+IFX_OE_INLINE void* Ifx_Oe_SyncProtocol_malloc(Ifx_Oe_Malloc_Pool* memoryPool, size_t size)
 { IFX_OE_SYNCPROTOCOL_UNUSED(memoryPool);  return malloc(size); }
 
-inline void Ifx_Oe_SyncProtocol_free(void* ptr)
+IFX_OE_INLINE void Ifx_Oe_SyncProtocol_free(void* ptr)
 { free(ptr); }
 
-inline void* Ifx_Oe_SyncProtocol_realloc(void* ptr, size_t size)
+IFX_OE_INLINE void* Ifx_Oe_SyncProtocol_realloc(void* ptr, size_t size)
 { return realloc(ptr, size); }
 
 #endif
@@ -126,7 +133,7 @@ static void    Ifx_Oe_SyncProtocol_processAck(Ifx_Oe_SyncProtocol* protocol, Ifx
 static void    Ifx_Oe_SyncProtocol_readHeader(Ifx_Oe_SyncProtocol* protocol);
 static void    Ifx_Oe_SyncProtocol_processIncomming(Ifx_Oe_SyncProtocol* protocol);
 
-#if IFX_OE_SYNCPROTOCOL_VARIANT == IFX_OE_SYNCPROTOCOL_VARIANT_QT
+#if IFX_CFG_OE_SYNCPROTOCOL_VARIANT == IFX_CFG_OE_SYNCPROTOCOL_VARIANT_QT
 
 static inline sint32 Ifx_Oe_SyncProtocol_DPipeWrite(Ifx_Oe_SyncProtocol_DPipeStdIf* dPipeStdif, const void* data, sint32 count)
 {
@@ -177,13 +184,13 @@ static inline sint32 Ifx_Oe_SyncProtocol_canWriteCount(Ifx_Oe_SyncProtocol_Fifo*
 }
 
 
-static inline bool Ifx_Oe_SyncProtocol_fifoIsEmpty(Ifx_Oe_SyncProtocol_Fifo* fifo)
+static inline boolean Ifx_Oe_SyncProtocol_fifoIsEmpty(Ifx_Oe_SyncProtocol_Fifo* fifo)
 {
     return fifo->isEmpty();
 }
 
 
-static inline bool Ifx_Oe_SyncProtocol_fifoIsFull(Ifx_Oe_SyncProtocol_Fifo* fifo)
+static inline boolean Ifx_Oe_SyncProtocol_fifoIsFull(Ifx_Oe_SyncProtocol_Fifo* fifo)
 {
     return fifo->isFull();
 }
@@ -201,73 +208,73 @@ static inline char* Ifx_Oe_SyncProtocol_endDataPointer(Ifx_Oe_SyncProtocol_Fifo*
 }
 
 
-#elif IFX_OE_SYNCPROTOCOL_VARIANT == IFX_OE_SYNCPROTOCOL_VARIANT_AURIX
+#elif IFX_CFG_OE_SYNCPROTOCOL_VARIANT == IFX_CFG_OE_SYNCPROTOCOL_VARIANT_AURIX
 
-static inline sint32 Ifx_Oe_SyncProtocol_DPipeWrite(Ifx_Oe_SyncProtocol_DPipeStdIf* dPipeStdif, const void* data, sint32 count)
+IFX_OE_INLINE sint32 Ifx_Oe_SyncProtocol_DPipeWrite(Ifx_Oe_SyncProtocol_DPipeStdIf* dPipeStdif, const void* data, sint32 count)
 {
     Ifx_Oe_SyncProtocol_FifoSize c = (Ifx_Oe_SyncProtocol_FifoSize)count;
-    IfxStdIf_DPipe_write(dPipeStdif, (void*)data, &c, 0);
+    Ifx_Oe_StdIf_DPipe_write(dPipeStdif, (void*)data, &c, 0);
     return count - c;
 }
 
 
-static inline sint32 Ifx_Oe_SyncProtocol_DPipeRead(Ifx_Oe_SyncProtocol_DPipeStdIf* dPipeStdif, void* data, sint32 count)
+IFX_OE_INLINE sint32 Ifx_Oe_SyncProtocol_DPipeRead(Ifx_Oe_SyncProtocol_DPipeStdIf* dPipeStdif, void* data, sint32 count)
 {
     Ifx_Oe_SyncProtocol_FifoSize c = (Ifx_Oe_SyncProtocol_FifoSize)count;
-    IfxStdIf_DPipe_read(dPipeStdif, (void*)data, &c, 0);
+    Ifx_Oe_StdIf_DPipe_read(dPipeStdif, (void*)data, &c, 0);
     return count - c;
 }
 
 
-static inline sint32 Ifx_Oe_SyncProtocol_fifoWrite(Ifx_Oe_SyncProtocol_Fifo* fifo, const void* data, sint32 count)
+IFX_OE_INLINE sint32 Ifx_Oe_SyncProtocol_fifoWrite(Ifx_Oe_SyncProtocol_Fifo* fifo, const void* data, sint32 count)
 {
     return Ifx_Oe_Fifo_write(fifo, data, (Ifx_Oe_SizeT)count, 0);
 }
 
 
-static inline sint32 Ifx_Oe_SyncProtocol_fifoRead(Ifx_Oe_SyncProtocol_Fifo* fifo, void* data, sint32 count)
+IFX_OE_INLINE sint32 Ifx_Oe_SyncProtocol_fifoRead(Ifx_Oe_SyncProtocol_Fifo* fifo, void* data, sint32 count)
 {
     return Ifx_Oe_Fifo_read(fifo, data, (Ifx_Oe_SizeT)count, 0);
 }
 
 
-static inline sint32 Ifx_Oe_SyncProtocol_fifoRemove(Ifx_Oe_SyncProtocol_Fifo* fifo, sint32 count)
+IFX_OE_INLINE sint32 Ifx_Oe_SyncProtocol_fifoRemove(Ifx_Oe_SyncProtocol_Fifo* fifo, sint32 count)
 {
     return Ifx_Oe_Fifo_remove(fifo, (Ifx_Oe_SizeT)count);
 }
 
 
-static inline sint32 Ifx_Oe_SyncProtocol_fifoSize(Ifx_Oe_SyncProtocol_Fifo* fifo)
+IFX_OE_INLINE sint32 Ifx_Oe_SyncProtocol_fifoSize(Ifx_Oe_SyncProtocol_Fifo* fifo)
 {
     return Ifx_Oe_Fifo_size(fifo);
 }
 
 
-static inline sint32 Ifx_Oe_SyncProtocol_fifoCanWriteCount(Ifx_Oe_SyncProtocol_Fifo* fifo, sint32 count)
+IFX_OE_INLINE sint32 Ifx_Oe_SyncProtocol_fifoCanWriteCount(Ifx_Oe_SyncProtocol_Fifo* fifo, sint32 count)
 {
     return Ifx_Oe_Fifo_canWriteCount(fifo, (Ifx_Oe_SizeT)count, 0);
 }
 
 
-static inline boolean Ifx_Oe_SyncProtocol_fifoIsEmpty(Ifx_Oe_SyncProtocol_Fifo* fifo)
+IFX_OE_INLINE boolean Ifx_Oe_SyncProtocol_fifoIsEmpty(Ifx_Oe_SyncProtocol_Fifo* fifo)
 {
     return Ifx_Oe_Fifo_isEmpty(fifo);
 }
 
 
-static inline boolean Ifx_Oe_SyncProtocol_fifoIsFull(Ifx_Oe_SyncProtocol_Fifo* fifo)
+IFX_OE_INLINE boolean Ifx_Oe_SyncProtocol_fifoIsFull(Ifx_Oe_SyncProtocol_Fifo* fifo)
 {
     return Ifx_Oe_Fifo_isFull(fifo);
 }
 
 
-static inline char* Ifx_Oe_SyncProtocol_startDataPointer(Ifx_Oe_SyncProtocol_Fifo* fifo)
+IFX_OE_INLINE char* Ifx_Oe_SyncProtocol_startDataPointer(Ifx_Oe_SyncProtocol_Fifo* fifo)
 {
     return Ifx_Oe_Fifo_startDataPointer(fifo);
 }
 
 
-static inline char* Ifx_Oe_SyncProtocol_endDataPointer(Ifx_Oe_SyncProtocol_Fifo* fifo)
+IFX_OE_INLINE char* Ifx_Oe_SyncProtocol_endDataPointer(Ifx_Oe_SyncProtocol_Fifo* fifo)
 {
     return Ifx_Oe_Fifo_endDataPointer(fifo);
 }
@@ -291,27 +298,44 @@ void Ifx_Oe_SyncProtocol_init(Ifx_Oe_SyncProtocol* protocol, sint32 timeout, Ifx
     ASSERT(IFX_OE_SYNCPROTOCOL_FRAME_PAYLOAD_MAX_LENGTH > IFX_OE_SYNCPROTOCOL_MESSAGE_HEADER_SIZE); /* When a message should be send, a the frame payload should at least fit the message header  */
     ASSERT(IFX_OE_SYNCPROTOCOL_PORT_MAX < IFX_OE_SYNCPROTOCOL_PORT_NONE);
 
+    /* Ensure Ifx_Oe_SyncProtocol_Ack value do not change. Required for Ifx_Oe_SyncProtocol_ackToString() */
+    ASSERT(Ifx_Oe_SyncProtocol_Ack_none == 0x0);
+    ASSERT(Ifx_Oe_SyncProtocol_Ack_headerError == 0x1);
+    ASSERT(Ifx_Oe_SyncProtocol_Ack_portClosed == 0x2);
+    ASSERT(Ifx_Oe_SyncProtocol_Ack_busy == 0x3);
+    ASSERT(Ifx_Oe_SyncProtocol_Ack_headerOk == 0x4);
+    ASSERT(Ifx_Oe_SyncProtocol_Ack_payloadError == 0x5);
+    ASSERT(Ifx_Oe_SyncProtocol_Ack_payloadOk == 0x6);
+    /* Ensure Ifx_Oe_SyncProtocol_SendState value do not change. Required for Ifx_Oe_SyncProtocol_SendStateToString() */
+    ASSERT(Ifx_Oe_SyncProtocol_SendState_readyForSend == 0);
+    ASSERT(Ifx_Oe_SyncProtocol_SendState_prepareFrame == 1);
+    ASSERT(Ifx_Oe_SyncProtocol_SendState_sendingHeader == 2);
+    ASSERT(Ifx_Oe_SyncProtocol_SendState_waitingForHeaderAck == 3);
+    ASSERT(Ifx_Oe_SyncProtocol_SendState_sendingPayloadStartByte == 4);
+    ASSERT(Ifx_Oe_SyncProtocol_SendState_sendingPayload == 5);
+    ASSERT(Ifx_Oe_SyncProtocol_SendState_waitingForPayloadAck == 6);
+
 #if IFX_OE_SYNCPROTOCOL_USE_PRIVATE_HEAP != 0
-    void* memoryPoolAdress = malloc(IFX_OE_SYNCPROTOCOL_PRIVATE_HEAP_SIZE);
+    void* memoryPoolAdress = malloc(IFX_CFG_OE_SYNCPROTOCOL_PRIVATE_HEAP_SIZE);
     ASSERT(memoryPoolAdress != NULL);
-    protocol->memoryPool = Ifx_Oe_Malloc_create(memoryPoolAdress, IFX_OE_SYNCPROTOCOL_PRIVATE_HEAP_SIZE);
+    protocol->memoryPool = Ifx_Oe_Malloc_create(memoryPoolAdress, IFX_CFG_OE_SYNCPROTOCOL_PRIVATE_HEAP_SIZE);
     ASSERT(protocol->memoryPool != NULL);
 #endif
 
-#if IFX_OE_SYNCPROTOCOL_VARIANT == IFX_OE_SYNCPROTOCOL_VARIANT_QT
+#if IFX_CFG_OE_SYNCPROTOCOL_VARIANT == IFX_CFG_OE_SYNCPROTOCOL_VARIANT_QT
     protocol->timeout     = timeout;    /* Should be longer than the frame  (IFX_OE_SYNCPROTOCOL_FRAME_HEADER_SIZE*3 + IFX_OE_SYNCPROTOCOL_FRAME_PAYLOAD_MAX_LENGTH + 1) + repeat in case of error */
-#elif IFX_OE_SYNCPROTOCOL_VARIANT == IFX_OE_SYNCPROTOCOL_VARIANT_AURIX
+#elif IFX_CFG_OE_SYNCPROTOCOL_VARIANT == IFX_CFG_OE_SYNCPROTOCOL_VARIANT_AURIX
     protocol->timeout     = Ifx_Oe_Time_getTickForMilliseconds(timeout);    /* Should be longer than the frame  (IFX_OE_SYNCPROTOCOL_FRAME_HEADER_SIZE*3 + IFX_OE_SYNCPROTOCOL_FRAME_PAYLOAD_MAX_LENGTH + 1) + repeat in case of error */
 #endif
     protocol->streamOwner = streamStdif == NULL;
 
     if (protocol->streamOwner)
     {
-#if IFX_OE_SYNCPROTOCOL_VARIANT == IFX_OE_SYNCPROTOCOL_VARIANT_QT
+#if IFX_CFG_OE_SYNCPROTOCOL_VARIANT == IFX_CFG_OE_SYNCPROTOCOL_VARIANT_QT
         protocol->stream      = new FifoDPipe(Ifx_Oe_SyncProtocol_getFifoSize(), Ifx_Oe_SyncProtocol_getFifoSize());
         protocol->streamStdif = protocol->stream;
-#elif IFX_OE_SYNCPROTOCOL_VARIANT == IFX_OE_SYNCPROTOCOL_VARIANT_AURIX
-        protocol->stream      = Ifx_Oe_FifoDPipe_create(Ifx_Oe_SyncProtocol_getFifoSize(), Ifx_Oe_SyncProtocol_getFifoSize());
+#elif IFX_CFG_OE_SYNCPROTOCOL_VARIANT == IFX_CFG_OE_SYNCPROTOCOL_VARIANT_AURIX
+        protocol->stream      = Ifx_Oe_FifoDPipe_create(Ifx_Oe_SyncProtocol_getFifoSize(), Ifx_Oe_SyncProtocol_getFifoSize(), 1);
         protocol->streamStdif = &protocol->stream->stdif;
 #endif
     }
@@ -324,6 +348,7 @@ void Ifx_Oe_SyncProtocol_init(Ifx_Oe_SyncProtocol* protocol, sint32 timeout, Ifx
     /* Assume clean synchornized startup */
     protocol->synchronized                          = TRUE;
     protocol->frameIndex                            = IFX_OE_SYNCPROTOCOL_FRAME_INDEX_INVALID;
+    protocol->verboseLevel                          = Ifx_Oe_SyncProtocol_VerboseLevel_error;
 
     protocol->status.invalidAckFrameIndex           = 0;
     protocol->status.invalidAckStatus               = 0;
@@ -363,6 +388,10 @@ void Ifx_Oe_SyncProtocol_init(Ifx_Oe_SyncProtocol* protocol, sint32 timeout, Ifx
     protocol->send.ackHeader.length                 = 0;
     protocol->send.ackHeader.checksumPayload        = 0;
     protocol->send.ackHeaderByteIndex               = 0;
+    protocol->send.deadline                         = 0;
+    protocol->send.minMessageSendInterval           = 0;
+    protocol->send.nextMessageSendDeadline          = 0;
+    protocol->send.maxResendCount                   = IFX_OE_SYNCPROTOCOL_MESSAGE_RESEND_COUNT;
 
     protocol->receive.state                         = Ifx_Oe_SyncProtocol_ReceiveState_waitingForHeader;
     protocol->receive.header.startByte              = (uint8) ~IFX_OE_SYNCPROTOCOL_HEADER_START_BYTE;
@@ -396,6 +425,26 @@ void Ifx_Oe_SyncProtocol_init(Ifx_Oe_SyncProtocol* protocol, sint32 timeout, Ifx
 }
 
 
+void Ifx_Oe_SyncProtocol_setMinMessageSendInterval(Ifx_Oe_SyncProtocol* protocol, sint32 interval)
+{
+#if IFX_CFG_OE_SYNCPROTOCOL_VARIANT == IFX_CFG_OE_SYNCPROTOCOL_VARIANT_QT
+    protocol->send.minMessageSendInterval = interval;
+#elif IFX_CFG_OE_SYNCPROTOCOL_VARIANT == IFX_CFG_OE_SYNCPROTOCOL_VARIANT_AURIX
+    protocol->send.minMessageSendInterval = Ifx_Oe_Time_getTickForMilliseconds(interval);
+#endif
+}
+
+
+sint32 Ifx_Oe_SyncProtocol_getMinMessageSendInterval(const Ifx_Oe_SyncProtocol* protocol)
+{
+#if IFX_CFG_OE_SYNCPROTOCOL_VARIANT == IFX_CFG_OE_SYNCPROTOCOL_VARIANT_QT
+    return protocol->send.minMessageSendInterval;
+#elif IFX_CFG_OE_SYNCPROTOCOL_VARIANT == IFX_CFG_OE_SYNCPROTOCOL_VARIANT_AURIX
+    return Ifx_Oe_Time_getMillisecondForTicks(protocol->send.minMessageSendInterval);
+#endif
+}
+
+
 void Ifx_Oe_SyncProtocol_deinit(Ifx_Oe_SyncProtocol* protocol)
 {
     Ifx_Oe_SyncProtocol_Port port;
@@ -411,9 +460,9 @@ void Ifx_Oe_SyncProtocol_deinit(Ifx_Oe_SyncProtocol* protocol)
 
     if (protocol->streamOwner)
     {
-#if IFX_OE_SYNCPROTOCOL_VARIANT == IFX_OE_SYNCPROTOCOL_VARIANT_QT
+#if IFX_CFG_OE_SYNCPROTOCOL_VARIANT == IFX_CFG_OE_SYNCPROTOCOL_VARIANT_QT
         delete protocol->stream;
-#elif IFX_OE_SYNCPROTOCOL_VARIANT == IFX_OE_SYNCPROTOCOL_VARIANT_AURIX
+#elif IFX_CFG_OE_SYNCPROTOCOL_VARIANT == IFX_CFG_OE_SYNCPROTOCOL_VARIANT_AURIX
         Ifx_Oe_FifoDPipe_destroy(protocol->stream);
 #endif
         protocol->stream      = IFX_OE_SYNCPROTOCOL_NULL;
@@ -470,12 +519,13 @@ boolean Ifx_Oe_SyncProtocol_addClient(Ifx_Oe_SyncProtocol* protocol, Ifx_Oe_Sync
         client->send.messageHeader.dummy  = 0;
         client->send.messageByteIndex     = 0;
         client->send.messageDropCounter   = 0;
+        client->send.resendCount          = 0;
 
         ASSERT(transmitBufferLength > 0);
         Ifx_Oe_SyncProtocol_FifoSize size = transmitBufferLength * sizeof(Ifx_Oe_SyncProtocol_Message);
-#if IFX_OE_SYNCPROTOCOL_VARIANT == IFX_OE_SYNCPROTOCOL_VARIANT_QT
+#if IFX_CFG_OE_SYNCPROTOCOL_VARIANT == IFX_CFG_OE_SYNCPROTOCOL_VARIANT_QT
         client->send.buffer = new Fifo(size, sizeof(Ifx_Oe_SyncProtocol_Message));
-#elif IFX_OE_SYNCPROTOCOL_VARIANT == IFX_OE_SYNCPROTOCOL_VARIANT_AURIX
+#elif IFX_CFG_OE_SYNCPROTOCOL_VARIANT == IFX_CFG_OE_SYNCPROTOCOL_VARIANT_AURIX
         client->send.buffer = Ifx_Oe_Fifo_create(size, sizeof(Ifx_Oe_SyncProtocol_Message));
 #endif
         ASSERT(client->send.buffer != NULL);
@@ -563,9 +613,9 @@ boolean Ifx_Oe_SyncProtocol_removeClient(Ifx_Oe_SyncProtocol_Client* client)
             client->send.messageDropCounter++;
         }
 
-#if IFX_OE_SYNCPROTOCOL_VARIANT == IFX_OE_SYNCPROTOCOL_VARIANT_QT
+#if IFX_CFG_OE_SYNCPROTOCOL_VARIANT == IFX_CFG_OE_SYNCPROTOCOL_VARIANT_QT
         delete client->send.buffer;
-#elif IFX_OE_SYNCPROTOCOL_VARIANT == IFX_OE_SYNCPROTOCOL_VARIANT_AURIX
+#elif IFX_CFG_OE_SYNCPROTOCOL_VARIANT == IFX_CFG_OE_SYNCPROTOCOL_VARIANT_AURIX
         Ifx_Oe_Fifo_destroy(client->send.buffer);
 #endif
         client->send.buffer = NULL;
@@ -594,42 +644,138 @@ static void Ifx_Oe_SyncProtocol_freeCurrentSendMessage(Ifx_Oe_SyncProtocol_Clien
 }
 
 
-static void Ifx_Oe_SyncProtocol_printMessageInfo(Ifx_Oe_SyncProtocol_Message* message, const char* info)
+#if IFX_CFG_OE_SYNCPROTOCOL_VARIANT == IFX_CFG_OE_SYNCPROTOCOL_VARIANT_QT
+
+static void Ifx_Oe_SyncProtocol_printMessageInfoRaw(
+    Ifx_Oe_SyncProtocol* protocol,
+    Ifx_Oe_SyncProtocol_MessageId id,
+    uint32 dataLength,
+    uint8* messagePayload,
+    Ifx_Oe_SyncProtocol_VerboseLevel type,
+    QString info)
 {
-    if (message->messagePayload != NULL)
+    QString text;
+
+    if ((protocol->verboseLevel < type) || (type == Ifx_Oe_SyncProtocol_VerboseLevel_none))
     {
-        if (message->dataLength <= 5)
+        return;
+    }
+
+    if (messagePayload != NULL)
+    {
+        if (dataLength <= 50)
         {
-            IFX_OE_SYNCPROTOCOL_WARNING(
+            text =
                 QString("PProtocol_Bb: Data with message ID %1 and length %2 %3: %4")
-                .arg(message->id)
-                .arg(message->dataLength)
+                .arg(id, 0, 16)
+                .arg(dataLength)
                 .arg(info)
-                .arg(QString::fromLocal8Bit((char*)message->messagePayload, message->dataLength)));
+                .arg(QString::fromLocal8Bit((char*)messagePayload, dataLength));
         }
         else
         {
-            IFX_OE_SYNCPROTOCOL_WARNING(
+            text =
                 QString("PProtocol_Bb: Data with message ID %1 and length %2 %3: %4...")
-                .arg(message->id)
-                .arg(message->dataLength)
+                .arg(id, 0, 16)
+                .arg(dataLength)
                 .arg(info)
-                .arg(QString::fromLocal8Bit((char*)message->messagePayload, 5)));
+                .arg(QString::fromLocal8Bit((char*)messagePayload, 50));
         }
     }
     else
     {
-        IFX_OE_SYNCPROTOCOL_WARNING(
+        text =
             QString("PProtocol_Bb: Data with message ID %1 and length 0 %2")
-            .arg(message->id)
-            .arg(info));
+            .arg(id, 0, 16)
+            .arg(info);
+    }
+
+    switch (type)
+    {
+    case Ifx_Oe_SyncProtocol_VerboseLevel_none:    break;
+    case Ifx_Oe_SyncProtocol_VerboseLevel_error:   IFX_OE_SYNCPROTOCOL_ERROR(text);    break;
+    case Ifx_Oe_SyncProtocol_VerboseLevel_warning: IFX_OE_SYNCPROTOCOL_WARNING(text);  break;
+    case Ifx_Oe_SyncProtocol_VerboseLevel_info:    IFX_OE_SYNCPROTOCOL_INFO(text);     break;
     }
 }
 
 
+static void Ifx_Oe_SyncProtocol_printProtocolInfo(Ifx_Oe_SyncProtocol* protocol, QString info, Ifx_Oe_SyncProtocol_VerboseLevel type)
+{
+    if ((protocol->verboseLevel < type) || (type == Ifx_Oe_SyncProtocol_VerboseLevel_none))
+    {
+        return;
+    }
+
+    switch (type)
+    {
+    case Ifx_Oe_SyncProtocol_VerboseLevel_none:    break;
+    case Ifx_Oe_SyncProtocol_VerboseLevel_error:   IFX_OE_SYNCPROTOCOL_ERROR(QString("PProtocol_Bb: %1").arg(info));    break;
+    case Ifx_Oe_SyncProtocol_VerboseLevel_warning: IFX_OE_SYNCPROTOCOL_WARNING(QString("PProtocol_Bb: %1").arg(info));  break;
+    case Ifx_Oe_SyncProtocol_VerboseLevel_info:    IFX_OE_SYNCPROTOCOL_INFO(QString("PProtocol_Bb: %1").arg(info));     break;
+    }
+}
+
+
+static const QString&Ifx_Oe_SyncProtocol_ackToString(uint16 ack)
+{
+    static const QString none;
+    static const QString text[] =
+    {
+        "none",
+        "headerError",
+        "portClosed",
+        "busy",
+        "headerOk",
+        "payloadError",
+        "payloadOk"
+    };
+
+    return ack <= Ifx_Oe_SyncProtocol_Ack_payloadOk ? text[ack] : none;
+}
+
+
+static const QString&Ifx_Oe_SyncProtocol_SendStateToString(Ifx_Oe_SyncProtocol_SendState state)
+{
+    static const QString none;
+    static const QString text[] =
+    {
+        "ready for send",
+        "prepare frame",
+        "sending header",
+        "waiting for header ack",
+        "sending payload start byte",
+        "sending payload",
+        "waiting for payload ack"
+    };
+
+    return state <= Ifx_Oe_SyncProtocol_SendState_waitingForPayloadAck ? text[state] : none;
+}
+
+
+static void Ifx_Oe_SyncProtocol_printMessageInfo(Ifx_Oe_SyncProtocol* protocol, Ifx_Oe_SyncProtocol_Message* message, Ifx_Oe_SyncProtocol_VerboseLevel type, QString info)
+{
+    ASSERT(message);
+    Ifx_Oe_SyncProtocol_printMessageInfoRaw(protocol, message->id, message->dataLength, message->messagePayload, type, info);
+}
+
+
+#else
+/* FIXME SYS_ONEEYE-640 enable message print for uC */
+#define Ifx_Oe_SyncProtocol_printMessageInfo(protocol, message, type, info)
+#define Ifx_Oe_SyncProtocol_printProtocolInfo(protocol, info, type)
+#define  Ifx_Oe_SyncProtocol_printMessageInfoRaw(protocol, id, dataLength, messagePayload, type, info)
+
+#endif
+
 static void Ifx_Oe_SyncProtocol_processSendBuffers(Ifx_Oe_SyncProtocol* protocol)
 {
     Ifx_Oe_SyncProtocol_Port port;
+
+    if ((protocol->send.minMessageSendInterval > 0) && (IFX_OE_SYNCPROTOCOL_CURRENT_TIME < protocol->send.nextMessageSendDeadline))
+    {
+        return;
+    }
 
     for (port = 0; port <= IFX_OE_SYNCPROTOCOL_PORT_MAX; port++)
     {
@@ -656,17 +802,11 @@ static void Ifx_Oe_SyncProtocol_processSendBuffers(Ifx_Oe_SyncProtocol* protocol
                 break;
             }
 
-            if (message->deadline == 0)
+            if (message->dropRequest == 1)
             {
                 /* Message dropped. Remove from buffer */
+                Ifx_Oe_SyncProtocol_printMessageInfo(protocol, message, Ifx_Oe_SyncProtocol_VerboseLevel_warning, "dropped (user action)");
                 Ifx_Oe_SyncProtocol_removeNextSendMessageFromBuffer(client);
-            }
-            else if (message->deadline < IFX_OE_SYNCPROTOCOL_CURRENT_TIME)
-            {
-                /* Remove items that timed out */
-                Ifx_Oe_SyncProtocol_printMessageInfo(message, "dropped");
-                Ifx_Oe_SyncProtocol_removeNextSendMessageFromBuffer(client);
-                client->send.messageDropCounter++;
             }
             else
             {
@@ -681,6 +821,11 @@ static void Ifx_Oe_SyncProtocol_processSendBuffers(Ifx_Oe_SyncProtocol* protocol
 
                 /* Initialize the message sending process  */
                 IFX_OE_SYNCPROTOCOL_DEBUG(QString("Ifx_Oe_SyncProtocol_processSendBuffers [%1]: localPort=0x%2, remotePort=%3, id=0x%4").arg((uint64)client->protocol, 0, 16).arg(client->localPort).arg(client->remotePort).arg(client->send.messageHeader.id, 0, 16));
+
+                if (protocol->send.minMessageSendInterval > 0)
+                {
+                    protocol->send.nextMessageSendDeadline = IFX_OE_SYNCPROTOCOL_CURRENT_TIME + protocol->send.minMessageSendInterval;
+                }
 
                 break;
             }
@@ -757,11 +902,11 @@ Ifx_Oe_SyncProtocol_Message* Ifx_Oe_SyncProtocol_setSendMessageBuffer(Ifx_Oe_Syn
     else if (!Ifx_Oe_SyncProtocol_fifoIsFull(client->send.buffer))
     {
         Ifx_Oe_SyncProtocol_Message message;
-        message.valid      = 0;
-        message.reserved   = 0;
-        message.id         = id;
-        message.deadline   = IFX_OE_SYNCPROTOCOL_CURRENT_TIME + client->protocol->timeout;
-        message.dataLength = payloadLength;
+        message.valid       = 0;
+        message.dropRequest = 0;
+        message.reserved    = 0;
+        message.id          = id;
+        message.dataLength  = payloadLength;
 
         if (payloadLength > 0)
         {
@@ -772,6 +917,11 @@ Ifx_Oe_SyncProtocol_Message* Ifx_Oe_SyncProtocol_setSendMessageBuffer(Ifx_Oe_Syn
                 ASSERT(FALSE);
                 client->send.messageDropCounter++;
                 return NULL;
+            }
+            else
+            {
+                /* Init payload to 0 */
+                memset(message.messagePayload, 0, payloadLength);
             }
         }
         else
@@ -852,8 +1002,8 @@ void Ifx_Oe_SyncProtocol_sendMessage(Ifx_Oe_SyncProtocol_Message* message)
 void Ifx_Oe_SyncProtocol_dropMessage(Ifx_Oe_SyncProtocol_Message* message)
 {
     /* Set deadline to 0 so that the message get discarded */
-    message->valid    = 1;
-    message->deadline = 0;
+    message->valid       = 1;
+    message->dropRequest = 1;
 }
 
 
@@ -885,7 +1035,7 @@ static boolean Ifx_Oe_SyncProtocol_setAck(Ifx_Oe_SyncProtocol* protocol, Ifx_Oe_
         header->flags.B.ack             = protocol->send.pendingAckStatus;
         header->flags.B.indexAck        = protocol->send.pendingAckFrameIndex;
         protocol->send.pendingAckStatus = Ifx_Oe_SyncProtocol_Ack_none;
-        IFX_OE_SYNCPROTOCOL_DEBUG(QString("Ifx_Oe_SyncProtocol_setAck [%1]: ack=%2, frameIndex=%3").arg((uint64)protocol, 0, 16).arg(header->flags.B.ack).arg(header->flags.B.indexAck));
+        IFX_OE_SYNCPROTOCOL_DEBUG(QString("Ifx_Oe_SyncProtocol_setAck [%1]: ack=%2, frameIndex=%3").arg((uint64)protocol, 0, 16).arg(Ifx_Oe_SyncProtocol_ackToString(header->flags.B.ack)).arg(header->flags.B.indexAck));
         result                          = TRUE;
     }
     else
@@ -1101,12 +1251,18 @@ static void Ifx_Oe_SyncProtocol_processOutgoing(Ifx_Oe_SyncProtocol* protocol)
     }
     else if (protocol->send.deadline <= IFX_OE_SYNCPROTOCOL_CURRENT_TIME)
     {
+        Ifx_Oe_SyncProtocol_printMessageInfo(
+            protocol,
+            protocol->send.currentClient->send.currentMessage,
+            Ifx_Oe_SyncProtocol_VerboseLevel_error,
+            QString("dropped (timeout: %1)").arg(Ifx_Oe_SyncProtocol_SendStateToString(protocol->send.state)));
         protocol->status.sendTimeout++;
         Ifx_Oe_SyncProtocol_freeCurrentSendMessage(protocol->send.currentClient);
         protocol->send.currentClient->send.messageSendError = TRUE;
-        protocol->send.currentClient                        = NULL;
-        protocol->send.state                                = Ifx_Oe_SyncProtocol_SendState_readyForSend;
-        IFX_OE_SYNCPROTOCOL_DEBUG(QString("Ifx_Oe_SyncProtocol_processOutgoing [%1]: Send timeout").arg((uint64)protocol, 0, 16));
+        protocol->send.currentClient->send.messageDropCounter++;
+
+        protocol->send.currentClient = NULL;
+        protocol->send.state         = Ifx_Oe_SyncProtocol_SendState_readyForSend;
     }
     else if (protocol->send.state == Ifx_Oe_SyncProtocol_SendState_sendingHeader)
     {
@@ -1130,17 +1286,34 @@ static void Ifx_Oe_SyncProtocol_processOutgoing(Ifx_Oe_SyncProtocol* protocol)
         {
             IFX_OE_SYNCPROTOCOL_DEBUG(QString("Ifx_Oe_SyncProtocol_processOutgoing [%1]: Ack OK received :").arg((uint64)protocol, 0, 16));
             protocol->send.state = header->length == 0 ? Ifx_Oe_SyncProtocol_SendState_readyForSend : Ifx_Oe_SyncProtocol_SendState_sendingPayloadStartByte;
+
+            /* Reset message resend count */
+            protocol->send.currentClient->send.resendCount = 0;
         }
         else if (
             (protocol->send.headerAckReceived == Ifx_Oe_SyncProtocol_Ack_busy)
             || (protocol->send.headerAckReceived == Ifx_Oe_SyncProtocol_Ack_portClosed))
         {
-            /* Cancel payload send */
-            IFX_OE_SYNCPROTOCOL_DEBUG(QString("Ifx_Oe_SyncProtocol_processOutgoing [%1]: Ack %2 received, aborting :").arg((uint64)protocol, 0, 16).arg(protocol->send.headerAckReceived));
-            protocol->send.state                                = Ifx_Oe_SyncProtocol_SendState_readyForSend;
-            Ifx_Oe_SyncProtocol_freeCurrentSendMessage(protocol->send.currentClient);
-            protocol->send.currentClient->send.messageSendError = TRUE;
-            protocol->send.currentClient                        = NULL;
+            if ((protocol->send.headerAckReceived == Ifx_Oe_SyncProtocol_Ack_busy) && (protocol->send.currentClient->send.resendCount < protocol->send.maxResendCount))
+            {
+                /* Try resend the message */
+                Ifx_Oe_SyncProtocol_printMessageInfo(protocol, protocol->send.currentClient->send.currentMessage, Ifx_Oe_SyncProtocol_VerboseLevel_warning, QString("%1, retrying message send").arg(Ifx_Oe_SyncProtocol_ackToString(protocol->send.headerAckReceived)));
+                IFX_OE_SYNCPROTOCOL_DEBUG(QString("Ifx_Oe_SyncProtocol_processOutgoing [%1]: Ack %2 received, re-sending :").arg((uint64)protocol, 0, 16).arg(protocol->send.headerAckReceived));
+                /* Mark the client to not send the message, message send will be rescheduled, including message wait time  */
+                protocol->send.currentClient->send.resendCount++;
+                protocol->send.currentClient->send.currentMessage = NULL;
+            }
+            else
+            {
+                /* Cancel payload / message send */
+                Ifx_Oe_SyncProtocol_printMessageInfo(protocol, protocol->send.currentClient->send.currentMessage, Ifx_Oe_SyncProtocol_VerboseLevel_error, QString("dropped (%1)").arg(Ifx_Oe_SyncProtocol_ackToString(protocol->send.headerAckReceived)));
+                IFX_OE_SYNCPROTOCOL_DEBUG(QString("Ifx_Oe_SyncProtocol_processOutgoing [%1]: Ack %2 received, aborting :").arg((uint64)protocol, 0, 16).arg(protocol->send.headerAckReceived));
+                Ifx_Oe_SyncProtocol_freeCurrentSendMessage(protocol->send.currentClient);
+                protocol->send.currentClient->send.messageSendError = TRUE;
+            }
+
+            protocol->send.state         = Ifx_Oe_SyncProtocol_SendState_readyForSend;
+            protocol->send.currentClient = NULL;
         }
         else if (protocol->send.headerAckReceived == Ifx_Oe_SyncProtocol_Ack_headerError)
         {
@@ -1152,6 +1325,7 @@ static void Ifx_Oe_SyncProtocol_processOutgoing(Ifx_Oe_SyncProtocol* protocol)
         }
         else if (Ifx_Oe_SyncProtocol_checkPendingAck(protocol))
         {
+            /* A frame is currently beeing send but waiting for ack, send an ack in the meanwhile */
             protocol->send.ackHeaderValid     = TRUE;
             protocol->send.ackHeaderByteIndex = 0;
         }
@@ -1189,6 +1363,7 @@ static void Ifx_Oe_SyncProtocol_processOutgoing(Ifx_Oe_SyncProtocol* protocol)
             if ((header->flags.B.frameType == Ifx_Oe_SyncProtocol_FrameType_data)
                 || (header->flags.B.frameType == Ifx_Oe_SyncProtocol_FrameType_dataEnd))
             {
+                Ifx_Oe_SyncProtocol_printMessageInfo(protocol, protocol->send.currentClient->send.currentMessage, Ifx_Oe_SyncProtocol_VerboseLevel_info, "send");
                 Ifx_Oe_SyncProtocol_freeCurrentSendMessage(protocol->send.currentClient);
             }
 
@@ -1196,15 +1371,16 @@ static void Ifx_Oe_SyncProtocol_processOutgoing(Ifx_Oe_SyncProtocol* protocol)
         }
         else if (protocol->send.payloadAckReceived == Ifx_Oe_SyncProtocol_Ack_payloadError)
         {
-            /* re-send payload */
-            IFX_OE_SYNCPROTOCOL_DEBUG(QString("Ifx_Oe_SyncProtocol_processOutgoing [%1]: Payload ACK ERROR received, resend :").arg((uint64)protocol, 0, 16));
-            protocol->send.state                                 = Ifx_Oe_SyncProtocol_SendState_sendingPayloadStartByte;
+            /* re-send payload including header */
+            Ifx_Oe_SyncProtocol_printMessageInfo(protocol, protocol->send.currentClient->send.currentMessage, Ifx_Oe_SyncProtocol_VerboseLevel_warning, "payload ack ERROR, retry frame send");
+            protocol->send.state                                 = Ifx_Oe_SyncProtocol_SendState_prepareFrame;
             protocol->send.payloadAckReceived                    = Ifx_Oe_SyncProtocol_Ack_none;
             protocol->send.currentClient->send.messageByteIndex -= protocol->send.framePayloadByteIndex;
             protocol->send.framePayloadByteIndex                 = 0;
         }
         else if (Ifx_Oe_SyncProtocol_checkPendingAck(protocol))
         {
+            /* A frame is currently beeing send but waiting for data, send an ack in the meanwhile */
             protocol->send.ackHeaderValid     = TRUE;
             protocol->send.ackHeaderByteIndex = 0;
         }
@@ -1262,14 +1438,14 @@ static void Ifx_Oe_SyncProtocol_processAck(Ifx_Oe_SyncProtocol* protocol, Ifx_Oe
     {
         if (protocol->send.header.flags.B.index == header->flags.B.indexAck)
         {
+            IFX_OE_SYNCPROTOCOL_DEBUG(QString("Ifx_Oe_SyncProtocol_processAck [%1]: ack=%2").arg((uint64)protocol, 0, 16).arg(Ifx_Oe_SyncProtocol_ackToString(header->flags.B.ack)));
+
             if (protocol->send.state == Ifx_Oe_SyncProtocol_SendState_waitingForHeaderAck)
             {
-                IFX_OE_SYNCPROTOCOL_DEBUG(QString("Ifx_Oe_SyncProtocol_processAck [%1]: ack=%2").arg((uint64)protocol, 0, 16).arg(header->flags.B.ack));
                 protocol->send.headerAckReceived = header->flags.B.ack;
             }
             else if (protocol->send.state == Ifx_Oe_SyncProtocol_SendState_waitingForPayloadAck)
             {
-                IFX_OE_SYNCPROTOCOL_DEBUG(QString("Ifx_Oe_SyncProtocol_processAck [%1]: ack=%2").arg((uint64)protocol, 0, 16).arg(header->flags.B.ack));
                 protocol->send.payloadAckReceived = header->flags.B.ack;
             }
         }
@@ -1310,7 +1486,8 @@ static void Ifx_Oe_SyncProtocol_readHeader(Ifx_Oe_SyncProtocol* protocol)
         {
             if (header->checksumHeader == Ifx_Oe_SyncProtocol_calculateFrameHeaderChecksum(header))
             {
-                protocol->receive.deadline            = IFX_OE_SYNCPROTOCOL_CURRENT_TIME + protocol->timeout;
+                /* Use half of the timeout for the receve than for the send to trigger while the sending client is waiting for the frame send to be finished */
+                protocol->receive.deadline            = IFX_OE_SYNCPROTOCOL_CURRENT_TIME + protocol->timeout / 2;
                 IFX_OE_SYNCPROTOCOL_DEBUG(QString("Ifx_Oe_SyncProtocol_readHeader [%1]: Header received : frameIndex=%2, sender=%3, receiver=%4").arg((uint64)protocol, 0, 16).arg(header->flags.B.index).arg(header->sender).arg(header->receiver));
                 protocol->synchronized                = TRUE;
                 protocol->receive.lastValidFrameIndex = header->flags.B.index;
@@ -1336,7 +1513,7 @@ static void Ifx_Oe_SyncProtocol_readHeader(Ifx_Oe_SyncProtocol* protocol)
                 }
                 else if (client->receive.messageValid)
                 {
-                    /* Message buffer is validbut not read. Send busy ACK and discard message */
+                    /* Message buffer is valid but not read. Send busy ACK and discard message */
                     Ifx_Oe_SyncProtocol_raiseAck(protocol, header->flags.B.index, Ifx_Oe_SyncProtocol_Ack_busy);
                     protocol->status.portBusy++;
                     protocol->receive.frameHeaderByteIndex = 0;
@@ -1365,6 +1542,7 @@ static void Ifx_Oe_SyncProtocol_readHeader(Ifx_Oe_SyncProtocol* protocol)
                         {
                             Ifx_Oe_SyncProtocol_raiseAck(protocol, header->flags.B.index, Ifx_Oe_SyncProtocol_Ack_headerOk);
                             protocol->receive.frameHeaderByteIndex = 0;
+                            /* FIXME to be checked: it seems that message with empty payload do not lead to client->receive.messageValid=TRUE */
                         }
 
                         break;
@@ -1468,6 +1646,7 @@ static void Ifx_Oe_SyncProtocol_processIncomming(Ifx_Oe_SyncProtocol* protocol)
     else if (protocol->receive.deadline <= IFX_OE_SYNCPROTOCOL_CURRENT_TIME)
     {
         protocol->status.receiveTimeout++;
+        Ifx_Oe_SyncProtocol_raiseAck(protocol, protocol->receive.header.flags.B.index, Ifx_Oe_SyncProtocol_Ack_payloadError);
         protocol->receive.frameHeaderByteIndex = 0;
         protocol->waitingForPayload            = FALSE;
         protocol->receive.state                = Ifx_Oe_SyncProtocol_ReceiveState_waitingForHeader;
@@ -1498,10 +1677,12 @@ static void Ifx_Oe_SyncProtocol_processIncomming(Ifx_Oe_SyncProtocol* protocol)
             }
             else
             {
+                Ifx_Oe_SyncProtocol_raiseAck(protocol, protocol->receive.header.flags.B.index, Ifx_Oe_SyncProtocol_Ack_payloadError);
                 protocol->status.invalidStartByte++;
                 protocol->receive.frameHeaderByteIndex = 0;
                 protocol->waitingForPayload            = FALSE;
                 protocol->receive.state                = Ifx_Oe_SyncProtocol_ReceiveState_waitingForHeader;
+                Ifx_Oe_SyncProtocol_printProtocolInfo(protocol, "Invalid payload, request resend", Ifx_Oe_SyncProtocol_VerboseLevel_warning);
             }
         }
     }
@@ -1568,17 +1749,17 @@ static void Ifx_Oe_SyncProtocol_processIncomming(Ifx_Oe_SyncProtocol* protocol)
 
                 if (client->receive.messageByteIndex == client->receive.messageHeader.length)
                 {
-                    IFX_OE_SYNCPROTOCOL_DEBUG(QString("Ifx_Oe_SyncProtocol_processIncomming [%1]: Message received, ID=0x%2").arg((uint64)protocol, 0, 16).arg(client->receive.messageHeader.id, 0, 16));
                     client->receive.messageValid = TRUE;
+                    Ifx_Oe_SyncProtocol_printMessageInfoRaw(protocol, client->receive.messageHeader.id, client->receive.messageHeader.length - IFX_OE_SYNCPROTOCOL_MESSAGE_HEADER_SIZE, client->receive.messagePayload, Ifx_Oe_SyncProtocol_VerboseLevel_info, "received");
                 }
             }
             else
             {
-                IFX_OE_SYNCPROTOCOL_DEBUG(QString("Ifx_Oe_SyncProtocol_processIncomming [%1]: Payload received (checksum error)").arg((uint64)protocol, 0, 16));
+                Ifx_Oe_SyncProtocol_printProtocolInfo(protocol, "Payload checksum error, request resend", Ifx_Oe_SyncProtocol_VerboseLevel_warning);
                 Ifx_Oe_SyncProtocol_raiseAck(protocol, header->flags.B.index, Ifx_Oe_SyncProtocol_Ack_payloadError);
                 client->receive.messageByteIndex       -= protocol->receive.framePayloadByteIndex;
                 protocol->receive.framePayloadByteIndex = 0;
-                protocol->receive.state                 = Ifx_Oe_SyncProtocol_ReceiveState_waitingForPayload;
+                protocol->receive.state                 = Ifx_Oe_SyncProtocol_ReceiveState_waitingForHeader;
                 protocol->status.payloadError++;
             }
         }

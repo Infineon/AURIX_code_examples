@@ -2,6 +2,8 @@
  * \file ifx_oe_time.c
  * \brief Board support package
  *
+ * oneeye_lib version 0.6
+ *
  * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
  *
  *                                 IMPORTANT NOTICE
@@ -42,7 +44,6 @@
 #include "ifx_oe_time.h"
 
 Ifx_Oe_TickTime Ifx_g_Oe_tickForOneMillisecond = 0;
-Ifx_Oe_TickTime Ifx_g_Oe_tickForOneMicrosecond = 0;
 
 Ifx_Oe_TickTime Ifx_Oe_Time_getTickForMilliseconds(uint32 milliseconds)
 {
@@ -55,12 +56,25 @@ Ifx_Oe_TickTime Ifx_Oe_Time_getTickForMilliseconds(uint32 milliseconds)
 }
 
 
-Ifx_Oe_TickTime Ifx_Oe_Time_getTickForMicroseconds(uint32 microseconds)
+uint32 Ifx_Oe_Time_getMillisecondForTicks(Ifx_Oe_TickTime ticks)
 {
-    if (Ifx_g_Oe_tickForOneMicrosecond == 0)
+    if (Ifx_g_Oe_tickForOneMillisecond == 0)
     {
-        Ifx_g_Oe_tickForOneMicrosecond = Ifx_Oe_getTimerFrequency() / 1000000;
+        Ifx_g_Oe_tickForOneMillisecond = Ifx_Oe_getTimerFrequency() / 1000;
     }
 
-    return Ifx_g_Oe_tickForOneMicrosecond * microseconds;
+    return ticks / Ifx_g_Oe_tickForOneMillisecond;
+}
+
+
+Ifx_Oe_TickTime Ifx_Oe_Time_getTickForMicroseconds(uint32 microseconds)
+{
+    if (Ifx_g_Oe_tickForOneMillisecond == 0)
+    {
+        Ifx_g_Oe_tickForOneMillisecond = Ifx_Oe_getTimerFrequency() / 1000;
+    }
+
+    /* FIXME ensure rounding to next bigger value */
+
+    return (Ifx_g_Oe_tickForOneMillisecond * microseconds) / 1000;
 }

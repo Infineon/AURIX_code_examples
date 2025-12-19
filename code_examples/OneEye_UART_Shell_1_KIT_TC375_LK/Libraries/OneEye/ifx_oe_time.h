@@ -1,6 +1,8 @@
 /**
  * \file ifx_oe_time.h
  *
+ * oneeye_lib version 0.6
+ *
  * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
  *
  *                                 IMPORTANT NOTICE
@@ -41,7 +43,9 @@
 #ifndef IFX_OE_TIME_H
 #define IFX_OE_TIME_H
 #include "ifx_oe_al.h"
-
+#ifdef __cplusplus
+extern "C" {
+#endif
 /******************************************************************************/
 /*                           Typedef                                          */
 /******************************************************************************/
@@ -70,12 +74,14 @@ IFX_OE_INLINE boolean         Ifx_Oe_Time_isDeadLine(Ifx_Oe_TickTime deadLine);
  * \return Returns system timer value.
  */
 Ifx_Oe_TickTime               Ifx_Oe_Time_now(void);
+IFX_OE_INLINE Ifx_Oe_TickTime Ifx_Oe_Time_elapsed(Ifx_Oe_TickTime since);
 IFX_OE_INLINE void            Ifx_Oe_Time_wait(Ifx_Oe_TickTime timeout);
 
 #define Ifx_Oe_Time_0s       ((Ifx_Oe_TickTime)0)                        /**< \brief time constant equal to 1s */
 #define Ifx_Oe_Time_infinite ((Ifx_Oe_TickTime)0x7FFFFFFFFFFFFFFFLL)
 
 IFX_OE_EXTERN Ifx_Oe_TickTime Ifx_Oe_Time_getTickForMilliseconds(uint32 milliseconds);
+IFX_OE_EXTERN uint32          Ifx_Oe_Time_getMillisecondForTicks(Ifx_Oe_TickTime ticks);
 IFX_OE_EXTERN Ifx_Oe_TickTime Ifx_Oe_Time_getTickForMicroseconds(uint32 microseconds);
 
 /******************************************************************************/
@@ -153,6 +159,18 @@ IFX_OE_INLINE boolean Ifx_Oe_Time_isDeadLine(Ifx_Oe_TickTime deadLine)
 }
 
 
+/** \brief Return the elapsed time in ticks.
+ *
+ * Return the elapsed time between the current time and the time passed as parameter
+ *
+ * \return Returns the elapsed time.
+ */
+IFX_OE_INLINE Ifx_Oe_TickTime Ifx_Oe_Time_elapsed(Ifx_Oe_TickTime since)
+{
+    return Ifx_Oe_Time_now() - since;
+}
+
+
 /** \brief Wait for a while.
  *
  * \param timeout Specifies the waiting time
@@ -168,5 +186,9 @@ IFX_OE_INLINE void Ifx_Oe_Time_wait(Ifx_Oe_TickTime timeout)
     }
 }
 
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* IFX_OE_TIME_H */

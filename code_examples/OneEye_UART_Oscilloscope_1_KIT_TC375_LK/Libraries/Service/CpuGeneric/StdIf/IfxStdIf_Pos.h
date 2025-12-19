@@ -544,7 +544,7 @@ IFX_INLINE void IfxStdIf_Pos_setRefreshPeriod(IfxStdIf_Pos *stdIf, float32 updat
  */
 IFX_INLINE float32 IfxStdIf_Pos_radsToRpm(float32 speed)
 {
-    return (60.0 / (2.0 * IFX_PI)) * speed;
+    return (60.0f / (2.0f * IFX_PI)) * speed;
 }
 
 
@@ -557,7 +557,7 @@ IFX_INLINE float32 IfxStdIf_Pos_radsToRpm(float32 speed)
  */
 IFX_INLINE float32 IfxStdIf_Pos_rpmToRads(float32 speed)
 {
-    return speed * ((2.0 * IFX_PI) / 60.0);
+    return speed * ((2.0f * IFX_PI) / 60.0f);
 }
 
 

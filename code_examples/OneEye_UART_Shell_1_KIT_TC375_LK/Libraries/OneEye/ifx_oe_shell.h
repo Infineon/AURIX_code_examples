@@ -2,6 +2,8 @@
  * \file ifx_oe_shell.h
  * \brief Shell functions.
  *
+ * oneeye_lib version 0.6
+ *
  * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
  *
  *                                 IMPORTANT NOTICE
@@ -117,7 +119,7 @@
 #ifndef IFX_OE_SHELL_H
 #define IFX_OE_SHELL_H
 //----------------------------------------------------------------------------------------
-#include "ifx_oe_dpipewrapper.h"
+#include "ifx_oe_stdif_dpipe.h"
 
 //----------------------------------------------------------------------------------------
 #define IFX_OE_SHELL_NULL_CHAR '\0'
@@ -175,7 +177,7 @@ typedef enum
 } Ifx_Oe_Shell_ResultCode;
 
 /** \brief Definition of a callback function which handles a Shell command */
-typedef boolean (* Ifx_Oe_Shell_Call)(pchar args, void* data, IfxStdIf_DPipe* io);
+typedef boolean (* Ifx_Oe_Shell_Call)(pchar args, void* data, Ifx_Oe_StdIf_DPipe* io);
 
 /** \brief Shell command object */
 typedef struct
@@ -208,7 +210,7 @@ typedef enum
 /** \brief Shell protocol configuration */
 typedef struct
 {
-    boolean (* start)(void* protocol, IfxStdIf_DPipe* io);
+    boolean (* start)(void* protocol, Ifx_Oe_StdIf_DPipe* io);
     void (*execute)(void* protocol);
     void (*onStart)(void* protocol, void* data);
     void* onStartData;
@@ -244,7 +246,7 @@ typedef const Ifx_Oe_Shell_Command* Ifx_Oe_Shell_CommandListConst;
  */
 typedef struct
 {
-    IfxStdIf_DPipe* io;             /**< \brief Pointer to IfxStdIf_DPipe object used by the Shell */
+    Ifx_Oe_StdIf_DPipe* io;             /**< \brief Pointer to Ifx_Oe_StdIf_DPipe object used by the Shell */
 
     Ifx_Oe_Shell_Flags control;        /**< \brief control flags */
 
@@ -273,7 +275,7 @@ typedef struct
  */
 typedef struct
 {
-    IfxStdIf_DPipe* standardIo;                                          /**<\brief Pointer to a IfxStdIf_DPipe object used by the Shell */
+    Ifx_Oe_StdIf_DPipe* standardIo;                                          /**<\brief Pointer to a Ifx_Oe_StdIf_DPipe object used by the Shell */
     boolean echo;                                                        /**<\brief Specifies whether each command shall be echoed back to user */
     boolean showPrompt;                                                  /**<\brief Specifies whether the IFX_CFG_OE_SHELL_PROMPT shall be displayed after each command */
     boolean sendResultCode;                                              /**<\brief Specifies whether the Ifx_Oe_Shell_ResultCode shall be sent to user */
@@ -394,6 +396,18 @@ IFX_OE_EXTERN boolean Ifx_Oe_Shell_matchCommand(pchar* argsPtr, pchar* match);
 IFX_OE_EXTERN boolean Ifx_Oe_Shell_parseToken(pchar* argsPtr, char* tokenBuffer, int bufferLength);
 
 /**
+ * \brief Parse a token up to the sepcified separator
+ * Return the next token in tokenBuffer and move the argsPtr pointer after this token
+ * \param tokenBuffer Pointer to the value storage
+ * \param argsPtr Pointer to the argument null-terminated string
+ * \param separator The character used as separator to search for
+ * \param bufferLength Maximum parsing length
+ *
+ * @note This API has no special handling for quoted tocken
+ */
+IFX_OE_EXTERN boolean Ifx_Oe_Shell_parseTokenToSeparator(pchar* argsPtr, char separator, char* tokenBuffer, int bufferLength);
+
+/**
  * \brief Parse an address
  * \param argsPtr Pointer to the argument null-terminated string
  * \param address Pointer to the value storage
@@ -461,26 +475,26 @@ IFX_OE_EXTERN const Ifx_Oe_Shell_Command* Ifx_Oe_Shell_commandFind(Ifx_Oe_Shell_
 /**
  * \brief Implementation of \ref Ifx_Oe_Shell_Call. Show the help menu from single command list.
  * \param commandList Pointer to an array of Ifx_Oe_Shell_Command
- * \param io Pointer to the IfxStdIf_DPipe object
+ * \param io Pointer to the Ifx_Oe_StdIf_DPipe object
  * \param briefOnly if TRUE, show only the brief description, else show the full description
  * \param singleCommand If TRUE, only show the 1st command pointed by commandList, else show the full list
  */
-IFX_OE_EXTERN boolean Ifx_Oe_Shell_showHelpSingle(Ifx_Oe_Shell_CommandListConst commandList, IfxStdIf_DPipe* io, boolean briefOnly, boolean singleCommand);
+IFX_OE_EXTERN boolean Ifx_Oe_Shell_showHelpSingle(Ifx_Oe_Shell_CommandListConst commandList, Ifx_Oe_StdIf_DPipe* io, boolean briefOnly, boolean singleCommand);
 
 /**
  * \brief Implementation of \ref Ifx_Oe_Shell_Call. Show the help menu and list of commands.
  * \param args The argument null-terminated string
  * \param shellPtr Pointer to a Shell object
- * \param io Pointer to \ref IfxStdIf_DPipe object
+ * \param io Pointer to \ref Ifx_Oe_StdIf_DPipe object
  */
-IFX_OE_EXTERN boolean Ifx_Oe_Shell_showHelp(pchar args, void* shellPtr, IfxStdIf_DPipe* io);
+IFX_OE_EXTERN boolean Ifx_Oe_Shell_showHelp(pchar args, void* shellPtr, Ifx_Oe_StdIf_DPipe* io);
 
 /**
  * \brief Implementation of \ref Ifx_Oe_Shell_Call. print the syntax.
  * \param syntaxList Pointer to syntax list
- * \param io Pointer to \ref IfxStdIf_DPipe object
+ * \param io Pointer to \ref Ifx_Oe_StdIf_DPipe object
  */
-IFX_OE_EXTERN void Ifx_Oe_Shell_printSyntax(const Ifx_Oe_Shell_Syntax* syntaxList, IfxStdIf_DPipe* io);
+IFX_OE_EXTERN void Ifx_Oe_Shell_printSyntax(const Ifx_Oe_Shell_Syntax* syntaxList, Ifx_Oe_StdIf_DPipe* io);
 
 /** \} */
 //----------------------------------------------------------------------------------------
@@ -491,17 +505,17 @@ IFX_OE_EXTERN void Ifx_Oe_Shell_printSyntax(const Ifx_Oe_Shell_Syntax* syntaxLis
  * \brief Implementation of \ref Ifx_Oe_Shell_Call. Start the Shell protocol.
  * \param args The argument null-terminated string
  * \param data Pointer to \ref Ifx_Oe_Shell object
- * \param io Pointer to \ref IfxStdIf_DPipe object
+ * \param io Pointer to \ref Ifx_Oe_StdIf_DPipe object
  */
-IFX_OE_EXTERN boolean Ifx_Oe_Shell_protocolStart(pchar args, void* data, IfxStdIf_DPipe* io);
+IFX_OE_EXTERN boolean Ifx_Oe_Shell_protocolStart(pchar args, void* data, Ifx_Oe_StdIf_DPipe* io);
 
 /**
  * \brief Implementation of \ref Ifx_Oe_Shell_Call. Start the Shell protocol.
  * \param args The argument null-terminated string
  * \param data Pointer to \ref Ifx_Oe_Shell object
- * \param io Pointer to \ref IfxStdIf_DPipe object
+ * \param io Pointer to \ref Ifx_Oe_StdIf_DPipe object
  */
-IFX_OE_EXTERN boolean Ifx_Oe_Shell_bbProtocolStart(pchar args, void* data, IfxStdIf_DPipe* io);
+IFX_OE_EXTERN boolean Ifx_Oe_Shell_bbProtocolStart(pchar args, void* data, Ifx_Oe_StdIf_DPipe* io);
 
 /** \} */
 //----------------------------------------------------------------------------------------

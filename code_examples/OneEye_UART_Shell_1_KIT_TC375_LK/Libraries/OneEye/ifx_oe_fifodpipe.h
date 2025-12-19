@@ -2,6 +2,8 @@
  * \file ifx_oe_fifodpipe.h
  * \brief FIFO DPipe
  *
+ * oneeye_lib version 0.6
+ *
  *
  * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
  *
@@ -42,7 +44,7 @@
 #ifndef IFX_OE_FIFODPIPE_H
 #define IFX_OE_FIFODPIPE_H
 
-#include "ifx_oe_dpipewrapper.h"
+#include "ifx_oe_stdif_dpipe.h"
 #include "ifx_oe_fifo.h"
 
 #if !defined(IFX_CFG_OE_FIFODPIPE_TIMEOUT)
@@ -57,43 +59,53 @@ typedef struct
     Ifx_Oe_Fifo* tx;                             /**< \brief Transmit FIFO buffer */
     Ifx_Oe_Fifo* rx;                             /**< \brief Receive FIFO buffer */
     Ifx_Oe_TickTime writeTimeout;                    /**< \brief Write timeout */
-    IfxStdIf_DPipe stdif;
+    Ifx_Oe_StdIf_DPipe stdif;
 }Ifx_Oe_FifoDPipe;
 
-IFX_OE_EXTERN boolean                   Ifx_Oe_FifoDPipe_write(Ifx_Oe_FifoDPipe* dPipe, void* data, Ifx_Oe_SizeT* count);
-IFX_OE_EXTERN void                      Ifx_Oe_FifoDPipe_writeFormatted(Ifx_Oe_FifoDPipe* dPipe, pchar format, ...);
-IFX_OE_EXTERN void                      Ifx_Oe_FifoDPipe_writeText(Ifx_Oe_FifoDPipe* dPipe, pchar text);
-IFX_OE_EXTERN boolean                   Ifx_Oe_FifoDPipe_read(Ifx_Oe_FifoDPipe* dPipe, void* data, Ifx_Oe_SizeT* count, Ifx_Oe_TickTime timeout);
-IFX_OE_EXTERN sint32                    Ifx_Oe_FifoDPipe_getReadCount(Ifx_Oe_FifoDPipe* dPipe);
-IFX_OE_EXTERN IfxStdIf_DPipe_ReadEvent  Ifx_Oe_FifoDPipe_getReadEvent(Ifx_Oe_FifoDPipe* dPipe);
-IFX_OE_INLINE uint32                    Ifx_Oe_FifoDPipe_getSendCount(Ifx_Oe_FifoDPipe* dPipe)
+IFX_OE_EXTERN boolean                       Ifx_Oe_FifoDPipe_write(Ifx_Oe_FifoDPipe* dPipe, void* data, Ifx_Oe_SizeT* count, Ifx_Oe_TickTime timeout);
+IFX_OE_EXTERN void                          Ifx_Oe_FifoDPipe_writeFormatted(Ifx_Oe_FifoDPipe* dPipe, pchar format, ...);
+IFX_OE_EXTERN void                          Ifx_Oe_FifoDPipe_writeText(Ifx_Oe_FifoDPipe* dPipe, pchar text);
+IFX_OE_EXTERN boolean                       Ifx_Oe_FifoDPipe_read(Ifx_Oe_FifoDPipe* dPipe, void* data, Ifx_Oe_SizeT* count, Ifx_Oe_TickTime timeout);
+IFX_OE_EXTERN sint32                        Ifx_Oe_FifoDPipe_getReadCount(Ifx_Oe_FifoDPipe* dPipe);
+IFX_OE_EXTERN Ifx_Oe_StdIf_DPipe_ReadEvent  Ifx_Oe_FifoDPipe_getReadEvent(Ifx_Oe_FifoDPipe* dPipe);
+IFX_OE_INLINE uint32                        Ifx_Oe_FifoDPipe_getSendCount(Ifx_Oe_FifoDPipe* dPipe)
 { return 0; /* FIXME TODO */ }
-IFX_OE_INLINE Ifx_Oe_TickTime           Ifx_Oe_FifoDPipe_getTxTimeStamp(Ifx_Oe_FifoDPipe* dPipe)
+IFX_OE_INLINE Ifx_Oe_TickTime               Ifx_Oe_FifoDPipe_getTxTimeStamp(Ifx_Oe_FifoDPipe* dPipe)
 { return 0; /* FIXME TODO */ }
-IFX_OE_EXTERN sint32                    Ifx_Oe_FifoDPipe_getWriteCount(Ifx_Oe_FifoDPipe* dPipe);
-IFX_OE_EXTERN IfxStdIf_DPipe_WriteEvent Ifx_Oe_FifoDPipe_getWriteEvent(Ifx_Oe_FifoDPipe* dPipe);
-IFX_OE_EXTERN boolean                   Ifx_Oe_FifoDPipe_canReadCount(Ifx_Oe_FifoDPipe* dPipe, Ifx_Oe_SizeT count, Ifx_Oe_TickTime timeout);
-IFX_OE_EXTERN boolean                   Ifx_Oe_FifoDPipe_canWriteCount(Ifx_Oe_FifoDPipe* dPipe, Ifx_Oe_SizeT count, Ifx_Oe_TickTime timeout);
-IFX_OE_EXTERN boolean                   Ifx_Oe_FifoDPipe_flushTx(Ifx_Oe_FifoDPipe* dPipe, Ifx_Oe_TickTime timeout);
-IFX_OE_EXTERN void                      Ifx_Oe_FifoDPipe_clearRx(Ifx_Oe_FifoDPipe* dPipe);
-IFX_OE_EXTERN void                      Ifx_Oe_FifoDPipe_clearTx(Ifx_Oe_FifoDPipe* dPipe);
-IFX_OE_INLINE void                      Ifx_Oe_FifoDPipe_onReceive(Ifx_Oe_FifoDPipe* dPipe)
+IFX_OE_EXTERN sint32                        Ifx_Oe_FifoDPipe_getWriteCount(Ifx_Oe_FifoDPipe* dPipe);
+IFX_OE_EXTERN Ifx_Oe_StdIf_DPipe_WriteEvent Ifx_Oe_FifoDPipe_getWriteEvent(Ifx_Oe_FifoDPipe* dPipe);
+IFX_OE_EXTERN boolean                       Ifx_Oe_FifoDPipe_canReadCount(Ifx_Oe_FifoDPipe* dPipe, Ifx_Oe_SizeT count, Ifx_Oe_TickTime timeout);
+IFX_OE_EXTERN boolean                       Ifx_Oe_FifoDPipe_canWriteCount(Ifx_Oe_FifoDPipe* dPipe, Ifx_Oe_SizeT count, Ifx_Oe_TickTime timeout);
+IFX_OE_EXTERN boolean                       Ifx_Oe_FifoDPipe_flushTx(Ifx_Oe_FifoDPipe* dPipe, Ifx_Oe_TickTime timeout);
+IFX_OE_EXTERN void                          Ifx_Oe_FifoDPipe_clearRx(Ifx_Oe_FifoDPipe* dPipe);
+IFX_OE_EXTERN void                          Ifx_Oe_FifoDPipe_clearTx(Ifx_Oe_FifoDPipe* dPipe);
+
+IFX_OE_EXTERN Ifx_Oe_SizeT                  Ifx_Oe_FifoDPipe_txSize(Ifx_Oe_FifoDPipe* dPipe);
+IFX_OE_EXTERN Ifx_Oe_SizeT                  Ifx_Oe_FifoDPipe_rxSize(Ifx_Oe_FifoDPipe* dPipe);
+IFX_OE_EXTERN boolean                       Ifx_Oe_FifoDPipe_isTxEmpty(Ifx_Oe_FifoDPipe* dPipe);
+IFX_OE_EXTERN boolean                       Ifx_Oe_FifoDPipe_isRxEmpty(Ifx_Oe_FifoDPipe* dPipe);
+IFX_OE_EXTERN Ifx_Oe_SizeT                  Ifx_Oe_FifoDPipe_getTxElementSize(Ifx_Oe_FifoDPipe* dPipe);
+IFX_OE_EXTERN Ifx_Oe_SizeT                  Ifx_Oe_FifoDPipe_getRxElementSize(Ifx_Oe_FifoDPipe* dPipe);
+
+IFX_OE_INLINE void                          Ifx_Oe_FifoDPipe_onReceive(Ifx_Oe_FifoDPipe* dPipe)
 { /* NOTHING TO DO  */ }
-IFX_OE_INLINE void                      Ifx_Oe_FifoDPipe_onTransmit(Ifx_Oe_FifoDPipe* dPipe)
+IFX_OE_INLINE void                          Ifx_Oe_FifoDPipe_onTransmit(Ifx_Oe_FifoDPipe* dPipe)
 { /* NOTHING TO DO  */ }
-IFX_OE_INLINE void                      Ifx_Oe_FifoDPipe_onError(Ifx_Oe_FifoDPipe* dPipe)
+IFX_OE_INLINE void                          Ifx_Oe_FifoDPipe_onError(Ifx_Oe_FifoDPipe* dPipe)
 { /* NOTHING TO DO  */ }
-IFX_OE_INLINE void                      Ifx_Oe_FifoDPipe_resetSendCount(Ifx_Oe_FifoDPipe* dPipe)
+IFX_OE_INLINE void                          Ifx_Oe_FifoDPipe_resetSendCount(Ifx_Oe_FifoDPipe* dPipe)
 { /* FIXME TODO */ }
 
-IFX_OE_INLINE IfxStdIf_DPipe* Ifx_Oe_FifoDPipe_getStdIf(Ifx_Oe_FifoDPipe* dPipe)
+IFX_OE_INLINE Ifx_Oe_StdIf_DPipe* Ifx_Oe_FifoDPipe_getStdIf(Ifx_Oe_FifoDPipe* dPipe)
 { return &dPipe->stdif; }
 
-Ifx_Oe_FifoDPipe*          Ifx_Oe_FifoDPipe_create(Ifx_Oe_SizeT rxBufferSize, Ifx_Oe_SizeT txBufferSize);
-void                       Ifx_Oe_FifoDPipe_destroy(Ifx_Oe_FifoDPipe* dPipe);
+Ifx_Oe_FifoDPipe*              Ifx_Oe_FifoDPipe_create(Ifx_Oe_SizeT rxBufferSize, Ifx_Oe_SizeT txBufferSize, Ifx_Oe_SizeT elementSize);
+void                           Ifx_Oe_FifoDPipe_destroy(Ifx_Oe_FifoDPipe* dPipe);
 
-IFX_OE_EXTERN void         Ifx_Oe_FifoDPipe_init(Ifx_Oe_FifoDPipe* dPipe, Ifx_Oe_SizeT rxBufferSize, Ifx_Oe_SizeT txBufferSize);
-IFX_OE_EXTERN void         Ifx_Oe_FifoDPipe_deInit(Ifx_Oe_FifoDPipe* dPipe);
+IFX_OE_EXTERN void             Ifx_Oe_FifoDPipe_init(Ifx_Oe_FifoDPipe* dPipe, Ifx_Oe_SizeT rxBufferSize, Ifx_Oe_SizeT txBufferSize, Ifx_Oe_SizeT elementSize);
+IFX_OE_EXTERN void             Ifx_Oe_FifoDPipe_deInit(Ifx_Oe_FifoDPipe* dPipe);
+IFX_OE_EXTERN Ifx_Oe_FifoDPipe Ifx_Oe_FifoDPipe_reversePipe(Ifx_Oe_FifoDPipe* dPipe);
+
 /**
  * @return Returns a pointer on the TX FIFO
  */

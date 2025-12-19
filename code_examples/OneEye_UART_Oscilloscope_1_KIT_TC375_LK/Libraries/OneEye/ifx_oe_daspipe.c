@@ -1,6 +1,7 @@
 /**
  * \file ifx_oe_daspipe.c
- * \brief Source file for our basebar on each display
+ *
+ * oneeye_lib version 0.6
  *
  *
  * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
@@ -98,22 +99,21 @@ boolean Ifx_Oe_DasPipe_init(Ifx_Oe_DasPipe* dpipe, Ifx_Oe_DasPipe_Config* config
     }
 
     /* must be done only after complete initialization */
-    strncpy((char*)&dpipe->oneEyeDebugPipe.marker, IFX_OE_DASPIPE_MARKER, sizeof(dpipe->oneEyeDebugPipe.marker));
+    memcpy((char*)&dpipe->oneEyeDebugPipe.marker, IFX_OE_DASPIPE_MARKER, sizeof(dpipe->oneEyeDebugPipe.marker));
 
     return TRUE;
 }
 
 
-boolean Ifx_Oe_DasPipe_stdIfDPipeInit(IfxStdIf_DPipe* stdif, Ifx_Oe_DasPipe* dpipe)
+boolean Ifx_Oe_DasPipe_stdIfDPipeInit(Ifx_Oe_StdIf_DPipe* stdif, Ifx_Oe_DasPipe* dpipe)
 {
-    /* Ensure the stdif is reset to zeros */
-    memset(stdif, 0, sizeof(IfxStdIf_DPipe));
+    Ifx_Oe_StdIf_DPipe_initStdIf(stdif);
 
     /* Set the API link */
-    stdif->driver  = (IfxStdIf_InterfaceDriver)dpipe;
-    stdif->write   = (IfxStdIf_DPipe_Write) & Ifx_Oe_DasPipe_Write;
-    stdif->read    = (IfxStdIf_DPipe_Read) & Ifx_Oe_DasPipe_Read;
-    stdif->clearTx = (IfxStdIf_DPipe_ClearTx) & Ifx_Oe_DasPipe_ClearTx;
-    stdif->clearRx = (IfxStdIf_DPipe_ClearRx) & Ifx_Oe_DasPipe_ClearRx;
+    stdif->driver  = (Ifx_Oe_StdIf_InterfaceDriver)dpipe;
+    stdif->write   = (Ifx_Oe_StdIf_DPipe_Write) & Ifx_Oe_DasPipe_Write;
+    stdif->read    = (Ifx_Oe_StdIf_DPipe_Read) & Ifx_Oe_DasPipe_Read;
+    stdif->clearTx = (Ifx_Oe_StdIf_DPipe_ClearTx) & Ifx_Oe_DasPipe_ClearTx;
+    stdif->clearRx = (Ifx_Oe_StdIf_DPipe_ClearRx) & Ifx_Oe_DasPipe_ClearRx;
     return TRUE;
 }

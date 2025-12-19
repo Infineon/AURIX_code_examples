@@ -2,6 +2,8 @@
  * \file ifx_oe_fifo.h
  * \brief FIFO buffer functions
  *
+ * oneeye_lib version 0.6
+ *
  * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
  *
  *                                 IMPORTANT NOTICE
@@ -159,6 +161,19 @@ IFX_OE_EXTERN Ifx_Oe_Fifo* Ifx_Oe_Fifo_init(void* buffer, Ifx_Oe_SizeT size, Ifx
  */
 IFX_OE_EXTERN Ifx_Oe_SizeT Ifx_Oe_Fifo_read(Ifx_Oe_Fifo* fifo, void* data, Ifx_Oe_SizeT count, Ifx_Oe_TickTime timeout);
 
+/** \brief Read data from a fifo but do not remove them from the buffer.
+ *
+ * Only complete elements are returned, if count is not a multiple of
+ * elementSize then the incomplete element is not read/removed from the buffer.
+ *
+ * \param fifo Pointer on the Fifo object
+ * \param data Pointer to the data buffer for storing values
+ * \param count in bytes
+ *
+ * \return return the number of byte that could not be read
+ */
+IFX_OE_EXTERN Ifx_Oe_SizeT Ifx_Oe_Fifo_readAndKeep(const Ifx_Oe_Fifo* fifo, void* data, Ifx_Oe_SizeT count);
+
 /** \brief Remove data from the buffer.
  *
  * Only complete elements are removed, if count is not a multiple of
@@ -209,7 +224,7 @@ IFX_OE_INLINE boolean Ifx_Oe_Fifo_flush(Ifx_Oe_Fifo* fifo, Ifx_Oe_TickTime timeo
  *
  * \return Returns the size of the data in the buffer in bytes
  */
-IFX_OE_INLINE Ifx_Oe_SizeT Ifx_Oe_Fifo_readCount(Ifx_Oe_Fifo* fifo)
+IFX_OE_INLINE Ifx_Oe_SizeT Ifx_Oe_Fifo_readCount(const Ifx_Oe_Fifo* fifo)
 {
     return fifo->shared.count;
 }
@@ -287,6 +302,12 @@ IFX_OE_INLINE char* Ifx_Oe_Fifo_startDataPointer(Ifx_Oe_Fifo* fifo)
 IFX_OE_INLINE char* Ifx_Oe_Fifo_endDataPointer(Ifx_Oe_Fifo* fifo)
 {
     return &((char*)fifo->buffer)[fifo->endIndex];
+}
+
+
+IFX_OE_INLINE Ifx_Oe_SizeT Ifx_Oe_Fifo_getElementSize(Ifx_Oe_Fifo* fifo)
+{
+    return fifo->elementSize;
 }
 
 

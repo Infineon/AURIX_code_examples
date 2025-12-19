@@ -2,6 +2,8 @@
  * \file ifx_oe_cfg.h
  * \brief  Osci
  *
+ * oneeye_lib version 0.6
+ *
  * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
  *
  *                                 IMPORTANT NOTICE

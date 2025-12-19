@@ -66,7 +66,7 @@ IFX_INLINE Ifx_Lut_FxpAngle Ifx_LutAtan2F32_fxpAnglePrivate(float32 valf)
     valf = IFX_LUTATAN2F32_SIZE * valf;
     vali = (uint32)valf;
 
-    if ((valf - (float32)vali) > 0.5)
+    if ((valf - (float32)vali) > 0.5f)
     {   /* Round to nearest */
         vali++;
     }

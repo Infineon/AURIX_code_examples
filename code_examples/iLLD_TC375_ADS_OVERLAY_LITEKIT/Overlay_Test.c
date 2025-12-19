@@ -60,7 +60,7 @@ uint8 ExpecteBufferContent[BUF_SIZE_MAX];
 
 /* Global Variables (used in Test 1, 3) */
 /* CPU0 PFLASH  */
-IFX_ALIGN(32) const uint8 TEST_1_BUF_FLASH[BUF_SIZE] __at(0xA0002000) =
+IFX_ALIGN(32) const uint8 TEST_1_BUF_FLASH[BUF_SIZE] __at(0x80002000) =
 {
         0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
         16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
@@ -112,7 +112,7 @@ IFX_ALIGN(32) uint8 TEST_8_BUF_TARGET[BUF_SIZE] __at(0xB0004100) =
         0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
         16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
 };
-/* CPU0 LMU */
+/* CPU0 DSPR */
 IFX_ALIGN(32) uint8 TEST_8_BUF_REDIRECT[BUF_SIZE] __at(0x70004120) = {0};
 
 
@@ -193,6 +193,7 @@ void Test_1(void)
 
     /* Overlay disabled on CPU0 */
     MODULE_SCU.OVCENABLE.B.OVEN0 = 0;
+    MODULE_SCU.OVCCON.U = 0;
 
     /* Restore back the write-protection for registers */
     IfxScuWdt_setSafetyEndinit(safetyWdtPw);
@@ -246,15 +247,15 @@ void Test_1(void)
                               (0 << 2)  | /* CSEL2   */
                               (1 << 16) | /* OVSTRT  */
                               (0 << 17) | /* OVSTP   */
-                              (1 << 18) | /* DCINVAL */
+                              (0 << 18) | /* DCINVAL */
                               (0 << 24) | /* OVCONF  */
                               (0 << 25);  /* POVCONF */
 
         /* Restore back the write-protection for registers */
         IfxScuWdt_setSafetyEndinit(safetyWdtPw);
 
-        /* Flush the data cache to ensure consistency */
-        __dsync();
+
+
 
         /* Re-enable interrupts */
         IfxCpu_restoreInterrupts(interruptState);
@@ -268,13 +269,16 @@ void Test_1(void)
          * pBuf for allowing access to PFlash
          */
         uint8* pBuf = (uint8*) TEST_1_BUF_FLASH;
-
+       // IfxCpu_setDataCache(FALSE);
         for (uint32 i = 0; i < BUF_SIZE; i++)
         {
             ExpecteBufferContent[i] = (uint8) (i + 11);
-            pBuf[i] =  ExpecteBufferContent[i];
-        }
 
+            pBuf[i] =  ExpecteBufferContent[i];
+            __cacheawi( &pBuf[i]);
+
+        }
+       // IfxCpu_setDataCache(TRUE);
         /* Disable Overlay */
         interruptState = IfxCpu_disableInterrupts();
 
@@ -506,6 +510,7 @@ void Test_4(void)
         ledOn(LED_ERROR);
     }
 }
+
 /* Test 5
  * 2 Blocks (32 Byte address range)
  * PFLASH target memory - Non-cached
@@ -682,7 +687,7 @@ void Test_7(void)
 /* Test 8
  * 1 Block (32 Byte address range)
  * Target in LMU
- * Redirect in LMU
+ * Redirect in DSPR
  * (In this scenario, the Overlay is not enabled, and the ERROR is occurred).
  */
 void Test_8(void)
@@ -755,7 +760,7 @@ void Test_9(void)
         /* Disable Overlay */
         IfxCpu_disableOverlayBlock(IfxCpu_ResourceCpu_0, 0);
 
-        /* Verification for Overlay functionality  */\
+        /* Verification for Overlay functionality  */
         Test_MemoryValidation((uint8*) TEST_9_BUF_FLASH, (uint8*) TEST_9_BUF_LMU, sizeof(TEST_9_BUF_FLASH));
     }
     else

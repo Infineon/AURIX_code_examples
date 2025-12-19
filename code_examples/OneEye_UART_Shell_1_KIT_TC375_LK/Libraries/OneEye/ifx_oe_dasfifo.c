@@ -1,6 +1,7 @@
 /**
  * \file ifx_oe_dasfifo.c
- * \brief Source file for our basebar on each display
+ *
+ * oneeye_lib version 0.6
  *
  *
  * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
@@ -42,13 +43,13 @@
 
 #include "ifx_oe_dasfifo.h"
 #include "stdlib.h"
-static inline boolean Ifx_Oe_DasFifo_CompareAndSet(volatile void* dst, uint32 old, uint32 new)
+IFX_OE_INLINE boolean Ifx_Oe_DasFifo_CompareAndSet(volatile void* dst, uint32 old, uint32 new)
 {
     return Ifx_Oe_cmpAndSwap((unsigned int*)dst, new, old) == old ? TRUE : FALSE;
 }
 
 
-static inline uint32 Ifx_Oe_DasFifo_Dist(uint32 high, uint32 low, uint32 size)
+IFX_OE_INLINE uint32 Ifx_Oe_DasFifo_Dist(uint32 high, uint32 low, uint32 size)
 {
     uint32 res;
 

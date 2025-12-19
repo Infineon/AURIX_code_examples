@@ -1,6 +1,8 @@
 /**
  * \file ifx_oe_shellbb.h
  *
+ * oneeye_lib version 0.6
+ *
  * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
  *
  *                                 IMPORTANT NOTICE
@@ -46,8 +48,8 @@
 extern "C" {
 #endif
 
-#ifndef IFX_OE_SHELLBB_TX_BUFFER_LENGTH
-#define IFX_OE_SHELLBB_TX_BUFFER_LENGTH (1)
+#ifndef IFX_CFG_OE_SHELLBB_TX_BUFFER_LENGTH
+#define IFX_CFG_OE_SHELLBB_TX_BUFFER_LENGTH (1)
 #endif
 
 typedef struct

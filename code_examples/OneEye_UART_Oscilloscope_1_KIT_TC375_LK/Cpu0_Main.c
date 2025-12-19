@@ -24,24 +24,24 @@
  * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
  * IN THE SOFTWARE.
  *********************************************************************************************************************/
-/*\title Oscilloscope over UART using OneEye
+ /*\title Oscilloscope over UART using OneEye
  * \abstract Demonstrate how to implement the OneEye oscilloscope over the UART (USB) interface
  * \description After configuring the OneEye UART interface, a OneEye oscilloscope is created.
  *              The signals are updated and sampled every millisecond.
  *              OneEye is used to visualize the signal values.
  *
  * \name OneEye_UART_Oscilloscope_1_KIT_TC375_LK
- * \version V1.0.0
+ * \version V1.0.1
  * \board AURIX TC375 lite Kit, KIT_A2G_TC375_LITE, TC37xTP_A-Step
- * \keywords OneEye, UART, USB, Oscilloscope, AURIX
- * \documents https://www.infineon.com/aurix-expert-training/Infineon-AURIX_OneEye_UART_Oscilloscope_1_KIT_TC375_LK-TR-v01_00_00-EN.pdf
- * \documents https://www.infineon.com/aurix-expert-training/TC37A_iLLD_UM_1_0_1_12_1.chm
- * \lastUpdated 2022-06-30
+ * \keywords OneEye, UART, USB, Oscilloscope, AURIX, Infineon GUI Designer
+ * \documents see README.md
+ * \lastUpdated 2024-06-18
  *********************************************************************************************************************/
 #include "IfxScuWdt.h"
 #include "Oscilloscope.h"
 #include "Uart.h"
 #include "SignalGenerator.h"
+
 
 /*********************************************************************************************************************/
 /*------------------------------------------------------Macros-------------------------------------------------------*/

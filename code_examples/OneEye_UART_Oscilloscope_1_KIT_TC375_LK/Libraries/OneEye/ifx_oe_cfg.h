@@ -1,6 +1,8 @@
 /**
  * \file ifx_oe_cfg.h
  *
+ * oneeye_lib version 0.6
+ *
  * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
  *
  *                                 IMPORTANT NOTICE
@@ -43,13 +45,97 @@
  *
  */
 
+#ifndef IFX_OE_CFG_H
+#define IFX_OE_CFG_H
 #include "Ifx_Cfg.h"
 
-//#define IFX_OE_AL_USE_AURIX_ILLD
 //#define IFX_CFG_OE_DEFINE_TICKTIME
+//#define IFX_CFG_OE_DEFINE_PCHAR
+//#define IFX_CFG_OE_DEFINE_FRACT
+//#define IFX_CFG_OE_DEFINE_CFLOAT32
 //#define IFX_CFG_OE_DEFAULT_TIMER (BSP_DEFAULT_TIMER)
+//#define IFX_CFG_OE_ABSTRACT_DPIPE_LEGACY
 
-#define IFX_CFG_OE_FIFODPIPE_TIMEOUT (Ifx_Oe_Time_getTickForMilliseconds(1000))
+#define IFX_CFG_OE_AL_UC_NONE        (0)
+#define IFX_CFG_OE_AL_UC_ARDUINO     (1)
+#define IFX_CFG_OE_AL_UC_AURIX_ILLD  (2)
+#define IFX_CFG_OE_AL_UC_XMC_DAVEAPP (3)
+#define IFX_CFG_OE_AL_UC_XMC_XMCLIB  (4)
+#define IFX_CFG_OE_AL_UC_CY_PDL      (5)
+
+/** Define IFX_CFG_OE_AL_UC to enable OneEye support for specific
+ *  micro controllers library.
+ *  Options are:
+ *  - IFX_CFG_OE_AL_UC_NONE			: No specific micro-controller library support
+ *  - IFX_CFG_OE_AL_UC_ARDUINO		: Support for ARDUINO
+ *  - IFX_CFG_OE_AL_UC_AURIX_ILLD	: Support for AURIX
+ *  - IFX_CFG_OE_AL_UC_XMC_DAVEAPP	: Support for XMC, XMCLIB, DAVEAPP UART API
+ *  - IFX_CFG_OE_AL_UC_XMC_XMCLIB	: Support for XMC, XMCLIB
+ *  - IFX_CFG_OE_AL_UC_CY_PDL       : Support for CY, PDL
+ */
+#ifndef IFX_CFG_OE_AL_UC
+#define IFX_CFG_OE_AL_UC IFX_CFG_OE_AL_UC_NONE
+#endif
+
+#define IFX_CFG_OE_AL_UC_VARIANT_NONE           (0)
+#define IFX_CFG_OE_AL_UC_VARIANT_AURIX_ILLD_TC4 ((IFX_CFG_OE_AL_UC_AURIX_ILLD << 16) + 4)
+
+/** Define IFX_CFG_OE_AL_UC_VARIANT to enable OneEye support for specific
+ *  micro controller family.
+ *  Options are:
+ *  - IFX_CFG_OE_AL_UC_VARIANT_NONE           : No specific micro-controller support
+ *  - IFX_CFG_OE_AL_UC_VARIANT_AURIX_ILLD_TC4 : Support for iLLD TC4xx
+ */
+#ifndef IFX_CFG_OE_AL_UC_VARIANT
+#define IFX_CFG_OE_AL_UC_VARIANT IFX_CFG_OE_AL_UC_VARIANT_NONE
+#endif
+
+#define IFX_CFG_OE_AL_ASSERT_IGNORE             (0)
+#define IFX_CFG_OE_AL_ASSERT_STOP_ON_ASSERT     (1)
+
+/** Define the ASSERT behaviour
+ *
+ *  Options are:
+ *  - IFX_CFG_OE_AL_ASSERT_IGNORE         : Ignore assertion fail
+ *  - IFX_CFG_OE_AL_ASSERT_STOP_ON_ASSERT : Stop on assertion fail (Endless loop + debug instruction)
+ */
+#ifndef IFX_CFG_OE_AL_ASSERT
+#define IFX_CFG_OE_AL_ASSERT IFX_CFG_OE_AL_ASSERT_STOP_ON_ASSERT
+#endif
+
+
+/** Define IFX_CFG_OE_AL_UTILS to enable OneEye utilities for specific
+ *  micro controllers / libraries.
+ */
+//#define IFX_CFG_OE_AL_UTILS
+
+#define IFX_CFG_OE_AL_UTILS_VARIANT_DEFAULT     (0)
+#define IFX_CFG_OE_AL_UTILS_VARIANT_ARDUINO     (1)
+#define IFX_CFG_OE_AL_UTILS_VARIANT_AURIX_UART  (2)
+#define IFX_CFG_OE_AL_UTILS_VARIANT_XMC_USIC    (3)
+#define IFX_CFG_OE_AL_UTILS_VARIANT_CY_SCB_DMA  (4)
+
+/** Define IFX_CFG_OE_AL_UTILS_VARIANT to enable a specific utility implementation.
+ *
+ *  Options are:
+ *  - IFX_CFG_OE_AL_UTILS_VARIANT_DEFAULT       : use default variant
+ *  - IFX_CFG_OE_AL_UTILS_VARIANT_ARDUINO		: Support for ARDUINO (Default)
+ *  - IFX_CFG_OE_AL_UTILS_VARIANT_AURIX_UART	: Support for AURIX + UART (AURIX default)
+ *  - IFX_CFG_OE_AL_UTILS_VARIANT_XMC_USIC		: Support for XMC + USIC (XMC default)
+ *  - IFX_CFG_OE_AL_UTILS_VARIANT_CY_SCB_DMA    : Support for CY + SBC + DMA (CY default)
+ */
+#ifndef IFX_CFG_OE_AL_UTILS_VARIANT
+#define IFX_CFG_OE_AL_UTILS_VARIANT IFX_CFG_OE_AL_UTILS_VARIANT_DEFAULT
+#endif
+
+/** Enable(1) / disable(0) the Ifx_XAbstractDPipeLegacy class
+ *
+ */
+#ifndef IFX_CFG_OE_XABSTRACT_DPIPE_LEGACY_ENABLED
+#define IFX_CFG_OE_XABSTRACT_DPIPE_LEGACY_ENABLED 0
+#endif
+
+//#define IFX_CFG_OE_FIFODPIPE_TIMEOUT (Ifx_Oe_Time_getTickForMilliseconds(1000))
 
 //#define IFX_CFG_OE_OSCI_MAX_NUM_OF_SIGNALS (20)
 //#define IFX_CFG_OE_OSCI_MAX_NUM_OF_CHANNELS (10)
@@ -60,6 +146,71 @@
 //#define IFX_CFG_OE_SHELL_CMD_LINE_SIZE    (128)    /**<\brief max command line IFX_CFG_OE_SHELL_CMD_LINE_SIZE - 1 */
 //#define IFX_CFG_OE_SHELL_COMMAND_LISTS    (1)      /**<\brief Number of command lists */
 //#define IFX_CFG_OE_SHELL_PROMPT           "Shell>"    /**<\brief Shell prompt */
-#define IFX_CFG_OE_SHELL_TIMEOUT (Ifx_Oe_Time_getTickForMilliseconds(1000))
+//#define IFX_CFG_OE_SHELL_TIMEOUT (Ifx_Oe_Time_getTickForMilliseconds(1000))
 
 //#define IFX_CFG_OE_XSHELL_CMD_LINE_SIZE (128)       /**<\brief max command line IFX_CFG_OE_XSHELL_CMD_LINE_SIZE - 1 */
+
+
+/*______________________________________________________________________________
+** Backwards compatibility marcos
+**/
+#ifdef IFX_OE_LOG_MAX_OUTPUT_COUNT
+#pragma message  "WARNING: IFX_OE_LOG_MAX_OUTPUT_COUNT is depreciated since version 0.4, use IFX_CFG_OE_LOG_MAX_OUTPUT_COUNT instead"
+#define IFX_CFG_CFG_OE_LOG_MAX_OUTPUT_COUNT (IFX_OE_LOG_MAX_OUTPUT_COUNT)
+#endif
+
+#ifdef IFX_OE_MALLOC_DEBUG
+#pragma message  "WARNING: IFX_OE_MALLOC_DEBUG is depreciated since version 0.4, use IFX_CFG_OE_MALLOC_DEBUG instead"
+#define IFX_CFG_OE_MALLOC_DEBUG (IFX_OE_MALLOC_DEBUG)
+#endif
+
+
+#ifdef IFX_OE_OSCIBB_TX_BUFFER_LENGTH
+#pragma message  "WARNING: IFX_OE_OSCIBB_TX_BUFFER_LENGTH is depreciated since version 0.4, use IFX_CFG_OE_OSCIBB_TX_BUFFER_LENGTH instead"
+#define IFX_CFG_OE_OSCIBB_TX_BUFFER_LENGTH (IFX_OE_OSCIBB_TX_BUFFER_LENGTH)
+#endif
+
+
+#ifdef IFX_CFG_OE_SHELLBB_TX_BUFFER_LENGTH
+
+#pragma message  "WARNING: IFX_OE_SHELLBB_TX_BUFFER_LENGTH is depreciated since version 0.4, use IFX_CFG_OE_SHELLBB_TX_BUFFER_LENGTH instead"
+#define IFX_CFG_OE_SHELLBB_TX_BUFFER_LENGTH (IFX_OE_SHELLBB_TX_BUFFER_LENGTH)
+#endif
+
+#ifdef IFX_OE_STDIF_DPIPE_MAX_PRINT_SIZE
+#pragma message  "WARNING: IFX_OE_STDIF_DPIPE_MAX_PRINT_SIZE is depreciated since version 0.4, use IFX_CFG_OE_STDIF_DPIPE_MAX_PRINT_SIZE instead"
+#define IFX_CFG_OE_STDIF_DPIPE_MAX_PRINT_SIZE (IFX_OE_STDIF_DPIPE_MAX_PRINT_SIZE)
+#endif
+
+#ifdef IFX_OE_SYNCPROTOCOL_VARIANT
+#pragma message  "WARNING:IFX_OE_SYNCPROTOCOL_VARIANT  is depreciated since version 0.4, use IFX_CFG_OE_SYNCPROTOCOL_VARIANT instead"
+#defined IFX_OE_SYNCPROTOCOL_VARIANT_QT IFX_CFG_OE_SYNCPROTOCOL_VARIANT_QT
+#defined IFX_OE_SYNCPROTOCOL_VARIANT_AURIX IFX_CFG_OE_SYNCPROTOCOL_VARIANT_AURIX
+#define IFX_CFG_OE_SYNCPROTOCOL_VARIANT (IFX_OE_SYNCPROTOCOL_VARIANT)
+#endif
+
+
+#ifdef IFX_OE_SYNCPROTOCOL_PRIVATE_HEAP_SIZE
+#pragma message  "WARNING: IFX_OE_SYNCPROTOCOL_PRIVATE_HEAP_SIZE is depreciated since version 0.4, use IFX_CFG_OE_SYNCPROTOCOL_PRIVATE_HEAP_SIZE instead"
+#define IFX_CFG_OE_SYNCPROTOCOL_PRIVATE_HEAP_SIZE (IFX_OE_SYNCPROTOCOL_PRIVATE_HEAP_SIZE)
+#endif
+
+
+#ifdef IFX_OE_SYNCPROTOCOL_MESSAGE_PAYLOAD_MAX_LENGTH
+#pragma message  "WARNING: IFX_OE_SYNCPROTOCOL_MESSAGE_PAYLOAD_MAX_LENGTH is depreciated since version 0.4, use IFX_CFG_OE_SYNCPROTOCOL_MESSAGE_PAYLOAD_MAX_LENGTH instead"
+#define IFX_CFG_OE_SYNCPROTOCOL_MESSAGE_PAYLOAD_MAX_LENGTH (IFX_OE_SYNCPROTOCOL_MESSAGE_PAYLOAD_MAX_LENGTH)
+#endif
+
+
+#ifdef IFX_OE_AL_UC
+#error  "IFX_OE_AL_UC is depreciated since version 0.4, use 'IFX_CFG_OE_AL_UC' instead. See definition in ifx_oe_cfg.h"
+#endif
+
+#ifdef IFX_OE_AL_UTILS
+#error  "IFX_OE_AL_UTILS is depreciated since version 0.4, use 'IFX_CFG_OE_AL_UTILS' instead. See definition in ifx_oe_cfg.h"
+#endif
+
+/**____________________________________________________________________________*/
+
+
+#endif /* IFX_OE_CFG_H */

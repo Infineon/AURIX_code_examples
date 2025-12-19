@@ -1,6 +1,8 @@
 /**
  * \file ifx_oe_daspipe.h
  *
+ * oneeye_lib version 0.6
+ *
  * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
  *
  *                                 IMPORTANT NOTICE
@@ -42,7 +44,7 @@
 #ifndef IFX_OE_DASPIPE_H
 #define IFX_OE_DASPIPE_H
 
-#include "ifx_oe_dpipewrapper.h"
+#include "ifx_oe_stdif_dpipe.h"
 #include "ifx_oe_dasfifo.h"
 
 typedef struct
@@ -74,6 +76,6 @@ typedef struct
 
 extern void    Ifx_Oe_DasPipe_initConfig(Ifx_Oe_DasPipe_Config* config);
 extern boolean Ifx_Oe_DasPipe_init(Ifx_Oe_DasPipe* dasPipe, Ifx_Oe_DasPipe_Config* config);
-extern boolean Ifx_Oe_DasPipe_stdIfDPipeInit(IfxStdIf_DPipe* stdif, Ifx_Oe_DasPipe* dpipe);
+extern boolean Ifx_Oe_DasPipe_stdIfDPipeInit(Ifx_Oe_StdIf_DPipe* stdif, Ifx_Oe_DasPipe* dpipe);
 
 #endif

@@ -2,6 +2,8 @@
  * \file ifx_oe_osci.h
  * \brief  Osci
  *
+ * oneeye_lib version 0.6
+ *
  * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
  *
  *                                 IMPORTANT NOTICE
@@ -148,7 +150,7 @@ typedef sint16 Ifx_Oe_Osci_ChannelId;
 #define IFX_OE_OSCI_NO_CHANNEL ((Ifx_Oe_Osci_ChannelId) - 1)
 
 /** \brief Oscilloscope channel object.
- * ONEEYE SECTION : Note: this structure shall not be changed. memory is directly read by OneEye
+ * ONEEYE SECTION : Note: this structure shall not be changed. memory is directly read by the debug interface
  */
 typedef struct Ifx_Oe_Osci_Signal
 {
@@ -160,19 +162,13 @@ typedef struct Ifx_Oe_Osci_Signal
     sint32 qFormatShift;    /**<\brief Specifies the shifts if type is FixPoint16 or FixPoint32 */
 } Ifx_Oe_Osci_Signal;
 
-/** ONEEYE SECTION : Note: this structure shall not be changed. memory is directly read by OneEye */
+/** ONEEYE SECTION : Note: this structure shall not be changed. memory is directly read by the debug interface */
 /** \brief Oscilloscope channel object. */
-#if defined(__HIGHTEC__)
-typedef struct __attribute__ ((__packed__))
-#elif defined(__TASKING__)
-typedef struct
-#else
-typedef struct
-#endif
+IFX_OE_PACK_STRUCT_START
 {
     Ifx_Oe_Osci_Signal* signal;
-    float32* values; /**<\brief pointer to the array of values for this channel */
-} Ifx_Oe_Osci_Channel;
+    float32*            values; /**<\brief pointer to the array of values for this channel */
+} IFX_OE_PACK_STRUCT_END Ifx_Oe_Osci_Channel;
 
 extern float32(*Ifx_Oe_Osci_GetFctPtrArray[])(const Ifx_Oe_Osci_Signal * source);
 
@@ -194,39 +190,27 @@ typedef struct
 #endif
 
 /** \brief Oscilloscope trigger object
- * ONEEYE SECTION : Note: this structure shall not be changed. memory is directly read by OneEye
+ * ONEEYE SECTION : Note: this structure shall not be changed. memory is directly read by the debug interface
  */
-#if defined(__HIGHTEC__)
-typedef struct __attribute__ ((__packed__))
-#elif defined(__TASKING__)
-typedef struct
-#else
-typedef struct
-#endif
+IFX_OE_PACK_STRUCT_START
 {
     Ifx_Oe_Osci_TriggerState state;       /**< \brief */
-    Ifx_Oe_Osci_TriggerMode mode;         /**< \brief */
-    Ifx_Oe_Osci_TriggerEdge edge;         /**< \brief */
-    float32 level;                     /**< \brief */
-    float32 previousValue;             /**< \brief */
-    uint32 position;
-    uint16 source;                      /**< \brief */
-    uint8 single;
-    uint8 arm;
-    uint32 reserved_1;
-    uint64 reserved_2;
-} Ifx_Oe_Osci_Trigger;
+    Ifx_Oe_Osci_TriggerMode  mode;        /**< \brief */
+    Ifx_Oe_Osci_TriggerEdge  edge;        /**< \brief */
+    float32                  level;    /**< \brief */
+    float32                  previousValue; /**< \brief */
+    uint32                   position;
+    uint16                   source;    /**< \brief */
+    uint8                    single;
+    uint8                    arm;
+    uint32                   reserved_1;
+    uint64                   reserved_2;
+} IFX_OE_PACK_STRUCT_END Ifx_Oe_Osci_Trigger;
 
 #define IFX_OE_OSCI_TRIGGER_STRUCT_SIZE (40)
 
-/** ONEEYE SECTION : Note: this structure shall not be changed. memory is directly read by OneEye */
-#if defined(__HIGHTEC__)
-typedef struct __attribute__ ((__packed__))
-#elif defined(__TASKING__)
-typedef struct
-#else
-typedef struct
-#endif
+/** ONEEYE SECTION : Note: this structure shall not be changed. memory is directly read by the debug interface */
+IFX_OE_PACK_STRUCT_START
 {
     uint64 marker;
     struct
@@ -235,33 +219,21 @@ typedef struct
         uint8 minor;
         uint8 patch;
         uint8 dummy;
-    }Version;
-}Ifx_Oe_Osci_OneEye;
+    } Version;
+} IFX_OE_PACK_STRUCT_END Ifx_Oe_Osci_OneEye;
 #define IFX_OE_OSCI_ONEEYE_STRUCT_SIZE (12)
 
-/** ONEEYE SECTION : Note: this structure shall not be changed. memory is directly read by OneEye */
-#if defined(__HIGHTEC__)
-typedef struct __attribute__ ((__packed__))
-#elif defined(__TASKING__)
-typedef struct
-#else
-typedef struct
-#endif
+/** ONEEYE SECTION : Note: this structure shall not be changed. memory is directly read by the debug interface */
+IFX_OE_PACK_STRUCT_START
 {
     uint32 signalListAddr;
     uint32 channelListAddr;
     uint32 valuesAddr;
-} Ifx_Oe_Osci_Header;
+} IFX_OE_PACK_STRUCT_END Ifx_Oe_Osci_Header;
 #define IFX_OE_OSCI_HEADER_STRUCT_SIZE (12)
 
-/** ONEEYE SECTION : Note: this structure shall not be changed. memory is directly read by OneEye */
-#if defined(__HIGHTEC__)
-typedef struct __attribute__ ((__packed__))
-#elif defined(__TASKING__)
-typedef struct
-#else
-typedef struct
-#endif
+/** ONEEYE SECTION : Note: this structure shall not be changed. memory is directly read by the debug interface */
+IFX_OE_PACK_STRUCT_START
 {
     union
     {
@@ -284,14 +256,14 @@ typedef struct
         };
         uint32 flags1;
     };
-    uint32 bufferDepth;
-    uint32 triggerPosition;
+    uint32  bufferDepth;
+    uint32  triggerPosition;
     float32 triggerLevel;
-    uint16 samplingInterval;
-    uint16 triggerSource;          /**< Trigger source */
-    uint32 reserved_2;  /* Reserved for future use*/
-    uint16 reserved_3;  /* Reserved for future use*/
-    uint8 reserved_4;   /* Reserved for future use*/
+    uint16  samplingInterval;
+    uint16  triggerSource;         /**< Trigger source */
+    uint32  reserved_2; /* Reserved for future use*/
+    uint16  reserved_3; /* Reserved for future use*/
+    uint8   reserved_4; /* Reserved for future use*/
     union
     {
         struct
@@ -301,48 +273,42 @@ typedef struct
         };
         uint8 flags2;
     };
-}Ifx_Oe_Osci_ControlInterface;
+} IFX_OE_PACK_STRUCT_END Ifx_Oe_Osci_ControlInterface;
 
 #define IFX_OE_OSCI_CONTROLINTERFACE_STRUCT_SIZE (28)
 
 /** \brief Oscilloscope object. */
-#if defined(__HIGHTEC__)
-typedef struct __attribute__ ((__packed__))
-#elif defined(__TASKING__)
-typedef struct
-#else
-typedef struct
-#endif
+IFX_OE_PACK_STRUCT_START
 {
-    /* BEGIN ONEEYE SECTION : Note: this member shall not be changed. memory is directly read by OneEye */
-    Ifx_Oe_Osci_OneEye oneEyeOsci;
-    Ifx_Oe_Osci_Header header;
-    uint16 maxNumOfChannels;                                                        /**< \brief Number of acquired data per channel */
-    uint16 maxNumOfSignals;                                                         /**< \brief Number of acquired data per channel */
-    uint32 maxNumOfSamples;                                                         /**< \brief Number of acquired data per channel */
-    uint32 checkMark;   /* Used for data consistency for GUI interface */
+    /* BEGIN ONEEYE SECTION : Note: this member shall not be changed. memory is directly read by the debug interface */
+    Ifx_Oe_Osci_OneEye           oneEyeOsci;
+    Ifx_Oe_Osci_Header           header;
+    uint16                       maxNumOfChannels;                                  /**< \brief Number of acquired data per channel */
+    uint16                       maxNumOfSignals;                                   /**< \brief Number of acquired data per channel */
+    uint32                       maxNumOfSamples;                                   /**< \brief Number of acquired data per channel */
+    uint32                       checkMark; /* Used for data consistency for GUI interface */
     Ifx_Oe_Osci_ControlInterface controlInterface;
-    Ifx_Oe_Osci_Trigger trigger;                                                      /**< \brief */
-    float32 samplePeriod;                                                          /**< \brief */
-    uint32 dataLength;                                                             /**< \brief Number of acquired data per channel */
-    uint16 samplingInterval;                                                       /**< \brief */
-    boolean enabled;
-    boolean remoteControlled;
+    Ifx_Oe_Osci_Trigger          trigger;                                             /**< \brief */
+    float32                      samplePeriod;                                     /**< \brief */
+    uint32                       dataLength;                                       /**< \brief Number of acquired data per channel */
+    uint16                       samplingInterval;                                 /**< \brief */
+    boolean                      enabled;
+    boolean                      remoteControlled;
     /* END ONEEYE SECTION */
 
-    Ifx_Oe_TickTime startTime;                                                        /**< \brief */
-    uint16 samplingIntervalTmp;                                                    /**< \brief */
-    uint16 readIndex;                                                              /**< \brief */
-    uint16 writeIndex;                                                             /**< \brief */
-    uint16 usedSignals;                                                            /**< \brief number of active channels */
-    boolean dataTransfered;
-    boolean autoAddChannels;                                                       /* if TRUE, when adding a signal it will map the next free channel to this signal */
-    boolean stateChanged;
-    uint8 dummy;    /*Ensure signalList is aligned on 16 bit */
-    Ifx_Oe_Osci_Signal signalList[IFX_CFG_OE_OSCI_MAX_NUM_OF_SIGNALS];
-    char signalNames[IFX_CFG_OE_OSCI_MAX_NUM_OF_SIGNALS][IFX_CFG_OE_OSCI_SIGNAL_NAME_MAX_LENGTH];
+    Ifx_Oe_TickTime     startTime;                                                    /**< \brief */
+    uint16              samplingIntervalTmp;                                       /**< \brief */
+    uint16              readIndex;                                                 /**< \brief */
+    uint16              writeIndex;                                                /**< \brief */
+    uint16              usedSignals;                                               /**< \brief number of active channels */
+    boolean             dataTransfered;
+    boolean             autoAddChannels;                                           /* if TRUE, when adding a signal it will map the next free channel to this signal */
+    boolean             stateChanged;
+    uint8               dummy; /*Ensure signalList is aligned on 32 bit */
+    Ifx_Oe_Osci_Signal  signalList[IFX_CFG_OE_OSCI_MAX_NUM_OF_SIGNALS];
+    char                signalNames[IFX_CFG_OE_OSCI_MAX_NUM_OF_SIGNALS][IFX_CFG_OE_OSCI_SIGNAL_NAME_MAX_LENGTH];
     Ifx_Oe_Osci_Channel channels[IFX_CFG_OE_OSCI_MAX_NUM_OF_CHANNELS];                   /*actually array of Ifx_Oe_Osci_Channel allocated at runtime*/
-    float32 values[IFX_CFG_OE_OSCI_MAX_NUM_OF_CHANNELS][IFX_CFG_OE_OSCI_NUM_OF_SAMPLES]; /*actually array[allocatedChannels] of array[dataLength] of float32 allocated at runtime*/
+    float32             values[IFX_CFG_OE_OSCI_MAX_NUM_OF_CHANNELS][IFX_CFG_OE_OSCI_NUM_OF_SAMPLES]; /*actually array[allocatedChannels] of array[dataLength] of float32 allocated at runtime*/
 #if IFX_CFG_OE_OSCI_FFT_LENGTH != 0
     struct
     {
@@ -362,7 +328,7 @@ typedef struct
         boolean enabled;
     } fft;
 #endif
-}Ifx_Oe_Osci;
+} IFX_OE_PACK_STRUCT_END Ifx_Oe_Osci;
 #define IFX_OE_OSCI_OSCI_STRUCT_OFFSET_OF_CHECKMARK (IFX_OE_OSCI_ONEEYE_STRUCT_SIZE + IFX_OE_OSCI_HEADER_STRUCT_SIZE + 8)
 
 typedef struct
@@ -437,10 +403,9 @@ IFX_OE_INLINE uint32 Ifx_Oe_Osci_getDepth(Ifx_Oe_Osci* osci)
 IFX_OE_INLINE uint32 Ifx_Oe_Osci_getMaxDepth(void)
 { return IFX_CFG_OE_OSCI_NUM_OF_SAMPLES; }
 
-IFX_OE_INLINE uint16              Ifx_Oe_Osci_getNumberOfChannels(Ifx_Oe_Osci* osci)
+IFX_OE_INLINE uint16  Ifx_Oe_Osci_getNumberOfChannels(Ifx_Oe_Osci* osci)
 { return osci->maxNumOfChannels; }
-IFX_OE_INLINE Ifx_Oe_Osci_Signal* Ifx_Oe_Osci_getSignalInfo(Ifx_Oe_Osci* osci, Ifx_Oe_Osci_SignalId signalId)
-{ return signalId < osci->usedSignals ? &osci->signalList[signalId] : NULL_PTR; }
+Ifx_Oe_Osci_Signal*   Ifx_Oe_Osci_getSignalInfo(Ifx_Oe_Osci* osci, Ifx_Oe_Osci_SignalId signalId);
 
 void                  Ifx_Oe_Osci_setTriggerSingle(Ifx_Oe_Osci* osci, boolean value);
 IFX_OE_INLINE boolean Ifx_Oe_Osci_getTriggerSingle(Ifx_Oe_Osci* osci)

@@ -53,9 +53,40 @@
 /* #define IFX_CFG_EXTEND_TRAP_HOOKS */ /* Decomment this line if the project needs to extend trap hook functions */
 
 /*********************************************************************************************************************/
-/*------------------------------------------Configuration for OneEye library ----------------------------------------*/
+/*-------------------------------------Configuration for Device and Pin package--------------------------------------*/
 /*********************************************************************************************************************/
-#define IFX_OE_AL_USE_AURIX_ILLD
+#define DEVICE_TC37X                    1
+
+/* #define IFX_PIN_PACKAGE_516          1 */
+/* #define IFX_PIN_PACKAGE_LFBGA292     1 */
+#define IFX_PIN_PACKAGE_LQFP176         1
+
+/*____________________________________________________________________________*
+** Configuration of oneeye_lib library                                        *
+**____________________________________________________________________________*/
+
+/** Define IFX_CFG_OE_AL_UTILS to enable OneEye utilities for specific
+ *  micro controllers / libraries.
+ */
+#define IFX_CFG_OE_AL_UTILS
+
+/** Define IFX_CFG_OE_AL_UC to enable OneEye support for specific
+ *  micro controllers library.
+ *  Options are:
+ *  - IFX_CFG_OE_AL_UC_NONE         : No specific micro-controller library support
+ *  - IFX_CFG_OE_AL_UC_ARDUINO      : Support for ARDUINO
+ *  - IFX_CFG_OE_AL_UC_AURIX_ILLD   : Support for AURIX
+ *  - IFX_CFG_OE_AL_UC_XMC_DAVEAPP  : Support for XMC, XMCLIB, DAVEAPP UART API
+ *  - IFX_CFG_OE_AL_UC_XMC_XMCLIB   : Support for XMC, XMCLIB
+ */
+#define IFX_CFG_OE_AL_UC IFX_CFG_OE_AL_UC_AURIX_ILLD
+/** Define IFX_CFG_OE_AL_UC_VARIANT to enable OneEye support for specific
+ *  micro controller family.
+ *  Options are:
+ *  - IFX_CFG_OE_AL_UC_VARIANT_NONE           : No specific micro-controller support
+ *  - IFX_CFG_OE_AL_UC_VARIANT_AURIX_ILLD_TC4 : Support for iLLD TC4xx
+ */
+#define IFX_CFG_OE_AL_UC_VARIANT IFX_CFG_OE_AL_UC_VARIANT_NONE
 
 
 #endif /* IFX_CFG_H */
