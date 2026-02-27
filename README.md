@@ -63,7 +63,7 @@ In particular, the following boards are supported:
 
 |   AURIX™ TC2xx Boards           |   AURIX™ TC3xx Boards        |   AURIX™ TC4xx Boards        |
 |---------------------------------|------------------------------|------------------------------|
-|     KIT_AURIX_TC234_TFT         |     KIT_A2G_TC334_LITE       |     KIT_A2G_TC4D7_LITE       | 
+|     KIT_AURIX_TC234_TFT         |     KIT_A2G_TC334_LITE       |     KIT_A3G_TC4D7_LITE       | 
 |     KIT_AURIX_TC237_TFT         |     KIT_A2G_TC367_5V_TFT     |                              | 
 |     KIT_AURIX_TC265_TFT         |     KIT_A2G_TC375_ARD_SB     |                              | 
 |     KIT_AURIX_TC275_ARD_SB      |     KIT_A2G_TC375_LITE       |                              | 
