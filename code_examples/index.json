@@ -6948,6 +6948,34 @@
       "lastModified": "2024-07-17T00:00:00.000Z"
     },
     {
+      "title": "iLLD_TC377_ADS_ASCLIN_LIN_SLAVE",
+      "name": "iLLD_TC377_ADS_ASCLIN_LIN_SLAVE",
+      "description": "ASCLIN3 is configured in slave mode to receive LIN frames from ASCLIN2 configured as master. Depending on the ID sent, the slave will either ignore the header or wait for master response. The result of the communication is displayed on the terminal using UART communication with ASCLIN0.",
+      "abstract": "An ASCLIN module configured as slave for LIN communication to receive message from a LIN master device.",
+      "folder": "iLLD_TC377_ADS_ASCLIN_LIN_SLAVE",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC3X7 V2.0",
+          "id": "KIT_A2G_TC377_5V_TFT",
+          "device_id": "TC37xTP_A-Step"
+        }
+      ],
+      "keywords": [
+        "LIN",
+        "SLAVE",
+        "ASCLIN",
+        "UART",
+        "MASTER",
+        "TRANSCEIVER"
+      ],
+      "documents": [
+        "See README.MD",
+        "See Application Kit Manual TC3X7"
+      ],
+      "lastModified": "2026-01-27T00:00:00.000Z"
+    },
+    {
       "title": "This code example generates a periodic interrupt using the SCR RTC Module.",
       "name": "iLLD_TC37x_ADS_SCR_Blinky_LED_LK_1",
       "description": "This is a simple SCR (Standby Controller) example code using LED1 on the TC375 lite Kit to show a successfully working code. The SCR RTC (Real-Time Clock) module is used to generate a periodic interrupt to toggle the port SCR_P00.4 (P33.4) output. The TriCore(TM) CPU is used to mirror the port line P33.4 to P00.5 which has LED1 connected on the TC375 lite Kit.",
@@ -8023,6 +8051,318 @@
     },
     {
       "title": "LIN master communication via ASCLIN module",
+      "name": "iLLD_TC487_LK_ADS_ASCLIN_LIN_Send",
+      "description": "The string \"Hello!\" is sent via an ASCLIN module configured as LIN master.\r\nThe signal can be visualized using an oscilloscope.",
+      "abstract": "An ASCLIN module is configured as LIN master to send \"Hello!\"",
+      "folder": "iLLD_TC487_LK_ADS_ASCLIN_LIN_Send",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC487 lite Kit",
+          "id": "KIT_A3G_TC487_LITE",
+          "device_id": "TC487QP_A-Step_MC_COM"
+        }
+      ],
+      "keywords": [
+        "LIN",
+        "ASCLIN",
+        "ASCLIN_LIN_Master_1",
+        "AURIX",
+        "communication"
+      ],
+      "documents": [
+        "See README.md"
+      ],
+      "lastModified": "2026-05-05T00:00:00.000Z"
+    },
+    {
+      "title": "Shell via UART communication",
+      "name": "iLLD_TC487_LK_ADS_ASCLIN_Shell_UART",
+      "description": "The ASCLIN module is configured for UART communication.\r\nThe Shell from iLLDs exploits the ASCLIN module to interpret and manage commands from the\r\nuser like \"info\", \"toggle [x]\" or \"help\".",
+      "abstract": "Shell is used to parse a command line and call the corresponding command execution. The ASCLIN module is used to interface with the Shell through the USB port via UART.",
+      "folder": "iLLD_TC487_LK_ADS_ASCLIN_Shell_UART",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC487 lite Kit",
+          "id": "KIT_A3G_TC487_LITE",
+          "device_id": "TC487QP_A-Step_MC_COM"
+        }
+      ],
+      "keywords": [
+        "UART",
+        "VCOM",
+        "serial communication",
+        "ASCLIN_Shell_UART",
+        "AURIX",
+        "shell"
+      ],
+      "documents": [
+        "See README.md"
+      ],
+      "lastModified": "2026-04-28T00:00:00.000Z"
+    },
+    {
+      "title": "SPI master communication via ASCLIN module",
+      "name": "iLLD_TC487_LK_ADS_ASCLIN_SPI_Master",
+      "description": "An ASCLIN module configured as SPI master sends a two byte message.\r\nThe two byte message is sent through MTSR (MOSI) port pin P15.4 with SCLK on port P20.10 in loopback\r\nmode. This signal can be visualized on the oscilloscope screen.",
+      "abstract": "An ASCLIN module configured as SPI master sends a two byte message.",
+      "folder": "iLLD_TC487_LK_ADS_ASCLIN_SPI_Master",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC487 lite Kit",
+          "id": "KIT_A3G_TC487_LITE",
+          "device_id": "TC487QP_A-Step_MC_COM"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "ASCLIN_SPI_Master_1",
+        "ASCLIN",
+        "SPI",
+        "comunicaiton",
+        "master",
+        "Oscilloscope"
+      ],
+      "documents": [
+        "See README.md"
+      ],
+      "lastModified": "2026-05-05T00:00:00.000Z"
+    },
+    {
+      "title": "UART communication via ASCLIN module",
+      "name": "iLLD_TC487_LK_ADS_ASCLIN_UART",
+      "description": "The string \"Hello World!\" is sent and received via UART through one pin due to the internal loopback.\r\nThe data can be visualized using an oscilloscope.",
+      "abstract": "An ASCLIN module configured for UART communication sends \"Hello World!\" and receives the string back via the internal loopback.",
+      "folder": "iLLD_TC487_LK_ADS_ASCLIN_UART",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC487 lite Kit",
+          "id": "KIT_A3G_TC487_LITE",
+          "device_id": "TC487QP_A-Step_MC_COM"
+        }
+      ],
+      "keywords": [
+        "UART",
+        "ASCLIN",
+        "AURIX",
+        "ASC"
+      ],
+      "documents": [
+        "See README.md"
+      ],
+      "lastModified": "2026-04-28T00:00:00.000Z"
+    },
+    {
+      "title": "Blinky LED",
+      "name": "iLLD_TC487_LK_ADS_Blinky_LED",
+      "description": "A wait function is used to add delays between switching on and switching off an LED on port pin P03.9",
+      "abstract": "An LED is blinking based on the timing given by a wait function.",
+      "folder": "iLLD_TC487_LK_ADS_Blinky_LED",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC487 Lite Kit",
+          "id": "KIT_A3G_TC487_LITE",
+          "device_id": "TC487QP_A-Step_MC_COM"
+        }
+      ],
+      "keywords": [
+        "LED",
+        "blinky",
+        "GPIO",
+        "General Port Input Output",
+        "AURIX",
+        "Blinky_LED_1"
+      ],
+      "documents": [
+        "See README.md"
+      ],
+      "lastModified": "2026-04-06T00:00:00.000Z"
+    },
+    {
+      "title": "CPU performance counters",
+      "name": "iLLD_TC487_LK_ADS_CPU_Perf_Counters",
+      "description": "The CPU performance counters are counting the number of instructions, clock ticks and\r\nmulti counters ticks. They are used to measure the run-time of a c-function.\r\nThe result is stored in a global variable.",
+      "abstract": "Measure code performance via the CPU performance counters",
+      "folder": "iLLD_TC487_LK_ADS_CPU_Perf_Counters",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC487 Lite Kit",
+          "id": "KIT_A3G_TC487_LITE",
+          "device_id": "TC487QP_A-Step_MC_COM"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "Performance",
+        "Cycle",
+        "Counter"
+      ],
+      "documents": [
+        "See README.md"
+      ],
+      "lastModified": "2026-04-06T00:00:00.000Z"
+    },
+    {
+      "title": "Trap error recognition and reaction",
+      "name": "iLLD_TC487_LK_ADS_CPU_Trap_Recognition",
+      "description": "The tutorial describes what types of traps are supported by the AURIX (TM)\r\nmicrocontroller, their root causes and how to identify them. AURIX (TM)\r\narchitecture supports different types of traps. Three different traps can be\r\nprovoked with this example and the tutorial guides the user through the\r\nneeded steps to observe the root cause of each trap.",
+      "abstract": "This example shows how to identify the root cause of a trap.",
+      "folder": "iLLD_TC487_LK_ADS_CPU_Trap_Recognition",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC487 lite Kit",
+          "id": "KIT_A3G_TC487_LITE",
+          "device_id": "TC487QP_A-Step_MC_COM"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "TC4XX",
+        "Asynchronouns Trap",
+        "Synchronous Trap",
+        "Hardware Trap",
+        "Software Trap",
+        "CPU Trap"
+      ],
+      "documents": [
+        "See README.md"
+      ],
+      "lastModified": "2026-04-06T00:00:00.000Z"
+    },
+    {
+      "title": "LED controlled via a push button",
+      "name": "iLLD_TC487_LK_ADS_GPIO_LED_Button",
+      "description": "Upon pressure of a push button, an LED is turned on and the LED is turned off when\r\nreleasing the button. One port pin is configured as input for checking the push button\r\nstate and the other port pin is configured as output to control the LED.",
+      "abstract": "An LED is controlled via a push button.",
+      "folder": "iLLD_TC487_LK_ADS_GPIO_LED_Button",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC487 lite Kit",
+          "id": "KIT_A3G_TC487_LITE",
+          "device_id": "TC487QP_A-Step_MC_COM"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "GPIO",
+        "GPIO_LED_Button_1",
+        "LED",
+        "pin",
+        "port",
+        "port pin",
+        "push button",
+        "push-pull"
+      ],
+      "documents": [
+        "See README.md"
+      ],
+      "lastModified": "2026-04-06T00:00:00.000Z"
+    },
+    {
+      "title": "I2C_Read_Ext_Device",
+      "name": "iLLD_TC487_LK_ADS_I2C_Read_Ext_Device",
+      "description": "An I2C module configured as I2C master is used to read the MAC address stored in the Microchip 2K I2C Serial EEPROM mounted on the board KIT_A3G_TC4D7_LITE. The AURIX\u0026trade; device reads the MAC address through the I2C module and stores it into a global variable.",
+      "abstract": "An I2C module configured as I2C master is used to read a register of an external device.",
+      "folder": "iLLD_TC487_LK_ADS_I2C_Read_Ext_Device",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC487 lite Kit",
+          "id": "KIT_A3G_TC487_LITE",
+          "device_id": "TC487QP_A-Step_MC_COM"
+        }
+      ],
+      "keywords": [
+        "I2C"
+      ],
+      "documents": [
+        "See README.md"
+      ],
+      "lastModified": "2026-04-06T00:00:00.000Z"
+    },
+    {
+      "title": "Multicore LED control",
+      "name": "iLLD_TC487_LK_ADS_Multicore",
+      "description": "Core 0 is switching on an LED. When the LED flag is set, Core 1 is switching off the LED.\r\nCore 2 is controlling the state of the LED flag.",
+      "abstract": "One LED is controlled by using three different cores.",
+      "folder": "iLLD_TC487_LK_ADS_Multicore",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC487 lite Kit",
+          "id": "KIT_A3G_TC487_LITE",
+          "device_id": "TC487QP_A-Step_MC_COM"
+        }
+      ],
+      "keywords": [
+        "multicore",
+        "LED",
+        "AURIX"
+      ],
+      "documents": [
+        "See README.md"
+      ],
+      "lastModified": "2026-04-06T00:00:00.000Z"
+    },
+    {
+      "title": "iLLD_TC487_LK_ADS_Printf",
+      "name": "iLLD_TC487_LK_ADS_Printf",
+      "description": "The printf function is retargeted for GCC compiler to send data via ASCLIN in ASC (UART) mode.\r\nSpecific serialio library is provided for the scope.",
+      "abstract": "The printf is used to send data with ASCLIN.",
+      "folder": "iLLD_TC487_LK_ADS_Printf",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC487 lite Kit",
+          "id": "KIT_A3G_TC487_LITE",
+          "device_id": "TC487QP_A-Step_MC_COM"
+        }
+      ],
+      "keywords": [
+        "Printf",
+        "ASCLIN"
+      ],
+      "documents": [
+        "See README.md"
+      ],
+      "lastModified": "2026-04-28T00:00:00.000Z"
+    },
+    {
+      "title": "Interrupt generation via STM trigger",
+      "name": "iLLD_TC487_LK_ADS_STM_Interrupt",
+      "description": "The STM is configured to trigger an interrupt every 500 ms. The interrupt toggles an LED.\r\nThe STM counts up and on reaching a preconfigured compare value, it triggers an interrupt.\r\nOn each interrupt, the compare value is incremented and an LED is toggled.",
+      "abstract": "The STM is configured to trigger an interrupt every 500 ms. The interrupt toggles an LED.",
+      "folder": "iLLD_TC487_LK_ADS_STM_Interrupt",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC487 lite Kit",
+          "id": "KIT_A3G_TC487_LITE",
+          "device_id": "TC487QP_A-Step_MC_COM"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "Interrupt",
+        "LED",
+        "STM",
+        "STM_Interrupt_1",
+        "blink"
+      ],
+      "documents": [
+        "See README.md"
+      ],
+      "lastModified": "2026-04-28T00:00:00.000Z"
+    },
+    {
+      "title": "LIN master communication via ASCLIN module",
       "name": "iLLD_TC497_LK_ADS_ASCLIN_LIN_Send",
       "description": "The string \"Hello!\" is sent via an ASCLIN module configured as LIN master.\r\nThe signal can be visualized using an oscilloscope.",
       "abstract": "An ASCLIN module is configured as LIN master to send \"Hello!\"",
@@ -8382,6 +8722,34 @@
         "See README.md"
       ],
       "lastModified": "2026-02-13T00:00:00.000Z"
+    },
+    {
+      "title": "Performing Fast Fourier Transform on TMADC acquired signals using CDSP FC6",
+      "name": "iLLD_TC4D7_LiteKit_ADS_TMADC_CDSP_FC6_Filtering_1",
+      "description": "To illustrate signal filtering by CDSP for Fast Fourier Transform (FFT), this example connects TMADC\r\nand CDSP FC6, where few Signal Patterns are used as input signal and corresponding FFT output is\r\nobserved.",
+      "abstract": "This example provides the configuration of CDSP with FC6 filter chain to perform Fast Fourier Transform on the given signal at TMADC input.",
+      "folder": "iLLD_TC4D7_LiteKit_ADS_TMADC_CDSP_FC6_Filtering_1",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC4D7 lite Kit",
+          "id": "KIT_A3G_TC4D7_LITE",
+          "device_id": "TC4D7XP_A-Step_MC_COM"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "TC4Dx",
+        "CDSP",
+        "ADC",
+        "DSADC",
+        "Filtering",
+        "FC6"
+      ],
+      "documents": [
+        "See README.md"
+      ],
+      "lastModified": "2026-04-24T00:00:00.000Z"
     },
     {
       "title": "iLLD_TC4D7_LITE_KIT_ADS_ETH_DEMO",
