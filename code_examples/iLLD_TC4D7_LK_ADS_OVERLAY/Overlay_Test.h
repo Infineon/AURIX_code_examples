@@ -44,6 +44,14 @@
 
 #define TEST_NONE               0
 #define TEST_1                  1
+#define TEST_2                  2
+#define TEST_3                  3
+#define TEST_4                  4
+#define TEST_5                  5
+#define TEST_6                  6
+#define TEST_7                  7
+#define TEST_8                  8
+#define TEST_9                  9
 
 #define TEST_NUMBER             TEST_1
 
@@ -54,5 +62,13 @@
 void Test_init(void);
 
 void Test_1(void);
+void Test_2(void);
+void Test_3(void);
+void Test_4(void);
+void Test_5(void);
+void Test_6(void);
+void Test_7(void);
+void Test_8(void);
+void Test_9(void);
 
 #endif /* OVERLAY_TEST_H_ */

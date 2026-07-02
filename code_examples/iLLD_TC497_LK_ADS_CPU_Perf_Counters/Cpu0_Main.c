@@ -32,7 +32,7 @@
  *
  * \name iLLD_TC497_LK_ADS_CPU_Perf_Counters
  * \version V1.0.0
- * \board AURIX TC497 Lite Kit, KIT_A3G_TC497_LITE, TC49xN_A-Step
+ * \board AURIX TC497 Lite Kit, KIT_A3G_TC497_LITE, TC497PP_A-Step_MS_STD
  * \keywords AURIX, Performance, Cycle, Counter
  * \documents See README.md
  * \lastUpdated 2026-02-05

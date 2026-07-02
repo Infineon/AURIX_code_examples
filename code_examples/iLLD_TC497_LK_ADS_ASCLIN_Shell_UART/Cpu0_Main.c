@@ -32,7 +32,7 @@
  *
  * \name iLLD_TC497_LK_ADS_ASCLIN_Shell_UART
  * \version V1.0.0
- * \board TC497 Lite Kit, KIT_A3G_TC497_LITE, TC49xN_A-Step
+ * \board TC497 Lite Kit, KIT_A3G_TC497_LITE, TC497PP_A-Step_MS_STD
  * \keywords UART, VCOM, serial communication, ASCLIN_Shell_UART, AURIX, shell
  * \documents See README.md
  * \lastUpdated 2026-02-16

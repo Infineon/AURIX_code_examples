@@ -1,0 +1,32 @@
+name: Verify the widget property name
+on:
+  push:
+  pull_request:
+  
+# https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions#concurrency
+# Ensure that only one commit will be running tests at a time on each PR
+concurrency:
+  group: ${{ github.ref }}-${{ github.workflow }} 
+  cancel-in-progress: true
+
+jobs:
+  verify-property-name:
+    if: ${{ github.event_name != 'pull_request' || github.repository != github.event.pull_request.head.repo.full_name }}
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - name: Generate property names
+        run: python properties.py
+        working-directory: scripts
+      - name: Check that repository is clean
+        shell: bash
+        run: |
+          set -o pipefail
+          if ! (git diff --exit-code --color=always | tee /tmp/lvgl_diff.patch); then
+            echo "Please apply the preceding diff to your code or run scripts/properties.py"
+            exit 1
+          fi

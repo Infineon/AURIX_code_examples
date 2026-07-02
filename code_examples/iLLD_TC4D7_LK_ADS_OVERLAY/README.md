@@ -11,7 +11,7 @@ The device used in this example is AURIX&trade; TC4D7XP_A-Step_MC_COM
 The board used for testing is the AURIX&trade; TC4D7 lite Kit (KIT_A3G_TC4D7_LITE)    
 
 ## Scope of work  
-The data overlay functionality provides the possibility of redirecting data read access from a Target memory (Code Memory) to Overlay Memory for execution. The process usually involves copying code from a non-volatile Code memory (usually Flash) to volatile Overlay memory (usually SRAM), that makes it possible, for example, to modify program parameters (which are typically stored in the code memory) during run time of program. Once copied, an overlay mechanism is instituted (configure required Overlay Control registers). The registers are prepared to enable/disable the redirection from Target memory (usually Flash) into volatile Overlay memory (SRAM). The CPU convert the addresses to access the Overlay memory instead the Target memory. Test1 have been provided in this code example, focused on ensuring that the redirection of memory accesses is accurately configured. 
+The data overlay functionality provides the possibility of redirecting data read access from a Target memory (Code Memory) to Overlay Memory for execution. The process usually involves copying code from a non-volatile Code memory (usually Flash) to volatile Overlay memory (usually SRAM), that makes it possible, for example, to modify program parameters (which are typically stored in the code memory) during run time of program. Once copied, an overlay mechanism is instituted (configure required Overlay Control registers). The registers are prepared to enable/disable the redirection from Target memory (usually Flash) into volatile Overlay memory (SRAM). The CPU convert the addresses to access the Overlay memory instead the Target memory. Different test scenarios have been provided in this code example, focused on ensuring that the redirection of memory accesses is accurately configured.
 
 ## Introduction
 The Overlay function serves the purpose of enabling modification of an application's test that are typically stored in PFlash memory. This is achieved by copying PFlash code to SRAM. To illustrate, consider the following Figure.
@@ -121,18 +121,66 @@ The board used for testing is the AURIX&trade; TC4D7 lite Kit (KIT_A3G_TC4D7_LIT
 <img src="./Images/EvalKit_AURIX_TC4x7_Lite_V1_TOP.png" width="800" />  
 
 ## Implementation  
-Test1 have been considered for the implementation. It is provided by the *Overlay_Test.h*, which employs the following approach:
+Different Tests have been considered for the implementation. All tests are provided by the *Overlay_Test.h*, which employs the following approach:
 
-- Write new contents of PFlash into the Buffer (BeforeOverlayEnable).
+- Copy values from Target Address (PFlash) into the Buffer (BeforeOverlayEnable).
 - Enable Overlay (Configure Overlay).
-- Write new contents of Redirect memory into the Buffer (AfterOverlayEnable). 
+- Modify PFlash value (Actual modified Overlay (Redirected) memory with new pattern support Buffer (AfterOverlayEnable)). 
 - Disable Overlay.
-- Compare the new contents of the PFlash, stored in the <u>BeforeOverlayEnable</u> with the contents of the <u>AfterOverlayEnable</u>. 
+- Compare the contents stored in the supporting buffer <u>BeforeOverlayEnable</u> with the contents of the <u>AfterOverlayEnable</u>. 
 If the value written in *BeforeOverlayEnable* and *AfterOverlayEnable* will be equal (even in one case) then the error would be happened and LED_ERROR (LED1), will be toggling, else LED_SUCCESS (LED2) will be toggling, which indicates overlay functionality (this step is provided in the function **Test_MemoryValidation( )**, in the *Overlay_Test.c*). 
 
 *Test 1*: 
 
-- Implementing Overlay with Registers Configuration, for 1 Block (32 Byte address range), where the Target Memory is PFlash bank (Non-cached), and the DSPR as Overlay(Redirect) Memory.
+- Implementing Overlay with Registers Configuration <u>without</u> using **IfxCpu_enableOverlayBlock()** function, for 1 Block (32 Byte address range), where the Target Memory is PFlash bank (Non-cached), and the DSPR as Overlay(Redirect) Memory.
+
+*Test 2*: 
+
+- Implementing Overlay Configuration using **IfxCpu_enableOverlayBlock()** function, where the Target Memory is PFlash bank (Non-cached), and the DSPR as Overlay(Redirect) Memory.
+
+*Test 3*: 
+ 
+- Implementing Overlay Configuration, which is <u>multiple overlay blocks</u> <u>simultaneously</u> activated/deactivated, where the Target Memory is PFlash bank (Non-cached), and the DSPR (Non-cached) as Overlay(Redirect) Memory (2 concurrent Blocks with 32 Byte address range are provided in the code example, and can be applied also for more blocks).
+
+**Important Note in Test3 **:<br>
+There is a latency needed for overlay block disabling, where the effect is not instantaneous. So, before checking the disabling of overlay blocks, the instruction **isync()** and
+**dsync()** are used for to add a latency (wait time) to observe the result. 
+
+*Test 4*:  
+
+- Implementing Overlay configuration for 1 block (32 Byte address range), where the Target Memory is PFlash bank (Non-cached), and the DLMU (LMU Low-Non-cached) as the Overlay(Redirect) Memory. 
+ 
+*Test 5*: 
+
+- Implementing Overlay configuration for 2 blocks (32 Byte address range), where PFlash (Non-cached) as the Target Memory, and the LMU Low (DLMU) memory, and the DSPR memory as the Overlay(Redirect) Memories (1 block in the LMU(DLMU)(Non-cached) Overlay Memory, and 1 other block in the DSPR (Non-cached) Overlay (Redirect) Memory). 
+
+*Test 6*: (Test Overlay with cache invalidate (cache enabled))
+
+- Implementing Overlay configuration for 2 blocks, PFlash (Non-cached) as the Target Memory, and 1 block in the LMU(DLMU) (cached) Overlay Memory, and 1 other block in the DSPR (cached) Overlay(Redirect) Memory. 
+
+** Note **:<br>
+When **OVCCON.DCINVAL** is written with one, all the unmodified (clean) data cache lines in the selected cores are invalidated. The data cache lines containing modified (dirty) data are not effected, and have no any effect on the buffer store operation. 
+
+*Test 7*: 
+
+- Implementing Overlay configuration for 2 <u>concurrent matched (Overlap)</u> blocks, where PFlash (Non-cached) as the Target Memory, and the LMU (DLMU) memory, and the DSPR memory as the Overlay(Redirect) memories (1 block in the LMU(DLMU)(Non-cached) Overlay Memory, and 1 other block in the DSPR (Non-cached) Overlay (Redirect) Memory). In Test 7 (Target Overlap), DSE trap (Data Access Synchronous Error, Class = 4, TIN=2) is triggered.  
+
+** Note **:<br>
+When an address matches two, or more, of the enabled overlay blocks, an exception is raised and the memory access is <u>not performed</u>. A load operation with multiple matches on overlay ranges, raises a Data Access Synchronous Error **(DSE)** trap, and a store operation raises Data Access Asynchronous Error **(DAE)** trap (*see chapter 5.3.8 of User Manual of AURIX&trade;TC4Dx*).
+<br>
+In such case, relevant trap information registers are updated which are mentioned below:<br> 
+Data Synchronous Trap Register (DSTR), Data Asynchronous Trap Register (DATR), Data Error Address Register (DEADD).
+
+*Test 8*:
+
+- Implementing Overlay configuration using SRAM (DSPR) for both Target Memory and the Overlay (Redirect) Memory.<br>  
+(Since, the Target address just can be in the Program NVM, Data NVM, OLDA space (virtual space), so in this scenario, the Overlay is not enabled, and the ERROR is occurred). 
+
+*Test 9*: 
+
+- Overlay configuration for <u>2KB block size</u>, where PFlash (Non-cached) as the Target Memory, and the DSPR as the Overlay(Redirect) Memory. 
+
+**Note:** All tests are provided by the *Overlay_Test.h*. <br>
 
 ## Compiling and programming
 Before testing this code example:  
@@ -144,14 +192,35 @@ Before testing this code example:
 - To flash the device and start a debug session, click on the Debug button <img src="./Images/debug.gif" /> and create a configuration for a debugger (double clicking on the debugger name, a default configuration is created)
 
 ## Run and Test   
-The Global variable of *"g_testIdentifier"* is considered to choose and switch to different Tests, according to their Test_Number (*as shown below in the WinIDEA Debugger in AURIX-v1.10.12-L *). 
+The Global variable of *"g_testIdentifier"* is considered to choose and switch to different Tests, according to their Test_Number (*as shown below in the WinIDEA Debugger in AURIX-v1.10.30-L *). 
 
 <img src="./Images/RUNandTEST.PNG" width="1300" />
 
 **Note:**
 Doing the following order to run the test:
 
-Reset &rarr; Resume (Run) &rarr; Suspend &rarr; Changing the value of *"g_testIdentifier"* &rarr; Resume (Run) again, and then see the result based on the Test_Number (1).
+Reset &rarr; Resume (Run) &rarr; Suspend &rarr; Changing the value of *"g_testIdentifier"* &rarr; Resume (Run) again, and then see the result based on the Test_Number (1, 2, 3, 4, 5, ...9).
+
+**Note:** 
+To switch to different Tests, and also to exit from the Trap while it occurred, it is necessary to do *Reset*. 
+<br><br>
+
+**Trap triggered:**
+
+As shown below DSE trap is triggered in Test 7 (Target Overlap), (Load operation raises a Data Access Synchronous Error, Class = 4, TIN=2).
+
+<img src="./Images/TRAPOverlap.PNG" width="1200" /> 
+<br><br>
+
+**LEDs behavior in case of Success/Error**: 
+
+(LED_SUCCESS LED2): ON &rarr; P00. 10: ON
+
+(LED_ERROR LED1): ON &rarr; P00. 9: ON 
+
+**The reaction for each test:**
+
+<img src="./Images/OverlayReaction.PNG" width="700" />
  
 ## References  
 

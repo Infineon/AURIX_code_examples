@@ -4,7 +4,7 @@
 **Shell is used to parse a command line and call the corresponding command execution. The ASCLIN module is used to interface with the Shell through the USB port via UART.**  
 
 ## Device  
-The device used in this example is AURIX&trade; TC49xN_A-Step
+The device used in this example is AURIX&trade; TC497PP_A-Step_MS_STD
 
 ## Board  
 The board used for testing is the TriBoard TC497 lite Kit (KIT_A3G_TC497_LITE)

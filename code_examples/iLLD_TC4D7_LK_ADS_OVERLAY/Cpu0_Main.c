@@ -32,16 +32,16 @@
  *              to modify program parameters (which are typically stored in the code memory) during run time of program.
  *              Once copied, an overlay mechanism is instituted (configure required Overlay Control registers). The registers
  *              are prepared to enable/disable the redirection from Target memory (usually Flash) into volatile Overlay memory
- *              (SRAM). The CPU convert the addresses to access the Overlay memory instead the Target memory. Test1 have
- *              been provided in this code example, focused on ensuring that the redirection of memory accesses is accurately
- *              configured.
+ *              (SRAM). The CPU convert the addresses to access the Overlay memory instead the Target memory. Different test
+ *              scenarios have been provided in this code example, focused on ensuring that the redirection of memory accesses
+ *              is accurately configured.
  *
  * \name iLLD_TC4D7_LK_ADS_OVERLAY
- * \version V1.0.0
+ * \version V1.0.1
  * \board AURIX TC4D7 lite Kit, KIT_A3G_TC4D7_LITE, TC4D7XP_A-Step_MC_COM
  * \keywords AURIX, Data Access Overlay, OVC, Overlay Memory, Redirect Memory, Redirecting
  * \documents See README.MD
- * \lastUpdated 2025-08-11
+ * \lastUpdated 2026-06-08
  *********************************************************************************************************************/
 #include "Ifx_Types.h"
 #include "Ifx_Cfg.h"
@@ -67,7 +67,7 @@ void core0_main(void)
     
     /* Wait for CPU sync event */
     IfxCpu_emitEvent(&g_cpuSyncEvent);
-    IfxCpu_waitEvent(&g_cpuSyncEvent, 1);
+    IfxCpu_waitEvent(&g_cpuSyncEvent, 1, 1);
 
     Test_init();
 
@@ -78,7 +78,31 @@ void core0_main(void)
             case TEST_1:
                  Test_1();
                  break;
-            default:
+            case TEST_2:
+                Test_2();
+                break;
+            case TEST_3:
+                Test_3();
+                break;
+            case TEST_4:
+                Test_4();
+                break;
+            case TEST_5:
+                Test_5();
+                break;
+            case TEST_6:
+                Test_6();
+                break;
+            case TEST_7:
+                Test_7();
+                break;
+            case TEST_8:
+                Test_8();
+                break;
+            case TEST_9:
+                Test_9();
+                break;
+           default:
                  break;
         }
     }

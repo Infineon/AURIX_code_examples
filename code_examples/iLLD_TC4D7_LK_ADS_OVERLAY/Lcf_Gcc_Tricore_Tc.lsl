@@ -59,6 +59,10 @@ LCF_ISTACK5_SIZE = 1k;
 
 LCF_HEAP_SIZE = 4k;
 
+LCF_PPU_FLASH_SIZE  = 1M;
+LCF_PPU_LMURAM_SIZE = 512k;
+LCF_PPU_CSM_SIZE    = 512k;
+
 LCF_DSPR5_START = 0x20000000;
 LCF_DSPR5_SIZE  = 240K;
 
@@ -190,7 +194,6 @@ MEMORY
     pfls5 (rx!p): org = 0x81200000, len = 2M
     pfls5_nc (rx!p): org = 0xA1200000, len = 2M
 
-	
     ucb (rx!p): org = 0xae400000, len = 80K
 
     cpu0_dlmu (w!xp): org = 0x90000000, len = 512K
@@ -211,9 +214,22 @@ MEMORY
     cpu5_dlmu (w!xp): org = 0x90280000, len = 512K
     cpu5_dlmu_nc (w!xp): org = 0xb0280000, len = 512K
 
-    lmuram (w!xp): org = 0x90400000, len = 5M
-    lmuram_nc (w!xp): org = 0xb0400000, len = 5M
+    lmuram (w!xp): org = 0x90400000, len = 5M - 512K
+    lmuram_nc (w!xp): org = 0xb0400000, len = 5M - 512K
+    
+    ppu_lmuram (w!xp): org = 0x90880000, len = 512K     #Reserved for Metaware PPU
+    ppu_lmuram_nc (w!xp): org = 0xb0880000, len = 512K  # Reserved for Metaware PPU
+        
+    ppu_csm (w!xp): org = 0x92080000, len = 512K        #Reserved for Metaware PPU
+    ppu_csm_nc (w!xp): org = 0xb2080000, len = 512K     #Reserved for Metaware PPU
+    
+    pfls5_ppu(rx!p)      : org = 0x81300000, len = 1024K   #Reserved for Metaware PPU
+    
+    ppu_vccm(rx!p) : org = 0xC0000000, len = 128K   #Reserved for Metaware PPU
 
+    lmu_not_allocated1(rx!p) : org = 0xB0400000, len = 2048K   #Reserved for Metaware PPU
+    lmu_not_allocated2(rx!p) : org = 0xB0780000, len = 1024K   #Reserved for Metaware PPU
+    per_space_no_aloc1(rx!p) : org = 0xF0000000, len = 256M    #Reserved for Metaware PPU
 }
 
 /* map local memory address to a global address */
@@ -238,6 +254,7 @@ REGION_MIRROR("cpu3_dlmu", "cpu3_dlmu_nc")
 REGION_MIRROR("cpu4_dlmu", "cpu4_dlmu_nc")
 REGION_MIRROR("cpu5_dlmu", "cpu5_dlmu_nc")
 REGION_MIRROR("lmuram", "lmuram_nc")
+REGION_MIRROR("ppu_csm", "ppu_csm_nc")
 
 /*Un comment one of the below statement groups to enable CpuX DMI RAM to hold global variables*/
 
@@ -2528,6 +2545,77 @@ SECTIONS
         *(.lmubss)
         *(.lmubss.*)
     } > lmuram
+    
+    .shared_data : FLAGS(awl)
+    {
+       *(.uncached.lmudata)
+       *(.uncached.lmudata.*)
+    } > lmuram_nc
+    
+    .shared_bss : FLAGS(aw)
+    {
+       *(.uncached.lmubss)
+       *(.uncached.lmubss.*)
+       *(.sharedvar)
+       *(.sharedvar.*)
+    } > lmuram_nc
+    
+    .ppu_lmuram  : FLAGS(aw)
+    {
+    . = ALIGN(4);
+    __PPU_LMURAM_START = .;
+    . += LCF_PPU_LMURAM_SIZE;
+    __PPU_LMURAM_END = .;
+    } > ppu_lmuram_nc
+    
+    .ppu_csm  : FLAGS(aw)
+    {
+    . = ALIGN(4);
+    __PPU_CSM_START = .;
+    . += LCF_PPU_CSM_SIZE;
+    __PPU_CSM_END = .;
+    } > ppu_csm_nc
+
+    .shared_mem_ppu_pfls5_ppu : FLAGS(aw)
+    {
+        . = ALIGN(64);
+        _fshared_pfls5_ppu = .;
+        . += LENGTH(pfls5_ppu);
+        _eshared_pfls5_ppu = .;
+    } > pfls5_ppu
+
+    .shared_mem_ppu_ppu_vccm : FLAGS(aw)
+    {
+        . = ALIGN(64);
+        _fshared_ppu_vccm = .;
+        . += LENGTH(ppu_vccm);
+        _eshared_ppu_vccm = .;
+    } > ppu_vccm
+
+    .shared_mem_ppu_lmu_not_allocated1 : FLAGS(aw)
+    {
+        . = ALIGN(64);
+        _fshared_lmu_not_allocated1 = .;
+        . += LENGTH(lmu_not_allocated1);
+        _eshared_lmu_not_allocated1 = .;
+    } > lmu_not_allocated1
+
+    .shared_mem_ppu_lmu_not_allocated2 : FLAGS(aw)
+    {
+        . = ALIGN(64);
+        _fshared_lmu_not_allocated2 = .;
+        . += LENGTH(lmu_not_allocated2);
+        _eshared_lmu_not_allocated2 = .;
+    } > lmu_not_allocated2
+
+    .shared_mem_ppu_per_space_no_aloc1 : FLAGS(aw)
+    {
+        . = ALIGN(64);
+        _fshared_per_space_no_aloc1 = .;
+        . += LENGTH(per_space_no_aloc1);
+        _eshared_per_space_no_aloc1 = .;
+    } > per_space_no_aloc1
+    
 }
 
 /*Far Const Sections, selectable with patterns and user defined sections*/
@@ -2644,6 +2732,7 @@ SECTIONS
     LONG(0 + ADDR(.bss));             LONG(SIZEOF(.bss));
     LONG(0 + ADDR(.lmubss));          LONG(SIZEOF(.lmubss));
     LONG(0 + ADDR(.sbss4));           LONG(SIZEOF(.sbss4));
+    LONG(0 + ADDR(.shared_bss));      LONG(SIZEOF(.shared_bss));
     LONG(-1);                         LONG(-1);
     PROVIDE(__clear_table_powerOn = .);
     LONG(0 + ADDR(.zbss_powerOn));    LONG(SIZEOF(.zbss_powerOn));
@@ -2672,6 +2761,7 @@ SECTIONS
     LONG(LOADADDR(.data));            LONG(0 + ADDR(.data));            LONG(SIZEOF(.data));
     LONG(LOADADDR(.lmudata));         LONG(0 + ADDR(.lmudata));         LONG(SIZEOF(.lmudata));
     LONG(LOADADDR(.sdata4));          LONG(0 + ADDR(.sdata4));          LONG(SIZEOF(.sdata4));
+    LONG(LOADADDR(.shared_data));     LONG(0 + ADDR(.shared_data));     LONG(SIZEOF(.shared_data));
     LONG(LOADADDR(.CPU0.psram_text)); LONG(0 + ADDR(.CPU0.psram_text)); LONG(SIZEOF(.CPU0.psram_text));
     LONG(LOADADDR(.CPU1.psram_text)); LONG(0 + ADDR(.CPU1.psram_text)); LONG(SIZEOF(.CPU1.psram_text));
     LONG(LOADADDR(.CPU2.psram_text)); LONG(0 + ADDR(.CPU2.psram_text)); LONG(SIZEOF(.CPU2.psram_text));
@@ -2895,6 +2985,14 @@ SECTIONS
         *(.gnu.warning)        /* .gnu.warning sections are handled specially by elf32.em. */
         . = ALIGN(4);
     } > default_rom
+    
+    CORE_SEC(.ppu_code) (ORIGIN(pfls5) + LENGTH(pfls5) - LCF_PPU_FLASH_SIZE) (NOLOAD) : FLAGS(axl)
+    {
+    __PPU_IF_CONSTANTS = .;
+    __PPU_CODE_START = .;
+    . += LCF_PPU_FLASH_SIZE;
+    __PPU_CODE_END = .;
+    } > pfls5
 
     /*
      * C++ exception handling tables.  NOTE: gcc emits .eh_frame
@@ -3003,3 +3101,4 @@ SECTIONS
     .version_info    0 : { *(.version_info) }
     .boffs           0 : { KEEP (*(.boffs)) }
 }
+

@@ -31,7 +31,7 @@
  *
  * \name iLLD_TC497_LK_ADS_ASCLIN_UART
  * \version V1.0.0
- * \board AURIX TC497 lite Kit, KIT_A3G_TC497_LITE, TC49xN_A-Step
+ * \board AURIX TC497 lite Kit, KIT_A3G_TC497_LITE, TC497PP_A-Step_MS_STD
  * \keywords UART, ASCLIN, AURIX, ASC
  * \documents See README.md
  * \lastUpdated 2026-02-16

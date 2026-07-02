@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?fileVersion 4.0.0?><cproject storage_type_id="org.eclipse.cdt.core.XmlProjectDescriptionStorage">
+	<storageModule moduleId="org.eclipse.cdt.core.settings">
+		<cconfiguration id="com.infineon.aurix.buildsystem.managed.external.gcc.builtin.configuration.debug.423663509">
+			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="com.infineon.aurix.buildsystem.managed.external.gcc.builtin.configuration.debug.423663509" moduleId="org.eclipse.cdt.core.settings" name="TriCore Debug (GCC)">
+				<externalSettings/>
+				<extensions>
+					<extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>
+					<extension id="org.eclipse.cdt.core.GASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.CWDLocator" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+				</extensions>
+			</storageModule>
+			<storageModule moduleId="com.infineon.aurix.buildsystem.build.booster.settings">
+				<libraries-roots>
+					<path>/Libraries/iLLD/TC4DA/CpuGeneric</path>
+					<path>/Libraries/iLLD/TC4DA/Tricore</path>
+				</libraries-roots>
+				<never-exclude-from-build>
+					<path>/Libraries/iLLD/TC4DA/Tricore/Cpu/Trap</path>
+				</never-exclude-from-build>
+			</storageModule>
+			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+				<configuration artifactName="${ProjName}" buildArtefactType="com.infineon.aurix.buildsystem.managed.buildArtefactType.elf" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=com.infineon.aurix.buildsystem.managed.buildArtefactType.elf,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug" description="" id="com.infineon.aurix.buildsystem.managed.external.gcc.builtin.configuration.debug.423663509" name="TriCore Debug (GCC)" parent="com.infineon.aurix.buildsystem.managed.external.gcc.builtin.configuration.debug">
+					<folderInfo id="com.infineon.aurix.buildsystem.managed.external.gcc.builtin.configuration.debug.423663509." name="/" resourcePath="">
+						<toolChain id="com.infineon.aurix.buildsystem.managed.external.gcc.builtin.configuration.debug.565630977" name="GCC" superClass="com.infineon.aurix.buildsystem.managed.external.gcc.builtin.configuration.debug">
+							<option id="com.infineon.aurix.buildsystem.managed.gcc.c.option.mcpu.2141691142" name="CPU Derivative" superClass="com.infineon.aurix.buildsystem.managed.gcc.c.option.mcpu" value="com.infineon.aurix.buildsystem.managed.gcc.c.option.mcpu.tc4dax" valueType="enumerated"/>
+							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="com.infineon.aurix.buildsystem.managed.gcc.targetPlatform.847142982" isAbstract="false" osList="all" superClass="com.infineon.aurix.buildsystem.managed.gcc.targetPlatform"/>
+							<builder buildPath="${workspace_loc:/iLLD_TC4D7_ADS_LVGL_Code_Example_1}/TriCore Debug (GCC)" id="com.infineon.aurix.buildsystem.managed.gcc.builtin.builder.612593467" keepEnvironmentInBuildfile="false" name="Gnu Make Builder" superClass="com.infineon.aurix.buildsystem.managed.gcc.builtin.builder"/>
+							<tool id="com.infineon.aurix.buildsystem.managed.tool.c.compiler.421649018" name="AURIX GCC Compiler" superClass="com.infineon.aurix.buildsystem.managed.tool.c.compiler">
+								<option defaultValue="gnu.c.optimization.level.none" id="com.infineon.aurix.buildsystem.managed.tool.c.compiler.option.optimization.level.1690363192" name="Optimization Level" superClass="com.infineon.aurix.buildsystem.managed.tool.c.compiler.option.optimization.level" useByScannerDiscovery="false" value="gnu.c.optimization.level.debug" valueType="enumerated"/>
+								<option defaultValue="gnu.c.debugging.level.max" id="com.infineon.aurix.buildsystem.managed.tool.c.compiler.option.debugging.level.78500200" name="Debug Level" superClass="com.infineon.aurix.buildsystem.managed.tool.c.compiler.option.debugging.level" useByScannerDiscovery="false" valueType="enumerated"/>
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.infineon.aurix.buildsystem.managed.tool.c.compiler.option.include.paths.1614644318" name="Include paths (-I)" superClass="com.infineon.aurix.buildsystem.managed.tool.c.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Configurations}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/Infra}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/Infra/Ipc}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/Infra/Ipc/Common}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/Infra/Ipc/Tricore}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/Infra/Ipc/Tricore/ipc}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/Infra/Ipc/Tricore/ipc/inc}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/Infra/Platform}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/Infra/Platform/Tricore}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/Infra/Platform/Tricore/Compilers}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/Infra/Sfr}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/Infra/Sfr/TC4DA}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/Infra/Sfr/TC4DA/_Reg}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/Infra/Ssw}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/Infra/Ssw/TC4DA}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/Infra/Ssw/TC4DA/Tricore}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/Qspi}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/Service}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/If}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/If/Ccu6If}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/StdIf}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/SysSe}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/SysSe/Bsp}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/SysSe/Comm}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/SysSe/General}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/SysSe/Math}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/SysSe/Time}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/Service/CpuGeneric/_Utilities}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC4DA}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC4DA/CpuGeneric}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC4DA/CpuGeneric/Ap}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC4DA/CpuGeneric/Ap/Std}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC4DA/CpuGeneric/Asclin}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC4DA/CpuGeneric/Asclin/Asc}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC4DA/CpuGeneric/Asclin/Std}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC4DA/CpuGeneric/Clock}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC4DA/CpuGeneric/Clock/Std}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC4DA/CpuGeneric/Dma}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC4DA/CpuGeneric/Dma/Dma}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC4DA/CpuGeneric/Dma/Std}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC4DA/CpuGeneric/Egtm}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC4DA/CpuGeneric/Egtm/Std}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC4DA/CpuGeneric/Geth}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC4DA/CpuGeneric/Geth/Std}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC4DA/CpuGeneric/Port}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC4DA/CpuGeneric/Port/Std}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC4DA/CpuGeneric/Src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC4DA/CpuGeneric/Src/Std}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC4DA/CpuGeneric/_Impl}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC4DA/CpuGeneric/_Lib}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC4DA/CpuGeneric/_Lib/DataHandling}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC4DA/CpuGeneric/_PinMap}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC4DA/Tricore}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC4DA/Tricore/Cpu}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC4DA/Tricore/Cpu/Irq}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC4DA/Tricore/Cpu/Std}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC4DA/Tricore/Cpu/Trap}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC4DA/Tricore/Qspi}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC4DA/Tricore/Qspi/SpiMaster}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC4DA/Tricore/Qspi/Std}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC4DA/Tricore/Smu}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC4DA/Tricore/Smu/Std}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC4DA/Tricore/Stm}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC4DA/Tricore/Stm/Std}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC4DA/Tricore/Vmt}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC4DA/Tricore/Vmt/Std}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC4DA/Tricore/Wtu}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC4DA/Tricore/Wtu/Std}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC4DA/Tricore/_Impl}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Libraries/iLLD/TC4DA/Tricore/_PinMap}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Tft}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/env_support}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/env_support/cmsis-pack}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/env_support/rt-thread}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/env_support/rt-thread/squareline}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/env_support/rt-thread/squareline/ui}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/env_support/rt-thread/squareline/ui/lvgl}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/libs}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/libs/nema_gfx}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/libs/nema_gfx/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/libs/nema_gfx/include/cortex_m33}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/libs/nema_gfx/include/cortex_m55_m7}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/core}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/debugging}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/debugging/monkey}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/debugging/sysmon}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/debugging/test}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/debugging/vg_lite_tvg}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/display}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/draw}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/draw/convert}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/draw/convert/helium}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/draw/convert/neon}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/draw/dma2d}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/draw/espressif}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/draw/espressif/ppa}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/draw/eve}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/draw/nanovg}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/draw/nema_gfx}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/draw/nxp}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/draw/nxp/g2d}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/draw/nxp/pxp}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/draw/opengles}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/draw/renesas}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/draw/renesas/dave2d}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/draw/sdl}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/draw/snapshot}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/draw/sw}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/draw/sw/arm2d}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/draw/sw/blend}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/draw/sw/blend/arm2d}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/draw/sw/blend/neon}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/draw/sw/blend/riscv_v}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/draw/vg_lite}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/drivers}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/drivers/display}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/drivers/display/drm}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/drivers/display/fb}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/drivers/display/ft81x}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/drivers/display/ili9341}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/drivers/display/lcd}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/drivers/display/lovyan_gfx}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/drivers/display/nv3007}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/drivers/display/nxp_elcdif}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/drivers/display/renesas_glcdc}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/drivers/display/st7735}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/drivers/display/st7789}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/drivers/display/st7796}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/drivers/display/st_ltdc}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/drivers/display/tft_espi}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/drivers/draw}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/drivers/draw/eve}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/drivers/evdev}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/drivers/libinput}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/drivers/nuttx}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/drivers/nuttx/mock}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/drivers/opengles}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/drivers/opengles/assets}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/drivers/opengles/glad}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/drivers/opengles/glad/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/drivers/opengles/glad/include/EGL}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/drivers/opengles/glad/include/KHR}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/drivers/opengles/glad/include/glad}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/drivers/opengles/opengl_shader}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/drivers/qnx}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/drivers/sdl}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/drivers/uefi}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/drivers/wayland}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/drivers/windows}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/drivers/x11}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/font}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/font/binfont_loader}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/font/fmt_txt}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/font/font_manager}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/font/imgfont}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/indev}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/layouts}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/layouts/flex}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/layouts/grid}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/libs}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/libs/FT800-FT813}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/libs/barcode}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/libs/bin_decoder}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/libs/bmp}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/libs/ffmpeg}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/libs/freetype}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/libs/frogfs}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/libs/frogfs/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/libs/frogfs/include/frogfs}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/libs/frogfs/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/libs/fsdrv}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/libs/gif}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/libs/gltf}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/libs/gltf/fastgltf}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/libs/gltf/gltf_data}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/libs/gltf/gltf_environment}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/libs/gltf/gltf_view}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/libs/gltf/gltf_view/assets}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/libs/gltf/math}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/libs/gltf/stb_image}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/libs/gstreamer}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/libs/libjpeg_turbo}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/libs/libpng}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/libs/libwebp}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/libs/lodepng}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/libs/lz4}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/libs/nanovg}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/libs/qrcode}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/libs/rle}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/libs/rlottie}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/libs/svg}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/libs/tiny_ttf}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/libs/tjpgd}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/libs/vg_lite_driver}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/libs/vg_lite_driver/VGLite}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/libs/vg_lite_driver/VGLiteKernel}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/libs/vg_lite_driver/VGLite/Series}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/libs/vg_lite_driver/VGLite/Series/gc255}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/libs/vg_lite_driver/VGLite/Series/gc255/0x40A}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/libs/vg_lite_driver/VGLite/Series/gc355}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/libs/vg_lite_driver/VGLite/Series/gc355/0x0_1215}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/libs/vg_lite_driver/VGLite/Series/gc355/0x0_1216}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/libs/vg_lite_driver/VGLite/Series/gc555}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/libs/vg_lite_driver/VGLite/Series/gc555/0x423}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/libs/vg_lite_driver/VGLite/Series/gc555/0x423_ECO}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/libs/vg_lite_driver/inc}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/libs/vg_lite_driver/lv_vg_lite_hal}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/misc}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/misc/cache}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/misc/cache/class}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/misc/cache/instance}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/osal}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/others}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/others/file_explorer}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/others/fragment}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/others/translation}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/stdlib}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/stdlib/builtin}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/themes}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/themes/default}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/themes/mono}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/themes/simple}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/tick}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/widgets}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/widgets/3dtexture}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/widgets/animimage}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/widgets/arc}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/widgets/arclabel}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/widgets/bar}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/widgets/button}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/widgets/buttonmatrix}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/widgets/calendar}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/widgets/canvas}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/widgets/chart}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/widgets/checkbox}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/widgets/dropdown}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/widgets/gif}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/widgets/image}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/widgets/imagebutton}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/widgets/ime}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/widgets/keyboard}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/widgets/label}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/widgets/led}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/widgets/line}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/widgets/list}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/widgets/lottie}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/widgets/menu}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/widgets/msgbox}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/widgets/objx_templ}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/widgets/property}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/widgets/roller}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/widgets/scale}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/widgets/slider}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/widgets/span}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/widgets/spinbox}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/widgets/spinner}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/widgets/switch}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/widgets/table}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/widgets/tabview}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/widgets/textarea}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/widgets/tileview}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lvgl/src/widgets/win}&quot;"/>
+								</option>
+								<option id="com.infineon.aurix.buildsystem.managed.tool.c.compiler.option.debugging.other.1129074085" name="Other debugging flags" superClass="com.infineon.aurix.buildsystem.managed.tool.c.compiler.option.debugging.other" useByScannerDiscovery="false" value="-gdwarf-3" valueType="string"/>
+								<inputType id="com.infineon.aurix.buildsystem.managed.tool.c.compiler.inputType.431844779" superClass="com.infineon.aurix.buildsystem.managed.tool.c.compiler.inputType"/>
+							</tool>
+							<tool id="com.infineon.aurix.buildsystem.managed.tool.cpp.compiler.1197728586" name="AURIX G++ Compiler" superClass="com.infineon.aurix.buildsystem.managed.tool.cpp.compiler">
+								<option id="com.infineon.aurix.buildsystem.managed.tool.cpp.compiler.option.optimization.level.6339224" name="Optimization Level" superClass="com.infineon.aurix.buildsystem.managed.tool.cpp.compiler.option.optimization.level" useByScannerDiscovery="false" value="gnu.cpp.compiler.optimization.level.debug" valueType="enumerated"/>
+								<option defaultValue="gnu.cpp.compiler.debugging.level.max" id="com.infineon.aurix.buildsystem.managed.tool.cpp.compiler.option.debugging.level.1672942586" name="Debug Level" superClass="com.infineon.aurix.buildsystem.managed.tool.cpp.compiler.option.debugging.level" useByScannerDiscovery="false" valueType="enumerated"/>
+								<option id="com.infineon.aurix.buildsystem.managed.tool.cpp.compiler.option.debugging.other.1053690996" name="Other debugging flags" superClass="com.infineon.aurix.buildsystem.managed.tool.cpp.compiler.option.debugging.other" useByScannerDiscovery="false" value="-gdwarf-3" valueType="string"/>
+							</tool>
+							<tool id="com.infineon.aurix.buildsystem.managed.tool.assembler.1603500976" name="AURIX GCC Assembler" superClass="com.infineon.aurix.buildsystem.managed.tool.assembler">
+								<inputType id="com.infineon.aurix.buildsystem.managed.tool.assembler.inputType.1875622817" name="Assembler Input" superClass="com.infineon.aurix.buildsystem.managed.tool.assembler.inputType"/>
+							</tool>
+							<tool id="com.infineon.aurix.buildsystem.managed.tool.c.linker.978539542" name="AURIX GCC Linker" superClass="com.infineon.aurix.buildsystem.managed.tool.c.linker">
+								<option id="com.infineon.aurix.buildsystem.managed.c.linker.option.linkerScript.1399311863" name="Linker Script" superClass="com.infineon.aurix.buildsystem.managed.c.linker.option.linkerScript" value="../Lcf_Gcc_Tricore_Tc.lsl" valueType="string"/>
+								<inputType id="com.infineon.aurix.buildsystem.managed.c.linker.inputType.1987370856" superClass="com.infineon.aurix.buildsystem.managed.c.linker.inputType"/>
+							</tool>
+							<tool id="com.infineon.aurix.buildsystem.managed.tool.cpp.linker.228481005" name="AURIX G++ Linker" superClass="com.infineon.aurix.buildsystem.managed.tool.cpp.linker"/>
+							<tool id="com.infineon.aurix.buildsystem.managed.tool.c.objcopy.347411397" name="AURIX Object Copy" superClass="com.infineon.aurix.buildsystem.managed.tool.c.objcopy"/>
+							<tool id="com.infineon.aurix.buildsystem.managed.tool.objdump.944850826" name="AURIX Create Listing" superClass="com.infineon.aurix.buildsystem.managed.tool.objdump"/>
+							<tool id="com.infineon.aurix.buildsystem.managed.tool.printsize.595824739" name="AURIX Print Size" superClass="com.infineon.aurix.buildsystem.managed.tool.printsize"/>
+							<tool id="com.infineon.aurix.buildsystem.managed.tool.archiver.492153873" name="AURIX Archiver" superClass="com.infineon.aurix.buildsystem.managed.tool.archiver"/>
+						</toolChain>
+					</folderInfo>
+					<sourceEntries>
+						<entry excluding="lvgl/src/draw/sw/blend/helium|lvgl/demos|lvgl/tests|lvgl/examples|lvgl/src/libs/thorvg|Libraries/iLLD/TC4DA/Scr|Libraries/iLLD/TC4DA/ArcEV|Libraries/iLLD/TC4DA/Csrm|Libraries/Infra/Platform/ArcEV|Libraries/Infra/Ssw/TC4DA/Csrm|Libraries/Service/Ipc/ArcEV|iLLD/TC4DA/Csrm|CSRM|MCS|SCR|PPU|Libraries/iLLD/TC4DA/CpuGeneric/Hsphy|Libraries/iLLD/TC4DA/CpuGeneric/_Build|Libraries/iLLD/TC4DA/Tricore/Smu/Smu|Libraries/iLLD/TC4DA/Tricore/Canxl/Std|Libraries/iLLD/TC4DA/Tricore/Scu/Std|Libraries/iLLD/TC4DA/Tricore/Xspi/Spi|Libraries/iLLD/TC4DA/CpuGeneric/Egtm/Tim/In|Libraries/iLLD/TC4DA/Tricore/Sdmmc|Libraries/iLLD/TC4DA/CpuGeneric/Egtm/Tim/Timer|Libraries/iLLD/TC4DA/Tricore/Msc/Msc|Libraries/iLLD/TC4DA/CpuGeneric/Pcie|Libraries/iLLD/TC4DA/Tricore/Pms|Libraries/iLLD/TC4DA/Tricore/Canxl|Libraries/iLLD/TC4DA/CpuGeneric/Port/Io|Libraries/iLLD/TC4DA/Tricore/Sent/Sent|Libraries/iLLD/TC4DA/CpuGeneric/Fce/Crc|Libraries/iLLD/TC4DA/Tricore/Scu|Libraries/iLLD/TC4DA/CpuGeneric/Fce|Libraries/iLLD/TC4DA/CpuGeneric/Pcie/Lib/Dma|Libraries/iLLD/TC4DA/Tricore/Ppuc/Std|Libraries/iLLD/TC4DA/Tricore/Hssl/Std|Libraries/iLLD/TC4DA/Tricore/Canxl/Can|Libraries/iLLD/TC4DA/Tricore/Eray/Eray|Libraries/iLLD/TC4DA/Tricore/Xspi|Libraries/iLLD/TC4DA/CpuGeneric/_Lib/InternalMux|Libraries/iLLD/TC4DA/Tricore/Psi5s/Std|Libraries/iLLD/TC4DA/CpuGeneric/Hsphy/Hsphy|Libraries/iLLD/TC4DA/CpuGeneric/Pcie/Lib/Cap|Libraries/iLLD/TC4DA/CpuGeneric/Hsphy/Xpcs|Libraries/iLLD/TC4DA/CpuGeneric/Adc/Cdsp|Libraries/iLLD/TC4DA/Tricore/Tri/Std|Libraries/iLLD/TC4DA/CpuGeneric/Egtm/Trigger|Libraries/iLLD/TC4DA/Tricore/Smm|Libraries/iLLD/TC4DA/Tricore/Psi5|Libraries/iLLD/TC4DA/Tricore/Eray/Std|Libraries/iLLD/TC4DA/Tricore/I2c/I2c|Libraries/iLLD/TC4DA/Tricore/Can/Can|Libraries/iLLD/TC4DA/CpuGeneric/Geth/Eth|Libraries/iLLD/TC4DA/CpuGeneric/Egtm/Atom|Libraries/iLLD/TC4DA/Tricore/Sent/Std|Libraries/iLLD/TC4DA/CpuGeneric/Egtm/Tim|Libraries/iLLD/TC4DA/CpuGeneric/Hsphy/Dll|Libraries/iLLD/TC4DA/Tricore/Msc|Libraries/iLLD/TC4DA/CpuGeneric/Adc|Libraries/iLLD/TC4DA/CpuGeneric/Leth/Eth|Libraries/iLLD/TC4DA/CpuGeneric/Egtm/Tom/Timer|Libraries/iLLD/TC4DA/Tricore/Psi5/Psi5|Libraries/iLLD/TC4DA/CpuGeneric/Pcie/Ep|Libraries/iLLD/TC4DA/Tricore/Dre/Std|Libraries/iLLD/TC4DA/Tricore/Psi5s|Libraries/iLLD/TC4DA/CpuGeneric/Hsphy/Mp8g|Libraries/iLLD/TC4DA/Tricore/Xspi/Std|Libraries/iLLD/TC4DA/Tricore/Sdmmc/Emmc|Libraries/iLLD/TC4DA/Tricore/_Build|Libraries/iLLD/TC4DA/CpuGeneric/Asclin/Lin|Libraries/iLLD/TC4DA/Tricore/I2c|Libraries/iLLD/TC4DA/Tricore/Dre|Libraries/iLLD/TC4DA/CpuGeneric/Egtm/Input|Libraries/iLLD/TC4DA/CpuGeneric/Fce/Std|Libraries/iLLD/TC4DA/CpuGeneric/Egtm/Atom/Pwm|Libraries/iLLD/TC4DA/Tricore/Hssl/Hssl|Libraries/iLLD/TC4DA/Tricore/Tri|Libraries/iLLD/TC4DA/Tricore/Smm/Std|Libraries/iLLD/TC4DA/CpuGeneric/Egtm/Tom/Pwm|Libraries/iLLD/TC4DA/Tricore/Msc/Std|Libraries/iLLD/TC4DA/CpuGeneric/Asclin/Spi|Libraries/iLLD/TC4DA/CpuGeneric/Hsphy/Std|Libraries/iLLD/TC4DA/CpuGeneric/Pcie/Std|Libraries/iLLD/TC4DA/Tricore/Sdmmc/Std|Libraries/iLLD/TC4DA/Tricore/Can/Std|Libraries/iLLD/TC4DA/CpuGeneric/Leth/Std|Libraries/iLLD/TC4DA/CpuGeneric/Pcie/Lib/Device|Libraries/iLLD/TC4DA/Tricore/Sdmmc/Sd|Libraries/iLLD/TC4DA/CpuGeneric/Egtm/Tom|Libraries/iLLD/TC4DA/Tricore/Eray|Libraries/iLLD/TC4DA/CpuGeneric/Hsphy/EthIO|Libraries/iLLD/TC4DA/Tricore/Hssl|Libraries/iLLD/TC4DA/CpuGeneric/Adc/Tmadc|Libraries/iLLD/TC4DA/CpuGeneric/Adc/Std|Libraries/iLLD/TC4DA/CpuGeneric/Pcie/Lib|Libraries/iLLD/TC4DA/Tricore/Can|Libraries/iLLD/TC4DA/Tricore/Pms/Std|Libraries/iLLD/TC4DA/CpuGeneric/Egtm/Pwm|Libraries/iLLD/TC4DA/CpuGeneric/Egtm/Atom/Timer|Libraries/iLLD/TC4DA/Tricore/Ppuc|Libraries/iLLD/TC4DA/Tricore/Flash/Std|Libraries/iLLD/TC4DA/Tricore/Flash|Libraries/iLLD/TC4DA/Tricore/Sent|Libraries/iLLD/TC4DA/Tricore/Dre/Dre|Libraries/iLLD/TC4DA/Tricore/Psi5/Std|Libraries/iLLD/TC4DA/Tricore/Psi5s/Psi5s|Libraries/iLLD/TC4DA/Tricore/Qspi/SpiSlave|Libraries/iLLD/TC4DA/Tricore/I2c/Std|Libraries/iLLD/TC4DA/CpuGeneric/Leth|Libraries/iLLD/TC4DA/CpuGeneric/Pcie/Rc|Libraries/iLLD/TC4DA/Tricore/Stm/Timer" flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name=""/>
+					</sourceEntries>
+				</configuration>
+			</storageModule>
+			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
+			<storageModule moduleId="com.infineon.aurix.buildsystem.build.autodiscovery.settings"/>
+		</cconfiguration>
+	</storageModule>
+	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+		<project id="iLLD_TC4D7_ADS_LVGL_Code_Example_1.com.infineon.aurix.buildsystem.managed.projectType.424600829" name="AURIX Project" projectType="com.infineon.aurix.buildsystem.managed.projectType"/>
+	</storageModule>
+	<storageModule moduleId="scannerConfiguration">
+		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		<scannerConfigBuildInfo instanceId="com.infineon.aurix.buildsystem.managed.external.gcc.builtin.configuration.debug.423663509;com.infineon.aurix.buildsystem.managed.external.gcc.builtin.configuration.debug.423663509.;com.infineon.aurix.buildsystem.managed.tool.c.compiler.421649018;com.infineon.aurix.buildsystem.managed.tool.c.compiler.inputType.431844779">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
+	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
+	<storageModule moduleId="org.eclipse.cdt.core.language.mapping">
+		<project-mappings>
+			<content-type-mapping configuration="" content-type="org.eclipse.cdt.core.cHeader" language="com.tasking.dbg.ctc.clanguage"/>
+			<content-type-mapping configuration="" content-type="org.eclipse.cdt.core.cSource" language="com.tasking.dbg.ctc.clanguage"/>
+			<content-type-mapping configuration="" content-type="org.eclipse.cdt.core.cxxHeader" language="com.tasking.dbg.ctc.cpplanguage"/>
+			<content-type-mapping configuration="" content-type="org.eclipse.cdt.core.cxxSource" language="com.tasking.dbg.ctc.cpplanguage"/>
+		</project-mappings>
+	</storageModule>
+	<storageModule moduleId="refreshScope" versionNumber="2">
+		<configuration configurationName="TriCore Debug (TASKING)">
+			<resource resourceType="PROJECT" workspacePath="/iLLD_TC4D7_ADS_LVGL_Code_Example_1"/>
+		</configuration>
+		<configuration configurationName="TriCore Debug (GCC)">
+			<resource resourceType="PROJECT" workspacePath="/iLLD_TC4D7_ADS_LVGL_Code_Example_1"/>
+		</configuration>
+	</storageModule>
+</cproject>

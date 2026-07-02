@@ -29,7 +29,7 @@
  * \description An I2C module configured as I2C master is used to read the MAC address stored in the Microchip 2K I2C Serial EEPROM mounted on the board KIT_A3G_TC4D7_LITE. The AURIX&trade; device reads the MAC address through the I2C module and stores it into a global variable.
  * \name iLLD_TC497_LK_ADS_I2C_Read_Ext_Device
  * \version V1.0.0
- * \board AURIX TC497 lite Kit, KIT_A3G_TC497_LITE, TC49xN_A-Step
+ * \board AURIX TC497 lite Kit, KIT_A3G_TC497_LITE, TC497PP_A-Step_MS_STD
  * \keywords I2C
  * \documents See README.md
  * \lastUpdated 2026-02-13

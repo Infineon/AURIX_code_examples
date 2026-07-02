@@ -107,18 +107,22 @@
 #ifndef IFX_CFG_SSW_ENABLE_AP_INIT
 #define IFX_CFG_SSW_ENABLE_AP_INIT                       (1U)
 #endif
+
 /* Set this macro to 1, to do Key-off LBIST checks. */
 #ifndef IFX_CFG_SSW_ENABLE_KEYOFF_LBIST
 #define IFX_CFG_SSW_ENABLE_KEYOFF_LBIST                  (0U)
 #endif
+
 /* Set this macro to 1, to do Key-off MBIST checks. */
 #ifndef IFX_CFG_SSW_ENABLE_KEYOFF_MBIST
 #define IFX_CFG_SSW_ENABLE_KEYOFF_MBIST                  (0U)
 #endif
+
 /* Set this macro to 1, to do Key-off MBIST for DSPR0-5 and DMARAM. */
 #ifndef IFX_CFG_SSW_ENABLE_KEYOFF_MBIST_DSPRS_DMARAM
 #define IFX_CFG_SSW_ENABLE_KEYOFF_MBIST_DSPRS_DMARAM     (0U)
 #endif
+
 /* Set this macro to 1, to do Key-off STL startup tests. */
 #ifndef IFX_CFG_SSW_ENABLE_KEYOFF_SAFETY_LIBRARY_TESTS
 #define IFX_CFG_SSW_ENABLE_KEYOFF_SAFETY_LIBRARY_TESTS   (0U)

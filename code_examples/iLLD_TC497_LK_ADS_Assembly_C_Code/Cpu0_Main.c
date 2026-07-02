@@ -29,7 +29,7 @@
  * \description Two LEDs are switched on then switched off using assembly code functions.
  * \name iLLD_TC497_LK_ADS_Assembly_C_Code
  * \version V1.0.0
- * \board AURIX TC497 lite Kit, KIT_A3G_TC497_LITE, TC49xN_A-Step
+ * \board AURIX TC497 lite Kit, KIT_A3G_TC497_LITE, TC497PP_A-Step_MS_STD
  * \keywords Assembly, C, AURIX, Assembly_C_Code_1
  * \documents See README.md
  * \lastUpdated 2026-02-05

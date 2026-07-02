@@ -462,7 +462,7 @@
     {
       "title": "ADC single channel conversion",
       "name": "ADC_Single_Channel_1_KIT_TC297_TFT",
-      "description": "An analog input channel is continuously converted using the background scan mode. The input value\r\nis determined using the microcontroller\u0027s supply voltage, ground level or letting the analog pin open\r\nand floating. Three LEDs are used, each indicating a voltage interval. Thus depending on the conversion\r\nvalue, a certain LED will light up.",
+      "description": "An analog input channel is continuously converted using the background scan mode. The input value\r\nis determined using the microcontroller's supply voltage, ground level or letting the analog pin open\r\nand floating. Three LEDs are used, each indicating a voltage interval. Thus depending on the conversion\r\nvalue, a certain LED will light up.",
       "abstract": "The Versatile Analog-to-Digital Converter (VADC) is configured to measure an analog signal using background scan request.",
       "folder": "ADC_Single_Channel_1_KIT_TC297_TFT",
       "version": "V1.0.2",
@@ -2049,7 +2049,7 @@
     {
       "title": "BMETAL_TC387_ADS_EDSADC_FIFO_1",
       "name": "BMETAL_TC387_ADS_EDSADC_FIFO_1",
-      "description": "This bare metal code example initializes TC387 EDSADC and its FIFO.\r\nEvery time when the FIFO is full (with 4 results in single-word read mode, DRM \u003d 0), an interrupt is triggered and results are fetched from FIFO.\r\nA 100ns wait is inserted between each read (the first read after interrupt does not need wait). See user manual chapter \"Result Service Request Generation and Read Sequencing\" foot note.\r\nCorresponding FIFO error bits are checked when reading results, in order to ensure data integrity.",
+      "description": "This bare metal code example initializes TC387 EDSADC and its FIFO.\r\nEvery time when the FIFO is full (with 4 results in single-word read mode, DRM = 0), an interrupt is triggered and results are fetched from FIFO.\r\nA 100ns wait is inserted between each read (the first read after interrupt does not need wait). See user manual chapter \"Result Service Request Generation and Read Sequencing\" foot note.\r\nCorresponding FIFO error bits are checked when reading results, in order to ensure data integrity.",
       "abstract": "Bare metal code example to initialize TC387 EDSADC, its FIFO, interrupt and FIFO read.",
       "folder": "BMETAL_TC387_ADS_EDSADC_FIFO_1",
       "version": "V1.0.0",
@@ -2075,7 +2075,7 @@
     {
       "title": "BMETAL_TC4D7_LITE_ADS_TMADC_Timestamp_1",
       "name": "BMETAL_TC4D7_LITE_ADS_TMADC_Timestamp_1",
-      "description": "The TC4x Time-Multiplexed Analog-to-Digital Converter (TMADC) generates a timestamp for each new conversion result (the time point when the sampling phase finishes) to qualify the result. The timestamp has a fixed resolution of 200ns. This demo shows the generated timestamps for user\u0027s reference.",
+      "description": "The TC4x Time-Multiplexed Analog-to-Digital Converter (TMADC) generates a timestamp for each new conversion result (the time point when the sampling phase finishes) to qualify the result. The timestamp has a fixed resolution of 200ns. This demo shows the generated timestamps for user's reference.",
       "abstract": "This example demonstrates how to generate timestamp for each new TMADC result.",
       "folder": "BMETAL_TC4D7_LITE_ADS_TMADC_Timestamp_1",
       "version": "V1.0.0",
@@ -2390,7 +2390,7 @@
     {
       "title": "CCU6 interrupt generation",
       "name": "CCU6_Interrupt_1_KIT_TC275_LK",
-      "description": "Timer T12 of the CCU6 unit generates an interrupt on a \"period match\" event every 500 ms.\r\nInside the ISR, a counter variable is incremented. The LEDs toggle based on the value of the counter:\r\n- LED1 on and LED2 off: counter % 2 \u003d\u003d 0\r\n- LED1 off and LED2 on: counter % 2 \u003d\u003d 1",
+      "description": "Timer T12 of the CCU6 unit generates an interrupt on a \"period match\" event every 500 ms.\r\nInside the ISR, a counter variable is incremented. The LEDs toggle based on the value of the counter:\r\n- LED1 on and LED2 off: counter % 2 == 0\r\n- LED1 off and LED2 on: counter % 2 == 1",
       "abstract": "The CCU6 unit generates an interrupt every 500 ms and increments a counter in its Interrupt Service Routine (ISR).",
       "folder": "CCU6_Interrupt_1_KIT_TC275_LK",
       "version": "V1.0.0",
@@ -2417,7 +2417,7 @@
     {
       "title": "CCU6 interrupt generation",
       "name": "CCU6_Interrupt_1_KIT_TC297_TFT",
-      "description": "Timer T12 of the CCU6  unit generates an interrupt on a \"period match\" event every 500 ms.\r\nInside the ISR, a counter variable is incremented.\r\nLEDs toggles based on the value of the counter:\r\n- 1st LED: counter % 4 \u003d\u003d 0\r\n- 2nd LED: counter % 4 \u003d\u003d 1\r\n- 3rd LED: counter % 4 \u003d\u003d 2\r\n- 4th LED: counter % 4 \u003d\u003d 3",
+      "description": "Timer T12 of the CCU6  unit generates an interrupt on a \"period match\" event every 500 ms.\r\nInside the ISR, a counter variable is incremented.\r\nLEDs toggles based on the value of the counter:\r\n- 1st LED: counter % 4 == 0\r\n- 2nd LED: counter % 4 == 1\r\n- 3rd LED: counter % 4 == 2\r\n- 4th LED: counter % 4 == 3",
       "abstract": "The CCU6 unit generates an interrupt every 500 ms and increments a counter in its Interrupt Service Routine (ISR).",
       "folder": "CCU6_Interrupt_1_KIT_TC297_TFT",
       "version": "V1.0.1",
@@ -2444,7 +2444,7 @@
     {
       "title": "CCU6 interrupt generation",
       "name": "CCU6_Interrupt_1_KIT_TC334_LK",
-      "description": "Timer T12 of the CCU6 unit generates an interrupt on a \"period match\" event every 500 ms.\r\nInside the ISR, a counter variable is incremented.\r\nThe LEDs toggle based on the value of the counter:\r\n- LED1 on and LED2 off: counter % 2 \u003d\u003d 0\r\n- LED1 off and LED2 on: counter % 2 \u003d\u003d 1",
+      "description": "Timer T12 of the CCU6 unit generates an interrupt on a \"period match\" event every 500 ms.\r\nInside the ISR, a counter variable is incremented.\r\nThe LEDs toggle based on the value of the counter:\r\n- LED1 on and LED2 off: counter % 2 == 0\r\n- LED1 off and LED2 on: counter % 2 == 1",
       "abstract": "The CCU6 unit generates an interrupt every 500 ms and increments a counter in its Interrupt Service Routine (ISR).",
       "folder": "CCU6_Interrupt_1_KIT_TC334_LK",
       "version": "V2.0.0",
@@ -2471,7 +2471,7 @@
     {
       "title": "CCU6 interrupt generation",
       "name": "CCU6_Interrupt_1_KIT_TC375_LK",
-      "description": "Timer T12 of the CCU6 unit generates an interrupt on a \"period match\" event every 500 ms.\r\nInside the ISR, a counter variable is incremented.\r\nThe LEDs toggle based on the value of the counter:\r\n- LED1 on and LED2 off: counter % 2 \u003d\u003d 0\r\n- LED1 off and LED2 on: counter % 2 \u003d\u003d 1",
+      "description": "Timer T12 of the CCU6 unit generates an interrupt on a \"period match\" event every 500 ms.\r\nInside the ISR, a counter variable is incremented.\r\nThe LEDs toggle based on the value of the counter:\r\n- LED1 on and LED2 off: counter % 2 == 0\r\n- LED1 off and LED2 on: counter % 2 == 1",
       "abstract": "The CCU6 unit generates an interrupt every 500 ms and increments a counter in its Interrupt Service Routine (ISR).",
       "folder": "CCU6_Interrupt_1_KIT_TC375_LK",
       "version": "V2.0.0",
@@ -2498,7 +2498,7 @@
     {
       "title": "CCU6 interrupt generation",
       "name": "CCU6_Interrupt_1_KIT_TC397_TFT",
-      "description": "Timer T12 of the CCU6  unit generates an interrupt on a \"period match\" event every 500 ms.\r\nInside the ISR, a counter variable is incremented.\r\nLEDs toggles based on the value of the counter:\r\n- 1st LED: counter % 4 \u003d\u003d 0\r\n- 2nd LED: counter % 4 \u003d\u003d 1\r\n- 3rd LED: counter % 4 \u003d\u003d 2\r\n- 4th LED: counter % 4 \u003d\u003d 3",
+      "description": "Timer T12 of the CCU6  unit generates an interrupt on a \"period match\" event every 500 ms.\r\nInside the ISR, a counter variable is incremented.\r\nLEDs toggles based on the value of the counter:\r\n- 1st LED: counter % 4 == 0\r\n- 2nd LED: counter % 4 == 1\r\n- 3rd LED: counter % 4 == 2\r\n- 4th LED: counter % 4 == 3",
       "abstract": "The CCU6 unit generates an interrupt every 500 ms and increments a counter in its Interrupt Service Routine (ISR).",
       "folder": "CCU6_Interrupt_1_KIT_TC397_TFT",
       "version": "V2.0.0",
@@ -3680,7 +3680,7 @@
     {
       "title": "External interrupt generation",
       "name": "ERU_Interrupt_1_KIT_TC275_LK",
-      "description": "The code example uses the External Request Unit (ERU) to generate an interrupt for each\r\nfalling and rising edge at an input pin. The falling and rising edges are generated\r\nwith the pin P00.7 connected to the board�s button. If an interrupt occurs, an LED will be toggled.",
+      "description": "The code example uses the External Request Unit (ERU) to generate an interrupt for each\r\nfalling and rising edge at an input pin. The falling and rising edges are generated\r\nwith the pin P00.7 connected to the board�s button. If an interrupt occurs, an LED will be toggled.",
       "abstract": "The ERU is used to generate an interrupt on each rising and falling edge at an input pin.",
       "folder": "ERU_Interrupt_1_KIT_TC275_LK",
       "version": "V1.0.0",
@@ -6001,7 +6001,7 @@
     {
       "title": "This example shows how to inject an error in CPU0 DSPR memory and run an MBIST to detect it.",
       "name": "iLLD_TC334_ADS_DSPR_MBIST",
-      "description": "This example handles the particular case of single core CPU microcontroller and how it\u0027s possible to test the CPU0 DSPR while respecting the condition of not accessing the memory during the test.",
+      "description": "This example handles the particular case of single core CPU microcontroller and how it's possible to test the CPU0 DSPR while respecting the condition of not accessing the memory during the test.",
       "abstract": "This example shows how to inject an error in CPU0 DSPR memory and run an MBIST to detect it.",
       "folder": "iLLD_TC334_ADS_DSPR_MBIST",
       "version": "V1.1.0",
@@ -6132,8 +6132,8 @@
     {
       "title": "Bluetooth application firmware download and execution",
       "name": "iLLD_TC375_ADS_Bluetooth_RFCOMM",
-      "description": "The example enables the extension of AURIX(TM) devices with the BLE (Bluetooth Low Energy) and classic\r\nbluetooth capability which is provided by Infineon\u0027s CYW20819 device. The application firmware binary\r\nwhich is distributed within this example implements a RFCOMM (Radio Frequency Communication) bluetooth\r\nclassic profile for the CYW20819 device. This application binary is downloaded by AURIX(TM) to the\r\nCYW20819 device. During execution of the application binary, the data received/transmitted on the\r\nRFCOMM bluetooth interface by the CYW20819 device is bridged to a UART (Universal Asynchronous\r\nReceiver Transmitter), which is connected to AURIX(TM) and processed on AURIX(TM) within a shell. A shell\r\nis a user interface for parsing commands and accessing services. By this, a RFCOMM bluetooth\r\napplication on a remote device (i.e. smartphone) can be used as a terminal application to communicate\r\nwith AURIX(TM).",
-      "abstract": "Demonstrate the download of an application firmware to Infineon\u0027s CYW20819 device family by applying the AIROC(TM) HCI UART Control Protocol on AURIX(TM)",
+      "description": "The example enables the extension of AURIX(TM) devices with the BLE (Bluetooth Low Energy) and classic\r\nbluetooth capability which is provided by Infineon's CYW20819 device. The application firmware binary\r\nwhich is distributed within this example implements a RFCOMM (Radio Frequency Communication) bluetooth\r\nclassic profile for the CYW20819 device. This application binary is downloaded by AURIX(TM) to the\r\nCYW20819 device. During execution of the application binary, the data received/transmitted on the\r\nRFCOMM bluetooth interface by the CYW20819 device is bridged to a UART (Universal Asynchronous\r\nReceiver Transmitter), which is connected to AURIX(TM) and processed on AURIX(TM) within a shell. A shell\r\nis a user interface for parsing commands and accessing services. By this, a RFCOMM bluetooth\r\napplication on a remote device (i.e. smartphone) can be used as a terminal application to communicate\r\nwith AURIX(TM).",
+      "abstract": "Demonstrate the download of an application firmware to Infineon's CYW20819 device family by applying the AIROC(TM) HCI UART Control Protocol on AURIX(TM)",
       "folder": "iLLD_TC375_ADS_Bluetooth_RFCOMM",
       "version": "V1.0.0",
       "platforms": [
@@ -6162,7 +6162,7 @@
     {
       "title": "iLLD_TC375_ADS_BUS_Memory_Protection_LiteKit",
       "name": "iLLD_TC375_ADS_BUS_Memory_Protection_LiteKit",
-      "description": "The BUS Memory Protection Unit (BUS MPU) is focused on 2 CPUs (CPU0, CPU1), and handles “read/write�? access permission to\r\nthe local memory of CPU0 (DSPR0/PSPR0/DLMU0/Pflash0) from the bus master CPU1.\r\nIn this code example the BUS master CPU0 has always “read/write�? permission of local memory of CPU0, while\r\nbus master CPU1 does not have access permission to that area. Different test scenarios has been provided to\r\ndefine access permission for each local memories.",
+      "description": "The BUS Memory Protection Unit (BUS MPU) is focused on 2 CPUs (CPU0, CPU1), and handles “read/write” access permission to\r\nthe local memory of CPU0 (DSPR0/PSPR0/DLMU0/Pflash0) from the bus master CPU1.\r\nIn this code example the BUS master CPU0 has always “read/write” permission of local memory of CPU0, while\r\nbus master CPU1 does not have access permission to that area. Different test scenarios has been provided to\r\ndefine access permission for each local memories.",
       "abstract": "CPU0 and CPU1 are handles read/write access permission to the local memory of CPU0 from the bus master CPU1.",
       "folder": "iLLD_TC375_ADS_BUS_Memory_Protection_LiteKit",
       "version": "V1.0.0",
@@ -6770,7 +6770,7 @@
     {
       "title": "iLLD_TC375_ADS_SCR_RTC_ADCOMP_wakeup_LK",
       "name": "iLLD_TC375_ADS_SCR_RTC_ADCOMP_wakeup_LK",
-      "description": "This is a minimal code example presenting a solution to application scenario 2 from Application Note AP32465.\r\nThe goal is to perform a periodic evaluation of a few analog channels and trigger a wake-up if threshold crossing is detected.\r\nHigh ADC resolution is not required (LSB \u003d 25 mV or better) in this mode.",
+      "description": "This is a minimal code example presenting a solution to application scenario 2 from Application Note AP32465.\r\nThe goal is to perform a periodic evaluation of a few analog channels and trigger a wake-up if threshold crossing is detected.\r\nHigh ADC resolution is not required (LSB = 25 mV or better) in this mode.",
       "abstract": "This code example demonstrates periodic ADC (Analog Digital Converter) measurement in standby mode using SCR (Standby Controller).",
       "folder": "iLLD_TC375_ADS_SCR_RTC_ADCOMP_wakeup_LK",
       "version": "V1.0.2",
@@ -6895,10 +6895,38 @@
       "lastModified": "2023-12-07T00:00:00.000Z"
     },
     {
+      "title": "iLLD_TC377_ADS_ASCLIN_LIN_SLAVE",
+      "name": "iLLD_TC377_ADS_ASCLIN_LIN_SLAVE",
+      "description": "ASCLIN3 is configured in slave mode to receive LIN frames from ASCLIN2 configured as master. Depending on the ID sent, the slave will either ignore the header or wait for master response. The result of the communication is displayed on the terminal using UART communication with ASCLIN0.",
+      "abstract": "An ASCLIN module configured as slave for LIN communication to receive message from a LIN master device.",
+      "folder": "iLLD_TC377_ADS_ASCLIN_LIN_SLAVE",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "APPLICATION KIT TC3X7 V2.0",
+          "id": "KIT_A2G_TC377_5V_TFT",
+          "device_id": "TC37xTP_A-Step"
+        }
+      ],
+      "keywords": [
+        "LIN",
+        "SLAVE",
+        "ASCLIN",
+        "UART",
+        "MASTER",
+        "TRANSCEIVER"
+      ],
+      "documents": [
+        "See README.MD",
+        "See Application Kit Manual TC3X7"
+      ],
+      "lastModified": "2026-01-27T00:00:00.000Z"
+    },
+    {
       "title": "iLLD_TC377TP_ADS_LWIP-HTTP-Server",
       "name": "iLLD_TC377TP_ADS_LWIP-HTTP-Server",
-      "description": "The die temperature is read from an HTTP server implemented in the LWIP 2.2.0 stack. LED manipulation is done via the HTTP server.\r\nA CAN node and a LIN master node are also implemented. The CAN implementation can be configured to be used in loop-back mode or with an external CAN node. The LIN implementation configures a LIN Master node that sends a header and a data block on the LIN bus.\r\nThe MCU\u0027s IEEE 1588 capabilities are also enabled.",
-      "abstract": "This code example demonstrates the TC377 peripheral capabilities by implementing a CAN and LIN node together with an HTTP server using the LWIP 2.2.0 stack. The server reads the die temperature and it can manipulate LEDs. Also, this code example demonstrates how to enable the MCU\u0027s IEEE 1588 capabilities.",
+      "description": "The die temperature is read from an HTTP server implemented in the LWIP 2.2.0 stack. LED manipulation is done via the HTTP server.\r\nA CAN node and a LIN master node are also implemented. The CAN implementation can be configured to be used in loop-back mode or with an external CAN node. The LIN implementation configures a LIN Master node that sends a header and a data block on the LIN bus.\r\nThe MCU's IEEE 1588 capabilities are also enabled.",
+      "abstract": "This code example demonstrates the TC377 peripheral capabilities by implementing a CAN and LIN node together with an HTTP server using the LWIP 2.2.0 stack. The server reads the die temperature and it can manipulate LEDs. Also, this code example demonstrates how to enable the MCU's IEEE 1588 capabilities.",
       "folder": "iLLD_TC377TP_ADS_LWIP-HTTP-Server",
       "version": "V1.0.0",
       "platforms": [
@@ -6946,34 +6974,6 @@
         "See README.MD"
       ],
       "lastModified": "2024-07-17T00:00:00.000Z"
-    },
-    {
-      "title": "iLLD_TC377_ADS_ASCLIN_LIN_SLAVE",
-      "name": "iLLD_TC377_ADS_ASCLIN_LIN_SLAVE",
-      "description": "ASCLIN3 is configured in slave mode to receive LIN frames from ASCLIN2 configured as master. Depending on the ID sent, the slave will either ignore the header or wait for master response. The result of the communication is displayed on the terminal using UART communication with ASCLIN0.",
-      "abstract": "An ASCLIN module configured as slave for LIN communication to receive message from a LIN master device.",
-      "folder": "iLLD_TC377_ADS_ASCLIN_LIN_SLAVE",
-      "version": "V1.0.0",
-      "platforms": [
-        {
-          "name": "APPLICATION KIT TC3X7 V2.0",
-          "id": "KIT_A2G_TC377_5V_TFT",
-          "device_id": "TC37xTP_A-Step"
-        }
-      ],
-      "keywords": [
-        "LIN",
-        "SLAVE",
-        "ASCLIN",
-        "UART",
-        "MASTER",
-        "TRANSCEIVER"
-      ],
-      "documents": [
-        "See README.MD",
-        "See Application Kit Manual TC3X7"
-      ],
-      "lastModified": "2026-01-27T00:00:00.000Z"
     },
     {
       "title": "This code example generates a periodic interrupt using the SCR RTC Module.",
@@ -7117,7 +7117,7 @@
       "title": "GTM TOM 3 Phase Inverter using PWM",
       "name": "iLLD_TC387_ADS_GTM_TOM_3_Phase_Inverter_PWM_2",
       "description": "The GTM TOM is configured to generate PWM signals for two-level three phase inverter.The states of 6 pins are controlled by the PWM signals generated by the Generic Timer Module (GTM) in-built Timer Output Module (TOM). All signals are synchronous to each other, center-aligned and with dead-times\r\n(positive/negative) for the complementary pairs.",
-      "abstract": "The GTM TOM is configured to generate a PWM signals for two-level three phase inverter. The TriCore\u0026trade; is used as a host for the driver.",
+      "abstract": "The GTM TOM is configured to generate a PWM signals for two-level three phase inverter. The TriCore&trade; is used as a host for the driver.",
       "folder": "iLLD_TC387_ADS_GTM_TOM_3_Phase_Inverter_PWM_2",
       "version": "V1.0.0",
       "platforms": [
@@ -7197,57 +7197,6 @@
         "See README.md"
       ],
       "lastModified": "2025-11-10T00:00:00.000Z"
-    },
-    {
-      "title": "Signal Processing Unit basic configuration",
-      "name": "iLLD_TC397X_ADS_SPU_Basics",
-      "description": "This project shows a basic radar data processing flow implemented on the Signal Processing Unit (SPU)\r\nhardware. The processing flow includes range-doppler processing of a raw data cube and subsequent target detection\r\nusing CFAR. This code example uses a simulated dataset as input, Radar interface (RIF) configuration is not shown.\r\nBasic understanding of FMCW radar range-doppler signal processing is presumed to follow this code example.",
-      "abstract": "This code example shows the basic usage of the Signal Processing Unit (SPU), implementing a basic radar data processing flow.",
-      "folder": "iLLD_TC397X_ADS_SPU_Basics",
-      "version": "V1.0.0",
-      "platforms": [
-        {
-          "name": "KIT_A2G_TC397XA_TRB_S",
-          "id": "KIT_A2G_TC397XA_TRB_S",
-          "device_id": "TC397XA"
-        }
-      ],
-      "keywords": [
-        "SPU",
-        "Radar",
-        "EMEM",
-        "FFT"
-      ],
-      "documents": [
-        "See README.md"
-      ],
-      "lastModified": "2024-04-17T00:00:00.000Z"
-    },
-    {
-      "title": "Signal Processing Unit configuration for clutter removal",
-      "name": "iLLD_TC397x_ADS_SPU_Clutter_Removal",
-      "description": "This project shows a basic radar data processing flow for clutter suppression implemented on the Signal Processing Unit (SPU) hardware. Clutter suppression is used to remove static targets from the dataset. The processing flow includes clutter removal on the range FFT data cube and doppler FFT both on a range map with and without clutter. This code example uses a simulated dataset as input, Radar interface (RIF) configuration is not shown.\r\n\r\nBasic understanding of FMCW radar range-doppler signal processing is presumed to follow this code example.",
-      "abstract": "This code example illustrates the configuration of the Signal Processing Unit (SPU) for implementing clutter suppression, a standard step in radar data processing for in cabin monitoring systems (ICMS).",
-      "folder": "iLLD_TC397x_ADS_SPU_Clutter_Removal",
-      "version": "V1.0.0",
-      "platforms": [
-        {
-          "name": "KIT_A2G_TC397XA_TRB_S",
-          "id": "KIT_A2G_TC397XA_TRB_S",
-          "device_id": "TC397XA"
-        }
-      ],
-      "keywords": [
-        "SPU",
-        "Radar",
-        "EMEM",
-        "FFT",
-        "ICMS"
-      ],
-      "documents": [
-        "See README.md"
-      ],
-      "lastModified": "2024-08-02T00:00:00.000Z"
     },
     {
       "title": "SDCard multiblock Read Write with SDMMC_",
@@ -7583,6 +7532,57 @@
         "README.MD"
       ],
       "lastModified": "2024-05-18T00:00:00.000Z"
+    },
+    {
+      "title": "Signal Processing Unit basic configuration",
+      "name": "iLLD_TC397X_ADS_SPU_Basics",
+      "description": "This project shows a basic radar data processing flow implemented on the Signal Processing Unit (SPU)\r\nhardware. The processing flow includes range-doppler processing of a raw data cube and subsequent target detection\r\nusing CFAR. This code example uses a simulated dataset as input, Radar interface (RIF) configuration is not shown.\r\nBasic understanding of FMCW radar range-doppler signal processing is presumed to follow this code example.",
+      "abstract": "This code example shows the basic usage of the Signal Processing Unit (SPU), implementing a basic radar data processing flow.",
+      "folder": "iLLD_TC397X_ADS_SPU_Basics",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "KIT_A2G_TC397XA_TRB_S",
+          "id": "KIT_A2G_TC397XA_TRB_S",
+          "device_id": "TC397XA"
+        }
+      ],
+      "keywords": [
+        "SPU",
+        "Radar",
+        "EMEM",
+        "FFT"
+      ],
+      "documents": [
+        "See README.md"
+      ],
+      "lastModified": "2024-04-17T00:00:00.000Z"
+    },
+    {
+      "title": "Signal Processing Unit configuration for clutter removal",
+      "name": "iLLD_TC397x_ADS_SPU_Clutter_Removal",
+      "description": "This project shows a basic radar data processing flow for clutter suppression implemented on the Signal Processing Unit (SPU) hardware. Clutter suppression is used to remove static targets from the dataset. The processing flow includes clutter removal on the range FFT data cube and doppler FFT both on a range map with and without clutter. This code example uses a simulated dataset as input, Radar interface (RIF) configuration is not shown.\r\n\r\nBasic understanding of FMCW radar range-doppler signal processing is presumed to follow this code example.",
+      "abstract": "This code example illustrates the configuration of the Signal Processing Unit (SPU) for implementing clutter suppression, a standard step in radar data processing for in cabin monitoring systems (ICMS).",
+      "folder": "iLLD_TC397x_ADS_SPU_Clutter_Removal",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "KIT_A2G_TC397XA_TRB_S",
+          "id": "KIT_A2G_TC397XA_TRB_S",
+          "device_id": "TC397XA"
+        }
+      ],
+      "keywords": [
+        "SPU",
+        "Radar",
+        "EMEM",
+        "FFT",
+        "ICMS"
+      ],
+      "documents": [
+        "See README.md"
+      ],
+      "lastModified": "2024-08-02T00:00:00.000Z"
     },
     {
       "title": "Safe Application Development for AURIX(TM) Application kit TC3xx Safety",
@@ -7956,7 +7956,7 @@
     {
       "title": "I2C_Read_Ext_Device",
       "name": "iLLD_TC467_LK_ADS_I2C_Read_Ext_Device",
-      "description": "An I2C module configured as I2C master is used to read the MAC address stored in the Microchip 2K I2C Serial EEPROM mounted on the board KIT_A3G_TC4D7_LITE. The AURIX\u0026trade; device reads the MAC address through the I2C module and stores it into a global variable.",
+      "description": "An I2C module configured as I2C master is used to read the MAC address stored in the Microchip 2K I2C Serial EEPROM mounted on the board KIT_A3G_TC4D7_LITE. The AURIX&trade; device reads the MAC address through the I2C module and stores it into a global variable.",
       "abstract": "An I2C module configured as I2C master is used to read a register of an external device.",
       "folder": "iLLD_TC467_LK_ADS_I2C_Read_Ext_Device",
       "version": "V1.0.0",
@@ -7969,6 +7969,31 @@
       ],
       "keywords": [
         "I2C"
+      ],
+      "documents": [
+        "See README.md"
+      ],
+      "lastModified": "2026-02-19T00:00:00.000Z"
+    },
+    {
+      "title": "Interrupt Priority",
+      "name": "iLLD_TC467_LK_ADS_Interrupt_Prio",
+      "description": "On Core 0, two STM interrupts are configured to control the state of two LEDs (P03.9 & P03.10) along with incrementing respective ISRs counters and third interrupt is being generated by Core1 STM to Core 0 which only incrementing respective ISR counter. Based on their priority, the interrupts toggle the appropriate LED and increment counters. In this example, the interrupts are triggered by STM module.",
+      "abstract": "Three interrupts with different priorities are used to toggle available two LEDs and incrementing respective ISRs counters.",
+      "folder": "iLLD_TC467_LK_ADS_Interrupt_Prio",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC467 lite Kit",
+          "id": "KIT_A3G_TC467_LITE",
+          "device_id": "TC467QP_A-Step_MS_STD"
+        }
+      ],
+      "keywords": [
+        "Interrupt",
+        "LED",
+        "AURIX",
+        "STM"
       ],
       "documents": [
         "See README.md"
@@ -8156,6 +8181,31 @@
       "lastModified": "2026-04-28T00:00:00.000Z"
     },
     {
+      "title": "Assembly language in C code",
+      "name": "iLLD_TC487_LK_ADS_Assembly_C_Code",
+      "description": "Two LEDs are switched on then switched off using assembly code functions.",
+      "abstract": "Inline assembler and assembler files are used in combination in a C project.",
+      "folder": "iLLD_TC487_LK_ADS_Assembly_C_Code",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC487 lite Kit",
+          "id": "KIT_A3G_TC487_LITE",
+          "device_id": "TC487QP_A-Step_MC_COM"
+        }
+      ],
+      "keywords": [
+        "Assembly",
+        "C",
+        "AURIX",
+        "Assembly_C_Code_1"
+      ],
+      "documents": [
+        "See README.md"
+      ],
+      "lastModified": "2026-05-05T00:00:00.000Z"
+    },
+    {
       "title": "Blinky LED",
       "name": "iLLD_TC487_LK_ADS_Blinky_LED",
       "description": "A wait function is used to add delays between switching on and switching off an LED on port pin P03.9",
@@ -8268,7 +8318,7 @@
     {
       "title": "I2C_Read_Ext_Device",
       "name": "iLLD_TC487_LK_ADS_I2C_Read_Ext_Device",
-      "description": "An I2C module configured as I2C master is used to read the MAC address stored in the Microchip 2K I2C Serial EEPROM mounted on the board KIT_A3G_TC4D7_LITE. The AURIX\u0026trade; device reads the MAC address through the I2C module and stores it into a global variable.",
+      "description": "An I2C module configured as I2C master is used to read the MAC address stored in the Microchip 2K I2C Serial EEPROM mounted on the board KIT_A3G_TC4D7_LITE. The AURIX&trade; device reads the MAC address through the I2C module and stores it into a global variable.",
       "abstract": "An I2C module configured as I2C master is used to read a register of an external device.",
       "folder": "iLLD_TC487_LK_ADS_I2C_Read_Ext_Device",
       "version": "V1.0.0",
@@ -8286,6 +8336,31 @@
         "See README.md"
       ],
       "lastModified": "2026-04-06T00:00:00.000Z"
+    },
+    {
+      "title": "Interrupt Priority",
+      "name": "iLLD_TC487_LK_ADS_Interrupt_Prio",
+      "description": "On Core 0, two STM interrupts are configured to control the state of two LEDs (P03.9 & P03.10) along with incrementing respective ISRs counters and third interrupt is being generated by Core1 STM to Core 0 which only incrementing respective ISR counter. Based on their priority, the interrupts toggle the appropriate LED and increment counters. In this example, the interrupts are triggered by STM module.",
+      "abstract": "Three interrupts with different priorities are used to toggle available two LEDs and incrementing respective ISRs counters.",
+      "folder": "iLLD_TC487_LK_ADS_Interrupt_Prio",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC487 lite Kit",
+          "id": "KIT_A3G_TC487_LITE",
+          "device_id": "TC487QP_A-Step_MC_COM"
+        }
+      ],
+      "keywords": [
+        "Interrupt",
+        "LED",
+        "AURIX",
+        "STM"
+      ],
+      "documents": [
+        "See README.md"
+      ],
+      "lastModified": "2026-05-05T00:00:00.000Z"
     },
     {
       "title": "Multicore LED control",
@@ -8372,7 +8447,7 @@
         {
           "name": "AURIX TC497 lite Kit",
           "id": "KIT_A3G_TC497_LITE",
-          "device_id": "TC49xN_A-Step"
+          "device_id": "TC497PP_A-Step_MS_STD"
         }
       ],
       "keywords": [
@@ -8398,7 +8473,7 @@
         {
           "name": "TC497 Lite Kit",
           "id": "KIT_A3G_TC497_LITE",
-          "device_id": "TC49xN_A-Step"
+          "device_id": "TC497PP_A-Step_MS_STD"
         }
       ],
       "keywords": [
@@ -8425,7 +8500,7 @@
         {
           "name": "AURIX TC497 lite Kit",
           "id": "KIT_A3G_TC497_LITE",
-          "device_id": "TC49xN_A-Step"
+          "device_id": "TC497PP_A-Step_MS_STD"
         }
       ],
       "keywords": [
@@ -8453,7 +8528,7 @@
         {
           "name": "AURIX TC497 lite Kit",
           "id": "KIT_A3G_TC497_LITE",
-          "device_id": "TC49xN_A-Step"
+          "device_id": "TC497PP_A-Step_MS_STD"
         }
       ],
       "keywords": [
@@ -8478,7 +8553,7 @@
         {
           "name": "AURIX TC497 lite Kit",
           "id": "KIT_A3G_TC497_LITE",
-          "device_id": "TC49xN_A-Step"
+          "device_id": "TC497PP_A-Step_MS_STD"
         }
       ],
       "keywords": [
@@ -8530,7 +8605,7 @@
         {
           "name": "AURIX TC497 Lite Kit",
           "id": "KIT_A3G_TC497_LITE",
-          "device_id": "TC49xN_A-Step"
+          "device_id": "TC497PP_A-Step_MS_STD"
         }
       ],
       "keywords": [
@@ -8555,7 +8630,7 @@
         {
           "name": "AURIX TC497 lite Kit",
           "id": "KIT_A3G_TC497_LITE",
-          "device_id": "TC49xN_A-Step"
+          "device_id": "TC497PP_A-Step_MS_STD"
         }
       ],
       "keywords": [
@@ -8583,7 +8658,7 @@
         {
           "name": "AURIX TC497 lite Kit",
           "id": "KIT_A3G_TC497_LITE",
-          "device_id": "TC49xN_A-Step"
+          "device_id": "TC497PP_A-Step_MS_STD"
         }
       ],
       "keywords": [
@@ -8605,7 +8680,7 @@
     {
       "title": "I2C_Read_Ext_Device",
       "name": "iLLD_TC497_LK_ADS_I2C_Read_Ext_Device",
-      "description": "An I2C module configured as I2C master is used to read the MAC address stored in the Microchip 2K I2C Serial EEPROM mounted on the board KIT_A3G_TC4D7_LITE. The AURIX\u0026trade; device reads the MAC address through the I2C module and stores it into a global variable.",
+      "description": "An I2C module configured as I2C master is used to read the MAC address stored in the Microchip 2K I2C Serial EEPROM mounted on the board KIT_A3G_TC4D7_LITE. The AURIX&trade; device reads the MAC address through the I2C module and stores it into a global variable.",
       "abstract": "An I2C module configured as I2C master is used to read a register of an external device.",
       "folder": "iLLD_TC497_LK_ADS_I2C_Read_Ext_Device",
       "version": "V1.0.0",
@@ -8613,7 +8688,7 @@
         {
           "name": "AURIX TC497 lite Kit",
           "id": "KIT_A3G_TC497_LITE",
-          "device_id": "TC49xN_A-Step"
+          "device_id": "TC497PP_A-Step_MS_STD"
         }
       ],
       "keywords": [
@@ -8627,7 +8702,7 @@
     {
       "title": "Interrupt Priority",
       "name": "iLLD_TC497_LK_ADS_Interrupt_Prio",
-      "description": "On Core 0, two STM interrupts are configured to control the state of two LEDs (P22.7 \u0026 P22.6) along with incrementing respective ISRs counters and third interrupt is being generated by Core1 STM to Core 0 which only incrementing respective ISR counter. Based on their priority, the interrupts toggle the appropriate LED and increment counters. In this example, the interrupts are triggered by STM module.",
+      "description": "On Core 0, two STM interrupts are configured to control the state of two LEDs (P22.7 & P22.6) along with incrementing respective ISRs counters and third interrupt is being generated by Core1 STM to Core 0 which only incrementing respective ISR counter. Based on their priority, the interrupts toggle the appropriate LED and increment counters. In this example, the interrupts are triggered by STM module.",
       "abstract": "Three interrupts with different priorities are used to toggle available two LEDs and incrementing respective ISRs counters.",
       "folder": "iLLD_TC497_LK_ADS_Interrupt_Prio",
       "version": "V1.0.0",
@@ -8635,7 +8710,7 @@
         {
           "name": "AURIX TC497 lite Kit",
           "id": "KIT_A3G_TC497_LITE",
-          "device_id": "TC49xN_A-Step"
+          "device_id": "TC497PP_A-Step_MS_STD"
         }
       ],
       "keywords": [
@@ -8660,7 +8735,7 @@
         {
           "name": "AURIX TC497 lite Kit",
           "id": "KIT_A3G_TC497_LITE",
-          "device_id": "TC49xN_A-Step"
+          "device_id": "TC497PP_A-Step_MS_STD"
         }
       ],
       "keywords": [
@@ -8684,7 +8759,7 @@
         {
           "name": "AURIX TC497 lite Kit",
           "id": "KIT_A3G_TC497_LITE",
-          "device_id": "TC49xN_A-Step"
+          "device_id": "TC497PP_A-Step_MS_STD"
         }
       ],
       "keywords": [
@@ -8707,7 +8782,7 @@
         {
           "name": "AURIX TC497 lite Kit",
           "id": "KIT_A3G_TC497_LITE",
-          "device_id": "TC49xN_A-Step"
+          "device_id": "TC497PP_A-Step_MS_STD"
         }
       ],
       "keywords": [
@@ -8722,6 +8797,59 @@
         "See README.md"
       ],
       "lastModified": "2026-02-13T00:00:00.000Z"
+    },
+    {
+      "title": "iLLD_TC4D7_ADS_LVGL_Code_Example_1",
+      "name": "iLLD_TC4D7_ADS_LVGL_Code_Example_1",
+      "description": "This project is a simple example of how a Thin Film Transistor (TFT) Touch display in combination with the Light and Versatile Graphics Library library (LVGL).",
+      "abstract": "This project is a simple example of how a Thin Film Transistor (TFT) Touch display in combination with the Light and Versatile Graphics Library library (LVGL).",
+      "folder": "iLLD_TC4D7_ADS_LVGL_Code_Example_1",
+      "version": "V1.1.0",
+      "platforms": [
+        {
+          "name": "AURIX TC4D7 lite Kit",
+          "id": "KIT_A3G_TC4D7_LITE",
+          "device_id": "TC4D7XP_A-Step_MC_COM"
+        }
+      ],
+      "keywords": [
+        "STM",
+        "AURIX",
+        "Interrupt",
+        "LVGL",
+        "TFT",
+        "Touch",
+        "Display",
+        "Screen",
+        "Button"
+      ],
+      "documents": [
+        "README.md"
+      ],
+      "lastModified": "2026-03-09T00:00:00.000Z"
+    },
+    {
+      "title": "iLLD_TC4D7_LITE_KIT_ADS_ETH_DEMO",
+      "name": "iLLD_TC4D7_lite_kit_ADS_ETH_Demo",
+      "description": "This code example implements an ethernet echo server replying to Layer 2 packets. The demo configures GETH module using DMA Channel 0 and Tx/Rx Queues 0.",
+      "abstract": "This code example implements an ethernet echo server (raw Ethernet) using GETH port 0.",
+      "folder": "iLLD_TC4D7_lite_kit_ADS_ETH_Demo",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC4D7 lite Kit",
+          "id": "KIT_A3G_TC4D7_LITE",
+          "device_id": "TC4D7XP_A-Step_CC_COM"
+        }
+      ],
+      "keywords": [
+        "GETH"
+      ],
+      "documents": [
+        "README.md",
+        "changelog.md"
+      ],
+      "lastModified": "2025-04-23T00:00:00.000Z"
     },
     {
       "title": "Performing Fast Fourier Transform on TMADC acquired signals using CDSP FC6",
@@ -8750,29 +8878,6 @@
         "See README.md"
       ],
       "lastModified": "2026-04-24T00:00:00.000Z"
-    },
-    {
-      "title": "iLLD_TC4D7_LITE_KIT_ADS_ETH_DEMO",
-      "name": "iLLD_TC4D7_lite_kit_ADS_ETH_Demo",
-      "description": "This code example implements an ethernet echo server replying to Layer 2 packets. The demo configures GETH module using DMA Channel 0 and Tx/Rx Queues 0.",
-      "abstract": "This code example implements an ethernet echo server (raw Ethernet) using GETH port 0.",
-      "folder": "iLLD_TC4D7_lite_kit_ADS_ETH_Demo",
-      "version": "V1.0.0",
-      "platforms": [
-        {
-          "name": "AURIX TC4D7 lite Kit",
-          "id": "KIT_A3G_TC4D7_LITE",
-          "device_id": "TC4D7XP_A-Step_CC_COM"
-        }
-      ],
-      "keywords": [
-        "GETH"
-      ],
-      "documents": [
-        "README.md",
-        "changelog.md"
-      ],
-      "lastModified": "2025-04-23T00:00:00.000Z"
     },
     {
       "title": "TMADC CDSP Filtering with Interrupts",
@@ -9036,7 +9141,7 @@
     {
       "title": "DFLASH_Multi_Data_Programming",
       "name": "iLLD_TC4D7_LK_ADS_DFLASH_Multi_Data_Programming",
-      "description": "This C code for AURIX™ MCUs manages the Data Flash (DFLASH).\r\nThe “writeDataFlash�? function erases a sector, converts multi float values to integers, and writes them.\r\nThe “readDataFlash�? function reads the multi data data back and reconverts it to float for verification.",
+      "description": "This C code for AURIX™ MCUs manages the Data Flash (DFLASH).\r\nThe “writeDataFlash” function erases a sector, converts multi float values to integers, and writes them.\r\nThe “readDataFlash” function reads the multi data data back and reconverts it to float for verification.",
       "abstract": "This example shows how to flash the Data Flash memory",
       "folder": "iLLD_TC4D7_LK_ADS_DFLASH_Multi_Data_Programming",
       "version": "V1.0.0",
@@ -9089,7 +9194,7 @@
       "title": "EGTM ATOM 3 Phase Inverter PWM generation",
       "name": "iLLD_TC4D7_LK_ADS_EGTM_ATOM_3_Phase_Inverter_PWM_1",
       "description": "The states of the 6 pins are controlled by the PWM signals generated by the Enhanced Generic Timer\r\nModule (EGTM) in-built ARU-Connected Timer Output Module (ATOM). All signals are synchronous to each\r\nother, center-aligned and with dead-times (positive/negative) for the complementary pairs.",
-      "abstract": "The EGTM ATOM is configured to generate a PWM signals for two-level three phase inverter. The TriCore\u0026trade; is used as a host for the driver.",
+      "abstract": "The EGTM ATOM is configured to generate a PWM signals for two-level three phase inverter. The TriCore&trade; is used as a host for the driver.",
       "folder": "iLLD_TC4D7_LK_ADS_EGTM_ATOM_3_Phase_Inverter_PWM_1",
       "version": "V1.0.0",
       "platforms": [
@@ -9119,7 +9224,7 @@
       "title": "iLLD_TC4D7_LK_ADS_EGTM_ATOM_ADC_TMADC_Multiple_Channels_1",
       "name": "iLLD_TC4D7_LK_ADS_EGTM_ATOM_ADC_TMADC_Multiple_Channels_1",
       "description": "The Time-Multiplexed Analog-to-Digital Converter (TMADC) synchronous sampling on multiple input channels\r\nis triggered with single source from Enhanced Generic Timer Module (EGTM) in-built ARU-Connected Timer\r\nOutput Module (ATOM). In addition, the states of the 6 pins are controlled by the PWM signals generated\r\nby ATOM. All 6 PWM signals are synchronous to each other, center-aligned and with dead-times\r\n(positive/negative) for the complementary pairs.",
-      "abstract": "The ADC TMADC synchronous sampling support on multiple input channels with a single trigger source from EGTM ATOM. The TriCore\u0026trade; is used as a host for the driver.",
+      "abstract": "The ADC TMADC synchronous sampling support on multiple input channels with a single trigger source from EGTM ATOM. The TriCore&trade; is used as a host for the driver.",
       "folder": "iLLD_TC4D7_LK_ADS_EGTM_ATOM_ADC_TMADC_Multiple_Channels_1",
       "version": "V1.0.0",
       "platforms": [
@@ -9286,7 +9391,7 @@
     {
       "title": "I2C_Read_Ext_Device",
       "name": "iLLD_TC4D7_LK_ADS_I2C_Read_Ext_Device",
-      "description": "An I2C module configured as I2C master is used to read the MAC address stored in the Microchip 2K I2C Serial EEPROM mounted on the board KIT_A3G_TC4D7_LITE. The AURIX\u0026trade; device reads the MAC address through the I2C module and stores it into a global variable.",
+      "description": "An I2C module configured as I2C master is used to read the MAC address stored in the Microchip 2K I2C Serial EEPROM mounted on the board KIT_A3G_TC4D7_LITE. The AURIX&trade; device reads the MAC address through the I2C module and stores it into a global variable.",
       "abstract": "An I2C module configured as I2C master is used to read a register of an external device.",
       "folder": "iLLD_TC4D7_LK_ADS_I2C_Read_Ext_Device",
       "version": "V1.0.0",
@@ -9308,7 +9413,7 @@
     {
       "title": "Interrupt Priority",
       "name": "iLLD_TC4D7_LK_ADS_Interrupt_Prio",
-      "description": "On Core 0, two STM interrupts are configured to control the state of two LEDs (P03.9 \u0026 P03.10) along with incrementing respective ISRs counters and third interrupt is being generated by Core1 STM to Core 0 which only incrementing respective ISR counter. Based on their priority, the interrupts toggle the appropriate LED and increment counters. In this example, the interrupts are triggered by STM module.",
+      "description": "On Core 0, two STM interrupts are configured to control the state of two LEDs (P03.9 & P03.10) along with incrementing respective ISRs counters and third interrupt is being generated by Core1 STM to Core 0 which only incrementing respective ISR counter. Based on their priority, the interrupts toggle the appropriate LED and increment counters. In this example, the interrupts are triggered by STM module.",
       "abstract": "Three interrupts with different priorities are used to toggle available two LEDs and incrementing respective ISRs counters.",
       "folder": "iLLD_TC4D7_LK_ADS_Interrupt_Prio",
       "version": "V1.0.0",
@@ -9462,10 +9567,10 @@
     {
       "title": "iLLD_TC4D7_LK_ADS_OVERLAY",
       "name": "iLLD_TC4D7_LK_ADS_OVERLAY",
-      "description": "The data overlay functionality provides the possibility of redirecting data read access from a Target memory\r\n(Code Memory) to Overlay Memory for execution. The process usually involves copying code from a non-volatile\r\nCode memory (usually Flash) to volatile Overlay memory (usually SRAM), that makes it possible, for example,\r\nto modify program parameters (which are typically stored in the code memory) during run time of program.\r\nOnce copied, an overlay mechanism is instituted (configure required Overlay Control registers). The registers\r\nare prepared to enable/disable the redirection from Target memory (usually Flash) into volatile Overlay memory\r\n(SRAM). The CPU convert the addresses to access the Overlay memory instead the Target memory. Test1 have\r\nbeen provided in this code example, focused on ensuring that the redirection of memory accesses is accurately\r\nconfigured.",
+      "description": "The data overlay functionality provides the possibility of redirecting data read access from a Target memory\r\n(Code Memory) to Overlay Memory for execution. The process usually involves copying code from a non-volatile\r\nCode memory (usually Flash) to volatile Overlay memory (usually SRAM), that makes it possible, for example,\r\nto modify program parameters (which are typically stored in the code memory) during run time of program.\r\nOnce copied, an overlay mechanism is instituted (configure required Overlay Control registers). The registers\r\nare prepared to enable/disable the redirection from Target memory (usually Flash) into volatile Overlay memory\r\n(SRAM). The CPU convert the addresses to access the Overlay memory instead the Target memory. Different test\r\nscenarios have been provided in this code example, focused on ensuring that the redirection of memory accesses\r\nis accurately configured.",
       "abstract": "The data access overlay (OVC) provides the capability to redirect selected data accesses to the Overlay memory.",
       "folder": "iLLD_TC4D7_LK_ADS_OVERLAY",
-      "version": "V1.0.0",
+      "version": "V1.0.1",
       "platforms": [
         {
           "name": "AURIX TC4D7 lite Kit",
@@ -9484,7 +9589,7 @@
       "documents": [
         "See README.MD"
       ],
-      "lastModified": "2025-08-11T00:00:00.000Z"
+      "lastModified": "2026-06-08T00:00:00.000Z"
     },
     {
       "title": "Measuring the MCU supply voltage rails",
@@ -9856,7 +9961,7 @@
       "title": "PWM monitor via IOM",
       "name": "IOM_PWM_Monitor_1_KIT_TC275_LK",
       "description": "The PWM signal is routed through the port to the Input Output Monitor (IOM) module.\r\nIts duty cycle is continuously compared with a threshold. If the value of the duty cycle goes\r\nbelow the threshold, an LED is switched on.",
-      "abstract": "A PWM signal\u0027s duty cycle is monitored using the IOM module.",
+      "abstract": "A PWM signal's duty cycle is monitored using the IOM module.",
       "folder": "IOM_PWM_Monitor_1_KIT_TC275_LK",
       "version": "V1.0.0",
       "platforms": [
@@ -9887,7 +9992,7 @@
       "title": "PWM monitor via IOM",
       "name": "IOM_PWM_Monitor_1_KIT_TC297_TFT",
       "description": "The PWM signal is routed through the port to the Input Output Monitor (IOM) module.\r\nIts duty cycle is continuously compared with a threshold. If the value of the duty cycle goes\r\nbelow the threshold, an LED is switched on.",
-      "abstract": "A PWM signal\u0027s duty cycle is monitored using the IOM module.",
+      "abstract": "A PWM signal's duty cycle is monitored using the IOM module.",
       "folder": "IOM_PWM_Monitor_1_KIT_TC297_TFT",
       "version": "V1.0.2",
       "platforms": [
@@ -12674,7 +12779,7 @@
     {
       "title": "Detection of reset type",
       "name": "SCU_Reset_Detection_1_KIT_TC275_LK",
-      "description": "The AURIX� TC2xx devices can be reset by various reset sources.\r\nThe application software is able to determine the source of the last reset based on a routine\r\nthat evaluates the related reset special function registers. According to the type of reset,\r\none or two LEDs are switched on.",
+      "description": "The AURIX� TC2xx devices can be reset by various reset sources.\r\nThe application software is able to determine the source of the last reset based on a routine\r\nthat evaluates the related reset special function registers. According to the type of reset,\r\none or two LEDs are switched on.",
       "abstract": "This example shows how to detect the source of the last reset (power-on reset, watchdog reset, etc.)",
       "folder": "SCU_Reset_Detection_1_KIT_TC275_LK",
       "version": "V1.0.0",

@@ -5,7 +5,7 @@
 **An ASCLIN module configured for UART communication sends "Hello World!" and receives the string back via the internal loopback.**  
 
 ## Device  
-The device used in this example is  AURIX&trade; TC49xN_A-Step  
+The device used in this example is  AURIX&trade; TC497PP_A-Step_MS_STD  
 
 ## Board  
 The board used for testing is the  AURIX&trade; TC497 lite Kit (KIT_A3G_TC497_LITE)  

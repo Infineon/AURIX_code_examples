@@ -25,7 +25,6 @@
  * IN THE SOFTWARE.
  *********************************************************************************************************************/
 
-
 /*********************************************************************************************************************/
 /*-----------------------------------------------------Includes------------------------------------------------------*/
 /*********************************************************************************************************************/
@@ -47,10 +46,30 @@
 /*-------------------------------------------------Global variables--------------------------------------------------*/
 /*********************************************************************************************************************/
 /* Buffer consists of new contents of PFlash */
- uint8 BeforeOverlayEnable[BUF_SIZE] = {0};
+uint8 BeforeOverlayEnable1[BUF_SIZE] = {0};
 
- /* Buffer consists of new contents of SRAM */
- uint8 AfterOverlayEnable[BUF_SIZE] = {0};
+/* Buffer consists of new contents of SRAM */
+uint8 AfterOverlayEnable1[BUF_SIZE] = {0};
+
+/* Buffer consists of new contents of PFlash */
+uint8 BeforeOverlayEnable2[BUF_SIZE] = {0};
+
+/* Buffer consists of new contents of SRAM */
+uint8 AfterOverlayEnable2[BUF_SIZE] = {0};
+
+/* For test 7 */
+/* Buffer consists of new contents of PFlash */
+uint32 BeforeOverlayEnable3[BUF_SIZE] = {0};
+
+/* Buffer consists of new contents of SRAM */
+uint32 AfterOverlayEnable3[BUF_SIZE] = {0};
+
+/* For test 9 */
+/* Buffer consists of new contents of PFlash */
+uint8 BeforeOverlayEnable4[BUF_SIZE_MAX] = {0};
+
+/* Buffer consists of new contents of SRAM */
+uint8 AfterOverlayEnable4[BUF_SIZE_MAX] = {0};
 
 /*********************************************************************************************************************/
 /*--------------------------------------------Private Variables/Constants--------------------------------------------*/
@@ -58,13 +77,73 @@
 
 /* Global Variables used in Test 1 */
 /* CPU0 PFLASH  */
-const volatile uint8 TEST_1_BUF_FLASH[BUF_SIZE] __attribute__((used)) __attribute__((section(".rodata_cpu0"))) __attribute__ ((aligned(1*32)))=
- {      32, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
-        16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
- };
+const volatile uint8 TEST_1_BUF_FLASH[BUF_SIZE] __attribute__((used)) __attribute__((section(".rodata_cpu0"))) __attribute__ ((aligned(1*32)))
+        = {32, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28,
+                29, 30, 31, };
 
 /* CPU0 DSPR */
- const volatile uint8 TEST_1_BUF_DSPR[BUF_SIZE] __attribute__((used)) __attribute__ ((section(".data_cpu0"))) __attribute__ ((aligned(1*32))) = {0xB, 0xA, 0x5, 0xE, 0xB, 0xA, 0x1, 0x1};
+const volatile uint8 TEST_1_BUF_DSPR[BUF_SIZE] __attribute__((used)) __attribute__ ((section(".data_cpu0"))) __attribute__ ((aligned(1*32)))
+= {0xB, 0xA, 0x5, 0xE, 0xB, 0xA, 0x1, 0x1, 0xB, 0xA, 0x5, 0xE, 0xB, 0xA, 0x1, 0x1, 0xB, 0xA, 0x5, 0xE, 0xB, 0xA, 0x1,
+        0x1, 0xB, 0xA, 0x5, 0xE, 0xB, 0xA, 0x1, 0x1};
+
+/* Global Variables (used in Test 2, 3) */
+/* CPU0 PFLASH  */
+const volatile uint8 TEST_2_BUF_FLASH[BUF_SIZE] __attribute__((used)) __attribute__((section(".rodata_cpu0"))) __attribute__ ((aligned(1*32)))
+        = {32, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28,
+                29, 30, 31, };
+
+/* CPU DSPR (used in Test 2, 3)*/
+/* CPU0 DSPR */
+const volatile uint8 TEST_2_BUF_DSPR[BUF_SIZE] __attribute__((used)) __attribute__ ((section(".data_cpu0"))) __attribute__ ((aligned(1*32)))
+= {0xB, 0xA, 0x5, 0xE, 0xB, 0xA, 0x1, 0x1, 0xB, 0xA, 0x5, 0xE, 0xB, 0xA, 0x1, 0x1, 0xB, 0xA, 0x5, 0xE, 0xB, 0xA, 0x1,
+        0x1, 0xB, 0xA, 0x5, 0xE, 0xB, 0xA, 0x1, 0x1};
+
+/* Global Variables (used in Test 4) */
+/* CPU0 PFLASH  */
+const volatile uint8 TEST_4_BUF_FLASH[BUF_SIZE] __attribute__((used)) __attribute__((section(".rodata_cpu0"))) __attribute__ ((aligned(1*32)))
+        = {32, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28,
+                29, 30, 31, };
+
+/* CPU DLMU (used in Test 4)*/
+const volatile uint8 TEST_4_BUF_LMU[BUF_SIZE] __attribute__((used)) __attribute__ ((section(".CPU0.lmudata"))) __attribute__ ((aligned(1*32)))
+= {0xB, 0xA, 0x5, 0xE, 0xB, 0xA, 0x1, 0x1};
+
+/* Global Variables (used in Test 7) */
+/* CPU0 PFLASH  */
+const volatile uint8 TEST_7_BUF_FLASH[BUF_SIZE] __attribute__((used)) __attribute__((section(".rodata_cpu0"))) __attribute__ ((aligned(1*32)))
+= {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
+        16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13,
+        14, 15, };
+
+/* CPU0 DSPR */
+const volatile uint8 TEST_7_BUF_DSPR[BUF_SIZE * 2] __attribute__((used)) __attribute__ ((section(".data_cpu0"))) __attribute__ ((aligned(1*32)))
+= {0xC, 0xD, 0x8, 0x7, 0x6, 0x9, 0x2, 0x3};
+
+/* CPU0 DLMU */
+const volatile uint8 TEST_7_BUF_LMU[BUF_SIZE] __attribute__((used)) __attribute__ ((section(".CPU0.lmudata"))) __attribute__ ((aligned(1*32)))
+= {0xB, 0xA, 0x5, 0xE, 0xB, 0xA, 0x1, 0x1};
+
+/* Global Variables (used in Test 8) */
+/* CPU0 DSPR */
+const volatile uint8 TEST_8_BUF_TARGET[BUF_SIZE] __attribute__((used)) __attribute__ ((section(".data_cpu0"))) __attribute__ ((aligned(1*32)))
+= {0xB, 0xA, 0x5, 0xE, 0xB, 0xA, 0x1, 0x1};
+
+/* CPU0 DSPR */
+const volatile uint8 TEST_8_BUF_REDIRECT[BUF_SIZE] __attribute__((used)) __attribute__ ((section(".data_cpu0"))) __attribute__ ((aligned(1*32)))
+= {0xB, 0xA, 0x5, 0xE, 0xB, 0xA, 0x1, 0x1};
+
+/* Global Variables - (used in Test 9) */
+/* CPU0 PFLASH  */
+const volatile uint8 TEST_9_BUF_FLASH[BUF_SIZE_MAX] __attribute__((used)) __attribute__((section(".rodata_cpu0"))) __attribute__ ((aligned(2048)))
+= {32, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
+        31, 32, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28,
+        29, 30, 31, };
+
+/* CPU0 DSPR */
+const volatile uint8 TEST_9_BUF_DSPR[BUF_SIZE_MAX] __attribute__((used)) __attribute__ ((section(".data_cpu0"))) __attribute__ ((aligned(2048)))
+= {0xB, 0xA, 0x5, 0xE, 0xB, 0xA, 0x1, 0x1, 0xB, 0xA, 0x5, 0xE, 0xB, 0xA, 0x1, 0x1, 0xB, 0xA, 0x5, 0xE, 0xB, 0xA, 0x1,
+        0x1, 0xB, 0xA, 0x5, 0xE, 0xB, 0xA, 0x1, 0x1, 0xB, 0xA, 0x5, 0xE, 0xB, 0xA, 0x1, 0x1, 0xB, 0xA, 0x5, 0xE, 0xB,
+        0xA, 0x1, 0x1, 0xB, 0xA, 0x5, 0xE, 0xB, 0xA, 0x1, 0x1, 0xB, 0xA, 0x5, 0xE, 0xB, 0xA, 0x1, 0x1, };
 
 /*********************************************************************************************************************/
 /*------------------------------------------------Function Prototypes------------------------------------------------*/
@@ -72,146 +151,497 @@ const volatile uint8 TEST_1_BUF_FLASH[BUF_SIZE] __attribute__((used)) __attribut
 /* To verify access the overlaid memory
  * Check the Overlay value stored in RAM (Redirect Memory) instead of Flash (Target Memory)
  */
- uint8 Test_MemoryValidation(uint8* target, uint8* redirect, uint32 size);
+uint8 Test_MemoryValidation (uint8 *target, uint8 *redirect, uint32 size);
 /*********************************************************************************************************************/
 /*---------------------------------------------Function Implementations----------------------------------------------*/
 /*********************************************************************************************************************/
- void Test_init(void)
- {
-     /* Initialization of the LED used in this example */
-     IfxPort_setPinModeOutput(LED_ERROR, IfxPort_OutputMode_pushPull, IfxPort_OutputIdx_general);
-     IfxPort_setPinModeOutput(LED_SUCCESS, IfxPort_OutputMode_pushPull, IfxPort_OutputIdx_general);
+void Test_init (void)
+{
+    /* Initialization of the LED used in this example */
+    IfxPort_setPinModeOutput(LED_ERROR, IfxPort_OutputMode_pushPull, IfxPort_OutputIdx_general);
+    IfxPort_setPinModeOutput(LED_SUCCESS, IfxPort_OutputMode_pushPull, IfxPort_OutputIdx_general);
 
-     /* Switch OFF the LED (low-level active) */
-     ledOff(LED_ERROR);
-     ledOff(LED_SUCCESS);
- }
+    /* Switch OFF the LED (low-level active) */
+    ledOff(LED_ERROR);
+    ledOff(LED_SUCCESS);
+}
 
- /* Test1 has been provided in this code example.
-  * To ensure that the redirection of memory accesses is accurately configured.
-  *
-  * Test_1   The reaction for Test is ( LED Success ON)
-  */
+/*
+ * Different test scenarios has been provided in this code example.
+ * To ensure that the redirection of memory accesses is accurately configured.
+ *
+ *                                                The reaction for each Test
+ * Test_1                                                LED Success ON
+ * Test_2                                                LED Success ON
+ * Test_3                                                LED Success ON
+ * Test_4                                                LED Success ON
+ * Test_5                                                LED Success ON
+ * Test_6                                                LED Success ON
+ * Test_7                                                Expect to Trap
+ * Test_8                      (NO Overlay Functionality)- LED ERROR ON
+ * Test_9                                                LED Success ON
+ */
 
- /* Test 1
-  * Implementing Overlay with Registers Configuration (without using iLLD)
-  * For 1 Block (32 Byte address range) where the Target Memory is any PFLASH bank (non-cached)
-  * The Redirection Memory shall be DSPR.
-  */
- void Test_1(void)
- {
+/* Test 1
+ * Implementing Overlay with Registers Configuration (without using iLLD)
+ * For 1 Block (32 Byte address range) where the Target Memory is any PFLASH bank (non-cached)
+ * The Redirection Memory shall be DSPR.
+ */
+void Test_1 (void)
+{
 
-     uint8* overlayData = (uint8*) TEST_1_BUF_DSPR;
+    uint8 *overlayData = (uint8*) TEST_1_BUF_DSPR;
 
-     uint8 i;
+    uint8 i;
 
-     /* Prevent DAMData from being optimized out */
-     overlayData[0] = 0xB;
+    /* Prevent DAMData from being optimized out */
+    overlayData[0] = 0xB;
 
-     /* Configure Overlay Block */
-     /* Set up the Redirected Address Base Register (RABR)  */
-     /* Configure RABR fields */
-     CPU0_RABR0.U = (0x1 << 31)|                                  /* Configure OVEN (Overlay Enabled) */
-                    (0x0 << 24)|                            /* Configure OMEM (Overlay Memory Select) */
-                    ((uint32)(&TEST_1_BUF_DSPR[0]));        /* Configure OBASE (Overlay Base Address) */
+    /* Configure Overlay Block */
+    /* Set up the Redirected Address Base Register (RABR)  */
+    /* Configure RABR fields */
+    CPU0_RABR0.U = (0x1 << 31) | /* Configure OVEN (Overlay Enabled) */
+    (0x0 << 24) | /* Configure OMEM (Overlay Memory Select) */
+    ((uint32) (&TEST_1_BUF_DSPR[0])); /* Configure OBASE (Overlay Base Address) */
 
-     /* Set up the Overlay Target Address Register (OTAR) */
-     CPU0_OTAR0.U =  (uint32)&TEST_1_BUF_FLASH[0];
+    /* Set up the Overlay Target Address Register (OTAR) */
+    CPU0_OTAR0.U = (uint32) &TEST_1_BUF_FLASH[0];
 
-     /* Set up the Overlay Mask Register (OMASK)- 32 byte block size (see user manual)- change TC4x compare to TC3XX*/
-     CPU0_OMASK0.U = (0x1FFFF << 5);
+    /* Set up the Overlay Mask Register (OMASK)- 32 byte block size (see user manual)- change TC4x compare to TC3XX*/
+    CPU0_OMASK0.U = (0x1FFFF << 5);
 
-     /* Enable the overlay Block in the Overlay Range Select Register (OSEL) */
-     CPU0_OSEL.B.SHOVEN00 = 1;
+    /* Enable the overlay Block in the Overlay Range Select Register (OSEL) */
+    CPU0_OSEL.B.SHOVEN00 = 1;
 
-     /* Write new contents of PFlash into Buffer BeforeOverlayEnable */
-     for(i = 0; i < sizeof(BeforeOverlayEnable); i++)
-     {
-         BeforeOverlayEnable[i] = TEST_1_BUF_FLASH[i];
-     }
-
-     /* Overlay enabled on CPU0 */
-     SCU_OVCENABLE.B.OVEN0 = 0x1;
-
-     /* Turn on Overlay memory and enable block   */
-     SCU_OVCCON.U = ( 0x1 << 0  /*CSEL0*/ )|
-                    ( 0x0 << 1  /*CSEL1*/ )|
-                    ( 0x0 << 2  /*CSEL2*/ )|
-                    ( 0x0 << 3  /*CSEL3*/ )|
-                    ( 0x0 << 4  /*CSEL4*/ )|
-                    ( 0x0 << 5  /*CSEL5*/ )|
-                    ( 0x1 << 16 /*OVSTRT*/)|
-                    ( 0x0 << 17 /*OVSTP*/ )|
-                    ( 0x1 << 18 /*DCINVAL*/)| /* Data Cache Invalidate (may be needed) */
-                    ( 0x1 << 24 /*OVCONF*/ )|
-                    ( 0x0 << 25 /*POVCONF*/); /* Enable write to OVCCON */
-
-     __dsync();
-
-     /* Prevent DAMData from being optimized out */
-     overlayData[0] = 0xB;
-     overlayData[1] = 0xC;
-
-     /* Write new contents of SRAM into Buffer AfterOverlayEnable */
-     for(i=0;i<sizeof(AfterOverlayEnable);i++)
-     {
-         AfterOverlayEnable[i] = TEST_1_BUF_FLASH[i];
-     }
-
-     /* Verify, Before and After must not be same */
-     Test_MemoryValidation(BeforeOverlayEnable, AfterOverlayEnable, sizeof(BeforeOverlayEnable));
-
-     /* Disable Overlay */
-     SCU_OVCCON.U = ( 0x1 << 0  /*CSEL0*/ )|
-                    ( 0x0 << 1  /*CSEL1*/ )|
-                    ( 0x0 << 2  /*CSEL2*/ )|
-                    ( 0x0 << 3  /*CSEL3*/ )|
-                    ( 0x0 << 4  /*CSEL4*/ )|
-                    ( 0x0 << 5  /*CSEL5*/ )|
-                    ( 0x0 << 16 /*OVSTRT*/)|
-                    ( 0x1 << 17 /*OVSTP*/ )|
-                    ( 0x1 << 18 /*DCINVAL*/)| /* Data Cache Invalidate (may be needed) */
-                    ( 0x1 << 24 /*OVCONF*/ )|
-                    ( 0x0 << 25 /*POVCONF*/); /* Enable write to OVCCON */
-
-         SCU_OVCENABLE.B.OVEN0 = 0x0;
+    /* Write new contents of PFlash into Buffer BeforeOverlayEnable1 */
+    for (i = 0; i < sizeof(BeforeOverlayEnable1); i++)
+    {
+        BeforeOverlayEnable1[i] = TEST_1_BUF_FLASH[i];
     }
 
- /* Compare the new contents of the PFlash, stored in the BeforeOverlayEnable with RAM.
-  * If the value written in "BeforeOverlayEnable" and "AfterOverlayEnable" will be equal then the error would be happened.
-    else, LED_SUCCESS (LED2) will be toggling, which indicates overlay functionality. */
- uint8 Test_MemoryValidation(uint8* target, uint8* redirect, uint32 size)
- {
-     uint8* pTarget;
-     uint8* pRedirect;
-     uint8  result = RESULT_ERR;
+    /* Overlay enabled on CPU0 */
+    SCU_OVCENABLE.B.OVEN0 = 0x1;
 
-     pTarget = target;
+    /* Turn on Overlay memory and enable block   */
+    SCU_OVCCON.U = (0x1 << 0 /*CSEL0*/) | (0x0 << 1 /*CSEL1*/) | (0x0 << 2 /*CSEL2*/) | (0x0 << 3 /*CSEL3*/)
+            | (0x0 << 4 /*CSEL4*/) | (0x0 << 5 /*CSEL5*/) | (0x1 << 16 /*OVSTRT*/) | (0x0 << 17 /*OVSTP*/)
+            | (0x1 << 18 /*DCINVAL*/) | /* Data Cache Invalidate (may be needed) */
+            (0x1 << 24 /*OVCONF*/) | (0x0 << 25 /*POVCONF*/); /* Enable write to OVCCON */
 
-     /* Verify Values of Target Address and Redirect Address */
+    /* Flush the data cache to ensure consistency */
+    __dsync();
 
-     pRedirect = redirect;
+    /* Prevent DAMData from being optimized out */
+    overlayData[0] = 0xB;
+    overlayData[1] = 0xC;
 
-     for (uint32 i = 0; i < size; i++)
-     {
-         /* read from the redirect and target address and compare. */
-         if (*pTarget++ != *pRedirect++)
-         {
+    /* Modify PFlash value with new pattern support Buffer (AfterOverlayEnable1)
+     * Actual modified Overlay (Redirected) memory with new pattern support Buffer (AfterOverlayEnable1)
+     * Write new contents of SRAM (Redirected) memory into Buffer AfterOverlayEnable1
+     */
+    for (i = 0; i < sizeof(AfterOverlayEnable1); i++)
+    {
+        AfterOverlayEnable1[i] = TEST_1_BUF_FLASH[i];
+    }
 
-             result = RESULT_OK;
-             break;
-         }
-     }
-     if (result == RESULT_OK)
-     {
-         /* Enable LED Success */
-         ledOn(LED_SUCCESS);
-         return 1;
-     }
-     else
-     {
-         /* Enable LED Error */
-         ledOn(LED_ERROR);
-         return 0;
-     }
- }
+    /* Verification for Overlay functionality  */
+    /* Verify, BeforeOverlayEnable1 and AfterOverlayEnable1 must not be same */
+    Test_MemoryValidation(BeforeOverlayEnable1, AfterOverlayEnable1, sizeof(BeforeOverlayEnable1));
+
+    /* Disable Overlay */
+    SCU_OVCCON.U = (0x1 << 0 /*CSEL0*/) | (0x0 << 1 /*CSEL1*/) | (0x0 << 2 /*CSEL2*/) | (0x0 << 3 /*CSEL3*/)
+            | (0x0 << 4 /*CSEL4*/) | (0x0 << 5 /*CSEL5*/) | (0x0 << 16 /*OVSTRT*/) | (0x1 << 17 /*OVSTP*/)
+            | (0x1 << 18 /*DCINVAL*/) | /* Data Cache Invalidate (may be needed) */
+            (0x1 << 24 /*OVCONF*/) | (0x0 << 25 /*POVCONF*/); /* Enable write to OVCCON */
+
+    SCU_OVCENABLE.B.OVEN0 = 0x0;
+
+    /* Flush the data cache to ensure consistency */
+    __dsync();
+}
+
+/* Test 2
+ * Implementing Overlay (using illD)
+ * For 1 Block (32 Byte address range) where the Target Memory is any PFLASH bank
+ * The Redirection Memory shall be DSPR.
+ */
+void Test_2 (void)
+{
+    /* Copy Values from Target Address into Buffers */
+    memcpy(BeforeOverlayEnable1, TEST_1_BUF_FLASH, BUF_SIZE);
+
+    /* Configure Overlay */
+    IfxCpu_enableOverlayBlock(IfxCpu_ResourceCpu_0, 0, IfxCpu_OverlayMemorySelect_core0DsprPspr,
+            IfxCpu_OverlayAddressMask_32byte, (uint32) TEST_1_BUF_FLASH, (uint32) TEST_1_BUF_DSPR);
+
+    /* Flush the data cache to ensure consistency */
+    __dsync();
+
+    /* Modify PFlash value with new pattern support Buffers
+     * Actual modified Overlay (Redirected) memory with new pattern support Buffers
+     * Write new contents of SRAM (Redirected) memory into Buffers
+     */
+    memcpy(AfterOverlayEnable1, TEST_1_BUF_FLASH, BUF_SIZE);
+
+    /* Flush the data cache to ensure consistency */
+    __dsync();
+
+    /* Verification for Overlay functionality  */
+    /* Verify, BeforeOverlayEnable1 and AfterOverlayEnable1 must not be same */
+    Test_MemoryValidation(BeforeOverlayEnable1, AfterOverlayEnable1, sizeof(BeforeOverlayEnable1));
+
+    /* Disable Overlay */
+    IfxCpu_disableOverlayBlock(IfxCpu_ResourceCpu_0, 0);
+
+    /* Flush the data cache to ensure consistency */
+    __dsync();
+}
+/* Test 3
+ * Multiple Overlay Blocks, simultaneously enable/disable
+ * For 2 Block (32 Byte address range) where the Target Memory is any PFLASH bank - Non-cahced
+ * Redirection Memory is DSPR.
+ */
+void Test_3 (void)
+{
+    /*Copy values from Target Addresses (PFlash) into Buffers (BeforeOverlayEnable1) and (BeforeOverlayEnable2)*/
+    memcpy(BeforeOverlayEnable1, TEST_1_BUF_FLASH, BUF_SIZE);
+    memcpy(BeforeOverlayEnable2, TEST_2_BUF_FLASH, BUF_SIZE);
+
+    /* Configure Overlay */
+    IfxCpu_enableOverlayBlock(IfxCpu_ResourceCpu_0, 0, IfxCpu_OverlayMemorySelect_core0DsprPspr,
+            IfxCpu_OverlayAddressMask_32byte, (uint32) TEST_1_BUF_FLASH, (uint32) TEST_1_BUF_DSPR);
+    IfxCpu_enableOverlayBlock(IfxCpu_ResourceCpu_0, 1, IfxCpu_OverlayMemorySelect_core0DsprPspr,
+            IfxCpu_OverlayAddressMask_32byte, (uint32) TEST_2_BUF_FLASH, (uint32) TEST_2_BUF_DSPR);
+
+    /* Modify PFlash value with new pattern support Buffers
+     * Actual modified Overlay (Redirected) memory with new pattern support Buffers
+     * Write new contents of SRAM (Redirected) memory into Buffers
+     */
+    memcpy(AfterOverlayEnable1, TEST_1_BUF_FLASH, BUF_SIZE);
+    memcpy(AfterOverlayEnable2, TEST_2_BUF_FLASH, BUF_SIZE);
+
+    /* Enable All Overlay Blocks*/
+
+    /* Select All Overlay Blocks */
+    /* If we want to enable block0 and block1 at the same time OSEL value shall be 0x03  */
+    /* All other blocks would be disabled  */
+    MODULE_CPU0.OSEL.U = 0xFFFFFFFF;
+
+    MODULE_SCU.OVCCON.U |= (1 << 0) | /* CSEL0   */
+    (0 << 1) | /* CSEL1   */
+    (0 << 2) | /* CSEL2   */
+    (1 << 16) | /* OVSTRT  */
+    (0 << 17) | /* OVSTP   */
+    (0 << 18) | /* DCINVAL */
+    (0 << 24) | /* OVCONF  */
+    (0 << 25); /* POVCONF */
+
+    /* Flush the data cache to ensure consistency */
+    __dsync();
+
+    /* Verification for Overlay functionality  */
+    Test_MemoryValidation(BeforeOverlayEnable1, AfterOverlayEnable1, sizeof(BeforeOverlayEnable1));
+    Test_MemoryValidation(BeforeOverlayEnable2, AfterOverlayEnable2, sizeof(BeforeOverlayEnable2));
+
+    /* Disable All Overlay Blocks*/
+    MODULE_SCU.OVCCON.U |= (1 << 0) | /* CSEL0   */
+    (0 << 1) | /* CSEL1   */
+    (0 << 2) | /* CSEL2   */
+    (0 << 16) | /* OVSTRT  */
+    (1 << 17) | /* OVSTP   */
+    (1 << 18) | /* DCINVAL */
+    (0 << 24) | /* OVCONF  */
+    (0 << 25); /* POVCONF */
+
+    __dsync();
+
+    /* Disable Overlay CPU0 */
+    IfxCpu_disableOverlayBlock(IfxCpu_ResourceCpu_0, 0);
+    IfxCpu_disableOverlayBlock(IfxCpu_ResourceCpu_0, 1);
+}
+
+/* Test 4
+ * 1 Block (32 Byte address range)
+ * Target Memory is any PFLASH bank - Non-cahced
+ * and Redirect memory is DLMU (LMU Low)
+ */
+void Test_4 (void)
+{
+    /*Copy values from Target Address (PFlash) into the Buffer (BeforeOverlayEnable1)*/
+    memcpy(BeforeOverlayEnable1, TEST_4_BUF_FLASH, BUF_SIZE);
+
+    /* Configure Overlay */
+    IfxCpu_enableOverlayBlock(IfxCpu_ResourceCpu_0, 0, IfxCpu_OverlayMemorySelect_lmu, IfxCpu_OverlayAddressMask_32byte,
+            (uint32) TEST_4_BUF_FLASH, (uint32) TEST_4_BUF_LMU);
+
+    /* Flush the data cache to ensure consistency */
+    __dsync();
+
+    /* Modify PFlash value with new pattern support Buffer (AfterOverlayEnable1)
+     * Actual modified Overlay (Redirected) memory with new pattern support Buffer (AfterOverlayEnable1)
+     * Write new contents of SRAM (Redirected) memory into Buffer AfterOverlayEnable1
+     */
+    memcpy(AfterOverlayEnable1, TEST_4_BUF_FLASH, BUF_SIZE);
+
+    /* Flush the data cache to ensure consistency */
+    __dsync();
+
+    /* Verification for Overlay functionality  */
+    /* Verify, BeforeOverlayEnable1 and AfterOverlayEnable1 must not be same */
+    Test_MemoryValidation(BeforeOverlayEnable1, AfterOverlayEnable1, sizeof(BeforeOverlayEnable1));
+
+    /* Disable Overlay */
+    IfxCpu_disableOverlayBlock(IfxCpu_ResourceCpu_0, 0);
+
+    /* Flush the data cache to ensure consistency */
+    __dsync();
+}
+
+/* Test 5
+ * 2 Blocks (32 Byte address range)
+ * PFLASH target memory - Non-cached
+ * Redirect memories are DSPR and DLMU (1 block in DLMU, and 1 block in DSPR).
+ */
+void Test_5 (void)
+{
+    /* Copy Values from Target Address into Buffers */
+    memcpy(BeforeOverlayEnable1, TEST_1_BUF_FLASH, BUF_SIZE);
+    memcpy(BeforeOverlayEnable2, TEST_4_BUF_FLASH, BUF_SIZE);
+
+    /* Configure Overlay */
+    IfxCpu_enableOverlayBlock(IfxCpu_ResourceCpu_0, 0, IfxCpu_OverlayMemorySelect_core0DsprPspr,
+            IfxCpu_OverlayAddressMask_32byte, (uint32) TEST_1_BUF_FLASH, (uint32) TEST_1_BUF_DSPR);
+    IfxCpu_enableOverlayBlock(IfxCpu_ResourceCpu_0, 1, IfxCpu_OverlayMemorySelect_lmu, IfxCpu_OverlayAddressMask_32byte,
+            (uint32) TEST_4_BUF_FLASH, (uint32) TEST_4_BUF_LMU);
+
+    /* Flush the data cache to ensure consistency */
+    __dsync();
+
+    /* Modify PFlash value with new pattern support Buffers
+     * Actual modified Overlay (Redirected) memory with new pattern support Buffers
+     * Write new contents of SRAM (Redirected) memory into Buffers
+     */
+    memcpy(AfterOverlayEnable1, TEST_1_BUF_FLASH, BUF_SIZE);
+    memcpy(AfterOverlayEnable2, TEST_4_BUF_FLASH, BUF_SIZE);
+
+    /* Flush the data cache to ensure consistency */
+    __dsync();
+
+    /* Verification for Overlay functionality  */
+    Test_MemoryValidation(BeforeOverlayEnable1, AfterOverlayEnable1, sizeof(BeforeOverlayEnable1));
+    Test_MemoryValidation(BeforeOverlayEnable2, AfterOverlayEnable2, sizeof(BeforeOverlayEnable2));
+
+    /* Disable Overlay */
+    IfxCpu_disableOverlayBlock(IfxCpu_ResourceCpu_0, 0);
+    IfxCpu_disableOverlayBlock(IfxCpu_ResourceCpu_0, 1);
+
+    /* Flush the data cache to ensure consistency */
+    __dsync();
+}
+
+/* Test 6 (Test Overlay with cache invalidate (cache enabled))
+ * 2 Blocks (32 Byte address range)
+ * PFLASH target memory
+ * Redirect memories are DSPR and LMU (1 block in DLMU, and 1 block in DSPR)- Cached.
+ */
+void Test_6 (void)
+{
+    /* Enable Cache Segments for 0xBxxxxxxx, 0x7xxxxxxx */
+    IfxCpu_enableSegmentSpecificDataAccessCacheability(1 << 0x0B | 1 << 0x07, 1);
+
+    /* Copy Values from Target Address into Buffers */
+    memcpy(BeforeOverlayEnable1, TEST_1_BUF_FLASH, BUF_SIZE);
+    memcpy(BeforeOverlayEnable2, TEST_4_BUF_FLASH, BUF_SIZE);
+
+    /* Configure Overlay */
+    IfxCpu_enableOverlayBlock(IfxCpu_ResourceCpu_0, 1, IfxCpu_OverlayMemorySelect_lmu, IfxCpu_OverlayAddressMask_32byte,
+            (uint32) TEST_4_BUF_FLASH, (uint32) TEST_4_BUF_LMU);
+    IfxCpu_enableOverlayBlock(IfxCpu_ResourceCpu_0, 0, IfxCpu_OverlayMemorySelect_core0DsprPspr,
+            IfxCpu_OverlayAddressMask_32byte, (uint32) TEST_1_BUF_FLASH, (uint32) TEST_1_BUF_DSPR);
+
+    /* Invalidate Data */
+    MODULE_SCU.OVCCON.U |= (1 << 0) | /* CSEL0   */
+    (0 << 1) | /* CSEL1   */
+    (0 << 2) | /* CSEL2   */
+    (0 << 16) | /* OVSTRT  */
+    (0 << 17) | /* OVSTP   */
+    (1 << 18) | /* DCINVAL */
+    (0 << 24) | /* OVCONF  */
+    (0 << 25); /* POVCONF */
+
+    /* Modify PFlash value with new pattern support Buffers
+     * Actual modified Overlay (Redirected) memory with new pattern support Buffers
+     * Write new contents of SRAM (Redirected) memory into Buffers
+     */
+    memcpy(AfterOverlayEnable1, TEST_1_BUF_FLASH, BUF_SIZE);
+    memcpy(AfterOverlayEnable2, TEST_4_BUF_FLASH, BUF_SIZE);
+
+    /* Flush the data cache to ensure consistency */
+    __dsync();
+
+    /* Verification for Overlay functionality  */
+    Test_MemoryValidation(BeforeOverlayEnable1, AfterOverlayEnable1, sizeof(BeforeOverlayEnable1));
+    Test_MemoryValidation(BeforeOverlayEnable2, AfterOverlayEnable2, sizeof(BeforeOverlayEnable2));
+
+    /* Disable Overlay */
+    IfxCpu_disableOverlayBlock(IfxCpu_ResourceCpu_0, 0);
+    IfxCpu_disableOverlayBlock(IfxCpu_ResourceCpu_0, 1);
+
+    /* Disable Cache Segments for 0xBxxxxxxx, 0x7xxxxxxx */
+    IfxCpu_enableSegmentSpecificDataAccessCacheability(1 << 0x0B | 1 << 0x07, 0);
+}
+
+/* Test 7 (Target Overlap)
+ * 2 Blocks (32 Byte address range)
+ * PFLASH target memory - (Non-Cached)
+ * Redirect memories are DSPR and LMU (1 block in LMU, and 1 block in DSPR).
+ * Concurrent matches in more than one enabled overlay block are not supported and expect to see the Trap.
+ * Load operation with overlapping overlay match raises Data Access synchronous Error (DSE) trap.
+ */
+void Test_7 (void)
+{
+    /* Copy Values from Target Address into Buffers */
+    memcpy(BeforeOverlayEnable1, TEST_7_BUF_FLASH, sizeof(TEST_7_BUF_LMU));
+    memcpy(BeforeOverlayEnable3, TEST_7_BUF_FLASH, sizeof(TEST_7_BUF_DSPR));
+
+    /* Configure Overlay */
+    IfxCpu_enableOverlayBlock(IfxCpu_ResourceCpu_0, 0, IfxCpu_OverlayMemorySelect_core0DsprPspr,
+            IfxCpu_OverlayAddressMask_64byte, (uint32) TEST_7_BUF_FLASH, (uint32) TEST_7_BUF_DSPR);
+    IfxCpu_enableOverlayBlock(IfxCpu_ResourceCpu_0, 1, IfxCpu_OverlayMemorySelect_lmu, IfxCpu_OverlayAddressMask_32byte,
+            (uint32) TEST_7_BUF_FLASH, (uint32) TEST_7_BUF_LMU);
+
+    /* Flush the data cache to ensure consistency */
+    __dsync();
+
+    /* Modify PFlash value with new pattern support Buffers
+     * Actual modified Overlay (Redirected) memory with new pattern support Buffers
+     * Write new contents of SRAM (Redirected) memory into Buffers
+     */
+    memcpy(AfterOverlayEnable1, TEST_7_BUF_FLASH, sizeof(TEST_7_BUF_LMU));
+    memcpy(AfterOverlayEnable3, TEST_7_BUF_FLASH, sizeof(TEST_7_BUF_DSPR));
+    memset(TEST_7_BUF_FLASH, 0xFF, sizeof(TEST_7_BUF_LMU));
+
+    /* Verification for Overlay functionality  */
+    Test_MemoryValidation(BeforeOverlayEnable1, AfterOverlayEnable1, sizeof(BeforeOverlayEnable1));
+    Test_MemoryValidation(BeforeOverlayEnable3, AfterOverlayEnable3, sizeof(BeforeOverlayEnable3));
+
+    /* Disable Overlay */
+    IfxCpu_disableOverlayBlock(IfxCpu_ResourceCpu_0, 0);
+    IfxCpu_disableOverlayBlock(IfxCpu_ResourceCpu_0, 1);
+
+    /* Flush the data cache to ensure consistency */
+    __dsync();
+}
+
+/* Test 8
+ * 1 Block (32 Byte address range)
+ * Target in DSPR
+ * Redirect in DSPR
+ * (In this scenario, the Overlay is not enabled, and the ERROR is occurred).
+ */
+void Test_8 (void)
+{
+    memset(TEST_8_BUF_REDIRECT, 0, sizeof(TEST_8_BUF_REDIRECT));
+
+    /* Copy Values from Target Address into Buffer */
+    memcpy(BeforeOverlayEnable1, TEST_8_BUF_TARGET, BUF_SIZE);
+
+    /* Configure Overlay */
+    IfxCpu_enableOverlayBlock(IfxCpu_ResourceCpu_0, 0, IfxCpu_OverlayMemorySelect_core0DsprPspr,
+            IfxCpu_OverlayAddressMask_32byte, (uint32) TEST_8_BUF_TARGET, (uint32) TEST_8_BUF_REDIRECT);
+
+    /* Flush the data cache to ensure consistency */
+    __dsync();
+
+    /* Modify PFlash value with new pattern support Buffer (AfterOverlayEnable1)
+     * Actual modified Overlay (Redirected) memory with new pattern support Buffer (AfterOverlayEnable1)
+     * Write new contents of SRAM (Redirected) memory into Buffer AfterOverlayEnable1
+     */
+    memcpy(AfterOverlayEnable1, TEST_8_BUF_TARGET, BUF_SIZE);
+
+    /* Verification for Overlay functionality  */
+    Test_MemoryValidation(BeforeOverlayEnable1, AfterOverlayEnable1, sizeof(BeforeOverlayEnable1));
+
+    /* Disable Overlay */
+    IfxCpu_disableOverlayBlock(IfxCpu_ResourceCpu_0, 0);
+
+    /* Flush the data cache to ensure consistency */
+    __dsync();
+}
+
+/* Test 9
+ * 1 Block (2K address range)
+ * Target Memory is any PFLASH bank
+ * Redirection Memory is DSPR
+ */
+void Test_9 (void)
+{
+    /* Copy Values from Target Address into Buffer */
+    memcpy(BeforeOverlayEnable4, TEST_9_BUF_FLASH, BUF_SIZE_MAX);
+
+    /* Configure Overlay */
+    IfxCpu_enableOverlayBlock(IfxCpu_ResourceCpu_0, 0, IfxCpu_OverlayMemorySelect_core0DsprPspr,
+            IfxCpu_OverlayAddressMask_2KB, (uint32) TEST_9_BUF_FLASH, (uint32) TEST_9_BUF_DSPR);
+
+    /* Flush the data cache to ensure consistency */
+    __dsync();
+
+    /* Modify PFlash value with new pattern support Buffer (AfterOverlayEnable1)
+     * Actual modified Overlay (Redirected) memory with new pattern support Buffer (AfterOverlayEnable1)
+     * Write new contents of SRAM (Redirected) memory into Buffer AfterOverlayEnable1
+     */
+    memcpy(AfterOverlayEnable4, TEST_9_BUF_FLASH, BUF_SIZE_MAX);
+
+    /* Flush the data cache to ensure consistency */
+    __dsync();
+
+    /* Verification for Overlay functionality  */
+    /* Verify, BeforeOverlayEnable4 and AfterOverlayEnable4 must not be same */
+    Test_MemoryValidation(BeforeOverlayEnable4, AfterOverlayEnable4, sizeof(BeforeOverlayEnable4));
+
+    /* Disable Overlay */
+    IfxCpu_disableOverlayBlock(IfxCpu_ResourceCpu_0, 0);
+
+    /* Flush the data cache to ensure consistency */
+    __dsync();
+}
+
+/* Compare the new contents of the PFlash, stored in the BeforeOverlayEnable1 with RAM.
+ * If the value written in "BeforeOverlayEnable1" and "AfterOverlayEnable1" will be equal then the error would be happened.
+ * else, LED_SUCCESS (LED2) will be toggling, which indicates overlay functionality.
+ */
+uint8 Test_MemoryValidation (uint8 *target, uint8 *redirect, uint32 size)
+{
+    uint8 *pTarget;
+    uint8 *pRedirect;
+    uint8 result = RESULT_ERR;
+
+    pTarget = target;
+
+    /* Verify Values of Target Address and Redirect Address */
+
+    pRedirect = redirect;
+
+    for (uint32 i = 0; i < size; i++)
+    {
+        /* read from the redirect and target address and compare. */
+        if (*pTarget++ != *pRedirect++)
+        {
+
+            result = RESULT_OK;
+            break;
+        }
+    }
+    if (result == RESULT_OK)
+    {
+        /* Enable LED Success */
+        ledOn(LED_SUCCESS);
+        return 1;
+    }
+    else
+    {
+        /* Enable LED Error */
+        ledOn(LED_ERROR);
+        return 0;
+    }
+}

@@ -77,4 +77,7 @@
 
 #define DEVICE_TC4DX			           1
 
+/* #define IFX_PIN_PACKAGE_LFBGA436_COM    1 */  /* Configuration for AURIX TC4D9 COM device */
+#define IFX_PIN_PACKAGE_LFBGA292_COM       1     /* Configuration for AURIX TC4D7 COM device */
+
 #endif /* IFX_CFG_H */

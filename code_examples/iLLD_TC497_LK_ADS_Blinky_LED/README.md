@@ -11,7 +11,7 @@ The device used in this example is AURIX&trade; TC497PP_A-Step_MS_STD
 The board used for testing is the AURIX&trade; TC497PP_A-Step_MS_STD (KIT_A3G_TC497_LITE)
 
 ## Scope of work   
-A wait function is used to add delays between switching on and switching off an LED on port pin P22.7. 
+A wait function is used to add delays between switching on and switching off an LED on port pin P22.7
 
 ## Introduction  
 - The individual control and data bits of each GPIO port are implemented in a number of registers. The registers are used to configure and use the port as general-purpose I/O.
