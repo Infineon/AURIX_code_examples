@@ -6869,6 +6869,32 @@
       "lastModified": "2025-04-29T00:00:00.000Z"
     },
     {
+      "title": "iLLD_TC375_ADS_SCR_UART",
+      "name": "iLLD_TC375_ADS_SCR_UART",
+      "description": "The UART module of the StandBy Controller (SCR) is used to received the message \"HELLO_SCR\" from ASCLIN 1 module and send it back.",
+      "abstract": "The SCR UART module is used to receive message from Tricore ASCLIN Module.",
+      "folder": "iLLD_TC375_ADS_SCR_UART",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC375 lite Kit",
+          "id": "KIT_A2G_TC375_LITE",
+          "device_id": "TC37xTP_A-Step"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "SCR",
+        "UART",
+        "TRANSMIT",
+        "RECEIVE"
+      ],
+      "documents": [
+        "See READ.MD"
+      ],
+      "lastModified": "2026-03-02T00:00:00.000Z"
+    },
+    {
       "title": "Example of simple SENT communication to interface TLE5014 GMR angle sensor with AURIX(TM) TC3x Device.",
       "name": "iLLD_TC375_ADS_TLE5014_Interface_SENT_Simple",
       "description": "With this example, SENT interfacing using AURIX(TM) TC3x Device with TLE5014 angle sensor is demonstrated.",
@@ -8001,6 +8027,31 @@
       "lastModified": "2026-02-19T00:00:00.000Z"
     },
     {
+      "title": "iLLD_TC467_LK_ADS_MPU_Memory_Protection",
+      "name": "iLLD_TC467_LK_ADS_MPU_Memory_Protection",
+      "description": "The MPU module is configured to enable the first half and protect the second half of an array from read/write accesses.\r\nTo test the function of the read protection, each element of the array is read in a loop.\r\nTwo LEDs are used to indicate the progression of the CPU read accesses.\r\nWhen the loop reads the last accessible element, the first LED is turned on.\r\nWhen the first protected element is read, a trap is raised.\r\nThe second LED is only turned on if the CPU reads a protected element.",
+      "abstract": "The MPU is used to protect a part of an array from read/write accesses.",
+      "folder": "iLLD_TC467_LK_ADS_MPU_Memory_Protection",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC467 lite Kit",
+          "id": "KIT_A3G_TC467_LITE",
+          "device_id": "TC467QP_A-Step_MS_STD"
+        }
+      ],
+      "keywords": [
+        "MPU",
+        "AURIX",
+        "Memory",
+        "Protection"
+      ],
+      "documents": [
+        "See README.md"
+      ],
+      "lastModified": "2026-06-22T00:00:00.000Z"
+    },
+    {
       "title": "Multicore LED control",
       "name": "iLLD_TC467_LK_ADS_Multicore",
       "description": "Core 0 is switching on an LED. When the LED flag is set, Core 1 is switching off the LED.\r\nCore 2 is controlling the state of the LED flag.",
@@ -8025,6 +8076,30 @@
       "lastModified": "2026-02-18T00:00:00.000Z"
     },
     {
+      "title": "Measuring the MCU supply rail voltages",
+      "name": "iLLD_TC467_LK_ADS_PMS_VMON",
+      "description": "The Power Management System (PMS) allows the measurement of the AURIX&trade; supply voltage values by using the primary voltage monitors. In this example, a terminal application can be used to display the measured voltage values for each supply rail. CPU0 toggles an LED by using the system timer (STM).",
+      "abstract": "The supply voltage values of the MCU are measured by the primary voltage monitors and printed to a terminal application.",
+      "folder": "iLLD_TC467_LK_ADS_PMS_VMON",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC467 lite Kit",
+          "id": "KIT_A3G_TC467_LITE",
+          "device_id": "TC467QP_A-Step_MS_STD"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "Supply rails",
+        "Primary voltage monitors"
+      ],
+      "documents": [
+        "See README.md"
+      ],
+      "lastModified": "2026-03-25T00:00:00.000Z"
+    },
+    {
       "title": "iLLD_TC467_LK_ADS_Printf",
       "name": "iLLD_TC467_LK_ADS_Printf",
       "description": "The printf function is retargeted for GCC compiler to send data via ASCLIN in ASC (UART) mode.\r\nSpecific serialio library is provided for the scope.",
@@ -8046,6 +8121,58 @@
         "See README.md"
       ],
       "lastModified": "2026-02-19T00:00:00.000Z"
+    },
+    {
+      "title": "SMU triggers an interrupt upon assertion of a software alarm",
+      "name": "iLLD_TC467_LK_ADS_SMU_IR_Alarm",
+      "description": "This code example shows how to configure a reaction for a safety alarm in the Safety and Security alarm Management Unit (SMU).\r\nIn particular, an interrupt is triggered which in turn activates one of the LEDs on the board.",
+      "abstract": "SMU_SAFE0 Software Alarm 0 triggers an interrupt request to CPU0",
+      "folder": "iLLD_TC467_LK_ADS_SMU_IR_Alarm",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC467 lite Kit",
+          "id": "KIT_A3G_TC467_LITE",
+          "device_id": "TC467QP_A-Step_MS_STD"
+        }
+      ],
+      "keywords": [
+        "SMU",
+        "Alarm",
+        "Interrupt"
+      ],
+      "documents": [
+        "See Readme.me"
+      ],
+      "lastModified": "2026-05-20T00:00:00.000Z"
+    },
+    {
+      "title": "SPI communication via QSPI",
+      "name": "iLLD_TC467_LK_ADS_SPI_CPU",
+      "description": "QSPI1 is configured in master mode and used to send five bytes to QSPI2 configured in slave mode. The received data is read by the CPU and\r\ncompared against the transmitted data. Port pin P22.7, to which an LED is connected, indicates the successful transfer.",
+      "abstract": "A QSPI module configured as SPI master sends five bytes to another QSPI module which is configured as SPI slave.",
+      "folder": "iLLD_TC467_LK_ADS_SPI_CPU",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC467 lite Kit",
+          "id": "KIT_A3G_TC467_LITE",
+          "device_id": "TC467QP_A-Step_MS_STD"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "Communication",
+        "QSPI",
+        "Master",
+        "SPI",
+        "SPI_CPU_1",
+        "Slave"
+      ],
+      "documents": [
+        "See README.md"
+      ],
+      "lastModified": "2026-06-25T00:00:00.000Z"
     },
     {
       "title": "Interrupt generation via STM trigger",
@@ -8725,6 +8852,31 @@
       "lastModified": "2026-02-06T00:00:00.000Z"
     },
     {
+      "title": "iLLD_TC497_LK_ADS_MPU_Memory_Protection",
+      "name": "iLLD_TC497_LK_ADS_MPU_Memory_Protection",
+      "description": "The MPU module is configured to enable the first half and protect the second half of an array from read/write accesses.\r\nTo test the function of the read protection, each element of the array is read in a loop.\r\nTwo LEDs are used to indicate the progression of the CPU read accesses.\r\nWhen the loop reads the last accessible element, the first LED is turned on.\r\nWhen the first protected element is read, a trap is raised.\r\nThe second LED is only turned on if the CPU reads a protected element.",
+      "abstract": "The MPU is used to protect a part of an array from read/write accesses.",
+      "folder": "iLLD_TC497_LK_ADS_MPU_Memory_Protection",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC497 lite Kit",
+          "id": "KIT_A3G_TC497_LITE",
+          "device_id": "TC497PP_A-Step_MS_STD"
+        }
+      ],
+      "keywords": [
+        "MPU",
+        "AURIX",
+        "Memory",
+        "Protection"
+      ],
+      "documents": [
+        "See README.md"
+      ],
+      "lastModified": "2026-06-08T00:00:00.000Z"
+    },
+    {
       "title": "Multicore LED control",
       "name": "iLLD_TC497_LK_ADS_Multicore",
       "description": "Core 0 is switching on an LED. When the LED flag is set, Core 1 is switching off the LED.\r\nCore 2 is controlling the state of the LED flag.",
@@ -8749,6 +8901,29 @@
       "lastModified": "2026-02-05T00:00:00.000Z"
     },
     {
+      "title": "Measuring the MCU supply voltage rails",
+      "name": "iLLD_TC497_LK_ADS_PMS_VMON",
+      "description": "The Power Management System (PMS) allows the measurement of the AURIX(TM) supply voltage values by using the primary voltage monitors. In this example, a terminal application can be used to display the measured voltage values for each supply rail. CPU0 toggles an LED by using the system timer (STM).",
+      "abstract": "The supply voltage values of the MCU are measured by the primary voltage monitors and printed to a terminal application.",
+      "folder": "iLLD_TC497_LK_ADS_PMS_VMON",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC497 lite Kit",
+          "id": "KIT_A3G_TC497_LITE",
+          "device_id": "TC497PP_A-Step_MS_STD"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "Supply rails"
+      ],
+      "documents": [
+        "See README.md"
+      ],
+      "lastModified": "2026-03-25T00:00:00.000Z"
+    },
+    {
       "title": "iLLD_TC497_LK_ADS_Printf",
       "name": "iLLD_TC497_LK_ADS_Printf",
       "description": "The printf function is retargeted for GCC compiler to send data via ASCLIN in ASC (UART) mode.\r\nSpecific serialio library is provided for the scope.",
@@ -8770,6 +8945,58 @@
         "See README.md"
       ],
       "lastModified": "2026-02-05T00:00:00.000Z"
+    },
+    {
+      "title": "SMU triggers an interrupt upon assertion of a software alarm",
+      "name": "iLLD_TC497_LK_ADS_SMU_IR_Alarm",
+      "description": "This code example shows how to configure a reaction for a safety alarm in the Safety and Security alarm Management Unit (SMU).\r\nIn particular, an interrupt is triggered which in turn activates one of the LEDs on the board.",
+      "abstract": "SMU_SAFE0 Software Alarm 0 triggers an interrupt request to CPU0",
+      "folder": "iLLD_TC497_LK_ADS_SMU_IR_Alarm",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC497 lite Kit",
+          "id": "KIT_A3G_TC497_LITE",
+          "device_id": "TC497PP_A-Step_MS_STD"
+        }
+      ],
+      "keywords": [
+        "SMU",
+        "Alarm",
+        "Interrupt"
+      ],
+      "documents": [
+        "See Readme.me"
+      ],
+      "lastModified": "2026-03-25T00:00:00.000Z"
+    },
+    {
+      "title": "SPI communication via QSPI",
+      "name": "iLLD_TC497_LK_ADS_SPI_CPU",
+      "description": "QSPI1 is configured in master mode and used to send five bytes to QSPI2 configured in slave mode. The received data is read by the CPU and\r\ncompared against the transmitted data. Port pin P22.7, to which an LED is connected, indicates the successful transfer.",
+      "abstract": "A QSPI module configured as SPI master sends five bytes to another QSPI module which is configured as SPI slave.",
+      "folder": "iLLD_TC497_LK_ADS_SPI_CPU",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIC TC497 lite Kit",
+          "id": "KIT_A3G_TC497_LITE",
+          "device_id": "TC497PP_A-Step_MS_STD"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "Communication",
+        "QSPI",
+        "Master",
+        "SPI",
+        "SPI_CPU_1",
+        "Slave"
+      ],
+      "documents": [
+        "See README.md"
+      ],
+      "lastModified": "2026-06-22T00:00:00.000Z"
     },
     {
       "title": "Interrupt generation via STM trigger",
@@ -8797,6 +9024,40 @@
         "See README.md"
       ],
       "lastModified": "2026-02-13T00:00:00.000Z"
+    },
+    {
+      "title": "FreeRTOS code example including LED Blinking and Printing to UART",
+      "name": "iLLD_TC4D7_ADS_FreeRTOS_EGTMTOM_PRINTF",
+      "description": "GCC FreeRTOS on TC4D7 Lite kit: CPU0 starts the scheduler, blinks LEDs, polls a user button, and uses an eGTM TOM periodic interrupt to notify a task that prints via the debug UART.",
+      "abstract": "This code example shows the GNU Compiler Collection (GCC) FreeRTOS port running on the TC4D7 Lite Kit. CPU0 starts the FreeRTOS scheduler, blinks LEDs, polls a user button, and uses an enhanced Generic Timer Module (eGTM) Timer Output Module (TOM) periodic interrupt to notify a task that prints a message over the debug Universal Asynchronous Receiver-Transmitter (UART).",
+      "folder": "iLLD_TC4D7_ADS_FreeRTOS_EGTMTOM_PRINTF",
+      "version": "V1.1.0",
+      "platforms": [
+        {
+          "name": "AURIX TC4D7 lite Kit",
+          "id": "KIT_A3G_TC4D7_LITE",
+          "device_id": "TC4D7XP_A-Step_MC_COM"
+        }
+      ],
+      "keywords": [
+        "TC4XX",
+        "TC4D7",
+        "FreeRTOS",
+        "Blinky",
+        "Task",
+        "EGTM",
+        "TOM",
+        "LED",
+        "Button",
+        "Interrupt",
+        "Timer",
+        "UART",
+        "ASCLIN"
+      ],
+      "documents": [
+        "See README.MD"
+      ],
+      "lastModified": "2026-06-16T00:00:00.000Z"
     },
     {
       "title": "iLLD_TC4D7_ADS_LVGL_Code_Example_1",
@@ -9821,6 +10082,33 @@
         "See README.md"
       ],
       "lastModified": "2025-05-22T00:00:00.000Z"
+    },
+    {
+      "title": "Blinky LED",
+      "name": "iLLD_TC4D9_ADS_Blinky_LED",
+      "description": "A wait function is used to add delays between switching on and switching off an LED on port pin P33.0",
+      "abstract": "An LED is blinking based on the timing given by a wait function.",
+      "folder": "iLLD_TC4D9_ADS_Blinky_LED",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "TriBoard TC4X9 COM",
+          "id": "KIT_TC4D9_COM_TRB",
+          "device_id": "TC4D9XP_A-Step_CC_COM"
+        }
+      ],
+      "keywords": [
+        "LED",
+        "blinky",
+        "GPIO",
+        "General Port Input Output",
+        "AURIX",
+        "Blinky_LED_1"
+      ],
+      "documents": [
+        "See README.md"
+      ],
+      "lastModified": "2026-07-22T00:00:00.000Z"
     },
     {
       "title": "Interrupts prioritization",
