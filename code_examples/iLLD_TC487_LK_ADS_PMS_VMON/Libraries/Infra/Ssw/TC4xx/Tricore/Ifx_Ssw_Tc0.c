@@ -1,0 +1,586 @@
+/**
+ * \file Ifx_Ssw_Tc0.c
+ * \brief Startup Software for Core0
+ *
+ * \version iLLD-TC4-v2.6.0
+ * \copyright Copyright (c) 2026 Infineon Technologies AG. All rights reserved.
+ *
+ *
+ *                                 IMPORTANT NOTICE
+ *
+ * Infineon Technologies AG (Infineon) licenses this file to you under the
+ * Infineon Automotive SW Lab License v2025-01 (IFASLL). You may not use
+ * this file except in compliance with IFASLL.
+ *
+ * The full license text is contained in IFASLL202501.pdf delivered with this SW.
+ * Unless required by applicable law or agreed to in writing, software distributed
+ * under this license is distributed "AS IS" without any warranty or liability of any
+ * kind and Infineon hereby expressly disclaims any warranties or representations,
+ * whether express, implied, statutory or otherwise, including but not limited to
+ * warranties of workmanship, merchantability, fitness for a particular purpose,
+ * defects in the licensed items, or non-infringement of third parties'
+ * intellectual property rights. See the full license text for the specific
+ * language governing permissions and limitations under IFASLL.
+ *
+ */
+
+/*******************************************************************************
+**                      Includes                                              **
+*******************************************************************************/
+
+#include "Ifx_Cfg.h"
+#include "Ifx_Ssw.h"
+#include "Ifx_Ssw_Infra.h"
+#include "IfxCpu_cfg.h" 
+
+/*******************************************************************************
+**                       Macros                                               **
+*******************************************************************************/
+#ifndef IFX_CFG_SSW_ENABLE_TRICORE0_PCACHE
+#define IFX_CFG_SSW_ENABLE_TRICORE0_PCACHE (1U)
+#endif
+
+#ifndef IFX_CFG_SSW_ENABLE_TRICORE0_DCACHE
+#define IFX_CFG_SSW_ENABLE_TRICORE0_DCACHE (1U)
+#endif
+
+/*******************************************************************************
+**                       Prototypes & Externals                               **
+*******************************************************************************/
+/** !IMPORTANT: The SSW Configuration shall be defined at Application SW Configuration
+ * Please refer to iLLD demos for startup sw configuration (Ifx_Cfg_Ssw.c and .h)
+ */
+IFX_SSW_USED static void __StartUpSoftware(void);
+IFX_SSW_USED static void __StartUpSoftware_Phase2(void);
+IFX_SSW_USED static void __StartUpSoftware_Phase3(void);
+IFX_SSW_USED static void __StartUpSoftware_Phase4(void);
+IFX_SSW_USED static void __StartUpSoftware_Phase5(void);
+IFX_SSW_USED static void __StartUpSoftware_Phase6(void);
+IFX_SSW_USED static void __StartUpSoftware_Phase7MulticoreStartup(void);
+IFX_SSW_USED static void __StartUpSoftware_KeyoffPhase(void);
+IFX_SSW_USED static void __CStartBasic(void);
+IFX_SSW_USED static void __Core0_start(void);
+#ifndef DEVICE_TC45X
+IFX_SSW_USED IFX_SSW_NOINLINE void Ifx_Ssw_disableVirtualization_Cpu0(void);
+#endif /* #ifndef DEVICE_TC45X */
+IFX_SSW_COMMON_LINKER_SYMBOLS();
+IFX_SSW_CORE_LINKER_SYMBOLS(0);
+
+
+/* Dummy definitions to prevent Pre-fetch SMU alarms */
+IFX_SSW_WEAK void Ifx_Ssw_Pms_Init(void)
+{}
+
+IFX_SSW_WEAK void Ifx_Ssw_Pms_InitCheck(void)
+{}
+
+IFX_SSW_WEAK void Ifx_Ssw_Lbist(void)
+{}
+
+IFX_SSW_WEAK void Ifx_Ssw_Monbist(void)
+{}
+
+IFX_SSW_WEAK void Ifx_Ssw_PowerOnCrystalOsc(void)
+{}
+
+IFX_SSW_WEAK void Ifx_Ssw_MbistDsprsDmaRam(void)
+{}
+
+IFX_SSW_WEAK void Ifx_Ssw_CsrmSync_B(void)
+{}
+
+IFX_SSW_WEAK void Ifx_Ssw_ShutdownPwrDomains(void)
+{}
+
+IFX_SSW_WEAK void Ifx_Ssw_Mbist(void)
+{}
+
+IFX_SSW_WEAK void Ifx_Ssw_CsrmSync_C(void)
+{}
+
+IFX_SSW_WEAK void Ifx_Ssw_Pmic_VoltageShift(void)
+{}
+
+IFX_SSW_WEAK void Ifx_Ssw_Autosar_ServicesStart(void)
+{}
+
+IFX_SSW_WEAK void Ifx_Ssw_XtalSrc_Check(void)
+{}
+
+IFX_SSW_WEAK void Ifx_Ssw_PllInit(void)
+{}
+
+IFX_SSW_WEAK void Ifx_Ssw_CsrmSync_D(void)
+{}
+
+IFX_SSW_WEAK void Ifx_Ssw_Smu(void)
+{}
+
+IFX_SSW_WEAK void Ifx_Ssw_SafetyLibraryTests(void)
+{}
+
+IFX_SSW_WEAK void Ifx_Ssw_AP_Init(void)
+{}
+
+IFX_SSW_WEAK void Ifx_Ssw_MultiCore_Sync_Cpu0(void)
+{}
+
+IFX_SSW_WEAK void Ifx_Ssw_Keyoff_Lbist(void)
+{}
+
+IFX_SSW_WEAK void Ifx_Ssw_Keyoff_Mbist(void)
+{}
+
+IFX_SSW_WEAK void Ifx_Ssw_Keyoff_SafetyLibraryTests(void)
+{}
+
+IFX_SSW_WEAK void Ifx_Ssw_Keyoff_MbistDsprsDmaRam(void)
+{}
+
+IFX_SSW_WEAK void Ifx_Ssw_FwCheck(void)
+{}
+/*******************************************************************************
+**                       Defines                                              **
+*******************************************************************************/
+
+#if defined(__TASKING__)
+__asm("\t .extern core0_main");
+#endif
+
+static void __StartUpSoftware(void)
+{
+    /* By default mapped to empty, skip only if configured */
+    IFX_CFG_SSW_SKIP_STARTUP_ROUTINE(0);
+
+    /* Trap vector table initialization is necessary if it is not same as default value */
+    Ifx_Ssw_MTCR(CPU_BTV, (unsigned int)__TRAPTAB(0));
+
+#ifndef DEVICE_TC45X
+    /* Point the FCX to PSPR needed for disabling virtualization */
+    Ifx_Ssw_MTCR(CPU_FCX, IFX_CFG_SSW_CSA_PTR(IFX_CFG_SSW_CSA_BOOT_PTR_START));
+
+    Ifx_Ssw_disableVirtualization_Cpu0();
+
+    /* Re-Initialize the BTV to the HRA context post disabling virtualization */
+    Ifx_Ssw_MTCR(CPU_BTV, (unsigned int)__TRAPTAB(0));
+#endif /* #ifndef DEVICE_TC45X */
+
+    /*Initialize the context save area for CPU0. Function Calls Possible */
+    /* Setup the context save area linked list to PSPR */
+    Ifx_Ssw_initCSA((unsigned int *)IFX_CFG_SSW_CSA_BOOT_PTR_START, (unsigned int *)IFX_CFG_SSW_CSA_BOOT_PTR_END);
+
+    /* Set the PSW to its reset value in case of a warm start,clear PSW.IS */
+    Ifx_Ssw_MTCR(CPU_PSW, IFX_CFG_SSW_PSW_DEFAULT);
+
+    /* Initialize A1 pointer to use the global constants with small data addressing */
+    Ifx_Ssw_setAddressReg(a1, __SDATA2(0));
+    /* Set A0 Pointer to access global variables with small data addressing */
+    Ifx_Ssw_setAddressReg(a0, __SDATA1(0));
+    /* These to be un commented if A8 and A9 are required to be initialized */
+    Ifx_Ssw_setAddressReg(a8, __SDATA3(0));
+    Ifx_Ssw_setAddressReg(a9, __SDATA4(0));
+
+	{	
+		unsigned short cpuWdtPassword    = Ifx_Ssw_getCpuWatchdogPasswordInline(&MODULE_WTU.WDTCPU[0]);
+		unsigned short systemWdtPassword = Ifx_Ssw_getSystemWatchdogPasswordInline();
+
+		/* servicing watchdog timers */
+		Ifx_Ssw_serviceCpuWatchdog(&MODULE_WTU.WDTCPU[0], cpuWdtPassword);
+		Ifx_Ssw_serviceSystemWatchdog(systemWdtPassword);
+	}
+	
+	/* FW_Check incl. SMU Alarm Flag check */
+    Ifx_Ssw_FwCheck();
+    
+    /* This phase is executed only if last reset is not of type application reset */
+    if (Ifx_Ssw_isApplicationReset() != 1U)
+    {
+        Ifx_Ssw_jumpToFunction(__StartUpSoftware_Phase2);
+    }
+    else
+    {
+        if(Ifx_Ssw_isKeyoffMarkerSet())
+		{
+			Ifx_Ssw_jumpToFunction(__StartUpSoftware_KeyoffPhase);
+		}
+		else
+		{
+			/* Initialize the CSA and stack pointer */
+			Ifx_Ssw_jumpToFunctionWithLink(__CStartBasic);
+			Ifx_Ssw_Barrier();
+
+            /* Initialization of C runtime variables and CPP constructors and destructors */
+            (void)Ifx_Ssw_doCppInit();
+			Ifx_Ssw_jumpToFunction(__StartUpSoftware_Phase6);
+		}
+    }
+}
+
+
+static void __StartUpSoftware_Phase2(void)
+{
+    /* Power and EVRC configurations */
+    Ifx_Ssw_Pms_Init();
+
+    /* Power and EVRC Checks */
+    Ifx_Ssw_Pms_InitCheck();
+
+	{	
+		unsigned short cpuWdtPassword    = Ifx_Ssw_getCpuWatchdogPasswordInline(&MODULE_WTU.WDTCPU[0]);
+		unsigned short systemWdtPassword = Ifx_Ssw_getSystemWatchdogPasswordInline();
+
+		/* servicing watchdog timers */
+		Ifx_Ssw_serviceCpuWatchdog(&MODULE_WTU.WDTCPU[0], cpuWdtPassword);
+		Ifx_Ssw_serviceSystemWatchdog(systemWdtPassword);
+	}
+
+    Ifx_Ssw_jumpToFunction(__StartUpSoftware_Phase3);
+}
+
+
+static void __StartUpSoftware_Phase3(void)
+{
+    /* LBIST Tests and evaluation */
+    Ifx_Ssw_Lbist();
+
+    /* MONBIST Tests and evaluation */
+    Ifx_Ssw_Monbist();
+    
+    {
+    	unsigned short cpuWdtPassword    = Ifx_Ssw_getCpuWatchdogPasswordInline(&MODULE_WTU.WDTCPU[0]);
+    	unsigned short systemWdtPassword = Ifx_Ssw_getSystemWatchdogPasswordInline();
+
+    	/* Prolong the watchdog timeout to ~20ms considering Fspb=50MHz, it will become ~10ms after PLL init as Fspb=100MHz */
+    	Ifx_Ssw_changeCpuWatchdogReload(&MODULE_WTU.WDTCPU[0], cpuWdtPassword, (IFX_CFG_SSW_WDG_RELOAD_VALUE));
+    	Ifx_Ssw_changeSystemWatchdogReload(systemWdtPassword, (IFX_CFG_SSW_WDG_RELOAD_VALUE));
+    }
+    
+    /* MBIST Tests and Evaluation on DSPR0-5 and DMARAM */
+    Ifx_Ssw_MbistDsprsDmaRam();
+
+    /* CSRM SYNC Point */
+    Ifx_Ssw_CsrmSync_B();
+    
+    /* Initialize the CSA and stack pointer */
+    Ifx_Ssw_jumpToFunctionWithLink(__CStartBasic);
+    Ifx_Ssw_Barrier();
+
+    /* MBIST Tests and evaluation for SSHs other than DSPR0-5 and DMARAM */
+    Ifx_Ssw_Mbist();
+    
+    /* Hook functions to initialize application specific HW extensions */
+    hardware_init_hook();
+
+    /* Initialization of C runtime variables and CPP constructors and destructors */
+    (void)Ifx_Ssw_doCppInit();
+	
+    /* Hook functions to initialize application specific SW extensions */
+    software_init_hook();
+	
+    Ifx_Ssw_jumpToFunction(__StartUpSoftware_Phase4);
+}
+
+
+static void __StartUpSoftware_Phase4(void)
+{
+    /* Shutdown PowerDomains which are not used */
+    Ifx_Ssw_ShutdownPwrDomains();
+    
+    /* PMIC Voltage Shift */
+    Ifx_Ssw_Pmic_VoltageShift();
+        
+    /* CSRM SYNC Point */
+    Ifx_Ssw_CsrmSync_C();
+
+    /* AUTOSAR Services start */
+    Ifx_Ssw_Autosar_ServicesStart();
+
+    Ifx_Ssw_jumpToFunction(__StartUpSoftware_Phase5);
+}
+
+
+static void __StartUpSoftware_Phase5(void)
+{
+    {
+        /* Update safety and cpu watchdog reload value*/
+        unsigned short cpuWdtPassword    = Ifx_Ssw_getCpuWatchdogPasswordInline(&MODULE_WTU.WDTCPU[0]);
+        unsigned short systemWdtPassword = Ifx_Ssw_getSystemWatchdogPasswordInline();
+
+        /* servicing watchdog timers */
+        Ifx_Ssw_serviceCpuWatchdog(&MODULE_WTU.WDTCPU[0], cpuWdtPassword);
+        Ifx_Ssw_serviceSystemWatchdog(systemWdtPassword);
+    }
+    
+	#if (IFX_CFG_SSW_ENABLE_PLL_INIT == 1)
+		/* Switch on XTAL, since the Crystal needs ~3ms to stabilize */
+		Ifx_Ssw_PowerOnCrystalOsc();
+	
+        /* Check if the input clock is stable, e.g MMIC source */
+        Ifx_Ssw_XtalSrc_Check();
+    
+        /* Initialize the clock system and Configure Flash Wait States */
+        Ifx_Ssw_PllInit();
+    #endif /* IFX_CFG_SSW_ENABLE_PLL_INIT == 1 */
+
+    Ifx_Ssw_jumpToFunction(__StartUpSoftware_Phase6);
+}
+
+
+static void __StartUpSoftware_Phase6(void)
+{
+    /* SMU alarm handling */
+    Ifx_Ssw_Smu();
+
+    {
+        /* Update safety and cpu watchdog reload value*/
+        unsigned short cpuWdtPassword    = Ifx_Ssw_getCpuWatchdogPasswordInline(&MODULE_WTU.WDTCPU[0]);
+        unsigned short systemWdtPassword = Ifx_Ssw_getSystemWatchdogPasswordInline();
+
+        /* servicing watchdog timers */
+        Ifx_Ssw_serviceCpuWatchdog(&MODULE_WTU.WDTCPU[0], cpuWdtPassword);
+        Ifx_Ssw_serviceSystemWatchdog(systemWdtPassword);
+    }
+    
+    /* Safety Library Tests */
+    Ifx_Ssw_SafetyLibraryTests();
+
+    Ifx_Ssw_jumpToFunction(__StartUpSoftware_Phase7MulticoreStartup);
+}
+
+
+static void __StartUpSoftware_Phase7MulticoreStartup(void)
+{
+    /* PROT and APU related configurations */
+    Ifx_Ssw_AP_Init();
+
+    Ifx_Ssw_Barrier();
+
+    /* Start remaining cores */
+#if (IFX_CFG_SSW_ENABLE_TRICORE1 != 0)
+    Ifx_Ssw_startCore(&MODULE_CPU1, (unsigned int)__START(1));           /*The status returned by function call is ignored */
+#if (IFXCPU_NUM_SAFE_MODULES > 2)
+    /* 100uS delay in subsequent CPU start */
+    Ifx_Ssw_delay();
+#endif /* #if (IFXCPU_NUM_SAFE_MODULES > 2) */
+#endif /* #if (IFX_CFG_CPU_CSTART_ENABLE_TRICORE1 != 0)*/
+
+#if (IFXCPU_NUM_SAFE_MODULES > 2)
+#if (IFX_CFG_SSW_ENABLE_TRICORE2 != 0)
+    Ifx_Ssw_startCore(&MODULE_CPU2, (unsigned int)__START(2));           /*The status returned by function call is ignored */
+#if (IFXCPU_NUM_SAFE_MODULES > 3)
+    /* 100uS delay in subsequent CPU start */
+    Ifx_Ssw_delay();
+#endif /* #if (IFXCPU_NUM_SAFE_MODULES > 3) */
+#endif /* #if (IFX_CFG_CPU_CSTART_ENABLE_TRICORE2 != 0)*/
+
+#if (IFXCPU_NUM_SAFE_MODULES > 3)
+#if (IFX_CFG_SSW_ENABLE_TRICORE3 != 0)
+    Ifx_Ssw_startCore(&MODULE_CPU3, (unsigned int)__START(3));           /*The status returned by function call is ignored */
+#if (IFXCPU_NUM_SAFE_MODULES > 4)
+    /* 100uS delay in subsequent CPU start */
+    Ifx_Ssw_delay();
+#endif /* #if (IFXCPU_NUM_SAFE_MODULES > 4) */
+#endif /* #if (IFX_CFG_CPU_CSTART_ENABLE_TRICORE3 != 0)*/
+
+#if (IFXCPU_NUM_SAFE_MODULES > 4)
+#if (IFX_CFG_SSW_ENABLE_TRICORE4 != 0)
+    Ifx_Ssw_startCore(&MODULE_CPU4, (unsigned int)__START(4));           /*The status returned by function call is ignored */
+    /* 100uS delay in subsequent CPU start */
+#if (IFXCPU_NUM_SAFE_MODULES > 5)
+    Ifx_Ssw_delay();
+#endif /* #if (IFXCPU_NUM_SAFE_MODULES > 5) */
+#endif /* #if (IFX_CFG_CPU_CSTART_ENABLE_TRICORE4 != 0)*/
+
+#if (IFXCPU_NUM_SAFE_MODULES > 5)
+#if (IFX_CFG_SSW_ENABLE_TRICORE5 != 0)
+    Ifx_Ssw_startCore(&MODULE_CPU5, (unsigned int)__START(5));           /*The status returned by function call is ignored */
+#endif /* #if (IFX_CFG_CPU_CSTART_ENABLE_TRICORE5 != 0)*/
+#endif /* #if (IFXCPU_NUM_SAFE_MODULES > 5) */
+#endif /* #if (IFXCPU_NUM_SAFE_MODULES > 4) */
+#endif /* #if (IFXCPU_NUM_SAFE_MODULES > 3) */
+#endif /* #if (IFXCPU_NUM_SAFE_MODULES > 2) */
+
+    /* CSRM SYNC Point */
+    Ifx_Ssw_CsrmSync_D();
+    
+    Ifx_Ssw_jumpToFunction(__Core0_start);
+}
+
+
+static void __Core0_start(void)
+{
+    /* Enable/ Disable the caches depending on the configuration. At this point cache are invalidated */
+    {
+        Ifx_CPU_PCON0 pcon0;
+        pcon0.U       = 0;
+        pcon0.B.PCBYP = IFX_CFG_SSW_ENABLE_TRICORE0_PCACHE ? 0 : 1; /* depending on the enable bypass bit is reset/set */
+        #if (IFX_PROT_ENABLED == 1U)
+            IfxSswProt_setState((Ifx_PROT_PROT *)&(MODULE_CPU0.PROTSFRE), IfxSswProt_State_config);
+        #endif
+        Ifx_Ssw_MTCR(CPU_PCON0, pcon0.U);
+        #if (IFX_PROT_ENABLED == 1U)
+            IfxSswProt_setState((Ifx_PROT_PROT *)&(MODULE_CPU0.PROTSFRE), IfxSswProt_State_run);
+        #endif
+    }
+
+    {
+        Ifx_CPU_DCON0 dcon0;
+        dcon0.U       = 0;
+        dcon0.B.DCBYP = IFX_CFG_SSW_ENABLE_TRICORE0_DCACHE ? 0 : 1; /* depending on the enable bypass bit is reset/set */
+        #if (IFX_PROT_ENABLED == 1U)
+            IfxSswProt_setState((Ifx_PROT_PROT *)&(MODULE_CPU0.PROTSFRE), IfxSswProt_State_config);
+        #endif
+        Ifx_Ssw_MTCR(CPU_DCON0, dcon0.U);
+        #if (IFX_PROT_ENABLED == 1U)
+            IfxSswProt_setState((Ifx_PROT_PROT *)&(MODULE_CPU0.PROTSFRE), IfxSswProt_State_run);
+        #endif
+    }
+    #if (IFX_PROT_ENABLED == 1U)
+        IfxSswProt_setState((Ifx_PROT_PROT *)&(MODULE_CPU0.PROTSFRE), IfxSswProt_State_config);
+    #endif
+
+    /* Base interrupt vector table initialized */
+    Ifx_Ssw_MTCR(CPU_BIV, (unsigned int)__INTTAB(0));
+    /* Interrupt stack pointer is configured */
+    Ifx_Ssw_MTCR(CPU_ISP, (unsigned int)__ISTACK(0));
+    #if (IFX_PROT_ENABLED == 1U)
+        IfxSswProt_setState((Ifx_PROT_PROT *)&(MODULE_CPU0.PROTSFRE), IfxSswProt_State_run);
+    #endif
+
+#if (IFX_CFG_SSW_ENABLE_TRICORE0 == 0)
+    /* Set the CPU 0 to Idle mode, if it is not needed to be enabled */
+    Ifx_Ssw_setCpu0Idle();
+#endif
+
+    /* MultiCore synchronization hooks to execute Safety Library tests */
+    Ifx_Ssw_MultiCore_Sync_Cpu0();
+
+    {
+    	unsigned short cpuWdtPassword    = Ifx_Ssw_getCpuWatchdogPasswordInline(&MODULE_WTU.WDTCPU[0]);
+    	unsigned short systemWdtPassword = Ifx_Ssw_getSystemWatchdogPasswordInline();
+
+    	/* Reducing the timeout again to initial*/
+    	Ifx_Ssw_changeCpuWatchdogReload(&MODULE_WTU.WDTCPU[0], cpuWdtPassword, (IFX_CFG_SSW_WDG_INITIAL_VALUE));
+    	Ifx_Ssw_changeSystemWatchdogReload(systemWdtPassword, (IFX_CFG_SSW_WDG_INITIAL_VALUE));
+    }
+    
+    /*Call main function of Cpu0 */
+#ifdef IFX_CFG_SSW_RETURN_FROM_MAIN
+    {
+        extern int core0_main(void);
+        int status= core0_main();          /* Call main function of CPU0 */
+        Ifx_Ssw_doCppExit(status);
+    }
+#else /* IFX_CFG_SSW_RETURN_FROM_MAIN */
+    extern void core0_main(void);
+    Ifx_Ssw_jumpToFunction(core0_main);    /* Jump to main function of CPU0 */
+#endif /* IFX_CFG_SSW_RETURN_FROM_MAIN */
+
+    /* Go into infinite loop, normally the code shall not reach here */
+    Ifx_Ssw_infiniteLoop();
+}
+
+static void __CStartBasic(void)
+{
+    /* Re-Initialize the user stack pointer */
+    Ifx_Ssw_setAddressReg(a10, __USTACK(0));
+    Ifx_Ssw_DSYNC();
+    /*Initialize the context save area for CPU0. Function Calls Possible */
+    /* Setup the context save area linked list */
+    Ifx_Ssw_initCSA((unsigned int *)__CSA(0), (unsigned int *)__CSA_END(0));
+
+    Ifx_Ssw_jumpBackToLink();
+}
+
+
+#ifndef DEVICE_TC45X
+#if defined(__HIGHTEC__) && !defined(__clang__)
+#pragma GCC optimize ("O0")
+#elif defined(__GNUC__) && !defined(__HIGHTEC__)
+#pragma GCC optimize ("O0")
+#endif
+void Ifx_Ssw_disableVirtualization_Cpu0(void)
+{
+    Ifx_Ssw_disableVirtualization()
+}
+#if defined(__HIGHTEC__) && !defined(__clang__)
+#pragma GCC reset_options
+#elif defined(__GNUC__) && !defined(__HIGHTEC__)
+#pragma GCC reset_options
+#endif
+#endif /* #ifndef DEVICE_TC45X */
+
+static void __StartUpSoftware_KeyoffPhase(void)
+{
+	/* Key-off LBIST Tests and evaluation */
+    Ifx_Ssw_Keyoff_Lbist();
+
+    {
+    	unsigned short cpuWdtPassword    = Ifx_Ssw_getCpuWatchdogPasswordInline(&MODULE_WTU.WDTCPU[0]);
+    	unsigned short systemWdtPassword = Ifx_Ssw_getSystemWatchdogPasswordInline();
+
+    	Ifx_Ssw_changeCpuWatchdogReload(&MODULE_WTU.WDTCPU[0], cpuWdtPassword, (IFX_CFG_SSW_WDG_RELOAD_VALUE));
+    	Ifx_Ssw_changeSystemWatchdogReload(systemWdtPassword, (IFX_CFG_SSW_WDG_RELOAD_VALUE));
+    }
+    /* MBIST Tests and Evaluation for RAMs in FAILID excl. PSPR0 */
+    Ifx_Ssw_Keyoff_MbistDsprsDmaRam();
+
+    /* Initialize the CSA and stack pointer */
+    Ifx_Ssw_jumpToFunctionWithLink(__CStartBasic);
+    Ifx_Ssw_Barrier();
+
+    /* MBIST Tests for remaining */
+    Ifx_Ssw_Keyoff_Mbist();
+    
+    /* Key-off assigned tests (LFM) and store result */
+    Ifx_Ssw_Keyoff_SafetyLibraryTests();
+
+	/* Clear Key-off Marker, normally the code shall not reach here */
+	Ifx_Ssw_clearKeyoffMarker();
+
+	/* Go into infinite loop */
+    Ifx_Ssw_infiniteLoop();
+
+}
+
+/******************************************************************************
+ *                        reset vector address                                *
+ *****************************************************************************/
+#if defined(__TASKING__)
+#pragma protect on
+#pragma section code "start"
+#elif defined(__HIGHTEC__) && !defined(__clang__)
+#pragma section
+#pragma section ".start" x
+#elif defined(__HIGHTEC__) && defined(__clang__)
+#pragma clang section text=".start"
+#elif defined(__GNUC__) && !defined(__HIGHTEC__)
+#pragma section
+#pragma section ".start" x
+#elif defined(__DCC__)
+#pragma section CODE ".start" X
+#elif defined(__ghs__)
+#pragma ghs section text=".start"
+#endif
+
+IFX_SSW_USED void _START(void)
+{
+	Ifx_Ssw_Start(IFX_CFG_SSW_CSA_USTACK_PTR, __StartUpSoftware);
+}
+
+
+/* reset the sections defined above, to normal region */
+#if defined(__TASKING__)
+#pragma protect restore
+#pragma section code restore
+#elif defined(__HIGHTEC__) && !defined(__clang__)
+#pragma section
+#elif defined(__HIGHTEC__) && defined(__clang__)
+#pragma clang section text=""
+#elif defined(__GNUC__) && !defined(__HIGHTEC__)
+#pragma section
+#elif defined(__DCC__)
+#pragma section CODE
+#elif defined(__ghs__)
+#pragma ghs section text=default
+#endif

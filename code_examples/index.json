@@ -8490,6 +8490,31 @@
       "lastModified": "2026-05-05T00:00:00.000Z"
     },
     {
+      "title": "iLLD_TC487_LK_ADS_MPU_Memory_Protection",
+      "name": "iLLD_TC487_LK_ADS_MPU_Memory_Protection",
+      "description": "The MPU module is configured to enable the first half and protect the second half of an array from read/write accesses.\r\nTo test the function of the read protection, each element of the array is read in a loop.\r\nTwo LEDs are used to indicate the progression of the CPU read accesses.\r\nWhen the loop reads the last accessible element, the first LED is turned on.\r\nWhen the first protected element is read, a trap is raised.\r\nThe second LED is only turned on if the CPU reads a protected element.",
+      "abstract": "The MPU is used to protect a part of an array from read/write accesses.",
+      "folder": "iLLD_TC487_LK_ADS_MPU_Memory_Protection",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC487 lite Kit",
+          "id": "KIT_A3G_TC487_LITE",
+          "device_id": "TC487QP_A-Step_MC_COM"
+        }
+      ],
+      "keywords": [
+        "MPU",
+        "AURIX",
+        "Memory",
+        "Protection"
+      ],
+      "documents": [
+        "See README.md"
+      ],
+      "lastModified": "2026-06-24T00:00:00.000Z"
+    },
+    {
       "title": "Multicore LED control",
       "name": "iLLD_TC487_LK_ADS_Multicore",
       "description": "Core 0 is switching on an LED. When the LED flag is set, Core 1 is switching off the LED.\r\nCore 2 is controlling the state of the LED flag.",
@@ -8514,6 +8539,29 @@
       "lastModified": "2026-04-06T00:00:00.000Z"
     },
     {
+      "title": "Measuring the MCU supply voltage rails",
+      "name": "iLLD_TC487_LK_ADS_PMS_VMON",
+      "description": "The Power Management System (PMS) allows the measurement of the AURIX(TM) supply voltage values by using the primary voltage monitors. In this example, a terminal application can be used to display the measured voltage values for each supply rail. CPU0 toggles an LED by using the system timer (STM).",
+      "abstract": "The supply voltage values of the MCU are measured by the primary voltage monitors and printed to a terminal application.",
+      "folder": "iLLD_TC487_LK_ADS_PMS_VMON",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC487 lite Kit",
+          "id": "KIT_A3G_TC487_LITE",
+          "device_id": "TC487QP_A-Step_MC_COM"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "Supply rails"
+      ],
+      "documents": [
+        "See README.md"
+      ],
+      "lastModified": "2026-06-24T00:00:00.000Z"
+    },
+    {
       "title": "iLLD_TC487_LK_ADS_Printf",
       "name": "iLLD_TC487_LK_ADS_Printf",
       "description": "The printf function is retargeted for GCC compiler to send data via ASCLIN in ASC (UART) mode.\r\nSpecific serialio library is provided for the scope.",
@@ -8535,6 +8583,58 @@
         "See README.md"
       ],
       "lastModified": "2026-04-28T00:00:00.000Z"
+    },
+    {
+      "title": "SMU triggers an interrupt upon assertion of a software alarm",
+      "name": "iLLD_TC487_LK_ADS_SMU_IR_Alarm",
+      "description": "This code example shows how to configure a reaction for a safety alarm in the Safety and Security alarm Management Unit (SMU).\r\nIn particular, an interrupt is triggered which in turn activates one of the LEDs on the board.",
+      "abstract": "SMU_SAFE0 Software Alarm 0 triggers an interrupt request to CPU0",
+      "folder": "iLLD_TC487_LK_ADS_SMU_IR_Alarm",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC487 lite Kit",
+          "id": "KIT_A3G_TC487_LITE",
+          "device_id": "TC487QP_A-Step_MC_COM"
+        }
+      ],
+      "keywords": [
+        "SMU",
+        "Alarm",
+        "Interrupt"
+      ],
+      "documents": [
+        "See Readme.me"
+      ],
+      "lastModified": "2026-05-20T00:00:00.000Z"
+    },
+    {
+      "title": "SPI communication via QSPI",
+      "name": "iLLD_TC487_LK_ADS_SPI_CPU",
+      "description": "QSPI1 is configured in master mode and used to send five bytes to QSPI2 configured in slave mode. The received data is read by the CPU and\r\ncompared against the transmitted data. Port pin P03.9, to which an LED is connected, indicates the successful transfer.",
+      "abstract": "A QSPI module configured as SPI master sends five bytes to another QSPI module which is configured as SPI slave.",
+      "folder": "iLLD_TC487_LK_ADS_SPI_CPU",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIC TC487 lite Kit",
+          "id": "KIT_A3G_TC487_LITE",
+          "device_id": "TC487QP_A-Step_MC_COM"
+        }
+      ],
+      "keywords": [
+        "AURIX",
+        "Communication",
+        "QSPI",
+        "Master",
+        "SPI",
+        "SPI_CPU_1",
+        "Slave"
+      ],
+      "documents": [
+        "See README.md"
+      ],
+      "lastModified": "2026-06-22T00:00:00.000Z"
     },
     {
       "title": "Interrupt generation via STM trigger",

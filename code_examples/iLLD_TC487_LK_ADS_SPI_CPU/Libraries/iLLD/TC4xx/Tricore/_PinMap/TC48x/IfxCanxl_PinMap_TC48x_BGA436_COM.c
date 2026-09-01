@@ -1,0 +1,157 @@
+/**
+ * \file IfxCanxl_PinMap_TC48x_BGA436_COM.c
+ * \brief CANXL  details
+ *
+ * \version iLLD-TC4-v2.6.0
+ * \copyright Copyright (c) 2026 Infineon Technologies AG. All rights reserved.
+ *
+ *
+ *
+ *                                 IMPORTANT NOTICE
+ *
+ * Infineon Technologies AG (Infineon) licenses this file to you under the
+ * Infineon Automotive SW Lab License v2025-01 (IFASLL). You may not use
+ * this file except in compliance with IFASLL.
+ *
+ * The full license text is contained in IFASLL202501.pdf delivered with this SW.
+ * Unless required by applicable law or agreed to in writing, software distributed
+ * under this license is distributed "AS IS" without any warranty or liability of any
+ * kind and Infineon hereby expressly disclaims any warranties or representations,
+ * whether express, implied, statutory or otherwise, including but not limited to
+ * warranties of workmanship, merchantability, fitness for a particular purpose,
+ * defects in the licensed items, or non-infringement of third parties'
+ * intellectual property rights. See the full license text for the specific
+ * language governing permissions and limitations under IFASLL.
+ *
+ *
+ */
+
+/******************************************************************************/
+/*----------------------------------Includes----------------------------------*/
+/******************************************************************************/
+
+#if defined(__TASKING__)
+#pragma warning 508
+#endif
+
+#if defined(__ghs__)
+#pragma ghs nowarning 96
+#endif
+#include "Ifx_PinMap.h"
+#if defined(DEVICE_TC48X) && defined(IFX_PIN_PACKAGE_BGA436_COM)
+#include "IfxCanxl_PinMap_TC48x_BGA436_COM.h"
+
+/******************************************************************************/
+/*-----------------------Exported Variables/Constants-------------------------*/
+/******************************************************************************/
+
+IfxCanxl_Rxd_In  IfxCanxl_RXD00A_P14_8_IN = {&MODULE_CANXL0, (IfxCanxl_NodeId)0, {&MODULE_P14, 8}, Ifx_RxSel_a};
+
+IfxCanxl_Rxd_In  IfxCanxl_RXD00B_P14_1_IN = {&MODULE_CANXL0, (IfxCanxl_NodeId)0, {&MODULE_P14, 1}, Ifx_RxSel_b};
+
+IfxCanxl_Rxd_In  IfxCanxl_RXD00C_P02_1_IN = {&MODULE_CANXL0, (IfxCanxl_NodeId)0, {&MODULE_P02, 1}, Ifx_RxSel_c};
+
+IfxCanxl_Rxd_In  IfxCanxl_RXD00E_P10_7_IN = {&MODULE_CANXL0, (IfxCanxl_NodeId)0, {&MODULE_P10, 7}, Ifx_RxSel_e};
+
+IfxCanxl_Rxd_In  IfxCanxl_RXD00F_P15_12_IN = {&MODULE_CANXL0, (IfxCanxl_NodeId)0, {&MODULE_P15, 12}, Ifx_RxSel_f};
+
+IfxCanxl_Rxd_In  IfxCanxl_RXD00G_P01_5_IN = {&MODULE_CANXL0, (IfxCanxl_NodeId)0, {&MODULE_P01, 5}, Ifx_RxSel_g};
+
+IfxCanxl_Rxd_In  IfxCanxl_RXD00H_P14_12_IN = {&MODULE_CANXL0, (IfxCanxl_NodeId)0, {&MODULE_P14, 12}, Ifx_RxSel_h};
+
+IfxCanxl_Rxd_In  IfxCanxl_RXD01A_P14_4_IN = {&MODULE_CANXL0, (IfxCanxl_NodeId)1, {&MODULE_P14, 4}, Ifx_RxSel_a};
+
+IfxCanxl_Rxd_In  IfxCanxl_RXD01C_P02_3_IN = {&MODULE_CANXL0, (IfxCanxl_NodeId)1, {&MODULE_P02, 3}, Ifx_RxSel_c};
+
+IfxCanxl_Rxd_In  IfxCanxl_RXD01D_P14_2_IN = {&MODULE_CANXL0, (IfxCanxl_NodeId)1, {&MODULE_P14, 2}, Ifx_RxSel_d};
+
+IfxCanxl_Rxd_In  IfxCanxl_RXD01F_P16_4_IN = {&MODULE_CANXL0, (IfxCanxl_NodeId)1, {&MODULE_P16, 4}, Ifx_RxSel_f};
+
+IfxCanxl_Rxd_In  IfxCanxl_RXD01G_P16_0_IN = {&MODULE_CANXL0, (IfxCanxl_NodeId)1, {&MODULE_P16, 0}, Ifx_RxSel_g};
+
+IfxCanxl_Rxd_In  IfxCanxl_RXD01H_P16_12_IN = {&MODULE_CANXL0, (IfxCanxl_NodeId)1, {&MODULE_P16, 12}, Ifx_RxSel_h};
+
+IfxCanxl_Txd_Out IfxCanxl_TXD00_P01_4_OUT = {&MODULE_CANXL0, (IfxCanxl_NodeId)0, {&MODULE_P01, 4}, IfxPort_OutputIdx_alt8};
+
+IfxCanxl_Txd_Out IfxCanxl_TXD00_P02_0_OUT = {&MODULE_CANXL0, (IfxCanxl_NodeId)0, {&MODULE_P02, 0}, IfxPort_OutputIdx_alt8};
+
+IfxCanxl_Txd_Out IfxCanxl_TXD00_P10_0_OUT = {&MODULE_CANXL0, (IfxCanxl_NodeId)0, {&MODULE_P10, 0}, IfxPort_OutputIdx_alt7};
+
+IfxCanxl_Txd_Out IfxCanxl_TXD00_P14_0_OUT = {&MODULE_CANXL0, (IfxCanxl_NodeId)0, {&MODULE_P14, 0}, IfxPort_OutputIdx_alt13};
+
+IfxCanxl_Txd_Out IfxCanxl_TXD00_P14_10_OUT = {&MODULE_CANXL0, (IfxCanxl_NodeId)0, {&MODULE_P14, 10}, IfxPort_OutputIdx_alt13};
+
+IfxCanxl_Txd_Out IfxCanxl_TXD00_P15_13_OUT = {&MODULE_CANXL0, (IfxCanxl_NodeId)0, {&MODULE_P15, 13}, IfxPort_OutputIdx_alt13};
+
+IfxCanxl_Txd_Out IfxCanxl_TXD01_P02_2_OUT = {&MODULE_CANXL0, (IfxCanxl_NodeId)1, {&MODULE_P02, 2}, IfxPort_OutputIdx_alt8};
+
+IfxCanxl_Txd_Out IfxCanxl_TXD01_P14_0_OUT = {&MODULE_CANXL0, (IfxCanxl_NodeId)1, {&MODULE_P14, 0}, IfxPort_OutputIdx_alt15};
+
+IfxCanxl_Txd_Out IfxCanxl_TXD01_P14_3_OUT = {&MODULE_CANXL0, (IfxCanxl_NodeId)1, {&MODULE_P14, 3}, IfxPort_OutputIdx_alt13};
+
+IfxCanxl_Txd_Out IfxCanxl_TXD01_P14_5_OUT = {&MODULE_CANXL0, (IfxCanxl_NodeId)1, {&MODULE_P14, 5}, IfxPort_OutputIdx_alt13};
+
+IfxCanxl_Txd_Out IfxCanxl_TXD01_P16_1_OUT = {&MODULE_CANXL0, (IfxCanxl_NodeId)1, {&MODULE_P16, 1}, IfxPort_OutputIdx_alt5};
+
+IfxCanxl_Txd_Out IfxCanxl_TXD01_P16_4_OUT = {&MODULE_CANXL0, (IfxCanxl_NodeId)1, {&MODULE_P16, 4}, IfxPort_OutputIdx_alt4};
+
+IfxCanxl_Txd_Out IfxCanxl_TXD01_P16_6_OUT = {&MODULE_CANXL0, (IfxCanxl_NodeId)1, {&MODULE_P16, 6}, IfxPort_OutputIdx_alt2};
+
+/** \addtogroup IfxLld_Canxl__PinTables
+ * \{ */
+
+/******************************************************************************/
+/*-----------------------Exported Variables/Constants-------------------------*/
+/******************************************************************************/
+
+IFX_CONST IfxCanxl_Rxd_In  *IfxCanxl_Rxd_In_pinTable[IFXCANXL_PINMAP_NUM_MODULES][IFXCANXL_PINMAP_NUM_NODES][IFXCANXL_PINMAP_RXD_IN_NUM_ITEMS] = {
+    {
+        {
+            &IfxCanxl_RXD00A_P14_8_IN,
+            &IfxCanxl_RXD00B_P14_1_IN,
+            &IfxCanxl_RXD00C_P02_1_IN,
+            NULL_PTR,
+            &IfxCanxl_RXD00E_P10_7_IN,
+            &IfxCanxl_RXD00F_P15_12_IN,
+            &IfxCanxl_RXD00G_P01_5_IN,
+            &IfxCanxl_RXD00H_P14_12_IN,
+        },
+        {
+            &IfxCanxl_RXD01A_P14_4_IN,
+            NULL_PTR,
+            &IfxCanxl_RXD01C_P02_3_IN,
+            &IfxCanxl_RXD01D_P14_2_IN,
+            NULL_PTR,
+            &IfxCanxl_RXD01F_P16_4_IN,
+            &IfxCanxl_RXD01G_P16_0_IN,
+            &IfxCanxl_RXD01H_P16_12_IN,
+        },
+    },
+};
+
+IFX_CONST IfxCanxl_Txd_Out *IfxCanxl_Txd_Out_pinTable[IFXCANXL_PINMAP_NUM_MODULES][IFXCANXL_PINMAP_NUM_NODES][IFXCANXL_PINMAP_TXD_OUT_NUM_ITEMS] = {
+    {
+        {
+            &IfxCanxl_TXD00_P01_4_OUT,
+            &IfxCanxl_TXD00_P02_0_OUT,
+            &IfxCanxl_TXD00_P10_0_OUT,
+            &IfxCanxl_TXD00_P14_0_OUT,
+            &IfxCanxl_TXD00_P14_10_OUT,
+            &IfxCanxl_TXD00_P15_13_OUT,
+            NULL_PTR,
+        },
+        {
+            &IfxCanxl_TXD01_P02_2_OUT,
+            &IfxCanxl_TXD01_P14_0_OUT,
+            &IfxCanxl_TXD01_P14_3_OUT,
+            &IfxCanxl_TXD01_P14_5_OUT,
+            &IfxCanxl_TXD01_P16_1_OUT,
+            &IfxCanxl_TXD01_P16_4_OUT,
+            &IfxCanxl_TXD01_P16_6_OUT,
+        },
+    },
+};
+
+/** \} */
+
+#endif
