@@ -126,37 +126,27 @@
 
 #endif /*defined(IFX_USE_SW_MANAGED_INT)*/
 
+#define IFX_INTERRUPT_FAST(isr, vectabNum, prio) void __interrupt_fast(prio) __vector_table(vectabNum) isr(void)
+
 /* The IFX_INTERRUPT_INTERNAL macro is added as a workaround for the
  * Virtualization enable case since the TC1.8 TASKING compiler doesn't support
  *  more than 5 vector table number entries. This macro can be removed in future
  *  if the TASKING compiler supports the same
  */
-#if (0)
+/* Virtualization case for interrupt handled by a Virtual Machine */
+#ifndef IFX_INTERRUPT_VM
+#define IFX_INTERRUPT_VM(isr, cpu, vm, prio) IFX_INTERRUPT_VM_INTERNAL(isr, cpu, vm, prio)
+#endif
+
+/* Virtualization case for interrupt handled by a Hypervisor with proper interrupt epilog  */
+#ifndef IFX_INTERRUPT_VM_RFH
+#define IFX_INTERRUPT_VM_RFH(isr, cpu, vm, prio) IFX_INTERRUPT_VM_RFH_INTERNAL(isr, cpu, vm, prio)
+#endif
+
 #define IFX_INTERRUPT_FAST(isr, vectabNum, prio) void __interrupt_fast(prio) __vector_table(vectabNum) isr(void)
 #define IFX_INTERRUPT_INTERNAL(isr, vectabNum, prio) void __interrupt(prio) __vector_table(vectabNum) isr(void)
-#else
-#ifndef IFX_INTERRUPT_INTERNAL
-#define IFX_INTERRUPT_INTERNAL(isr, vectabNum, prio) \
-__attribute__((section(".intvec_tc"#vectabNum"_"#prio))) void iVecEntry##vectabNum##_##prio(void) \
-{ \
-	__asm(\
-			"svlcx\n"\
-			"    mov.aa a13, a11\n"\
-            "    movh.a a14, #@his("#isr"_temp)\n" \
-            "    lea a14, [a14]@los("#isr"_temp)\n" \
-            "    ji a14\n"\
-            :::"a14", "a13"); \
-} \
-void isr##_temp(void)\
-{\
-__asm("jli %0" ::"a" (&isr));\
-__asm("mov.aa a11, a13");\
-__asm("rslcx");\
-__asm("rfe");\
-}\
-void isr(void)
-#endif /* IFX_INTERRUPT_INTERNAL */
-#endif
+#define IFX_INTERRUPT_VM_INTERNAL(isr, cpu, vm, prio) void __vm(vm)__interrupt(prio) __vector_table(cpu) isr(void)
+#define IFX_INTERRUPT_VM_RFH_INTERNAL(isr, cpu, vm, prio) void __hvinterrupt(prio) __vector_table(cpu) isr(void)
 /* *INDENT-ON* */
 
 /******************************************************************************/

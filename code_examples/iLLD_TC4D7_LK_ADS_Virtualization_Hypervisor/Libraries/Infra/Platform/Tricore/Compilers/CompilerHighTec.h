@@ -218,13 +218,19 @@ __asm__ (                                                                      \
 "    __\\intEntryLabel :\n"                                                    \
 "        svlcx\n"                                                              \
 "        movh.a  %a14, hi:\\name\n"                                            \
+"        mov     %d4, %d15\n"                                                  \
 "        lea     %a14, [%a14]lo:\\name\n"                                      \
-"        ji      %a14\n"                                                       \
+"        jli     %a14\n"                                                       \
+"        rslcx\n"                                                              \
+"        jz.t %d15, 31, 1f\n"                                                  \
+"        rfh\n"                                                                \
+"1:\n"                                                                         \
+"        rfe\n"                                                                \
 "        .org 32\n"                                                            \
 "    .popsection\n"                                                            \
 ".endm\n"                                                                      \
 ".macro .int_entry.1 prio,vm,cpu,u,name\n"                                     \
-"    .int_entry.2 intvecvm_tc\\cpu\\u\\vm\\u\\prio,(\\name)\n"                 \
+"    .int_entry.2 intvec_tc\\cpu\\()_vm\\vm\\u\\prio,(\\name)\n"               \
 ".endm\n"                                                                      \
 ".macro .intr.entry name,cpu,vm,prio\n"                                        \
 "    .int_entry.1 %(\\prio),%(\\vm),%(\\cpu),_,\\name\n"                       \
@@ -233,8 +239,8 @@ __asm__ (                                                                      \
 ".purgem .int_entry.2\n"                                                       \
 ".purgem .int_entry.1\n"                                                       \
 ".purgem .intr.entry\n");                                                      \
-IFX_EXTERN IFX_INTERRUPT_VM_FUNC void isr ();                                  \
-IFX_INTERRUPT_VM_FUNC void isr (void)
+IFX_EXTERN IFX_INTERRUPT_FUNC void isr ();                                     \
+IFX_INTERRUPT_FUNC void isr ()
 #endif /* IFX_INTERRUPT_VM_INTERNAL */
 
 
@@ -265,7 +271,7 @@ __asm__ (                                                                      \
 "    .popsection\n"                                                            \
 ".endm\n"                                                                      \
 ".macro .int_entry.1 prio,vm,cpu,u,name\n"                                     \
-"    .int_entry.2 intvecvm_tc\\cpu\\u\\vm\\u\\prio,(\\name)\n"                 \
+"    .int_entry.2 intvec_tc\\cpu\\()_vm\\vm\\u\\prio,(\\name)\n"               \
 ".endm\n"                                                                      \
 ".macro .intr.entry name,cpu,vm,prio\n"                                        \
 "    .int_entry.1 %(\\prio),%(\\vm),%(\\cpu),_,\\name\n"                       \
@@ -274,8 +280,8 @@ __asm__ (                                                                      \
 ".purgem .int_entry.2\n"                                                       \
 ".purgem .int_entry.1\n"                                                       \
 ".purgem .intr.entry\n");                                                      \
-IFX_EXTERN IFX_JL_FUNC void isr (unsigned int d15);                            \
-IFX_JL_FUNC void isr (unsigned int d15)
+IFX_EXTERN IFX_INTERRUPT_FUNC void isr ();                                     \
+IFX_INTERRUPT_FUNC void isr ()
 #endif /* IFX_INTERRUPT_VM_INTVEC_RFH_BY_RV_INTERNAL */
 
 /* *INDENT-ON* */

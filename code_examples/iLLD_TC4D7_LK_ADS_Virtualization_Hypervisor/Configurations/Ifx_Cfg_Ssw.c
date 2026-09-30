@@ -579,7 +579,7 @@ void Ifx_Ssw_CsrmSync_D(void)
 void hardware_init_hook(void)
 {
 	Ifx_CPU_CORE_ID reg;
-	reg.U = __mfcr(CPU_CORE_ID);
+	reg.U = Ifx_Ssw_MFCR(CPU_CORE_ID);
 	
 	if( reg.B.CORE_ID == 0u)				/* Clear SRAM only from Core0*/
 	{

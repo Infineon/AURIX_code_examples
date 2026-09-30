@@ -2,7 +2,7 @@
  * \file Ifx_PinMap.h
  * \brief Pinmap configuration file.
  *
- * \version iLLD-TC4-v2.2.0
+ * \version iLLD-TC4-v2.3.0
  * \copyright Copyright (c) 2022 Infineon Technologies AG. All rights reserved.
  *
  *

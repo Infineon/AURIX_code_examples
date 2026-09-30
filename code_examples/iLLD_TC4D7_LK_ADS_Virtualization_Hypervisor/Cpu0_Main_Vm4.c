@@ -29,10 +29,9 @@
 #include "IfxCpu.h"
 #include "IfxStm.h"
 #include "IfxHv_CpuVmSched.h"
-#if (IFX_DEBUG_PRINT == 1U)
-#include "printf_to_tspi.h"
-#endif
+
 #include "IfxPort.h"
+
 /*********************************************************************************************************************/
 /*------------------------------------------------------Macros-------------------------------------------------------*/
 /*********************************************************************************************************************/
@@ -40,31 +39,43 @@
 #define CPU0                                 0                               /* CPU0: Core Index                     */
 #define VM4                                  4                               /* VM4: Virtual Machine Index           */
 #define HV_SCHEDULER_ACTIVATION_THS_VM4      IFX_CFG_HV_ACTIVATION_VM4       /* Scheduler Activation Threshold       */
-
+/*********************************************************************************************************************/
+/*-------------------------------------------------Global variables--------------------------------------------------*/
+/*********************************************************************************************************************/
 #if defined(__GNUC__) && !defined(__HIGHTEC__)
 #pragma section
 #pragma section ".bss_cpu0vm4"
 #endif
-volatile unsigned int tc0_vm4_scheduler_ctr = 0u;
-volatile unsigned int tc0_vm4_main_ctr      = 0u;
-volatile unsigned int tc0_vm4_isr_ctr       = 0u;
+/* Counter of Virtual Machine Scheduler activations */
+volatile unsigned int g_tc0_vm4_scheduler_ctr = 0u;
+/* Counter of Virtual Machine main activations */
+volatile unsigned int g_tc0_vm4_main_ctr      = 0u;
+/* Counter of Virtual Machine ISR occurrences */
+volatile unsigned int g_tc0_vm4_isr_ctr       = 0u;
 
 #if defined(__GNUC__) && !defined(__HIGHTEC__)
 #pragma section
 #endif
-
+/*********************************************************************************************************************/
+/*------------------------------------------------Function Prototypes------------------------------------------------*/
+/*********************************************************************************************************************/
+#if (IFX_CFG_TC0_VM4_INT != 0U)
 IFX_INTERRUPT_FUNC void Cpu0_Vm4_Isr (void);
+#endif
+/*********************************************************************************************************************/
+/*---------------------------------------------Function Implementations----------------------------------------------*/
+/*********************************************************************************************************************/
 /*Vm4 main function
  * 1. In case cooperative scheduling mode is selected: relinquish the control after some ticks
  * 2. In case Timer mode is selected : No action needed
  * 3. If Vm4 ISR is enabled: initialize STM to trigger event for Vm4 */
 void core0_vm4_main(void)
 {
-    
-    #if (IFX_CFG_TC0_VM4_INT != 0U)
 
-        /* Enable interrupts by setting the IE bit */
-        IfxCpu_enableInterrupts();
+#if (IFX_CFG_HYPERVISOR_STANDALONE == 0) || (IFX_CFG_VM4_SEPARATE_BINARY == 0)
+#if (IFX_CFG_TC0_VM4_INT != 0U)
+    /* Enable interrupts by setting the IE bit */
+    IfxCpu_enableInterrupts();
 
         /* STM configuration handler */
         IfxStm_CompareConfig stmCompareConfig;
@@ -83,7 +94,7 @@ void core0_vm4_main(void)
 
         /* Initialize STM compare functionality */
         IfxStm_initCompare(&MODULE_CPU0, &stmCompareConfig);
-    #endif
+#endif
 
         /* Set Port pin mode for the LED P33.1 */
         IfxPort_setPinMode(LED_VM4, IfxPort_Mode_outputPushPullGeneral);
@@ -92,51 +103,42 @@ void core0_vm4_main(void)
     while (1)
     {
 
-        tc0_vm4_main_ctr++;
-        tc0_vm4_scheduler_ctr++;
+        g_tc0_vm4_main_ctr++;
+        g_tc0_vm4_scheduler_ctr++;
+#if (IFX_CFG_HV0_TIME_BASED_SCHD == 0U)
         /* Set Pin State */
         IfxPort_setPinState(LED_VM4, IfxPort_State_low);
-#if (IFX_DEBUG_PRINT == 1U)
 
-#if (IFX_CFG_TC0_VM4_INT != 0U)
-        printf("TC0 VM4 isr Counter is %d\n", tc0_vm4_isr_ctr);
-#else
-        printf("TC0 VM4 main Counter is %d\n", tc0_vm4_main_ctr);
-#endif
-#endif
-
-#if (IFX_CFG_HV0_TIME_BASED_SCHD == 0U)
-        if (tc0_vm4_scheduler_ctr > HV_SCHEDULER_ACTIVATION_THS_VM4)
+        if (g_tc0_vm4_scheduler_ctr > HV_SCHEDULER_ACTIVATION_THS_VM4)
         {
             /* Set Pin State */
             IfxPort_setPinState(LED_VM4, IfxPort_State_high);
-            tc0_vm4_scheduler_ctr = 0u;
-            Ifx__hvcall(4);
+            g_tc0_vm4_scheduler_ctr = 0u;
+            Ifx__hvcall(VM4);
         }
+#else
+        IfxPort_togglePin(LED_VM4);
 #endif
 
     }
-    
+#endif
 }
 
+#if (IFX_CFG_HYPERVISOR_STANDALONE == 0) || (IFX_CFG_VM4_SEPARATE_BINARY == 0)
+#if (IFX_CFG_TC0_VM4_INT != 0U)
 /* ISR for STM event on VM4
  * 1. Reload the STM timer value for next event
- * 2. Increment VM4 ISR counter value */
-#if (IFX_CFG_TC0_VM4_INT != 0U)
-IFX_INTERRUPT(Cpu0_Vm4_Isr, 18, IFX_VM4_ISR_PRIORITY)
+ * 2. Increment VM4 ISR counter value
+ */
+IFX_INTERRUPT_VM(Cpu0_Vm4_Isr, CPU0, VM4, IFX_VM4_ISR_PRIORITY)
 {
     uint32 stmTicks;
     stmTicks = (uint32)(IFX_VM4_INTERRUPT_INTERVAL * IfxHv_getStmFrequency());
     IfxStm_updateCompare(&MODULE_CPU0, IfxStm_Comparator_0, (uint32)IfxStm_get(&MODULE_CPU0) + stmTicks);
 
-    tc0_vm4_isr_ctr += 1u;
-
-    /* This is added as a workaround since TASKING
-     *  doesn't support interrupts for virtualization case.
-     *  This can re removed in future if TASKING supports the same.
-     */
-#if defined(__TASKING__)
-    __asm("ji a11");
-#endif
+/* Update Virtual Machine ISR occurrences counter */
+    g_tc0_vm4_isr_ctr += 1u;
 }
+
+#endif
 #endif

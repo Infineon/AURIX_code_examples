@@ -29,21 +29,48 @@
 #include "IfxCpu.h"
 #include "IfxStm.h"
 #include "IfxHv_CpuVmSched.h"
-#if (IFX_DEBUG_PRINT == 1U)
-#include "printf_to_tspi.h"
+/*********************************************************************************************************************/
+/*------------------------------------------------------Macros-------------------------------------------------------*/
+/*********************************************************************************************************************/
+#define CPU5                                      5                          /* CPU5: Core Index                     */
+#define VM2                                       2                          /* VM2: Virtual Machine Index           */
+#define TC5_HV_SCHEDULER_ACTIVATION_THS_VM2       50                         /* Scheduler Activation Threshold       */
+
+
+/*********************************************************************************************************************/
+/*-------------------------------------------------Global variables--------------------------------------------------*/
+/*********************************************************************************************************************/
+#if defined(__GNUC__) && !defined(__HIGHTEC__)
+#pragma section
+#pragma section ".bss_cpu5vm2"
+#endif
+/* Counter of Virtual Machine Scheduler activations */
+volatile unsigned int g_tc5_vm2_scheduler_ctr = 0u;
+/* Counter of Virtual Machine main activations */
+volatile unsigned int g_tc5_vm2_main_ctr      = 0u;
+/* Counter of Virtual Machine ISR occurrences */
+volatile unsigned int g_tc5_vm2_isr_ctr       = 0u;
+#if defined(__GNUC__) && !defined(__HIGHTEC__)
+#pragma section
+#endif
+/*********************************************************************************************************************/
+/*------------------------------------------------Function Prototypes------------------------------------------------*/
+/*********************************************************************************************************************/
+#if (IFX_CFG_TC5_VM2_INT != 0U)
+IFX_INTERRUPT_FUNC void Cpu5_Vm2_Isr(void);
 #endif
 
-volatile unsigned int tc5_vm2_scheduler_ctr = 0u;
-volatile unsigned int tc5_vm2_main_ctr      = 0u;
-volatile unsigned int tc5_vm2_isr_ctr       = 0u;
-IFX_INTERRUPT_FUNC void Cpu5_Vm2_Isr(void);
-
-/*VM2 main function
+/*********************************************************************************************************************/
+/*---------------------------------------------Function Implementations----------------------------------------------*/
+/*********************************************************************************************************************/
+/* VM2 main function
  * 1. In case cooperative scheduling mode is selected: relinquish the control after some ticks
- * 2. In case Timer mode is selected : No action needed
- * 3. If VM2 ISR is enabled: initialize STM to trigger event for VM2 */
+ * 2. In case Timer mode is selected: No action needed
+ * 3. If VM2 ISR is enabled: initialize STM to trigger event for VM2
+ */
 void core5_vm2_main(void)
 {
+#if (IFX_CFG_HYPERVISOR_STANDALONE == 0) || (IFX_CFG_VM2_SEPARATE_BINARY == 0)
 #if (IFX_CFG_TC5_VM2_INT != 0U)
     /* Enable interrupts by setting the IE bit */
     IfxCpu_enableInterrupts();
@@ -69,48 +96,40 @@ void core5_vm2_main(void)
 
     while (1)
     {
-        tc5_vm2_main_ctr++;
-        tc5_vm2_scheduler_ctr++;
-#if (IFX_DEBUG_PRINT == 1U)
+        /* Update Virtual Machine main activation counter */
+        g_tc5_vm2_main_ctr++;
+        /* Update scheduler activation counter */
+        g_tc5_vm2_scheduler_ctr++;
 
-#if (IFX_CFG_TC5_VM2_INT != 0U)
-        printf("TC5 VM2 isr Counter is %d\n", tc5_vm2_isr_ctr);
-#else
-        printf("TC5 VM2 main Counter is %d\n", tc5_vm2_main_ctr);
-#endif
-#endif
 
 #if (IFX_CFG_HV5_TIME_BASED_SCHD == 0U)
 
-        if (tc5_vm2_scheduler_ctr > 50u)
+        if (g_tc5_vm2_scheduler_ctr > TC5_HV_SCHEDULER_ACTIVATION_THS_VM2)
         {
-            tc5_vm2_scheduler_ctr = 0u;
+            /* Reset scheduler activation counter */
+            g_tc5_vm2_scheduler_ctr = 0u;
             Ifx__hvcall(2);
         }
-
 #endif
+
     }
+#endif
 }
 
-
-/* ISR for STM1 event on VM2
- * 1. Reload the STM1 timer value for next event
- * 2. Increment VM2 ISR counter value */
+#if (IFX_CFG_HYPERVISOR_STANDALONE == 0) || (IFX_CFG_VM2_SEPARATE_BINARY == 0)
 #if (IFX_CFG_TC5_VM2_INT != 0U)
-IFX_INTERRUPT(Cpu5_Vm2_Isr, 11, IFX_VM2_ISR_PRIORITY)
+/* ISR for STM event on VM2
+ * 1. Reload the STM timer value for next event
+ * 2. Increment VM2 ISR counter value
+ */
+IFX_INTERRUPT_VM(Cpu5_Vm2_Isr, CPU5, VM2, IFX_VM2_ISR_PRIORITY)
 {
     uint32 stmTicks;
     stmTicks = (uint32)(IFX_VM2_INTERRUPT_INTERVAL * IfxHv_getStmFrequency());
     IfxStm_updateCompare(&MODULE_CPU5, IfxStm_Comparator_0, (uint32)IfxStm_get(&MODULE_CPU5) + stmTicks);
 
-    tc5_vm2_isr_ctr += 1u;
-
-    /* This is added as a workaround since TASKING
-     *  doesn't support interrupts for virtualization case.
-     *  This can re removed in future if TASKING supports the same.
-     */
-#if defined(__TASKING__)
-    __asm("ji a11");
-#endif
+    /* Update Virtual Machine ISR occurrences counter  */
+    g_tc5_vm2_isr_ctr += 1u;
 }
+#endif
 #endif

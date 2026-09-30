@@ -200,8 +200,7 @@ typedef volatile union
 
 #define Ifx_Ssw_MTCR(regaddr,val) __asm__ volatile ("mtcr %0,%1\n\tisync"::"i"(regaddr),"d"(val):"memory")
 
-#define Ifx_Ssw_MFCR(regaddr)  \
- ({ signed int res; __asm__ volatile ("mfcr %0,%1": "=d" (res) :"i"(regaddr): "memory"); res; })
+#define Ifx_Ssw_MFCR(reg)      __mfcr(reg);
 
 #if defined(__Tricore_TC1V162__)
 #define Ifx_Ssw_HVCALL(hvcno) \

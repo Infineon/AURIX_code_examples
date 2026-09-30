@@ -1,0 +1,5 @@
+preprocessedLinkerScript.lsl:  ../Lcf_Gcc_Tricore_Tc.lsl
+	@echo 'Preprocessing linker script: $<'
+	tricore-elf-gcc -E -P -x c $< >$@
+	@echo 'Finished preprocessing script: $<'
+	@echo ' '

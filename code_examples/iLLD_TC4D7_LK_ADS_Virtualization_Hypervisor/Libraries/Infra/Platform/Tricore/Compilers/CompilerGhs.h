@@ -137,6 +137,27 @@ __attribute__((section(".intvec_tc"#vectabNum"_"#prio))) IFX_USED void iVecEntry
 } \
 __interrupt void isr(void)
 
+#ifndef IFX_INTERRUPT_VM
+#define IFX_INTERRUPT_VM(isr, cpu, vm, prio) IFX_INTERRUPT_VM_INTERNAL(isr, cpu, vm, prio)
+#endif
+
+#ifndef IFX_INTERRUPT_VM_RFH
+#define IFX_INTERRUPT_VM_RFH(isr, cpu, vm, prio) IFX_INTERRUPT_VM_RFH_INTERNAL(isr, cpu, vm, prio)
+#endif
+
+/* The hypervisor in tricore arc is consider has VM0*/
+#define IFX_INTERRUPT_VM_INTERNAL(isr, cpu, vm, prio) IFX_INTERRUPT_VM_RFH_INTERNAL(isr, cpu, vm, prio)
+
+#define IFX_INTERRUPT_VM_RFH_INTERNAL(isr, cpu, vm, prio) \
+__attribute__((section(".intvec_tc"#cpu"_vm"#vm"_"#prio))) IFX_USED void iVecEntry##cpu##_vm##vm##_##prio(void) \
+{ \
+	__asm__("movh.a  a14, %hi("#isr") \n" \
+			"lea     a14, [a14]%lo("#isr")\n" \
+			"ji      a14"); \
+} \
+__interrupt void isr(void)
+
+
 /* *INDENT-ON* */
 
 /******************************************************************************/

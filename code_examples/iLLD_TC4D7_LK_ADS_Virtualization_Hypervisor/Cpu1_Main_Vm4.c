@@ -29,31 +29,45 @@
 #include "IfxCpu.h"
 #include "IfxStm.h"
 #include "IfxHv_CpuVmSched.h"
-#if (IFX_DEBUG_PRINT == 1U)
-#include "printf_to_tspi.h"
-#endif
-
+/*********************************************************************************************************************/
+/*------------------------------------------------------Macros-------------------------------------------------------*/
+/*********************************************************************************************************************/
+#define CPU1                                     1                           /* CPU1: Core Index                     */
+#define VM4                                      4                           /* VM4: Virtual Machine Index           */
+#define TC1_HV_SCHEDULER_ACTIVATION_THS_VM4      50                          /* Scheduler Activation Threshold       */
+/*********************************************************************************************************************/
+/*-------------------------------------------------Global variables--------------------------------------------------*/
+/*********************************************************************************************************************/
 #if defined(__GNUC__) && !defined(__HIGHTEC__)
 #pragma section
 #pragma section ".bss_cpu1vm4"
 #endif
 
-volatile unsigned int tc1_vm4_scheduler_ctr = 0u;
-volatile unsigned int tc1_vm4_main_ctr      = 0u;
-volatile unsigned int tc1_vm4_isr_ctr       = 0u;
+volatile unsigned int g_tc1_vm4_scheduler_ctr = 0u;
+volatile unsigned int g_tc1_vm4_main_ctr      = 0u;
+volatile unsigned int g_tc1_vm4_isr_ctr       = 0u;
 
 #if defined(__GNUC__) && !defined(__HIGHTEC__)
 #pragma section
 #endif
-
+/*********************************************************************************************************************/
+/*------------------------------------------------Function Prototypes------------------------------------------------*/
+/*********************************************************************************************************************/
+#if (IFX_CFG_TC1_VM4_INT != 0U)
 IFX_INTERRUPT_FUNC void Cpu1_Vm4_Isr(void);
-
+#endif
+/*********************************************************************************************************************/
+/*---------------------------------------------Function Implementations----------------------------------------------*/
+/*********************************************************************************************************************/
 /*VM4 main function
  * 1. In case cooperative scheduling mode is selected: relinquish the control after some ticks
- * 2. In case Timer mode is selected : No action needed
- * 3. If VM4 ISR is enabled: initialize STM to trigger event for VM4 */
+ * 2. In case Timer mode is selected: No action needed
+ * 3. If VM4 ISR is enabled: initialize STM to trigger event for VM4
+ */
 void core1_vm4_main(void)
 {
+    
+#if (IFX_CFG_HYPERVISOR_STANDALONE == 0) || (IFX_CFG_VM4_SEPARATE_BINARY == 0)
 #if (IFX_CFG_TC1_VM4_INT != 0U)
     /* Enable interrupts by setting the IE bit */
     IfxCpu_enableInterrupts();
@@ -79,48 +93,40 @@ void core1_vm4_main(void)
 
     while (1)
     {
-        tc1_vm4_main_ctr++;
-        tc1_vm4_scheduler_ctr++;
-#if (IFX_DEBUG_PRINT == 1U)
-
-#if (IFX_CFG_TC1_VM4_INT != 0U)
-        printf("TC1 VM4 isr Counter is %d\n", tc1_vm4_isr_ctr);
-#else
-        printf("TC1 VM4 main Counter is %d\n", tc1_vm4_main_ctr);
-#endif
-#endif
+        /* Update Virtual Machine main activation counter */
+        g_tc1_vm4_main_ctr++;
+        /* Update scheduler activation counter */
+        g_tc1_vm4_scheduler_ctr++;
 
 #if (IFX_CFG_HV1_TIME_BASED_SCHD == 0U)
-
-        if (tc1_vm4_scheduler_ctr > 50u)
+        /* Scheduler activation after reaching the threshold */
+        if (g_tc1_vm4_scheduler_ctr > TC1_HV_SCHEDULER_ACTIVATION_THS_VM4)
         {
-            tc1_vm4_scheduler_ctr = 0u;
-            Ifx__hvcall(4);
+            /* Reset scheduler activation counter */
+            g_tc1_vm4_scheduler_ctr = 0u;
+            /* Call Hypervisor via HV Trap */
+            Ifx__hvcall(VM4);
         }
-
 #endif
-    }
+    } 
+#endif
 }
 
-
-/* ISR for STM1 event on VM4
- * 1. Reload the STM1 timer value for next event
- * 2. Increment VM4 ISR counter value */
+#if (IFX_CFG_HYPERVISOR_STANDALONE == 0) || (IFX_CFG_VM4_SEPARATE_BINARY == 0)
 #if (IFX_CFG_TC1_VM4_INT != 0U)
-IFX_INTERRUPT(Cpu1_Vm4_Isr, 19, IFX_VM4_ISR_PRIORITY)
+/* ISR for STM event on VM4
+ * 1. Reload the STM timer value for next event
+ * 2. Increment VM4 ISR counter value
+ */
+IFX_INTERRUPT_VM(Cpu1_Vm4_Isr, CPU1, VM4, IFX_VM4_ISR_PRIORITY)
 {
     uint32 stmTicks;
     stmTicks = (uint32)(IFX_VM4_INTERRUPT_INTERVAL * IfxHv_getStmFrequency());
     IfxStm_updateCompare(&MODULE_CPU1, IfxStm_Comparator_0, (uint32)IfxStm_get(&MODULE_CPU1) + stmTicks);
 
-    tc1_vm4_isr_ctr += 1u;
+    /* Update Virtual Machine ISR occurrences counter */
+    g_tc1_vm4_isr_ctr += 1u;
 
-    /* This is added as a workaround since TASKING
-     *  doesn't support interrupts for virtualization case.
-     *  This can re removed in future if TASKING supports the same.
-     */
-#if defined(__TASKING__)
-    __asm("ji a11");
-#endif
 }
+#endif
 #endif

@@ -2,9 +2,9 @@
  * \file Ifx_Ssw_Infra.h
  * \brief Startup Software support functions.
  *
- * \copyright Copyright (c) 2024 Infineon Technologies AG. All rights reserved.
+ * \copyright Copyright (c) 2025 Infineon Technologies AG. All rights reserved.
  *
- * $Date: 2024-05-30 13:40:02
+ * $Date: 2025-02-26 06:30:03
  *
  *                                 IMPORTANT NOTICE
  *
@@ -56,6 +56,7 @@
 #include "IfxPms_reg.h"
 #include "IfxVmt_reg.h"
 #include "IfxVmt_bf.h"
+#include "IfxProt_reg.h"
 /******************************************************************************/
 /*-----------------------------------Macros-----------------------------------*/
 /******************************************************************************/
@@ -304,6 +305,36 @@
 #endif
 
 #define  IFX_CFG_SSW_WDG_INITIAL_VALUE (0xFFFCu)
+
+/******************************************************************************/
+/*--------------------------------Enumerations--------------------------------*/
+/******************************************************************************/
+
+/** \brief PROT state definition
+ */
+typedef enum
+{
+    IfxSswProt_State_init = 0,
+    IfxSswProt_State_config,
+    IfxSswProt_State_configSec,
+    IfxSswProt_State_checkSec,
+    IfxSswProt_State_run,
+    IfxSswProt_State_runSec,
+    IfxSswProt_State_runLock,
+    IfxSswProt_State_runLockAlias
+} IfxSswProt_State;
+
+/** \brief PROT status definitions
+ */
+typedef enum
+{
+    IfxSswProt_Status_success = 0,
+    IfxSswProt_Status_inValidStateTransition,
+    IfxSswProt_Status_nonInitState,
+    IfxSswProt_Status_initState,
+    IfxSswProt_Status_notOwner
+} IfxSswProt_Status;
+
 /******************************************************************************/
 /*-------------------------Infrastructure Functions---------------------------*/
 /******************************************************************************/
@@ -566,6 +597,94 @@ IFX_SSW_INLINE unsigned char Ifx_Ssw_isKeyoffMarkerSet(void)
     return status;
 }
 
+/** \brief Get the state for the corresponding PROT. 
+*/
+IFX_SSW_INLINE IfxSswProt_State IfxSswProt_getState(volatile Ifx_PROT_PROT *protReg)
+{
+    return (IfxSswProt_State)(protReg->B.STATE);
+}
+
+/** \brief Configure the state for the corresponding PROT. 
+*/
+IFX_SSW_INLINE IfxSswProt_Status IfxSswProt_setState(volatile Ifx_PROT_PROT *protReg, IfxSswProt_State state)
+{
+    IfxSswProt_Status status       = IfxSswProt_Status_success;
+    IfxSswProt_State  currentState = IfxSswProt_getState(protReg);
+    Ifx_PROT_PROT    prot;
+    prot.U = protReg->U;
+
+    /* TODO Owner check to be implemented */
+    switch (currentState)
+    {
+    case IfxSswProt_State_init:
+
+        if (((state == IfxSswProt_State_run) || (state == IfxSswProt_State_runLock)) && !(protReg->B.ODEF))
+        {
+            status = IfxSswProt_Status_initState;
+        }
+        else if ((state == IfxSswProt_State_config) || (state == IfxSswProt_State_configSec) || (state == IfxSswProt_State_checkSec))
+        {
+            status = IfxSswProt_Status_inValidStateTransition;
+        }
+
+        break;
+    case IfxSswProt_State_config:
+
+        if (state != IfxSswProt_State_run)
+        {
+            status = IfxSswProt_Status_inValidStateTransition;
+        }
+
+        break;
+    case IfxSswProt_State_configSec:
+
+        if (state != IfxSswProt_State_checkSec)
+        {
+            status = IfxSswProt_Status_inValidStateTransition;
+        }
+
+        break;
+    case IfxSswProt_State_checkSec:
+        status = IfxSswProt_Status_inValidStateTransition;
+        break;
+    case IfxSswProt_State_run:
+
+        if ((state != IfxSswProt_State_config) && (state != IfxSswProt_State_runLock))
+        {
+            status = IfxSswProt_Status_inValidStateTransition;
+        }
+
+        break;
+    case IfxSswProt_State_runSec:
+
+        if ((state != IfxSswProt_State_configSec) && (state != IfxSswProt_State_runLock))
+        {
+            status = IfxSswProt_Status_inValidStateTransition;
+        }
+
+        break;
+    case IfxSswProt_State_runLock:
+        status = IfxSswProt_Status_inValidStateTransition;
+        break;
+    case IfxSswProt_State_runLockAlias:
+        status = IfxSswProt_Status_inValidStateTransition;
+        break;
+    default:
+        status = IfxSswProt_Status_inValidStateTransition;
+        break;
+    }
+
+    if (status != IfxSswProt_Status_inValidStateTransition)
+    {
+        prot.B.SWEN  = 1U;
+        prot.B.STATE = state;
+        protReg->U   = prot.U;
+		while(protReg->B.STATE != state);
+        status       = IfxSswProt_Status_success;
+    }
+
+    return status;
+}
 
 IFX_SSW_INLINE void Ifx_Ssw_initCSA(unsigned int *csaBegin, unsigned int *csaEnd)
 {

@@ -52,13 +52,67 @@
 #define IFX_CFG_CLOCK_PERPLL1_FREQUENCY		(160000000) /**< default supported: 160000000 */
 #define IFX_CFG_CLOCK_PERPLL2_FREQUENCY		(200000000) /**< default supported: 200000000 */
 #define IFX_CFG_CLOCK_PERPLL3_FREQUENCY		(200000000) /**< default supported: 200000000 */
-
 #define SYSCON_PROT_ENABLE              (0x2U)
-
-#define IFX_CFG_EXTEND_HV_TRAP_HOOKS    1
-
 /* Enable/disable the prints */
 #define IFX_DEBUG_PRINT                 (0U)
+/*********************************************************************************************************************/
+/*------------------------------------Configuration for Virtualization Management------------------------------------*/
+/*********************************************************************************************************************/
+/* Enable Virtualization */
+#define IFX_CFG_VIRTUALIZATION_ENABLE   (1)
+
+#if (IFX_CFG_VIRTUALIZATION_ENABLE == 1)
+/* Hypervisor Extension Enabler into iLLD library */
+#define IFX_CFG_EXTEND_HVTRAP_HOOKS           (1)
+/* Hypervisor configuration mode */
+/* 0: All-in-one mode; 1: Stand Alone mode */
+/* Note: Please check linker file used into the Project Settings: */
+/*       - All-in-one mode  -> linker file Lcf_Tasking_Tricore_Tc_HvDemo.lsl */
+/*       - Stand Alone mode -> linker file Lcf_Tasking_Tricore_Tc_HvStandAlone.lsl */
+#define IFX_CFG_HYPERVISOR_STANDALONE   (1)
+#if IFX_CFG_HYPERVISOR_STANDALONE == 1
+#define IFX_CFG_VM1_SEPARATE_BINARY     (1) /* if 1, then expects a spearate-binary for CPUx VM1 */
+#define IFX_CFG_VM2_SEPARATE_BINARY     (1) /* if 1, then expects a spearate-binary for CPUx VM2 */
+#define IFX_CFG_VM3_SEPARATE_BINARY     (0) /* if 1, then expects a spearate-binary for CPUx VM3 */
+#define IFX_CFG_VM4_SEPARATE_BINARY     (0) /* if 1, then expects a spearate-binary for CPUx VM4 */
+#define IFX_CFG_VM5_SEPARATE_BINARY     (0) /* if 1, then expects a spearate-binary for CPUx VM5 */
+#define IFX_CFG_VM6_SEPARATE_BINARY     (0) /* if 1, then expects a spearate-binary for CPUx VM6 */
+#define IFX_CFG_VM7_SEPARATE_BINARY     (0) /* if 1, then expects a spearate-binary for CPUx VM7 */
+#else
+/* Force all VM to be compiled in this "all-in-one" project, hence below defines shall not be changed
+ * Also ensure, like stated above, Lcf_Tasking_Tricore_Tc_HvDemo.lsl is used for linker */
+#define IFX_CFG_VM1_SEPARATE_BINARY     (0) /* VM1 shall not be a separate binary */
+#define IFX_CFG_VM2_SEPARATE_BINARY     (0) /* VM2 shall not be a separate binary */
+#define IFX_CFG_VM3_SEPARATE_BINARY     (0) /* VM3 shall not be a separate binary */
+#define IFX_CFG_VM4_SEPARATE_BINARY     (0) /* VM4 shall not be a separate binary */
+#define IFX_CFG_VM5_SEPARATE_BINARY     (0) /* VM5 shall not be a separate binary */
+#define IFX_CFG_VM6_SEPARATE_BINARY     (0) /* VM6 shall not be a separate binary */
+#define IFX_CFG_VM7_SEPARATE_BINARY     (0) /* VM7 shall not be a separate binary */
+#endif /* #if IFX_CFG_HYPERVISOR_STANDALONE == 1 */
+
+#else
+    #error "This project is supposed to work properly only with Virtualization enabled, this project has been not tested with virtualization disabled !"
+#endif
+
+/*********************************************************************************************************************/
+/*-----------------------------------Configuration for Software managed interrupt------------------------------------*/
+/*********************************************************************************************************************/
+/* #define IFX_PROT_ENABLED 1 */
+/* #define IFX_USE_SW_MANAGED_INT */ /* Decomment this line if the project needs to use Software managed interrupts */
+
+/* STM resolution in Hz */
+#define IFX_STM_RESOULTION              (500000000)
+
+#define IFX_CFG_INTERRUPT_INTERVAL      (0.003)
+
+#define IFX_CFG_CPU0_PRIO               10
+#define IFX_CFG_CPU1_PRIO               10
+#define IFX_CFG_CPU2_PRIO               10
+#define IFX_CFG_CPU3_PRIO               10
+#define IFX_CFG_CPU4_PRIO               10
+#define IFX_CFG_CPU5_PRIO               10
+
+#if (IFX_CFG_VIRTUALIZATION_ENABLE == 1)
 
 /* Priority for the HV */
 #define IFX_VM0_SCHD_PRIORITY           10
@@ -124,66 +178,85 @@
 #define IFX_CORE5_VM7_EXECUTION_TIME    (0.0126)
 
 /* The interval is to be given in seconds */
-#define IFX_VM1_INTERRUPT_INTERVAL      (0.0003)
-#define IFX_VM2_INTERRUPT_INTERVAL      (0.0003)
-#define IFX_VM3_INTERRUPT_INTERVAL      (0.0003)
-#define IFX_VM4_INTERRUPT_INTERVAL      (0.0003)
-#define IFX_VM5_INTERRUPT_INTERVAL      (0.0003)
-#define IFX_VM6_INTERRUPT_INTERVAL      (0.0003)
-#define IFX_VM7_INTERRUPT_INTERVAL      (0.0003)
+#define IFX_VM0_INTERRUPT_INTERVAL      (0.0018)
+#define IFX_VM1_INTERRUPT_INTERVAL      (0.00003)
+#define IFX_VM2_INTERRUPT_INTERVAL      (0.00003)
+#define IFX_VM3_INTERRUPT_INTERVAL      (0.00003)
+#define IFX_VM4_INTERRUPT_INTERVAL      (0.00003)
+#define IFX_VM5_INTERRUPT_INTERVAL      (0.00003)
+#define IFX_VM6_INTERRUPT_INTERVAL      (0.00003)
+#define IFX_VM7_INTERRUPT_INTERVAL      (0.00003)
 
 /* Enable/Disable the interrupt use */
-#define IFX_CFG_HV0_TIME_BASED_SCHD     (0U)
-#define IFX_CFG_HV1_TIME_BASED_SCHD     (0U)
-#define IFX_CFG_HV2_TIME_BASED_SCHD     (0U)
-#define IFX_CFG_HV3_TIME_BASED_SCHD     (0U)
-#define IFX_CFG_HV4_TIME_BASED_SCHD     (0U)
-#define IFX_CFG_HV5_TIME_BASED_SCHD     (0U)
+#if (IFX_CFG_HYPERVISOR_STANDALONE == 0)
+#define IFX_CFG_HV0_TIME_BASED_SCHD (0U)
+#define IFX_CFG_HV1_TIME_BASED_SCHD (0U)
+#define IFX_CFG_HV2_TIME_BASED_SCHD (0U)
+#define IFX_CFG_HV3_TIME_BASED_SCHD (0U)
+#define IFX_CFG_HV4_TIME_BASED_SCHD (0U)
+#define IFX_CFG_HV5_TIME_BASED_SCHD (0U)
+#else
+#define IFX_CFG_HV0_TIME_BASED_SCHD (1U)
+#define IFX_CFG_HV1_TIME_BASED_SCHD (1U)
+#define IFX_CFG_HV2_TIME_BASED_SCHD (1U)
+#define IFX_CFG_HV3_TIME_BASED_SCHD (1U)
+#define IFX_CFG_HV4_TIME_BASED_SCHD (1U)
+#define IFX_CFG_HV5_TIME_BASED_SCHD (1U)
+#endif
 
-/* Switch to enable and disable interrupt (except scheduler interrupt in HV) usage
- * in VM1 and VM2*/
-#define IFX_CFG_TC0_VM1_INT             (0U)
-#define IFX_CFG_TC0_VM2_INT             (0U)
-#define IFX_CFG_TC0_VM3_INT             (0U)
-#define IFX_CFG_TC0_VM4_INT             (0U)
-#define IFX_CFG_TC0_VM5_INT             (0U)
-#define IFX_CFG_TC0_VM6_INT             (0U)
-#define IFX_CFG_TC0_VM7_INT             (0U)
-#define IFX_CFG_TC1_VM1_INT             (0U)
-#define IFX_CFG_TC1_VM2_INT             (0U)
-#define IFX_CFG_TC1_VM3_INT             (0U)
-#define IFX_CFG_TC1_VM4_INT             (0U)
-#define IFX_CFG_TC1_VM5_INT             (0U)
-#define IFX_CFG_TC1_VM6_INT             (0U)
-#define IFX_CFG_TC1_VM7_INT             (0U)
-#define IFX_CFG_TC2_VM1_INT             (0U)
-#define IFX_CFG_TC2_VM2_INT             (0U)
-#define IFX_CFG_TC2_VM3_INT             (0U)
-#define IFX_CFG_TC2_VM4_INT             (0U)
-#define IFX_CFG_TC2_VM5_INT             (0U)
-#define IFX_CFG_TC2_VM6_INT             (0U)
-#define IFX_CFG_TC2_VM7_INT             (0U)
-#define IFX_CFG_TC3_VM1_INT             (0U)
-#define IFX_CFG_TC3_VM2_INT             (0U)
-#define IFX_CFG_TC3_VM3_INT             (0U)
-#define IFX_CFG_TC3_VM4_INT             (0U)
-#define IFX_CFG_TC3_VM5_INT             (0U)
-#define IFX_CFG_TC3_VM6_INT             (0U)
-#define IFX_CFG_TC3_VM7_INT             (0U)
-#define IFX_CFG_TC4_VM1_INT             (0U)
-#define IFX_CFG_TC4_VM2_INT             (0U)
-#define IFX_CFG_TC4_VM3_INT             (0U)
-#define IFX_CFG_TC4_VM4_INT             (0U)
-#define IFX_CFG_TC4_VM5_INT             (0U)
-#define IFX_CFG_TC4_VM6_INT             (0U)
-#define IFX_CFG_TC4_VM7_INT             (0U)
-#define IFX_CFG_TC5_VM1_INT             (0U)
-#define IFX_CFG_TC5_VM2_INT             (0U)
-#define IFX_CFG_TC5_VM3_INT             (0U)
-#define IFX_CFG_TC5_VM4_INT             (0U)
-#define IFX_CFG_TC5_VM5_INT             (0U)
-#define IFX_CFG_TC5_VM6_INT             (0U)
-#define IFX_CFG_TC5_VM7_INT             (0U)
+/* Switch to enable and disable interrupt (except scheduler interrupt in HV) */
+#define IFX_CFG_TC0_VM1_INT    (0U)
+#define IFX_CFG_TC0_VM2_INT    (1U)
+#define IFX_CFG_TC0_VM3_INT    (0U)
+#define IFX_CFG_TC0_VM4_INT    (0U)
+#define IFX_CFG_TC0_VM5_INT    (0U)
+#define IFX_CFG_TC0_VM6_INT    (0U)
+#define IFX_CFG_TC0_VM7_INT    (0U)
+#define IFX_CFG_TC1_VM1_INT    (0U)
+#define IFX_CFG_TC1_VM2_INT    (0U)
+#define IFX_CFG_TC1_VM3_INT    (0U)
+#define IFX_CFG_TC1_VM4_INT    (0U)
+#define IFX_CFG_TC1_VM5_INT    (0U)
+#define IFX_CFG_TC1_VM6_INT    (0U)
+#define IFX_CFG_TC1_VM7_INT    (0U)
+#define IFX_CFG_TC2_VM1_INT    (0U)
+#define IFX_CFG_TC2_VM2_INT    (0U)
+#define IFX_CFG_TC2_VM3_INT    (0U)
+#define IFX_CFG_TC2_VM4_INT    (0U)
+#define IFX_CFG_TC2_VM5_INT    (0U)
+#define IFX_CFG_TC2_VM6_INT    (0U)
+#define IFX_CFG_TC2_VM7_INT    (0U)
+#define IFX_CFG_TC3_VM1_INT    (0U)
+#define IFX_CFG_TC3_VM2_INT    (0U)
+#define IFX_CFG_TC3_VM3_INT    (0U)
+#define IFX_CFG_TC3_VM4_INT    (0U)
+#define IFX_CFG_TC3_VM5_INT    (0U)
+#define IFX_CFG_TC3_VM6_INT    (0U)
+#define IFX_CFG_TC3_VM7_INT    (0U)
+#define IFX_CFG_TC4_VM1_INT    (0U)
+#define IFX_CFG_TC4_VM2_INT    (0U)
+#define IFX_CFG_TC4_VM3_INT    (0U)
+#define IFX_CFG_TC4_VM4_INT    (0U)
+#define IFX_CFG_TC4_VM5_INT    (0U)
+#define IFX_CFG_TC4_VM6_INT    (0U)
+#define IFX_CFG_TC4_VM7_INT    (0U)
+#define IFX_CFG_TC5_VM1_INT    (0U)
+#define IFX_CFG_TC5_VM2_INT    (0U)
+#define IFX_CFG_TC5_VM3_INT    (0U)
+#define IFX_CFG_TC5_VM4_INT    (0U)
+#define IFX_CFG_TC5_VM5_INT    (0U)
+#define IFX_CFG_TC5_VM6_INT    (0U)
+#define IFX_CFG_TC5_VM7_INT    (0U)
+
+/* Threshold set to 255, so that interrupts are taken only when VM is active */
+#define IFX_CFG_HV_PTHRES_VM0 (255U)
+#define IFX_CFG_HV_PTHRES_VM1 (255U)
+#define IFX_CFG_HV_PTHRES_VM2 (255U)
+#define IFX_CFG_HV_PTHRES_VM3 (255U)
+#define IFX_CFG_HV_PTHRES_VM4 (255U)
+#define IFX_CFG_HV_PTHRES_VM5 (255U)
+#define IFX_CFG_HV_PTHRES_VM6 (255U)
+#define IFX_CFG_HV_PTHRES_VM7 (255U)
 
 /* Interrupt Vector table number */
 #define IFX_CFG_VM0_INTTAB_NUM          42
@@ -193,21 +266,41 @@
 #define IFX_CFG_VM4_INTTAB_NUM          46
 #define IFX_CFG_VM5_INTTAB_NUM          47
 
-#define IFX_CFG_HV_ACTIVATION_VM1 0xfffff
-#define IFX_CFG_HV_ACTIVATION_VM2 0xfffff
-#define IFX_CFG_HV_ACTIVATION_VM3 0xfffff
-#define IFX_CFG_HV_ACTIVATION_VM4 0xfffff
-#define IFX_CFG_HV_ACTIVATION_VM5 0xfffff
-#define IFX_CFG_HV_ACTIVATION_VM6 0xfffff
-#define IFX_CFG_HV_ACTIVATION_VM7 0xfffff
 
-/******************************************************************************/
+/* HV Activation counter form each VMx into Core0, for the other cores fixed attivation time is used */
+#define IFX_CFG_HV_ACTIVATION_VM1 (0xFFFFFFU)
+#define IFX_CFG_HV_ACTIVATION_VM2 (0xFFFFFFU)
+#define IFX_CFG_HV_ACTIVATION_VM3 (0xFFFFFFU)
+#define IFX_CFG_HV_ACTIVATION_VM4 (0xFFFFFFU)
+#define IFX_CFG_HV_ACTIVATION_VM5 (0xFFFFFFU)
+#define IFX_CFG_HV_ACTIVATION_VM6 (0xFFFFFFU)
+#define IFX_CFG_HV_ACTIVATION_VM7 (0xFFFFFFU)
 
+#endif
+
+/*********************************************************************************************************************/
+/*-----------------------------------------Configuration for Cores Activation----------------------------------------*/
+/*********************************************************************************************************************/
 #define IFX_CFG_SSW_ENABLE_TRICORE1     (1U)
 #define IFX_CFG_SSW_ENABLE_TRICORE2     (1U)
 #define IFX_CFG_SSW_ENABLE_TRICORE3     (1U)
 #define IFX_CFG_SSW_ENABLE_TRICORE4     (1U)
 #define IFX_CFG_SSW_ENABLE_TRICORE5     (1U)
 
-#define IFX_CFG_EXTEND_HVTRAP_HOOKS
+/*********************************************************************************************************************/
+/*---------------------------------Configuration for Trap Hook Functions' Extensions---------------------------------*/
+/*********************************************************************************************************************/
+/* #define IFX_CFG_EXTEND_TRAP_HOOKS */ /* Decomment this line if the project needs to extend trap hook functions */
+#if (IFX_CFG_VIRTUALIZATION_ENABLE  == 1)
+#define  IFX_CFG_EXTEND_HV_TRAP_HOOKS /* Decomment this line if the project needs to extend HV trap hook functions */
+#endif
+
+/*********************************************************************************************************************/
+/*----------------------------------Pinmap Configuration (Only one must be enabled)----------------------------------*/
+/*********************************************************************************************************************/
+#define IFX_PIN_PACKAGE_LFBGA436_COM        /* Configuration for AURIX TC4D9 COM device */
+/* #define IFX_PIN_PACKAGE_LFBGA436_EMS */  /* Configuration for AURIX TC499 STD device */
+/* #define IFX_PIN_PACKAGE_LFBGA292_COM */  /* Configuration for AURIX TC497 COM device */
+/* #define IFX_PIN_PACKAGE_LFBGA292_EMS */  /* Configuration for AURIX TC497 STD device */
+
 #endif /* IFX_CFG_H */

@@ -117,10 +117,37 @@
 #endif
 #endif /*defined(IFX_USE_SW_MANAGED_INT)*/
 
+#ifndef IFX_INTERRUPT_VM_RFH
+#define IFX_INTERRUPT_VM_RFH(isr, vectabNum, vm, prio) \
+    IFX_INTERRUPT_VM_RFH_INTERNAL(isr, vectabNum, vm, prio)
+#endif
+
+#ifndef IFX_INTERRUPT_VM
+#define IFX_INTERRUPT_VM(isr, vectabNum, vm, prio) \
+    IFX_INTERRUPT_VM_INTERNAL(isr, vectabNum, vm, prio)
+#endif
+
 #ifndef IFX_INTERRUPT_INTERNAL
 #define IFX_INTERRUPT_INTERNAL(isr, vectabNum, prio)                \
 void __interrupt(prio) __vector_table(vectabNum) isr(void)
 #endif
+
+/* The hypervisor in tricore architecture is consider has VM0 */
+#define IFX_INTERRUPT_VM_INTERNAL(isr, vectabNum, vm, prio) IFX_INTERRUPT_VM_RFH_INTERNAL(isr, vectabNum, vm, prio)
+
+#define IFX_INTERRUPT_VM_RFH_INTERNAL(isr, vectabNum, vm, prio) \
+__asm ("\t.align\t 5\n\t\
+.section .int."#prio"\n \t.sectionlink  .inttab"#vectabNum".vm"#vm".intvec."#prio"\n\
+#$$bf\n\
+__intvec_tc"#vectabNum""#vm"_"#prio":\n\
+    movh.a\t %a14,"#isr"@ha\n\
+    lea\t %a14,[%a14]"#isr"@l\n\
+    ji\t %a14\n\
+#$$ef\n\t\
+.section .intend."#prio"\n \t.sectionlink   .text");\
+__interrupt__ void isr (void)
+
+
 
 /*Macro IFX_INTERRUPT_LEGACY is to be used for compiler version pror to 5.9.3.0*/
 #define IFX_INTERRUPT_LEGACY(isr, vectabNum, prio) \

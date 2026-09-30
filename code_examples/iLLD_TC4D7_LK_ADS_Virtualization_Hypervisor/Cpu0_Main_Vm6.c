@@ -29,41 +29,55 @@
 #include "IfxCpu.h"
 #include "IfxStm.h"
 #include "IfxHv_CpuVmSched.h"
-#if (IFX_DEBUG_PRINT == 1U)
-#include "printf_to_tspi.h"
-#endif
 #include "IfxPort.h"
 
 /*********************************************************************************************************************/
 /*------------------------------------------------------Macros-------------------------------------------------------*/
 /*********************************************************************************************************************/
+#if (IFX_CFG_HYPERVISOR_STANDALONE == 0)
 #define LED_VM6                              &MODULE_P13, 1                 /* LED_VM6: Port, Pin definition        */
+#else
+#define LED_VM6                              &MODULE_P13, 3                 /* LED_VM6: Port, Pin definition        */
+#endif
 #define CPU0                                 0                               /* CPU0: Core Index                     */
 #define VM6                                  6                              /* VM6: Virtual Machine Index           */
 #define HV_SCHEDULER_ACTIVATION_THS_VM6      IFX_CFG_HV_ACTIVATION_VM6      /* Scheduler Activation Threshold       */
-
+/*********************************************************************************************************************/
+/*-------------------------------------------------Global variables--------------------------------------------------*/
+/*********************************************************************************************************************/
 #if defined(__GNUC__) && !defined(__HIGHTEC__)
 #pragma section
 #pragma section ".bss_cpu0vm6"
 #endif
-
-volatile unsigned int tc0_vm6_scheduler_ctr = 0u;
-volatile unsigned int tc0_vm6_main_ctr      = 0u;
-volatile unsigned int tc0_vm6_isr_ctr       = 0u;
+/* Counter of Virtual Machine Scheduler activations */
+volatile unsigned int g_tc0_vm6_scheduler_ctr = 0u;
+/* Counter of Virtual Machine main activations */
+volatile unsigned int g_tc0_vm6_main_ctr      = 0u;
+/* Counter of Virtual Machine ISR occurrences */
+volatile unsigned int g_tc0_vm6_isr_ctr       = 0u;
 
 #if defined(__GNUC__) && !defined(__HIGHTEC__)
 #pragma section
 #endif
-
+/*********************************************************************************************************************/
+/*------------------------------------------------Function Prototypes------------------------------------------------*/
+/*********************************************************************************************************************/
+#if (IFX_CFG_TC0_VM6_INT != 0U)
 IFX_INTERRUPT_FUNC void Cpu0_Vm6_Isr (void);
+#endif
+/*********************************************************************************************************************/
+/*---------------------------------------------Function Implementations----------------------------------------------*/
+/*********************************************************************************************************************/
 /*Vm6 main function
  * 1. In case cooperative scheduling mode is selected: relinquish the control after some ticks
- * 2. In case Timer mode is selected : No action needed
- * 3. If Vm6 ISR is enabled: initialize STM to trigger event for Vm6 */
+ * 2. In case Timer mode is selected: No action needed
+ * 3. If VM6 ISR is enabled: initialize STM to trigger event for VM6
+*/
 void core0_vm6_main(void)
 {
-    
-    #if (IFX_CFG_TC0_VM6_INT != 0U)
+#if (IFX_CFG_HYPERVISOR_STANDALONE == 0) || (IFX_CFG_VM6_SEPARATE_BINARY == 0)
+#if (IFX_CFG_TC0_VM6_INT != 0U)
+
 
         /* Enable interrupts by setting the IE bit */
         IfxCpu_enableInterrupts();
@@ -94,52 +108,44 @@ void core0_vm6_main(void)
 
     while (1)
     {
-
-        tc0_vm6_main_ctr++;
-        tc0_vm6_scheduler_ctr++;
+        /* Update Virtual Machine main activation counter */
+        g_tc0_vm6_main_ctr++;
+        /* Update scheduler activation counter */
+        g_tc0_vm6_scheduler_ctr++;
+#if (IFX_CFG_HV0_TIME_BASED_SCHD == 0U)
         /* Set Pin State */
         IfxPort_setPinState(LED_VM6, IfxPort_State_low);
-#if (IFX_DEBUG_PRINT == 1U)
+        /* Scheduler activation after reaching the threshold */
 
-#if (IFX_CFG_TC0_VM6_INT != 0U)
-        printf("TC0 VM6 isr Counter is %d\n", tc0_vm6_isr_ctr);
-#else
-        printf("TC0 VM6 main Counter is %d\n", tc0_vm6_main_ctr);
-#endif
-#endif
-
-#if (IFX_CFG_HV0_TIME_BASED_SCHD == 0U)
-        if (tc0_vm6_scheduler_ctr > HV_SCHEDULER_ACTIVATION_THS_VM6)
+        if (g_tc0_vm6_scheduler_ctr > HV_SCHEDULER_ACTIVATION_THS_VM6)
         {
             /* Set Pin State */
             IfxPort_setPinState(LED_VM6, IfxPort_State_high);
-            tc0_vm6_scheduler_ctr = 0u;
-            Ifx__hvcall(6);
+            g_tc0_vm6_scheduler_ctr = 0u;
+            Ifx__hvcall(VM6);
         }
+#else
+        IfxPort_togglePin(LED_VM6);
 #endif
 
     }
-    
+#endif    
 }
 
+#if (IFX_CFG_HYPERVISOR_STANDALONE == 0) || (IFX_CFG_VM6_SEPARATE_BINARY == 0)
+#if (IFX_CFG_TC0_VM6_INT != 0U)
 /* ISR for STM event on VM6
  * 1. Reload the STM timer value for next event
- * 2. Increment VM6 ISR counter value */
-#if (IFX_CFG_TC0_VM6_INT != 0U)
-IFX_INTERRUPT(Cpu0_Vm6_Isr, 30, IFX_VM6_ISR_PRIORITY)
+ * 2. Increment VM6 ISR counter value 
+*/
+IFX_INTERRUPT_VM(Cpu0_Vm6_Isr, CPU0, VM6, IFX_VM6_ISR_PRIORITY)
 {
     uint32 stmTicks;
     stmTicks = (uint32)(IFX_VM6_INTERRUPT_INTERVAL * IfxHv_getStmFrequency());
     IfxStm_updateCompare(&MODULE_CPU0, IfxStm_Comparator_0, (uint32)IfxStm_get(&MODULE_CPU0) + stmTicks);
 
-    tc0_vm6_isr_ctr += 1u;
-
-    /* This is added as a workaround since TASKING
-     *  doesn't support interrupts for virtualization case.
-     *  This can re removed in future if TASKING supports the same.
-     */
-#if defined(__TASKING__)
-    __asm("ji a11");
-#endif
+    /* Update Virtual Machine ISR occurrences counter  */
+    g_tc0_vm6_isr_ctr += 1u;
 }
+#endif
 #endif

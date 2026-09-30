@@ -2,9 +2,9 @@
  * \file Ifx_Ssw_Tc3.c
  * \brief Startup Software for Core3
  *
- * \copyright Copyright (c) 2024 Infineon Technologies AG. All rights reserved.
+ * \copyright Copyright (c) 2025 Infineon Technologies AG. All rights reserved.
  *
- * $Date: 2024-05-30 13:40:02
+ * $Date: 2025-02-26 06:30:03
  *
  *                                 IMPORTANT NOTICE
  *
@@ -47,6 +47,7 @@
 #include "Ifx_Ssw.h"
 #include "Ifx_Ssw_Infra.h"
 #include "IfxHv_CpuVmSched.h"
+#include "IfxScu_reg.h"
 
 /******************************************************************************/
 /*                          Macros                                            */
@@ -109,9 +110,15 @@ void __Core3_start(void)
 {
     /* By default mapped to empty, skip only if configured */
     IFX_CFG_SSW_SKIP_STARTUP_ROUTINE(3);
-
+    
+    #if (IFX_PROT_ENABLED == 1U)
+        IfxSswProt_setState((Ifx_PROT_PROT *)&(MODULE_CPU3.PROTSFRE), IfxSswProt_State_config);
+    #endif
     /* Load Base Address of Trap Vector Table. */
     Ifx_Ssw_MTCR(CPU_BTV, (unsigned int)__TRAPTAB(3, 0));
+    #if (IFX_PROT_ENABLED == 1U)
+        IfxSswProt_setState((Ifx_PROT_PROT *)&(MODULE_CPU3.PROTSFRE), IfxSswProt_State_run);
+    #endif
 
 
     /* Set the PSW to its reset value in case of a warm start,clear PSW.IS */
@@ -121,16 +128,31 @@ void __Core3_start(void)
         Ifx_CPU_PCON0 pcon0;
         pcon0.U       = 0;
         pcon0.B.PCBYP = IFX_CFG_SSW_ENABLE_TRICORE3_PCACHE ? 0 : 1; /*depending on the enable bypass bit is reset/set */
+        #if (IFX_PROT_ENABLED == 1U)
+            IfxSswProt_setState((Ifx_PROT_PROT *)&(MODULE_CPU3.PROTSFRE), IfxSswProt_State_config);
+        #endif
         Ifx_Ssw_MTCR(CPU_PCON0, pcon0.U);
+        #if (IFX_PROT_ENABLED == 1U)
+            IfxSswProt_setState((Ifx_PROT_PROT *)&(MODULE_CPU3.PROTSFRE), IfxSswProt_State_run);
+        #endif
     }
 
     {
         Ifx_CPU_DCON0 dcon0;
         dcon0.U       = 0;
         dcon0.B.DCBYP = IFX_CFG_SSW_ENABLE_TRICORE3_DCACHE ? 0 : 1; /*depending on the enable bypass bit is reset/set */
+        #if (IFX_PROT_ENABLED == 1U)
+            IfxSswProt_setState((Ifx_PROT_PROT *)&(MODULE_CPU3.PROTSFRE), IfxSswProt_State_config);
+        #endif
         Ifx_Ssw_MTCR(CPU_DCON0, dcon0.U);
+        #if (IFX_PROT_ENABLED == 1U)
+            IfxSswProt_setState((Ifx_PROT_PROT *)&(MODULE_CPU3.PROTSFRE), IfxSswProt_State_run);
+        #endif
     }
 
+    #if (IFX_PROT_ENABLED == 1U)
+        IfxSswProt_setState((Ifx_PROT_PROT *)&(MODULE_CPU3.PROTSFRE), IfxSswProt_State_config);
+    #endif
     /* Trap vector table for HV mode initialization is necessary when HV mode is enabled */
     Ifx_Ssw_MTCR(CPU_BHV, (unsigned int)__TRAPTABHV_CPU30);
     /* Load Base Address of Trap Vector Table. */
@@ -141,7 +163,9 @@ void __Core3_start(void)
 
     /* Load interrupt stack pointer. */
     Ifx_Ssw_MTCR(CPU_ISP, (unsigned int)__ISTACK(3, 0));
-
+    #if (IFX_PROT_ENABLED == 1U)
+         IfxSswProt_setState((Ifx_PROT_PROT *)&(MODULE_CPU3.PROTSFRE), IfxSswProt_State_run);
+    #endif
     Ifx_Ssw_initCSA((unsigned int *)__CSA(3, 0), (unsigned int *)__CSA_END(3, 0));
 
     /* initialize SDA base pointers */
@@ -170,63 +194,68 @@ void __Core3_start(void)
     Ifx_Ssw_jumpToFunction(core3_vm0_start);
 }
 
+#if (IFX_CFG_HYPERVISOR_STANDALONE == 0) || (IFX_CFG_VM1_SEPARATE_BINARY == 0)
 IFX_SSW_USED static void core3_vm1_start(void)
 {
 	IFX_SSW_CORE_VM_START(3,1);
-
     /* Call main function of CPU3 VM 1 */
     Ifx_Ssw_jumpToFunction(core3_vm1_main);
 }
+#endif
 
+#if (IFX_CFG_HYPERVISOR_STANDALONE == 0) || (IFX_CFG_VM2_SEPARATE_BINARY == 0)
 IFX_SSW_USED static void core3_vm2_start(void)
 {
 	IFX_SSW_CORE_VM_START(3,2);
-
     /* Call main function of CPU3 VM 2 */
     Ifx_Ssw_jumpToFunction(core3_vm2_main);
 }
+#endif
 
+#if (IFX_CFG_HYPERVISOR_STANDALONE == 0) || (IFX_CFG_VM3_SEPARATE_BINARY == 0)
 IFX_SSW_USED static void core3_vm3_start(void)
 {
 	IFX_SSW_CORE_VM_START(3,3);
-
     /* Call main function of CPU3 VM 3 */
     Ifx_Ssw_jumpToFunction(core3_vm3_main);
 }
+#endif
 
+#if (IFX_CFG_HYPERVISOR_STANDALONE == 0) || (IFX_CFG_VM4_SEPARATE_BINARY == 0)
 IFX_SSW_USED static void core3_vm4_start(void)
 {
 	IFX_SSW_CORE_VM_START(3,4);
-
     /* Call main function of CPU3 VM 4 */
     Ifx_Ssw_jumpToFunction(core3_vm4_main);
 }
+#endif
 
+#if (IFX_CFG_HYPERVISOR_STANDALONE == 0) || (IFX_CFG_VM5_SEPARATE_BINARY == 0)
 IFX_SSW_USED static void core3_vm5_start(void)
 {
 	IFX_SSW_CORE_VM_START(3,5);
-
     /* Call main function of CPU3 VM 5 */
     Ifx_Ssw_jumpToFunction(core3_vm5_main);
 }
+#endif
 
+#if (IFX_CFG_HYPERVISOR_STANDALONE == 0) || (IFX_CFG_VM6_SEPARATE_BINARY == 0)
 IFX_SSW_USED static void core3_vm6_start(void)
 {
 	IFX_SSW_CORE_VM_START(3,6);
-
     /* Call main function of CPU3 VM 6 */
     Ifx_Ssw_jumpToFunction(core3_vm6_main);
 }
+#endif
 
+#if (IFX_CFG_HYPERVISOR_STANDALONE == 0) || (IFX_CFG_VM7_SEPARATE_BINARY == 0)
 IFX_SSW_USED static void core3_vm7_start(void)
 {
 	IFX_SSW_CORE_VM_START(3,7);
-
     /* Call main function of CPU3 VM 7 */
     Ifx_Ssw_jumpToFunction(core3_vm7_main);
 }
-
-
+#endif
 
 
 /******************************************************************************
@@ -269,7 +298,6 @@ IFX_SSW_USED void _START30(void)
 #elif defined(__ghs__)
 #pragma ghs section text=default
 #endif
-
 #if defined(__TASKING__)
 #pragma protect on
 #pragma section code "start_cpu31"
@@ -286,12 +314,12 @@ IFX_SSW_USED void _START30(void)
 #elif defined(__ghs__)
 #pragma ghs section text=".start_cpu31"
 #endif
-
+#if (IFX_CFG_HYPERVISOR_STANDALONE == 0) || (IFX_CFG_VM1_SEPARATE_BINARY == 0)
 IFX_SSW_USED void _START31(void)
 {
     Ifx_Ssw_jumpToFunction(core3_vm1_start);
 }
-
+#endif
 /* reset the sections defined above, to normal region */
 #if defined(__TASKING__)
 #pragma protect restore
@@ -307,7 +335,6 @@ IFX_SSW_USED void _START31(void)
 #elif defined(__ghs__)
 #pragma ghs section text=default
 #endif
-
 #if defined(__TASKING__)
 #pragma protect on
 #pragma section code "start_cpu32"
@@ -324,12 +351,12 @@ IFX_SSW_USED void _START31(void)
 #elif defined(__ghs__)
 #pragma ghs section text=".start_cpu32"
 #endif
-
+#if (IFX_CFG_HYPERVISOR_STANDALONE == 0) || (IFX_CFG_VM2_SEPARATE_BINARY == 0)
 IFX_SSW_USED void _START32(void)
 {
     Ifx_Ssw_jumpToFunction(core3_vm2_start);
 }
-
+#endif
 /* reset the sections defined above, to normal region */
 #if defined(__TASKING__)
 #pragma protect restore
@@ -345,7 +372,6 @@ IFX_SSW_USED void _START32(void)
 #elif defined(__ghs__)
 #pragma ghs section text=default
 #endif
-
 #if defined(__TASKING__)
 #pragma protect on
 #pragma section code "start_cpu33"
@@ -362,12 +388,12 @@ IFX_SSW_USED void _START32(void)
 #elif defined(__ghs__)
 #pragma ghs section text=".start_cpu33"
 #endif
-
+#if (IFX_CFG_HYPERVISOR_STANDALONE == 0) || (IFX_CFG_VM3_SEPARATE_BINARY == 0)
 IFX_SSW_USED void _START33(void)
 {
     Ifx_Ssw_jumpToFunction(core3_vm3_start);
 }
-
+#endif
 /* reset the sections defined above, to normal region */
 #if defined(__TASKING__)
 #pragma protect restore
@@ -383,7 +409,6 @@ IFX_SSW_USED void _START33(void)
 #elif defined(__ghs__)
 #pragma ghs section text=default
 #endif
-
 #if defined(__TASKING__)
 #pragma protect on
 #pragma section code "start_cpu34"
@@ -400,12 +425,12 @@ IFX_SSW_USED void _START33(void)
 #elif defined(__ghs__)
 #pragma ghs section text=".start_cpu34"
 #endif
-
+#if (IFX_CFG_HYPERVISOR_STANDALONE == 0) || (IFX_CFG_VM4_SEPARATE_BINARY == 0)
 IFX_SSW_USED void _START34(void)
 {
     Ifx_Ssw_jumpToFunction(core3_vm4_start);
 }
-
+#endif
 /* reset the sections defined above, to normal region */
 #if defined(__TASKING__)
 #pragma protect restore
@@ -421,7 +446,6 @@ IFX_SSW_USED void _START34(void)
 #elif defined(__ghs__)
 #pragma ghs section text=default
 #endif
-
 #if defined(__TASKING__)
 #pragma protect on
 #pragma section code "start_cpu35"
@@ -438,12 +462,12 @@ IFX_SSW_USED void _START34(void)
 #elif defined(__ghs__)
 #pragma ghs section text=".start_cpu35"
 #endif
-
+#if (IFX_CFG_HYPERVISOR_STANDALONE == 0) || (IFX_CFG_VM5_SEPARATE_BINARY == 0)
 IFX_SSW_USED void _START35(void)
 {
     Ifx_Ssw_jumpToFunction(core3_vm5_start);
 }
-
+#endif
 /* reset the sections defined above, to normal region */
 #if defined(__TASKING__)
 #pragma protect restore
@@ -459,7 +483,6 @@ IFX_SSW_USED void _START35(void)
 #elif defined(__ghs__)
 #pragma ghs section text=default
 #endif
-
 #if defined(__TASKING__)
 #pragma protect on
 #pragma section code "start_cpu36"
@@ -476,12 +499,12 @@ IFX_SSW_USED void _START35(void)
 #elif defined(__ghs__)
 #pragma ghs section text=".start_cpu36"
 #endif
-
+#if (IFX_CFG_HYPERVISOR_STANDALONE == 0) || (IFX_CFG_VM6_SEPARATE_BINARY == 0)
 IFX_SSW_USED void _START36(void)
 {
     Ifx_Ssw_jumpToFunction(core3_vm6_start);
 }
-
+#endif
 /* reset the sections defined above, to normal region */
 #if defined(__TASKING__)
 #pragma protect restore
@@ -497,7 +520,6 @@ IFX_SSW_USED void _START36(void)
 #elif defined(__ghs__)
 #pragma ghs section text=default
 #endif
-
 #if defined(__TASKING__)
 #pragma protect on
 #pragma section code "start_cpu37"
@@ -514,12 +536,12 @@ IFX_SSW_USED void _START36(void)
 #elif defined(__ghs__)
 #pragma ghs section text=".start_cpu37"
 #endif
-
+#if (IFX_CFG_HYPERVISOR_STANDALONE == 0) || (IFX_CFG_VM7_SEPARATE_BINARY == 0)
 IFX_SSW_USED void _START37(void)
 {
     Ifx_Ssw_jumpToFunction(core3_vm7_start);
 }
-
+#endif
 /* reset the sections defined above, to normal region */
 #if defined(__TASKING__)
 #pragma protect restore

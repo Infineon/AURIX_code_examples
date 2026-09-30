@@ -171,6 +171,79 @@ IFX_INTERRUPT_FUNC void isr (void)
 #endif
 #endif /* IFX_INTERRUPT_INTERNAL */
 
+
+/*******************************************************************************
+ For the VM use-case we provide multiple variants of the IFX_INTERRUPT macro:
+
+ IFX_INTERRUPT_VM
+ - basically the same as IFX_INTERRUPT, but using the section naming convention
+   of the VM use-case to create the intvec entry.
+
+ IFX_INTERRUPT_VM_RFH
+ - if predeclared, the ISR must have the following prototype:
+   __attribute__((jump_and_link)) void isr_function(unsigned int d15);
+ - the macro does the following:
+   - attaches the jump_and_link attribute on the ISR function.
+   - creates an interrupt vector table (intvec) entry as a section.
+ - the intvec entry does the following:
+   - saves the lower context
+   - calls the ISR using JLI, passing the value of %d15 in %d4 in the first
+     argument d15
+   - if MSB of %d15 was zero, then returns from the exception (RFE),
+     otherwise it will return from the hypervisor (RFH).
+ - Since the ISR has attribute jump_and_link it will return by ji %a11 therefore
+   it is up to the implementation of the ISR whether it will return to the
+   intvec entry or if it handles the Return From Exception/Hypervisor sequence
+   in place.
+   In case it doesn't return to the intvec entry, it has to take care about
+   restoration of the lower context too.
+
+*******************************************************************************/
+
+#define IFX_INTERRUPT_VM_FUNC __attribute__((interrupt_handler))
+
+#ifndef IFX_INTERRUPT_VM
+#define IFX_INTERRUPT_VM(isr, cpu, vm, prio) \
+    IFX_INTERRUPT_VM_INTERNAL(isr, cpu, vm, prio)
+#endif
+
+#ifndef IFX_INTERRUPT_VM_RFH
+#define IFX_INTERRUPT_VM_RFH(isr, cpu, vm, prio) \
+    IFX_INTERRUPT_VM_RFH_INTERNAL(isr, cpu, vm, prio)
+#endif
+
+/* The hypervisor in tricore arc is consider has VM0*/
+#define IFX_INTERRUPT_VM_INTERNAL(isr, cpu, vm, prio) IFX_INTERRUPT_VM_RFH_INTERNAL(isr, cpu, vm, prio)
+
+#ifndef IFX_INTERRUPT_VM_RFH_INTERNAL
+#define IFX_INTERRUPT_VM_RFH_INTERNAL(isr, cpu, vm, prio) \
+__asm__ (                                                                      \
+".altmacro\n"                                                                  \
+".macro .int_entry.2 intEntryLabel, name\n"                                    \
+"    .pushsection .\\intEntryLabel,\"ax\",@progbits\n"                         \
+"    .align 5\n"                                                               \
+"    __\\intEntryLabel :\n"                                                    \
+"        svlcx\n"                                                              \
+"        movh.a  %a14, hi:\\name\n"                                            \
+"        lea     %a14, [%a14]lo:\\name\n"                                      \
+"        ji      %a14\n"                                                       \
+"        .org 32\n"                                                            \
+"    .popsection\n"                                                            \
+".endm\n"                                                                      \
+".macro .int_entry.1 prio,cpu,vm,u,name\n"                                     \
+"    .int_entry.2 intvec_tc\\cpu\\()_vm\\vm\\u\\prio,(\\name)\n"               \
+".endm\n"                                                                      \
+".macro .intr.entry name,cpu,vm,prio\n"                                        \
+"    .int_entry.1 %(\\prio),%(\\cpu),%(\\vm),_,\\name\n"                       \
+".endm\n"                                                                      \
+".intr.entry "#isr","#cpu","#vm","#prio"\n"                                    \
+".purgem .int_entry.2\n"                                                       \
+".purgem .int_entry.1\n"                                                       \
+".purgem .intr.entry\n");                                                      \
+IFX_EXTERN IFX_INTERRUPT_FUNC void isr ();                                     \
+IFX_INTERRUPT_FUNC void isr (void)
+#endif /* IFX_INTERRUPT_VM_INTVEC_RFH_BY_RV_INTERNAL */
+
 /* *INDENT-ON* */
 
 /******************************************************************************/
