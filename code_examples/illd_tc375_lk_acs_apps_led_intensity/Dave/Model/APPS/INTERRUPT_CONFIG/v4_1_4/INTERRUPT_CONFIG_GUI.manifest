@@ -1,0 +1,33 @@
+package Model.APPS.INTERRUPT_CONFIG.v4_1_4;
+// Import statements
+import ifx.davex.app.manifest.*
+
+abstract class INTERRUPT_CONFIG_GUI extends AppManifest {
+
+    /* IMPORTANT NOTE: This is an auto generated file, please do not edit manually. */
+    /* User modifications in the GUI editor will be updated here automatically.     */
+    /* Manually editing the contents of this file will corrupt the APP SDK project. */
+
+	/* Begin : UI variable section */
+	 public GTab gtab_1;
+	 public GString gstring_handler;
+	 public GCheck gcheck_enable;
+	 public GLabel glabel_handler;
+	 public GLabel glabel_enable;
+	 public GLabel glabel_ispinfo;
+	 public GMessage gmessage_valid_isr_name;
+
+	 public INTERRUPT_CONFIG_GUI(DaveEnv daveEnv){
+
+	 gtab_1 = GTab(widgetName: "gtab_1", text: "General Settings", enabled: true, visible: true)
+	 gstring_handler = GString(widgetName: "gstring_handler", value: "UserIRQHandler", enabled: true, visible: true, isMandatoryValue: false)
+	 gcheck_enable = GCheck(widgetName: "gcheck_enable", value: true, enabled: true, visible: true)
+	 glabel_handler = GLabel(widgetName: "glabel_handler", text: "Interrupt Handler (ISR)", enabled: true, visible: true)
+	 glabel_enable = GLabel(widgetName: "glabel_enable", text: "Enable Service Request at Initialization", enabled: true, visible: true)
+	 glabel_ispinfo = GLabel(widgetName: "glabel_ispinfo", text: "ISP Information can be checked in the Report, to set in the Global Interrupt Editor", enabled: false, visible: true)
+	 gmessage_valid_isr_name = GMessage(widgetName: "gmessage_valid_isr_name", text: "Invalid function name", isError: true, visible: true)
+
+
+	 }
+	/* End : UI variable section */
+}

@@ -1,0 +1,190 @@
+package Model.APPS.GTM_GENERIC.v4_0_6;
+// Import statements
+import ifx.davex.app.manifest.*
+
+/*************** Revision History **********************************************
+ Version      Date          Description
+ 4.0.2        12-Sep-2025   - Initial version
+ 4.0.4        15-Sep-2025   - License and Copyright update
+ 4.0.6        30-Jan-2026   - Quality update
+ *******************************************************************************/
+
+class GTM_GENERIC extends GTM_GENERIC_GUI
+{
+	/* Note  : Following APP properties are mandatory and important */
+
+	/* Begin : APP property section */
+
+	/**
+	 * APP version
+	 * Format: a string with three digit separated by a dot.
+	 */
+	def version            = '4.0.6'
+
+	/**
+	 * APP categories declaration.
+	 * It is list of strings. Subcategories are separated by slash.
+	 * No limits on number of categories and subcategories depth.
+	 */
+	def categoriesDescription = ["Timer"]
+
+	/**
+	 * Minimum DAVE version required for this APP.
+	 *
+	 * It is string with three digit separated by a dot.
+	 */
+	def minDaveVersion           = '4.2.4'
+
+	/**
+	 * Keywords used by search feature in APPs selection view
+	 *
+	 * It is a list of string.
+	 */
+	def keywords      = ['GTM']
+
+	/**
+	 * softwareIDs is used to declare which devices are compatible with this APP.
+	 * It is a map with key a string containing a pattern that shall match the SW id of
+	 * the device and as value the minimal version of the APP.
+	 */
+
+	def softwareIDs       = [
+		"TC3.3.*.STD":"1.0.0",
+		"TC3.6.*.*":"1.0.0",
+		"TC3.7.*.*":"1.0.0",
+		"TC3.8.*.*":"1.0.0",
+		"TC3.9.*.*":"1.0.0"]
+
+	/**
+	 * Singleton property:
+	 * When it is true the APP can be instantiated only once.
+	 */
+	def singleton     = true
+
+	/**
+	 * initProvider property
+	 * It shall be true to add a call to <AppName>_Init()
+	 */
+	def initProvider  = true
+
+	/**
+	 * Deprecated APP
+	 * Set it to true to indicate that the APP shall be not used for new projects.
+	 */
+	def deprecated    = false
+
+	/**
+	 * Sharable property.
+	 * It shall be true to allows multiple APPs to require the same instance of this APP.
+	 */
+	def sharable      = true
+
+	/**
+	 *  APP function description.
+	 */
+	def description = "This APP is used to configure the clocks for the GTM blocks"
+
+	/* End   : APP property section */
+
+	/* Begin : User APP property section */
+
+	/* End   : User APP property section */
+
+	/*-----------------------------------Begin : APP User variable section---------------------------------------------------------*/
+
+	MVirtualResourceGroup hwres_gtm_common			// GTM common resource
+	MRequiredApp   appres_clock						// CLOCK app
+
+	GString gstring_series = GString()				// aurix series info
+
+	private static final float MHZ_FREQ = 1000000	// constant MHz value
+	/*-----------------------------------End : APP User variable section---------------------------------------------------------*/
+
+	/* Begin : APP Constructor */
+	public GTM_GENERIC(DaveEnv daveEnv)
+	{
+		/* The device series is used in the template file */
+		gstring_series.value = daveEnv.project.selectedDevice.deviceId.softwareId.split("\\.")[1]
+
+		/* ---------------------------------------------------------- */
+		/* ------------ Hardware resource consumption block --------- */
+		/* ---------------------------------------------------------- */
+		hwres_gtm_common = MVirtualResourceGroup("Common Block",["peripheral", "gtm", "0","common"], true)
+
+		/* ---------------------------------------------------------- */
+		/* ------------ App consumption Block ----------------------- */
+		/* ---------------------------------------------------------- */
+		appres_clock = MRequiredApp("CLOCK", "CLOCK APP", RSHARABLE, "4.0.2")
+
+		/* ---------------------------------------------------------- */
+		/* -------------- APP IO Signals ---------------------------- */
+		/* ---------------------------------------------------------- */
+
+		/* -------------------------------------------------------- */
+		/* ------------ APP Configuration ------------------------- */
+		/* -------------------------------------------------------- */
+		gfloat_freq_GTM_hz.value = MF({
+			Float freq = appres_clock.getVal(["gfloat_fGTM", "value"]); return(freq)
+		}, Float);	// convert to nsec; default 100 MHz input frequency
+		gfloat_global_freq_hz.maxValue = MF({Float maxFreq = (MHZ_FREQ * appres_clock.getVal(["gfloat_fGTM", "value"]))/2; return(maxFreq)}, Float)
+		glabel_CMU_ECLK0_hz.enabled = MF({return(gcheck_CMU_ECLK0.value)}, Boolean)
+		gfloat_CMU_ECLK0_hz.enabled = MF({return(gcheck_CMU_ECLK0.value)}, Boolean)
+		glabel_CMU_ECLK1_hz.enabled = MF({return(gcheck_CMU_ECLK1.value)}, Boolean)
+		gfloat_CMU_ECLK1_hz.enabled = MF({return(gcheck_CMU_ECLK1.value)}, Boolean)
+		glabel_CMU_ECLK2_hz.enabled = MF({return(gcheck_CMU_ECLK2.value)}, Boolean)
+		gfloat_CMU_ECLK2_hz.enabled = MF({return(gcheck_CMU_ECLK2.value)}, Boolean)
+		gfloat_CMU_ECLK0_hz.maxValue = MF({return(gcheck_CMU_ECLK0.value ? gfloat_global_freq_hz.value : Float.POSITIVE_INFINITY)}, Float)
+		gfloat_CMU_ECLK1_hz.maxValue = MF({return(gcheck_CMU_ECLK1.value ? gfloat_global_freq_hz.value : Float.POSITIVE_INFINITY)}, Float)
+		gfloat_CMU_ECLK2_hz.maxValue = MF({return(gcheck_CMU_ECLK2.value ? gfloat_global_freq_hz.value : Float.POSITIVE_INFINITY)}, Float)
+		glabel_CMU_CLK0_hz.enabled = MF({return(gcheck_CMU_CLK0.value)}, Boolean)
+		gfloat_CMU_CLK0_hz.enabled = MF({return(gcheck_CMU_CLK0.value)}, Boolean)
+		glabel_CMU_CLK1_hz.enabled = MF({return(gcheck_CMU_CLK1.value)}, Boolean)
+		gfloat_CMU_CLK1_hz.enabled = MF({return(gcheck_CMU_CLK1.value)}, Boolean)
+		glabel_CMU_CLK2_hz.enabled = MF({return(gcheck_CMU_CLK2.value)}, Boolean)
+		gfloat_CMU_CLK2_hz.enabled = MF({return(gcheck_CMU_CLK2.value)}, Boolean)
+		glabel_CMU_CLK3_hz.enabled = MF({return(gcheck_CMU_CLK3.value)}, Boolean)
+		gfloat_CMU_CLK3_hz.enabled = MF({return(gcheck_CMU_CLK3.value)}, Boolean)
+		glabel_CMU_CLK4_hz.enabled = MF({return(gcheck_CMU_CLK4.value)}, Boolean)
+		gfloat_CMU_CLK4_hz.enabled = MF({return(gcheck_CMU_CLK4.value)}, Boolean)
+		glabel_CMU_CLK5_hz.enabled = MF({return(gcheck_CMU_CLK5.value)}, Boolean)
+		gfloat_CMU_CLK5_hz.enabled = MF({return(gcheck_CMU_CLK5.value)}, Boolean)
+		glabel_CMU_CLK6_hz.enabled = MF({return(gcheck_CMU_CLK6.value)}, Boolean)
+		gfloat_CMU_CLK6_hz.enabled = MF({return(gcheck_CMU_CLK6.value)}, Boolean)
+		glabel_CMU_CLK7_hz.enabled = MF({return(gcheck_CMU_CLK7.value)}, Boolean)
+		gfloat_CMU_CLK7_hz.enabled = MF({return(gcheck_CMU_CLK7.value)}, Boolean)
+		gfloat_CMU_CLK0_hz.maxValue = MF({return(gcheck_CMU_CLK0.value ? gfloat_global_freq_hz.value : Float.POSITIVE_INFINITY)}, Float)
+		gfloat_CMU_CLK1_hz.maxValue = MF({return(gcheck_CMU_CLK1.value ? gfloat_global_freq_hz.value : Float.POSITIVE_INFINITY)}, Float)
+		gfloat_CMU_CLK2_hz.maxValue = MF({return(gcheck_CMU_CLK2.value ? gfloat_global_freq_hz.value : Float.POSITIVE_INFINITY)}, Float)
+		gfloat_CMU_CLK3_hz.maxValue = MF({return(gcheck_CMU_CLK3.value ? gfloat_global_freq_hz.value : Float.POSITIVE_INFINITY)}, Float)
+		gfloat_CMU_CLK4_hz.maxValue = MF({return(gcheck_CMU_CLK4.value ? gfloat_global_freq_hz.value : Float.POSITIVE_INFINITY)}, Float)
+		gfloat_CMU_CLK5_hz.maxValue = MF({return(gcheck_CMU_CLK5.value ? gfloat_global_freq_hz.value : Float.POSITIVE_INFINITY)}, Float)
+		gfloat_CMU_CLK6_hz.maxValue = MF({return(gcheck_CMU_CLK6.value ? gfloat_global_freq_hz.value : Float.POSITIVE_INFINITY)}, Float)
+		gfloat_CMU_CLK7_hz.maxValue = MF({return(gcheck_CMU_CLK7.value ? gfloat_global_freq_hz.value : Float.POSITIVE_INFINITY)}, Float)
+		glabel_CMU_FXCLK0_hz.enabled = MF({return(gcheck_CMU_FXCLK.value)}, Boolean)
+		gfloat_CMU_FXCLK0_hz.enabled = MF({return(gcheck_CMU_FXCLK.value)}, Boolean)
+		glabel_CMU_FXCLK1_hz.enabled = MF({return(gcheck_CMU_FXCLK.value)}, Boolean)
+		gfloat_CMU_FXCLK1_hz.enabled = MF({return(gcheck_CMU_FXCLK.value)}, Boolean)
+		glabel_CMU_FXCLK2_hz.enabled = MF({return(gcheck_CMU_FXCLK.value)}, Boolean)
+		gfloat_CMU_FXCLK2_hz.enabled = MF({return(gcheck_CMU_FXCLK.value)}, Boolean)
+		glabel_CMU_FXCLK3_hz.enabled = MF({return(gcheck_CMU_FXCLK.value)}, Boolean)
+		gfloat_CMU_FXCLK3_hz.enabled = MF({return(gcheck_CMU_FXCLK.value)}, Boolean)
+		glabel_CMU_FXCLK4_hz.enabled = MF({return(gcheck_CMU_FXCLK.value)}, Boolean)
+		gfloat_CMU_FXCLK4_hz.enabled = MF({return(gcheck_CMU_FXCLK.value)}, Boolean)
+		gfloat_CMU_FXCLK0_hz.value = MF({return(gfloat_global_freq_hz.value)}, Float)
+		gfloat_CMU_FXCLK1_hz.value = MF({return(gfloat_global_freq_hz.value/16)}, Float)
+		gfloat_CMU_FXCLK2_hz.value = MF({return(gfloat_global_freq_hz.value/256)}, Float)
+		gfloat_CMU_FXCLK3_hz.value = MF({return(gfloat_global_freq_hz.value/4096)}, Float)
+		gfloat_CMU_FXCLK4_hz.value = MF({return(gfloat_global_freq_hz.value/65536)}, Float)
+	}
+	/* End   : APP Constructor */
+
+	/* Begin : File Generation */
+	def generateFiles()
+	{
+		copy("gtm_generic.c", "gtm_generic.c")
+		copy("gtm_generic.h", "gtm_generic.h")
+		generate("gtm_generic_confc.tmpl", "gtm_generic_conf.c")
+		generate("gtm_generic_confh.tmpl", "gtm_generic_conf.h")
+	}
+	/* End   : File Generation */
+}

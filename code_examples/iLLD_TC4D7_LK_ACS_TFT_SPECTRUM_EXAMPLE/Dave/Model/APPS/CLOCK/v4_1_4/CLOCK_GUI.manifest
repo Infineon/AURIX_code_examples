@@ -1,0 +1,505 @@
+package Model.APPS.CLOCK.v4_1_4;
+// Import statements
+import ifx.davex.app.manifest.*
+
+abstract class CLOCK_GUI extends AppManifest {
+
+    /* IMPORTANT NOTE: This is an auto generated file, please do not edit manually. */
+    /* User modifications in the GUI editor will be updated here automatically.     */
+    /* Manually editing the contents of this file will corrupt the APP SDK project. */
+
+	/* Begin : UI variable section */
+	 public GTab gtab_clock_distributions_tc4;
+	 public GTab gtab_clock_distributions;
+	 public GTab gtab_advanced_tc4;
+	 public GImage gimage_block_diagram_tc4;
+	 public GImage gimage_xtal2_mask_tc4;
+	 public GImage gimage_sysclk_mask_tc4;
+	 public GImage gimage_extclk0_mask_tc4;
+	 public GImage gimage_extclk1_mask_tc4;
+	 public GImage gimage_block_diagram;
+	 public GImage gimage_xtal2_mask;
+	 public GImage gimage_extclk0_mask;
+	 public GImage gimage_extclk1_mask;
+	 public GImage gimage_sysclk_mask;
+	 public GInteger ginteger_extclk_step_tc4;
+	 public GInteger ginteger_extclk_div1_tc4;
+	 public GInteger ginteger_extclk_step;
+	 public GInteger ginteger_extclk_div1;
+	 public GCombo gcombo_clksrcmode_tc4;
+	 public GCombo gcombo_pllinsel_tc4;
+	 public GCombo gcombo_syspll_divider_list_tc4;
+	 public GCombo gcombo_peripll_divider_list_tc4;
+	 public GCombo gcombo_peripll_k3pre_tc4;
+	 public GCombo gcombo_peripll_k4pre_tc4;
+	 public GCombo gcombo_clksel_0_tc4;
+	 public GCombo gcombo_clksel_1_tc4;
+	 public GCombo gcombo_clksel_2_tc4;
+	 public GCombo gcombo_sridiv_tc4;
+	 public GCombo gcombo_ppudiv_tc4;
+	 public GCombo gcombo_spbdiv_tc4;
+	 public GCombo gcombo_cpbdiv_tc4;
+	 public GCombo gcombo_rcbdiv_tc4;
+	 public GCombo gcombo_egtmdiv_tc4;
+	 public GCombo gcombo_lethdiv_tc4;
+	 public GCombo gcombo_canxlhdiv_tc4;
+	 public GCombo gcombo_fsidiv_tc4;
+	 public GCombo gcombo_sricsdiv_tc4;
+	 public GCombo gcombo_tpbdiv_tc4;
+	 public GCombo gcombo_stmdiv_tc4;
+	 public GCombo gcombo_gethdiv_tc4;
+	 public GCombo gcombo_mcanhdiv_tc4;
+	 public GCombo gcombo_gtmdiv_tc4;
+	 public GCombo gcombo_feraydiv_tc4;
+	 public GCombo gcombo_mcandiv_tc4;
+	 public GCombo gcombo_asclinsdiv_tc4;
+	 public GCombo gcombo_mscdiv_tc4;
+	 public GCombo gcombo_qspidiv_tc4;
+	 public GCombo gcombo_asclinfdiv_tc4;
+	 public GCombo gcombo_i2cdiv_tc4;
+	 public GCombo gcombo_extclk_sel0_tc4;
+	 public GCombo gcombo_extclk_dm_tc4;
+	 public GCombo gcombo_extclk_sel1_tc4;
+	 public GCombo gcombo_ramptype_tc4;
+	 public GCombo gcombo_peripll_k3_tc4;
+	 public GCombo gcombo_peripll_k4_tc4;
+	 public GCombo gcombo_syspll_k3pre_tc4;
+	 public GCombo gcombo_syspll_k3_tc4;
+	 public GCombo gcombo_canxldiv_tc4;
+	 public GCombo gcombo_fxspisldiv_tc4;
+	 public GCombo gcombo_fsdmmcdiv_tc4;
+	 public GCombo gcombo_fleth100div_tc4;
+	 public GCombo gcombo_fxspidiv_tc4;
+	 public GCombo gcombo_fadcdiv_tc4;
+	 public GCombo gcombo_clksrcmode;
+	 public GCombo gcombo_pllinsel_tc3;
+	 public GCombo gcombo_syspll_divider_list_300;
+	 public GCombo gcombo_syspll_divider_list_160;
+	 public GCombo gcombo_pllinsel_2;
+	 public GCombo gcombo_peripll_divider_list_300;
+	 public GCombo gcombo_peripll_divider_list_160;
+	 public GCombo gcombo_peripll_k3div_300;
+	 public GCombo gcombo_peripll_k3div_160;
+	 public GCombo gcombo_clksel_0;
+	 public GCombo gcombo_clksel_1;
+	 public GCombo gcombo_clksel_2;
+	 public GCombo gcombo_sridiv;
+	 public GCombo gcombo_spbdiv_300;
+	 public GCombo gcombo_spbdiv_160;
+	 public GCombo gcombo_pll1div_300;
+	 public GCombo gcombo_pll1div_160;
+	 public GCombo gcombo_cpu0div;
+	 public GCombo gcombo_cpu1div;
+	 public GCombo gcombo_cpu2div;
+	 public GCombo gcombo_cpu3div;
+	 public GCombo gcombo_cpu4div;
+	 public GCombo gcombo_cpu5div;
+	 public GCombo gcombo_fsidiv_300;
+	 public GCombo gcombo_fsidiv_160;
+	 public GCombo gcombo_fsi2div;
+	 public GCombo gcombo_bbbdiv;
+	 public GCombo gcombo_stmdiv_300;
+	 public GCombo gcombo_stmdiv_160;
+	 public GCombo gcombo_gethdiv;
+	 public GCombo gcombo_adasdiv;
+	 public GCombo gcombo_mcanhdiv_300;
+	 public GCombo gcombo_mcanhdiv_160;
+	 public GCombo gcombo_gtmdiv;
+	 public GCombo gcombo_hspdmperon;
+	 public GCombo gcombo_erayperon;
+	 public GCombo gcombo_mcandiv;
+	 public GCombo gcombo_asclinsdiv;
+	 public GCombo gcombo_ebuperon;
+	 public GCombo gcombo_hspdmperon_2;
+	 public GCombo gcombo_mscdiv;
+	 public GCombo gcombo_qspidiv;
+	 public GCombo gcombo_asclinfdiv;
+	 public GCombo gcombo_i2cdiv;
+	 public GCombo gcombo_extclk_sel0;
+	 public GCombo gcombo_extclk_dm;
+	 public GCombo gcombo_extclk_sel1;
+	 public GCombo gcombo_syspll_modcfg;
+	 public GCombo gcombo_perpll_modcfg_tc4;
+	 public GCombo gcombo_lpdiv;
+	 public GCombo gcombo_extclk1_nsel;
+	 public GFloat gfloat_fOSC_tc4;
+	 public GFloat gfloat_SYSCLK_tc4;
+	 public GFloat gfloat_syspll_fDCO_tc4;
+	 public GFloat gfloat_fPLL0_tc4;
+	 public GFloat gfloat_peripll_fDCO_tc4;
+	 public GFloat gfloat_fPLL1_tc4;
+	 public GFloat gfloat_fPLL2_tc4;
+	 public GFloat gfloat_fHSCT_tc4;
+	 public GFloat gfloat_fsource0_tc4;
+	 public GFloat gfloat_fsource1_tc4;
+	 public GFloat gfloat_fsource2_tc4;
+	 public GFloat gfloat_fSPB_tc4;
+	 public GFloat gfloat_fCPB_tc4;
+	 public GFloat gfloat_fSTM_tc4;
+	 public GFloat gfloat_fRCB_tc4;
+	 public GFloat gfloat_fGTM_tc4;
+	 public GFloat gfloat_feGTM_tc4;
+	 public GFloat gfloat_fGETH_tc4;
+	 public GFloat gfloat_fLETH_tc4;
+	 public GFloat gfloat_fMCANH_tc4;
+	 public GFloat gfloat_fCANXLH_tc4;
+	 public GFloat gfloat_fFSI_tc4;
+	 public GFloat gfloat_fTPB_tc4;
+	 public GFloat gfloat_fREFCLK1_tc4;
+	 public GFloat gfloat_fSRICS_tc4;
+	 public GFloat gfloat_fFSI2_tc4;
+	 public GFloat gfloat_fREFCLK2_tc4;
+	 public GFloat gfloat_fERAY_tc4;
+	 public GFloat gfloat_fADC_tc4;
+	 public GFloat gfloat_fMCAN_tc4;
+	 public GFloat gfloat_fCANXL_tc4;
+	 public GFloat gfloat_fASCLINS_tc4;
+	 public GFloat gfloat_fMSC_tc4;
+	 public GFloat gfloat_fQSPI_tc4;
+	 public GFloat gfloat_fASCLINF_tc4;
+	 public GFloat gfloat_fI2C_tc4;
+	 public GFloat gfloat_fLETH100_tc4;
+	 public GFloat gfloat_fPPU_tc4;
+	 public GFloat gfloat_fxSPI_tc4;
+	 public GFloat gfloat_fBACK_tc4;
+	 public GFloat gfloat_fxSPISL_tc4;
+	 public GFloat gfloat_fSRI_tc4;
+	 public GFloat gfloat_fOSC_1_tc4;
+	 public GFloat gfloat_fSDMMC_tc4;
+	 public GFloat gfloat_fBACK_2_tc4;
+	 public GFloat gfloat_fBACK_3_tc4;
+	 public GFloat gfloat_ramptarget_tc4;
+	 public GFloat gfloat_fPLL3_tc4;
+	 public GFloat gfloat_fPLLPPU_tc4;
+	 public GFloat gfloat_fSRI_1_tc4;
+	 public GFloat gfloat_fsourceppu_tc4;
+	 public GFloat gfloat_fsource3_tc4;
+	 public GFloat gfloat_fHSCT_1_tc4;
+	 public GFloat gfloat_fEXTCLK0_tc4;
+	 public GFloat gfloat_fEXTCLK1_tc4;
+	 public GFloat gfloat_fSB_tc4;
+	 public GFloat gfloat_SYSCLK_1_tc4;
+	 public GFloat gfloat_fSPB_1_tc4;
+	 public GFloat gfloat_fOSC0;
+	 public GFloat gfloat_SYSCLK;
+	 public GFloat gfloat_syspll_fDCO;
+	 public GFloat gfloat_fPLL0_300;
+	 public GFloat gfloat_fPLL0_160;
+	 public GFloat gfloat_peripll_fDCO;
+	 public GFloat gfloat_fPLL1_300;
+	 public GFloat gfloat_fPLL1_160;
+	 public GFloat gfloat_fPLL2;
+	 public GFloat gfloat_fHSCT;
+	 public GFloat gfloat_fsource0;
+	 public GFloat gfloat_fSRI_tc3;
+	 public GFloat gfloat_fSPB_tc3;
+	 public GFloat gfloat_fsource1;
+	 public GFloat gfloat_fsource2;
+	 public GFloat gfloat_fCPU0;
+	 public GFloat gfloat_fCPU1;
+	 public GFloat gfloat_fCPU2;
+	 public GFloat gfloat_fCPU3;
+	 public GFloat gfloat_fCPU4;
+	 public GFloat gfloat_fCPU5;
+	 public GFloat gfloat_fFSI;
+	 public GFloat gfloat_fFSI2;
+	 public GFloat gfloat_fREFCLK1;
+	 public GFloat gfloat_fBBB;
+	 public GFloat gfloat_fSTM_tc3;
+	 public GFloat gfloat_fGETH;
+	 public GFloat gfloat_fADAS;
+	 public GFloat gfloat_fMCANH_tc3;
+	 public GFloat gfloat_fRAM;
+	 public GFloat gfloat_fGTM_tc3;
+	 public GFloat gfloat_fHSPDM_320;
+	 public GFloat gfloat_fREFCLK2;
+	 public GFloat gfloat_fERAY;
+	 public GFloat gfloat_fMCAN_tc3;
+	 public GFloat gfloat_fASCLINS_tc3;
+	 public GFloat gfloat_fADC_tc3;
+	 public GFloat gfloat_fEBU;
+	 public GFloat gfloat_fHSPDM_160;
+	 public GFloat gfloat_fMSC;
+	 public GFloat gfloat_fQSPI_tc3;
+	 public GFloat gfloat_fASCLINF_tc3;
+	 public GFloat gfloat_fI2C_tc3;
+	 public GFloat gfloat_fEXTCLK0;
+	 public GFloat gfloat_fEXTCLK1;
+	 public GFloat gfloat_fBACK;
+	 public GFloat gfloat_fSB;
+	 public GFloat gfloat_fOSC0_2;
+	 public GFloat gfloat_fOSC0_3;
+	 public GFloat gfloat_fHSCT_2;
+	 public GFloat gfloat_fBACK_2;
+	 public GFloat gfloat_fBACK_3;
+	 public GString gstring_extclk0_div2_tc4;
+	 public GString gstring_extclk0_div2;
+	 public GString gstring_mul2;
+	 public GString gstring_div24_2;
+	 public GString gstring_extclk1_div2;
+	 public GString gstring_div24;
+	 public GCheck gcheck_extclk_en0_tc4;
+	 public GCheck gcheck_extclk_en1_tc4;
+	 public GCheck gcheck_extclk_en0_tc3;
+	 public GCheck gcheck_extclk_en1_tc3;
+	 public GLabel glabel_extclk0_ramp_tc4;
+	 public GLabel glabel_extclk1_ramp_tc4;
+	 public GLabel glabel_syspll_modcfg;
+	 public GLabel glabel_perpll_modcfg_tc4;
+	 public GLabel glabel_lpdiv;
+	 public GLabel glabel_extclk1_nsel;
+	 public GGroup ggroup_3_tc4;
+	 public GGroup ggroup_10_tc4;
+	 public GMessage gmessage_message_tc4;
+	 public GMessage gmessage_message;
+
+	 public CLOCK_GUI(DaveEnv daveEnv){
+
+	 gtab_clock_distributions_tc4 = GTab(widgetName: "gtab_clock_distributions_tc4", text: "TC4 Clock Distribution Settings", enabled: true, visible: true)
+	 gtab_clock_distributions = GTab(widgetName: "gtab_clock_distributions", text: "TC3 Clock Distribution Settings", enabled: true, visible: true)
+	 gtab_advanced_tc4 = GTab(widgetName: "gtab_advanced_tc4", text: "Advanced Settings", enabled: true, visible: true)
+	 gimage_block_diagram_tc4 = GImage(widgetName: "gimage_block_diagram_tc4", path: "clock.png", enabled: true, visible: true)
+	 gimage_xtal2_mask_tc4 = GImage(widgetName: "gimage_xtal2_mask_tc4", path: "mask.png", enabled: true, visible: true)
+	 gimage_sysclk_mask_tc4 = GImage(widgetName: "gimage_sysclk_mask_tc4", path: "mask.png", enabled: true, visible: true)
+	 gimage_extclk0_mask_tc4 = GImage(widgetName: "gimage_extclk0_mask_tc4", path: "mask2.png", enabled: true, visible: true)
+	 gimage_extclk1_mask_tc4 = GImage(widgetName: "gimage_extclk1_mask_tc4", path: "mask2.png", enabled: true, visible: true)
+	 gimage_block_diagram = GImage(widgetName: "gimage_block_diagram", path: "clock_tc3.png", enabled: true, visible: true)
+	 gimage_xtal2_mask = GImage(widgetName: "gimage_xtal2_mask", path: "mask.png", enabled: true, visible: true)
+	 gimage_extclk0_mask = GImage(widgetName: "gimage_extclk0_mask", path: "mask2.png", enabled: true, visible: true)
+	 gimage_extclk1_mask = GImage(widgetName: "gimage_extclk1_mask", path: "mask2.png", enabled: true, visible: true)
+	 gimage_sysclk_mask = GImage(widgetName: "gimage_sysclk_mask", path: "mask.png", enabled: true, visible: true)
+	 ginteger_extclk_step_tc4 = GInteger(widgetName: "ginteger_extclk_step_tc4", value: 1023, minValue: 0, maxValue: 1023, enabled: true, visible: true, isMandatoryValue: false)
+	 ginteger_extclk_div1_tc4 = GInteger(widgetName: "ginteger_extclk_div1_tc4", value: 0, minValue: 0, maxValue: 255, enabled: true, visible: true, isMandatoryValue: false)
+	 ginteger_extclk_step = GInteger(widgetName: "ginteger_extclk_step", value: 1023, minValue: 0, maxValue: 1023, enabled: true, visible: true, isMandatoryValue: false)
+	 ginteger_extclk_div1 = GInteger(widgetName: "ginteger_extclk_div1", value: 0, minValue: 0, maxValue: 255, enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_clksrcmode_tc4 = GCombo(widgetName: "gcombo_clksrcmode_tc4", options: ["Crystal mode","External clock mode with shaper","Power down mode","External clock mode without shaper"], value: "Crystal mode", enabled: false, visible: true, isMandatoryValue: false)
+	 gcombo_pllinsel_tc4 = GCombo(widgetName: "gcombo_pllinsel_tc4", options: ["BACK","OSC","SYSCLK","OSC_F"], value: "OSC", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_syspll_divider_list_tc4 = GCombo(widgetName: "gcombo_syspll_divider_list_tc4", options: ["P:1 N:32 K2:2"], value: "P:1 N:32 K2:2", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_peripll_divider_list_tc4 = GCombo(widgetName: "gcombo_peripll_divider_list_tc4", options: ["P:1 N:32 K2PRE:1.0 K2:5"], value: "P:1 N:32 K2PRE:1.0 K2:5", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_peripll_k3pre_tc4 = GCombo(widgetName: "gcombo_peripll_k3pre_tc4", options: ["1.0","1.1","1.2","1.4","1.6","1.7","2.0"], value: "1.0", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_peripll_k4pre_tc4 = GCombo(widgetName: "gcombo_peripll_k4pre_tc4", options: ["1.0","2.0","1.2","1.6"], value: "1.0", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_clksel_0_tc4 = GCombo(widgetName: "gcombo_clksel_0_tc4", options: ["PLL","BACK","RAMP"], value: "PLL", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_clksel_1_tc4 = GCombo(widgetName: "gcombo_clksel_1_tc4", options: ["PLL","BACK"], value: "PLL", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_clksel_2_tc4 = GCombo(widgetName: "gcombo_clksel_2_tc4", options: ["STOP","SRC1","SPB","PADSYSCLK"], value: "SRC1", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_sridiv_tc4 = GCombo(widgetName: "gcombo_sridiv_tc4", options: ["/1","/2","/3","/4","/5","/6","/8","/10","/12","/15"], value: "/1", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_ppudiv_tc4 = GCombo(widgetName: "gcombo_ppudiv_tc4", options: ["Stop","/1","/2","/3","/4","/5","/6","/8","/10","/12","/15"], value: "/1", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_spbdiv_tc4 = GCombo(widgetName: "gcombo_spbdiv_tc4", options: ["/1","/2","/3","/4","/5","/6","/8","/10","/12","/15"], value: "/4", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_cpbdiv_tc4 = GCombo(widgetName: "gcombo_cpbdiv_tc4", options: ["/1","/2","/3","/4","/5","/6","/8","/10","/12","/15"], value: "/4", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_rcbdiv_tc4 = GCombo(widgetName: "gcombo_rcbdiv_tc4", options: ["Stop","/1","/2","/3","/4","/5","/6","/8","/10","/12","/15"], value: "/2", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_egtmdiv_tc4 = GCombo(widgetName: "gcombo_egtmdiv_tc4", options: ["Stop","/1","/2","/3","/4","/5","/6","/8","/10","/12","/15"], value: "/2", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_lethdiv_tc4 = GCombo(widgetName: "gcombo_lethdiv_tc4", options: ["Stop","/1","/2","/3","/4"], value: "/2", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_canxlhdiv_tc4 = GCombo(widgetName: "gcombo_canxlhdiv_tc4", options: ["Stop","/1","/2","/3","/4","/5","/6","/8","/10","/12","/15"], value: "/2", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_fsidiv_tc4 = GCombo(widgetName: "gcombo_fsidiv_tc4", options: ["/1","/2","/3","/4","/5","/6","/8","/10","/12","/15"], value: "/4", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_sricsdiv_tc4 = GCombo(widgetName: "gcombo_sricsdiv_tc4", options: ["/1","/2"], value: "/1", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_tpbdiv_tc4 = GCombo(widgetName: "gcombo_tpbdiv_tc4", options: ["Stop","/1","/2","/3","/4","/5","/6","/8","/10","/12","/15"], value: "/2", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_stmdiv_tc4 = GCombo(widgetName: "gcombo_stmdiv_tc4", options: ["Stop","/1","/2","/3","/4","/5","/6","/8","/10","/12","/15"], value: "/1", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_gethdiv_tc4 = GCombo(widgetName: "gcombo_gethdiv_tc4", options: ["Stop","/1","/2","/3","/4"], value: "/2", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_mcanhdiv_tc4 = GCombo(widgetName: "gcombo_mcanhdiv_tc4", options: ["Stop","/1","/2","/3","/4","/5","/6","/8","/10","/12","/15","/10","/12","/15"], value: "/2", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_gtmdiv_tc4 = GCombo(widgetName: "gcombo_gtmdiv_tc4", options: ["Stop","/1","/2","/3","/4","/5","/6","/8","/10","/12","/15"], value: "/2", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_feraydiv_tc4 = GCombo(widgetName: "gcombo_feraydiv_tc4", options: ["Stop","/2"], value: "/2", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_mcandiv_tc4 = GCombo(widgetName: "gcombo_mcandiv_tc4", options: ["Stop","fOSC","fsource1/1","fsource1/2","fsource1/3","fsource1/4","fsource1/5","fsource1/6","fsource1/8","fsource1/10","fsource1/12","fsource1/15"], value: "fsource1/4", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_asclinsdiv_tc4 = GCombo(widgetName: "gcombo_asclinsdiv_tc4", options: ["Stop","fOSC","fsource1/1","fsource1/2","fsource1/3","fsource1/4","fsource1/5","fsource1/6","fsource1/8","fsource1/10","fsource1/12","fsource1/15"], value: "fsource1/2", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_mscdiv_tc4 = GCombo(widgetName: "gcombo_mscdiv_tc4", options: ["Stop","fsource1/1","fsource1/2","fsource1/3","fsource1/4","fsource1/5","fsource1/6","fsource1/8","fsource1/10","fsource1/12","fsource1/15","fsource2/1","fsource2/2","fsource2/3","fsource2/4","fsource2/5","fsource2/6","fsource2/8","fsource2/10","fsource2/12","fsource2/15"], value: "fsource2/1", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_qspidiv_tc4 = GCombo(widgetName: "gcombo_qspidiv_tc4", options: ["Stop","fsource1/1","fsource1/2","fsource1/3","fsource1/4","fsource1/5","fsource1/6","fsource1/8","fsource1/10","fsource1/12","fsource1/15","fsource2/1","fsource2/2","fsource2/3","fsource2/4","fsource2/5","fsource2/6","fsource2/8","fsource2/10","fsource2/12","fsource2/15"], value: "fsource2/1", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_asclinfdiv_tc4 = GCombo(widgetName: "gcombo_asclinfdiv_tc4", options: ["Stop","/1","/2","/3","/4","/5","/6","/8","/10","/12","/15"], value: "/1", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_i2cdiv_tc4 = GCombo(widgetName: "gcombo_i2cdiv_tc4", options: ["Stop","/1","/2","/3","/4","/5","/6","/8","/10","/12","/15"], value: "/2", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_extclk_sel0_tc4 = GCombo(widgetName: "gcombo_extclk_sel0_tc4", options: ["fBACK","fRAMP","fOSC","fPLL0","fPLL1","fPLL2","fPLL3","fFRAC","fSPB","fCPB","fTPB","fSRI","fFSI","fSTM","fGTM","feGTM","fGETH","fMCANH","fRCB","fLETH","fPPU","fCANXLH"], value: "fFRAC", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_extclk_dm_tc4 = GCombo(widgetName: "gcombo_extclk_dm_tc4", options: ["Normal","Fractional"], value: "Normal", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_extclk_sel1_tc4 = GCombo(widgetName: "gcombo_extclk_sel1_tc4", options: ["fBACK","fRAMP","fOSC","fPLL0","fPLL1","fPLL2","fPLL3","fDIV1","fMT0","fERAY","fMCAN","fADC","fQSPI","fMSC","fI2C","fASCLINF","fASCLINS","fXSPI","fSDMMC","fPPU","fCANXL","fLETH100","fXSPISL"], value: "fDIV1", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_ramptype_tc4 = GCombo(widgetName: "gcombo_ramptype_tc4", options: ["Idle","RampUp","RampDown"], value: "Idle", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_peripll_k3_tc4 = GCombo(widgetName: "gcombo_peripll_k3_tc4", options: ["1","2","3","4","5","6","7","8"], value: "4", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_peripll_k4_tc4 = GCombo(widgetName: "gcombo_peripll_k4_tc4", options: ["1","2","3","4","5","6","7","8"], value: "4", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_syspll_k3pre_tc4 = GCombo(widgetName: "gcombo_syspll_k3pre_tc4", options: ["1.0","1.1","1.2","1.4","1.6","1.7","2.0"], value: "1.0", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_syspll_k3_tc4 = GCombo(widgetName: "gcombo_syspll_k3_tc4", options: ["1","2","3","4","5","6","7","8"], value: "2", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_canxldiv_tc4 = GCombo(widgetName: "gcombo_canxldiv_tc4", options: ["Stop","fOSC","fsource1/1","fsource1/2","fsource1/3","fsource1/4","fsource1/5","fsource1/6","fsource1/8","fsource1/10","fsource1/12","fsource1/15"], value: "fsource1/2", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_fxspisldiv_tc4 = GCombo(widgetName: "gcombo_fxspisldiv_tc4", options: ["Stop","/1","/2","/4"], value: "/1", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_fsdmmcdiv_tc4 = GCombo(widgetName: "gcombo_fsdmmcdiv_tc4", options: ["Stop","/2"], value: "/2", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_fleth100div_tc4 = GCombo(widgetName: "gcombo_fleth100div_tc4", options: ["Stop","/1"], value: "/1", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_fxspidiv_tc4 = GCombo(widgetName: "gcombo_fxspidiv_tc4", options: ["Stop","/1"], value: "/1", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_fadcdiv_tc4 = GCombo(widgetName: "gcombo_fadcdiv_tc4", options: ["Stop","/1"], value: "/1", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_clksrcmode = GCombo(widgetName: "gcombo_clksrcmode", options: ["External Input Clock","External Crystal"], value: "External Crystal", enabled: false, visible: true, isMandatoryValue: false)
+	 gcombo_pllinsel_tc3 = GCombo(widgetName: "gcombo_pllinsel_tc3", options: ["fBACK","fOSC0","SYSCLK"], value: "fOSC0", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_syspll_divider_list_300 = GCombo(widgetName: "gcombo_syspll_divider_list_300", options: ["P:1 N:30 K2:2"], value: "P:1 N:30 K2:2", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_syspll_divider_list_160 = GCombo(widgetName: "gcombo_syspll_divider_list_160", options: ["P:1 N:32 K2:4"], value: "P:1 N:32 K2:4", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_pllinsel_2 = GCombo(widgetName: "gcombo_pllinsel_2", options: ["fBACK","fOSC0","SYSCLK"], value: "fOSC0", enabled: false, visible: true, isMandatoryValue: false)
+	 gcombo_peripll_divider_list_300 = GCombo(widgetName: "gcombo_peripll_divider_list_300", options: ["P:1 N:32 K2:2"], value: "P:1 N:32 K2:2", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_peripll_divider_list_160 = GCombo(widgetName: "gcombo_peripll_divider_list_160", options: ["P:1 N:32 K2:4"], value: "P:1 N:32 K2:4", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_peripll_k3div_300 = GCombo(widgetName: "gcombo_peripll_k3div_300", options: ["1.6","2","3.2","4","4.8","6","6.4","8","9.6","10","11.2","12","12.8","14","16"], value: "3.2", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_peripll_k3div_160 = GCombo(widgetName: "gcombo_peripll_k3div_160", options: ["1.6","2","3.2","4","4.8","6","6.4","8","9.6","10","11.2","12","12.8","14","16"], value: "4", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_clksel_0 = GCombo(widgetName: "gcombo_clksel_0", options: ["fBACK","fPLL0"], value: "fPLL0", enabled: false, visible: true, isMandatoryValue: false)
+	 gcombo_clksel_1 = GCombo(widgetName: "gcombo_clksel_1", options: ["fBACK","fPLL1"], value: "fPLL1", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_clksel_2 = GCombo(widgetName: "gcombo_clksel_2", options: ["fBACK","fPLL2"], value: "fPLL2", enabled: false, visible: true, isMandatoryValue: false)
+	 gcombo_sridiv = GCombo(widgetName: "gcombo_sridiv", options: ["/1","/2","/3","/4","/5","/6","/8","/10","/12","/15"], value: "/1", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_spbdiv_300 = GCombo(widgetName: "gcombo_spbdiv_300", options: ["/2","/3","/4","/5","/6","/8","/10","/12","/15"], value: "/3", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_spbdiv_160 = GCombo(widgetName: "gcombo_spbdiv_160", options: ["/2","/3","/4","/5","/6","/8","/10","/12","/15"], value: "/2", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_pll1div_300 = GCombo(widgetName: "gcombo_pll1div_300", options: ["/2","/1"], value: "/2", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_pll1div_160 = GCombo(widgetName: "gcombo_pll1div_160", options: ["/2","/1"], value: "/1", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_cpu0div = GCombo(widgetName: "gcombo_cpu0div", options: ["64/64","63/64","62/64","61/64","60/64","59/64","58/64","57/64","56/64","55/64","54/64","53/64","52/64","51/64","50/64","49/64","48/64","47/64","46/64","45/64","44/64","43/64","42/64","41/64","40/64","39/64","38/64","37/64","36/64","35/64","34/64","33/64","32/64","31/64","30/64","29/64","28/64","27/64","26/64","25/64","24/64","23/64","22/64","21/64","20/64","19/64","18/64","17/64","16/64","15/64","14/64","13/64","12/64","11/64","10/64","9/64","8/64","7/64","6/64","5/64","4/64","3/64","2/64","1/64"], value: "64/64", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_cpu1div = GCombo(widgetName: "gcombo_cpu1div", options: ["64/64","63/64","62/64","61/64","60/64","59/64","58/64","57/64","56/64","55/64","54/64","53/64","52/64","51/64","50/64","49/64","48/64","47/64","46/64","45/64","44/64","43/64","42/64","41/64","40/64","39/64","38/64","37/64","36/64","35/64","34/64","33/64","32/64","31/64","30/64","29/64","28/64","27/64","26/64","25/64","24/64","23/64","22/64","21/64","20/64","19/64","18/64","17/64","16/64","15/64","14/64","13/64","12/64","11/64","10/64","9/64","8/64","7/64","6/64","5/64","4/64","3/64","2/64","1/64"], value: "64/64", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_cpu2div = GCombo(widgetName: "gcombo_cpu2div", options: ["64/64","63/64","62/64","61/64","60/64","59/64","58/64","57/64","56/64","55/64","54/64","53/64","52/64","51/64","50/64","49/64","48/64","47/64","46/64","45/64","44/64","43/64","42/64","41/64","40/64","39/64","38/64","37/64","36/64","35/64","34/64","33/64","32/64","31/64","30/64","29/64","28/64","27/64","26/64","25/64","24/64","23/64","22/64","21/64","20/64","19/64","18/64","17/64","16/64","15/64","14/64","13/64","12/64","11/64","10/64","9/64","8/64","7/64","6/64","5/64","4/64","3/64","2/64","1/64"], value: "64/64", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_cpu3div = GCombo(widgetName: "gcombo_cpu3div", options: ["64/64","63/64","62/64","61/64","60/64","59/64","58/64","57/64","56/64","55/64","54/64","53/64","52/64","51/64","50/64","49/64","48/64","47/64","46/64","45/64","44/64","43/64","42/64","41/64","40/64","39/64","38/64","37/64","36/64","35/64","34/64","33/64","32/64","31/64","30/64","29/64","28/64","27/64","26/64","25/64","24/64","23/64","22/64","21/64","20/64","19/64","18/64","17/64","16/64","15/64","14/64","13/64","12/64","11/64","10/64","9/64","8/64","7/64","6/64","5/64","4/64","3/64","2/64","1/64"], value: "64/64", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_cpu4div = GCombo(widgetName: "gcombo_cpu4div", options: ["64/64","63/64","62/64","61/64","60/64","59/64","58/64","57/64","56/64","55/64","54/64","53/64","52/64","51/64","50/64","49/64","48/64","47/64","46/64","45/64","44/64","43/64","42/64","41/64","40/64","39/64","38/64","37/64","36/64","35/64","34/64","33/64","32/64","31/64","30/64","29/64","28/64","27/64","26/64","25/64","24/64","23/64","22/64","21/64","20/64","19/64","18/64","17/64","16/64","15/64","14/64","13/64","12/64","11/64","10/64","9/64","8/64","7/64","6/64","5/64","4/64","3/64","2/64","1/64"], value: "64/64", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_cpu5div = GCombo(widgetName: "gcombo_cpu5div", options: ["64/64","63/64","62/64","61/64","60/64","59/64","58/64","57/64","56/64","55/64","54/64","53/64","52/64","51/64","50/64","49/64","48/64","47/64","46/64","45/64","44/64","43/64","42/64","41/64","40/64","39/64","38/64","37/64","36/64","35/64","34/64","33/64","32/64","31/64","30/64","29/64","28/64","27/64","26/64","25/64","24/64","23/64","22/64","21/64","20/64","19/64","18/64","17/64","16/64","15/64","14/64","13/64","12/64","11/64","10/64","9/64","8/64","7/64","6/64","5/64","4/64","3/64","2/64","1/64"], value: "64/64", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_fsidiv_300 = GCombo(widgetName: "gcombo_fsidiv_300", options: ["/1","/2","/3"], value: "/3", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_fsidiv_160 = GCombo(widgetName: "gcombo_fsidiv_160", options: ["/1","/2","/3"], value: "/2", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_fsi2div = GCombo(widgetName: "gcombo_fsi2div", options: ["/1"], value: "/1", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_bbbdiv = GCombo(widgetName: "gcombo_bbbdiv", options: ["Stop","/1","/2","/3","/4","/5","/6","/8","/10","/12","/15"], value: "/2", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_stmdiv_300 = GCombo(widgetName: "gcombo_stmdiv_300", options: ["Stop","/1","/2","/3","/4","/5","/6","/8","/10","/12","/15"], value: "/3", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_stmdiv_160 = GCombo(widgetName: "gcombo_stmdiv_160", options: ["Stop","/1","/2","/3","/4","/5","/6","/8","/10","/12","/15"], value: "/2", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_gethdiv = GCombo(widgetName: "gcombo_gethdiv", options: ["Stop","/1","/2","/3","/4"], value: "/2", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_adasdiv = GCombo(widgetName: "gcombo_adasdiv", options: ["Stop","/1","/2","/3","/4","/5","/6","/8","/10","/12","/15"], value: "/1", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_mcanhdiv_300 = GCombo(widgetName: "gcombo_mcanhdiv_300", options: ["Stop","/1","/2","/3","/4","/5","/6","/8","/10","/12","/15"], value: "/3", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_mcanhdiv_160 = GCombo(widgetName: "gcombo_mcanhdiv_160", options: ["Stop","/1","/2","/3","/4","/5","/6","/8","/10","/12","/15"], value: "/2", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_gtmdiv = GCombo(widgetName: "gcombo_gtmdiv", options: ["Stop","fSPB*2","fSOURCE0/2","fSOURCE0/3","fSOURCE0/4","fSOURCE0/5","fSOURCE0/6","fSOURCE0/8","fSOURCE0/10","fSOURCE0/12","fSOURCE0/15"], value: "fSPB*2", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_hspdmperon = GCombo(widgetName: "gcombo_hspdmperon", options: ["Stop","/1"], value: "/1", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_erayperon = GCombo(widgetName: "gcombo_erayperon", options: ["Stop","/2"], value: "/2", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_mcandiv = GCombo(widgetName: "gcombo_mcandiv", options: ["Stop","fOSC0","fsource1/1","fsource1/2","fsource1/3","fsource1/4","fsource1/5","fsource1/6","fsource1/8","fsource1/10","fsource1/12","fsource1/15"], value: "fsource1/2", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_asclinsdiv = GCombo(widgetName: "gcombo_asclinsdiv", options: ["Stop","fOSC0","fsource1/1","fsource1/2","fsource1/3","fsource1/4","fsource1/5","fsource1/6","fsource1/8","fsource1/10","fsource1/12","fsource1/15"], value: "fsource1/2", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_ebuperon = GCombo(widgetName: "gcombo_ebuperon", options: ["Stop","/1"], value: "/1", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_hspdmperon_2 = GCombo(widgetName: "gcombo_hspdmperon_2", options: ["Stop","/1"], value: "/1", enabled: false, visible: true, isMandatoryValue: false)
+	 gcombo_mscdiv = GCombo(widgetName: "gcombo_mscdiv", options: ["Stop","fsource1/1","fsource1/2","fsource1/3","fsource1/4","fsource1/5","fsource1/6","fsource1/8","fsource1/10","fsource1/12","fsource1/15","fsource2/1","fsource2/2","fsource2/3","fsource2/4","fsource2/5","fsource2/6","fsource2/8","fsource2/10","fsource2/12","fsource2/15"], value: "fsource2/1", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_qspidiv = GCombo(widgetName: "gcombo_qspidiv", options: ["Stop","fsource1/1","fsource1/2","fsource1/3","fsource1/4","fsource1/5","fsource1/6","fsource1/8","fsource1/10","fsource1/12","fsource1/15","fsource2/1","fsource2/2","fsource2/3","fsource2/4","fsource2/5","fsource2/6","fsource2/8","fsource2/10","fsource2/12","fsource2/15"], value: "fsource2/1", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_asclinfdiv = GCombo(widgetName: "gcombo_asclinfdiv", options: ["Stop","fsource2/1","fsource2/2","fsource2/3","fsource2/4","fsource2/5","fsource2/6","fsource2/8","fsource2/10","fsource2/12","fsource2/15"], value: "fsource2/1", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_i2cdiv = GCombo(widgetName: "gcombo_i2cdiv", options: ["Stop","fsource2/1","fsource2/2","fsource2/3","fsource2/4","fsource2/5","fsource2/6","fsource2/8","fsource2/10","fsource2/12","fsource2/15"], value: "fsource2/3", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_extclk_sel0 = GCombo(widgetName: "gcombo_extclk_sel0", options: ["fOUT","fPLL0","fPLL1","fOSC0","fBACK","fPLL2","fBBB","fSRI","fSPB","fFSI","fSTM","fGTM","fFSI2","fMT0"], value: "fOUT", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_extclk_dm = GCombo(widgetName: "gcombo_extclk_dm", options: ["Normal","Fractional"], value: "Normal", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_extclk_sel1 = GCombo(widgetName: "gcombo_extclk_sel1", options: ["fOUT","fPLL0","fPLL1","fEBU","fBACK","fMCAN","fADC","fQSPI","fSRI","fSPB","fI2C","fMSC","fERAY","fASCLINF","fASCLINS"], value: "fOUT", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_syspll_modcfg = GCombo(widgetName: "gcombo_syspll_modcfg", options: ["Disable","0.5%","1.0%","1.25%","1.5%","2.0%","2.5%"], value: "Disable", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_perpll_modcfg_tc4 = GCombo(widgetName: "gcombo_perpll_modcfg_tc4", options: ["Disable","0.5%","1.0%","1.25%","1.5%","2.0%","2.5%"], value: "Disable", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_lpdiv = GCombo(widgetName: "gcombo_lpdiv", options: ["Not Use","fsource0/120"], value: "Not Use", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_extclk1_nsel = GCombo(widgetName: "gcombo_extclk1_nsel", options: ["Inveted","Not Inverted"], value: "Not Inverted", enabled: true, visible: true, isMandatoryValue: false)
+	 gfloat_fOSC_tc4 = GFloat(widgetName: "gfloat_fOSC_tc4", value: 25.0, minValue: 20, maxValue: 50, enabled: true, visible: true, isMandatoryValue: false)
+	 gfloat_SYSCLK_tc4 = GFloat(widgetName: "gfloat_SYSCLK_tc4", value: 25.0, minValue: 4, maxValue: 40, enabled: true, visible: true, isMandatoryValue: false)
+	 gfloat_syspll_fDCO_tc4 = GFloat(widgetName: "gfloat_syspll_fDCO_tc4", value: 800.0, minValue: 400, maxValue: 1000, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fPLL0_tc4 = GFloat(widgetName: "gfloat_fPLL0_tc4", value: 400.0, minValue: 25.0, maxValue: 500.0, enabled: true, visible: true, isMandatoryValue: false)
+	 gfloat_peripll_fDCO_tc4 = GFloat(widgetName: "gfloat_peripll_fDCO_tc4", value: 640.0, minValue: 400, maxValue: 800, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fPLL1_tc4 = GFloat(widgetName: "gfloat_fPLL1_tc4", value: 160.0, minValue: 25, maxValue: 160, enabled: true, visible: true, isMandatoryValue: false)
+	 gfloat_fPLL2_tc4 = GFloat(widgetName: "gfloat_fPLL2_tc4", value: 160.0, minValue: 50, maxValue: 200, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fHSCT_tc4 = GFloat(widgetName: "gfloat_fHSCT_tc4", value: 640.0, minValue: 400, maxValue: 800, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fsource0_tc4 = GFloat(widgetName: "gfloat_fsource0_tc4", value: 400.0, minValue: Double.NEGATIVE_INFINITY, maxValue: Double.POSITIVE_INFINITY, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fsource1_tc4 = GFloat(widgetName: "gfloat_fsource1_tc4", value: 160, minValue: 0, maxValue: Double.POSITIVE_INFINITY, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fsource2_tc4 = GFloat(widgetName: "gfloat_fsource2_tc4", value: 160.0, minValue: 0, maxValue: Double.POSITIVE_INFINITY, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fSPB_tc4 = GFloat(widgetName: "gfloat_fSPB_tc4", value: 100.0, minValue: 25, maxValue: 100, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fCPB_tc4 = GFloat(widgetName: "gfloat_fCPB_tc4", value: 100.0, minValue: 25, maxValue: 100, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fSTM_tc4 = GFloat(widgetName: "gfloat_fSTM_tc4", value: 400.0, minValue: 0, maxValue: 500, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fRCB_tc4 = GFloat(widgetName: "gfloat_fRCB_tc4", value: 200.0, minValue: 20.0, maxValue: 300.0, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fGTM_tc4 = GFloat(widgetName: "gfloat_fGTM_tc4", value: 200.0, minValue: 0, maxValue: 200, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_feGTM_tc4 = GFloat(widgetName: "gfloat_feGTM_tc4", value: 200.0, minValue: 0, maxValue: 500, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fGETH_tc4 = GFloat(widgetName: "gfloat_fGETH_tc4", value: 200.0, minValue: 150, maxValue: 250, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fLETH_tc4 = GFloat(widgetName: "gfloat_fLETH_tc4", value: 200.0, minValue: 125, maxValue: 250, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fMCANH_tc4 = GFloat(widgetName: "gfloat_fMCANH_tc4", value: 200.0, minValue: 0, maxValue: 250, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fCANXLH_tc4 = GFloat(widgetName: "gfloat_fCANXLH_tc4", value: 200.0, minValue: 0, maxValue: 250, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fFSI_tc4 = GFloat(widgetName: "gfloat_fFSI_tc4", value: 100.0, minValue: 25, maxValue: 100, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fTPB_tc4 = GFloat(widgetName: "gfloat_fTPB_tc4", value: 200.0, minValue: 0, maxValue: 250, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fREFCLK1_tc4 = GFloat(widgetName: "gfloat_fREFCLK1_tc4", value: 16.67, minValue: 0, maxValue: 100.0, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fSRICS_tc4 = GFloat(widgetName: "gfloat_fSRICS_tc4", value: 400.0, minValue: 0, maxValue: Double.POSITIVE_INFINITY, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fFSI2_tc4 = GFloat(widgetName: "gfloat_fFSI2_tc4", value: 400.0, minValue: 25, maxValue: 500, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fREFCLK2_tc4 = GFloat(widgetName: "gfloat_fREFCLK2_tc4", value: 6.67, minValue: 0, maxValue: Double.POSITIVE_INFINITY, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fERAY_tc4 = GFloat(widgetName: "gfloat_fERAY_tc4", value: 80.0, minValue: 0, maxValue: Double.POSITIVE_INFINITY, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fADC_tc4 = GFloat(widgetName: "gfloat_fADC_tc4", value: 160.0, minValue: 0, maxValue: Double.POSITIVE_INFINITY, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fMCAN_tc4 = GFloat(widgetName: "gfloat_fMCAN_tc4", value: 40.0, minValue: 0, maxValue: 160, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fCANXL_tc4 = GFloat(widgetName: "gfloat_fCANXL_tc4", value: 80.0, minValue: 0, maxValue: 160, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fASCLINS_tc4 = GFloat(widgetName: "gfloat_fASCLINS_tc4", value: 80.0, minValue: 0, maxValue: 200, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fMSC_tc4 = GFloat(widgetName: "gfloat_fMSC_tc4", value: 160.0, minValue: 0, maxValue: 200, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fQSPI_tc4 = GFloat(widgetName: "gfloat_fQSPI_tc4", value: 160.0, minValue: 0, maxValue: 200, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fASCLINF_tc4 = GFloat(widgetName: "gfloat_fASCLINF_tc4", value: 160.0, minValue: 0, maxValue: 200, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fI2C_tc4 = GFloat(widgetName: "gfloat_fI2C_tc4", value: 80.0, minValue: 0, maxValue: 100, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fLETH100_tc4 = GFloat(widgetName: "gfloat_fLETH100_tc4", value: 160.0, minValue: 0, maxValue: Double.POSITIVE_INFINITY, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fPPU_tc4 = GFloat(widgetName: "gfloat_fPPU_tc4", value: 400.0, minValue: 25, maxValue: 454, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fxSPI_tc4 = GFloat(widgetName: "gfloat_fxSPI_tc4", value: 160.0, minValue: 0, maxValue: 200, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fBACK_tc4 = GFloat(widgetName: "gfloat_fBACK_tc4", value: 100, minValue: 70, maxValue: 130, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fxSPISL_tc4 = GFloat(widgetName: "gfloat_fxSPISL_tc4", value: 160.0, minValue: 0, maxValue: 200, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fSRI_tc4 = GFloat(widgetName: "gfloat_fSRI_tc4", value: 400.0, minValue: 25, maxValue: 500, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fOSC_1_tc4 = GFloat(widgetName: "gfloat_fOSC_1_tc4", value: 20, minValue: 4.0, maxValue: 40.0, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fSDMMC_tc4 = GFloat(widgetName: "gfloat_fSDMMC_tc4", value: 80.0, minValue: 0, maxValue: Double.POSITIVE_INFINITY, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fBACK_2_tc4 = GFloat(widgetName: "gfloat_fBACK_2_tc4", value: 100, minValue: Double.NEGATIVE_INFINITY, maxValue: Double.POSITIVE_INFINITY, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fBACK_3_tc4 = GFloat(widgetName: "gfloat_fBACK_3_tc4", value: 100, minValue: 0, maxValue: Double.POSITIVE_INFINITY, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_ramptarget_tc4 = GFloat(widgetName: "gfloat_ramptarget_tc4", value: 400, minValue: 130, maxValue: Double.POSITIVE_INFINITY, enabled: true, visible: true, isMandatoryValue: false)
+	 gfloat_fPLL3_tc4 = GFloat(widgetName: "gfloat_fPLL3_tc4", value: 160, minValue: 50, maxValue: 400, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fPLLPPU_tc4 = GFloat(widgetName: "gfloat_fPLLPPU_tc4", value: 400, minValue: 25, maxValue: 454, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fSRI_1_tc4 = GFloat(widgetName: "gfloat_fSRI_1_tc4", value: 400, minValue: 25, maxValue: 500, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fsourceppu_tc4 = GFloat(widgetName: "gfloat_fsourceppu_tc4", value: 400, minValue: 25, maxValue: 454, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fsource3_tc4 = GFloat(widgetName: "gfloat_fsource3_tc4", value: 160, minValue: 0, maxValue: Double.POSITIVE_INFINITY, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fHSCT_1_tc4 = GFloat(widgetName: "gfloat_fHSCT_1_tc4", value: 640, minValue: 400, maxValue: 800, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fEXTCLK0_tc4 = GFloat(widgetName: "gfloat_fEXTCLK0_tc4", value: 0.04, minValue: 0, maxValue: Double.POSITIVE_INFINITY, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fEXTCLK1_tc4 = GFloat(widgetName: "gfloat_fEXTCLK1_tc4", value: 40, minValue: 0, maxValue: Double.POSITIVE_INFINITY, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fSB_tc4 = GFloat(widgetName: "gfloat_fSB_tc4", value: 70, minValue: 0, maxValue: Double.POSITIVE_INFINITY, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_SYSCLK_1_tc4 = GFloat(widgetName: "gfloat_SYSCLK_1_tc4", value: 20, minValue: 4, maxValue: 40, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fSPB_1_tc4 = GFloat(widgetName: "gfloat_fSPB_1_tc4", value: 80, minValue: 20.0, maxValue: 300.0, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fOSC0 = GFloat(widgetName: "gfloat_fOSC0", value: 20.0, minValue: 4, maxValue: 40, enabled: true, visible: true, isMandatoryValue: false)
+	 gfloat_SYSCLK = GFloat(widgetName: "gfloat_SYSCLK", value: 20.0, minValue: 4, maxValue: 40, enabled: true, visible: true, isMandatoryValue: false)
+	 gfloat_syspll_fDCO = GFloat(widgetName: "gfloat_syspll_fDCO", value: 600, minValue: 400, maxValue: 800, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fPLL0_300 = GFloat(widgetName: "gfloat_fPLL0_300", value: 300, minValue: 20.0, maxValue: 300.0, enabled: true, visible: true, isMandatoryValue: false)
+	 gfloat_fPLL0_160 = GFloat(widgetName: "gfloat_fPLL0_160", value: 160, minValue: 20.0, maxValue: 160, enabled: true, visible: true, isMandatoryValue: false)
+	 gfloat_peripll_fDCO = GFloat(widgetName: "gfloat_peripll_fDCO", value: 640.0, minValue: 400, maxValue: 800, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fPLL1_300 = GFloat(widgetName: "gfloat_fPLL1_300", value: 320, minValue: 20.0, maxValue: 320.0, enabled: true, visible: true, isMandatoryValue: false)
+	 gfloat_fPLL1_160 = GFloat(widgetName: "gfloat_fPLL1_160", value: 160.0, minValue: 20.0, maxValue: 160.0, enabled: true, visible: true, isMandatoryValue: false)
+	 gfloat_fPLL2 = GFloat(widgetName: "gfloat_fPLL2", value: 200.0, minValue: 20.0, maxValue: 200.0, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fHSCT = GFloat(widgetName: "gfloat_fHSCT", value: 320, minValue: 200.0, maxValue: 400.0, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fsource0 = GFloat(widgetName: "gfloat_fsource0", value: 300, minValue: Double.NEGATIVE_INFINITY, maxValue: Double.POSITIVE_INFINITY, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fSRI_tc3 = GFloat(widgetName: "gfloat_fSRI_tc3", value: 300, minValue: 20.0, maxValue: 300.0, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fSPB_tc3 = GFloat(widgetName: "gfloat_fSPB_tc3", value: 100, minValue: Double.NEGATIVE_INFINITY, maxValue: 100.0, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fsource1 = GFloat(widgetName: "gfloat_fsource1", value: 160, minValue: Double.NEGATIVE_INFINITY, maxValue: Double.POSITIVE_INFINITY, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fsource2 = GFloat(widgetName: "gfloat_fsource2", value: 200.0, minValue: Double.NEGATIVE_INFINITY, maxValue: Double.POSITIVE_INFINITY, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fCPU0 = GFloat(widgetName: "gfloat_fCPU0", value: 300, minValue: 20.0, maxValue: 300.0, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fCPU1 = GFloat(widgetName: "gfloat_fCPU1", value: 300, minValue: 20.0, maxValue: 300.0, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fCPU2 = GFloat(widgetName: "gfloat_fCPU2", value: 300, minValue: 20.0, maxValue: 300.0, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fCPU3 = GFloat(widgetName: "gfloat_fCPU3", value: 300, minValue: 20.0, maxValue: 300.0, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fCPU4 = GFloat(widgetName: "gfloat_fCPU4", value: 300, minValue: 20.0, maxValue: 300.0, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fCPU5 = GFloat(widgetName: "gfloat_fCPU5", value: 300, minValue: 20.0, maxValue: 300.0, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fFSI = GFloat(widgetName: "gfloat_fFSI", value: 100.0, minValue: 20.0, maxValue: 100.0, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fFSI2 = GFloat(widgetName: "gfloat_fFSI2", value: 300, minValue: Double.NEGATIVE_INFINITY, maxValue: 300.0, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fREFCLK1 = GFloat(widgetName: "gfloat_fREFCLK1", value: 12.5, minValue: Double.NEGATIVE_INFINITY, maxValue: Double.POSITIVE_INFINITY, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fBBB = GFloat(widgetName: "gfloat_fBBB", value: 150, minValue: Double.NEGATIVE_INFINITY, maxValue: 150.0, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fSTM_tc3 = GFloat(widgetName: "gfloat_fSTM_tc3", value: 100, minValue: Double.NEGATIVE_INFINITY, maxValue: 100.0, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fGETH = GFloat(widgetName: "gfloat_fGETH", value: 150, minValue: 100.0, maxValue: 150.0, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fADAS = GFloat(widgetName: "gfloat_fADAS", value: 300, minValue: 200.0, maxValue: 300.0, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fMCANH_tc3 = GFloat(widgetName: "gfloat_fMCANH_tc3", value: 100, minValue: Double.NEGATIVE_INFINITY, maxValue: 100.0, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fRAM = GFloat(widgetName: "gfloat_fRAM", value: 200, minValue: Double.NEGATIVE_INFINITY, maxValue: Double.POSITIVE_INFINITY, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fGTM_tc3 = GFloat(widgetName: "gfloat_fGTM_tc3", value: 200, minValue: Double.NEGATIVE_INFINITY, maxValue: 200.0, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fHSPDM_320 = GFloat(widgetName: "gfloat_fHSPDM_320", value: 320, minValue: Double.NEGATIVE_INFINITY, maxValue: Double.POSITIVE_INFINITY, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fREFCLK2 = GFloat(widgetName: "gfloat_fREFCLK2", value: 6.6, minValue: Double.NEGATIVE_INFINITY, maxValue: Double.POSITIVE_INFINITY, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fERAY = GFloat(widgetName: "gfloat_fERAY", value: 80.0, minValue: 80, maxValue: 80, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fMCAN_tc3 = GFloat(widgetName: "gfloat_fMCAN_tc3", value: 80.0, minValue: Double.NEGATIVE_INFINITY, maxValue: 80, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fASCLINS_tc3 = GFloat(widgetName: "gfloat_fASCLINS_tc3", value: 80.0, minValue: Double.NEGATIVE_INFINITY, maxValue: 200, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fADC_tc3 = GFloat(widgetName: "gfloat_fADC_tc3", value: 160.0, minValue: Double.NEGATIVE_INFINITY, maxValue: 160, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fEBU = GFloat(widgetName: "gfloat_fEBU", value: 160.0, minValue: Double.NEGATIVE_INFINITY, maxValue: Double.POSITIVE_INFINITY, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fHSPDM_160 = GFloat(widgetName: "gfloat_fHSPDM_160", value: 160.0, minValue: Double.NEGATIVE_INFINITY, maxValue: Double.POSITIVE_INFINITY, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fMSC = GFloat(widgetName: "gfloat_fMSC", value: 200.0, minValue: Double.NEGATIVE_INFINITY, maxValue: 200, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fQSPI_tc3 = GFloat(widgetName: "gfloat_fQSPI_tc3", value: 200.0, minValue: Double.NEGATIVE_INFINITY, maxValue: 200, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fASCLINF_tc3 = GFloat(widgetName: "gfloat_fASCLINF_tc3", value: 200.0, minValue: Double.NEGATIVE_INFINITY, maxValue: 200, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fI2C_tc3 = GFloat(widgetName: "gfloat_fI2C_tc3", value: 66.6, minValue: Double.NEGATIVE_INFINITY, maxValue: 100, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fEXTCLK0 = GFloat(widgetName: "gfloat_fEXTCLK0", value: 200, minValue: Double.NEGATIVE_INFINITY, maxValue: Double.POSITIVE_INFINITY, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fEXTCLK1 = GFloat(widgetName: "gfloat_fEXTCLK1", value: 200, minValue: Double.NEGATIVE_INFINITY, maxValue: Double.POSITIVE_INFINITY, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fBACK = GFloat(widgetName: "gfloat_fBACK", value: 100, minValue: Double.NEGATIVE_INFINITY, maxValue: Double.POSITIVE_INFINITY, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fSB = GFloat(widgetName: "gfloat_fSB", value: 70.0, minValue: 70, maxValue: 70, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fOSC0_2 = GFloat(widgetName: "gfloat_fOSC0_2", value: 20, minValue: 4.0, maxValue: 40.0, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fOSC0_3 = GFloat(widgetName: "gfloat_fOSC0_3", value: 20, minValue: 4.0, maxValue: 40.0, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fHSCT_2 = GFloat(widgetName: "gfloat_fHSCT_2", value: 320.0, minValue: Double.NEGATIVE_INFINITY, maxValue: Double.POSITIVE_INFINITY, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fBACK_2 = GFloat(widgetName: "gfloat_fBACK_2", value: 100, minValue: Double.NEGATIVE_INFINITY, maxValue: Double.POSITIVE_INFINITY, enabled: false, visible: true, isMandatoryValue: false)
+	 gfloat_fBACK_3 = GFloat(widgetName: "gfloat_fBACK_3", value: 100, minValue: Double.NEGATIVE_INFINITY, maxValue: Double.POSITIVE_INFINITY, enabled: false, visible: true, isMandatoryValue: false)
+	 gstring_extclk0_div2_tc4 = GString(widgetName: "gstring_extclk0_div2_tc4", value: " /2", enabled: false, visible: true, isMandatoryValue: false)
+	 gstring_extclk0_div2 = GString(widgetName: "gstring_extclk0_div2", value: " /2", enabled: false, visible: true, isMandatoryValue: false)
+	 gstring_mul2 = GString(widgetName: "gstring_mul2", value: " *2", enabled: false, visible: true, isMandatoryValue: false)
+	 gstring_div24_2 = GString(widgetName: "gstring_div24_2", value: " /24", enabled: false, visible: true, isMandatoryValue: false)
+	 gstring_extclk1_div2 = GString(widgetName: "gstring_extclk1_div2", value: " /2", enabled: false, visible: true, isMandatoryValue: false)
+	 gstring_div24 = GString(widgetName: "gstring_div24", value: " /24", enabled: false, visible: true, isMandatoryValue: false)
+	 gcheck_extclk_en0_tc4 = GCheck(widgetName: "gcheck_extclk_en0_tc4", value: false, enabled: true, visible: true)
+	 gcheck_extclk_en1_tc4 = GCheck(widgetName: "gcheck_extclk_en1_tc4", value: false, enabled: true, visible: true)
+	 gcheck_extclk_en0_tc3 = GCheck(widgetName: "gcheck_extclk_en0_tc3", value: false, enabled: true, visible: true)
+	 gcheck_extclk_en1_tc3 = GCheck(widgetName: "gcheck_extclk_en1_tc3", value: false, enabled: true, visible: true)
+	 glabel_extclk0_ramp_tc4 = GLabel(widgetName: "glabel_extclk0_ramp_tc4", text: "RAMP", enabled: true, visible: true)
+	 glabel_extclk1_ramp_tc4 = GLabel(widgetName: "glabel_extclk1_ramp_tc4", text: "RAMP", enabled: true, visible: true)
+	 glabel_syspll_modcfg = GLabel(widgetName: "glabel_syspll_modcfg", text: "SYSPLL Frequency Modulation", enabled: true, visible: true)
+	 glabel_perpll_modcfg_tc4 = GLabel(widgetName: "glabel_perpll_modcfg_tc4", text: "PERPLL Frequency Modulation", enabled: true, visible: true)
+	 glabel_lpdiv = GLabel(widgetName: "glabel_lpdiv", text: "Low Power Divider", enabled: true, visible: true)
+	 glabel_extclk1_nsel = GLabel(widgetName: "glabel_extclk1_nsel", text: "EXTCLK1 Negation", enabled: true, visible: true)
+	 ggroup_3_tc4 = GGroup(widgetName: "ggroup_3_tc4", text: "CGU", enabled: true, visible: true)
+	 ggroup_10_tc4 = GGroup(widgetName: "ggroup_10_tc4", text: "CCU", enabled: true, visible: true)
+	 gmessage_message_tc4 = GMessage(widgetName: "gmessage_message_tc4", text: "", isError: false, visible: true)
+	 gmessage_message = GMessage(widgetName: "gmessage_message", text: "", isError: false, visible: true)
+
+
+	 }
+	/* End : UI variable section */
+}

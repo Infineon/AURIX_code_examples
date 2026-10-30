@@ -1,0 +1,26 @@
+package Model.APPS.ETHERNET_CONFIG.v4_0_8;
+import ifx.davex.app.manifest.*;
+
+class Gindexgroup_add_vlan_tag_ID_settings{
+	 public GLabel glabel_sel_vlan_tag_filter;
+	 public GLabel glabel_add_tag_id;
+	 public GInteger ginteger_add_tag_id;
+	 public GLabel glabel_add_en_vlan_tag_comp;
+	 public GCombo gcombo_add_en_vlan_tag_comp;
+	 public GLabel glabel_add_dis_vlan_type_comp;
+	 public GCheck gcheck_add_dis_vlan_type_comp;
+	 public GLabel glabel_mac_add_dma_chn;
+	 public GCombo gcombo_mac_add_dma_chn;
+
+	public Gindexgroup_add_vlan_tag_ID_settings (DaveEnv daveEnv, String widgetName,int index){
+	 glabel_sel_vlan_tag_filter = new GLabel(widgetName: "glabel_sel_vlan_tag_filter", text: "Select VLAN Tag Filter", enabled: true, visible: true, parentWidgetName:widgetName)
+	 glabel_add_tag_id = new GLabel(widgetName: "glabel_add_tag_id", text: "Tag ID", enabled: true, visible: true, parentWidgetName:widgetName)
+	 ginteger_add_tag_id = new GInteger(widgetName: "ginteger_add_tag_id", value: 1, minValue: 0, maxValue: 65535, enabled: true, visible: true, isMandatoryValue: false, parentWidgetName:widgetName)
+	 glabel_add_en_vlan_tag_comp = new GLabel(widgetName: "glabel_add_en_vlan_tag_comp", text: "VLAN Tag Comparison", enabled: true, visible: true, parentWidgetName:widgetName)
+	 gcombo_add_en_vlan_tag_comp = new GCombo(widgetName: "gcombo_add_en_vlan_tag_comp", options: ["12-bit VLAN Tag","16-bit VLAN Tag"], value: "12-bit VLAN Tag", enabled: true, visible: true, isMandatoryValue: false, parentWidgetName:widgetName)
+	 glabel_add_dis_vlan_type_comp = new GLabel(widgetName: "glabel_add_dis_vlan_type_comp", text: "Disable VLAN Type Compare", enabled: true, visible: true, parentWidgetName:widgetName)
+	 gcheck_add_dis_vlan_type_comp = new GCheck(widgetName: "gcheck_add_dis_vlan_type_comp", value: false, enabled: true, visible: true, parentWidgetName:widgetName)
+	 glabel_mac_add_dma_chn = new GLabel(widgetName: "glabel_mac_add_dma_chn", text: "DMA Channel Map", enabled: true, visible: true, parentWidgetName:widgetName)
+	 gcombo_mac_add_dma_chn = new GCombo(widgetName: "gcombo_mac_add_dma_chn", options: ["DMA Channel 0","DMA Channel 1","DMA Channel 2","DMA Channel 3"], value: "DMA Channel 0", enabled: true, visible: true, isMandatoryValue: false, parentWidgetName:widgetName)
+	}
+}

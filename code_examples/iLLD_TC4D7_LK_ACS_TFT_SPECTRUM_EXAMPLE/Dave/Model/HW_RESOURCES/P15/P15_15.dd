@@ -1,0 +1,682 @@
+<?xml version="1.0" encoding="ASCII"?>
+<ResourceModel:Port xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ResourceModel="http://www.infineon.com/Davex/Resource.ecore" URI="http://resources/40.0.1/port/p/15" description="" baseAddress="0xF003DC00">
+  <provided xsi:type="ResourceModel:ResourceGroup" name="5" URI="http://resources/40.0.1/port/p/15/pad/5">
+    <resourcesList name="padcfg_gpio_set" requiredResourceUri="http://resources/40.0.1/port/p/15/padcfg5_gpio/set"/>
+    <resourcesList name="padcfg_gpio_clr" requiredResourceUri="http://resources/40.0.1/port/p/15/padcfg5_gpio/clr"/>
+    <resourcesList name="padcfg_safsec_esr_en" requiredResourceUri="http://resources/40.0.1/port/p/15/padcfg5_safsec/esr_en"/>
+    <resourcesList name="padcfg_accen_grp" requiredResourceUri="http://resources/40.0.1/port/p/15/padcfg5_accen/grp"/>
+    <resourcesList name="padcfg_dir" requiredResourceUri="http://resources/40.0.1/port/p/15/padcfg5_drvcfg/dir"/>
+    <resourcesList name="padcfg_od" requiredResourceUri="http://resources/40.0.1/port/p/15/padcfg5_drvcfg/od"/>
+    <resourcesList name="padcfg_mode" requiredResourceUri="http://resources/40.0.1/port/p/15/padcfg5_drvcfg/mode"/>
+    <resourcesList name="padcfg_pd" requiredResourceUri="http://resources/40.0.1/port/p/15/padcfg5_drvcfg/pd"/>
+    <resourcesList name="padcfg_pl" requiredResourceUri="http://resources/40.0.1/port/p/15/padcfg5_drvcfg/pl"/>
+    <resourcesList name="out_p" requiredResourceUri="http://resources/40.0.1/port/p/15/out/p5"/>
+    <resourcesList name="in_p" requiredResourceUri="http://resources/40.0.1/port/p/15/in/p5"/>
+    <resourcesList name="pcsrsel_pcsr" requiredResourceUri="http://resources/40.0.1/port/p/15/pcsrsel/pcsr5"/>
+    <resourcesList name="omr_ps" requiredResourceUri="http://resources/40.0.1/port/p/15/omr/ps5"/>
+    <resourcesList name="omr_pcl" requiredResourceUri="http://resources/40.0.1/port/p/15/omr/pcl5"/>
+    <resourcesList name="omcr_pcl" requiredResourceUri="http://resources/40.0.1/port/p/15/omcr/pcl5"/>
+    <resourcesList name="omsr_ps" requiredResourceUri="http://resources/40.0.1/port/p/15/omsr/ps5"/>
+    <resourcesList name="pdisc_pdis" requiredResourceUri="http://resources/40.0.1/port/p/15/pdisc/pdis5"/>
+    <resourcesList name="alt1" requiredResourceUri="http://resources/40.0.1/port/p/15/pad_5/alt1"/>
+    <resourcesList name="hwout2" requiredResourceUri="http://resources/40.0.1/port/p/15/pad_5/hwout2"/>
+    <resourcesList name="global" requiredResourceUri="http://resources/40.0.1/port/p/15/pad_5/global"/>
+    <resourcesList name="alt3" requiredResourceUri="http://resources/40.0.1/port/p/15/pad_5/alt3"/>
+    <resourcesList name="alt2" requiredResourceUri="http://resources/40.0.1/port/p/15/pad_5/alt2"/>
+    <resourcesList name="alt10" requiredResourceUri="http://resources/40.0.1/port/p/15/pad_5/alt10"/>
+    <resourcesList name="alt12" requiredResourceUri="http://resources/40.0.1/port/p/15/pad_5/alt12"/>
+    <resourcesList name="alt11" requiredResourceUri="http://resources/40.0.1/port/p/15/pad_5/alt11"/>
+    <resourcesList name="in_analog" requiredResourceUri="http://resources/40.0.1/port/p/15/pad_5/in_analog"/>
+    <resourcesList name="hwout1" requiredResourceUri="http://resources/40.0.1/port/p/15/pad_5/hwout1"/>
+    <resourcesList name="hwout0" requiredResourceUri="http://resources/40.0.1/port/p/15/pad_5/hwout0"/>
+    <resourcesList name="out" requiredResourceUri="http://resources/40.0.1/port/p/15/pad_5/out"/>
+    <resourcesList name="alt9" requiredResourceUri="http://resources/40.0.1/port/p/15/pad_5/alt9"/>
+    <resourcesList name="alt14" requiredResourceUri="http://resources/40.0.1/port/p/15/pad_5/alt14"/>
+    <resourcesList name="alt8" requiredResourceUri="http://resources/40.0.1/port/p/15/pad_5/alt8"/>
+    <resourcesList name="alt13" requiredResourceUri="http://resources/40.0.1/port/p/15/pad_5/alt13"/>
+    <resourcesList name="pad" requiredResourceUri="http://resources/40.0.1/port/p/15/pad_5/pad"/>
+    <resourcesList name="alt15" requiredResourceUri="http://resources/40.0.1/port/p/15/pad_5/alt15"/>
+    <resourcesList name="alt5" requiredResourceUri="http://resources/40.0.1/port/p/15/pad_5/alt5"/>
+    <resourcesList name="alt4" requiredResourceUri="http://resources/40.0.1/port/p/15/pad_5/alt4"/>
+    <resourcesList name="alt7" requiredResourceUri="http://resources/40.0.1/port/p/15/pad_5/alt7"/>
+    <resourcesList name="alt6" requiredResourceUri="http://resources/40.0.1/port/p/15/pad_5/alt6"/>
+    <resourcesList name="swreg_out" requiredResourceUri="http://resources/40.0.1/port/p/15/pad_5/swreg_out"/>
+    <resourcesList name="in" requiredResourceUri="http://resources/40.0.1/port/p/15/pad_5/in"/>
+    <resourcesList name="pad_out_gated" requiredResourceUri="http://resources/40.0.1/port/p/15/pad_5/pad_out_gated"/>
+  </provided>
+  <provided xsi:type="ResourceModel:RegisterParameter" name="PADCFG5_DRVCFG" URI="http://resources/40.0.1/port/p/15/padcfg5_drvcfg" value="00000000" toolTipHelpDescription="Port Pad configuration Control Register for pad5" defaultValue="00000000" addressOffset="0x00000354" resetValue="00000000" resetMask="0x00000000">
+    <bitFields name="DIR" URI="http://resources/40.0.1/port/p/15/padcfg5_drvcfg/dir" value="00000000" toolTipHelpDescription="Pad Signal direction" defaultValue="00000000" startPos="0" stopPos="0" accessPermission="rwh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Pad confligured as Input"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Pad confligured as Output"/>
+    </bitFields>
+    <bitFields name="OD" URI="http://resources/40.0.1/port/p/15/padcfg5_drvcfg/od" value="00000000" toolTipHelpDescription="Output Buffer configuration" defaultValue="00000000" startPos="1" stopPos="1" accessPermission="rwh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Push Pull"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Open Drain"/>
+    </bitFields>
+    <bitFields name="MODE" URI="http://resources/40.0.1/port/p/15/padcfg5_drvcfg/mode" value="00000000" toolTipHelpDescription="Input configuration or Alternative Output signal selection" defaultValue="00000000" startPos="4" stopPos="7" accessPermission="rwh" maxValue="15" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Pad configured in Tristate input mode or GPIO output mode"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Pad connected to alternative function 1 or input pull-down device"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="Pad connected to alternative function 2 or input pull-up device"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="Pad connected to alternative function 3 or input tristate mode"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b100" description="Alternative Output function 4 selected"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1111" description="Alternative Output function 15 selected"/>
+    </bitFields>
+    <bitFields name="PD" URI="http://resources/40.0.1/port/p/15/padcfg5_drvcfg/pd" value="00000000" toolTipHelpDescription="Pad drive mode" defaultValue="00000000" startPos="8" stopPos="10" accessPermission="rwh" maxValue="7" minValue="0"/>
+    <bitFields name="PL" URI="http://resources/40.0.1/port/p/15/padcfg5_drvcfg/pl" value="00000000" toolTipHelpDescription="Pad level selection" defaultValue="00000000" startPos="12" stopPos="14" accessPermission="rwh" maxValue="7" minValue="0"/>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="MODE" URI="http://resources/40.0.1/port/p/15/padcfg5_drvcfg/mode" value="00000000" toolTipHelpDescription="Input configuration or Alternative Output signal selection" defaultValue="00000000" startPos="4" stopPos="7" accessPermission="rwh" maxValue="15" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Pad configured in Tristate input mode or GPIO output mode"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Pad connected to alternative function 1 or input pull-down device"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="Pad connected to alternative function 2 or input pull-up device"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="Pad connected to alternative function 3 or input tristate mode"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b100" description="Alternative Output function 4 selected"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1111" description="Alternative Output function 15 selected"/>
+  </provided>
+  <provided xsi:type="ResourceModel:RegisterParameter" name="PDISC" URI="http://resources/40.0.1/port/p/15/pdisc" value="00000000" toolTipHelpDescription="Port n Pin Function Decision Control Register" defaultValue="00000000" addressOffset="0x0000002C" resetValue="00000000" resetMask="0x00000000">
+    <bitFields name="PDIS0" URI="http://resources/40.0.1/port/p/15/pdisc/pdis0" value="00000000" toolTipHelpDescription="Pin Function Decision Control for Pin [0]" defaultValue="00000000" startPos="0" stopPos="0" accessPermission="rwh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Digital functionality of pad Pn.0 is enabled."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Digital functionality (including pull resistors) of pad Pn.0 is disabled. Analog input function (where this is available) can be used."/>
+    </bitFields>
+    <bitFields name="PDIS1" URI="http://resources/40.0.1/port/p/15/pdisc/pdis1" value="00000000" toolTipHelpDescription="Pin Function Decision Control for Pin [1]" defaultValue="00000000" startPos="1" stopPos="1" accessPermission="rwh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Digital functionality of pad Pn.1 is enabled."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Digital functionality (including pull resistors) of pad Pn.1 is disabled. Analog input function (where this is available) can be used."/>
+    </bitFields>
+    <bitFields name="PDIS2" URI="http://resources/40.0.1/port/p/15/pdisc/pdis2" value="00000000" toolTipHelpDescription="Pin Function Decision Control for Pin [2]" defaultValue="00000000" startPos="2" stopPos="2" accessPermission="rwh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Digital functionality of pad Pn.2 is enabled."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Digital functionality (including pull resistors) of pad Pn.2 is disabled. Analog input function (where this is available) can be used."/>
+    </bitFields>
+    <bitFields name="PDIS3" URI="http://resources/40.0.1/port/p/15/pdisc/pdis3" value="00000000" toolTipHelpDescription="Pin Function Decision Control for Pin [3]" defaultValue="00000000" startPos="3" stopPos="3" accessPermission="rwh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Digital functionality of pad Pn.3 is enabled."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Digital functionality (including pull resistors) of pad Pn.3 is disabled. Analog input function (where this is available) can be used."/>
+    </bitFields>
+    <bitFields name="PDIS4" URI="http://resources/40.0.1/port/p/15/pdisc/pdis4" value="00000000" toolTipHelpDescription="Pin Function Decision Control for Pin [4]" defaultValue="00000000" startPos="4" stopPos="4" accessPermission="rwh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Digital functionality of pad Pn.4 is enabled."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Digital functionality (including pull resistors) of pad Pn.4 is disabled. Analog input function (where this is available) can be used."/>
+    </bitFields>
+    <bitFields name="PDIS5" URI="http://resources/40.0.1/port/p/15/pdisc/pdis5" value="00000000" toolTipHelpDescription="Pin Function Decision Control for Pin [5]" defaultValue="00000000" startPos="5" stopPos="5" accessPermission="rwh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Digital functionality of pad Pn.5 is enabled."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Digital functionality (including pull resistors) of pad Pn.5 is disabled. Analog input function (where this is available) can be used."/>
+    </bitFields>
+    <bitFields name="PDIS6" URI="http://resources/40.0.1/port/p/15/pdisc/pdis6" value="00000000" toolTipHelpDescription="Pin Function Decision Control for Pin [6]" defaultValue="00000000" startPos="6" stopPos="6" accessPermission="rwh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Digital functionality of pad Pn.6 is enabled."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Digital functionality (including pull resistors) of pad Pn.6 is disabled. Analog input function (where this is available) can be used."/>
+    </bitFields>
+    <bitFields name="PDIS7" URI="http://resources/40.0.1/port/p/15/pdisc/pdis7" value="00000000" toolTipHelpDescription="Pin Function Decision Control for Pin [7]" defaultValue="00000000" startPos="7" stopPos="7" accessPermission="rwh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Digital functionality of pad Pn.7 is enabled."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Digital functionality (including pull resistors) of pad Pn.7 is disabled. Analog input function (where this is available) can be used."/>
+    </bitFields>
+    <bitFields name="PDIS8" URI="http://resources/40.0.1/port/p/15/pdisc/pdis8" value="00000000" toolTipHelpDescription="Pin Function Decision Control for Pin [8]" defaultValue="00000000" startPos="8" stopPos="8" accessPermission="rwh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Digital functionality of pad Pn.8 is enabled."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Digital functionality (including pull resistors) of pad Pn.8 is disabled. Analog input function (where this is available) can be used."/>
+    </bitFields>
+    <bitFields name="PDIS9" URI="http://resources/40.0.1/port/p/15/pdisc/pdis9" value="00000000" toolTipHelpDescription="Pin Function Decision Control for Pin [9]" defaultValue="00000000" startPos="9" stopPos="9" accessPermission="rwh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Digital functionality of pad Pn.9 is enabled."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Digital functionality (including pull resistors) of pad Pn.9 is disabled. Analog input function (where this is available) can be used."/>
+    </bitFields>
+    <bitFields name="PDIS10" URI="http://resources/40.0.1/port/p/15/pdisc/pdis10" value="00000000" toolTipHelpDescription="Pin Function Decision Control for Pin [10]" defaultValue="00000000" startPos="10" stopPos="10" accessPermission="rwh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Digital functionality of pad Pn.10 is enabled."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Digital functionality (including pull resistors) of pad Pn.10 is disabled. Analog input function (where this is available) can be used."/>
+    </bitFields>
+    <bitFields name="PDIS11" URI="http://resources/40.0.1/port/p/15/pdisc/pdis11" value="00000000" toolTipHelpDescription="Pin Function Decision Control for Pin [11]" defaultValue="00000000" startPos="11" stopPos="11" accessPermission="rwh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Digital functionality of pad Pn.11 is enabled."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Digital functionality (including pull resistors) of pad Pn.11 is disabled. Analog input function (where this is available) can be used."/>
+    </bitFields>
+    <bitFields name="PDIS12" URI="http://resources/40.0.1/port/p/15/pdisc/pdis12" value="00000000" toolTipHelpDescription="Pin Function Decision Control for Pin [12]" defaultValue="00000000" startPos="12" stopPos="12" accessPermission="rwh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Digital functionality of pad Pn.12 is enabled."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Digital functionality (including pull resistors) of pad Pn.12 is disabled. Analog input function (where this is available) can be used."/>
+    </bitFields>
+    <bitFields name="PDIS13" URI="http://resources/40.0.1/port/p/15/pdisc/pdis13" value="00000000" toolTipHelpDescription="Pin Function Decision Control for Pin [13]" defaultValue="00000000" startPos="13" stopPos="13" accessPermission="rwh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Digital functionality of pad Pn.13 is enabled."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Digital functionality (including pull resistors) of pad Pn.13 is disabled. Analog input function (where this is available) can be used."/>
+    </bitFields>
+    <bitFields name="PDIS14" URI="http://resources/40.0.1/port/p/15/pdisc/pdis14" value="00000000" toolTipHelpDescription="Pin Function Decision Control for Pin [14]" defaultValue="00000000" startPos="14" stopPos="14" accessPermission="rwh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Digital functionality of pad Pn.14 is enabled."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Digital functionality (including pull resistors) of pad Pn.14 is disabled. Analog input function (where this is available) can be used."/>
+    </bitFields>
+    <bitFields name="PDIS15" URI="http://resources/40.0.1/port/p/15/pdisc/pdis15" value="00000000" toolTipHelpDescription="Pin Function Decision Control for Pin [15]" defaultValue="00000000" startPos="15" stopPos="15" accessPermission="rwh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Digital functionality of pad Pn.15 is enabled."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Digital functionality (including pull resistors) of pad Pn.15 is disabled. Analog input function (where this is available) can be used."/>
+    </bitFields>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="PDIS5" URI="http://resources/40.0.1/port/p/15/pdisc/pdis5" value="00000000" toolTipHelpDescription="Pin Function Decision Control for Pin [5]" defaultValue="00000000" startPos="5" stopPos="5" accessPermission="rwh" maxValue="1" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Digital functionality of pad Pn.5 is enabled."/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Digital functionality (including pull resistors) of pad Pn.5 is disabled. Analog input function (where this is available) can be used."/>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="DIR" URI="http://resources/40.0.1/port/p/15/padcfg5_drvcfg/dir" value="00000000" toolTipHelpDescription="Pad Signal direction" defaultValue="00000000" startPos="0" stopPos="0" accessPermission="rwh" maxValue="1" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Pad confligured as Input"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Pad confligured as Output"/>
+  </provided>
+  <provided xsi:type="ResourceModel:RegisterParameter" name="PADCFG5_GPIO" URI="http://resources/40.0.1/port/p/15/padcfg5_gpio" value="00000000" toolTipHelpDescription="Port GPIO Control Register for pin 5" defaultValue="00000000" addressOffset="0x00000350" resetValue="00000000" resetMask="0x00000000">
+    <bitFields name="OUT" URI="http://resources/40.0.1/port/p/15/padcfg5_gpio/out" value="00000000" toolTipHelpDescription="Output value" defaultValue="00000000" startPos="0" stopPos="0" accessPermission="rh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Set the input level of Pn.x to the low state."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Set the level of Pn.x to the high state."/>
+    </bitFields>
+    <bitFields name="SET" URI="http://resources/40.0.1/port/p/15/padcfg5_gpio/set" value="00000000" toolTipHelpDescription="Set" defaultValue="00000000" startPos="2" stopPos="2" accessPermission="w" maxValue="1" minValue="0"/>
+    <bitFields name="CLR" URI="http://resources/40.0.1/port/p/15/padcfg5_gpio/clr" value="00000000" toolTipHelpDescription="Clear" defaultValue="00000000" startPos="3" stopPos="3" accessPermission="w" maxValue="1" minValue="0"/>
+    <bitFields name="IN" URI="http://resources/40.0.1/port/p/15/padcfg5_gpio/in" value="00000000" toolTipHelpDescription="Read back Pin value" defaultValue="00000000" startPos="8" stopPos="8" accessPermission="rh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="The input level of Pn.x is 0."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="The input level of Pn.x is 1."/>
+    </bitFields>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="SET" URI="http://resources/40.0.1/port/p/15/padcfg5_gpio/set" value="00000000" toolTipHelpDescription="Set" defaultValue="00000000" startPos="2" stopPos="2" accessPermission="w" maxValue="1" minValue="0"/>
+  <provided xsi:type="ResourceModel:BitField" name="CLR" URI="http://resources/40.0.1/port/p/15/padcfg5_gpio/clr" value="00000000" toolTipHelpDescription="Clear" defaultValue="00000000" startPos="3" stopPos="3" accessPermission="w" maxValue="1" minValue="0"/>
+  <provided xsi:type="ResourceModel:RegisterParameter" name="PADCFG5_SAFSEC" URI="http://resources/40.0.1/port/p/15/padcfg5_safsec" value="00000000" toolTipHelpDescription="Port Pad Safety and Security Control Register for pad5" defaultValue="00000000" addressOffset="0x0000035C" resetValue="00000000" resetMask="0x00000000">
+    <bitFields name="ESR_EN" URI="http://resources/40.0.1/port/p/15/padcfg5_safsec/esr_en" value="00000000" toolTipHelpDescription="Emergency Request Action Enable" defaultValue="00000000" startPos="0" stopPos="0" accessPermission="rwh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Emergency stop function disabled. The output line remains connected (alternate function)."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Emergency stop function enabled. The mapped output function is disconnected and the safe state is entered by switching to input function with internal pull-up connected or tri-state, depending on the configured reset value of the corresponding Port CFG register through PMSWCR5.TRISTREQ or setting of HWCFG[6].(the content of the corresponding ESRx bit fields in register CFG will not be considered)."/>
+    </bitFields>
+    <bitFields name="ESR_PPL" URI="http://resources/40.0.1/port/p/15/padcfg5_safsec/esr_ppl" value="00000000" toolTipHelpDescription="Emergency status Push-Pull level" defaultValue="00000000" startPos="1" stopPos="1" accessPermission="rwh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="The onput level of Pn.x is 0."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="The onput level of Pn.x is 1."/>
+    </bitFields>
+    <bitFields name="ESR_PD" URI="http://resources/40.0.1/port/p/15/padcfg5_safsec/esr_pd" value="00000000" toolTipHelpDescription="Emergency status Pad configuration" defaultValue="00000000" startPos="4" stopPos="5" accessPermission="rwh" maxValue="3" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="PAD in Push-PULL configuration when ESR is active. Level defined by field ESR_PPL"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Tristate, weak pull-up"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="Tristate, weak pull-down"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="Reserved - defaults to Tristate Pull Down"/>
+    </bitFields>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="ESR_EN" URI="http://resources/40.0.1/port/p/15/padcfg5_safsec/esr_en" value="00000000" toolTipHelpDescription="Emergency Request Action Enable" defaultValue="00000000" startPos="0" stopPos="0" accessPermission="rwh" maxValue="1" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Emergency stop function disabled. The output line remains connected (alternate function)."/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Emergency stop function enabled. The mapped output function is disconnected and the safe state is entered by switching to input function with internal pull-up connected or tri-state, depending on the configured reset value of the corresponding Port CFG register through PMSWCR5.TRISTREQ or setting of HWCFG[6].(the content of the corresponding ESRx bit fields in register CFG will not be considered)."/>
+  </provided>
+  <provided xsi:type="ResourceModel:RegisterParameter" name="PADCFG5_ACCEN" URI="http://resources/40.0.1/port/p/15/padcfg5_accen" value="00000000" toolTipHelpDescription="Port Pad Access Control Register for pad5" defaultValue="00000000" addressOffset="0x00000358" resetValue="00000000" resetMask="0x00000000">
+    <bitFields name="GRP" URI="http://resources/40.0.1/port/p/15/padcfg5_accen/grp" value="00000000" toolTipHelpDescription="Access Protection Group selection" defaultValue="00000000" startPos="0" stopPos="2" accessPermission="rw" maxValue="7" minValue="0"/>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="GRP" URI="http://resources/40.0.1/port/p/15/padcfg5_accen/grp" value="00000000" toolTipHelpDescription="Access Protection Group selection" defaultValue="00000000" startPos="0" stopPos="2" accessPermission="rw" maxValue="7" minValue="0"/>
+  <provided xsi:type="ResourceModel:BitField" name="OD" URI="http://resources/40.0.1/port/p/15/padcfg5_drvcfg/od" value="00000000" toolTipHelpDescription="Output Buffer configuration" defaultValue="00000000" startPos="1" stopPos="1" accessPermission="rwh" maxValue="1" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Push Pull"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Open Drain"/>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="PD" URI="http://resources/40.0.1/port/p/15/padcfg5_drvcfg/pd" value="00000000" toolTipHelpDescription="Pad drive mode" defaultValue="00000000" startPos="8" stopPos="10" accessPermission="rwh" maxValue="7" minValue="0"/>
+  <provided xsi:type="ResourceModel:BitField" name="PL" URI="http://resources/40.0.1/port/p/15/padcfg5_drvcfg/pl" value="00000000" toolTipHelpDescription="Pad level selection" defaultValue="00000000" startPos="12" stopPos="14" accessPermission="rwh" maxValue="7" minValue="0"/>
+  <provided xsi:type="ResourceModel:RegisterParameter" name="OUT" URI="http://resources/40.0.1/port/p/15/out" value="00000000" toolTipHelpDescription="Port Output Register" defaultValue="00000000" addressOffset="0x00000020" resetValue="00000000" resetMask="0x00000000">
+    <bitFields name="P0" URI="http://resources/40.0.1/port/p/15/out/p0" value="00000000" toolTipHelpDescription="Input Bit [0]" defaultValue="00000000" startPos="0" stopPos="0" accessPermission="rwh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="The output level of Pn.0 is 0."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="The output level of Pn.0 is 1."/>
+    </bitFields>
+    <bitFields name="P1" URI="http://resources/40.0.1/port/p/15/out/p1" value="00000000" toolTipHelpDescription="Input Bit [1]" defaultValue="00000000" startPos="1" stopPos="1" accessPermission="rwh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="The output level of Pn.1 is 0."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="The output level of Pn.1 is 1."/>
+    </bitFields>
+    <bitFields name="P2" URI="http://resources/40.0.1/port/p/15/out/p2" value="00000000" toolTipHelpDescription="Input Bit [2]" defaultValue="00000000" startPos="2" stopPos="2" accessPermission="rwh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="The output level of Pn.2 is 0."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="The output level of Pn.2 is 1."/>
+    </bitFields>
+    <bitFields name="P3" URI="http://resources/40.0.1/port/p/15/out/p3" value="00000000" toolTipHelpDescription="Input Bit [3]" defaultValue="00000000" startPos="3" stopPos="3" accessPermission="rwh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="The output level of Pn.3 is 0."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="The output level of Pn.3 is 1."/>
+    </bitFields>
+    <bitFields name="P4" URI="http://resources/40.0.1/port/p/15/out/p4" value="00000000" toolTipHelpDescription="Input Bit [4]" defaultValue="00000000" startPos="4" stopPos="4" accessPermission="rwh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="The output level of Pn.4 is 0."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="The output level of Pn.4 is 1."/>
+    </bitFields>
+    <bitFields name="P5" URI="http://resources/40.0.1/port/p/15/out/p5" value="00000000" toolTipHelpDescription="Input Bit [5]" defaultValue="00000000" startPos="5" stopPos="5" accessPermission="rwh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="The output level of Pn.5 is 0."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="The output level of Pn.5 is 1."/>
+    </bitFields>
+    <bitFields name="P6" URI="http://resources/40.0.1/port/p/15/out/p6" value="00000000" toolTipHelpDescription="Input Bit [6]" defaultValue="00000000" startPos="6" stopPos="6" accessPermission="rwh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="The output level of Pn.6 is 0."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="The output level of Pn.6 is 1."/>
+    </bitFields>
+    <bitFields name="P7" URI="http://resources/40.0.1/port/p/15/out/p7" value="00000000" toolTipHelpDescription="Input Bit [7]" defaultValue="00000000" startPos="7" stopPos="7" accessPermission="rwh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="The output level of Pn.7 is 0."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="The output level of Pn.7 is 1."/>
+    </bitFields>
+    <bitFields name="P8" URI="http://resources/40.0.1/port/p/15/out/p8" value="00000000" toolTipHelpDescription="Input Bit [8]" defaultValue="00000000" startPos="8" stopPos="8" accessPermission="rwh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="The output level of Pn.8 is 0."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="The output level of Pn.8 is 1."/>
+    </bitFields>
+    <bitFields name="P9" URI="http://resources/40.0.1/port/p/15/out/p9" value="00000000" toolTipHelpDescription="Input Bit [9]" defaultValue="00000000" startPos="9" stopPos="9" accessPermission="rwh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="The output level of Pn.9 is 0."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="The output level of Pn.9 is 1."/>
+    </bitFields>
+    <bitFields name="P10" URI="http://resources/40.0.1/port/p/15/out/p10" value="00000000" toolTipHelpDescription="Input Bit [10]" defaultValue="00000000" startPos="10" stopPos="10" accessPermission="rwh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="The output level of Pn.10 is 0."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="The output level of Pn.10 is 1."/>
+    </bitFields>
+    <bitFields name="P11" URI="http://resources/40.0.1/port/p/15/out/p11" value="00000000" toolTipHelpDescription="Input Bit [11]" defaultValue="00000000" startPos="11" stopPos="11" accessPermission="rwh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="The output level of Pn.11 is 0."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="The output level of Pn.11 is 1."/>
+    </bitFields>
+    <bitFields name="P12" URI="http://resources/40.0.1/port/p/15/out/p12" value="00000000" toolTipHelpDescription="Input Bit [12]" defaultValue="00000000" startPos="12" stopPos="12" accessPermission="rwh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="The output level of Pn.12 is 0."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="The output level of Pn.12 is 1."/>
+    </bitFields>
+    <bitFields name="P13" URI="http://resources/40.0.1/port/p/15/out/p13" value="00000000" toolTipHelpDescription="Input Bit [13]" defaultValue="00000000" startPos="13" stopPos="13" accessPermission="rwh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="The output level of Pn.13 is 0."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="The output level of Pn.13 is 1."/>
+    </bitFields>
+    <bitFields name="P14" URI="http://resources/40.0.1/port/p/15/out/p14" value="00000000" toolTipHelpDescription="Input Bit [14]" defaultValue="00000000" startPos="14" stopPos="14" accessPermission="rwh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="The output level of Pn.14 is 0."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="The output level of Pn.14 is 1."/>
+    </bitFields>
+    <bitFields name="P15" URI="http://resources/40.0.1/port/p/15/out/p15" value="00000000" toolTipHelpDescription="Input Bit [15]" defaultValue="00000000" startPos="15" stopPos="15" accessPermission="rwh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="The output level of Pn.15 is 0."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="The output level of Pn.15 is 1."/>
+    </bitFields>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="P5" URI="http://resources/40.0.1/port/p/15/out/p5" value="00000000" toolTipHelpDescription="Input Bit [5]" defaultValue="00000000" startPos="5" stopPos="5" accessPermission="rwh" maxValue="1" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="The output level of Pn.5 is 0."/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="The output level of Pn.5 is 1."/>
+  </provided>
+  <provided xsi:type="ResourceModel:RegisterParameter" name="IN" URI="http://resources/40.0.1/port/p/15/in" value="00000000" toolTipHelpDescription="Port Input Register" defaultValue="00000000" addressOffset="0x00000024" resetValue="00000000" resetMask="0x00000000">
+    <bitFields name="P0" URI="http://resources/40.0.1/port/p/15/in/p0" value="00000000" toolTipHelpDescription="Input Bit [0]" defaultValue="00000000" startPos="0" stopPos="0" accessPermission="rh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="The input level of Pn.0 is 0."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="The input level of Pn.0 is 1."/>
+    </bitFields>
+    <bitFields name="P1" URI="http://resources/40.0.1/port/p/15/in/p1" value="00000000" toolTipHelpDescription="Input Bit [1]" defaultValue="00000000" startPos="1" stopPos="1" accessPermission="rh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="The input level of Pn.1 is 0."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="The input level of Pn.1 is 1."/>
+    </bitFields>
+    <bitFields name="P2" URI="http://resources/40.0.1/port/p/15/in/p2" value="00000000" toolTipHelpDescription="Input Bit [2]" defaultValue="00000000" startPos="2" stopPos="2" accessPermission="rh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="The input level of Pn.2 is 0."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="The input level of Pn.2 is 1."/>
+    </bitFields>
+    <bitFields name="P3" URI="http://resources/40.0.1/port/p/15/in/p3" value="00000000" toolTipHelpDescription="Input Bit [3]" defaultValue="00000000" startPos="3" stopPos="3" accessPermission="rh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="The input level of Pn.3 is 0."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="The input level of Pn.3 is 1."/>
+    </bitFields>
+    <bitFields name="P4" URI="http://resources/40.0.1/port/p/15/in/p4" value="00000000" toolTipHelpDescription="Input Bit [4]" defaultValue="00000000" startPos="4" stopPos="4" accessPermission="rh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="The input level of Pn.4 is 0."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="The input level of Pn.4 is 1."/>
+    </bitFields>
+    <bitFields name="P5" URI="http://resources/40.0.1/port/p/15/in/p5" value="00000000" toolTipHelpDescription="Input Bit [5]" defaultValue="00000000" startPos="5" stopPos="5" accessPermission="rh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="The input level of Pn.5 is 0."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="The input level of Pn.5 is 1."/>
+    </bitFields>
+    <bitFields name="P6" URI="http://resources/40.0.1/port/p/15/in/p6" value="00000000" toolTipHelpDescription="Input Bit [6]" defaultValue="00000000" startPos="6" stopPos="6" accessPermission="rh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="The input level of Pn.6 is 0."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="The input level of Pn.6 is 1."/>
+    </bitFields>
+    <bitFields name="P7" URI="http://resources/40.0.1/port/p/15/in/p7" value="00000000" toolTipHelpDescription="Input Bit [7]" defaultValue="00000000" startPos="7" stopPos="7" accessPermission="rh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="The input level of Pn.7 is 0."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="The input level of Pn.7 is 1."/>
+    </bitFields>
+    <bitFields name="P8" URI="http://resources/40.0.1/port/p/15/in/p8" value="00000000" toolTipHelpDescription="Input Bit [8]" defaultValue="00000000" startPos="8" stopPos="8" accessPermission="rh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="The input level of Pn.8 is 0."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="The input level of Pn.8 is 1."/>
+    </bitFields>
+    <bitFields name="P9" URI="http://resources/40.0.1/port/p/15/in/p9" value="00000000" toolTipHelpDescription="Input Bit [9]" defaultValue="00000000" startPos="9" stopPos="9" accessPermission="rh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="The input level of Pn.9 is 0."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="The input level of Pn.9 is 1."/>
+    </bitFields>
+    <bitFields name="P10" URI="http://resources/40.0.1/port/p/15/in/p10" value="00000000" toolTipHelpDescription="Input Bit [10]" defaultValue="00000000" startPos="10" stopPos="10" accessPermission="rh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="The input level of Pn.10 is 0."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="The input level of Pn.10 is 1."/>
+    </bitFields>
+    <bitFields name="P11" URI="http://resources/40.0.1/port/p/15/in/p11" value="00000000" toolTipHelpDescription="Input Bit [11]" defaultValue="00000000" startPos="11" stopPos="11" accessPermission="rh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="The input level of Pn.11 is 0."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="The input level of Pn.11 is 1."/>
+    </bitFields>
+    <bitFields name="P12" URI="http://resources/40.0.1/port/p/15/in/p12" value="00000000" toolTipHelpDescription="Input Bit [12]" defaultValue="00000000" startPos="12" stopPos="12" accessPermission="rh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="The input level of Pn.12 is 0."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="The input level of Pn.12 is 1."/>
+    </bitFields>
+    <bitFields name="P13" URI="http://resources/40.0.1/port/p/15/in/p13" value="00000000" toolTipHelpDescription="Input Bit [13]" defaultValue="00000000" startPos="13" stopPos="13" accessPermission="rh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="The input level of Pn.13 is 0."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="The input level of Pn.13 is 1."/>
+    </bitFields>
+    <bitFields name="P14" URI="http://resources/40.0.1/port/p/15/in/p14" value="00000000" toolTipHelpDescription="Input Bit [14]" defaultValue="00000000" startPos="14" stopPos="14" accessPermission="rh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="The input level of Pn.14 is 0."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="The input level of Pn.14 is 1."/>
+    </bitFields>
+    <bitFields name="P15" URI="http://resources/40.0.1/port/p/15/in/p15" value="00000000" toolTipHelpDescription="Input Bit [15]" defaultValue="00000000" startPos="15" stopPos="15" accessPermission="rh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="The input level of Pn.15 is 0."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="The input level of Pn.15 is 1."/>
+    </bitFields>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="P5" URI="http://resources/40.0.1/port/p/15/in/p5" value="00000000" toolTipHelpDescription="Input Bit [5]" defaultValue="00000000" startPos="5" stopPos="5" accessPermission="rh" maxValue="1" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="The input level of Pn.5 is 0."/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="The input level of Pn.5 is 1."/>
+  </provided>
+  <provided xsi:type="ResourceModel:RegisterParameter" name="PCSRSEL" URI="http://resources/40.0.1/port/p/15/pcsrsel" value="00000000" toolTipHelpDescription="Selection Register for Module x Port Control" defaultValue="00000000" addressOffset="0x00000034" resetValue="00000000" resetMask="0x00000000">
+    <bitFields name="PCSR0" URI="http://resources/40.0.1/port/p/15/pcsrsel/pcsr0" value="00000000" toolTipHelpDescription="Pad control selection [0]" defaultValue="00000000" startPos="0" stopPos="0" accessPermission="rwh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Main system has control over pad"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Control over pad is given to a particular module 0"/>
+    </bitFields>
+    <bitFields name="PCSR1" URI="http://resources/40.0.1/port/p/15/pcsrsel/pcsr1" value="00000000" toolTipHelpDescription="Pad control selection [1]" defaultValue="00000000" startPos="1" stopPos="1" accessPermission="rwh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Main system has control over pad"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Control over pad is given to a particular module 1"/>
+    </bitFields>
+    <bitFields name="PCSR2" URI="http://resources/40.0.1/port/p/15/pcsrsel/pcsr2" value="00000000" toolTipHelpDescription="Pad control selection [2]" defaultValue="00000000" startPos="2" stopPos="2" accessPermission="rwh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Main system has control over pad"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Control over pad is given to a particular module 2"/>
+    </bitFields>
+    <bitFields name="PCSR3" URI="http://resources/40.0.1/port/p/15/pcsrsel/pcsr3" value="00000000" toolTipHelpDescription="Pad control selection [3]" defaultValue="00000000" startPos="3" stopPos="3" accessPermission="rwh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Main system has control over pad"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Control over pad is given to a particular module 3"/>
+    </bitFields>
+    <bitFields name="PCSR4" URI="http://resources/40.0.1/port/p/15/pcsrsel/pcsr4" value="00000000" toolTipHelpDescription="Pad control selection [4]" defaultValue="00000000" startPos="4" stopPos="4" accessPermission="rwh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Main system has control over pad"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Control over pad is given to a particular module 4"/>
+    </bitFields>
+    <bitFields name="PCSR5" URI="http://resources/40.0.1/port/p/15/pcsrsel/pcsr5" value="00000000" toolTipHelpDescription="Pad control selection [5]" defaultValue="00000000" startPos="5" stopPos="5" accessPermission="rwh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Main system has control over pad"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Control over pad is given to a particular module 5"/>
+    </bitFields>
+    <bitFields name="PCSR6" URI="http://resources/40.0.1/port/p/15/pcsrsel/pcsr6" value="00000000" toolTipHelpDescription="Pad control selection [6]" defaultValue="00000000" startPos="6" stopPos="6" accessPermission="rwh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Main system has control over pad"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Control over pad is given to a particular module 6"/>
+    </bitFields>
+    <bitFields name="PCSR7" URI="http://resources/40.0.1/port/p/15/pcsrsel/pcsr7" value="00000000" toolTipHelpDescription="Pad control selection [7]" defaultValue="00000000" startPos="7" stopPos="7" accessPermission="rwh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Main system has control over pad"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Control over pad is given to a particular module 7"/>
+    </bitFields>
+    <bitFields name="PCSR8" URI="http://resources/40.0.1/port/p/15/pcsrsel/pcsr8" value="00000000" toolTipHelpDescription="Pad control selection [8]" defaultValue="00000000" startPos="8" stopPos="8" accessPermission="rwh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Main system has control over pad"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Control over pad is given to a particular module 8"/>
+    </bitFields>
+    <bitFields name="PCSR9" URI="http://resources/40.0.1/port/p/15/pcsrsel/pcsr9" value="00000000" toolTipHelpDescription="Pad control selection [9]" defaultValue="00000000" startPos="9" stopPos="9" accessPermission="rwh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Main system has control over pad"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Control over pad is given to a particular module 9"/>
+    </bitFields>
+    <bitFields name="PCSR10" URI="http://resources/40.0.1/port/p/15/pcsrsel/pcsr10" value="00000000" toolTipHelpDescription="Pad control selection [10]" defaultValue="00000000" startPos="10" stopPos="10" accessPermission="rwh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Main system has control over pad"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Control over pad is given to a particular module 10"/>
+    </bitFields>
+    <bitFields name="PCSR11" URI="http://resources/40.0.1/port/p/15/pcsrsel/pcsr11" value="00000000" toolTipHelpDescription="Pad control selection [11]" defaultValue="00000000" startPos="11" stopPos="11" accessPermission="rwh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Main system has control over pad"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Control over pad is given to a particular module 11"/>
+    </bitFields>
+    <bitFields name="PCSR12" URI="http://resources/40.0.1/port/p/15/pcsrsel/pcsr12" value="00000000" toolTipHelpDescription="Pad control selection [12]" defaultValue="00000000" startPos="12" stopPos="12" accessPermission="rwh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Main system has control over pad"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Control over pad is given to a particular module 12"/>
+    </bitFields>
+    <bitFields name="PCSR13" URI="http://resources/40.0.1/port/p/15/pcsrsel/pcsr13" value="00000000" toolTipHelpDescription="Pad control selection [13]" defaultValue="00000000" startPos="13" stopPos="13" accessPermission="rwh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Main system has control over pad"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Control over pad is given to a particular module 13"/>
+    </bitFields>
+    <bitFields name="PCSR14" URI="http://resources/40.0.1/port/p/15/pcsrsel/pcsr14" value="00000000" toolTipHelpDescription="Pad control selection [14]" defaultValue="00000000" startPos="14" stopPos="14" accessPermission="rwh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Main system has control over pad"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Control over pad is given to a particular module 14"/>
+    </bitFields>
+    <bitFields name="PCSR15" URI="http://resources/40.0.1/port/p/15/pcsrsel/pcsr15" value="00000000" toolTipHelpDescription="Pad control selection [15]" defaultValue="00000000" startPos="15" stopPos="15" accessPermission="rwh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Main system has control over pad"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Control over pad is given to a particular module 15"/>
+    </bitFields>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="PCSR5" URI="http://resources/40.0.1/port/p/15/pcsrsel/pcsr5" value="00000000" toolTipHelpDescription="Pad control selection [5]" defaultValue="00000000" startPos="5" stopPos="5" accessPermission="rwh" maxValue="1" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Main system has control over pad"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Control over pad is given to a particular module 5"/>
+  </provided>
+  <provided xsi:type="ResourceModel:RegisterParameter" name="OMR" URI="http://resources/40.0.1/port/p/15/omr" value="00000000" toolTipHelpDescription="Port n Output Modification Register" defaultValue="00000000" addressOffset="0x0000003C" resetValue="00000000" resetMask="0x00000000">
+    <bitFields name="PS0" URI="http://resources/40.0.1/port/p/15/omr/ps0" value="00000000" toolTipHelpDescription="Set Bit [0]" defaultValue="00000000" startPos="0" stopPos="0" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Sets or toggles Pn_OUT.P0."/>
+    </bitFields>
+    <bitFields name="PS1" URI="http://resources/40.0.1/port/p/15/omr/ps1" value="00000000" toolTipHelpDescription="Set Bit [1]" defaultValue="00000000" startPos="1" stopPos="1" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Sets or toggles Pn_OUT.P1."/>
+    </bitFields>
+    <bitFields name="PS2" URI="http://resources/40.0.1/port/p/15/omr/ps2" value="00000000" toolTipHelpDescription="Set Bit [2]" defaultValue="00000000" startPos="2" stopPos="2" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Sets or toggles Pn_OUT.P2."/>
+    </bitFields>
+    <bitFields name="PS3" URI="http://resources/40.0.1/port/p/15/omr/ps3" value="00000000" toolTipHelpDescription="Set Bit [3]" defaultValue="00000000" startPos="3" stopPos="3" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Sets or toggles Pn_OUT.P3."/>
+    </bitFields>
+    <bitFields name="PS4" URI="http://resources/40.0.1/port/p/15/omr/ps4" value="00000000" toolTipHelpDescription="Set Bit [4]" defaultValue="00000000" startPos="4" stopPos="4" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Sets or toggles Pn_OUT.P4."/>
+    </bitFields>
+    <bitFields name="PS5" URI="http://resources/40.0.1/port/p/15/omr/ps5" value="00000000" toolTipHelpDescription="Set Bit [5]" defaultValue="00000000" startPos="5" stopPos="5" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Sets or toggles Pn_OUT.P5."/>
+    </bitFields>
+    <bitFields name="PS6" URI="http://resources/40.0.1/port/p/15/omr/ps6" value="00000000" toolTipHelpDescription="Set Bit [6]" defaultValue="00000000" startPos="6" stopPos="6" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Sets or toggles Pn_OUT.P6."/>
+    </bitFields>
+    <bitFields name="PS7" URI="http://resources/40.0.1/port/p/15/omr/ps7" value="00000000" toolTipHelpDescription="Set Bit [7]" defaultValue="00000000" startPos="7" stopPos="7" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Sets or toggles Pn_OUT.P7."/>
+    </bitFields>
+    <bitFields name="PS8" URI="http://resources/40.0.1/port/p/15/omr/ps8" value="00000000" toolTipHelpDescription="Set Bit [8]" defaultValue="00000000" startPos="8" stopPos="8" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Sets or toggles Pn_OUT.P8."/>
+    </bitFields>
+    <bitFields name="PS9" URI="http://resources/40.0.1/port/p/15/omr/ps9" value="00000000" toolTipHelpDescription="Set Bit [9]" defaultValue="00000000" startPos="9" stopPos="9" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Sets or toggles Pn_OUT.P9."/>
+    </bitFields>
+    <bitFields name="PS10" URI="http://resources/40.0.1/port/p/15/omr/ps10" value="00000000" toolTipHelpDescription="Set Bit [10]" defaultValue="00000000" startPos="10" stopPos="10" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Sets or toggles Pn_OUT.P10."/>
+    </bitFields>
+    <bitFields name="PS11" URI="http://resources/40.0.1/port/p/15/omr/ps11" value="00000000" toolTipHelpDescription="Set Bit [11]" defaultValue="00000000" startPos="11" stopPos="11" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Sets or toggles Pn_OUT.P11."/>
+    </bitFields>
+    <bitFields name="PS12" URI="http://resources/40.0.1/port/p/15/omr/ps12" value="00000000" toolTipHelpDescription="Set Bit [12]" defaultValue="00000000" startPos="12" stopPos="12" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Sets or toggles Pn_OUT.P12."/>
+    </bitFields>
+    <bitFields name="PS13" URI="http://resources/40.0.1/port/p/15/omr/ps13" value="00000000" toolTipHelpDescription="Set Bit [13]" defaultValue="00000000" startPos="13" stopPos="13" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Sets or toggles Pn_OUT.P13."/>
+    </bitFields>
+    <bitFields name="PS14" URI="http://resources/40.0.1/port/p/15/omr/ps14" value="00000000" toolTipHelpDescription="Set Bit [14]" defaultValue="00000000" startPos="14" stopPos="14" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Sets or toggles Pn_OUT.P14."/>
+    </bitFields>
+    <bitFields name="PS15" URI="http://resources/40.0.1/port/p/15/omr/ps15" value="00000000" toolTipHelpDescription="Set Bit [15]" defaultValue="00000000" startPos="15" stopPos="15" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Sets or toggles Pn_OUT.P15."/>
+    </bitFields>
+    <bitFields name="PCL0" URI="http://resources/40.0.1/port/p/15/omr/pcl0" value="00000000" toolTipHelpDescription="Clear Bit [0]" defaultValue="00000000" startPos="16" stopPos="16" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Clears or toggles Pn_OUT.P0."/>
+    </bitFields>
+    <bitFields name="PCL1" URI="http://resources/40.0.1/port/p/15/omr/pcl1" value="00000000" toolTipHelpDescription="Clear Bit [1]" defaultValue="00000000" startPos="17" stopPos="17" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Clears or toggles Pn_OUT.P1."/>
+    </bitFields>
+    <bitFields name="PCL2" URI="http://resources/40.0.1/port/p/15/omr/pcl2" value="00000000" toolTipHelpDescription="Clear Bit [2]" defaultValue="00000000" startPos="18" stopPos="18" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Clears or toggles Pn_OUT.P2."/>
+    </bitFields>
+    <bitFields name="PCL3" URI="http://resources/40.0.1/port/p/15/omr/pcl3" value="00000000" toolTipHelpDescription="Clear Bit [3]" defaultValue="00000000" startPos="19" stopPos="19" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Clears or toggles Pn_OUT.P3."/>
+    </bitFields>
+    <bitFields name="PCL4" URI="http://resources/40.0.1/port/p/15/omr/pcl4" value="00000000" toolTipHelpDescription="Clear Bit [4]" defaultValue="00000000" startPos="20" stopPos="20" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Clears or toggles Pn_OUT.P4."/>
+    </bitFields>
+    <bitFields name="PCL5" URI="http://resources/40.0.1/port/p/15/omr/pcl5" value="00000000" toolTipHelpDescription="Clear Bit [5]" defaultValue="00000000" startPos="21" stopPos="21" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Clears or toggles Pn_OUT.P5."/>
+    </bitFields>
+    <bitFields name="PCL6" URI="http://resources/40.0.1/port/p/15/omr/pcl6" value="00000000" toolTipHelpDescription="Clear Bit [6]" defaultValue="00000000" startPos="22" stopPos="22" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Clears or toggles Pn_OUT.P6."/>
+    </bitFields>
+    <bitFields name="PCL7" URI="http://resources/40.0.1/port/p/15/omr/pcl7" value="00000000" toolTipHelpDescription="Clear Bit [7]" defaultValue="00000000" startPos="23" stopPos="23" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Clears or toggles Pn_OUT.P7."/>
+    </bitFields>
+    <bitFields name="PCL8" URI="http://resources/40.0.1/port/p/15/omr/pcl8" value="00000000" toolTipHelpDescription="Clear Bit [8]" defaultValue="00000000" startPos="24" stopPos="24" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Clears or toggles Pn_OUT.P8."/>
+    </bitFields>
+    <bitFields name="PCL9" URI="http://resources/40.0.1/port/p/15/omr/pcl9" value="00000000" toolTipHelpDescription="Clear Bit [9]" defaultValue="00000000" startPos="25" stopPos="25" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Clears or toggles Pn_OUT.P9."/>
+    </bitFields>
+    <bitFields name="PCL10" URI="http://resources/40.0.1/port/p/15/omr/pcl10" value="00000000" toolTipHelpDescription="Clear Bit [10]" defaultValue="00000000" startPos="26" stopPos="26" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Clears or toggles Pn_OUT.P10."/>
+    </bitFields>
+    <bitFields name="PCL11" URI="http://resources/40.0.1/port/p/15/omr/pcl11" value="00000000" toolTipHelpDescription="Clear Bit [11]" defaultValue="00000000" startPos="27" stopPos="27" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Clears or toggles Pn_OUT.P11."/>
+    </bitFields>
+    <bitFields name="PCL12" URI="http://resources/40.0.1/port/p/15/omr/pcl12" value="00000000" toolTipHelpDescription="Clear Bit [12]" defaultValue="00000000" startPos="28" stopPos="28" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Clears or toggles Pn_OUT.P12."/>
+    </bitFields>
+    <bitFields name="PCL13" URI="http://resources/40.0.1/port/p/15/omr/pcl13" value="00000000" toolTipHelpDescription="Clear Bit [13]" defaultValue="00000000" startPos="29" stopPos="29" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Clears or toggles Pn_OUT.P13."/>
+    </bitFields>
+    <bitFields name="PCL14" URI="http://resources/40.0.1/port/p/15/omr/pcl14" value="00000000" toolTipHelpDescription="Clear Bit [14]" defaultValue="00000000" startPos="30" stopPos="30" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Clears or toggles Pn_OUT.P14."/>
+    </bitFields>
+    <bitFields name="PCL15" URI="http://resources/40.0.1/port/p/15/omr/pcl15" value="00000000" toolTipHelpDescription="Clear Bit [15]" defaultValue="00000000" startPos="31" stopPos="31" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Clears or toggles Pn_OUT.P15."/>
+    </bitFields>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="PS5" URI="http://resources/40.0.1/port/p/15/omr/ps5" value="00000000" toolTipHelpDescription="Set Bit [5]" defaultValue="00000000" startPos="5" stopPos="5" accessPermission="w" maxValue="1" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Sets or toggles Pn_OUT.P5."/>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="PCL5" URI="http://resources/40.0.1/port/p/15/omr/pcl5" value="00000000" toolTipHelpDescription="Clear Bit [5]" defaultValue="00000000" startPos="21" stopPos="21" accessPermission="w" maxValue="1" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Clears or toggles Pn_OUT.P5."/>
+  </provided>
+  <provided xsi:type="ResourceModel:RegisterParameter" name="OMCR" URI="http://resources/40.0.1/port/p/15/omcr" value="00000000" toolTipHelpDescription="Port Output Modification Clear Register" defaultValue="00000000" addressOffset="0x00000040" resetValue="00000000" resetMask="0x00000000">
+    <bitFields name="PCL0" URI="http://resources/40.0.1/port/p/15/omcr/pcl0" value="00000000" toolTipHelpDescription="Clear Bit [0]" defaultValue="00000000" startPos="16" stopPos="16" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Clears Pn_OUT.P0."/>
+    </bitFields>
+    <bitFields name="PCL1" URI="http://resources/40.0.1/port/p/15/omcr/pcl1" value="00000000" toolTipHelpDescription="Clear Bit [1]" defaultValue="00000000" startPos="17" stopPos="17" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Clears Pn_OUT.P1."/>
+    </bitFields>
+    <bitFields name="PCL2" URI="http://resources/40.0.1/port/p/15/omcr/pcl2" value="00000000" toolTipHelpDescription="Clear Bit [2]" defaultValue="00000000" startPos="18" stopPos="18" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Clears Pn_OUT.P2."/>
+    </bitFields>
+    <bitFields name="PCL3" URI="http://resources/40.0.1/port/p/15/omcr/pcl3" value="00000000" toolTipHelpDescription="Clear Bit [3]" defaultValue="00000000" startPos="19" stopPos="19" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Clears Pn_OUT.P3."/>
+    </bitFields>
+    <bitFields name="PCL4" URI="http://resources/40.0.1/port/p/15/omcr/pcl4" value="00000000" toolTipHelpDescription="Clear Bit [4]" defaultValue="00000000" startPos="20" stopPos="20" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Clears Pn_OUT.P4."/>
+    </bitFields>
+    <bitFields name="PCL5" URI="http://resources/40.0.1/port/p/15/omcr/pcl5" value="00000000" toolTipHelpDescription="Clear Bit [5]" defaultValue="00000000" startPos="21" stopPos="21" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Clears Pn_OUT.P5."/>
+    </bitFields>
+    <bitFields name="PCL6" URI="http://resources/40.0.1/port/p/15/omcr/pcl6" value="00000000" toolTipHelpDescription="Clear Bit [6]" defaultValue="00000000" startPos="22" stopPos="22" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Clears Pn_OUT.P6."/>
+    </bitFields>
+    <bitFields name="PCL7" URI="http://resources/40.0.1/port/p/15/omcr/pcl7" value="00000000" toolTipHelpDescription="Clear Bit [7]" defaultValue="00000000" startPos="23" stopPos="23" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Clears Pn_OUT.P7."/>
+    </bitFields>
+    <bitFields name="PCL8" URI="http://resources/40.0.1/port/p/15/omcr/pcl8" value="00000000" toolTipHelpDescription="Clear Bit [8]" defaultValue="00000000" startPos="24" stopPos="24" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Clears Pn_OUT.P8."/>
+    </bitFields>
+    <bitFields name="PCL9" URI="http://resources/40.0.1/port/p/15/omcr/pcl9" value="00000000" toolTipHelpDescription="Clear Bit [9]" defaultValue="00000000" startPos="25" stopPos="25" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Clears Pn_OUT.P9."/>
+    </bitFields>
+    <bitFields name="PCL10" URI="http://resources/40.0.1/port/p/15/omcr/pcl10" value="00000000" toolTipHelpDescription="Clear Bit [10]" defaultValue="00000000" startPos="26" stopPos="26" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Clears Pn_OUT.P10."/>
+    </bitFields>
+    <bitFields name="PCL11" URI="http://resources/40.0.1/port/p/15/omcr/pcl11" value="00000000" toolTipHelpDescription="Clear Bit [11]" defaultValue="00000000" startPos="27" stopPos="27" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Clears Pn_OUT.P11."/>
+    </bitFields>
+    <bitFields name="PCL12" URI="http://resources/40.0.1/port/p/15/omcr/pcl12" value="00000000" toolTipHelpDescription="Clear Bit [12]" defaultValue="00000000" startPos="28" stopPos="28" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Clears Pn_OUT.P12."/>
+    </bitFields>
+    <bitFields name="PCL13" URI="http://resources/40.0.1/port/p/15/omcr/pcl13" value="00000000" toolTipHelpDescription="Clear Bit [13]" defaultValue="00000000" startPos="29" stopPos="29" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Clears Pn_OUT.P13."/>
+    </bitFields>
+    <bitFields name="PCL14" URI="http://resources/40.0.1/port/p/15/omcr/pcl14" value="00000000" toolTipHelpDescription="Clear Bit [14]" defaultValue="00000000" startPos="30" stopPos="30" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Clears Pn_OUT.P14."/>
+    </bitFields>
+    <bitFields name="PCL15" URI="http://resources/40.0.1/port/p/15/omcr/pcl15" value="00000000" toolTipHelpDescription="Clear Bit [15]" defaultValue="00000000" startPos="31" stopPos="31" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Clears Pn_OUT.P15."/>
+    </bitFields>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="PCL5" URI="http://resources/40.0.1/port/p/15/omcr/pcl5" value="00000000" toolTipHelpDescription="Clear Bit [5]" defaultValue="00000000" startPos="21" stopPos="21" accessPermission="w" maxValue="1" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Clears Pn_OUT.P5."/>
+  </provided>
+  <provided xsi:type="ResourceModel:RegisterParameter" name="OMSR" URI="http://resources/40.0.1/port/p/15/omsr" value="00000000" toolTipHelpDescription="Port Output Modification Set Register" defaultValue="00000000" addressOffset="0x00000044" resetValue="00000000" resetMask="0x00000000">
+    <bitFields name="PS0" URI="http://resources/40.0.1/port/p/15/omsr/ps0" value="00000000" toolTipHelpDescription="Set Bit [0]" defaultValue="00000000" startPos="0" stopPos="0" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Sets Pn_OUT.Px"/>
+    </bitFields>
+    <bitFields name="PS1" URI="http://resources/40.0.1/port/p/15/omsr/ps1" value="00000000" toolTipHelpDescription="Set Bit [1]" defaultValue="00000000" startPos="1" stopPos="1" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Sets Pn_OUT.Px"/>
+    </bitFields>
+    <bitFields name="PS2" URI="http://resources/40.0.1/port/p/15/omsr/ps2" value="00000000" toolTipHelpDescription="Set Bit [2]" defaultValue="00000000" startPos="2" stopPos="2" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Sets Pn_OUT.Px"/>
+    </bitFields>
+    <bitFields name="PS3" URI="http://resources/40.0.1/port/p/15/omsr/ps3" value="00000000" toolTipHelpDescription="Set Bit [3]" defaultValue="00000000" startPos="3" stopPos="3" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Sets Pn_OUT.Px"/>
+    </bitFields>
+    <bitFields name="PS4" URI="http://resources/40.0.1/port/p/15/omsr/ps4" value="00000000" toolTipHelpDescription="Set Bit [4]" defaultValue="00000000" startPos="4" stopPos="4" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Sets Pn_OUT.Px"/>
+    </bitFields>
+    <bitFields name="PS5" URI="http://resources/40.0.1/port/p/15/omsr/ps5" value="00000000" toolTipHelpDescription="Set Bit [5]" defaultValue="00000000" startPos="5" stopPos="5" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Sets Pn_OUT.Px"/>
+    </bitFields>
+    <bitFields name="PS6" URI="http://resources/40.0.1/port/p/15/omsr/ps6" value="00000000" toolTipHelpDescription="Set Bit [6]" defaultValue="00000000" startPos="6" stopPos="6" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Sets Pn_OUT.Px"/>
+    </bitFields>
+    <bitFields name="PS7" URI="http://resources/40.0.1/port/p/15/omsr/ps7" value="00000000" toolTipHelpDescription="Set Bit [7]" defaultValue="00000000" startPos="7" stopPos="7" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Sets Pn_OUT.Px"/>
+    </bitFields>
+    <bitFields name="PS8" URI="http://resources/40.0.1/port/p/15/omsr/ps8" value="00000000" toolTipHelpDescription="Set Bit [8]" defaultValue="00000000" startPos="8" stopPos="8" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Sets Pn_OUT.Px"/>
+    </bitFields>
+    <bitFields name="PS9" URI="http://resources/40.0.1/port/p/15/omsr/ps9" value="00000000" toolTipHelpDescription="Set Bit [9]" defaultValue="00000000" startPos="9" stopPos="9" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Sets Pn_OUT.Px"/>
+    </bitFields>
+    <bitFields name="PS10" URI="http://resources/40.0.1/port/p/15/omsr/ps10" value="00000000" toolTipHelpDescription="Set Bit [10]" defaultValue="00000000" startPos="10" stopPos="10" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Sets Pn_OUT.Px"/>
+    </bitFields>
+    <bitFields name="PS11" URI="http://resources/40.0.1/port/p/15/omsr/ps11" value="00000000" toolTipHelpDescription="Set Bit [11]" defaultValue="00000000" startPos="11" stopPos="11" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Sets Pn_OUT.Px"/>
+    </bitFields>
+    <bitFields name="PS12" URI="http://resources/40.0.1/port/p/15/omsr/ps12" value="00000000" toolTipHelpDescription="Set Bit [12]" defaultValue="00000000" startPos="12" stopPos="12" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Sets Pn_OUT.Px"/>
+    </bitFields>
+    <bitFields name="PS13" URI="http://resources/40.0.1/port/p/15/omsr/ps13" value="00000000" toolTipHelpDescription="Set Bit [13]" defaultValue="00000000" startPos="13" stopPos="13" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Sets Pn_OUT.Px"/>
+    </bitFields>
+    <bitFields name="PS14" URI="http://resources/40.0.1/port/p/15/omsr/ps14" value="00000000" toolTipHelpDescription="Set Bit [14]" defaultValue="00000000" startPos="14" stopPos="14" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Sets Pn_OUT.Px"/>
+    </bitFields>
+    <bitFields name="PS15" URI="http://resources/40.0.1/port/p/15/omsr/ps15" value="00000000" toolTipHelpDescription="Set Bit [15]" defaultValue="00000000" startPos="15" stopPos="15" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Sets Pn_OUT.Px"/>
+    </bitFields>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="PS5" URI="http://resources/40.0.1/port/p/15/omsr/ps5" value="00000000" toolTipHelpDescription="Set Bit [5]" defaultValue="00000000" startPos="5" stopPos="5" accessPermission="w" maxValue="1" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No operation"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Sets Pn_OUT.Px"/>
+  </provided>
+  <addressBlock offset="0x0" size="0x0100" usage="registers"/>
+</ResourceModel:Port>

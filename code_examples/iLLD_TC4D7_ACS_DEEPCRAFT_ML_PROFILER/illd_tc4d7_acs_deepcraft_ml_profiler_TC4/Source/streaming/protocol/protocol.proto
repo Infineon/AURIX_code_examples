@@ -1,0 +1,180 @@
+// Tensor Streaming Protocol
+//
+// General Notes:
+//   - Avoid using '\r' in strings
+
+syntax = "proto3";
+
+import "model.proto";
+
+package protocol;
+
+// Wrapper message for all request types.
+message Request {
+    oneof request_type {
+        BoardCapabilitiesRequest capabilities = 1;  
+		DeviceConfigurationRequest config = 2;
+		StartRequest start = 3;
+		StopRequest stop = 4;
+        WatchdogResetRequest watchdog_reset = 5;
+        DataChunk data = 6;
+        ResetRequest reset = 7;
+    }
+}
+
+// Wrapper message for all response types.
+message Response {
+    oneof response_type {
+        BoardCapabilitiesResponse capabilities = 1;
+		DeviceConfigurationResponse config = 2;
+        ErrorResponse error = 3; 
+        DataChunk data = 4; 
+        DataInquire data_inquire = 5;
+    }
+}
+
+// Message to request the capabilities of the board. A board contains one or more devices.
+message BoardCapabilitiesRequest {
+    // If negative all devices are in response, else only given device.
+    sint32 device = 1;
+
+    // Optional tag, this tag will be in the respose.
+    // This may be used to pair Requests with Responses.
+    int32 tag = 2;
+}
+
+// Message representing the capabilities of the board.
+message BoardCapabilitiesResponse {
+	// Board info
+    Board board = 1;
+
+    // Tag value from Request. 
+    // This may be used to pair Requests with Responses.
+    int32 tag = 2;
+}
+
+// Represents an option value for device configuration.
+message OptionValue {
+    int32 option_id = 1;
+
+    oneof value {
+        int32 int_value = 2;       // Integer value
+        float float_value = 3;     // Floating-point value
+        bool bool_value = 4;       // Boolean value
+        int32 oneof_value = 5;     // Index into OptionOneOf items
+        bytes blob_value = 6;      // Blob value
+        string string_value = 7;   // String value
+        string password_value = 8; // String value (hidden)
+    }
+}
+
+// Request to configure a device. This may not necessarily initialize the device
+// but will reply with a DeviceConfigurationResponse that defines the data to expect once a subscription is started.
+message DeviceConfigurationRequest {
+    // The device to configure (index)
+    int32 device = 1;
+	
+    // The option values for configuration
+    repeated OptionValue options = 2; 
+
+    // Optional tag, this tag will be in the respose.
+    // This may be used to pair Requests with Responses.
+    int32 tag = 3;
+}
+
+// Response message describing the device configuration.
+message DeviceConfigurationResponse {
+     // The device that was configured
+	int32 device = 1;
+
+    // All the option values
+    repeated OptionValue options = 2;
+
+    // Device streams
+    repeated StreamConfig streams = 3;
+
+    // The status of the device 
+    DeviceStatus status = 4;
+
+    // Optional status message
+    string status_message = 5;
+
+    // Tag value from Request. 
+    // This may be used to pair Requests with Responses.
+    int32 tag = 6;
+}
+
+// Message to start streaming data for a specified device.
+message StartRequest {
+    // The device index to start streaming.
+    int32 device = 1;
+}
+
+// Message to stop streaming data for a specified device.
+message StopRequest {
+    // The device index to stop streaming. If negative, all streaming is stopped.
+    sint32 device = 1;
+}
+
+// Reset request
+message ResetRequest {}
+
+// Represents a chunk of data streamed from a device.
+message DataChunk {
+	// The device index this data originates from.
+	int32 device = 1;
+
+    // Device stream index. 
+    int32 stream = 2;
+	
+	// The number of frames. This value is equal to or less than StreamConfiguration.max_frame_count
+	int32 frame_count = 3;
+
+    // The index of the first frame.
+    // This is incremented in each response with frame_count, unless frames are dropped.
+    // The timestamp (seconds) of the first frame in payload is frame_number/StreamConfig.frequency.    
+    int32 frame_number = 4;
+
+	// The size of the payload in bytes is: sizeof(DataType) * shape.flat * frame_count
+	bytes payload = 5;
+
+    // Optional timestamps for irregular frames.
+    // If present it should contain frame_count items.
+    repeated Timestamp timestamps = 6;  
+}
+
+message Timestamp {
+    // Time stamp
+    int64 timestamp = 1;
+
+    // Optional, 0 if absent.
+    int32 duration = 2;
+}
+
+// Streams with STREAM_DIRECTION_INPUT inquire for their data by sending these packages.
+message DataInquire {
+    // The device index this data targets.
+    int32 device = 1;
+
+    // Device stream index.
+    int32 stream = 2;
+
+    // The number of frames requested.
+    int32 frame_count = 3;
+}
+
+/******************************* ErrorResponse and WatchdogResetRequest *******************************/
+
+// Message representing an error response.
+message ErrorResponse {
+    // Description of the error
+    string error_message = 1;
+
+    // Error code
+    int32 error_code = 2;
+} 
+
+// Request to reset the watchdog timer on the device. This prevents the device from resetting itself.
+message WatchdogResetRequest {}
+
+

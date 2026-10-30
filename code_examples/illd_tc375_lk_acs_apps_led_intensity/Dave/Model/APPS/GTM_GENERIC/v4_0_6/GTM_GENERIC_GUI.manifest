@@ -1,0 +1,173 @@
+package Model.APPS.GTM_GENERIC.v4_0_6;
+// Import statements
+import ifx.davex.app.manifest.*
+
+abstract class GTM_GENERIC_GUI extends AppManifest {
+
+    /* IMPORTANT NOTE: This is an auto generated file, please do not edit manually. */
+    /* User modifications in the GUI editor will be updated here automatically.     */
+    /* Manually editing the contents of this file will corrupt the APP SDK project. */
+
+	/* Begin : UI variable section */
+	 public GTab gtab_clock;
+	 public GImage gimage_1;
+	 public GImage gimage_2;
+	 public GImage gimage_3;
+	 public GImage gimage_4;
+	 public GImage gimage_5;
+	 public GImage gimage_6;
+	 public GImage gimage_7;
+	 public GImage gimage_8;
+	 public GImage gimage_9;
+	 public GImage gimage_10;
+	 public GImage gimage_11;
+	 public GImage gimage_12;
+	 public GFloat gfloat_freq_GTM_hz;
+	 public GFloat gfloat_global_freq_hz;
+	 public GFloat gfloat_CMU_ECLK0_hz;
+	 public GFloat gfloat_CMU_ECLK1_hz;
+	 public GFloat gfloat_CMU_ECLK2_hz;
+	 public GFloat gfloat_CMU_CLK0_hz;
+	 public GFloat gfloat_CMU_CLK1_hz;
+	 public GFloat gfloat_CMU_CLK2_hz;
+	 public GFloat gfloat_CMU_CLK3_hz;
+	 public GFloat gfloat_CMU_CLK4_hz;
+	 public GFloat gfloat_CMU_CLK5_hz;
+	 public GFloat gfloat_CMU_CLK6_hz;
+	 public GFloat gfloat_CMU_CLK7_hz;
+	 public GFloat gfloat_CMU_FXCLK0_hz;
+	 public GFloat gfloat_CMU_FXCLK1_hz;
+	 public GFloat gfloat_CMU_FXCLK2_hz;
+	 public GFloat gfloat_CMU_FXCLK3_hz;
+	 public GFloat gfloat_CMU_FXCLK4_hz;
+	 public GCheck gcheck_CMU_ECLK0;
+	 public GCheck gcheck_CMU_ECLK1;
+	 public GCheck gcheck_CMU_ECLK2;
+	 public GCheck gcheck_CMU_CLK0;
+	 public GCheck gcheck_CMU_CLK1;
+	 public GCheck gcheck_CMU_CLK2;
+	 public GCheck gcheck_CMU_CLK3;
+	 public GCheck gcheck_CMU_CLK4;
+	 public GCheck gcheck_CMU_CLK5;
+	 public GCheck gcheck_CMU_CLK6;
+	 public GCheck gcheck_CMU_CLK7;
+	 public GCheck gcheck_CMU_FXCLK;
+	 public GLabel glabel_freq_GTM_hz;
+	 public GLabel glabel_global_freq_hz;
+	 public GLabel glabel_CMU_ECLK0;
+	 public GLabel glabel_CMU_ECLK0_hz;
+	 public GLabel glabel_CMU_ECLK1;
+	 public GLabel glabel_CMU_ECLK1_hz;
+	 public GLabel glabel_CMU_ECLK2;
+	 public GLabel glabel_CMU_ECLK2_hz;
+	 public GLabel glabel_CMU_CLK0;
+	 public GLabel glabel_CMU_CLK0_hz;
+	 public GLabel glabel_CMU_CLK1;
+	 public GLabel glabel_CMU_CLK1_hz;
+	 public GLabel glabel_CMU_CLK2;
+	 public GLabel glabel_CMU_CLK2_hz;
+	 public GLabel glabel_CMU_CLK3;
+	 public GLabel glabel_CMU_CLK3_hz;
+	 public GLabel glabel_CMU_CLK4;
+	 public GLabel glabel_CMU_CLK4_hz;
+	 public GLabel glabel_CMU_CLK5;
+	 public GLabel glabel_CMU_CLK5_hz;
+	 public GLabel glabel_CMU_CLK6;
+	 public GLabel glabel_CMU_CLK6_hz;
+	 public GLabel glabel_CMU_CLK7;
+	 public GLabel glabel_CMU_CLK7_hz;
+	 public GLabel glabel_CMU_FXCLK;
+	 public GLabel glabel_CMU_FXCLK0_hz;
+	 public GLabel glabel_CMU_FXCLK1_hz;
+	 public GLabel glabel_CMU_FXCLK2_hz;
+	 public GLabel glabel_CMU_FXCLK3_hz;
+	 public GLabel glabel_CMU_FXCLK4_hz;
+	 public GGroup ggroup_3;
+	 public GGroup ggroup_4;
+	 public GGroup ggroup_14;
+	 public GGroup ggroup_30;
+
+	 public GTM_GENERIC_GUI(DaveEnv daveEnv){
+
+	 gtab_clock = GTab(widgetName: "gtab_clock", text: "Clock Settings", enabled: true, visible: true)
+	 gimage_1 = GImage(widgetName: "gimage_1", path: "", enabled: true, visible: true)
+	 gimage_2 = GImage(widgetName: "gimage_2", path: "", enabled: true, visible: true)
+	 gimage_3 = GImage(widgetName: "gimage_3", path: "", enabled: true, visible: true)
+	 gimage_4 = GImage(widgetName: "gimage_4", path: "", enabled: true, visible: true)
+	 gimage_5 = GImage(widgetName: "gimage_5", path: "", enabled: true, visible: true)
+	 gimage_6 = GImage(widgetName: "gimage_6", path: "", enabled: true, visible: true)
+	 gimage_7 = GImage(widgetName: "gimage_7", path: "", enabled: true, visible: true)
+	 gimage_8 = GImage(widgetName: "gimage_8", path: "", enabled: true, visible: true)
+	 gimage_9 = GImage(widgetName: "gimage_9", path: "", enabled: true, visible: true)
+	 gimage_10 = GImage(widgetName: "gimage_10", path: "", enabled: true, visible: true)
+	 gimage_11 = GImage(widgetName: "gimage_11", path: "", enabled: true, visible: true)
+	 gimage_12 = GImage(widgetName: "gimage_12", path: "", enabled: true, visible: true)
+	 gfloat_freq_GTM_hz = GFloat(widgetName: "gfloat_freq_GTM_hz", value: 200.0, minValue: Double.NEGATIVE_INFINITY, maxValue: Double.POSITIVE_INFINITY, enabled: true, visible: true, isMandatoryValue: false)
+	 gfloat_global_freq_hz = GFloat(widgetName: "gfloat_global_freq_hz", value: 100000000.0, minValue: 0, maxValue: Double.POSITIVE_INFINITY, enabled: true, visible: true, isMandatoryValue: false)
+	 gfloat_CMU_ECLK0_hz = GFloat(widgetName: "gfloat_CMU_ECLK0_hz", value: 100000000, minValue: 0, maxValue: Double.POSITIVE_INFINITY, enabled: true, visible: true, isMandatoryValue: false)
+	 gfloat_CMU_ECLK1_hz = GFloat(widgetName: "gfloat_CMU_ECLK1_hz", value: 100000000, minValue: 0, maxValue: Double.POSITIVE_INFINITY, enabled: true, visible: true, isMandatoryValue: false)
+	 gfloat_CMU_ECLK2_hz = GFloat(widgetName: "gfloat_CMU_ECLK2_hz", value: 100000000, minValue: 0, maxValue: Double.POSITIVE_INFINITY, enabled: true, visible: true, isMandatoryValue: false)
+	 gfloat_CMU_CLK0_hz = GFloat(widgetName: "gfloat_CMU_CLK0_hz", value: 100000000.0, minValue: 0, maxValue: Double.POSITIVE_INFINITY, enabled: true, visible: true, isMandatoryValue: false)
+	 gfloat_CMU_CLK1_hz = GFloat(widgetName: "gfloat_CMU_CLK1_hz", value: 100000000.0, minValue: 0, maxValue: Double.POSITIVE_INFINITY, enabled: true, visible: true, isMandatoryValue: false)
+	 gfloat_CMU_CLK2_hz = GFloat(widgetName: "gfloat_CMU_CLK2_hz", value: 100000000.0, minValue: 0, maxValue: Double.POSITIVE_INFINITY, enabled: true, visible: true, isMandatoryValue: false)
+	 gfloat_CMU_CLK3_hz = GFloat(widgetName: "gfloat_CMU_CLK3_hz", value: 100000000.0, minValue: 0, maxValue: Double.POSITIVE_INFINITY, enabled: true, visible: true, isMandatoryValue: false)
+	 gfloat_CMU_CLK4_hz = GFloat(widgetName: "gfloat_CMU_CLK4_hz", value: 100000000.0, minValue: 0, maxValue: Double.POSITIVE_INFINITY, enabled: true, visible: true, isMandatoryValue: false)
+	 gfloat_CMU_CLK5_hz = GFloat(widgetName: "gfloat_CMU_CLK5_hz", value: 100000000.0, minValue: 0, maxValue: Double.POSITIVE_INFINITY, enabled: true, visible: true, isMandatoryValue: false)
+	 gfloat_CMU_CLK6_hz = GFloat(widgetName: "gfloat_CMU_CLK6_hz", value: 100000000.0, minValue: 0, maxValue: Double.POSITIVE_INFINITY, enabled: true, visible: true, isMandatoryValue: false)
+	 gfloat_CMU_CLK7_hz = GFloat(widgetName: "gfloat_CMU_CLK7_hz", value: 100000000.0, minValue: 0, maxValue: Double.POSITIVE_INFINITY, enabled: true, visible: true, isMandatoryValue: false)
+	 gfloat_CMU_FXCLK0_hz = GFloat(widgetName: "gfloat_CMU_FXCLK0_hz", value: 0.0, minValue: 0, maxValue: Double.POSITIVE_INFINITY, enabled: true, visible: true, isMandatoryValue: false)
+	 gfloat_CMU_FXCLK1_hz = GFloat(widgetName: "gfloat_CMU_FXCLK1_hz", value: 0.0, minValue: 0, maxValue: Double.POSITIVE_INFINITY, enabled: true, visible: true, isMandatoryValue: false)
+	 gfloat_CMU_FXCLK2_hz = GFloat(widgetName: "gfloat_CMU_FXCLK2_hz", value: 0.0, minValue: 0, maxValue: Double.POSITIVE_INFINITY, enabled: true, visible: true, isMandatoryValue: false)
+	 gfloat_CMU_FXCLK3_hz = GFloat(widgetName: "gfloat_CMU_FXCLK3_hz", value: 0.0, minValue: 0, maxValue: Double.POSITIVE_INFINITY, enabled: true, visible: true, isMandatoryValue: false)
+	 gfloat_CMU_FXCLK4_hz = GFloat(widgetName: "gfloat_CMU_FXCLK4_hz", value: 0.0, minValue: 0, maxValue: Double.POSITIVE_INFINITY, enabled: true, visible: true, isMandatoryValue: false)
+	 gcheck_CMU_ECLK0 = GCheck(widgetName: "gcheck_CMU_ECLK0", value: false, enabled: true, visible: true)
+	 gcheck_CMU_ECLK1 = GCheck(widgetName: "gcheck_CMU_ECLK1", value: false, enabled: true, visible: true)
+	 gcheck_CMU_ECLK2 = GCheck(widgetName: "gcheck_CMU_ECLK2", value: false, enabled: true, visible: true)
+	 gcheck_CMU_CLK0 = GCheck(widgetName: "gcheck_CMU_CLK0", value: true, enabled: true, visible: true)
+	 gcheck_CMU_CLK1 = GCheck(widgetName: "gcheck_CMU_CLK1", value: false, enabled: true, visible: true)
+	 gcheck_CMU_CLK2 = GCheck(widgetName: "gcheck_CMU_CLK2", value: false, enabled: true, visible: true)
+	 gcheck_CMU_CLK3 = GCheck(widgetName: "gcheck_CMU_CLK3", value: false, enabled: true, visible: true)
+	 gcheck_CMU_CLK4 = GCheck(widgetName: "gcheck_CMU_CLK4", value: false, enabled: true, visible: true)
+	 gcheck_CMU_CLK5 = GCheck(widgetName: "gcheck_CMU_CLK5", value: false, enabled: true, visible: true)
+	 gcheck_CMU_CLK6 = GCheck(widgetName: "gcheck_CMU_CLK6", value: false, enabled: true, visible: true)
+	 gcheck_CMU_CLK7 = GCheck(widgetName: "gcheck_CMU_CLK7", value: false, enabled: true, visible: true)
+	 gcheck_CMU_FXCLK = GCheck(widgetName: "gcheck_CMU_FXCLK", value: true, enabled: true, visible: true)
+	 glabel_freq_GTM_hz = GLabel(widgetName: "glabel_freq_GTM_hz", text: "GTM frequency [MHz]", enabled: true, visible: true)
+	 glabel_global_freq_hz = GLabel(widgetName: "glabel_global_freq_hz", text: "GTM Global Frequency [Hz]", enabled: true, visible: true)
+	 glabel_CMU_ECLK0 = GLabel(widgetName: "glabel_CMU_ECLK0", text: "CMU_ECLK0", enabled: true, visible: true)
+	 glabel_CMU_ECLK0_hz = GLabel(widgetName: "glabel_CMU_ECLK0_hz", text: "Frequency [Hz]", enabled: true, visible: true)
+	 glabel_CMU_ECLK1 = GLabel(widgetName: "glabel_CMU_ECLK1", text: "CMU_ECLK1", enabled: true, visible: true)
+	 glabel_CMU_ECLK1_hz = GLabel(widgetName: "glabel_CMU_ECLK1_hz", text: "Frequency [Hz]", enabled: true, visible: true)
+	 glabel_CMU_ECLK2 = GLabel(widgetName: "glabel_CMU_ECLK2", text: "CMU_ECLK2", enabled: true, visible: true)
+	 glabel_CMU_ECLK2_hz = GLabel(widgetName: "glabel_CMU_ECLK2_hz", text: "Frequency [Hz]", enabled: true, visible: true)
+	 glabel_CMU_CLK0 = GLabel(widgetName: "glabel_CMU_CLK0", text: "CMU_CLK0", enabled: true, visible: true)
+	 glabel_CMU_CLK0_hz = GLabel(widgetName: "glabel_CMU_CLK0_hz", text: "Frequency [Hz]", enabled: true, visible: true)
+	 glabel_CMU_CLK1 = GLabel(widgetName: "glabel_CMU_CLK1", text: "CMU_CLK1", enabled: true, visible: true)
+	 glabel_CMU_CLK1_hz = GLabel(widgetName: "glabel_CMU_CLK1_hz", text: "Frequency [Hz]", enabled: true, visible: true)
+	 glabel_CMU_CLK2 = GLabel(widgetName: "glabel_CMU_CLK2", text: "CMU_CLK2", enabled: true, visible: true)
+	 glabel_CMU_CLK2_hz = GLabel(widgetName: "glabel_CMU_CLK2_hz", text: "Frequency [Hz]", enabled: true, visible: true)
+	 glabel_CMU_CLK3 = GLabel(widgetName: "glabel_CMU_CLK3", text: "CMU_CLK3", enabled: true, visible: true)
+	 glabel_CMU_CLK3_hz = GLabel(widgetName: "glabel_CMU_CLK3_hz", text: "Frequency [Hz]", enabled: true, visible: true)
+	 glabel_CMU_CLK4 = GLabel(widgetName: "glabel_CMU_CLK4", text: "CMU_CLK4", enabled: true, visible: true)
+	 glabel_CMU_CLK4_hz = GLabel(widgetName: "glabel_CMU_CLK4_hz", text: "Frequency [Hz]", enabled: true, visible: true)
+	 glabel_CMU_CLK5 = GLabel(widgetName: "glabel_CMU_CLK5", text: "CMU_CLK5", enabled: true, visible: true)
+	 glabel_CMU_CLK5_hz = GLabel(widgetName: "glabel_CMU_CLK5_hz", text: "Frequency [Hz]", enabled: true, visible: true)
+	 glabel_CMU_CLK6 = GLabel(widgetName: "glabel_CMU_CLK6", text: "CMU_CLK6", enabled: true, visible: true)
+	 glabel_CMU_CLK6_hz = GLabel(widgetName: "glabel_CMU_CLK6_hz", text: "Frequency [Hz]", enabled: true, visible: true)
+	 glabel_CMU_CLK7 = GLabel(widgetName: "glabel_CMU_CLK7", text: "CMU_CLK7", enabled: true, visible: true)
+	 glabel_CMU_CLK7_hz = GLabel(widgetName: "glabel_CMU_CLK7_hz", text: "Frequency [Hz]", enabled: true, visible: true)
+	 glabel_CMU_FXCLK = GLabel(widgetName: "glabel_CMU_FXCLK", text: "Enable", enabled: true, visible: true)
+	 glabel_CMU_FXCLK0_hz = GLabel(widgetName: "glabel_CMU_FXCLK0_hz", text: "CMU_FXCLK0 [Hz]", enabled: true, visible: true)
+	 glabel_CMU_FXCLK1_hz = GLabel(widgetName: "glabel_CMU_FXCLK1_hz", text: "CMU_FXCLK1 [Hz]", enabled: true, visible: true)
+	 glabel_CMU_FXCLK2_hz = GLabel(widgetName: "glabel_CMU_FXCLK2_hz", text: "CMU_FXCLK2 [Hz]", enabled: true, visible: true)
+	 glabel_CMU_FXCLK3_hz = GLabel(widgetName: "glabel_CMU_FXCLK3_hz", text: "CMU_FXCLK3 [Hz]", enabled: true, visible: true)
+	 glabel_CMU_FXCLK4_hz = GLabel(widgetName: "glabel_CMU_FXCLK4_hz", text: "CMU_FXCLK4 [Hz]", enabled: true, visible: true)
+	 ggroup_3 = GGroup(widgetName: "ggroup_3", text: "General", enabled: true, visible: true)
+	 ggroup_4 = GGroup(widgetName: "ggroup_4", text: "External Clocks", enabled: true, visible: true)
+	 ggroup_14 = GGroup(widgetName: "ggroup_14", text: "Configurable Clocks", enabled: true, visible: true)
+	 ggroup_30 = GGroup(widgetName: "ggroup_30", text: "Fixed Clocks", enabled: true, visible: true)
+
+
+	 }
+	/* End : UI variable section */
+}

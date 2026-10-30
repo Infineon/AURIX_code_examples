@@ -1,0 +1,573 @@
+package Model.APPS.DMA_CHANNEL_CONFIG.v4_1_8;
+// Import statements
+import java.util.regex.Matcher
+
+/*************** Revision History **********************************************
+ Version      Date          Description
+ 4.0.2        12-Sep-2025   - Initial version
+ 4.0.4        15-Sep-2025   - License and Copyright update
+ 4.1.2        23-Jan-2026   - Added support for TC4x
+ 4.1.4        22-May-2026   - Restrict TC4 support to TC4Dx and TC48x series
+ 4.1.6        30-Jul-2026   - Support to all TC4 devices
+ 4.1.8        04-Sep-2026   - SUSPENR removed for TC3
+ *******************************************************************************/
+
+import ifx.davex.app.manifest.*
+
+class  DMA_CHANNEL_CONFIG extends DMA_CHANNEL_CONFIG_GUI
+{
+	/* Note	 : Following APP properties are mandatory and important */
+
+	/* Begin : APP property section */
+
+	/**
+	 * APP version
+	 * Format: a string with three digit separated by a dot.
+	 */
+	def version            = '4.1.8'
+
+	/**
+	 * APP categories declaration.
+	 * It is list of strings. Subcategories are separated by slash.
+	 * No limits on number of categories and subcategories depth.
+	 */
+	def categoriesDescription = ["System"]
+
+	/**
+	 * Minimum DAVE version required for this APP.
+	 *
+	 * It is string with three digit separated by a dot.
+	 */
+	def minDaveVersion			 = '4.2.4'
+
+	/**
+	 * Keywords used by search feature in APPs selection view
+	 *
+	 * It is a list of string.
+	 */
+	def keywords	  = [
+		'DMA',
+		'CHANNEL',
+		'DMA channel',
+		'Direct Memory Access',
+		'peripheral',
+		'all'
+		]
+
+	/**
+	 * softwareIDs is used to declare which devices are compatible with this APP.
+	 * It is a map with key a string containing a pattern that shall match the SW id of
+	 * the device and as value the minimal version of the APP.
+	 */
+
+	def softwareIDs		  = [
+		"TC3.*.*.*":"1.0.0",
+		"TC4.*.*.*":"1.0.0"]
+
+	/**
+	 * Singleton property:
+	 * When it is true the APP can be instantiated only once.
+	 */
+	def singleton	  = false
+
+
+	/**
+	 * initProvider property
+	 * It shall be true to add a call to <AppName>_Init()
+	 */
+	def initProvider  = true
+
+	/**
+	 * Deprecated APP
+	 * Set it to true to indicate that the APP shall be not used for new projects.
+	 */
+	def deprecated	  = false
+
+	/**
+	 * Sharable property.
+	 * It shall be true to allows multiple APPs to require the same instance of this APP.
+	 */
+	def sharable	  = false
+
+	/**
+	 * Hardware pin property.
+	 * It shall be true if this app consumes any direct HW pin resource.
+	 */
+	def ioApp		  = false
+
+	/**
+	 *	APP function description.
+	 */
+	def description = "The DMA_CHANNEL_CONFIG APP is used to perform data transfer from a source to a destination " +
+						"without CPU effort on TC3x and TC4x microcontrollers"
+
+	/* End	 : APP property section */
+
+	/* Begin : User APP property section */
+
+	/* Device info */
+	GString gstring_swid = GString()							// Software ID
+
+	/* Required App */
+	MRequiredApp appres_dma_gen									// DMA_GENERIC App
+
+	/* Resource groups */
+	MVirtualResourceGroup hwres_dma_channel						// DMA channel hardware resource
+	MVirtualResourceGroup hwres_interrupt						// Interrupt resource
+
+	/* Virtual signals */
+	MVirtualSignal vs_interrupt_in								// Interrupt input signal
+	MVirtualSignal vs_interrupt_out								// Interrupt output signal
+	MVirtualSignal vs_dma_ch_global								// DMA channel global signal
+	MVirtualSignal vs_dma_ch_intr_req							// DMA channel interrupt request (raised after successful DMA transaction completion)
+	MVirtualSignalRA vs_dma_global								// DMA global signal
+
+	/* Variables */
+	GString gstring_src_is_address = GString(value: "false")	// String variable holds boolean strings indicates source address is static or not
+	GInteger ginteger_src_hex_address = GInteger(value: 0x0)	// Integer variable holds source address if the address if static
+	GInteger ginteger_rp_ch_num = GInteger(value: 0x0)			// Integer variable holds configured RP channel number for TC4xx device from DMA_GENERIC
+	/* End	 : User APP property section */
+
+	/* Begin : APP Constructor */
+	public DMA_CHANNEL_CONFIG(DaveEnv daveEnv)
+	{
+		gstring_swid.value = daveEnv.project.selectedDevice.deviceId.softwareId
+		String str_family = daveEnv.project.selectedDevice.deviceId.softwareId.split("\\.")[0]
+
+		// Visibility for DMA Channel Interrupt is requested to IR
+		MF ch_intr_req_visibility = MF({
+			return((gcheck_pat_mat_evnt.value || gcheck_wrap_src_buf_intr.value || gcheck_wrap_des_buf_intr.value || gcheck_trans_comp_intr.value))
+		}, Boolean)
+
+		// Visibility for DMA Channel Service is requested from other other peripherals
+		MF ch_intr_in_visibility = MF({return gcombo_dma_rqst_type.value == "Hardware"}, Boolean)
+
+		/* -------------------------------------------------------------- */
+		/* -------------- Required APP ---------------------------------- */
+		/* -------------------------------------------------------------- */
+		appres_dma_gen = MRequiredApp("DMA_GENERIC", "DMA_GENERIC APP", RSHARABLE, "4.1.2")
+
+		/* -------------------------------------------------------------- */
+		/* ------------ Hardware resource consumption block ------------- */
+		/* -------------------------------------------------------------- */
+		hwres_dma_channel = MVirtualResourceGroup("Channel", ["peripheral", "dma", "*", "ch", "*"])
+		hwres_interrupt = MVirtualResourceGroup("Interrupt SRN", ["peripheral", "int", "0", "srn", "*"], ch_intr_in_visibility)
+
+		/* -------------------------------------------------------------- */
+		/* -------------- APP IO Signals -------------------------------- */
+		/* -------------------------------------------------------------- */
+		vs_dma_ch_global = MVirtualSignal(hwres_dma_channel, "global", "global", true, false)
+		vs_interrupt_in = MVirtualSignal(hwres_interrupt, "REQ", "in", ch_intr_in_visibility, ch_intr_in_visibility)
+		vs_interrupt_out = MVirtualSignal(hwres_interrupt, "INT", "out", ch_intr_in_visibility, false)
+		vs_dma_ch_intr_req = MVirtualSignal(hwres_dma_channel, "INT", "ch_int", ch_intr_req_visibility, ch_intr_req_visibility)
+		vs_dma_global = MVirtualSignalRA(appres_dma_gen, "vs_dma_global")
+
+		/* -------------------------------------------------------------- */
+		/* -------------- IO Signal Constraints ------------------------- */
+		/* -------------------------------------------------------------- */
+		addConnectionConstraint(vs_interrupt_out, vs_dma_global, ch_intr_in_visibility)
+		addConnectionConstraint(vs_dma_global, vs_dma_ch_global, true)
+
+		/* -------------------------------------------------------------- */
+		/* ------------ APP Configuration ------------------------------ */
+		/* ------------------------------------------------------------- */
+		if (str_family == "TC4")
+		{
+			gcombo_rp_sel.options = MF({
+				int rp_ch_num = appres_dma_gen.getVal(["ginteger_rp_ch", "value"])
+				int maxRp = Math.min(Math.max(rp_ch_num, 1), 16)
+				List<String> options = new ArrayList<>(maxRp)
+				for (int i = 0; i < maxRp; i++)
+				{
+					options.add("Resource Partition " + i + " (RP" + i + ")")
+				}
+				return options
+		  }, List)  
+		  
+		  glabel_tsr_wwc.enabled = ch_intr_req_visibility
+		  gcheck_tsr_wwc.visible = ch_intr_req_visibility
+		  gcheck_tsr_wwc_dis.visible = MF({!gcheck_tsr_wwc.visible}, Boolean)
+		}
+		else
+		{
+		  /* TC3 have default 4 RPs */
+			gcombo_rp_sel.options = ["Resource Partition 0 (RP0)",
+									"Resource Partition 1 (RP1)",
+									"Resource Partition 2 (RP2)",
+									"Resource Partition 3 (RP3)"]
+		  
+		  glabel_tsr_wwc.enabled = false
+		  gcheck_tsr_wwc.enabled = false
+		  gcheck_tsr_wwc_dis.visible = true
+		}
+
+		gtab_linkedlist.visible = MF({
+			gcombo_operation_type.value == "DMA Linked List (DMALL)" ||
+			gcombo_operation_type.value == "Accumulated Linked List (ACCLL)" ||
+			gcombo_operation_type.value == "Safe/Checked Linked List (SAFLL/CHKLL)" ||
+			gcombo_operation_type.value == "Conditional Linked List (CONLL)"
+		},Boolean)
+		glabel_src_circ_buf_len.enabled = MF({gcheck_src_circ_buffer.value}, Boolean)
+		gcombo_src_circ_buf_len.enabled = MF({gcheck_src_circ_buffer.value}, Boolean)
+
+		glabel_des_circ_buf_len.enabled = MF({gcheck_des_circ_buffer.value}, Boolean)
+		gcombo_des_circ_buf_len.enabled = MF({gcheck_des_circ_buffer.value}, Boolean)
+
+		// Regular expression patterns for validating hexadecimal address format
+		String hex_adrs_regexp = /^0x[0-9a-fA-F]{1,8}+$/
+		String variable_adrs_regexp = /^[a-zA-Z_]\w*$/
+
+		gmessage_src_adrs.visible = MF({
+			Matcher hex_address_matcher = (gstring_src_adrs.value =~ hex_adrs_regexp)
+			Matcher var_address_matcher = (gstring_src_adrs.value =~ variable_adrs_regexp)
+			return (!hex_address_matcher.matches() && !var_address_matcher.matches())
+		}, Boolean)
+
+		gmessage_des_adrs.visible = MF({
+			Matcher hex_address_matcher = (gstring_des_adrs.value =~ hex_adrs_regexp)
+			Matcher var_address_matcher = (gstring_des_adrs.value =~ variable_adrs_regexp)
+			return (!hex_address_matcher.matches() && !var_address_matcher.matches())
+		}, Boolean)
+
+		gstring_src_is_address.value = MF({
+			Matcher matcher = (gstring_src_adrs.value =~ hex_adrs_regexp)
+			return (matcher.matches()).toString()
+		}, String)
+
+		ginteger_src_hex_address.value = MF({
+			if(gstring_src_is_address.value == "true")
+			{	String address = gstring_src_adrs.value
+				// Remove '0x' prefix if present
+				String normalizedHexString = address.substring(2)
+				return Long.parseLong(normalizedHexString, 16)
+			}
+		}, Integer)
+
+		gcombo_ch_wid.options = MF({
+			if (str_family == "TC4")
+			{
+				return ["8-bit",
+						"16-bit",
+						"32-bit",
+						"64-bit",
+						"128-bit",
+						"256-bit",
+						"512-bit"]
+			}
+			else
+			{
+				/* Return TC3x Channel Width options */
+				return ["8-bit",
+						"16-bit",
+						"32-bit",
+						"64-bit",
+						"128-bit",
+						"256-bit"]
+			}
+		}, List)
+		
+		glabel_susen.visible = MF({str_family == "TC4"}, Boolean)
+		gcheck_susen.visible = MF({str_family == "TC4"}, Boolean)
+
+		gcombo_operation_type.options = MF({
+			boolean validSrcAddress = false
+
+			if(gstring_src_is_address.value == "true")
+			{
+				long address = ginteger_src_hex_address.value
+				long rangeStart = 0xA0000000
+				long rangeEnd = 0xBFFFFFFF
+				validSrcAddress = address >= rangeStart && address < rangeEnd
+			}
+
+			if((gcombo_ch_wid.value == "8-bit") && (validSrcAddress == true))  // 18.3.4.9.8/2nd para
+			{
+				return ["Move Operation",
+						"Shadow Operation Read Only Mode Source Address",
+						"Shadow Operation Read Only Mode Destination Address",
+						"Shadow Operation Direct Write Mode Source Address",
+						"Shadow Operation Direct Write Mode Destination Address",
+						"Double Source Buffering with S/W Switch Only",
+						"Double Source Buffering with S/W Switch and Automatic H/W Switch",
+						"Double Destination Buffering with S/W Switch Only",
+						"Double Destination Buffering with S/W Switch and Automatic H/W Switch",
+						"DMA Linked List (DMALL)",
+						"Accumulated Linked List (ACCLL)",
+						"Safe/Checked Linked List (SAFLL/CHKLL)",
+						"Conditional Linked List (CONLL)"]
+			}
+			else
+			{
+				return ["Move Operation",
+						"Shadow Operation Read Only Mode Source Address",
+						"Shadow Operation Read Only Mode Destination Address",
+						"Shadow Operation Direct Write Mode Source Address",
+						"Shadow Operation Direct Write Mode Destination Address",
+						"Double Source Buffering with S/W Switch Only",
+						"Double Source Buffering with S/W Switch and Automatic H/W Switch",
+						"Double Destination Buffering with S/W Switch Only",
+						"Double Destination Buffering with S/W Switch and Automatic H/W Switch",
+						"DMA Linked List (DMALL)",
+						"Accumulated Linked List (ACCLL)",
+						"Safe/Checked Linked List (SAFLL/CHKLL)"]
+			}
+		}, List)
+		
+		MF shadr_en = MF({
+			  switch (gcombo_operation_type.value)
+			  {
+				case "Shadow Operation Direct Write Mode Source Address":
+				case "Shadow Operation Direct Write Mode Destination Address":
+				case "Double Source Buffering with S/W Switch Only":
+				case "Double Source Buffering with S/W Switch and Automatic H/W Switch":
+				case "Double Destination Buffering with S/W Switch Only":
+				case "Double Destination Buffering with S/W Switch and Automatic H/W Switch":
+					return true
+					break
+				default:
+					return false
+					break
+			  }
+			},Boolean)
+		
+		glabel_shadr.enabled = shadr_en
+		gstring_shadr.enabled = shadr_en
+		
+		gmessage_shadr.visible = MF({
+			Matcher hex_address_matcher = (gstring_shadr.value =~ hex_adrs_regexp)
+			Matcher var_address_matcher = (gstring_shadr.value =~ variable_adrs_regexp)
+			return (!hex_address_matcher.matches() && !var_address_matcher.matches() && gstring_shadr.enabled)
+		}, Boolean)
+
+		gcombo_swap_data_crc.enabled = MF({gcombo_ch_wid.value != "8-bit"},Boolean)	 // 18.3.4.10/Swap Byte
+
+		gcombo_add_feat.options = MF({
+			boolean validSrcAddress = false
+
+			if(gstring_src_is_address.value == "true")
+			{
+				long address = ginteger_src_hex_address.value
+				long rangeStart = 0xA0000000
+				long rangeEnd = 0xBFFFFFFF
+				validSrcAddress = address >= rangeStart && address < rangeEnd
+			}
+
+			/* Following conditions are driven from TC3xx user manual https://www.infineon.com/dgdl/?fileId=5546d462712ef9b701717d3605221d96 */
+			if (
+				// 1st point in 18.3.4.7/Configuration
+				(gcombo_ch_wid.value == "8-bit" || gcombo_ch_wid.value == "16-bit" || gcombo_ch_wid.value == "32-bit") &&
+				// Table 569 DMA Channel Operation
+				(gcombo_operation_type.value == "Move Operation" || gcombo_operation_type.value.toString().find("Shadow Operation")) &&
+				// 2nd point in 18.3.4.7/Configuration
+				(validSrcAddress == true)
+				)
+			{
+				return ["No Feature","Pattern Detection","Timestamp"]
+			}
+			else
+			{
+				return ["No Feature","Timestamp"]
+			}
+		}, List)
+
+		/* Following conditions are driven from TC3xx user manual https://www.infineon.com/dgdl/?fileId=5546d462712ef9b701717d3605221d96 */
+		gcheck_pat_mat_evnt.enabled = false
+		gcheck_pat_mat_evnt.value = MF({(gcombo_add_feat.value=="Pattern Detection")}, Boolean)
+
+		gcombo_detection_type.options = MF({  // Table 569 DMA Channel Operation
+			if(gcombo_add_feat.value!="Pattern Detection")
+			{
+				return ["None"]
+			}
+			else
+			{
+				if(gcombo_ch_wid.value == "8-bit")
+				{
+					return ["8-bit Lower Pattern Compare",
+							"8-bit Upper Pattern Compare",
+							"8-bit Two Byte Pattern Detection Sequence Compare"]
+				}
+				else if(gcombo_ch_wid.value == "16-bit")
+				{
+					if(gcombo_src_cnt.value == "Decrement")
+					{
+						return ["16-bit Aligned Mode Compare",
+								"16-bit Unaligned Mode 1 Compare",
+								"16-bit Combined Mode Compare"]
+					}
+					else
+					{
+						return ["16-bit Aligned Mode Compare",
+								"16-bit Unaligned Mode 2 Compare",
+								"16-bit Combined Mode Compare"]
+					}
+				}
+				else if(gcombo_ch_wid.value == "32-bit")
+				{
+					return ["32-bit Lower Data Half Word Compare",
+							"32-bit Upper Data Half Word Compare",
+							"32-bit Complete Data Word Compare"]
+				}
+				else
+				{
+					/*Not valid entry*/
+				}
+			}
+		}, List)
+
+		gcombo_pat_cmp_rgn.options = MF({
+			if(gcombo_add_feat.value=="Pattern Detection")
+			{
+				return ["PRR0", "PRR1"]
+			}
+			else
+			{
+				return ["None"]
+			}
+		}, List)
+
+		gcombo_rst_type.options = MF({
+			if(gcombo_dma_rqst_type.value == "Daisy Chain")
+			{
+				return ["Single Transaction"]
+			}
+			else
+			{
+				return ["Each Transfer", "Single Transaction"]
+			}
+		}, List)
+
+		/* Following conditions are driven from TC3xx user manual https://www.infineon.com/dgdl/?fileId=5546d462712ef9b701717d3605221d96 */
+		gcombo_trans_mode.options = MF({
+			if(gcombo_dma_rqst_type.value == "Hardware" && gcombo_operation_type.value.toString().find("Double"))  // 18.3.4.8
+			{
+				return ["Continuous Mode"]
+			}
+			else
+			{
+				return ["Single Mode", "Continuous Mode"]
+			}
+		}, List)
+
+		ginteger_trans_comp_intr.enabled = MF({gcheck_trans_comp_intr.value}, Boolean)
+
+		gindexcombo_node_lls.options = MF(
+		{
+			List<String> l = new ArrayList(rArraygindexgroup_lls.size())
+			for (int i = 1; i < ginteger_num_lls.value; i++)
+			{
+				l.add(i.toString())
+			}
+			l
+		}, List)
+
+		gcombo_subseq.options = MF(
+		{
+			/* If 0th node in linked list is SW requested, then the following can't be changed to HW.
+			 * Because TSR register is not in TCS of Linked List */
+			if(gcombo_dma_rqst_type.value == "Software")
+			{
+				return ["Auto Start Request for All Transactions",
+						"Software Request for All Transactions",
+						"Configured Individually"]
+			}
+			/* If 0th node in linked list is HW requested, then the following can't be changed to SW.
+			 * Because TSR register is not in TCS of Linked List */
+			else if(gcombo_dma_rqst_type.value == "Hardware")
+			{
+				return ["Auto Start Request for All Transactions",
+						"Hardware Request for All Transactions",
+						"Configured Individually"]
+			}
+			/* Oth node is Daisy req
+			 * In this casem the PRSEL.CHCFGR can be replaced in LinkedList TCS.
+			 * Therefore it shall allow the following nodes req source as SW */
+			else
+			{
+				return ["Auto Start Request for All Transactions",
+						"Software Request for All Transactions",
+						"Configured Individually"]
+			}
+		}, List)
+
+		MF indi_req_src = MF({
+			if (gcombo_subseq.value == "Auto Start Request for All Transactions" ||
+				gcombo_subseq.value == "Software Request for All Transactions" ||
+				gcombo_subseq.value == "Hardware Request for All Transactions")
+			{
+				return false
+			}
+			else if (gcombo_subseq.value == "Configured Individually")
+			{
+				return true
+			}
+		}, Boolean)
+
+		for(int i=0; i < rArraygindexgroup_lls.size(); i++)
+		{
+			Gindexgroup_lls ll = rArraygindexgroup_lls[i]
+
+			MF src_vibility = MF({ll.gcheck_src_circ_buffer_lls.value}, Boolean)
+			ll.glabel_src_circ_buf_len_lls.enabled = src_vibility
+			ll.gcombo_src_circ_buf_len_lls.enabled = src_vibility
+
+			MF src_error = MF({
+				Matcher hex_address_matcher = (ll.gstring_src_addrs_lls.value =~ hex_adrs_regexp)
+				Matcher var_address_matcher = (ll.gstring_src_addrs_lls.value =~ variable_adrs_regexp)
+				return(!hex_address_matcher.matches() && !var_address_matcher.matches())
+			}, Boolean)
+			ll.glabel_src_addrs_lls_warning.visible = src_error
+
+			MF des_vibility = MF({ll.gcheck_des_circ_buffer_lls.value}, Boolean)
+			ll.glabel_des_circ_buf_len_lls.enabled = des_vibility
+			ll.gcombo_des_circ_buf_len_lls.enabled = des_vibility
+
+			MF des_error = MF({
+				Matcher hex_address_matcher = (ll.gstring_des_addrs_lls.value =~ hex_adrs_regexp)
+				Matcher var_address_matcher = (ll.gstring_des_addrs_lls.value =~ variable_adrs_regexp)
+				return(!hex_address_matcher.matches() && !var_address_matcher.matches())
+			}, Boolean)
+			ll.glabel_des_addrs_lls_warning.visible = des_error
+
+			ll.glabel_dma_rqst_type_node.enabled = indi_req_src
+			ll.gcombo_dma_rqst_type_node.enabled = indi_req_src
+
+			ll.gcombo_dma_rqst_type_node.options = MF(
+			{
+				/* If 0th node in linked list is SW requested, then the following can't be changed to HW.
+				 * Because TSR register is not in TCS of Linked List */
+				if(gcombo_dma_rqst_type.value == "Software")
+				{
+					return ["Auto Start",
+							"Software"]
+				}
+				/* If 0th node in linked list is HW requested, then the following can't be changed to SW.
+				 * Because TSR register is not in TCS of Linked List */
+				else if(gcombo_dma_rqst_type.value == "Hardware")
+				{
+					return ["Auto Start",
+							"Hardware"]
+				}
+				/* Oth node is Daisy req
+				 * In this casem the PRSEL.CHCFGR can be replaced in LinkedList TCS.
+				 * Therefore it shall allow the following nodes req source as SW */
+				else
+				{
+					return ["Auto Start",
+							"Software"]
+				}
+			}, List)
+		}
+	}
+	/* End	 : APP Constructor */
+
+	/* Begin : File Generation */
+	def generateFiles()
+	{
+		copy("dma_channel_config.c", "dma_channel_config.c")
+		copy("dma_channel_config.h", "dma_channel_config.h")
+		generate("dma_channel_config_confc.tmpl", "dma_channel_config_conf.c")
+		generate("dma_channel_config_confh.tmpl", "dma_channel_config_conf.h")
+	}
+	/* End	 : File Generation */
+}

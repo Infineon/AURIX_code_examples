@@ -1,0 +1,280 @@
+package Model.APPS.DMA_GENERIC.v4_1_4;
+// Import statements
+import ifx.davex.app.manifest.*
+
+/*************** Revision History **********************************************
+ Version      Date          Description
+ 4.0.2        12-Sep-2025   - Initial version
+ 4.0.4        15-Sep-2025   - License and Copyright update
+ 4.1.2        23-Jan-2026   - Added support for TC4x
+ 4.1.4        22-May-2026   - Restrict TC4 support to TC4Dx and TC48x series
+ *******************************************************************************/
+
+class  DMA_GENERIC extends DMA_GENERIC_GUI
+{
+	/* Note  : Following APP properties are mandatory and important */
+
+	/* Begin : APP property section */
+
+	/**
+	 * APP version
+	 * Format: a string with three digit separated by a dot.
+	 */
+	def version            = '4.1.4'
+
+	/**
+	 * APP categories declaration.
+	 * It is list of strings. Subcategories are separated by slash.
+	 * No limits on number of categories and subcategories depth.
+	 */
+	def categoriesDescription = ["System"]
+
+	/**
+	 * Minimum DAVE version required for this APP.
+	 *
+	 * It is string with three digit separated by a dot.
+	 */
+	def minDaveVersion           = '4.2.4'
+
+	/**
+	 * Keywords used by search feature in APPs selection view
+	 *
+	 * It is a list of string.
+	 */
+	def keywords      = [
+		'DMA',
+		'CHANNEL',
+		'DMA channel',
+		'Direct Memory Access',
+		'peripheral',
+		'all'
+	]
+
+	/**
+	 * softwareIDs is used to declare which devices are compatible with this APP.
+	 * It is a map with key a string containing a pattern that shall match the SW id of
+	 * the device and as value the minimal version of the APP.
+	 */
+
+	def softwareIDs       = [
+	"TC3.*.*.*":"1.0.0",
+	"TC4.D.*.*":"1.0.0",
+	"TC4.8.*.*":"1.0.0"]
+
+	/**
+	 * Singleton property:
+	 * When it is true the APP can be instantiated only once.
+	 */
+	def singleton     = false
+
+	/**
+	 * initProvider property
+	 * It shall be true to add a call to <AppName>_Init()
+	 */
+	def initProvider  = true
+
+	/**
+	 * Deprecated APP
+	 * Set it to true to indicate that the APP shall be not used for new projects.
+	 */
+	def deprecated    = false
+
+	/**
+	 * Sharable property.
+	 * It shall be true to allows multiple APPs to require the same instance of this APP.
+	 */
+	def sharable      = true
+
+	/**
+	 * Hardware pin property.
+	 * It shall be true if this app consumes any direct HW pin resource.
+	 */
+	def ioApp         = false
+
+	/**
+	 *  APP function description.
+	 */
+	def description = "The DMA_GENERIC APP is used to configure the properities of global DMA " +
+						"which used by individual DMA channels on TC3x and TC4x microcontrollers"
+
+	/**
+	 *  Static variables for RP Channel counts.
+	 */
+	private static final int TC4X_RP_COUNT_DMA0_16 = 16     // TC4x DMA0 RP 16 Count (TC4Dx, 49xN, 48x, 46x, 4Zx)
+	private static final int TC4X_RP_COUNT_DMA0_8 = 8       // TC4x DMA0 RP 8 Count (TC4Ex, 4Px, 44x, 45x)
+	private static final int TC4X_RP_COUNT_DMA1 = 8         // TC4x DMA1 RP Count (All TC4 DMA1 module have 8 count)
+	private static final int TC3X_RP_COUNT = 4              // TC3x DMA RP Count
+
+	/* End   : APP property section */
+
+	/* Begin : User APP property section */
+
+	/* Device info */
+	GString gstring_swid = GString()						// Software ID
+
+	/* ----------------Begin : User Variables for hardware resources and virtual signals----------------- */
+	/*Required resource groups*/
+	MVirtualResourceGroup hwres_dma							// DMA hardware resource
+
+	/*Required virtual signals*/
+	MVirtualSignal vs_dma_global							// DMA global signal
+	MVirtualSignal vs_dma_gerr   							// DMA Global Error Service Request
+	MVirtualSignal vs_dma_err_intr_0						// DMA RP 0 Error Interrupt Service Request
+	MVirtualSignal vs_dma_err_intr_1						// DMA RP 1 Error Interrupt Service Request
+	MVirtualSignal vs_dma_err_intr_2						// DMA RP 2 Error Interrupt Service Request
+	MVirtualSignal vs_dma_err_intr_3						// DMA RP 3 Error Interrupt Service Request
+	MVirtualSignal vs_dma_err_intr_4						// DMA RP 4 Error Interrupt Service Request
+	MVirtualSignal vs_dma_err_intr_5						// DMA RP 5 Error Interrupt Service Request
+	MVirtualSignal vs_dma_err_intr_6						// DMA RP 6 Error Interrupt Service Request
+	MVirtualSignal vs_dma_err_intr_7						// DMA RP 7 Error Interrupt Service Request
+	MVirtualSignal vs_dma_err_intr_8						// DMA RP 8 Error Interrupt Service Request
+	MVirtualSignal vs_dma_err_intr_9						// DMA RP 9 Error Interrupt Service Request
+	MVirtualSignal vs_dma_err_intr_10						// DMA RP 10 Error Interrupt Service Request
+	MVirtualSignal vs_dma_err_intr_11						// DMA RP 11 Error Interrupt Service Request
+	MVirtualSignal vs_dma_err_intr_12						// DMA RP 12 Error Interrupt Service Request
+	MVirtualSignal vs_dma_err_intr_13						// DMA RP 13 Error Interrupt Service Request
+	MVirtualSignal vs_dma_err_intr_14						// DMA RP 14 Error Interrupt Service Request
+	MVirtualSignal vs_dma_err_intr_15						// DMA RP 15 Error Interrupt Service Request
+	GCombo gcombo_sleep_common = GCombo()					// Sleep configuration common for TC3/4
+	/* ----------------End : User Variables for hardware resources and virtual signals------------------- */
+
+	/* End   : User APP property section */
+
+	/* Begin : APP Constructor */
+	public DMA_GENERIC(DaveEnv daveEnv)
+	{
+		gstring_swid.value = daveEnv.project.selectedDevice.deviceId.softwareId
+		String str_family = daveEnv.project.selectedDevice.deviceId.softwareId.split("\\.")[0]
+		String str_series = daveEnv.project.selectedDevice.deviceId.softwareId.split("\\.")[1]
+
+		MF is_tc3 = MF({(str_family == "TC3")}, Boolean)
+		MF is_tc4 = MF({(str_family == "TC4")}, Boolean)
+
+		gtab_config.visible = is_tc3
+		gtab_config_tc4.visible = is_tc4
+
+		gtab_config.text = "General Settings"
+		gtab_config_tc4.text = "General Settings"
+
+		/* -------------------------------------------------------------- */
+		/* ------------ Hardware resource consumption block ------------- */
+		/* -------------------------------------------------------------- */
+		hwres_dma = MVirtualResourceGroup("Common Block", ["peripheral", "dma", "*", "common"])
+
+		if (str_family == "TC4")
+		{
+			gcombo_sleep_common = gcombo_sleep_tc4
+
+			/* TC49x-A
+				After receiving a System shutdown request the DMA should enter the
+				sleep mode regardless of CLC.EDIS
+				Potential workaround:
+				CLC.EDIS has to be always configured to 0b
+			*/
+			if (str_series == "9")
+			{
+				gcombo_sleep_tc4.value = "Enable"
+				gcombo_sleep_tc4.enabled = false
+			}
+		}
+		else
+		{
+			gcombo_sleep_common = gcombo_sleep
+		}
+
+		gmessage_tc49xA.visible = MF({str_family == "TC4" && str_series == "9"}, Boolean)
+
+		ginteger_rp_ch.maxValue = MF({
+			if (str_family == "TC4" && hwres_dma.getSolverUri()[4] == "0")
+			{
+				switch (str_series)
+				{
+					case "D":
+					case "9":
+					case "8":
+					case "6":
+					case "Z":
+						return TC4X_RP_COUNT_DMA0_16
+						break
+					case "E":
+					case "P":
+					case "5":
+					case "4":
+						return TC4X_RP_COUNT_DMA0_8
+						break
+				}
+				
+			}
+			else if (str_family == "TC4" && hwres_dma.getSolverUri()[4] == "1")
+			{
+				return TC4X_RP_COUNT_DMA1
+			}
+			else
+			{
+				/* Shall Not enter this block; To be on safer side returning minimum TC4x DMA1 channel count */
+				return TC4X_RP_COUNT_DMA1
+			}
+		}, Integer)
+
+		/* -------------------------------------------------------------- */
+		/* -------------- APP IO Signals -------------------------------- */
+		/* -------------------------------------------------------------- */
+		vs_dma_global = MVirtualSignal(hwres_dma, "global", "global", true, false)
+
+		vs_dma_gerr = MVirtualSignal(hwres_dma, "GERR_INT", "gerr_int", is_tc4, is_tc4)
+
+		MF is_err1 = MF({(str_family == "TC3" || (ginteger_rp_ch.value >= 2))}, Boolean)
+		MF is_err2 = MF({(str_family == "TC3" || (ginteger_rp_ch.value >= 3))}, Boolean)
+		MF is_err3 = MF({(str_family == "TC3" || (ginteger_rp_ch.value >= 4))}, Boolean)
+		MF is_err4 = MF({(str_family == "TC4" && ginteger_rp_ch.value >= 5)}, Boolean)
+		MF is_err5 = MF({(str_family == "TC4" && ginteger_rp_ch.value >= 6)}, Boolean)
+		MF is_err6 = MF({(str_family == "TC4" && ginteger_rp_ch.value >= 7)}, Boolean)
+		MF is_err7 = MF({(str_family == "TC4" && ginteger_rp_ch.value >= 8)}, Boolean)
+		MF is_err8 = MF({(str_family == "TC4" && ginteger_rp_ch.value >= 9)}, Boolean)
+		MF is_err9 = MF({(str_family == "TC4" && ginteger_rp_ch.value >= 10)}, Boolean)
+		MF is_err10 = MF({(str_family == "TC4" && ginteger_rp_ch.value >= 11)}, Boolean)
+		MF is_err11 = MF({(str_family == "TC4" && ginteger_rp_ch.value >= 12)}, Boolean)
+		MF is_err12 = MF({(str_family == "TC4" && ginteger_rp_ch.value >= 13)}, Boolean)
+		MF is_err13 = MF({(str_family == "TC4" && ginteger_rp_ch.value >= 14)}, Boolean)
+		MF is_err14 = MF({(str_family == "TC4" && ginteger_rp_ch.value >= 15)}, Boolean)
+		MF is_err15 = MF({(str_family == "TC4" && ginteger_rp_ch.value >= 16)}, Boolean)
+
+		vs_dma_err_intr_0 = MVirtualSignal(hwres_dma, "E0_INT", "err_int0", true, true)
+		vs_dma_err_intr_1 = MVirtualSignal(hwres_dma, "E1_INT", "err_int1", true, is_err1)
+		vs_dma_err_intr_2 = MVirtualSignal(hwres_dma, "E2_INT", "err_int2", true, is_err2)
+		vs_dma_err_intr_3 = MVirtualSignal(hwres_dma, "E3_INT", "err_int3", true, is_err3)
+		vs_dma_err_intr_4 = MVirtualSignal(hwres_dma, "E4_INT", "err_int4", true, is_err4)
+		vs_dma_err_intr_5 = MVirtualSignal(hwres_dma, "E5_INT", "err_int5", true, is_err5)
+		vs_dma_err_intr_6 = MVirtualSignal(hwres_dma, "E6_INT", "err_int6", true, is_err6)
+		vs_dma_err_intr_7 = MVirtualSignal(hwres_dma, "E7_INT", "err_int7", true, is_err7)
+		vs_dma_err_intr_8 = MVirtualSignal(hwres_dma, "E8_INT", "err_int8", true, is_err8)
+		vs_dma_err_intr_9 = MVirtualSignal(hwres_dma, "E9_INT", "err_int9", true, is_err9)
+		vs_dma_err_intr_10 = MVirtualSignal(hwres_dma, "E10_INT", "err_int10", true, is_err10)
+		vs_dma_err_intr_11 = MVirtualSignal(hwres_dma, "E11_INT", "err_int11", true, is_err11)
+		vs_dma_err_intr_12 = MVirtualSignal(hwres_dma, "E12_INT", "err_int12", true, is_err12)
+		vs_dma_err_intr_13 = MVirtualSignal(hwres_dma, "E13_INT", "err_int13", true, is_err13)
+		vs_dma_err_intr_14 = MVirtualSignal(hwres_dma, "E14_INT", "err_int14", true, is_err14)
+		vs_dma_err_intr_15 = MVirtualSignal(hwres_dma, "E15_INT", "err_int15", true, is_err15)
+
+		gindexcombo_rp_index.options = MF(
+		{
+			List<String> l = new ArrayList(rArraygindexgroup_err.size())
+			for (int i = 0; i < ginteger_rp_ch.value; i++)
+			{
+				l.add(i.toString())
+			}
+			l
+		}, List)
+	}
+	/* End   : APP Constructor */
+
+	/* Begin : File Generation */
+	def generateFiles()
+	{
+		copy("dma_generic.c", "dma_generic.c")
+		copy("dma_generic.h", "dma_generic.h")
+		generate("dma_generic_confh.tmpl", "dma_generic_conf.h")
+		generate("dma_generic_confc.tmpl", "dma_generic_conf.c")
+	}
+	/* End   : File Generation */
+}

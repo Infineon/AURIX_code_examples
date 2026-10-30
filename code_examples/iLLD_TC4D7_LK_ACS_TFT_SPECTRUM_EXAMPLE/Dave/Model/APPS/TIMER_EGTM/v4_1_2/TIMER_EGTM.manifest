@@ -1,0 +1,515 @@
+package Model.APPS.TIMER_EGTM.v4_1_2;
+// Import statements
+import ifx.davex.app.manifest.*
+
+/*************** Revision History **********************************************
+ Version      Date          Description
+ 4.1.2        13-Mar-2026   - Initial version
+ *******************************************************************************/
+class  TIMER_EGTM extends TIMER_EGTM_GUI
+{
+	/* Note  : Following APP properties are mandatory and important */
+
+	/* Begin : APP property section */
+
+	/**
+	 * APP version
+	 * Format: a string with three digit separated by a dot.
+	 */
+	def version            = '4.1.2'
+
+	/**
+	 * APP categories declaration.
+	 * It is list of strings. Subcategories are separated by slash.
+	 * No limits on number of categories and subcategories depth.
+	 */
+	def categoriesDescription = ["Timer"]
+
+	/**
+	 * Minimum DAVE version required for this APP.
+	 *
+	 * It is string with three digit separated by a dot.
+	 */
+	def minDaveVersion           = '4.2.4'
+
+	/**
+	 * Keywords used by search feature in APPs selection view
+	 *
+	 * It is a list of string.
+	 */
+	def keywords      = ['EGTM', 'GTM', 'Generic', 'Timer', 'Enhanced']
+
+	/**
+	 * softwareIDs is used to declare which devices are compatible with this APP.
+	 * It is a map with key a string containing a pattern that shall match the SW id of
+	 * the device and as value the minimal version of the APP.
+	 */
+
+	def softwareIDs       = [
+		"TC4.9.*.*":"1.0.0",
+		"TC4.D.*.*":"1.0.0",
+		"TC4.8.*.*":"1.0.0",
+		"TC4.6.*.*":"1.0.0",
+		"TC4.E.*.*":"1.0.0",
+		"TC4.P.*.*":"1.0.0",
+		"TC4.4.*.*":"1.0.0",
+		"TC4.Z.*.*":"1.0.0"]
+
+	/**
+	 * Singleton property:
+	 * When it is true the APP can be instantiated only once.
+	 */
+	def singleton     = false
+
+	/**
+	 * initProvider property
+	 * It shall be true to add a call to <AppName>_Init()
+	 */
+	def initProvider  = true
+
+	/**
+	 * Deprecated APP
+	 * Set it to true to indicate that the APP shall be not used for new projects.
+	 */
+	def deprecated    = false
+
+	/**
+	 * Sharable property.
+	 * It shall be true to allows multiple APPs to require the same instance of this APP.
+	 */
+	def sharable      = false
+
+	/**
+	 *  APP function description.
+	 */
+	def description = "This APP using eGTM to implement timer."
+
+	/* End   : APP property section */
+
+	/* Begin : User APP property section */
+	MRequiredApp appres_egtm_generic				// EGTM_GENERIC APP
+	MVirtualResourceGroup hwres_egtm_ch				// EGTM Channel hardware resource
+	MVirtualSignal vs_timer_egtm_interrupt			// INT output 
+	SolverVariable sv_egtm_no = SolverVariable()	// EGTM list of module to use
+
+	/* This holds input clock frequency to the GTM Timer. */
+	GFloat gfloat_timer_clock_hz = GFloat()			// Timer clock in Hz
+	GFloat gfloat_timer_clock_mhz = GFloat()		// Timer clock in MHz
+
+	/* This holds the timer period/frequency value calculated. Used during code generation in templates. */
+	GInteger ginteger_timer_period_reg = GInteger()	// Period register value
+	GFloat gfloat_timer_frequency = GFloat()		// Frequency value
+
+	/* This holds used input CMU clock for ATOM. */
+	GInteger ginteger_used_cmu_clk = GInteger()		// Used CMU CLK
+	GFloat gfloat_cmu_clk0 = GFloat()				// gfloat_CMU_CLK0_hz.value in EGTM_GENERIC APP
+	GFloat gfloat_cmu_clk1 = GFloat()				// gfloat_CMU_CLK1_hz.value in EGTM_GENERIC APP
+	GFloat gfloat_cmu_clk2 = GFloat()				// gfloat_CMU_CLK2_hz.value in EGTM_GENERIC APP
+	GFloat gfloat_cmu_clk3 = GFloat()				// gfloat_CMU_CLK3_hz.value in EGTM_GENERIC APP
+	GFloat gfloat_cmu_clk4 = GFloat()				// gfloat_CMU_CLK4_hz.value in EGTM_GENERIC APP
+	GFloat gfloat_cmu_clk5 = GFloat()				// gfloat_CMU_CLK5_hz.value in EGTM_GENERIC APP
+	GFloat gfloat_cmu_clk6 = GFloat()				// gfloat_CMU_CLK6_hz.value in EGTM_GENERIC APP
+	GFloat gfloat_cmu_clk7 = GFloat()				// gfloat_CMU_CLK7_hz.value in EGTM_GENERIC APP
+
+	/* This holds used input CMU fxclk for TOM. */
+	GInteger ginteger_used_cmu_fxclk = GInteger()	// Used CMU FXCLK
+	GFloat gfloat_cmu_fxclk0 = GFloat()				// gfloat_CMU_FXCLK0_hz.value in EGTM_GENERIC APP
+	GFloat gfloat_cmu_fxclk1 = GFloat()				// gfloat_CMU_FXCLK1_hz.value in EGTM_GENERIC APP
+	GFloat gfloat_cmu_fxclk2 = GFloat()				// gfloat_CMU_FXCLK2_hz.value in EGTM_GENERIC APP
+	GFloat gfloat_cmu_fxclk3 = GFloat()				// gfloat_CMU_FXCLK3_hz.value in EGTM_GENERIC APP
+	GFloat gfloat_cmu_fxclk4 = GFloat()				// gfloat_CMU_FXCLK4_hz.value in EGTM_GENERIC APP
+	/* End   : User APP property section */
+
+	/* Begin : APP Constructor */
+	public TIMER_EGTM(DaveEnv daveEnv)
+	{
+		/*-------------------------------------------------------------------------------------------------------------------------------------------*/
+		/*							Target Specific User Variable initialization																	 */
+		/*-------------------------------------------------------------------------------------------------------------------------------------------*/
+		MF single_shot = MF({return(gcheck_sshot.value)}, Boolean)
+		MF start_after_init = MF({return(gcheck_startafterinit.value)}, Boolean)
+		MF is_intr = MF({gcheck_timeintervalevent.value == true}, Boolean)
+
+		/* -------------------------------------------------------------- */
+		/* -------------- Required APP ---------------------------------- */
+		/* -------------------------------------------------------------- */
+		appres_egtm_generic = MRequiredApp("EGTM_GENERIC", "EGTM_GENERIC APP", RSHARABLE, "4.1.2")
+
+		/* ----------------------------------------------------------------------------------------------------------------------------------------- */
+		/* -------------------------------- APP Configuration -------------------------------------------------------------------------------------- */
+		/* ----------------------------------------------------------------------------------------------------------------------------------------- */
+		final Integer period_16bit_maxvalue = (2.power(16)-1); /* Maximum supported period register value for TOM */
+		final Integer period_24bit_maxvalue = (2.power(24)-1); /* Maximum supported period register value for ATOM */
+
+		/* Automatically choose the usable CMU_CLK with the highest resolution */
+		gfloat_cmu_clk0.value = MF({return appres_egtm_generic.getVal(["gfloat_CMU_CLK0_hz", "value"])},Float)
+		gfloat_cmu_clk1.value = MF({return appres_egtm_generic.getVal(["gfloat_CMU_CLK1_hz", "value"])},Float)
+		gfloat_cmu_clk2.value = MF({return appres_egtm_generic.getVal(["gfloat_CMU_CLK2_hz", "value"])},Float)
+		gfloat_cmu_clk3.value = MF({return appres_egtm_generic.getVal(["gfloat_CMU_CLK3_hz", "value"])},Float)
+		gfloat_cmu_clk4.value = MF({return appres_egtm_generic.getVal(["gfloat_CMU_CLK4_hz", "value"])},Float)
+		gfloat_cmu_clk5.value = MF({return appres_egtm_generic.getVal(["gfloat_CMU_CLK5_hz", "value"])},Float)
+		gfloat_cmu_clk6.value = MF({return appres_egtm_generic.getVal(["gfloat_CMU_CLK6_hz", "value"])},Float)
+		gfloat_cmu_clk7.value = MF({return appres_egtm_generic.getVal(["gfloat_CMU_CLK7_hz", "value"])},Float)
+		ginteger_used_cmu_clk.value = MF({
+			Integer res = -1; /* If no available cmu clk, then return - 1 */
+			Float max_clk = Float.MAX_VALUE;
+			Float max_clk_tmp = 0;
+			if (appres_egtm_generic.getVal(["gcheck_CMU_CLK0", "value"])) {
+				max_clk_tmp = (float)1000000 / gfloat_cmu_clk0.value * period_24bit_maxvalue
+				if (max_clk_tmp >= gfloat_time_interval.value && max_clk_tmp < max_clk) {
+					max_clk = max_clk_tmp;
+					res = 0;
+				}
+			}
+			if (appres_egtm_generic.getVal(["gcheck_CMU_CLK1", "value"])) {
+				max_clk_tmp = (float)1000000 / gfloat_cmu_clk1.value * period_24bit_maxvalue
+				if (max_clk_tmp >= gfloat_time_interval.value && max_clk_tmp < max_clk) {
+					max_clk = max_clk_tmp;
+					res = 1;
+				}
+			}
+			if (appres_egtm_generic.getVal(["gcheck_CMU_CLK2", "value"])) {
+				max_clk_tmp = (float)1000000 / gfloat_cmu_clk2.value * period_24bit_maxvalue
+				if (max_clk_tmp >= gfloat_time_interval.value && max_clk_tmp < max_clk) {
+					max_clk = max_clk_tmp;
+					res = 2;
+				}
+			}
+			if (appres_egtm_generic.getVal(["gcheck_CMU_CLK3", "value"])) {
+				max_clk_tmp = (float)1000000 / gfloat_cmu_clk3.value * period_24bit_maxvalue
+				if (max_clk_tmp >= gfloat_time_interval.value && max_clk_tmp < max_clk) {
+					max_clk = max_clk_tmp;
+					res = 3;
+				}
+			}
+			if (appres_egtm_generic.getVal(["gcheck_CMU_CLK4", "value"])) {
+				max_clk_tmp = (float)1000000 / gfloat_cmu_clk4.value * period_24bit_maxvalue
+				if (max_clk_tmp >= gfloat_time_interval.value && max_clk_tmp < max_clk) {
+					max_clk = max_clk_tmp;
+					res = 4;
+				}
+			}
+			if (appres_egtm_generic.getVal(["gcheck_CMU_CLK5", "value"])) {
+				max_clk_tmp = (float)1000000 / gfloat_cmu_clk5.value * period_24bit_maxvalue
+				if (max_clk_tmp >= gfloat_time_interval.value && max_clk_tmp < max_clk) {
+					max_clk = max_clk_tmp;
+					res = 5;
+				}
+			}
+			if (appres_egtm_generic.getVal(["gcheck_CMU_CLK6", "value"])) {
+				max_clk_tmp = (float)1000000 / gfloat_cmu_clk6.value * period_24bit_maxvalue
+				if (max_clk_tmp >= gfloat_time_interval.value && max_clk_tmp < max_clk) {
+					max_clk = max_clk_tmp;
+					res = 6;
+				}
+			}
+			if (appres_egtm_generic.getVal(["gcheck_CMU_CLK7", "value"])) {
+				max_clk_tmp = (float)1000000 / gfloat_cmu_clk7.value * period_24bit_maxvalue
+				if (max_clk_tmp >= gfloat_time_interval.value && max_clk_tmp < max_clk) {
+					max_clk = max_clk_tmp;
+					res = 7;
+				}
+			}
+			return res
+		}, Integer)
+
+		/* Automatically choose the usable CMU_FXCLK with the highest resolution */
+		gfloat_cmu_fxclk0.value = MF({return appres_egtm_generic.getVal(["gfloat_CMU_FXCLK0_hz", "value"])},Float)
+		gfloat_cmu_fxclk1.value = MF({return appres_egtm_generic.getVal(["gfloat_CMU_FXCLK1_hz", "value"])},Float)
+		gfloat_cmu_fxclk2.value = MF({return appres_egtm_generic.getVal(["gfloat_CMU_FXCLK2_hz", "value"])},Float)
+		gfloat_cmu_fxclk3.value = MF({return appres_egtm_generic.getVal(["gfloat_CMU_FXCLK3_hz", "value"])},Float)
+		gfloat_cmu_fxclk4.value = MF({return appres_egtm_generic.getVal(["gfloat_CMU_FXCLK4_hz", "value"])},Float)
+		ginteger_used_cmu_fxclk.value = MF({
+			if (appres_egtm_generic.getVal(["gcheck_CMU_FXCLK", "value"])) {
+				if ((float)1000000 / gfloat_cmu_fxclk0.value * period_16bit_maxvalue >= gfloat_time_interval.value) {
+					return 0;
+				}
+				if ((float)1000000 / gfloat_cmu_fxclk1.value * period_16bit_maxvalue >= gfloat_time_interval.value) {
+					return 1;
+				}
+				if ((float)1000000 / gfloat_cmu_fxclk2.value * period_16bit_maxvalue >= gfloat_time_interval.value) {
+					return 2;
+				}
+				if ((float)1000000 / gfloat_cmu_fxclk3.value * period_16bit_maxvalue >= gfloat_time_interval.value) {
+					return 3;
+				}
+				if ((float)1000000 / gfloat_cmu_fxclk4.value * period_16bit_maxvalue >= gfloat_time_interval.value) {
+					return 4;
+				}
+			}
+			return -1 /* If no available cmu fxclk, then return -1 */
+		},Integer)
+
+		/* Module selection will be decided by solver basically */
+		addUriElementRangeConstraint(sv_egtm_no, MF({
+			if (ginteger_used_cmu_clk.value != -1 && ginteger_used_cmu_fxclk.value == -1) {
+				return ["atom"]
+			}
+			else if (ginteger_used_cmu_clk.value == -1 && ginteger_used_cmu_fxclk.value != -1){
+				return ["tom"]
+			}
+			return ["atom", "tom"]	// both atom/tom are available or not available
+		}, List))
+		hwres_egtm_ch = MVirtualResourceGroup("Timer Channel", ["peripheral", "egtm", "*", "cluster", "*", sv_egtm_no, 0, "ch", "*"])
+		vs_timer_egtm_interrupt = MVirtualSignal(hwres_egtm_ch, "INT", "ccu0tc_irq", is_intr, is_intr)
+
+		gfloat_timer_clock_hz.value = MF({
+			if (hwres_egtm_ch.getSolverUri()[7] == "atom") {
+				if (ginteger_used_cmu_clk.value == 0) {
+					return appres_egtm_generic.getVal(["gfloat_CMU_CLK0_hz", "value"])
+				}
+				if (ginteger_used_cmu_clk.value == 1) {
+					return appres_egtm_generic.getVal(["gfloat_CMU_CLK1_hz", "value"])
+				}
+				if (ginteger_used_cmu_clk.value == 2) {
+					return appres_egtm_generic.getVal(["gfloat_CMU_CLK2_hz", "value"])
+				}
+				if (ginteger_used_cmu_clk.value == 3) {
+					return appres_egtm_generic.getVal(["gfloat_CMU_CLK3_hz", "value"])
+				}
+				if (ginteger_used_cmu_clk.value == 4) {
+					return appres_egtm_generic.getVal(["gfloat_CMU_CLK4_hz", "value"])
+				}
+				if (ginteger_used_cmu_clk.value == 5) {
+					return appres_egtm_generic.getVal(["gfloat_CMU_CLK5_hz", "value"])
+				}
+				if (ginteger_used_cmu_clk.value == 6) {
+					return appres_egtm_generic.getVal(["gfloat_CMU_CLK6_hz", "value"])
+				}
+				if (ginteger_used_cmu_clk.value == 7) {
+					return appres_egtm_generic.getVal(["gfloat_CMU_CLK7_hz", "value"])
+				}
+			} else {
+				if (appres_egtm_generic.getVal(["gcheck_CMU_FXCLK", "value"]) == true) {
+					if (ginteger_used_cmu_fxclk.value == 0) {
+						return appres_egtm_generic.getVal(["gfloat_CMU_FXCLK0_hz", "value"]);
+					}
+					if (ginteger_used_cmu_fxclk.value == 1) {
+						return appres_egtm_generic.getVal(["gfloat_CMU_FXCLK1_hz", "value"]);
+					}
+					if (ginteger_used_cmu_fxclk.value == 2) {
+						return appres_egtm_generic.getVal(["gfloat_CMU_FXCLK2_hz", "value"]);
+					}
+					if (ginteger_used_cmu_fxclk.value == 3) {
+						return appres_egtm_generic.getVal(["gfloat_CMU_FXCLK3_hz", "value"]);
+					}
+					if (ginteger_used_cmu_fxclk.value == 4) {
+						return appres_egtm_generic.getVal(["gfloat_CMU_FXCLK4_hz", "value"]);
+					}
+				}
+			}
+			return (Float) 0.0  /* If no available clk, then return 0.0 */
+		}, Float)
+
+		gfloat_timer_clock_mhz.value = MF({return(gfloat_timer_clock_hz.value / 1000000)}, Float)
+
+		/* Supported minimum time interval based on the input clock frequency. */
+		gfloat_time_interval.minValue = MF({
+			Float res_min = 0
+			Float max_clk = 0
+			if (appres_egtm_generic.getVal(["gcheck_CMU_FXCLK", "value"])) {
+				if (gfloat_cmu_fxclk0.value > max_clk) {
+					max_clk = gfloat_cmu_fxclk0.value
+					res_min = (float)(1000000 / gfloat_cmu_fxclk0.value)
+				}
+			}
+			if (appres_egtm_generic.getVal(["gcheck_CMU_CLK0", "value"])) {
+				if (gfloat_cmu_clk0.value > max_clk) {
+					max_clk = gfloat_cmu_clk0.value
+					res_min = (float)(1000000 / gfloat_cmu_clk0.value)
+				}
+			}
+			if (appres_egtm_generic.getVal(["gcheck_CMU_CLK1", "value"])) {
+				if (gfloat_cmu_clk1.value > max_clk) {
+					max_clk = gfloat_cmu_clk1.value
+					res_min = (float)(1000000 / gfloat_cmu_clk1.value)
+				}
+			}
+			if (appres_egtm_generic.getVal(["gcheck_CMU_CLK2", "value"])) {
+				if (gfloat_cmu_clk2.value > max_clk) {
+					max_clk = gfloat_cmu_clk2.value
+					res_min = (float)(1000000 / gfloat_cmu_clk2.value)
+				}
+			}
+			if (appres_egtm_generic.getVal(["gcheck_CMU_CLK3", "value"])) {
+				if (gfloat_cmu_clk3.value > max_clk) {
+					max_clk = gfloat_cmu_clk3.value
+					res_min = (float)(1000000 / gfloat_cmu_clk3.value)
+				}
+			}
+			if (appres_egtm_generic.getVal(["gcheck_CMU_CLK4", "value"])) {
+				if (gfloat_cmu_clk4.value > max_clk) {
+					max_clk = gfloat_cmu_clk4.value
+					res_min = (float)(1000000 / gfloat_cmu_clk4.value)
+				}
+			}
+			if (appres_egtm_generic.getVal(["gcheck_CMU_CLK5", "value"])) {
+				if (gfloat_cmu_clk5.value > max_clk) {
+					max_clk = gfloat_cmu_clk5.value
+					res_min = (float)(1000000 / gfloat_cmu_clk5.value)
+				}
+			}
+			if (appres_egtm_generic.getVal(["gcheck_CMU_CLK6", "value"])) {
+				if (gfloat_cmu_clk6.value > max_clk) {
+					max_clk = gfloat_cmu_clk6.value
+					res_min = (float)(1000000 / gfloat_cmu_clk6.value)
+				}
+			}
+			if (appres_egtm_generic.getVal(["gcheck_CMU_CLK7", "value"])) {
+				if (gfloat_cmu_clk7.value > max_clk) {
+					max_clk = gfloat_cmu_clk7.value
+					res_min = (float)(1000000 / gfloat_cmu_clk7.value)
+				}
+			}
+			return res_min
+		}, Float)
+
+		/* Supported maximum time interval based on the input clock frequency. */
+		gfloat_time_interval.maxValue = MF({
+			Float res_max_tom = 0
+			if (appres_egtm_generic.getVal(["gcheck_CMU_FXCLK", "value"])) {
+				res_max_tom = (float)(1000000 / gfloat_cmu_fxclk4.value * period_16bit_maxvalue)
+			}
+			Float res_max_atom = 0
+			Float min_clk = Float.MAX_VALUE
+			if (appres_egtm_generic.getVal(["gcheck_CMU_CLK0", "value"])) {
+				if (gfloat_cmu_clk0.value < min_clk) {
+					min_clk = gfloat_cmu_clk0.value
+					res_max_atom = (float)(1000000 / gfloat_cmu_clk0.value * period_24bit_maxvalue)
+				}
+			}
+			if (appres_egtm_generic.getVal(["gcheck_CMU_CLK1", "value"])) {
+				if (gfloat_cmu_clk1.value < min_clk) {
+					min_clk = gfloat_cmu_clk1.value
+					res_max_atom = (float)(1000000 / gfloat_cmu_clk1.value * period_24bit_maxvalue)
+				}
+			}
+			if (appres_egtm_generic.getVal(["gcheck_CMU_CLK2", "value"])) {
+				if (gfloat_cmu_clk2.value < min_clk) {
+					min_clk = gfloat_cmu_clk2.value
+					res_max_atom = (float)(1000000 / gfloat_cmu_clk2.value * period_24bit_maxvalue)
+				}
+			}
+			if (appres_egtm_generic.getVal(["gcheck_CMU_CLK3", "value"])) {
+				if (gfloat_cmu_clk3.value < min_clk) {
+					min_clk = gfloat_cmu_clk3.value
+					res_max_atom = (float)(1000000 / gfloat_cmu_clk3.value * period_24bit_maxvalue)
+				}
+			}
+			if (appres_egtm_generic.getVal(["gcheck_CMU_CLK4", "value"])) {
+				if (gfloat_cmu_clk4.value < min_clk) {
+					min_clk = gfloat_cmu_clk4.value
+					res_max_atom = (float)(1000000 / gfloat_cmu_clk4.value * period_24bit_maxvalue)
+				}
+			}
+			if (appres_egtm_generic.getVal(["gcheck_CMU_CLK5", "value"])) {
+				if (gfloat_cmu_clk5.value < min_clk) {
+					min_clk = gfloat_cmu_clk5.value
+					res_max_atom = (float)(1000000 / gfloat_cmu_clk5.value * period_24bit_maxvalue)
+				}
+			}
+			if (appres_egtm_generic.getVal(["gcheck_CMU_CLK6", "value"])) {
+				if (gfloat_cmu_clk6.value < min_clk) {
+					min_clk = gfloat_cmu_clk6.value
+					res_max_atom = (float)(1000000 / gfloat_cmu_clk6.value * period_24bit_maxvalue)
+				}
+			}
+			if (appres_egtm_generic.getVal(["gcheck_CMU_CLK7", "value"])) {
+				if (gfloat_cmu_clk7.value < min_clk) {
+					min_clk = gfloat_cmu_clk7.value
+					res_max_atom = (float)(1000000 / gfloat_cmu_clk7.value * period_24bit_maxvalue)
+				}
+			}
+			return res_max_tom > res_max_atom ? res_max_tom : res_max_atom
+		}, Float)
+
+		/* Period register value for the selected time interval value. */
+		ginteger_timer_period_reg.value = MF({
+			return (Integer)((Double)gfloat_time_interval.value * (Double)gfloat_timer_clock_mhz.value)
+		}, Integer)
+
+		/* Frequency value for the selected time interval value. This value is used during code generation in templates. */
+		gfloat_timer_frequency.value = MF({
+			Float freq_val = 0
+			if (gfloat_time_interval.value != 0) {
+				freq_val = (float)(1000000 / gfloat_time_interval.value)
+			}
+			return freq_val
+		}, Float)
+
+		/* Set the information of Resolution / Actual Interval / Max Interval */
+		gstring_info.value = MF({
+			double r = 0 /* Resolution */
+			double p = 0 /* Actual Interval */
+			if (hwres_egtm_ch.getSolverUri()[7] == "tom") {
+				if (ginteger_used_cmu_fxclk.value == 0) {
+					r = (float)(1000000 / gfloat_cmu_fxclk0.value)
+					p = ((double)ginteger_timer_period_reg.value / gfloat_cmu_fxclk0.value)
+				}
+				if (ginteger_used_cmu_fxclk.value == 1) {
+					r = (float)(1000000 / gfloat_cmu_fxclk1.value)
+					p = ((double)ginteger_timer_period_reg.value / gfloat_cmu_fxclk1.value)
+				}
+				if (ginteger_used_cmu_fxclk.value == 2) {
+					r = (float)(1000000 / gfloat_cmu_fxclk2.value)
+					p = ((double)ginteger_timer_period_reg.value / gfloat_cmu_fxclk2.value)
+				}
+				if (ginteger_used_cmu_fxclk.value == 3) {
+					r = (float)(1000000 / gfloat_cmu_fxclk3.value)
+					p = ((double)ginteger_timer_period_reg.value / gfloat_cmu_fxclk3.value)
+				}
+				if (ginteger_used_cmu_fxclk.value == 4) {
+					r = (float)(1000000 / gfloat_cmu_fxclk4.value)
+					p = ((double)ginteger_timer_period_reg.value / gfloat_cmu_fxclk4.value)
+				}
+			} else {
+				if (ginteger_used_cmu_clk.value == 0) {
+					r = (float)(1000000 / gfloat_cmu_clk0.value)
+					p = ((double)ginteger_timer_period_reg.value / gfloat_cmu_clk0.value)
+				}
+				if (ginteger_used_cmu_clk.value == 1) {
+					r = (float)(1000000 / gfloat_cmu_clk1.value)
+					p = ((double)ginteger_timer_period_reg.value / gfloat_cmu_clk1.value)
+				}
+				if (ginteger_used_cmu_clk.value == 2) {
+					r = (float)(1000000 / gfloat_cmu_clk2.value)
+					p = ((double)ginteger_timer_period_reg.value / gfloat_cmu_clk2.value)
+				}
+				if (ginteger_used_cmu_clk.value == 3) {
+					r = (float)(1000000 / gfloat_cmu_clk3.value)
+					p = ((double)ginteger_timer_period_reg.value / gfloat_cmu_clk3.value)
+				}
+				if (ginteger_used_cmu_clk.value == 4) {
+					r = (float)(1000000 / gfloat_cmu_clk4.value)
+					p = ((double)ginteger_timer_period_reg.value / gfloat_cmu_clk4.value)
+				}
+				if (ginteger_used_cmu_clk.value == 5) {
+					r = (float)(1000000 / gfloat_cmu_clk5.value)
+					p = ((double)ginteger_timer_period_reg.value / gfloat_cmu_clk5.value)
+				}
+				if (ginteger_used_cmu_clk.value == 6) {
+					r = (float)(1000000 / gfloat_cmu_clk6.value)
+					p = ((double)ginteger_timer_period_reg.value / gfloat_cmu_clk6.value)
+				}
+				if (ginteger_used_cmu_clk.value == 7) {
+					r = (float)(1000000 / gfloat_cmu_clk7.value)
+					p = ((double)ginteger_timer_period_reg.value / gfloat_cmu_clk7.value)
+				}
+			}
+			double m = gfloat_time_interval.maxValue / 1000000
+			return (String.format("%.2f", r) + " / " + String.format("%f", p) + " / " + String.format("%.2f", m))
+		}, String)
+	}
+	/* End   : APP Constructor */
+
+	/* Begin : File Generation */
+	def generateFiles(){
+		generate("timer_egtm_confh.tmpl", "timer_egtm_conf.h")
+		generate("timer_egtm_confc.tmpl", "timer_egtm_conf.c")
+		copy("timer_egtm_private.c", "timer_egtm_private.c")
+		copy("timer_egtm_private.h", "timer_egtm_private.h")
+		copy("timer_egtm.c", "timer_egtm.c")
+		copy("timer_egtm.h", "timer_egtm.h")
+	}
+	/* End   : File Generation */
+}

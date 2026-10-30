@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ProjectConfig>
+            
+    
+    <ResourceReserve/>
+            
+    
+    <Solver>
+                        
+        
+        <SolverBndMap>
+            <BindMap MUri="peripheral/int/0/icu/0" Proxy="app/CPU_CORE/0/hwres_ir_icu"/>
+            <BindMap MUri="peripheral/int/0/srn/2025" Proxy="app/INTERRUPT_CONFIG/1/hwres_interrupt"/>
+            <BindMap MUri="peripheral/int/0/icu/1" Proxy="app/CPU_CORE/1/hwres_ir_icu"/>
+            <BindMap MUri="peripheral/cpu/1/hra/core" Proxy="app/CPU_CORE/1/hwres_cpu_core"/>
+            <BindMap MUri="peripheral/egtm/0/common" Proxy="app/EGTM_GENERIC/0/hwres_egtm_common"/>
+            <BindMap MUri="peripheral/clock/0/perpll" Proxy="app/CLOCK/0/hwres_clockctrl_peripll"/>
+            <BindMap MUri="peripheral/cpu/1/hra/prio/1" Proxy="app/INTERRUPT_CONFIG/1/hwres_cpu_prio"/>
+            <BindMap MUri="peripheral/clock/0/syspll" Proxy="app/CLOCK/0/hwres_clockctrl_syspll"/>
+            <BindMap MUri="peripheral/clock/0/clkmon" Proxy="app/CLOCK/0/hwres_clockctrl_clkmon"/>
+            <BindMap MUri="peripheral/cpu/1/hra/memory_protection" Proxy="app/CPU_CORE/1/hwres_cpu_mpu"/>
+            <BindMap MUri="peripheral/clock/0/ccu" Proxy="app/CLOCK/0/hwres_clockctrl_ccu"/>
+            <BindMap MUri="peripheral/int/0/srn/2024" Proxy="app/INTERRUPT_CONFIG/0/hwres_interrupt"/>
+            <BindMap MUri="peripheral/cpu/0/hra/core" Proxy="app/CPU_CORE/0/hwres_cpu_core"/>
+            <BindMap MUri="peripheral/clock/0/extclk" Proxy="app/CLOCK/0/hwres_clockctrl_extclk"/>
+            <BindMap MUri="peripheral/clock/0/osc" Proxy="app/CLOCK/0/hwres_clockctrl_osc"/>
+            <BindMap MUri="peripheral/egtm/0/cluster/0/atom/0/ch/2" Proxy="app/TIMER_EGTM/1/hwres_egtm_ch"/>
+            <BindMap MUri="peripheral/cpu/0/hra/memory_protection" Proxy="app/CPU_CORE/0/hwres_cpu_mpu"/>
+            <BindMap MUri="peripheral/cpu/0/hra/prio/1" Proxy="app/INTERRUPT_CONFIG/0/hwres_cpu_prio"/>
+            <BindMap MUri="peripheral/egtm/0/cluster/0/atom/0/ch/0" Proxy="app/TIMER_EGTM/0/hwres_egtm_ch"/>
+        </SolverBndMap>
+    </Solver>
+        
+
+</ProjectConfig>

@@ -1,0 +1,706 @@
+package Model.APPS.PWM_EGTM.v4_1_4;
+// Import statements
+import ifx.davex.app.manifest.*
+import ifx.davex.app.manifest.GString
+
+/*************** Revision History **********************************************
+ Version      Date          Description
+ 4.1.2        13-Mar-2026   - Initial version
+ 4.1.4        22-May-2026   - TC4Dx and TC48x support addition
+ *******************************************************************************/
+
+class  PWM_EGTM extends PWM_EGTM_GUI
+{
+	/* Note  : Following APP properties are mandatory and important */
+
+	/* Begin : APP property section */
+
+	/**
+	 * APP version
+	 * Format: a string with three digit separated by a dot.
+	 */
+	def version            = '4.1.4'
+
+	/**
+	 * APP categories declaration.
+	 * It is list of strings. Subcategories are separated by slash.
+	 * No limits on number of categories and subcategories depth.
+	 */
+	def categoriesDescription = ["Timer"]
+
+	/**
+	 * Minimum DAVE version required for this APP.
+	 *
+	 * It is string with three digit separated by a dot.
+	 */
+	def minDaveVersion           = '4.2.4'
+
+	/**
+	 * Keywords used by search feature in APPs selection view
+	 *
+	 * It is a list of string.
+	 */
+	def keywords      = ['EGTM', 'GTM', 'PWM', 'Timer', 'Enhanced']
+
+	/**
+	 * softwareIDs is used to declare which devices are compatible with this APP.
+	 * It is a map with key a string containing a pattern that shall match the SW id of
+	 * the device and as value the minimal version of the APP.
+	 */
+
+	def softwareIDs       = [
+		"TC4.D.*.*":"1.0.0",
+		"TC4.8.*.*":"1.0.0"]
+
+	/**
+	 * Singleton property:
+	 * When it is true the APP can be instantiated only once.
+	 */
+	def singleton     = false
+
+	/**
+	 * initProvider property
+	 * It shall be true to add a call to <AppName>_Init()
+	 */
+	def initProvider  = true
+
+	/**
+	 * Deprecated APP
+	 * Set it to true to indicate that the APP shall be not used for new projects.
+	 */
+	def deprecated    = false
+
+	/**
+	 * Sharable property.
+	 * It shall be true to allows multiple APPs to require the same instance of this APP.
+	 */
+	def sharable      = false
+
+	/**
+	 *  APP function description.
+	 */
+	def description = "This APP generates a PWM using eGTM"
+
+	/* End   : APP property section */
+
+	/* Begin : User APP property section */
+	MRequiredApp   appres_egtm_generic					// EGTM_GENERIC APP
+
+	MVirtualResourceGroup hwres_module					// EGTM module hardware resource
+	MVirtualResourceGroup hwres_dtm						// EGTM DTM hardware resource
+	MVirtualResourceGroup hwres_port_pad				// Port pad hardware resource
+
+	MVirtualSignal vs_out								// PWM output from DTM
+	MVirtualSignal vs_out2								// PWM output from ATOM/TOM
+	MVirtualSignal vs_in								// DTM_IN input
+	MVirtualSignal vs_intr								// INT input
+	MVirtualSignal vs_out_pin							// PWM pin output
+
+	SolverVariable sv_module = SolverVariable()			// EGTM list of module to use
+
+	GString gstring_series = GString()					// series of TC4x
+	GString gstring_atominfo = GString()				// Infor for ATOM
+	GString gstring_tominfo = GString()					// Infor for TOM
+	GCheck gcheck_is_atom = GCheck()					// ATOM is seleced or not
+	GFloat gfloat_input_frequency = GFloat()			// Input frequency
+	GInteger ginteger_count_period = GInteger()			// Counter period value
+	GFloat gfloat_actual_freq = GFloat()				// Actual frequency
+	GString gstring_imagefile = GString()				// Image file info
+	GFloat gfloat_cmuclk0 = GFloat()					// gfloat_CMU_CLK0_hz.value in EGTM_GENERIC APP
+	GFloat gfloat_cmuclk1 = GFloat()					// gfloat_CMU_CLK1_hz.value in EGTM_GENERIC APP
+	GFloat gfloat_cmuclk2 = GFloat()					// gfloat_CMU_CLK2_hz.value in EGTM_GENERIC APP
+	GFloat gfloat_cmuclk3 = GFloat()					// gfloat_CMU_CLK3_hz.value in EGTM_GENERIC APP
+	GFloat gfloat_cmuclk4 = GFloat()					// gfloat_CMU_CLK4_hz.value in EGTM_GENERIC APP
+	GFloat gfloat_cmuclk5 = GFloat()					// gfloat_CMU_CLK5_hz.value in EGTM_GENERIC APP
+	GFloat gfloat_cmuclk6 = GFloat()					// gfloat_CMU_CLK6_hz.value in EGTM_GENERIC APP
+	GFloat gfloat_cmuclk7 = GFloat()					// gfloat_CMU_CLK7_hz.value in EGTM_GENERIC APP
+	GFloat gfloat_fxclk0 = GFloat()						// gfloat_CMU_FXCLK0_hz.value in EGTM_GENERIC APP
+	GFloat gfloat_fxclk1 = GFloat()						// gfloat_CMU_FXCLK1_hz.value in EGTM_GENERIC APP
+	GFloat gfloat_fxclk2 = GFloat()						// gfloat_CMU_FXCLK2_hz.value in EGTM_GENERIC APP
+	GFloat gfloat_fxclk3 = GFloat()						// gfloat_CMU_FXCLK3_hz.value in EGTM_GENERIC APP
+	GFloat gfloat_fxclk4 = GFloat()						// gfloat_CMU_FXCLK4_hz.value in EGTM_GENERIC APP
+
+	/* End   : User APP property section */
+
+	/* Begin : APP Constructor */
+	public PWM_EGTM(DaveEnv daveEnv)
+	{
+		gstring_series.value = daveEnv.project.selectedDevice.deviceId.softwareId.split("\\.")[1]
+
+		MF auto_connection = MF({gcheck_pwm_connection.value}, Boolean)
+		MF manual_connection = MF({!gcheck_pwm_connection.value}, Boolean)
+
+		/* ---------------------------------------------------------- */
+		/* ------------ App consumption Block ----------------------- */
+		/* ---------------------------------------------------------- */
+		appres_egtm_generic = MRequiredApp("EGTM_GENERIC", "EGTM GENERIC APP", RSHARABLE, "4.1.2")
+
+		gfloat_cmuclk0.value = MF({
+			appres_egtm_generic.getVal(["gcheck_CMU_CLK0", "value"]) ? appres_egtm_generic.getVal(["gfloat_CMU_CLK0_hz", "value"]) : (float)0
+		}, Float)
+		gfloat_cmuclk1.value = MF({
+			appres_egtm_generic.getVal(["gcheck_CMU_CLK1", "value"]) ? appres_egtm_generic.getVal(["gfloat_CMU_CLK1_hz", "value"]) : (float)0
+		}, Float)
+		gfloat_cmuclk2.value = MF({
+			appres_egtm_generic.getVal(["gcheck_CMU_CLK2", "value"]) ? appres_egtm_generic.getVal(["gfloat_CMU_CLK2_hz", "value"]) : (float)0
+		}, Float)
+		gfloat_cmuclk3.value = MF({
+			appres_egtm_generic.getVal(["gcheck_CMU_CLK3", "value"]) ? appres_egtm_generic.getVal(["gfloat_CMU_CLK3_hz", "value"]) : (float)0
+		}, Float)
+		gfloat_cmuclk4.value = MF({
+			appres_egtm_generic.getVal(["gcheck_CMU_CLK4", "value"]) ? appres_egtm_generic.getVal(["gfloat_CMU_CLK4_hz", "value"]) : (float)0
+		}, Float)
+		gfloat_cmuclk5.value = MF({
+			appres_egtm_generic.getVal(["gcheck_CMU_CLK5", "value"]) ? appres_egtm_generic.getVal(["gfloat_CMU_CLK5_hz", "value"]) : (float)0
+		}, Float)
+		gfloat_cmuclk6.value = MF({
+			appres_egtm_generic.getVal(["gcheck_CMU_CLK6", "value"]) ? appres_egtm_generic.getVal(["gfloat_CMU_CLK6_hz", "value"]) : (float)0
+		}, Float)
+		gfloat_cmuclk7.value = MF({
+			appres_egtm_generic.getVal(["gcheck_CMU_CLK7", "value"]) ? appres_egtm_generic.getVal(["gfloat_CMU_CLK7_hz", "value"]) : (float)0
+		}, Float)
+
+		gfloat_fxclk0.value = MF({
+			appres_egtm_generic.getVal(["gcheck_CMU_FXCLK", "value"]) ? appres_egtm_generic.getVal(["gfloat_CMU_FXCLK0_hz", "value"]) : (float)0
+		}, Float)
+		gfloat_fxclk1.value = MF({
+			appres_egtm_generic.getVal(["gcheck_CMU_FXCLK", "value"]) ? appres_egtm_generic.getVal(["gfloat_CMU_FXCLK1_hz", "value"]) : (float)0
+		}, Float)
+		gfloat_fxclk2.value = MF({
+			appres_egtm_generic.getVal(["gcheck_CMU_FXCLK", "value"]) ? appres_egtm_generic.getVal(["gfloat_CMU_FXCLK2_hz", "value"]) : (float)0
+		}, Float)
+		gfloat_fxclk3.value = MF({
+			appres_egtm_generic.getVal(["gcheck_CMU_FXCLK", "value"]) ? appres_egtm_generic.getVal(["gfloat_CMU_FXCLK3_hz", "value"]) : (float)0
+		}, Float)
+		gfloat_fxclk4.value = MF({
+			appres_egtm_generic.getVal(["gcheck_CMU_FXCLK", "value"]) ? appres_egtm_generic.getVal(["gfloat_CMU_FXCLK4_hz", "value"]) : (float)0
+		}, Float)
+
+		// Set fastest/slowest frequency of enabled clock source which can achieve required frequency
+		int lp_cnt
+		gstring_atominfo.value = MF({
+			if (gfloat_freq.value != 0)
+			{
+				float errorrate = 0.04
+				int period_fastest = -1
+				String input_name_fastest = ""
+				String input_name_slowest = ""
+				float input_freq_fastest = 0
+				float input_freq_slowest = Float.POSITIVE_INFINITY
+				for (lp_cnt = 0; lp_cnt < 8; lp_cnt++)
+				{
+					float srcclk = (lp_cnt == 0 ? gfloat_cmuclk0.value :
+									lp_cnt == 1 ? gfloat_cmuclk1.value :
+									lp_cnt == 2 ? gfloat_cmuclk2.value :
+									lp_cnt == 3 ? gfloat_cmuclk3.value :
+									lp_cnt == 4 ? gfloat_cmuclk4.value :
+									lp_cnt == 5 ? gfloat_cmuclk5.value :
+									lp_cnt == 6 ? gfloat_cmuclk6.value : gfloat_cmuclk7.value)
+					if (srcclk != 0)
+					{
+						if (srcclk < input_freq_slowest)
+						{
+							input_name_slowest = String.format("%d", lp_cnt)
+							input_freq_slowest = srcclk
+						}
+						int Divider = (int)Math.ceil(srcclk / gfloat_freq.value)
+						float actual_freq = 0
+						if (gcombo_alignment.value == "Center Aligned")
+						{
+							Divider = (int)Math.ceil(Divider / 2)
+							actual_freq = srcclk / Divider / 2
+						}
+						else
+						{
+							actual_freq = srcclk / Divider
+						}
+						if ((Math.abs(actual_freq - gfloat_freq.value) / gfloat_freq.value) < errorrate)
+						{
+							if (Divider <= (2.power(24)-1))
+							{
+								if (Divider > period_fastest)
+								{
+									period_fastest = Divider - 1
+									input_name_fastest = String.format("%d", lp_cnt)
+									input_freq_fastest = srcclk
+								}
+							}
+						}
+					}
+				}
+				if (period_fastest != -1)
+				{
+					float freq_fastest = input_freq_fastest / (float)(period_fastest + 1)
+					if (gcombo_alignment.value == "Center Aligned")
+					{
+						freq_fastest /= 2
+					}
+					// [0] = Slowest clock name
+					// [1] = Slowest clock freq [Hz]
+					// [2] = Fastest clock name
+					// [3] = Fastest clock freq [Hz]
+					// [4] = Period when using fastest clock
+					// [5] = Actual frequency when using fastest clock
+					return String.format(Locale.US,
+											"%s/%.2f/%s/%.2f/%d/%.2f",
+											input_name_slowest,
+											(float)input_freq_slowest,
+											input_name_fastest,
+											(float)input_freq_fastest,
+											period_fastest,
+											(float)freq_fastest)
+				}
+			}
+			return "N/A"
+		}, String)
+
+		gstring_tominfo.value = MF({
+			if (gfloat_freq.value != 0)
+			{
+				float errorrate = 0.04
+				int period_fastest = -1
+				String input_name_fastest = ""
+				String input_name_slowest = ""
+				float input_freq_fastest = 0
+				float input_freq_slowest = Float.POSITIVE_INFINITY
+				for (lp_cnt = 0; lp_cnt < 5; lp_cnt++)
+				{
+					float srcclk = (lp_cnt == 0 ? gfloat_fxclk0.value :
+									lp_cnt == 1 ? gfloat_fxclk1.value :
+									lp_cnt == 2 ? gfloat_fxclk2.value :
+									lp_cnt == 3 ? gfloat_fxclk3.value : gfloat_fxclk4.value)
+					if (srcclk != 0)
+					{
+						if (srcclk < input_freq_slowest)
+						{
+							input_name_slowest = String.format("%d", lp_cnt)
+							input_freq_slowest = srcclk
+						}
+						int Divider = (int)Math.ceil(srcclk / gfloat_freq.value)
+						float actual_freq = 0
+						if (gcombo_alignment.value == "Center Aligned")
+						{
+							Divider = (int)Math.ceil(Divider / 2)
+							actual_freq = srcclk / Divider / 2
+						}
+						else
+						{
+							actual_freq = srcclk / Divider
+						}
+						if ((Math.abs(actual_freq - gfloat_freq.value) / gfloat_freq.value) < errorrate)
+						{
+							if (Divider <= (2.power(16)-1))
+							{
+								if (Divider > period_fastest)
+								{
+									period_fastest = Divider - 1
+									input_name_fastest = String.format("%d", lp_cnt)
+									input_freq_fastest = srcclk
+								}
+							}
+						}
+					}
+				}
+				if (period_fastest != -1)
+				{
+					float freq_fastest = input_freq_fastest / (float)(period_fastest + 1)
+					if (gcombo_alignment.value == "Center Aligned")
+					{
+						freq_fastest /= 2
+					}
+					// [0] = Slowest clock name
+					// [1] = Slowest clock freq [Hz]
+					// [2] = Fastest clock name
+					// [3] = Fastest clock freq [Hz]
+					// [4] = Period when using fastest clock
+					// [5] = Actual frequency when using fastest clock
+					return String.format(Locale.US,
+											"%s/%.2f/%s/%.2f/%d/%f",
+											input_name_slowest,
+											(float)input_freq_slowest,
+											input_name_fastest,
+											(float)input_freq_fastest,
+											period_fastest,
+											(float)freq_fastest)
+				}
+			}
+			return "N/A"
+		}, String)
+
+		/* ----------------------------------------------------------------------------------- */
+		/* ------------ Hardware resource / IO Signals / Connection Constraints -------------- */
+		/* ----------------------------------------------------------------------------------- */
+		// hwres_module is atom or tom
+		addUriElementRangeConstraint(	sv_module,
+										MF({
+											if (gstring_atominfo.value != "N/A" && gstring_tominfo.value == "N/A")
+											{
+												return ["atom"]
+											}
+											else if (gstring_tominfo.value != "N/A" && gstring_atominfo.value == "N/A")
+											{
+												return ["tom"]
+											}
+											["atom", "tom"]
+										}, List))
+		hwres_module = MVirtualResourceGroup("Timer Channel", ["peripheral", "egtm", "0", "cluster", "*", sv_module, "*", "ch", "*"])
+		gcheck_is_atom.value = MF({hwres_module.getSolverUri()[-4] == "atom"}, Boolean)
+
+		// atom/tom has its signal "out"
+		vs_out2 = MVirtualSignal(hwres_module, "PWM", "out", true, false)
+
+		// dtm is required only when so specified in the GUI
+		hwres_dtm = MVirtualResourceGroup("DTM Channel", ["peripheral", "egtm", "0", "cluster", "*", "dtm", "*", "ch", "*"], true)
+
+		// "out" of dtm
+		vs_out = MVirtualSignal(hwres_dtm, "PWM", "out", true, manual_connection)
+		vs_in = MVirtualSignal(hwres_dtm, "DTM_IN", "in", true, false)
+
+		// connect atom/tom's "out" to dtm's "in"
+		addConnectionConstraint(vs_out2, vs_in, true)
+
+		// The interrupt signal vs_intr of hwres_module will be allocated when hwres_module is not dtm and interrupt is enabled
+		vs_intr = MVirtualSignal(hwres_module, "INT", "ccu0tc_irq", MF({gcheck_period_match.value || gcheck_compare_match.value}, Boolean))
+
+		// port/pad is allocated only when auto connection is specified, then connect it from vs_out
+		hwres_port_pad = MVirtualResourceGroup("Output pin", ["port", "p", "*", "pad", "*"], auto_connection)
+		@AddPin(pinDisplayName = 'PWM pin')
+		vs_out_pin = MVirtualSignal(hwres_port_pad, "PWM pin", "pad", auto_connection, false)
+		addConnectionConstraint(vs_out, vs_out_pin, auto_connection)
+
+		/* updating speed class based on driver strength selected */
+		//									PCSRSEL,PD[2:0],MODEX12:0]	PCSRSEL,PD[2:0],MODEX12:0]		PCSRSEL,PD[2:0],MODEX12:0]
+		//									HSFAST						FAST							SLOW							S
+		//Strong Driver Sharp Edge (ss)		0, [x, 0, 0], [1,0]			0 or 1, [x, 0, 0], [x, x]		N/A								N/A
+		//Strong Driver Medium Edge (sm)	0, [x, 0, 1], [1,0]			0 or 1, [x, 0, 1], [x, x]		N/A								N/A
+		//Medium Driver Sharp Edge (ms)		N/A							N/A								0 or 1, [x, x, 0], [x, x]		N/A
+		//Medium driver Medium Edge(m)		0, [x, 1, 0], [1,0]			0 or 1, [x, 1, 0], [x, x]		0 or 1, [x, x, 1], [x, x]		N/A
+		//HSFAST Pad						0 or 1, [*1], [*2]			N/A								N/A								N/A
+		//Don't Care						0 or 1, [*3], [*3]
+
+		//*1: will be specified by Direct Out Controlled HSFAST Pad
+		//*2: will be specified by HSFAST Pad Output Driver
+		//*3: The cases other than P16, will be [x, 0, 0], [x, x].
+		//	 If P16 and PCSRx=0, will be [x, 0, 0], [1, 0]. Else (P16 and PCSRx=1), will be [*1], [*2]
+
+		MF speed_class = MF({
+			if (gcombo_drive_strength.value == "HSFAST Pad") {
+				["HFAST"]
+			}
+			else if (gcombo_drive_strength.value == "Strong Driver Sharp Edge (ss)" || gcombo_drive_strength.value == "Strong Driver Medium Edge (sm)") {
+				["HFAST", "FAST"]
+			}
+			else if (gcombo_drive_strength.value == "Medium Driver Medium Edge (m)") {
+				["HFAST", "FAST", "SLOW"]
+			}
+			else if (gcombo_drive_strength.value == "Medium Driver Sharp Edge (ms)") {
+				["SLOW"]
+			} else { /* "Don't Care" */
+				["HSFAST", "FAST", "SLOW", "S"]
+			}
+		}, List)
+		addResourcePropertyConstraint(hwres_port_pad, "speed_class of rg_property", speed_class, auto_connection)
+
+		/* -------------------------------------------------------- */
+		/* ------------ APP Configuration ------------------------- */
+		/* -------------------------------------------------------- */
+		glabel_output_mode.enabled = auto_connection
+		gcombo_output_mode.enabled = auto_connection
+		glabel_drive_strength.enabled = auto_connection
+		gcombo_drive_strength.enabled = auto_connection
+
+		gmessage_message.text = MF(
+		{
+			String errormsg = "Divider settings not possible." +
+								" Make sure that at least one clock source which can achieve input clock frequency is enabled in GTM_GENERIC APP." +
+								" Or, changing Connection Type might solve the error in case of some device."
+			if (gcheck_is_atom.value)
+			{
+				if (gstring_atominfo.value != "N/A")
+				{
+					errormsg = ""
+				}
+			}
+			else
+			{
+				if (gstring_tominfo.value != "N/A")
+				{
+					errormsg = ""
+				}
+			}
+			return(errormsg)
+		}, String)
+		gmessage_message.visible = MF({gmessage_message.text != ""}, Boolean)
+
+		// Set decided best input frequency
+		gfloat_input_frequency.value = MF({
+			String info
+			if (gcheck_is_atom.value)
+			{
+				info = gstring_atominfo.value
+			}
+			else
+			{
+				info = gstring_tominfo.value
+			}
+			float ret = 0
+			if (info != "N/A")
+			{
+				ret = Float.parseFloat(info.split("/")[3])
+			}
+			ret
+		}, Float)
+
+		// Set counter period value from decided module/clock
+		ginteger_count_period.value = MF({
+			String info
+			if (gcheck_is_atom.value)
+			{
+				info = gstring_atominfo.value
+			}
+			else
+			{
+				info = gstring_tominfo.value
+			}
+			int ret = 0
+			if (info != "N/A")
+			{
+				ret = Integer.parseInt(info.split("/")[4])
+			}
+			ret
+		}, Integer)
+
+		// Set actual frequency from decided clock and calculated counter period
+		gfloat_actual_freq.value = MF({
+			String info
+			if (gcheck_is_atom.value)
+			{
+				info = gstring_atominfo.value
+			}
+			else
+			{
+				info = gstring_tominfo.value
+			}
+			float ret = 0
+			if (info != "N/A")
+			{
+				ret = Float.parseFloat(info.split("/")[5])
+			}
+			ret
+		}, Float)
+
+		// Set possible fastest frequency
+		gfloat_freq.maxValue = MF({
+			float ret = Float.POSITIVE_INFINITY
+			if (gstring_atominfo.value != "N/A")
+			{
+				ret = Float.parseFloat(gstring_atominfo.value.toString().split("/")[3])
+			}
+			if (gstring_tominfo.value != "N/A")
+			{
+				float val = Float.parseFloat(gstring_tominfo.value.toString().split("/")[3])
+				if (val > ret)
+				{
+					ret = val
+				}
+			}
+			ret
+		}, Float)
+
+		// Set possible slowest frequency
+		gfloat_freq.minValue = MF({
+			float ret = 0
+			if (gstring_atominfo.value != "N/A")
+			{
+				ret = Float.parseFloat(gstring_atominfo.value.toString().split("/")[1]) / (2.power(24)-1)
+			}
+			if (gstring_tominfo.value != "N/A")
+			{
+				float val = Float.parseFloat(gstring_tominfo.value.toString().split("/")[1]) / (2.power(16)-1)
+				if (ret == 0 || val < ret)
+				{
+					ret = val
+				}
+			}
+			ret
+		}, Float)
+
+		gstring_imagefile.value = MF({
+			String.format("%s_%s_%s.png",
+							gcombo_alignment.value == "Edge Aligned" ? "up" : "ud",
+							gcombo_polarity.value == "High" ? "h" : "l",
+							gfloat_duty.value <= 25 ? "20"
+							: gfloat_duty.value <= 45 ? "40"
+							: gfloat_duty.value <= 55 ? "50"
+							: gfloat_duty.value <= 65 ? "60"
+							: "80")
+		}, String)
+		gimage_waveform.path = MF({gstring_imagefile.value}, String)
+		glabel_waveform_counter.text = MF({!gcheck_is_atom.value ? "16bit" : "24bit"}, String)
+		glabel_waveform_maxcount.text = MF({ginteger_count_period.value.toString()}, String)
+		glabel_waveform_freq.text = MF({
+			String freq
+			if (gfloat_actual_freq.value >= (1000 * 1000))
+			{
+				freq = String.format(Locale.US, "%.6f%s", gfloat_actual_freq.value / (1000 * 1000), "MHz")
+			}
+			else if (gfloat_actual_freq.value >= 1000)
+			{
+				freq = String.format(Locale.US, "%.6f%s", gfloat_actual_freq.value / 1000, "KHz")
+			}
+			else
+			{
+				freq = String.format(Locale.US, "%.6f%s", gfloat_actual_freq.value, "Hz")
+			}
+			freq
+		}, String)
+		glabel_errorrate.text = MF({
+			String.format(Locale.US,
+							"Error Rate %.2f%s",
+							((float)Math.round(Math.abs(gfloat_freq.value - gfloat_actual_freq.value) / gfloat_freq.value * 100)) / 100,
+							"%")
+		}, String)
+		glabel_waveform_compare.text = MF({String.format("%d", (int)((ginteger_count_period.value + 1) / (100 / gfloat_duty.value) - 1))}, String)
+		glabel_waveform_compare_80.text = MF({glabel_waveform_compare.text}, String)
+		glabel_waveform_compare_20.text = MF({glabel_waveform_compare.text}, String)
+		glabel_waveform_compare_80.visible = MF({gstring_imagefile.value.toString().contains("80")}, Boolean)
+		glabel_waveform_compare_20.visible = MF({gstring_imagefile.value.toString().contains("20")}, Boolean)
+		glabel_waveform_compare.visible = MF({!glabel_waveform_compare_80.visible && !glabel_waveform_compare_20.visible}, Boolean)
+		glabel_waveform_tick.text = MF({
+			float tick_ns = (1000 * 1000 * 1000) / gfloat_input_frequency.value
+			String tick_str
+			if (gfloat_input_frequency.value >= (1000 * 1000))
+			{
+				tick_str = String.format(Locale.US, "%.2f%s", tick_ns, "ns")
+			}
+			else
+			{
+				tick_str = String.format(Locale.US, "%.2f%s", tick_ns / 1000, "us")
+			}
+			tick_str
+		}, String)
+		glabel_waveform_dur1.text = MF({
+			int compare = ((ginteger_count_period.value + 1) / (100 / gfloat_duty.value))
+			float tick_ns = (1000 * 1000 * 1000) / gfloat_input_frequency.value
+			Float dur = tick_ns * (float)compare
+			String str
+			if (dur >= (1000 * 1000))
+			{
+				str = String.format(Locale.US, "%.2f%s", dur / (1000 * 1000), "ms")
+			}
+			else if (dur >= 1000)
+			{
+				str = String.format(Locale.US, "%.2f%s", dur / 1000, "us")
+			}
+			else
+			{
+				str = String.format(Locale.US, "%.2f%s", dur, "ns")
+			}
+			str
+		}, String)
+		glabel_waveform_dur2.text = MF({
+			int compare = ((ginteger_count_period.value + 1) / (100 / gfloat_duty.value))
+			float tick_ns = (1000 * 1000 * 1000) / gfloat_input_frequency.value
+			Float dur = tick_ns * (float)compare
+			Float cycle = tick_ns * (float)(ginteger_count_period.value + 1)
+			Float dur2 = cycle - dur
+			if (gcombo_alignment.value == "Center Aligned") {
+				dur2 = dur2 * 2 /* one period need both up and down counter */
+			}
+			String str
+			if (dur2 >= (1000 * 1000))
+			{
+				str = String.format(Locale.US, "%.2f%s", dur2 / (1000 * 1000), "ms")
+			}
+			else if (dur2 >= 1000)
+			{
+				str = String.format(Locale.US, "%.2f%s", dur2 / 1000, "us")
+			}
+			else
+			{
+				str = String.format(Locale.US, "%.2f%s", dur2, "ns")
+			}
+			str
+		}, String)
+		glabel_waveform_cycle_u.text = MF({
+			float tick_ns = (1000 * 1000 * 1000) / gfloat_input_frequency.value
+			Float cycle = tick_ns * (float)(ginteger_count_period.value + 1)
+			if (gcombo_alignment.value == "Center Aligned") {
+				cycle = cycle * 2 /* one period need both up and down counter */
+			}
+			String str
+			if (cycle >= (1000 * 1000))
+			{
+				str = String.format(Locale.US, "%.2f%s", cycle / (1000 * 1000), "ms")
+			}
+			else if (cycle >= 1000)
+			{
+				str = String.format(Locale.US, "%.2f%s", cycle / 1000, "us")
+			}
+			else
+			{
+				str = String.format(Locale.US, "%.2f%s", cycle, "ns")
+			}
+			str
+		}, String)
+		glabel_waveform_cycle_ud.text = MF({glabel_waveform_cycle_u.text}, String)
+		glabel_waveform_cycle_u.visible = MF({gcombo_alignment.value == "Edge Aligned"}, Boolean)
+		glabel_waveform_cycle_ud.visible = MF({!glabel_waveform_cycle_u.visible}, Boolean)
+		glabel_waveform_dur1_20.text = MF({glabel_waveform_dur1.text}, String)
+		glabel_waveform_dur2_80_ud.text = MF({glabel_waveform_dur2.text}, String)
+		glabel_waveform_dur1_20.visible = MF({glabel_waveform_compare_20.visible}, Boolean)
+		glabel_waveform_dur1.visible = MF({!glabel_waveform_dur1_20.visible}, Boolean)
+		glabel_waveform_dur2_80_ud.visible = MF({
+			gstring_imagefile.value.toString().contains("80") || gstring_imagefile.value.toString().contains("ud")
+		}, Boolean)
+		glabel_waveform_dur2.visible = MF({!glabel_waveform_dur2_80_ud.visible}, Boolean)
+		glabel_clocksource.text = MF({
+			String ret = "-"
+			float freq = 0
+			if (gcheck_is_atom.value)
+			{
+				if (gstring_atominfo.value != "N/A")
+				{
+					ret = "CMU_CLK" + gstring_atominfo.value.split("/")[2]
+					freq = Float.parseFloat(gstring_atominfo.value.split("/")[3])
+				}
+			}
+			else
+			{
+				if (gstring_tominfo.value != "N/A")
+				{
+					ret = "CMU_FXCLK" + gstring_tominfo.value.split("/")[2]
+					freq = Float.parseFloat(gstring_tominfo.value.split("/")[3])
+				}
+			}
+			if (freq != 0)
+			{
+				if (freq >= (1000 * 1000))
+				{
+					ret += String.format(Locale.US, " (%.2f%s)", freq / (1000 * 1000), "MHz")
+				}
+				else if (freq >= 1000)
+				{
+					ret += String.format(Locale.US, " (%.2f%s)", freq / 1000, "KHz")
+				}
+				else
+				{
+					ret += String.format(Locale.US, " (%.2f%s)", freq, "Hz")
+				}
+			}
+			ret
+		}, String)
+		gstring_image.visible = false
+	}
+	/* End   : APP Constructor */
+
+	/* Begin : File Generation */
+	def generateFiles()
+	{
+		copy("pwm_egtm.c", "pwm_egtm.c")
+		copy("pwm_egtm.h", "pwm_egtm.h")
+		generate("pwm_egtm_confc.tmpl", "pwm_egtm_conf.c")
+		generate("pwm_egtm_confh.tmpl", "pwm_egtm_conf.h")
+	}
+	/* End   : File Generation */
+}

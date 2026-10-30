@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="ASCII"?>
+<ApplicationModel:ApplicationData xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ApplicationModel="www.infineon.com/dave/applicationmodel" xmlns:ResourceModel="http://www.infineon.com/Davex/Resource.ecore">
+  <nodes xsi:type="ApplicationModel:AppNode">
+    <resource xsi:type="ResourceModel:App" href="APPS/EVADC_GENERIC/v4_0_4/EVADC_GENERIC_0.app#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:AppNode">
+    <resource xsi:type="ResourceModel:App" href="APPS/CLOCK/v4_1_8/CLOCK_0.app#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:AppNode">
+    <resource xsi:type="ResourceModel:App" href="APPS/ANALOG_CONVERTER_EVADC/v4_0_4/ANALOG_CONVERTER_EVADC_0.app#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:AppNode">
+    <resource xsi:type="ResourceModel:App" href="APPS/CPU_CORE/v4_1_4/CPU_CORE_0.app#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:AppNode">
+    <resource xsi:type="ResourceModel:App" href="APPS/INTERRUPT_CONFIG/v4_1_4/INTERRUPT_CONFIG_0.app#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:AppNode">
+    <resource xsi:type="ResourceModel:App" href="APPS/DMA_GENERIC/v4_1_4/DMA_GENERIC_0.app#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:AppNode">
+    <resource xsi:type="ResourceModel:App" href="APPS/DMA_CHANNEL_CONFIG/v4_1_8/DMA_CHANNEL_CONFIG_0.app#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:AppNode">
+    <resource xsi:type="ResourceModel:App" href="APPS/CCU6_GENERIC/v4_0_4/CCU6_GENERIC_0.app#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:AppNode">
+    <resource xsi:type="ResourceModel:App" href="APPS/TIMER_CCU6/v4_0_8/TIMER_CCU6_0.app#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:AppNode">
+    <resource xsi:type="ResourceModel:App" href="APPS/GTM_GENERIC/v4_0_6/GTM_GENERIC_0.app#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:AppNode">
+    <resource xsi:type="ResourceModel:App" href="APPS/PWM_GTM/v4_0_4/PWM_GTM_0.app#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:PeripheralNode">
+    <resource xsi:type="ResourceModel:Peripheral" href="HW_RESOURCES/SCU0/SCU0_0.dd#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:PeripheralNode">
+    <resource xsi:type="ResourceModel:Peripheral" href="HW_RESOURCES/DMA0/DMA0_0.dd#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:PortNode">
+    <resource xsi:type="ResourceModel:Port" href="HW_RESOURCES/AN0/AN0_0.dd#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:PeripheralNode">
+    <resource xsi:type="ResourceModel:Peripheral" href="HW_RESOURCES/CPU0/CPU0_0.dd#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:DevicePackageNode">
+    <resource xsi:type="ResourceModel:DevicePackage" href="HW_RESOURCES/DEVICEPACKAGE/DEVICEPACKAGE_0.dd#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:PeripheralNode">
+    <resource xsi:type="ResourceModel:Peripheral" href="HW_RESOURCES/INT0/INT0_0.dd#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:PeripheralNode">
+    <resource xsi:type="ResourceModel:Peripheral" href="HW_RESOURCES/GTM0/GTM0_0.dd#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:PeripheralNode">
+    <resource xsi:type="ResourceModel:Peripheral" href="HW_RESOURCES/CCU60/CCU60_0.dd#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:PortNode">
+    <resource xsi:type="ResourceModel:Port" href="HW_RESOURCES/P0/P0_0.dd#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:PeripheralNode">
+    <resource xsi:type="ResourceModel:Peripheral" href="HW_RESOURCES/EVADC0/EVADC0_0.dd#/"/>
+  </nodes>
+  <connections xsi:type="ApplicationModel:NodeConnection" source="//@nodes.0" target="//@nodes.1"/>
+  <connections xsi:type="ApplicationModel:NodeConnection" source="//@nodes.2" target="//@nodes.0"/>
+  <connections xsi:type="ApplicationModel:NodeConnection" source="//@nodes.4" target="//@nodes.3"/>
+  <connections xsi:type="ApplicationModel:NodeConnection" source="//@nodes.6" target="//@nodes.5"/>
+  <connections xsi:type="ApplicationModel:NodeConnection" source="//@nodes.8" target="//@nodes.1"/>
+  <connections xsi:type="ApplicationModel:NodeConnection" source="//@nodes.8" target="//@nodes.7"/>
+  <connections xsi:type="ApplicationModel:NodeConnection" source="//@nodes.9" target="//@nodes.1"/>
+  <connections xsi:type="ApplicationModel:NodeConnection" source="//@nodes.10" target="//@nodes.9"/>
+  <hwConnections href="APPS/ANALOG_CONVERTER_EVADC/v4_0_4/ANALOG_CONVERTER_EVADC_0.app#//@connections.0"/>
+  <hwConnections href="APPS/ANALOG_CONVERTER_EVADC/v4_0_4/ANALOG_CONVERTER_EVADC_0.app#//@connections.1"/>
+  <hwConnections href="APPS/ANALOG_CONVERTER_EVADC/v4_0_4/ANALOG_CONVERTER_EVADC_0.app#//@connections.2"/>
+  <hwConnections href="APPS/ANALOG_CONVERTER_EVADC/v4_0_4/ANALOG_CONVERTER_EVADC_0.app#//@connections.3"/>
+  <hwConnections href="APPS/ANALOG_CONVERTER_EVADC/v4_0_4/ANALOG_CONVERTER_EVADC_0.app#//@connections.4"/>
+  <hwConnections href="APPS/ANALOG_CONVERTER_EVADC/v4_0_4/ANALOG_CONVERTER_EVADC_0.app#//@connections.5"/>
+  <hwConnections href="APPS/ANALOG_CONVERTER_EVADC/v4_0_4/ANALOG_CONVERTER_EVADC_0.app#//@connections.6"/>
+  <hwConnections href="APPS/ANALOG_CONVERTER_EVADC/v4_0_4/ANALOG_CONVERTER_EVADC_0.app#//@connections.7"/>
+  <hwConnections href="APPS/ANALOG_CONVERTER_EVADC/v4_0_4/ANALOG_CONVERTER_EVADC_0.app#//@connections.8"/>
+  <hwConnections href="APPS/ANALOG_CONVERTER_EVADC/v4_0_4/ANALOG_CONVERTER_EVADC_0.app#//@connections.9"/>
+  <hwConnections href="APPS/ANALOG_CONVERTER_EVADC/v4_0_4/ANALOG_CONVERTER_EVADC_0.app#//@connections.10"/>
+  <hwConnections href="APPS/ANALOG_CONVERTER_EVADC/v4_0_4/ANALOG_CONVERTER_EVADC_0.app#//@connections.11"/>
+  <hwConnections href="APPS/ANALOG_CONVERTER_EVADC/v4_0_4/ANALOG_CONVERTER_EVADC_0.app#//@connections.12"/>
+  <hwConnections href="APPS/ANALOG_CONVERTER_EVADC/v4_0_4/ANALOG_CONVERTER_EVADC_0.app#//@connections.13"/>
+  <hwConnections href="APPS/ANALOG_CONVERTER_EVADC/v4_0_4/ANALOG_CONVERTER_EVADC_0.app#//@connections.14"/>
+  <hwConnections href="APPS/ANALOG_CONVERTER_EVADC/v4_0_4/ANALOG_CONVERTER_EVADC_0.app#//@connections.15"/>
+  <hwConnections href="APPS/ANALOG_CONVERTER_EVADC/v4_0_4/ANALOG_CONVERTER_EVADC_0.app#//@connections.32"/>
+  <hwConnections href="APPS/ANALOG_CONVERTER_EVADC/v4_0_4/ANALOG_CONVERTER_EVADC_0.app#//@connections.33"/>
+  <hwConnections href="APPS/ANALOG_CONVERTER_EVADC/v4_0_4/ANALOG_CONVERTER_EVADC_0.app#//@connections.34"/>
+  <hwConnections href="APPS/ANALOG_CONVERTER_EVADC/v4_0_4/ANALOG_CONVERTER_EVADC_0.app#//@connections.35"/>
+  <hwConnections href="APPS/ANALOG_CONVERTER_EVADC/v4_0_4/ANALOG_CONVERTER_EVADC_0.app#//@connections.36"/>
+  <hwConnections href="APPS/ANALOG_CONVERTER_EVADC/v4_0_4/ANALOG_CONVERTER_EVADC_0.app#//@connections.37"/>
+  <hwConnections href="APPS/ANALOG_CONVERTER_EVADC/v4_0_4/ANALOG_CONVERTER_EVADC_0.app#//@connections.38"/>
+  <hwConnections href="APPS/ANALOG_CONVERTER_EVADC/v4_0_4/ANALOG_CONVERTER_EVADC_0.app#//@connections.39"/>
+  <hwConnections href="APPS/ANALOG_CONVERTER_EVADC/v4_0_4/ANALOG_CONVERTER_EVADC_0.app#//@connections.40"/>
+  <hwConnections href="APPS/ANALOG_CONVERTER_EVADC/v4_0_4/ANALOG_CONVERTER_EVADC_0.app#//@connections.41"/>
+  <hwConnections href="APPS/ANALOG_CONVERTER_EVADC/v4_0_4/ANALOG_CONVERTER_EVADC_0.app#//@connections.42"/>
+  <hwConnections href="APPS/ANALOG_CONVERTER_EVADC/v4_0_4/ANALOG_CONVERTER_EVADC_0.app#//@connections.43"/>
+  <hwConnections href="APPS/ANALOG_CONVERTER_EVADC/v4_0_4/ANALOG_CONVERTER_EVADC_0.app#//@connections.44"/>
+  <hwConnections href="APPS/ANALOG_CONVERTER_EVADC/v4_0_4/ANALOG_CONVERTER_EVADC_0.app#//@connections.45"/>
+  <hwConnections href="APPS/ANALOG_CONVERTER_EVADC/v4_0_4/ANALOG_CONVERTER_EVADC_0.app#//@connections.46"/>
+  <hwConnections href="APPS/ANALOG_CONVERTER_EVADC/v4_0_4/ANALOG_CONVERTER_EVADC_0.app#//@connections.47"/>
+  <hwConnections href="APPS/ANALOG_CONVERTER_EVADC/v4_0_4/ANALOG_CONVERTER_EVADC_0.app#//@connections.48"/>
+  <hwConnections href="APPS/ANALOG_CONVERTER_EVADC/v4_0_4/ANALOG_CONVERTER_EVADC_0.app#//@connections.49"/>
+  <hwConnections href="APPS/ANALOG_CONVERTER_EVADC/v4_0_4/ANALOG_CONVERTER_EVADC_0.app#//@connections.50"/>
+  <hwConnections href="APPS/ANALOG_CONVERTER_EVADC/v4_0_4/ANALOG_CONVERTER_EVADC_0.app#//@connections.51"/>
+  <hwConnections href="APPS/ANALOG_CONVERTER_EVADC/v4_0_4/ANALOG_CONVERTER_EVADC_0.app#//@connections.52"/>
+  <hwConnections href="APPS/ANALOG_CONVERTER_EVADC/v4_0_4/ANALOG_CONVERTER_EVADC_0.app#//@connections.53"/>
+  <hwConnections href="APPS/ANALOG_CONVERTER_EVADC/v4_0_4/ANALOG_CONVERTER_EVADC_0.app#//@connections.54"/>
+  <hwConnections href="APPS/ANALOG_CONVERTER_EVADC/v4_0_4/ANALOG_CONVERTER_EVADC_0.app#//@connections.55"/>
+  <hwConnections href="APPS/ANALOG_CONVERTER_EVADC/v4_0_4/ANALOG_CONVERTER_EVADC_0.app#//@connections.56"/>
+  <hwConnections href="APPS/ANALOG_CONVERTER_EVADC/v4_0_4/ANALOG_CONVERTER_EVADC_0.app#//@connections.57"/>
+  <hwConnections href="APPS/ANALOG_CONVERTER_EVADC/v4_0_4/ANALOG_CONVERTER_EVADC_0.app#//@connections.58"/>
+  <hwConnections href="APPS/ANALOG_CONVERTER_EVADC/v4_0_4/ANALOG_CONVERTER_EVADC_0.app#//@connections.59"/>
+  <hwConnections href="APPS/ANALOG_CONVERTER_EVADC/v4_0_4/ANALOG_CONVERTER_EVADC_0.app#//@connections.60"/>
+  <hwConnections href="APPS/ANALOG_CONVERTER_EVADC/v4_0_4/ANALOG_CONVERTER_EVADC_0.app#//@connections.61"/>
+  <hwConnections href="APPS/ANALOG_CONVERTER_EVADC/v4_0_4/ANALOG_CONVERTER_EVADC_0.app#//@connections.62"/>
+  <hwConnections href="APPS/ANALOG_CONVERTER_EVADC/v4_0_4/ANALOG_CONVERTER_EVADC_0.app#//@connections.63"/>
+  <hwConnections href="APPS/CPU_CORE/v4_1_4/CPU_CORE_0.app#//@connections.0"/>
+  <hwConnections href="APPS/INTERRUPT_CONFIG/v4_1_4/INTERRUPT_CONFIG_0.app#//@connections.0"/>
+  <hwConnections href="APPS/INTERRUPT_CONFIG/v4_1_4/INTERRUPT_CONFIG_0.app#//@connections.1"/>
+  <hwConnections href="APPS/DMA_CHANNEL_CONFIG/v4_1_8/DMA_CHANNEL_CONFIG_0.app#//@connections.0"/>
+  <hwConnections href="APPS/DMA_CHANNEL_CONFIG/v4_1_8/DMA_CHANNEL_CONFIG_0.app#//@connections.1"/>
+  <hwConnections href="APPS/PWM_GTM/v4_0_4/PWM_GTM_0.app#//@connections.3"/>
+  <hwConnections href="APPS/PWM_GTM/v4_0_4/PWM_GTM_0.app#//@connections.4"/>
+  <hwConnections href="APPS/PWM_GTM/v4_0_4/PWM_GTM_0.app#//@connections.1"/>
+  <hwConnections href="APPS/ANALOG_CONVERTER_EVADC/v4_0_4/ANALOG_CONVERTER_EVADC_0.app#//@connections.64"/>
+  <hwConnections href="APPS/DMA_CHANNEL_CONFIG/v4_1_8/DMA_CHANNEL_CONFIG_0.app#//@connections.2"/>
+  <hwConnections href="APPS/TIMER_CCU6/v4_0_8/TIMER_CCU6_0.app#//@connections.0"/>
+</ApplicationModel:ApplicationData>

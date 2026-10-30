@@ -1,0 +1,891 @@
+package Model.APPS.CPU_CORE.v4_1_6;
+// Import statements
+import java.util.regex.Matcher
+
+import ifx.davex.app.manifest.*
+
+/*************** Revision History **********************************************
+ Version      Date          Description
+ 4.0.2        12-Sep-2025   - Initial version
+ 4.0.4        15-Sep-2025   - License and Copyright update
+ 4.1.2        23-Jan-2026   - Added support for TC4x
+ 4.1.4        22-May-2026   - Restrict TC4 support to TC4Dx and TC48x series
+ 4.1.6        29-Jul-2026   - Support to all TC4 devices
+ *******************************************************************************/
+
+class  CPU_CORE extends CPU_CORE_GUI
+{
+	/* Note  : Following APP properties are mandatory and important */
+
+	/* Begin : APP property section */
+
+	/**
+	 * APP version
+	 * Format: a string with three digit separated by a dot.
+	 */
+	def version            = '4.1.6'
+
+	/**
+	 * APP categories declaration. 
+	 * It is list of strings. Subcategories are separated by slash.
+	 * No limits on number of categories and subcategories depth.
+	 */
+	def categoriesDescription = ["System"]
+
+	/** 
+	 * Minimum DAVE version required for this APP.
+	 * 
+	 * It is string with three digit separated by a dot.
+	 */
+	def minDaveVersion			 = '4.2.4'
+
+	/** 
+	 * Keywords used by search feature in APPs selection view
+	 * 
+	 * It is a list of string.
+	 */
+	def keywords	  = ['CPU', 'core', 'exception', 'trap', 'protection', 'MPU']
+
+	/** 
+	 * softwareIDs is used to declare which devices are compatible with this APP.
+	 * It is a map with key a string containing a pattern that shall match the SW id of
+	 * the device and as value the minimal version of the APP.
+	 */
+
+	def softwareIDs		  = [
+		"TC4.*.*.*":"1.0.0",
+		"TC3.*.*.*":"1.0.0"]
+
+	/**
+	 * Singleton property:
+	 * When it is true the APP can be instantiated only once. 
+	 */
+	def singleton	  = false
+
+	/**
+	 * initProvider property
+	 * It shall be true to add a call to <AppName>_Init() 
+	 */
+	def initProvider  = true
+
+	/**
+	 * Deprecated APP
+	 * Set it to true to indicate that the APP shall be not used for new projects.
+	 */
+	def deprecated	  = false
+
+	/**
+	 * Sharable property.
+	 * It shall be true to allows multiple APPs to require the same instance of this APP.
+	 */
+	def sharable	  = true
+
+	/**
+	 *	APP function description.
+	 */
+	def description = "This APP configures specific CPU core. Configuration can be done by signal connections and GUI parameters"
+
+	/* End	 : APP property section */
+
+	/* Begin : User APP property section */
+
+	/* Required App */
+	MRequiredApp appres_clock								// CLOCK App (only for TC4xx)
+
+	/* Required resource groups */
+	MVirtualResourceGroup hwres_cpu_core					// CPU core hardware resource
+	MVirtualResourceGroup hwres_cpu_mpu						// CPU/MPU hardware resource
+	MVirtualResourceGroup hwres_ir_icu						// IR/ICU hardware resource
+	
+	/* Required virtual signals */
+	MVirtualSignal vs_cpu_core_global						// CPU to CPU sub resources
+	MVirtualSignal vs_cpu_core_ispir						// CPU to Interrupt Router ISPIR signal
+	MVirtualSignal vs_ir_icu_ispir							// Interrupt Router from CPU
+
+	SolverVariable sv_coreno = SolverVariable()				// SolverVariable to contain core number
+	GString gstring_core = GString()						// Core number
+	GInteger ginteger_num_cores = GInteger()				// Number of cores
+	GString gstring_family = GString()						// Family string ("TC3" or "TC4")
+	/* End	 : User APP property section */
+
+	/* Begin : APP Constructor */
+	public CPU_CORE(DaveEnv daveEnv)
+	{
+		String str_family = daveEnv.project.selectedDevice.deviceId.softwareId.split("\\.")[0]
+		gstring_family.value = str_family
+		String str_series = daveEnv.project.selectedDevice.deviceId.softwareId.split("\\.")[1]
+		String str_variant = daveEnv.project.selectedDevice.deviceId.softwareId.split("\\.")[3]
+
+		int num_cores = 1 // Default to 1 core
+		if (str_family == "TC3")
+		{
+			switch (str_series)
+			{
+			case "9":
+				num_cores = 6
+				break
+			case "8":
+				num_cores = 4
+				break
+			case "7":
+			case "5":
+				num_cores = 3
+				break
+			case "6":
+				num_cores = 2
+				break
+			case "3":
+				if (str_variant == "EXT")
+				{
+					num_cores = 2
+				}
+				break
+			}
+		}
+		else if (str_family == "TC4")
+		{
+			switch (str_series)
+			{
+			case "D":
+			case "Z":
+				num_cores = 6
+				break
+			case "9":
+				num_cores = 5
+				break
+			case "8":
+			case "6":
+				num_cores = 4
+				break
+			case "4":
+			case "E":
+				num_cores = 3
+				break
+			case "5":
+				num_cores = 2
+				break
+			}
+		}
+		ginteger_num_cores.value = num_cores
+		Boolean is_tc4 = (str_family == "TC4")
+		int num_drange = (str_family == "TC3" ? 18 : 24)
+		int num_crange = (str_family == "TC3" ? 10 : 16)
+		int num_set = (str_family == "TC3" ? 6 : 8)
+		ginteger_dprxnum.maxValue = num_drange
+		ginteger_cprxnum.maxValue = num_crange
+		ginteger_setnum.maxValue = num_set
+
+		// for TC4xx
+		if (is_tc4)
+		{
+			appres_clock = MRequiredApp("CLOCK", "CLOCK APP", RSHARABLE, "4.1.2")
+			addUriElementRangeConstraint(sv_coreno, ["0", "1", "2", "3", "4", "5"]) // CPU_CS (="6") is excluded
+			hwres_cpu_core = MVirtualResourceGroup("CPU Core", ["peripheral", "cpu", sv_coreno, "hra", "core"])
+			hwres_ir_icu = MVirtualResourceGroup("Interrupt Control Unit", ["peripheral", "int", "0", "icu", sv_coreno])
+			hwres_cpu_mpu = MVirtualResourceGroup("CPU Memory Protection Unit", ["peripheral", "cpu", sv_coreno, "hra", "memory_protection"])
+			gfloat_actfreq.value = MF({appres_clock.getVal(["gfloat_fSRI", "value"]) * (64 - ginteger_ccon_div.value) / 64}, Float)
+		}
+		// for TC3xx
+		else
+		{
+			hwres_cpu_core = MVirtualResourceGroup("CPU Core", ["peripheral", "cpu", sv_coreno, "core"])
+			hwres_ir_icu = MVirtualResourceGroup("Interrupt Control Unit", ["peripheral", "int", "0", "icu", "*"])
+			vs_cpu_core_ispir = MVirtualSignal(hwres_cpu_core, "ISPIR", "ispir", true, false)
+			vs_ir_icu_ispir = MVirtualSignal(hwres_ir_icu, "ISPIR", "ispir", true, false)
+			addConnectionConstraint(vs_cpu_core_ispir, vs_ir_icu_ispir)
+			hwres_cpu_mpu = MVirtualResourceGroup("CPU Memory Protection Unit", ["peripheral", "cpu", sv_coreno, "memory_protection"])
+			ggroup_clock.visible = false
+		}
+		vs_cpu_core_global = MVirtualSignal(hwres_cpu_core, "INT", "global", true, true)
+		gstring_core.value = MF({
+			List uri = hwres_cpu_core.getSolverUri()
+			return (uri == null ? "-" : uri[4])
+		}, String)
+		gstring_tcn0_tsr.enabled = MF({gcheck_tcn0.value}, Boolean)
+		gstring_tcn1_tsr.enabled = MF({gcheck_tcn1.value}, Boolean)
+		gstring_tcn2_tsr.enabled = MF({gcheck_tcn2.value}, Boolean)
+		gstring_tcn3_tsr.enabled = MF({gcheck_tcn3.value}, Boolean)
+		gstring_tcn4_tsr.enabled = MF({gcheck_tcn4.value}, Boolean)
+		gstring_tcn5_tsr.enabled = MF({gcheck_tcn5.value}, Boolean)
+		gstring_tcn6_tsr.enabled = MF({gcheck_tcn6.value}, Boolean)
+		gstring_tcn7_tsr.enabled = MF({gcheck_tcn7.value}, Boolean)
+		String fn_regexp = ~/^[^\d\W]\w*\Z/
+		gmessage_valid_tsr_name.visible = MF({
+			Matcher matcher = (gstring_tcn0_tsr.value =~ fn_regexp)
+			Boolean ExpressionMatch = !matcher.matches()
+			if (ExpressionMatch)
+			{
+				return true
+			}
+			matcher = (gstring_tcn1_tsr.value =~ fn_regexp)
+			ExpressionMatch = !matcher.matches()
+			if (ExpressionMatch)
+			{
+				return true
+			}
+			matcher = (gstring_tcn2_tsr.value =~ fn_regexp)
+			ExpressionMatch = !matcher.matches()
+			if (ExpressionMatch)
+			{
+				return true
+			}
+			matcher = (gstring_tcn3_tsr.value =~ fn_regexp)
+			ExpressionMatch = !matcher.matches()
+			if (ExpressionMatch)
+			{
+				return true
+			}
+			matcher = (gstring_tcn4_tsr.value =~ fn_regexp)
+			ExpressionMatch = !matcher.matches()
+			if (ExpressionMatch)
+			{
+				return true
+			}
+			matcher = (gstring_tcn5_tsr.value =~ fn_regexp)
+			ExpressionMatch = !matcher.matches()
+			if (ExpressionMatch)
+			{
+				return true
+			}
+			matcher = (gstring_tcn6_tsr.value =~ fn_regexp)
+			ExpressionMatch = !matcher.matches()
+			if (ExpressionMatch)
+			{
+				return true
+			}
+			matcher = (gstring_tcn7_tsr.value =~ fn_regexp)
+			ExpressionMatch = !matcher.matches()
+			return ExpressionMatch
+		}, Boolean)
+		gindexcombo_dpx.options = MF(
+		{
+			List<String> l = new ArrayList(rArraygindexgroup_Set.size())
+			for (int i = 0; i < ginteger_setnum.value; i++)
+			{
+				if (i == 0)
+				{
+					l.add("0 (Reserved)")
+				}
+				else if (i == 1)
+				{
+					l.add("1 (Select this to set start/end addresses)")
+				}
+				else
+				{
+					l.add(i.toString())
+				}
+			}
+			l
+		}, List)
+
+		MF is_mpu_enabled = MF({gcheck_mpuen.value}, Boolean)
+		MF is_mpu_disabled = MF({!gcheck_mpuen.value}, Boolean)
+		MF is_mpu_dr2 = MF({ginteger_dprxnum.value > 2}, Boolean)
+		MF is_mpu_dr3 = MF({ginteger_dprxnum.value > 3}, Boolean)
+		MF is_mpu_dr4 = MF({ginteger_dprxnum.value > 4}, Boolean)
+		MF is_mpu_dr5 = MF({ginteger_dprxnum.value > 5}, Boolean)
+		MF is_mpu_dr6 = MF({ginteger_dprxnum.value > 6}, Boolean)
+		MF is_mpu_dr7 = MF({ginteger_dprxnum.value > 7}, Boolean)
+		MF is_mpu_dr8 = MF({ginteger_dprxnum.value > 8}, Boolean)
+		MF is_mpu_dr9 = MF({ginteger_dprxnum.value > 9}, Boolean)
+		MF is_mpu_dr10 = MF({ginteger_dprxnum.value > 10}, Boolean)
+		MF is_mpu_dr11 = MF({ginteger_dprxnum.value > 11}, Boolean)
+		MF is_mpu_dr12 = MF({ginteger_dprxnum.value > 12}, Boolean)
+		MF is_mpu_dr13 = MF({ginteger_dprxnum.value > 13}, Boolean)
+		MF is_mpu_dr14 = MF({ginteger_dprxnum.value > 14}, Boolean)
+		MF is_mpu_dr15 = MF({ginteger_dprxnum.value > 15}, Boolean)
+		MF is_mpu_dr16 = MF({ginteger_dprxnum.value > 16}, Boolean)
+		MF is_mpu_dr17 = MF({ginteger_dprxnum.value > 17}, Boolean)
+		MF is_mpu_dr18 = MF({ginteger_dprxnum.value > 18}, Boolean)
+		MF is_mpu_dr19 = MF({ginteger_dprxnum.value > 19}, Boolean)
+		MF is_mpu_dr20 = MF({ginteger_dprxnum.value > 20}, Boolean)
+		MF is_mpu_dr21 = MF({ginteger_dprxnum.value > 21}, Boolean)
+		MF is_mpu_dr22 = MF({ginteger_dprxnum.value > 22}, Boolean)
+		MF is_mpu_dr23 = MF({ginteger_dprxnum.value > 23}, Boolean)
+		MF is_mpu_en_dr2 = MF({gcheck_mpuen.value && ginteger_dprxnum.value > 2}, Boolean)
+		MF is_mpu_en_dr3 = MF({gcheck_mpuen.value && ginteger_dprxnum.value > 3}, Boolean)
+		MF is_mpu_en_dr4 = MF({gcheck_mpuen.value && ginteger_dprxnum.value > 4}, Boolean)
+		MF is_mpu_en_dr5 = MF({gcheck_mpuen.value && ginteger_dprxnum.value > 5}, Boolean)
+		MF is_mpu_en_dr6 = MF({gcheck_mpuen.value && ginteger_dprxnum.value > 6}, Boolean)
+		MF is_mpu_en_dr7 = MF({gcheck_mpuen.value && ginteger_dprxnum.value > 7}, Boolean)
+		MF is_mpu_en_dr8 = MF({gcheck_mpuen.value && ginteger_dprxnum.value > 8}, Boolean)
+		MF is_mpu_en_dr9 = MF({gcheck_mpuen.value && ginteger_dprxnum.value > 9}, Boolean)
+		MF is_mpu_en_dr10 = MF({gcheck_mpuen.value && ginteger_dprxnum.value > 10}, Boolean)
+		MF is_mpu_en_dr11 = MF({gcheck_mpuen.value && ginteger_dprxnum.value > 11}, Boolean)
+		MF is_mpu_en_dr12 = MF({gcheck_mpuen.value && ginteger_dprxnum.value > 12}, Boolean)
+		MF is_mpu_en_dr13 = MF({gcheck_mpuen.value && ginteger_dprxnum.value > 13}, Boolean)
+		MF is_mpu_en_dr14 = MF({gcheck_mpuen.value && ginteger_dprxnum.value > 14}, Boolean)
+		MF is_mpu_en_dr15 = MF({gcheck_mpuen.value && ginteger_dprxnum.value > 15}, Boolean)
+		MF is_mpu_en_dr16 = MF({gcheck_mpuen.value && ginteger_dprxnum.value > 16}, Boolean)
+		MF is_mpu_en_dr17 = MF({gcheck_mpuen.value && ginteger_dprxnum.value > 17}, Boolean)
+		MF is_mpu_en_dr18 = MF({gcheck_mpuen.value && ginteger_dprxnum.value > 18}, Boolean)
+		MF is_mpu_en_dr19 = MF({gcheck_mpuen.value && ginteger_dprxnum.value > 19}, Boolean)
+		MF is_mpu_en_dr20 = MF({gcheck_mpuen.value && ginteger_dprxnum.value > 20}, Boolean)
+		MF is_mpu_en_dr21 = MF({gcheck_mpuen.value && ginteger_dprxnum.value > 21}, Boolean)
+		MF is_mpu_en_dr22 = MF({gcheck_mpuen.value && ginteger_dprxnum.value > 22}, Boolean)
+		MF is_mpu_en_dr23 = MF({gcheck_mpuen.value && ginteger_dprxnum.value > 23}, Boolean)
+
+		MF is_mpu_en_cr2 = MF({gcheck_mpuen.value && ginteger_cprxnum.value > 2}, Boolean)
+		MF is_mpu_en_cr3 = MF({gcheck_mpuen.value && ginteger_cprxnum.value > 3}, Boolean)
+		MF is_mpu_en_cr4 = MF({gcheck_mpuen.value && ginteger_cprxnum.value > 4}, Boolean)
+		MF is_mpu_en_cr5 = MF({gcheck_mpuen.value && ginteger_cprxnum.value > 5}, Boolean)
+		MF is_mpu_en_cr6 = MF({gcheck_mpuen.value && ginteger_cprxnum.value > 6}, Boolean)
+		MF is_mpu_en_cr7 = MF({gcheck_mpuen.value && ginteger_cprxnum.value > 7}, Boolean)
+		MF is_mpu_en_cr8 = MF({gcheck_mpuen.value && ginteger_cprxnum.value > 8}, Boolean)
+		MF is_mpu_en_cr9 = MF({gcheck_mpuen.value && ginteger_cprxnum.value > 9}, Boolean)
+		MF is_mpu_en_cr10 = MF({gcheck_mpuen.value && ginteger_cprxnum.value > 10}, Boolean)
+		MF is_mpu_en_cr11 = MF({gcheck_mpuen.value && ginteger_cprxnum.value > 11}, Boolean)
+		MF is_mpu_en_cr12 = MF({gcheck_mpuen.value && ginteger_cprxnum.value > 12}, Boolean)
+		MF is_mpu_en_cr13 = MF({gcheck_mpuen.value && ginteger_cprxnum.value > 13}, Boolean)
+		MF is_mpu_en_cr14 = MF({gcheck_mpuen.value && ginteger_cprxnum.value > 14}, Boolean)
+		MF is_mpu_en_cr15 = MF({gcheck_mpuen.value && ginteger_cprxnum.value > 15}, Boolean)
+
+		// Num of Accessible Data Ranges
+		glabel_dprxnum.enabled = is_mpu_enabled
+		ginteger_dprxnum.enabled = is_mpu_enabled
+
+		// Num of Accessible Code Ranges
+		glabel_cprxnum.enabled = is_mpu_enabled
+		ginteger_cprxnum.enabled = is_mpu_enabled
+
+		// Num of Sets
+		glabel_setnum.enabled = is_mpu_enabled
+		ginteger_setnum.enabled = is_mpu_enabled
+
+		// Set #
+		gindexcombo_dpx.enabled = is_mpu_enabled
+
+		// Set #0 - #n -------------------------------------------------------------------------
+		for (Integer i = 0; i < num_set; i++)
+		{
+			// Set #
+			rArraygindexgroup_Set[i].glabel_dpx.enabled = is_mpu_enabled
+
+			// Data Range
+			rArraygindexgroup_Set[i].glabel_dr.enabled = is_mpu_enabled
+
+			// Data Range #, R, W, Start Address, End Address + 1
+			rArraygindexgroup_Set[i].glabel_drno.enabled = is_mpu_enabled
+			rArraygindexgroup_Set[i].glabel_dprex_0.enabled = is_mpu_enabled
+			rArraygindexgroup_Set[i].glabel_dpwex_0.enabled = is_mpu_enabled
+			rArraygindexgroup_Set[i].glabel_dprl0.enabled = is_mpu_enabled
+			rArraygindexgroup_Set[i].glabel_dpru0.enabled = is_mpu_enabled
+
+			// Data Range #0 - #n
+			rArraygindexgroup_Set[i].glabel_dpxex_0_.enabled = is_mpu_enabled
+			rArraygindexgroup_Set[i].glabel_dpxex_1_.enabled = is_mpu_enabled
+			for (Integer j = 18; j < 24; j++)
+			{
+				rArraygindexgroup_Set[i]."gimage_dpx_${j.toString()}_l".visible = is_tc4
+				rArraygindexgroup_Set[i]."gimage_dpx_${j.toString()}_r".visible = is_tc4
+			}
+			rArraygindexgroup_Set[i].glabel_dpxex_2_.enabled = is_mpu_en_dr2
+			rArraygindexgroup_Set[i].glabel_dpxex_3_.enabled = is_mpu_en_dr3
+			rArraygindexgroup_Set[i].glabel_dpxex_4_.enabled = is_mpu_en_dr4
+			rArraygindexgroup_Set[i].glabel_dpxex_5_.enabled = is_mpu_en_dr5
+			rArraygindexgroup_Set[i].glabel_dpxex_6_.enabled = is_mpu_en_dr6
+			rArraygindexgroup_Set[i].glabel_dpxex_7_.enabled = is_mpu_en_dr7
+			rArraygindexgroup_Set[i].glabel_dpxex_8_.enabled = is_mpu_en_dr8
+			rArraygindexgroup_Set[i].glabel_dpxex_9_.enabled = is_mpu_en_dr9
+			rArraygindexgroup_Set[i].glabel_dpxex_10_.enabled = is_mpu_en_dr10
+			rArraygindexgroup_Set[i].glabel_dpxex_11_.enabled = is_mpu_en_dr11
+			rArraygindexgroup_Set[i].glabel_dpxex_12_.enabled = is_mpu_en_dr12
+			rArraygindexgroup_Set[i].glabel_dpxex_13_.enabled = is_mpu_en_dr13
+			rArraygindexgroup_Set[i].glabel_dpxex_14_.enabled = is_mpu_en_dr14
+			rArraygindexgroup_Set[i].glabel_dpxex_15_.enabled = is_mpu_en_dr15
+			rArraygindexgroup_Set[i].glabel_dpxex_16_.enabled = is_mpu_en_dr16
+			rArraygindexgroup_Set[i].glabel_dpxex_17_.enabled = is_mpu_en_dr17
+			rArraygindexgroup_Set[i].glabel_dpxex_18_.enabled = is_mpu_en_dr18
+			rArraygindexgroup_Set[i].glabel_dpxex_19_.enabled = is_mpu_en_dr19
+			rArraygindexgroup_Set[i].glabel_dpxex_20_.enabled = is_mpu_en_dr20
+			rArraygindexgroup_Set[i].glabel_dpxex_21_.enabled = is_mpu_en_dr21
+			rArraygindexgroup_Set[i].glabel_dpxex_22_.enabled = is_mpu_en_dr22
+			rArraygindexgroup_Set[i].glabel_dpxex_23_.enabled = is_mpu_en_dr23
+
+			if (i == 0)
+			{
+				rArraygindexgroup_Set[0].gcheck_dprex_0.value = true
+				for (Integer j = 1; j < num_drange; j++)
+				{
+					rArraygindexgroup_Set[0]."gcheck_dprex_${j.toString()}".value = false
+					rArraygindexgroup_Set[0]."gcheck_dprex_${j.toString()}".enabled = false
+				}
+			}
+			else
+			{
+				rArraygindexgroup_Set[i].gcheck_dprex_0.value = false
+			}
+
+			rArraygindexgroup_Set[i].gcheck_dprex_2.visible = is_mpu_dr2
+			rArraygindexgroup_Set[i].gcheck_dprex_3.visible = is_mpu_dr3
+			rArraygindexgroup_Set[i].gcheck_dprex_4.visible = is_mpu_dr4
+			rArraygindexgroup_Set[i].gcheck_dprex_5.visible = is_mpu_dr5
+			rArraygindexgroup_Set[i].gcheck_dprex_6.visible = is_mpu_dr6
+			rArraygindexgroup_Set[i].gcheck_dprex_7.visible = is_mpu_dr7
+			rArraygindexgroup_Set[i].gcheck_dprex_8.visible = is_mpu_dr8
+			rArraygindexgroup_Set[i].gcheck_dprex_9.visible = is_mpu_dr9
+			rArraygindexgroup_Set[i].gcheck_dprex_10.visible = is_mpu_dr10
+			rArraygindexgroup_Set[i].gcheck_dprex_11.visible = is_mpu_dr11
+			rArraygindexgroup_Set[i].gcheck_dprex_12.visible = is_mpu_dr12
+			rArraygindexgroup_Set[i].gcheck_dprex_13.visible = is_mpu_dr13
+			rArraygindexgroup_Set[i].gcheck_dprex_14.visible = is_mpu_dr14
+			rArraygindexgroup_Set[i].gcheck_dprex_15.visible = is_mpu_dr15
+			rArraygindexgroup_Set[i].gcheck_dprex_16.visible = is_mpu_dr16
+			rArraygindexgroup_Set[i].gcheck_dprex_17.visible = is_mpu_dr17
+			rArraygindexgroup_Set[i].gcheck_dprex_18.visible = is_mpu_dr18
+			rArraygindexgroup_Set[i].gcheck_dprex_19.visible = is_mpu_dr19
+			rArraygindexgroup_Set[i].gcheck_dprex_20.visible = is_mpu_dr20
+			rArraygindexgroup_Set[i].gcheck_dprex_21.visible = is_mpu_dr21
+			rArraygindexgroup_Set[i].gcheck_dprex_22.visible = is_mpu_dr22
+			rArraygindexgroup_Set[i].gcheck_dprex_23.visible = is_mpu_dr23
+
+			if (i != 0)
+			{
+				rArraygindexgroup_Set[i].gcheck_dprex_1.enabled = is_mpu_enabled
+				rArraygindexgroup_Set[i].gcheck_dprex_2.enabled = is_mpu_en_dr2
+				rArraygindexgroup_Set[i].gcheck_dprex_3.enabled = is_mpu_en_dr3
+				rArraygindexgroup_Set[i].gcheck_dprex_4.enabled = is_mpu_en_dr4
+				rArraygindexgroup_Set[i].gcheck_dprex_5.enabled = is_mpu_en_dr5
+				rArraygindexgroup_Set[i].gcheck_dprex_6.enabled = is_mpu_en_dr6
+				rArraygindexgroup_Set[i].gcheck_dprex_7.enabled = is_mpu_en_dr7
+				rArraygindexgroup_Set[i].gcheck_dprex_8.enabled = is_mpu_en_dr8
+				rArraygindexgroup_Set[i].gcheck_dprex_9.enabled = is_mpu_en_dr9
+				rArraygindexgroup_Set[i].gcheck_dprex_10.enabled = is_mpu_en_dr10
+				rArraygindexgroup_Set[i].gcheck_dprex_11.enabled = is_mpu_en_dr11
+				rArraygindexgroup_Set[i].gcheck_dprex_12.enabled = is_mpu_en_dr12
+				rArraygindexgroup_Set[i].gcheck_dprex_13.enabled = is_mpu_en_dr13
+				rArraygindexgroup_Set[i].gcheck_dprex_14.enabled = is_mpu_en_dr14
+				rArraygindexgroup_Set[i].gcheck_dprex_15.enabled = is_mpu_en_dr15
+				rArraygindexgroup_Set[i].gcheck_dprex_16.enabled = is_mpu_en_dr16
+				rArraygindexgroup_Set[i].gcheck_dprex_17.enabled = is_mpu_en_dr17
+				rArraygindexgroup_Set[i].gcheck_dprex_18.enabled = is_mpu_en_dr18
+				rArraygindexgroup_Set[i].gcheck_dprex_19.enabled = is_mpu_en_dr19
+				rArraygindexgroup_Set[i].gcheck_dprex_20.enabled = is_mpu_en_dr20
+				rArraygindexgroup_Set[i].gcheck_dprex_21.enabled = is_mpu_en_dr21
+				rArraygindexgroup_Set[i].gcheck_dprex_22.enabled = is_mpu_en_dr22
+				rArraygindexgroup_Set[i].gcheck_dprex_23.enabled = is_mpu_en_dr23
+			}
+
+			if (i == 0)
+			{
+				rArraygindexgroup_Set[0].gcheck_dpwex_0.value = true
+				for (Integer j = 1; j < num_drange; j++)
+				{
+					rArraygindexgroup_Set[0]."gcheck_dpwex_${j.toString()}".value = false
+					rArraygindexgroup_Set[0]."gcheck_dpwex_${j.toString()}".enabled = false
+				}
+			}
+			else
+			{
+				rArraygindexgroup_Set[i].gcheck_dpwex_0.value = false
+			}
+
+			rArraygindexgroup_Set[i].gcheck_dpwex_2.visible = is_mpu_dr2
+			rArraygindexgroup_Set[i].gcheck_dpwex_3.visible = is_mpu_dr3
+			rArraygindexgroup_Set[i].gcheck_dpwex_4.visible = is_mpu_dr4
+			rArraygindexgroup_Set[i].gcheck_dpwex_5.visible = is_mpu_dr5
+			rArraygindexgroup_Set[i].gcheck_dpwex_6.visible = is_mpu_dr6
+			rArraygindexgroup_Set[i].gcheck_dpwex_7.visible = is_mpu_dr7
+			rArraygindexgroup_Set[i].gcheck_dpwex_8.visible = is_mpu_dr8
+			rArraygindexgroup_Set[i].gcheck_dpwex_9.visible = is_mpu_dr9
+			rArraygindexgroup_Set[i].gcheck_dpwex_10.visible = is_mpu_dr10
+			rArraygindexgroup_Set[i].gcheck_dpwex_11.visible = is_mpu_dr11
+			rArraygindexgroup_Set[i].gcheck_dpwex_12.visible = is_mpu_dr12
+			rArraygindexgroup_Set[i].gcheck_dpwex_13.visible = is_mpu_dr13
+			rArraygindexgroup_Set[i].gcheck_dpwex_14.visible = is_mpu_dr14
+			rArraygindexgroup_Set[i].gcheck_dpwex_15.visible = is_mpu_dr15
+			rArraygindexgroup_Set[i].gcheck_dpwex_16.visible = is_mpu_dr16
+			rArraygindexgroup_Set[i].gcheck_dpwex_17.visible = is_mpu_dr17
+			rArraygindexgroup_Set[i].gcheck_dpwex_18.visible = is_mpu_dr18
+			rArraygindexgroup_Set[i].gcheck_dpwex_19.visible = is_mpu_dr19
+			rArraygindexgroup_Set[i].gcheck_dpwex_20.visible = is_mpu_dr20
+			rArraygindexgroup_Set[i].gcheck_dpwex_21.visible = is_mpu_dr21
+			rArraygindexgroup_Set[i].gcheck_dpwex_22.visible = is_mpu_dr22
+			rArraygindexgroup_Set[i].gcheck_dpwex_23.visible = is_mpu_dr23
+
+			// Data Range #0 is reserved, it covers all 32GB address space
+			rArraygindexgroup_Set[i].ginteger_dprl0.enabled = false
+			rArraygindexgroup_Set[i].ginteger_dpru0.enabled = false
+
+			if (i != 0)
+			{
+				rArraygindexgroup_Set[i].gcheck_dpwex_1.enabled = is_mpu_enabled
+				rArraygindexgroup_Set[i].gcheck_dpwex_2.enabled = is_mpu_en_dr2
+				rArraygindexgroup_Set[i].gcheck_dpwex_3.enabled = is_mpu_en_dr3
+				rArraygindexgroup_Set[i].gcheck_dpwex_4.enabled = is_mpu_en_dr4
+				rArraygindexgroup_Set[i].gcheck_dpwex_5.enabled = is_mpu_en_dr5
+				rArraygindexgroup_Set[i].gcheck_dpwex_6.enabled = is_mpu_en_dr6
+				rArraygindexgroup_Set[i].gcheck_dpwex_7.enabled = is_mpu_en_dr7
+				rArraygindexgroup_Set[i].gcheck_dpwex_8.enabled = is_mpu_en_dr8
+				rArraygindexgroup_Set[i].gcheck_dpwex_9.enabled = is_mpu_en_dr9
+				rArraygindexgroup_Set[i].gcheck_dpwex_10.enabled = is_mpu_en_dr10
+				rArraygindexgroup_Set[i].gcheck_dpwex_11.enabled = is_mpu_en_dr11
+				rArraygindexgroup_Set[i].gcheck_dpwex_12.enabled = is_mpu_en_dr12
+				rArraygindexgroup_Set[i].gcheck_dpwex_13.enabled = is_mpu_en_dr13
+				rArraygindexgroup_Set[i].gcheck_dpwex_14.enabled = is_mpu_en_dr14
+				rArraygindexgroup_Set[i].gcheck_dpwex_15.enabled = is_mpu_en_dr15
+				rArraygindexgroup_Set[i].gcheck_dpwex_16.enabled = is_mpu_en_dr16
+				rArraygindexgroup_Set[i].gcheck_dpwex_17.enabled = is_mpu_en_dr17
+				rArraygindexgroup_Set[i].gcheck_dpwex_18.enabled = is_mpu_en_dr18
+				rArraygindexgroup_Set[i].gcheck_dpwex_19.enabled = is_mpu_en_dr19
+				rArraygindexgroup_Set[i].gcheck_dpwex_20.enabled = is_mpu_en_dr20
+				rArraygindexgroup_Set[i].gcheck_dpwex_21.enabled = is_mpu_en_dr21
+				rArraygindexgroup_Set[i].gcheck_dpwex_22.enabled = is_mpu_en_dr22
+				rArraygindexgroup_Set[i].gcheck_dpwex_23.enabled = is_mpu_en_dr23
+			}
+
+			if (i == 1)
+			{
+				rArraygindexgroup_Set[1].ginteger_dprl1.enabled = is_mpu_enabled
+				rArraygindexgroup_Set[1].ginteger_dpru1.enabled = is_mpu_enabled
+				rArraygindexgroup_Set[1].ginteger_dprl1.maxValue = MF({rArraygindexgroup_Set[1].ginteger_dpru1.value - 2}, Integer)
+				rArraygindexgroup_Set[1].ginteger_dpru1.minValue = MF({rArraygindexgroup_Set[1].ginteger_dprl1.value + 1}, Integer)
+				rArraygindexgroup_Set[1].ginteger_dprl2.enabled = is_mpu_en_dr2
+				rArraygindexgroup_Set[1].ginteger_dpru2.enabled = is_mpu_en_dr2
+				rArraygindexgroup_Set[1].ginteger_dprl2.maxValue = MF({rArraygindexgroup_Set[1].ginteger_dpru2.value - 2}, Integer)
+				rArraygindexgroup_Set[1].ginteger_dpru2.minValue = MF({rArraygindexgroup_Set[1].ginteger_dprl2.value + 1}, Integer)
+				rArraygindexgroup_Set[1].ginteger_dprl3.enabled = is_mpu_en_dr3
+				rArraygindexgroup_Set[1].ginteger_dpru3.enabled = is_mpu_en_dr3
+				rArraygindexgroup_Set[1].ginteger_dprl3.maxValue = MF({rArraygindexgroup_Set[1].ginteger_dpru3.value - 2}, Integer)
+				rArraygindexgroup_Set[1].ginteger_dpru3.minValue = MF({rArraygindexgroup_Set[1].ginteger_dprl3.value + 1}, Integer)
+				rArraygindexgroup_Set[1].ginteger_dprl4.enabled = is_mpu_en_dr4
+				rArraygindexgroup_Set[1].ginteger_dpru4.enabled = is_mpu_en_dr4
+				rArraygindexgroup_Set[1].ginteger_dprl4.maxValue = MF({rArraygindexgroup_Set[1].ginteger_dpru4.value - 2}, Integer)
+				rArraygindexgroup_Set[1].ginteger_dpru4.minValue = MF({rArraygindexgroup_Set[1].ginteger_dprl4.value + 1}, Integer)
+				rArraygindexgroup_Set[1].ginteger_dprl5.enabled = is_mpu_en_dr5
+				rArraygindexgroup_Set[1].ginteger_dpru5.enabled = is_mpu_en_dr5
+				rArraygindexgroup_Set[1].ginteger_dprl5.maxValue = MF({rArraygindexgroup_Set[1].ginteger_dpru5.value - 2}, Integer)
+				rArraygindexgroup_Set[1].ginteger_dpru5.minValue = MF({rArraygindexgroup_Set[1].ginteger_dprl5.value + 1}, Integer)
+				rArraygindexgroup_Set[1].ginteger_dprl6.enabled = is_mpu_en_dr6
+				rArraygindexgroup_Set[1].ginteger_dpru6.enabled = is_mpu_en_dr6
+				rArraygindexgroup_Set[1].ginteger_dprl6.maxValue = MF({rArraygindexgroup_Set[1].ginteger_dpru6.value - 2}, Integer)
+				rArraygindexgroup_Set[1].ginteger_dpru6.minValue = MF({rArraygindexgroup_Set[1].ginteger_dprl6.value + 1}, Integer)
+				rArraygindexgroup_Set[1].ginteger_dprl7.enabled = is_mpu_en_dr7
+				rArraygindexgroup_Set[1].ginteger_dpru7.enabled = is_mpu_en_dr7
+				rArraygindexgroup_Set[1].ginteger_dprl7.maxValue = MF({rArraygindexgroup_Set[1].ginteger_dpru7.value - 2}, Integer)
+				rArraygindexgroup_Set[1].ginteger_dpru7.minValue = MF({rArraygindexgroup_Set[1].ginteger_dprl7.value + 1}, Integer)
+				rArraygindexgroup_Set[1].ginteger_dprl8.enabled = is_mpu_en_dr8
+				rArraygindexgroup_Set[1].ginteger_dpru8.enabled = is_mpu_en_dr8
+				rArraygindexgroup_Set[1].ginteger_dprl8.maxValue = MF({rArraygindexgroup_Set[1].ginteger_dpru8.value - 2}, Integer)
+				rArraygindexgroup_Set[1].ginteger_dpru8.minValue = MF({rArraygindexgroup_Set[1].ginteger_dprl8.value + 1}, Integer)
+				rArraygindexgroup_Set[1].ginteger_dprl9.enabled = is_mpu_en_dr9
+				rArraygindexgroup_Set[1].ginteger_dpru9.enabled = is_mpu_en_dr9
+				rArraygindexgroup_Set[1].ginteger_dprl9.maxValue = MF({rArraygindexgroup_Set[1].ginteger_dpru9.value - 2}, Integer)
+				rArraygindexgroup_Set[1].ginteger_dpru9.minValue = MF({rArraygindexgroup_Set[1].ginteger_dprl9.value + 1}, Integer)
+				rArraygindexgroup_Set[1].ginteger_dprl10.enabled = is_mpu_en_dr10
+				rArraygindexgroup_Set[1].ginteger_dpru10.enabled = is_mpu_en_dr10
+				rArraygindexgroup_Set[1].ginteger_dprl10.maxValue = MF({rArraygindexgroup_Set[1].ginteger_dpru10.value - 2}, Integer)
+				rArraygindexgroup_Set[1].ginteger_dpru10.minValue = MF({rArraygindexgroup_Set[1].ginteger_dprl10.value + 1}, Integer)
+				rArraygindexgroup_Set[1].ginteger_dprl11.enabled = is_mpu_en_dr11
+				rArraygindexgroup_Set[1].ginteger_dpru11.enabled = is_mpu_en_dr11
+				rArraygindexgroup_Set[1].ginteger_dprl11.maxValue = MF({rArraygindexgroup_Set[1].ginteger_dpru11.value - 2}, Integer)
+				rArraygindexgroup_Set[1].ginteger_dpru11.minValue = MF({rArraygindexgroup_Set[1].ginteger_dprl11.value + 1}, Integer)
+				rArraygindexgroup_Set[1].ginteger_dprl12.enabled = is_mpu_en_dr12
+				rArraygindexgroup_Set[1].ginteger_dpru12.enabled = is_mpu_en_dr12
+				rArraygindexgroup_Set[1].ginteger_dprl12.maxValue = MF({rArraygindexgroup_Set[1].ginteger_dpru12.value - 2}, Integer)
+				rArraygindexgroup_Set[1].ginteger_dpru12.minValue = MF({rArraygindexgroup_Set[1].ginteger_dprl12.value + 1}, Integer)
+				rArraygindexgroup_Set[1].ginteger_dprl13.enabled = is_mpu_en_dr13
+				rArraygindexgroup_Set[1].ginteger_dpru13.enabled = is_mpu_en_dr13
+				rArraygindexgroup_Set[1].ginteger_dprl13.maxValue = MF({rArraygindexgroup_Set[1].ginteger_dpru13.value - 2}, Integer)
+				rArraygindexgroup_Set[1].ginteger_dpru13.minValue = MF({rArraygindexgroup_Set[1].ginteger_dprl13.value + 1}, Integer)
+				rArraygindexgroup_Set[1].ginteger_dprl14.enabled = is_mpu_en_dr14
+				rArraygindexgroup_Set[1].ginteger_dpru14.enabled = is_mpu_en_dr14
+				rArraygindexgroup_Set[1].ginteger_dprl14.maxValue = MF({rArraygindexgroup_Set[1].ginteger_dpru14.value - 2}, Integer)
+				rArraygindexgroup_Set[1].ginteger_dpru14.minValue = MF({rArraygindexgroup_Set[1].ginteger_dprl14.value + 1}, Integer)
+				rArraygindexgroup_Set[1].ginteger_dprl15.enabled = is_mpu_en_dr15
+				rArraygindexgroup_Set[1].ginteger_dpru15.enabled = is_mpu_en_dr15
+				rArraygindexgroup_Set[1].ginteger_dprl15.maxValue = MF({rArraygindexgroup_Set[1].ginteger_dpru15.value - 2}, Integer)
+				rArraygindexgroup_Set[1].ginteger_dpru15.minValue = MF({rArraygindexgroup_Set[1].ginteger_dprl15.value + 1}, Integer)
+				rArraygindexgroup_Set[1].ginteger_dprl16.enabled = is_mpu_en_dr16
+				rArraygindexgroup_Set[1].ginteger_dpru16.enabled = is_mpu_en_dr16
+				rArraygindexgroup_Set[1].ginteger_dprl16.maxValue = MF({rArraygindexgroup_Set[1].ginteger_dpru16.value - 2}, Integer)
+				rArraygindexgroup_Set[1].ginteger_dpru16.minValue = MF({rArraygindexgroup_Set[1].ginteger_dprl16.value + 1}, Integer)
+				rArraygindexgroup_Set[1].ginteger_dprl17.enabled = is_mpu_en_dr17
+				rArraygindexgroup_Set[1].ginteger_dpru17.enabled = is_mpu_en_dr17
+				rArraygindexgroup_Set[1].ginteger_dprl17.maxValue = MF({rArraygindexgroup_Set[1].ginteger_dpru17.value - 2}, Integer)
+				rArraygindexgroup_Set[1].ginteger_dpru17.minValue = MF({rArraygindexgroup_Set[1].ginteger_dprl17.value + 1}, Integer)
+				rArraygindexgroup_Set[1].ginteger_dprl18.enabled = is_mpu_en_dr18
+				rArraygindexgroup_Set[1].ginteger_dpru18.enabled = is_mpu_en_dr18
+				rArraygindexgroup_Set[1].ginteger_dprl18.maxValue = MF({rArraygindexgroup_Set[1].ginteger_dpru18.value - 2}, Integer)
+				rArraygindexgroup_Set[1].ginteger_dpru18.minValue = MF({rArraygindexgroup_Set[1].ginteger_dprl18.value + 1}, Integer)
+				rArraygindexgroup_Set[1].ginteger_dprl19.enabled = is_mpu_en_dr19
+				rArraygindexgroup_Set[1].ginteger_dpru19.enabled = is_mpu_en_dr19
+				rArraygindexgroup_Set[1].ginteger_dprl19.maxValue = MF({rArraygindexgroup_Set[1].ginteger_dpru19.value - 2}, Integer)
+				rArraygindexgroup_Set[1].ginteger_dpru19.minValue = MF({rArraygindexgroup_Set[1].ginteger_dprl19.value + 1}, Integer)
+				rArraygindexgroup_Set[1].ginteger_dprl20.enabled = is_mpu_en_dr20
+				rArraygindexgroup_Set[1].ginteger_dpru20.enabled = is_mpu_en_dr20
+				rArraygindexgroup_Set[1].ginteger_dprl20.maxValue = MF({rArraygindexgroup_Set[1].ginteger_dpru20.value - 2}, Integer)
+				rArraygindexgroup_Set[1].ginteger_dpru20.minValue = MF({rArraygindexgroup_Set[1].ginteger_dprl20.value + 1}, Integer)
+				rArraygindexgroup_Set[1].ginteger_dprl21.enabled = is_mpu_en_dr21
+				rArraygindexgroup_Set[1].ginteger_dpru21.enabled = is_mpu_en_dr21
+				rArraygindexgroup_Set[1].ginteger_dprl21.maxValue = MF({rArraygindexgroup_Set[1].ginteger_dpru21.value - 2}, Integer)
+				rArraygindexgroup_Set[1].ginteger_dpru21.minValue = MF({rArraygindexgroup_Set[1].ginteger_dprl21.value + 1}, Integer)
+				rArraygindexgroup_Set[1].ginteger_dprl22.enabled = is_mpu_en_dr22
+				rArraygindexgroup_Set[1].ginteger_dpru22.enabled = is_mpu_en_dr22
+				rArraygindexgroup_Set[1].ginteger_dprl22.maxValue = MF({rArraygindexgroup_Set[1].ginteger_dpru22.value - 2}, Integer)
+				rArraygindexgroup_Set[1].ginteger_dpru22.minValue = MF({rArraygindexgroup_Set[1].ginteger_dprl22.value + 1}, Integer)
+				rArraygindexgroup_Set[1].ginteger_dprl23.enabled = is_mpu_en_dr23
+				rArraygindexgroup_Set[1].ginteger_dpru23.enabled = is_mpu_en_dr23
+				rArraygindexgroup_Set[1].ginteger_dprl23.maxValue = MF({rArraygindexgroup_Set[1].ginteger_dpru23.value - 2}, Integer)
+				rArraygindexgroup_Set[1].ginteger_dpru23.minValue = MF({rArraygindexgroup_Set[1].ginteger_dprl23.value + 1}, Integer)
+			}
+			else
+			{
+				if (i != 0)
+				{
+					rArraygindexgroup_Set[i].ginteger_dprl0.value = MF({rArraygindexgroup_Set[0].ginteger_dprl0.value}, Integer)
+					rArraygindexgroup_Set[i].ginteger_dpru0.value = MF({rArraygindexgroup_Set[0].ginteger_dpru0.value}, Integer)
+				}
+				rArraygindexgroup_Set[i].ginteger_dprl1.value = MF({rArraygindexgroup_Set[1].ginteger_dprl1.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_dpru1.value = MF({rArraygindexgroup_Set[1].ginteger_dpru1.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_dprl2.value = MF({rArraygindexgroup_Set[1].ginteger_dprl2.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_dpru2.value = MF({rArraygindexgroup_Set[1].ginteger_dpru2.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_dprl3.value = MF({rArraygindexgroup_Set[1].ginteger_dprl3.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_dpru3.value = MF({rArraygindexgroup_Set[1].ginteger_dpru3.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_dprl4.value = MF({rArraygindexgroup_Set[1].ginteger_dprl4.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_dpru4.value = MF({rArraygindexgroup_Set[1].ginteger_dpru4.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_dprl5.value = MF({rArraygindexgroup_Set[1].ginteger_dprl5.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_dpru5.value = MF({rArraygindexgroup_Set[1].ginteger_dpru5.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_dprl6.value = MF({rArraygindexgroup_Set[1].ginteger_dprl6.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_dpru6.value = MF({rArraygindexgroup_Set[1].ginteger_dpru6.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_dprl7.value = MF({rArraygindexgroup_Set[1].ginteger_dprl7.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_dpru7.value = MF({rArraygindexgroup_Set[1].ginteger_dpru7.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_dprl8.value = MF({rArraygindexgroup_Set[1].ginteger_dprl8.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_dpru8.value = MF({rArraygindexgroup_Set[1].ginteger_dpru8.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_dprl9.value = MF({rArraygindexgroup_Set[1].ginteger_dprl9.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_dpru9.value = MF({rArraygindexgroup_Set[1].ginteger_dpru9.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_dprl10.value = MF({rArraygindexgroup_Set[1].ginteger_dprl10.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_dpru10.value = MF({rArraygindexgroup_Set[1].ginteger_dpru10.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_dprl11.value = MF({rArraygindexgroup_Set[1].ginteger_dprl11.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_dpru11.value = MF({rArraygindexgroup_Set[1].ginteger_dpru11.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_dprl12.value = MF({rArraygindexgroup_Set[1].ginteger_dprl12.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_dpru12.value = MF({rArraygindexgroup_Set[1].ginteger_dpru12.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_dprl13.value = MF({rArraygindexgroup_Set[1].ginteger_dprl13.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_dpru13.value = MF({rArraygindexgroup_Set[1].ginteger_dpru13.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_dprl14.value = MF({rArraygindexgroup_Set[1].ginteger_dprl14.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_dpru14.value = MF({rArraygindexgroup_Set[1].ginteger_dpru14.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_dprl15.value = MF({rArraygindexgroup_Set[1].ginteger_dprl15.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_dpru15.value = MF({rArraygindexgroup_Set[1].ginteger_dpru15.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_dprl16.value = MF({rArraygindexgroup_Set[1].ginteger_dprl16.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_dpru16.value = MF({rArraygindexgroup_Set[1].ginteger_dpru16.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_dprl17.value = MF({rArraygindexgroup_Set[1].ginteger_dprl17.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_dpru17.value = MF({rArraygindexgroup_Set[1].ginteger_dpru17.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_dprl18.value = MF({rArraygindexgroup_Set[1].ginteger_dprl18.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_dpru18.value = MF({rArraygindexgroup_Set[1].ginteger_dpru18.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_dprl19.value = MF({rArraygindexgroup_Set[1].ginteger_dprl19.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_dpru19.value = MF({rArraygindexgroup_Set[1].ginteger_dpru19.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_dprl20.value = MF({rArraygindexgroup_Set[1].ginteger_dprl20.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_dpru20.value = MF({rArraygindexgroup_Set[1].ginteger_dpru20.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_dprl21.value = MF({rArraygindexgroup_Set[1].ginteger_dprl21.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_dpru21.value = MF({rArraygindexgroup_Set[1].ginteger_dpru21.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_dprl22.value = MF({rArraygindexgroup_Set[1].ginteger_dprl22.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_dpru22.value = MF({rArraygindexgroup_Set[1].ginteger_dpru22.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_dprl23.value = MF({rArraygindexgroup_Set[1].ginteger_dprl23.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_dpru23.value = MF({rArraygindexgroup_Set[1].ginteger_dpru23.value}, Integer)
+			}
+
+			// Code Range
+			rArraygindexgroup_Set[i].glabel_cr.enabled = is_mpu_enabled
+
+			// Code Range #, EX, Start Address, End Address + 1
+			rArraygindexgroup_Set[i].glabel_crno.enabled = is_mpu_enabled
+			rArraygindexgroup_Set[i].glabel_cppex_0.enabled = is_mpu_enabled
+			rArraygindexgroup_Set[i].glabel_cprl0.enabled = is_mpu_enabled
+			rArraygindexgroup_Set[i].glabel_cpru0.enabled = is_mpu_enabled
+
+			// Code Range #0 - #n
+			for (Integer j = 10; j < 16; j++)
+			{
+				rArraygindexgroup_Set[i]."gimage_cpp_${j.toString()}_l".visible = is_tc4
+				rArraygindexgroup_Set[i]."gimage_cpp_${j.toString()}_r".visible = is_tc4
+			}
+			rArraygindexgroup_Set[i].glabel_cppex_0_.enabled = is_mpu_enabled
+			rArraygindexgroup_Set[i].glabel_cppex_1_.enabled = is_mpu_enabled
+			rArraygindexgroup_Set[i].glabel_cppex_2_.enabled = is_mpu_en_cr2
+			rArraygindexgroup_Set[i].glabel_cppex_3_.enabled = is_mpu_en_cr3
+			rArraygindexgroup_Set[i].glabel_cppex_4_.enabled = is_mpu_en_cr4
+			rArraygindexgroup_Set[i].glabel_cppex_5_.enabled = is_mpu_en_cr5
+			rArraygindexgroup_Set[i].glabel_cppex_6_.enabled = is_mpu_en_cr6
+			rArraygindexgroup_Set[i].glabel_cppex_7_.enabled = is_mpu_en_cr7
+			rArraygindexgroup_Set[i].glabel_cppex_8_.enabled = is_mpu_en_cr8
+			rArraygindexgroup_Set[i].glabel_cppex_9_.enabled = is_mpu_en_cr9
+			rArraygindexgroup_Set[i].glabel_cppex_10_.enabled = is_mpu_en_cr10
+			rArraygindexgroup_Set[i].glabel_cppex_11_.enabled = is_mpu_en_cr11
+			rArraygindexgroup_Set[i].glabel_cppex_12_.enabled = is_mpu_en_cr12
+			rArraygindexgroup_Set[i].glabel_cppex_13_.enabled = is_mpu_en_cr13
+			rArraygindexgroup_Set[i].glabel_cppex_14_.enabled = is_mpu_en_cr14
+			rArraygindexgroup_Set[i].glabel_cppex_15_.enabled = is_mpu_en_cr15
+
+			rArraygindexgroup_Set[i].ginteger_cprl0.enabled = false
+			rArraygindexgroup_Set[i].ginteger_cpru0.enabled = false
+			
+			if (i == 0)
+			{
+				rArraygindexgroup_Set[0].gcheck_cppex_0.value = true
+				for (Integer j = 1; j < num_crange; j++)
+				{
+					rArraygindexgroup_Set[0]."gcheck_cppex_${j.toString()}".value = false
+					rArraygindexgroup_Set[0]."gcheck_cppex_${j.toString()}".enabled = false
+				}
+			}
+			else
+			{
+				rArraygindexgroup_Set[i].gcheck_cppex_0.value = false
+			}
+
+			rArraygindexgroup_Set[i].gcheck_cppex_2.visible = MF({ginteger_cprxnum.value > 2}, Boolean)
+			rArraygindexgroup_Set[i].gcheck_cppex_3.visible = MF({ginteger_cprxnum.value > 3}, Boolean)
+			rArraygindexgroup_Set[i].gcheck_cppex_4.visible = MF({ginteger_cprxnum.value > 4}, Boolean)
+			rArraygindexgroup_Set[i].gcheck_cppex_5.visible = MF({ginteger_cprxnum.value > 5}, Boolean)
+			rArraygindexgroup_Set[i].gcheck_cppex_6.visible = MF({ginteger_cprxnum.value > 6}, Boolean)
+			rArraygindexgroup_Set[i].gcheck_cppex_7.visible = MF({ginteger_cprxnum.value > 7}, Boolean)
+			rArraygindexgroup_Set[i].gcheck_cppex_8.visible = MF({ginteger_cprxnum.value > 8}, Boolean)
+			rArraygindexgroup_Set[i].gcheck_cppex_9.visible = MF({ginteger_cprxnum.value > 9}, Boolean)
+			rArraygindexgroup_Set[i].gcheck_cppex_10.visible = MF({ginteger_cprxnum.value > 10}, Boolean)
+			rArraygindexgroup_Set[i].gcheck_cppex_11.visible = MF({ginteger_cprxnum.value > 11}, Boolean)
+			rArraygindexgroup_Set[i].gcheck_cppex_12.visible = MF({ginteger_cprxnum.value > 12}, Boolean)
+			rArraygindexgroup_Set[i].gcheck_cppex_13.visible = MF({ginteger_cprxnum.value > 13}, Boolean)
+			rArraygindexgroup_Set[i].gcheck_cppex_14.visible = MF({ginteger_cprxnum.value > 14}, Boolean)
+			rArraygindexgroup_Set[i].gcheck_cppex_15.visible = MF({ginteger_cprxnum.value > 15}, Boolean)
+
+			if (i != 0)
+			{
+				rArraygindexgroup_Set[i].gcheck_cppex_1.enabled = is_mpu_enabled
+				rArraygindexgroup_Set[i].gcheck_cppex_2.enabled = is_mpu_en_cr2
+				rArraygindexgroup_Set[i].gcheck_cppex_3.enabled = is_mpu_en_cr3
+				rArraygindexgroup_Set[i].gcheck_cppex_4.enabled = is_mpu_en_cr4
+				rArraygindexgroup_Set[i].gcheck_cppex_5.enabled = is_mpu_en_cr5
+				rArraygindexgroup_Set[i].gcheck_cppex_6.enabled = is_mpu_en_cr6
+				rArraygindexgroup_Set[i].gcheck_cppex_7.enabled = is_mpu_en_cr7
+				rArraygindexgroup_Set[i].gcheck_cppex_8.enabled = is_mpu_en_cr8
+				rArraygindexgroup_Set[i].gcheck_cppex_9.enabled = is_mpu_en_cr9
+				rArraygindexgroup_Set[i].gcheck_cppex_10.enabled = is_mpu_en_cr10
+				rArraygindexgroup_Set[i].gcheck_cppex_11.enabled = is_mpu_en_cr11
+				rArraygindexgroup_Set[i].gcheck_cppex_12.enabled = is_mpu_en_cr12
+				rArraygindexgroup_Set[i].gcheck_cppex_13.enabled = is_mpu_en_cr13
+				rArraygindexgroup_Set[i].gcheck_cppex_14.enabled = is_mpu_en_cr14
+				rArraygindexgroup_Set[i].gcheck_cppex_15.enabled = is_mpu_en_cr15
+			}
+
+			if (i == 1)
+			{
+				rArraygindexgroup_Set[1].ginteger_cprl1.enabled = is_mpu_enabled
+				rArraygindexgroup_Set[1].ginteger_cpru1.enabled = is_mpu_enabled
+				rArraygindexgroup_Set[1].ginteger_cprl1.maxValue = MF({rArraygindexgroup_Set[1].ginteger_cpru1.value - 2}, Integer)
+				rArraygindexgroup_Set[1].ginteger_cpru1.minValue = MF({rArraygindexgroup_Set[1].ginteger_cprl1.value + 1}, Integer)
+				rArraygindexgroup_Set[1].ginteger_cprl2.enabled = is_mpu_en_cr2
+				rArraygindexgroup_Set[1].ginteger_cpru2.enabled = is_mpu_en_cr2
+				rArraygindexgroup_Set[1].ginteger_cprl2.maxValue = MF({rArraygindexgroup_Set[1].ginteger_cpru2.value - 2}, Integer)
+				rArraygindexgroup_Set[1].ginteger_cpru2.minValue = MF({rArraygindexgroup_Set[1].ginteger_cprl2.value + 1}, Integer)
+				rArraygindexgroup_Set[1].ginteger_cprl3.enabled = is_mpu_en_cr3
+				rArraygindexgroup_Set[1].ginteger_cpru3.enabled = is_mpu_en_cr3
+				rArraygindexgroup_Set[1].ginteger_cprl3.maxValue = MF({rArraygindexgroup_Set[1].ginteger_cpru3.value - 2}, Integer)
+				rArraygindexgroup_Set[1].ginteger_cpru3.minValue = MF({rArraygindexgroup_Set[1].ginteger_cprl3.value + 1}, Integer)
+				rArraygindexgroup_Set[1].ginteger_cprl4.enabled = is_mpu_en_cr4
+				rArraygindexgroup_Set[1].ginteger_cpru4.enabled = is_mpu_en_cr4
+				rArraygindexgroup_Set[1].ginteger_cprl4.maxValue = MF({rArraygindexgroup_Set[1].ginteger_cpru4.value - 2}, Integer)
+				rArraygindexgroup_Set[1].ginteger_cpru4.minValue = MF({rArraygindexgroup_Set[1].ginteger_cprl4.value + 1}, Integer)
+				rArraygindexgroup_Set[1].ginteger_cprl5.enabled = is_mpu_en_cr5
+				rArraygindexgroup_Set[1].ginteger_cpru5.enabled = is_mpu_en_cr5
+				rArraygindexgroup_Set[1].ginteger_cprl5.maxValue = MF({rArraygindexgroup_Set[1].ginteger_cpru5.value - 2}, Integer)
+				rArraygindexgroup_Set[1].ginteger_cpru5.minValue = MF({rArraygindexgroup_Set[1].ginteger_cprl5.value + 1}, Integer)
+				rArraygindexgroup_Set[1].ginteger_cprl6.enabled = is_mpu_en_cr6
+				rArraygindexgroup_Set[1].ginteger_cpru6.enabled = is_mpu_en_cr6
+				rArraygindexgroup_Set[1].ginteger_cprl6.maxValue = MF({rArraygindexgroup_Set[1].ginteger_cpru6.value - 2}, Integer)
+				rArraygindexgroup_Set[1].ginteger_cpru6.minValue = MF({rArraygindexgroup_Set[1].ginteger_cprl6.value + 1}, Integer)
+				rArraygindexgroup_Set[1].ginteger_cprl7.enabled = is_mpu_en_cr7
+				rArraygindexgroup_Set[1].ginteger_cpru7.enabled = is_mpu_en_cr7
+				rArraygindexgroup_Set[1].ginteger_cprl7.maxValue = MF({rArraygindexgroup_Set[1].ginteger_cpru7.value - 2}, Integer)
+				rArraygindexgroup_Set[1].ginteger_cpru7.minValue = MF({rArraygindexgroup_Set[1].ginteger_cprl7.value + 1}, Integer)
+				rArraygindexgroup_Set[1].ginteger_cprl8.enabled = is_mpu_en_cr8
+				rArraygindexgroup_Set[1].ginteger_cpru8.enabled = is_mpu_en_cr8
+				rArraygindexgroup_Set[1].ginteger_cprl8.maxValue = MF({rArraygindexgroup_Set[1].ginteger_cpru8.value - 2}, Integer)
+				rArraygindexgroup_Set[1].ginteger_cpru8.minValue = MF({rArraygindexgroup_Set[1].ginteger_cprl8.value + 1}, Integer)
+				rArraygindexgroup_Set[1].ginteger_cprl9.enabled = is_mpu_en_cr9
+				rArraygindexgroup_Set[1].ginteger_cpru9.enabled = is_mpu_en_cr9
+				rArraygindexgroup_Set[1].ginteger_cprl9.maxValue = MF({rArraygindexgroup_Set[1].ginteger_cpru9.value - 2}, Integer)
+				rArraygindexgroup_Set[1].ginteger_cpru9.minValue = MF({rArraygindexgroup_Set[1].ginteger_cprl9.value + 1}, Integer)
+				rArraygindexgroup_Set[1].ginteger_cprl10.enabled = is_mpu_en_cr10
+				rArraygindexgroup_Set[1].ginteger_cpru10.enabled = is_mpu_en_cr10
+				rArraygindexgroup_Set[1].ginteger_cprl10.maxValue = MF({rArraygindexgroup_Set[1].ginteger_cpru10.value - 2}, Integer)
+				rArraygindexgroup_Set[1].ginteger_cpru10.minValue = MF({rArraygindexgroup_Set[1].ginteger_cprl10.value + 1}, Integer)
+				rArraygindexgroup_Set[1].ginteger_cprl11.enabled = is_mpu_en_cr11
+				rArraygindexgroup_Set[1].ginteger_cpru11.enabled = is_mpu_en_cr11
+				rArraygindexgroup_Set[1].ginteger_cprl11.maxValue = MF({rArraygindexgroup_Set[1].ginteger_cpru11.value - 2}, Integer)
+				rArraygindexgroup_Set[1].ginteger_cpru11.minValue = MF({rArraygindexgroup_Set[1].ginteger_cprl11.value + 1}, Integer)
+				rArraygindexgroup_Set[1].ginteger_cprl12.enabled = is_mpu_en_cr12
+				rArraygindexgroup_Set[1].ginteger_cpru12.enabled = is_mpu_en_cr12
+				rArraygindexgroup_Set[1].ginteger_cprl12.maxValue = MF({rArraygindexgroup_Set[1].ginteger_cpru12.value - 2}, Integer)
+				rArraygindexgroup_Set[1].ginteger_cpru12.minValue = MF({rArraygindexgroup_Set[1].ginteger_cprl12.value + 1}, Integer)
+				rArraygindexgroup_Set[1].ginteger_cprl13.enabled = is_mpu_en_cr13
+				rArraygindexgroup_Set[1].ginteger_cpru13.enabled = is_mpu_en_cr13
+				rArraygindexgroup_Set[1].ginteger_cprl13.maxValue = MF({rArraygindexgroup_Set[1].ginteger_cpru13.value - 2}, Integer)
+				rArraygindexgroup_Set[1].ginteger_cpru13.minValue = MF({rArraygindexgroup_Set[1].ginteger_cprl13.value + 1}, Integer)
+				rArraygindexgroup_Set[1].ginteger_cprl14.enabled = is_mpu_en_cr14
+				rArraygindexgroup_Set[1].ginteger_cpru14.enabled = is_mpu_en_cr14
+				rArraygindexgroup_Set[1].ginteger_cprl14.maxValue = MF({rArraygindexgroup_Set[1].ginteger_cpru14.value - 2}, Integer)
+				rArraygindexgroup_Set[1].ginteger_cpru14.minValue = MF({rArraygindexgroup_Set[1].ginteger_cprl14.value + 1}, Integer)
+				rArraygindexgroup_Set[1].ginteger_cprl15.enabled = is_mpu_en_cr15
+				rArraygindexgroup_Set[1].ginteger_cpru15.enabled = is_mpu_en_cr15
+				rArraygindexgroup_Set[1].ginteger_cprl15.maxValue = MF({rArraygindexgroup_Set[1].ginteger_cpru15.value - 2}, Integer)
+				rArraygindexgroup_Set[1].ginteger_cpru15.minValue = MF({rArraygindexgroup_Set[1].ginteger_cprl15.value + 1}, Integer)
+			}
+			else
+			{
+				if (i != 0)
+				{
+					rArraygindexgroup_Set[i].ginteger_cprl0.value = MF({rArraygindexgroup_Set[0].ginteger_cprl0.value}, Integer)
+					rArraygindexgroup_Set[i].ginteger_cpru0.value = MF({rArraygindexgroup_Set[0].ginteger_cpru0.value}, Integer)
+				}
+				rArraygindexgroup_Set[i].ginteger_cprl1.value = MF({rArraygindexgroup_Set[1].ginteger_cprl1.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_cpru1.value = MF({rArraygindexgroup_Set[1].ginteger_cpru1.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_cprl2.value = MF({rArraygindexgroup_Set[1].ginteger_cprl2.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_cpru2.value = MF({rArraygindexgroup_Set[1].ginteger_cpru2.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_cprl3.value = MF({rArraygindexgroup_Set[1].ginteger_cprl3.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_cpru3.value = MF({rArraygindexgroup_Set[1].ginteger_cpru3.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_cprl4.value = MF({rArraygindexgroup_Set[1].ginteger_cprl4.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_cpru4.value = MF({rArraygindexgroup_Set[1].ginteger_cpru4.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_cprl5.value = MF({rArraygindexgroup_Set[1].ginteger_cprl5.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_cpru5.value = MF({rArraygindexgroup_Set[1].ginteger_cpru5.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_cprl6.value = MF({rArraygindexgroup_Set[1].ginteger_cprl6.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_cpru6.value = MF({rArraygindexgroup_Set[1].ginteger_cpru6.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_cprl7.value = MF({rArraygindexgroup_Set[1].ginteger_cprl7.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_cpru7.value = MF({rArraygindexgroup_Set[1].ginteger_cpru7.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_cprl8.value = MF({rArraygindexgroup_Set[1].ginteger_cprl8.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_cpru8.value = MF({rArraygindexgroup_Set[1].ginteger_cpru8.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_cprl9.value = MF({rArraygindexgroup_Set[1].ginteger_cprl9.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_cpru9.value = MF({rArraygindexgroup_Set[1].ginteger_cpru9.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_cprl10.value = MF({rArraygindexgroup_Set[1].ginteger_cprl10.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_cpru10.value = MF({rArraygindexgroup_Set[1].ginteger_cpru10.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_cprl11.value = MF({rArraygindexgroup_Set[1].ginteger_cprl11.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_cpru11.value = MF({rArraygindexgroup_Set[1].ginteger_cpru11.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_cprl12.value = MF({rArraygindexgroup_Set[1].ginteger_cprl12.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_cpru12.value = MF({rArraygindexgroup_Set[1].ginteger_cpru12.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_cprl13.value = MF({rArraygindexgroup_Set[1].ginteger_cprl13.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_cpru13.value = MF({rArraygindexgroup_Set[1].ginteger_cpru13.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_cprl14.value = MF({rArraygindexgroup_Set[1].ginteger_cprl14.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_cpru14.value = MF({rArraygindexgroup_Set[1].ginteger_cpru14.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_cprl15.value = MF({rArraygindexgroup_Set[1].ginteger_cprl15.value}, Integer)
+				rArraygindexgroup_Set[i].ginteger_cpru15.value = MF({rArraygindexgroup_Set[1].ginteger_cpru15.value}, Integer)
+			}
+		}
+	}
+	/* End   : APP Constructor */
+
+	/* Begin : File Generation */
+	def generateFiles()
+	{
+		copy("cpu_core.c", "cpu_core.c")
+		copy("cpu_core.h", "cpu_core.h")
+		copy("cpu_core_private.c", "cpu_core_private.c")
+		copy("cpu_core_private.h", "cpu_core_private.h")
+		generate("cpu_core_cpu0_confc.tmpl", "cpu_core_cpu0_conf.c")
+		generate("cpu_core_cpu1_confc.tmpl", "cpu_core_cpu1_conf.c")
+		generate("cpu_core_cpu2_confc.tmpl", "cpu_core_cpu2_conf.c")
+		generate("cpu_core_cpu3_confc.tmpl", "cpu_core_cpu3_conf.c")
+		generate("cpu_core_cpu4_confc.tmpl", "cpu_core_cpu4_conf.c")
+		generate("cpu_core_cpu5_confc.tmpl", "cpu_core_cpu5_conf.c")
+		generate("cpu_core_confh.tmpl", "cpu_core_conf.h")
+	}
+	/* End   : File Generation */
+}

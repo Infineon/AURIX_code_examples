@@ -1,0 +1,40 @@
+package Model.APPS.TIMER_STM.v4_1_6;
+// Import statements
+import ifx.davex.app.manifest.*
+
+abstract class TIMER_STM_GUI extends AppManifest {
+
+    /* IMPORTANT NOTE: This is an auto generated file, please do not edit manually. */
+    /* User modifications in the GUI editor will be updated here automatically.     */
+    /* Manually editing the contents of this file will corrupt the APP SDK project. */
+
+	/* Begin : UI variable section */
+	 public GTab gtab_general;
+	 public GTab gtab_event;
+	 public GCheck gcheck_Signal0;
+	 public GCheck gcheck_Signal1;
+	 public GLabel glabel_Signal0;
+	 public GLabel glabel_Signal1;
+	 public GIndexCombo gindexcombo_compare_select;
+	 public RArray<Gindexgroup_cmpch> rArraygindexgroup_cmpch = RArray(2);
+
+	 public GIndexGroup gindexgroup_cmpch;
+
+	 public TIMER_STM_GUI(DaveEnv daveEnv){
+
+	 gtab_general = GTab(widgetName: "gtab_general", text: "General Settings", enabled: true, visible: true)
+	 gtab_event = GTab(widgetName: "gtab_event", text: "Event Settings", enabled: true, visible: true)
+	 gcheck_Signal0 = GCheck(widgetName: "gcheck_Signal0", value: true, enabled: false, visible: true)
+	 gcheck_Signal1 = GCheck(widgetName: "gcheck_Signal1", value: true, enabled: false, visible: true)
+	 glabel_Signal0 = GLabel(widgetName: "glabel_Signal0", text: "Timer Expiration for Ch #0 (SR0_INT)", enabled: true, visible: true)
+	 glabel_Signal1 = GLabel(widgetName: "glabel_Signal1", text: "Timer Expiration for Ch #1 (SR1_INT)", enabled: true, visible: true)
+	 gindexcombo_compare_select = GIndexCombo(widgetName: "gindexcombo_compare_select", options: ["0","1"], value: "0", visible: true)
+	 gindexgroup_cmpch = GIndexGroup(widgetName: "gindexgroup_cmpch", text: "Channel Configuration", enabled: true, visible: true, gIndexCombo: gindexcombo_compare_select, rArray: rArraygindexgroup_cmpch)
+	 for(int i=0; i<2; i++){
+		 rArraygindexgroup_cmpch[i] = new Gindexgroup_cmpch(daveEnv, "gindexgroup_cmpch",i)
+	 }
+
+
+	 }
+	/* End : UI variable section */
+}

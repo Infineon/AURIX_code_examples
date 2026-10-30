@@ -1,0 +1,156 @@
+package Model.APPS.EVADC_GENERIC.v4_0_4;
+// Import statements
+import ifx.davex.app.manifest.*
+
+/*************** Revision History **********************************************
+ Version      Date          Description
+ 4.0.2        12-Sep-2025   - Initial version
+ 4.0.4        15-Sep-2025   - License and Copyright update
+ *******************************************************************************/
+
+class  EVADC_GENERIC extends EVADC_GENERIC_GUI
+{
+	/* Note  : Following APP properties are mandatory and important */
+
+	/* Begin : APP property section */
+
+	/**
+	 * APP version
+	 * Format: a string with three digit separated by a dot.
+	 */
+	def version            = '4.0.4'
+
+	/**
+	 * APP categories declaration.
+	 * It is list of strings. Subcategories are separated by slash.
+	 * No limits on number of categories and subcategories depth.
+	 */
+	def categoriesDescription = ["Analog"]
+
+	/**
+	 * Minimum DAVE version required for this APP.
+	 *
+	 * It is string with three digit separated by a dot.
+	 */
+	def minDaveVersion           = '4.2.4'
+
+	/**
+	 * Keywords used by search feature in APPs selection view
+	 *
+	 * It is a list of string.
+	 */
+	def keywords = [
+		'all',
+		'Config',
+		'ADC',
+		'EVADC',
+		'Analog',
+		'Peripheral Configuration',
+		'VADC_GENERIC',
+		'EVADC_GENERIC',
+		'ADC APP'
+	]
+
+	/**
+	 * softwareIDs is used to declare which devices are compatible with this APP.
+	 * It is a map with key a string containing a pattern that shall match the SW id of
+	 * the device and as value the minimal version of the APP.
+	 */
+
+	def softwareIDs       = [
+		"TC3.*.*.*":"1.0.0"]
+
+	/**
+	 * Singleton property:
+	 * When it is true the APP can be instantiated only once.
+	 */
+	def singleton     = true
+
+	/**
+	 * initProvider property
+	 * It shall be true to add a call to <AppName>_Init()
+	 */
+	def initProvider  = true
+
+	/**
+	 * Deprecated APP
+	 * Set it to true to indicate that the APP shall be not used for new projects.
+	 */
+	def deprecated    = false
+
+	/**
+	 * Sharable property.
+	 * It shall be true to allows multiple APPs to require the same instance of this APP.
+	 */
+	def sharable      = true
+
+	/**
+	 *  APP function description.
+	 */
+	def description = "This application configures the EVADC module."
+
+	/* End   : APP property section */
+
+	/* Begin : User APP property section */
+
+	/* Required resource groups */
+	MVirtualResourceGroup hwres_evadc_common			// EVADC Global resource
+
+	/* Required App */
+	MRequiredApp appres_clock							// Clock App
+
+	/*Required virtual signals*/
+	MVirtualSignal vs_global_result_event								// Service Request Node Pointer Global Result
+	MVirtualSignal vs_ext_mux_00										// Control of external analog multiplexer interface 0
+	MVirtualSignal vs_ext_mux_01										// Control of external analog multiplexer interface 0
+	MVirtualSignal vs_ext_mux_02										// Control of external analog multiplexer interface 0
+	MVirtualSignal vs_ext_mux_10										// Control of external analog multiplexer interface 1
+	MVirtualSignal vs_ext_mux_11										// Control of external analog multiplexer interface 1
+	MVirtualSignal vs_ext_mux_12										// Control of external analog multiplexer interface 1
+
+	/* End   : User APP property section */
+
+	/* Begin : APP Constructor */
+	public EVADC_GENERIC(DaveEnv daveEnv)
+	{
+		MF is_result_event = MF({gcheck_globRcrSrvGen.value}, Boolean)
+		MF is_interface_0 = MF({gcheck_ext_mux_int_0.value}, Boolean)
+		MF is_interface_1 = MF({gcheck_ext_mux_int_1.value}, Boolean)
+
+		/*-------------------------------------------------------------------------------------------------------------------------------------------*/
+		/*								 Required APP																								 */
+		/*-------------------------------------------------------------------------------------------------------------------------------------------*/
+		appres_clock = MRequiredApp("CLOCK", "CLOCK app", RSHARABLE, "4.0.2")
+
+		/* ----------------------------------------------------------------------- */
+		/* -----------------  Hardware resource consumption block ---------------- */
+		/* ----------------------------------------------------------------------- */
+		hwres_evadc_common = MVirtualResourceGroup("Common Block", ["peripheral", "evadc", "0", "common"])
+
+		/*-------------------------------------------------------------------------------------------------------------------------------------------*/
+		/*								   APP IO Signals																							 */
+		/*-------------------------------------------------------------------------------------------------------------------------------------------*/
+		vs_global_result_event =  MVirtualSignal(hwres_evadc_common, "INT", "globev",is_result_event)
+		vs_ext_mux_00          =  MVirtualSignal(hwres_evadc_common, "EMUX00", "emux00",is_interface_0)
+		vs_ext_mux_01          =  MVirtualSignal(hwres_evadc_common, "EMUX01", "emux01",is_interface_0)
+		vs_ext_mux_02          =  MVirtualSignal(hwres_evadc_common, "EMUX02", "emux02",is_interface_0)
+		vs_ext_mux_10          =  MVirtualSignal(hwres_evadc_common, "EMUX10", "emux10",is_interface_1)
+		vs_ext_mux_11          =  MVirtualSignal(hwres_evadc_common, "EMUX11", "emux11",is_interface_1)
+		vs_ext_mux_12          =  MVirtualSignal(hwres_evadc_common, "EMUX12", "emux12",is_interface_1)
+		/*-------------------------------------------------------------------------------------------------------------------------------------------*/
+		/*								   APP Configuration																						 */
+		/*-------------------------------------------------------------------------------------------------------------------------------------------*/
+		gfloat_globModuleFreq.value = MF({Float freq = appres_clock.getVal(["gfloat_fADC", "value"]); return(freq)}, Float);
+	}
+	/* End   : APP Constructor */
+
+	/* Begin : File Generation */
+	def generateFiles()
+	{
+		generate("evadc_generic_confh.tmpl", "evadc_generic_conf.h", false)
+		generate("evadc_generic_confc.tmpl", "evadc_generic_conf.c", false)
+		copy("evadc_generic.c", "evadc_generic.c")
+		copy("evadc_generic.h", "evadc_generic.h")
+	}
+	/* End   : File Generation */
+}

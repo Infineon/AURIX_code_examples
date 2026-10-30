@@ -1,0 +1,84 @@
+package Model.APPS.EVADC_GENERIC.v4_0_4;
+// Import statements
+import ifx.davex.app.manifest.*
+
+abstract class EVADC_GENERIC_GUI extends AppManifest {
+
+    /* IMPORTANT NOTE: This is an auto generated file, please do not edit manually. */
+    /* User modifications in the GUI editor will be updated here automatically.     */
+    /* Manually editing the contents of this file will corrupt the APP SDK project. */
+
+	/* Begin : UI variable section */
+	 public GTab gtab_general;
+	 public GTab gtab_inputclass;
+	 public GInteger ginteger_globBoundary0;
+	 public GInteger ginteger_globBoundary1;
+	 public GCombo gcombo_globAnalogClockGenMode;
+	 public GCombo gcombo_globSupplyVoltageLevel;
+	 public GCombo gcombo_globDataReductionMode;
+	 public GFloat gfloat_globModuleFreq;
+	 public GCheck gcheck_globStartupCalibration;
+	 public GCheck gcheck_globRcrWfr;
+	 public GCheck gcheck_globRcrSrvGen;
+	 public GCheck gcheck_ext_mux_int_0;
+	 public GCheck gcheck_ext_mux_int_1;
+	 public GLabel glabel_globModuleFreq;
+	 public GLabel glabel_globAnalogClockGenMode;
+	 public GLabel glabel_globSupplyVoltageLevel;
+	 public GLabel glabel_globStartupCalibration;
+	 public GLabel glabel_globBoundary0;
+	 public GLabel glabel_globBoundary1;
+	 public GLabel glabel_globDataReductionMode;
+	 public GLabel glabel_globRcrWfr;
+	 public GLabel glabel_globRcrSrvGen;
+	 public GLabel glabel_ext_mux_int_0;
+	 public GLabel glabel_ext_mux_int_1;
+	 public GGroup ggroup_1;
+	 public GGroup ggroup_2;
+	 public GGroup ggroup_3;
+	 public GGroup ggroup_ext_mux;
+	 public GIndexCombo gindexcombo_gicIndexSelector;
+	 public RArray<Gindexgroup_gicConfiguration> rArraygindexgroup_gicConfiguration = RArray(2);
+
+	 public GIndexGroup gindexgroup_gicConfiguration;
+
+	 public EVADC_GENERIC_GUI(DaveEnv daveEnv){
+
+	 gtab_general = GTab(widgetName: "gtab_general", text: "General Settings", enabled: true, visible: true)
+	 gtab_inputclass = GTab(widgetName: "gtab_inputclass", text: "Global Input Class Settings", enabled: true, visible: true)
+	 ginteger_globBoundary0 = GInteger(widgetName: "ginteger_globBoundary0", value: 0, minValue: 0, maxValue: 4095, enabled: true, visible: true, isMandatoryValue: false)
+	 ginteger_globBoundary1 = GInteger(widgetName: "ginteger_globBoundary1", value: 0, minValue: 0, maxValue: 4095, enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_globAnalogClockGenMode = GCombo(widgetName: "gcombo_globAnalogClockGenMode", options: ["Unsynchronized","Synchronized"], value: "Unsynchronized", enabled: false, visible: true, isMandatoryValue: false)
+	 gcombo_globSupplyVoltageLevel = GCombo(widgetName: "gcombo_globSupplyVoltageLevel", options: ["Automatic Control","Upper Voltage (5V)","Lower Voltage (3.3V)"], value: "Automatic Control", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_globDataReductionMode = GCombo(widgetName: "gcombo_globDataReductionMode", options: ["Disabled","2 Result Values","3 Result Values","4 Result Values","5 Result Values","6 Result Values","7 Result Values","8 Result Values","9 Result Values","10 Result Values","11 Result Values","12 Result Values","13 Result Values","14 Result Values","15 Result Values","16 Result Values"], value: "Disabled", enabled: true, visible: true, isMandatoryValue: false)
+	 gfloat_globModuleFreq = GFloat(widgetName: "gfloat_globModuleFreq", value: 0.0, minValue: Double.NEGATIVE_INFINITY, maxValue: 160, enabled: false, visible: true, isMandatoryValue: false)
+	 gcheck_globStartupCalibration = GCheck(widgetName: "gcheck_globStartupCalibration", value: false, enabled: true, visible: true)
+	 gcheck_globRcrWfr = GCheck(widgetName: "gcheck_globRcrWfr", value: false, enabled: true, visible: true)
+	 gcheck_globRcrSrvGen = GCheck(widgetName: "gcheck_globRcrSrvGen", value: false, enabled: true, visible: true)
+	 gcheck_ext_mux_int_0 = GCheck(widgetName: "gcheck_ext_mux_int_0", value: false, enabled: true, visible: true)
+	 gcheck_ext_mux_int_1 = GCheck(widgetName: "gcheck_ext_mux_int_1", value: false, enabled: true, visible: true)
+	 glabel_globModuleFreq = GLabel(widgetName: "glabel_globModuleFreq", text: "Input Clock Frequency [MHz]", enabled: true, visible: true)
+	 glabel_globAnalogClockGenMode = GLabel(widgetName: "glabel_globAnalogClockGenMode", text: "Clock Generation Mode", enabled: true, visible: true)
+	 glabel_globSupplyVoltageLevel = GLabel(widgetName: "glabel_globSupplyVoltageLevel", text: "Supply Voltage Level", enabled: true, visible: true)
+	 glabel_globStartupCalibration = GLabel(widgetName: "glabel_globStartupCalibration", text: "Enable Calibration at Startup", enabled: true, visible: true)
+	 glabel_globBoundary0 = GLabel(widgetName: "glabel_globBoundary0", text: "Boundary Value #0", enabled: true, visible: true)
+	 glabel_globBoundary1 = GLabel(widgetName: "glabel_globBoundary1", text: "Boundary Value #1", enabled: true, visible: true)
+	 glabel_globDataReductionMode = GLabel(widgetName: "glabel_globDataReductionMode", text: "Data Reduction Mode", enabled: true, visible: true)
+	 glabel_globRcrWfr = GLabel(widgetName: "glabel_globRcrWfr", text: "Enable Wait for Read", enabled: true, visible: true)
+	 glabel_globRcrSrvGen = GLabel(widgetName: "glabel_globRcrSrvGen", text: "Enable Service Request Generation", enabled: true, visible: true)
+	 glabel_ext_mux_int_0 = GLabel(widgetName: "glabel_ext_mux_int_0", text: "Interface 0", enabled: true, visible: true)
+	 glabel_ext_mux_int_1 = GLabel(widgetName: "glabel_ext_mux_int_1", text: "Interface 1", enabled: true, visible: true)
+	 ggroup_1 = GGroup(widgetName: "ggroup_1", text: "Global Configuration", enabled: true, visible: true)
+	 ggroup_2 = GGroup(widgetName: "ggroup_2", text: "Global Boundary Configuration", enabled: true, visible: true)
+	 ggroup_3 = GGroup(widgetName: "ggroup_3", text: "Global Result Register Configuration", enabled: true, visible: true)
+	 ggroup_ext_mux = GGroup(widgetName: "ggroup_ext_mux", text: "External Multiplexer Group", enabled: true, visible: true)
+	 gindexcombo_gicIndexSelector = GIndexCombo(widgetName: "gindexcombo_gicIndexSelector", options: ["Global Input Class #0","Global Input Class #1"], value: "Global Input Class #0", visible: true)
+	 gindexgroup_gicConfiguration = GIndexGroup(widgetName: "gindexgroup_gicConfiguration", text: "Global Input Class Configuration", enabled: true, visible: true, gIndexCombo: gindexcombo_gicIndexSelector, rArray: rArraygindexgroup_gicConfiguration)
+	 for(int i=0; i<2; i++){
+		 rArraygindexgroup_gicConfiguration[i] = new Gindexgroup_gicConfiguration(daveEnv, "gindexgroup_gicConfiguration",i)
+	 }
+
+
+	 }
+	/* End : UI variable section */
+}

@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="ASCII"?>
+<ResourceModel:Peripheral xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ResourceModel="http://www.infineon.com/Davex/Resource.ecore" URI="http://resources/4.1.4/peripheral/int/0" description="" baseAddress="0xF0037000">
+  <provided xsi:type="ResourceModel:ResourceGroup" name="0" URI="http://resources/4.1.4/peripheral/int/0/icu/0">
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/CPU_CORE/v4_1_4/CPU_CORE_0.app#//@hwResources.2"/>
+    <resourcesList name="lwsr" requiredResourceUri="http://resources/4.1.4/peripheral/int/0/lwsr0"/>
+    <resourcesList name="lasr" requiredResourceUri="http://resources/4.1.4/peripheral/int/0/lasr0"/>
+    <resourcesList name="ecr" requiredResourceUri="http://resources/4.1.4/peripheral/int/0/ecr0"/>
+    <resourcesList name="ispir" requiredResourceUri="http://resources/4.1.4/peripheral/int/0/icu_0_ispir"/>
+  </provided>
+  <provided xsi:type="ResourceModel:ResourceGroup" name="1" URI="http://resources/4.1.4/peripheral/int/0/srn/1">
+    <resourcesList name="src" requiredResourceUri="http://resources/4.1.4/peripheral/int/0/src_cpu1sb"/>
+    <resourcesList name="src_srpn" requiredResourceUri="http://resources/4.1.4/peripheral/int/0/src_cpu1sb/srpn"/>
+    <resourcesList name="src_tos" requiredResourceUri="http://resources/4.1.4/peripheral/int/0/src_cpu1sb/tos"/>
+    <resourcesList name="out" requiredResourceUri="http://resources/4.1.4/peripheral/int/0/srn_1_out"/>
+    <resourcesList name="in" requiredResourceUri="http://resources/4.1.4/peripheral/int/0/srn_1_in"/>
+  </provided>
+  <provided xsi:type="ResourceModel:RegisterParameter" name="SRC_CPU1SB" URI="http://resources/4.1.4/peripheral/int/0/src_cpu1sb" value="00000000" toolTipHelpDescription="CPU1 Software Breakpoint Service Request" defaultValue="00000000" addressOffset="0x00001004" resetValue="00000000" resetMask="0x00000000">
+    <bitFields name="SRPN" URI="http://resources/4.1.4/peripheral/int/0/src_cpu1sb/srpn" value="00000000" toolTipHelpDescription="Service Request Priority Number" defaultValue="00000000" startPos="0" stopPos="7" accessPermission="rw" maxValue="255" minValue="0"/>
+    <bitFields name="SRE" URI="http://resources/4.1.4/peripheral/int/0/src_cpu1sb/sre" value="00000000" toolTipHelpDescription="Service Request Enable" defaultValue="00000000" startPos="10" stopPos="10" accessPermission="rw" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Service request is disabled"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Service request is enabled"/>
+    </bitFields>
+    <bitFields name="TOS" URI="http://resources/4.1.4/peripheral/int/0/src_cpu1sb/tos" value="00000000" toolTipHelpDescription="Type of Service Control" defaultValue="00000000" startPos="11" stopPos="13" accessPermission="rw" maxValue="7" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="CPU0 service is initiated"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="DMA service is initiated"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="CPU1 service is initiated"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="CPU2 service is initiated"/>
+    </bitFields>
+    <bitFields name="ECC" URI="http://resources/4.1.4/peripheral/int/0/src_cpu1sb/ecc" value="00000000" toolTipHelpDescription="Error Correction Code" defaultValue="00000000" startPos="16" stopPos="20" accessPermission="rwh" maxValue="31" minValue="0"/>
+    <bitFields name="SRR" URI="http://resources/4.1.4/peripheral/int/0/src_cpu1sb/srr" value="00000000" toolTipHelpDescription="Service Request Flag" defaultValue="00000000" startPos="24" stopPos="24" accessPermission="rh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No service request is pending"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="A service request is pending"/>
+    </bitFields>
+    <bitFields name="CLRR" URI="http://resources/4.1.4/peripheral/int/0/src_cpu1sb/clrr" value="00000000" toolTipHelpDescription="Request Clear Bit" defaultValue="00000000" startPos="25" stopPos="25" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No action"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Clear SRR; bit value is not stored; read always returns 0; no action if SETR is set in parallel."/>
+    </bitFields>
+    <bitFields name="SETR" URI="http://resources/4.1.4/peripheral/int/0/src_cpu1sb/setr" value="00000000" toolTipHelpDescription="Request Set Bit" defaultValue="00000000" startPos="26" stopPos="26" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No action"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Set SRR and SWS; SRR bit value is not stored; read always returns 0; no action if CLRR is set in parallel."/>
+    </bitFields>
+    <bitFields name="IOV" URI="http://resources/4.1.4/peripheral/int/0/src_cpu1sb/iov" value="00000000" toolTipHelpDescription="Interrupt Trigger Overflow Bit" defaultValue="00000000" startPos="27" stopPos="27" accessPermission="rh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No Interrupt Trigger Overflow detected"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Interrupt Overflow Detected."/>
+    </bitFields>
+    <bitFields name="IOVCLR" URI="http://resources/4.1.4/peripheral/int/0/src_cpu1sb/iovclr" value="00000000" toolTipHelpDescription="Interrupt Trigger Overflow Clear Bit" defaultValue="00000000" startPos="28" stopPos="28" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No action"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Clear IOV; bit value is not stored; read always returns 0."/>
+    </bitFields>
+    <bitFields name="SWS" URI="http://resources/4.1.4/peripheral/int/0/src_cpu1sb/sws" value="00000000" toolTipHelpDescription="SW Sticky Bit" defaultValue="00000000" startPos="29" stopPos="29" accessPermission="rh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No interrupt was initiated via SETR"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Interrupt was initiated via SETR"/>
+    </bitFields>
+    <bitFields name="SWSCLR" URI="http://resources/4.1.4/peripheral/int/0/src_cpu1sb/swsclr" value="00000000" toolTipHelpDescription="SW Sticky Clear Bit" defaultValue="00000000" startPos="30" stopPos="30" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No action"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Clear SWS; bit value is not stored; read always returns 0."/>
+    </bitFields>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="TOS" URI="http://resources/4.1.4/peripheral/int/0/src_cpu1sb/tos" value="00000000" toolTipHelpDescription="Type of Service Control" defaultValue="00000000" startPos="11" stopPos="13" accessPermission="rw" maxValue="7" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="CPU0 service is initiated"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="DMA service is initiated"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="CPU1 service is initiated"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="CPU2 service is initiated"/>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="SRPN" URI="http://resources/4.1.4/peripheral/int/0/src_cpu1sb/srpn" value="00000000" toolTipHelpDescription="Service Request Priority Number" defaultValue="00000000" startPos="0" stopPos="7" accessPermission="rw" maxValue="255" minValue="0"/>
+  <provided xsi:type="ResourceModel:ResourceGroup" name="0" URI="http://resources/4.1.4/peripheral/int/0/srn/0">
+    <resourcesList name="src" requiredResourceUri="http://resources/4.1.4/peripheral/int/0/src_cpu0sb"/>
+    <resourcesList name="src_srpn" requiredResourceUri="http://resources/4.1.4/peripheral/int/0/src_cpu0sb/srpn"/>
+    <resourcesList name="src_tos" requiredResourceUri="http://resources/4.1.4/peripheral/int/0/src_cpu0sb/tos"/>
+    <resourcesList name="out" requiredResourceUri="http://resources/4.1.4/peripheral/int/0/srn_0_out"/>
+    <resourcesList name="in" requiredResourceUri="http://resources/4.1.4/peripheral/int/0/srn_0_in"/>
+  </provided>
+  <provided xsi:type="ResourceModel:RegisterParameter" name="SRC_CPU0SB" URI="http://resources/4.1.4/peripheral/int/0/src_cpu0sb" value="00000000" toolTipHelpDescription="CPU0 Software Breakpoint Service Request" defaultValue="00000000" addressOffset="0x00001000" resetValue="00000000" resetMask="0x00000000">
+    <bitFields name="SRPN" URI="http://resources/4.1.4/peripheral/int/0/src_cpu0sb/srpn" value="00000000" toolTipHelpDescription="Service Request Priority Number" defaultValue="00000000" startPos="0" stopPos="7" accessPermission="rw" maxValue="255" minValue="0"/>
+    <bitFields name="SRE" URI="http://resources/4.1.4/peripheral/int/0/src_cpu0sb/sre" value="00000000" toolTipHelpDescription="Service Request Enable" defaultValue="00000000" startPos="10" stopPos="10" accessPermission="rw" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Service request is disabled"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Service request is enabled"/>
+    </bitFields>
+    <bitFields name="TOS" URI="http://resources/4.1.4/peripheral/int/0/src_cpu0sb/tos" value="00000000" toolTipHelpDescription="Type of Service Control" defaultValue="00000000" startPos="11" stopPos="13" accessPermission="rw" maxValue="7" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="CPU0 service is initiated"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="DMA service is initiated"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="CPU1 service is initiated"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="CPU2 service is initiated"/>
+    </bitFields>
+    <bitFields name="ECC" URI="http://resources/4.1.4/peripheral/int/0/src_cpu0sb/ecc" value="00000000" toolTipHelpDescription="Error Correction Code" defaultValue="00000000" startPos="16" stopPos="20" accessPermission="rwh" maxValue="31" minValue="0"/>
+    <bitFields name="SRR" URI="http://resources/4.1.4/peripheral/int/0/src_cpu0sb/srr" value="00000000" toolTipHelpDescription="Service Request Flag" defaultValue="00000000" startPos="24" stopPos="24" accessPermission="rh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No service request is pending"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="A service request is pending"/>
+    </bitFields>
+    <bitFields name="CLRR" URI="http://resources/4.1.4/peripheral/int/0/src_cpu0sb/clrr" value="00000000" toolTipHelpDescription="Request Clear Bit" defaultValue="00000000" startPos="25" stopPos="25" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No action"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Clear SRR; bit value is not stored; read always returns 0; no action if SETR is set in parallel."/>
+    </bitFields>
+    <bitFields name="SETR" URI="http://resources/4.1.4/peripheral/int/0/src_cpu0sb/setr" value="00000000" toolTipHelpDescription="Request Set Bit" defaultValue="00000000" startPos="26" stopPos="26" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No action"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Set SRR and SWS; SRR bit value is not stored; read always returns 0; no action if CLRR is set in parallel."/>
+    </bitFields>
+    <bitFields name="IOV" URI="http://resources/4.1.4/peripheral/int/0/src_cpu0sb/iov" value="00000000" toolTipHelpDescription="Interrupt Trigger Overflow Bit" defaultValue="00000000" startPos="27" stopPos="27" accessPermission="rh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No Interrupt Trigger Overflow detected"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Interrupt Overflow Detected."/>
+    </bitFields>
+    <bitFields name="IOVCLR" URI="http://resources/4.1.4/peripheral/int/0/src_cpu0sb/iovclr" value="00000000" toolTipHelpDescription="Interrupt Trigger Overflow Clear Bit" defaultValue="00000000" startPos="28" stopPos="28" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No action"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Clear IOV; bit value is not stored; read always returns 0."/>
+    </bitFields>
+    <bitFields name="SWS" URI="http://resources/4.1.4/peripheral/int/0/src_cpu0sb/sws" value="00000000" toolTipHelpDescription="SW Sticky Bit" defaultValue="00000000" startPos="29" stopPos="29" accessPermission="rh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No interrupt was initiated via SETR"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Interrupt was initiated via SETR"/>
+    </bitFields>
+    <bitFields name="SWSCLR" URI="http://resources/4.1.4/peripheral/int/0/src_cpu0sb/swsclr" value="00000000" toolTipHelpDescription="SW Sticky Clear Bit" defaultValue="00000000" startPos="30" stopPos="30" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No action"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Clear SWS; bit value is not stored; read always returns 0."/>
+    </bitFields>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="TOS" URI="http://resources/4.1.4/peripheral/int/0/src_cpu0sb/tos" value="00000000" toolTipHelpDescription="Type of Service Control" defaultValue="00000000" startPos="11" stopPos="13" accessPermission="rw" maxValue="7" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="CPU0 service is initiated"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="DMA service is initiated"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="CPU1 service is initiated"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="CPU2 service is initiated"/>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="SRPN" URI="http://resources/4.1.4/peripheral/int/0/src_cpu0sb/srpn" value="00000000" toolTipHelpDescription="Service Request Priority Number" defaultValue="00000000" startPos="0" stopPos="7" accessPermission="rw" maxValue="255" minValue="0"/>
+  <provided xsi:type="ResourceModel:ResourceGroup" name="412" URI="http://resources/4.1.4/peripheral/int/0/srn/412">
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/DMA_CHANNEL_CONFIG/v4_1_8/DMA_CHANNEL_CONFIG_0.app#//@hwResources.1"/>
+    <resourcesList name="src" requiredResourceUri="http://resources/4.1.4/peripheral/int/0/src_vadcg0sr0"/>
+    <resourcesList name="src_srpn" requiredResourceUri="http://resources/4.1.4/peripheral/int/0/src_vadcg0sr0/srpn"/>
+    <resourcesList name="src_tos" requiredResourceUri="http://resources/4.1.4/peripheral/int/0/src_vadcg0sr0/tos"/>
+    <resourcesList name="out" requiredResourceUri="http://resources/4.1.4/peripheral/int/0/srn_412_out"/>
+    <resourcesList name="in" requiredResourceUri="http://resources/4.1.4/peripheral/int/0/srn_412_in"/>
+  </provided>
+  <provided xsi:type="ResourceModel:RegisterParameter" name="SRC_VADCG0SR0" URI="http://resources/4.1.4/peripheral/int/0/src_vadcg0sr0" value="00000000" toolTipHelpDescription="EVADC Group 0 Service Request 0" defaultValue="00000000" addressOffset="0x00001670" resetValue="00000000" resetMask="0x00000000">
+    <bitFields name="SRPN" URI="http://resources/4.1.4/peripheral/int/0/src_vadcg0sr0/srpn" value="00000000" toolTipHelpDescription="Service Request Priority Number" defaultValue="00000000" startPos="0" stopPos="7" accessPermission="rw" maxValue="255" minValue="0"/>
+    <bitFields name="SRE" URI="http://resources/4.1.4/peripheral/int/0/src_vadcg0sr0/sre" value="00000000" toolTipHelpDescription="Service Request Enable" defaultValue="00000000" startPos="10" stopPos="10" accessPermission="rw" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Service request is disabled"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Service request is enabled"/>
+    </bitFields>
+    <bitFields name="TOS" URI="http://resources/4.1.4/peripheral/int/0/src_vadcg0sr0/tos" value="00000000" toolTipHelpDescription="Type of Service Control" defaultValue="00000000" startPos="11" stopPos="13" accessPermission="rw" maxValue="7" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="CPU0 service is initiated"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="DMA service is initiated"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="CPU1 service is initiated"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="CPU2 service is initiated"/>
+    </bitFields>
+    <bitFields name="ECC" URI="http://resources/4.1.4/peripheral/int/0/src_vadcg0sr0/ecc" value="00000000" toolTipHelpDescription="Error Correction Code" defaultValue="00000000" startPos="16" stopPos="20" accessPermission="rwh" maxValue="31" minValue="0"/>
+    <bitFields name="SRR" URI="http://resources/4.1.4/peripheral/int/0/src_vadcg0sr0/srr" value="00000000" toolTipHelpDescription="Service Request Flag" defaultValue="00000000" startPos="24" stopPos="24" accessPermission="rh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No service request is pending"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="A service request is pending"/>
+    </bitFields>
+    <bitFields name="CLRR" URI="http://resources/4.1.4/peripheral/int/0/src_vadcg0sr0/clrr" value="00000000" toolTipHelpDescription="Request Clear Bit" defaultValue="00000000" startPos="25" stopPos="25" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No action"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Clear SRR; bit value is not stored; read always returns 0; no action if SETR is set in parallel."/>
+    </bitFields>
+    <bitFields name="SETR" URI="http://resources/4.1.4/peripheral/int/0/src_vadcg0sr0/setr" value="00000000" toolTipHelpDescription="Request Set Bit" defaultValue="00000000" startPos="26" stopPos="26" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No action"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Set SRR and SWS; SRR bit value is not stored; read always returns 0; no action if CLRR is set in parallel."/>
+    </bitFields>
+    <bitFields name="IOV" URI="http://resources/4.1.4/peripheral/int/0/src_vadcg0sr0/iov" value="00000000" toolTipHelpDescription="Interrupt Trigger Overflow Bit" defaultValue="00000000" startPos="27" stopPos="27" accessPermission="rh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No Interrupt Trigger Overflow detected"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Interrupt Overflow Detected."/>
+    </bitFields>
+    <bitFields name="IOVCLR" URI="http://resources/4.1.4/peripheral/int/0/src_vadcg0sr0/iovclr" value="00000000" toolTipHelpDescription="Interrupt Trigger Overflow Clear Bit" defaultValue="00000000" startPos="28" stopPos="28" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No action"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Clear IOV; bit value is not stored; read always returns 0."/>
+    </bitFields>
+    <bitFields name="SWS" URI="http://resources/4.1.4/peripheral/int/0/src_vadcg0sr0/sws" value="00000000" toolTipHelpDescription="SW Sticky Bit" defaultValue="00000000" startPos="29" stopPos="29" accessPermission="rh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No interrupt was initiated via SETR"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Interrupt was initiated via SETR"/>
+    </bitFields>
+    <bitFields name="SWSCLR" URI="http://resources/4.1.4/peripheral/int/0/src_vadcg0sr0/swsclr" value="00000000" toolTipHelpDescription="SW Sticky Clear Bit" defaultValue="00000000" startPos="30" stopPos="30" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No action"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Clear SWS; bit value is not stored; read always returns 0."/>
+    </bitFields>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="TOS" URI="http://resources/4.1.4/peripheral/int/0/src_vadcg0sr0/tos" value="00000000" toolTipHelpDescription="Type of Service Control" defaultValue="00000000" startPos="11" stopPos="13" accessPermission="rw" maxValue="7" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="CPU0 service is initiated"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="DMA service is initiated"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="CPU1 service is initiated"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="CPU2 service is initiated"/>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="SRPN" URI="http://resources/4.1.4/peripheral/int/0/src_vadcg0sr0/srpn" value="00000000" toolTipHelpDescription="Service Request Priority Number" defaultValue="00000000" startPos="0" stopPos="7" accessPermission="rw" maxValue="255" minValue="0"/>
+  <provided xsi:type="ResourceModel:ResourceGroup" name="220" URI="http://resources/4.1.4/peripheral/int/0/srn/220">
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/INTERRUPT_CONFIG/v4_1_4/INTERRUPT_CONFIG_0.app#//@hwResources.0"/>
+    <resourcesList name="src" requiredResourceUri="http://resources/4.1.4/peripheral/int/0/src_dmach0"/>
+    <resourcesList name="src_srpn" requiredResourceUri="http://resources/4.1.4/peripheral/int/0/src_dmach0/srpn"/>
+    <resourcesList name="src_tos" requiredResourceUri="http://resources/4.1.4/peripheral/int/0/src_dmach0/tos"/>
+    <resourcesList name="out" requiredResourceUri="http://resources/4.1.4/peripheral/int/0/srn_220_out"/>
+    <resourcesList name="in" requiredResourceUri="http://resources/4.1.4/peripheral/int/0/srn_220_in"/>
+  </provided>
+  <provided xsi:type="ResourceModel:RegisterParameter" name="SRC_DMACH0" URI="http://resources/4.1.4/peripheral/int/0/src_dmach0" value="00000000" toolTipHelpDescription="DMA Channel 0 Service Request" defaultValue="00000000" addressOffset="0x00001370" resetValue="00000000" resetMask="0x00000000">
+    <bitFields name="SRPN" URI="http://resources/4.1.4/peripheral/int/0/src_dmach0/srpn" value="00000000" toolTipHelpDescription="Service Request Priority Number" defaultValue="00000000" startPos="0" stopPos="7" accessPermission="rw" maxValue="255" minValue="0"/>
+    <bitFields name="SRE" URI="http://resources/4.1.4/peripheral/int/0/src_dmach0/sre" value="00000000" toolTipHelpDescription="Service Request Enable" defaultValue="00000000" startPos="10" stopPos="10" accessPermission="rw" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Service request is disabled"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Service request is enabled"/>
+    </bitFields>
+    <bitFields name="TOS" URI="http://resources/4.1.4/peripheral/int/0/src_dmach0/tos" value="00000000" toolTipHelpDescription="Type of Service Control" defaultValue="00000000" startPos="11" stopPos="13" accessPermission="rw" maxValue="7" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="CPU0 service is initiated"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="DMA service is initiated"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="CPU1 service is initiated"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="CPU2 service is initiated"/>
+    </bitFields>
+    <bitFields name="ECC" URI="http://resources/4.1.4/peripheral/int/0/src_dmach0/ecc" value="00000000" toolTipHelpDescription="Error Correction Code" defaultValue="00000000" startPos="16" stopPos="20" accessPermission="rwh" maxValue="31" minValue="0"/>
+    <bitFields name="SRR" URI="http://resources/4.1.4/peripheral/int/0/src_dmach0/srr" value="00000000" toolTipHelpDescription="Service Request Flag" defaultValue="00000000" startPos="24" stopPos="24" accessPermission="rh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No service request is pending"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="A service request is pending"/>
+    </bitFields>
+    <bitFields name="CLRR" URI="http://resources/4.1.4/peripheral/int/0/src_dmach0/clrr" value="00000000" toolTipHelpDescription="Request Clear Bit" defaultValue="00000000" startPos="25" stopPos="25" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No action"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Clear SRR; bit value is not stored; read always returns 0; no action if SETR is set in parallel."/>
+    </bitFields>
+    <bitFields name="SETR" URI="http://resources/4.1.4/peripheral/int/0/src_dmach0/setr" value="00000000" toolTipHelpDescription="Request Set Bit" defaultValue="00000000" startPos="26" stopPos="26" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No action"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Set SRR and SWS; SRR bit value is not stored; read always returns 0; no action if CLRR is set in parallel."/>
+    </bitFields>
+    <bitFields name="IOV" URI="http://resources/4.1.4/peripheral/int/0/src_dmach0/iov" value="00000000" toolTipHelpDescription="Interrupt Trigger Overflow Bit" defaultValue="00000000" startPos="27" stopPos="27" accessPermission="rh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No Interrupt Trigger Overflow detected"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Interrupt Overflow Detected."/>
+    </bitFields>
+    <bitFields name="IOVCLR" URI="http://resources/4.1.4/peripheral/int/0/src_dmach0/iovclr" value="00000000" toolTipHelpDescription="Interrupt Trigger Overflow Clear Bit" defaultValue="00000000" startPos="28" stopPos="28" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No action"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Clear IOV; bit value is not stored; read always returns 0."/>
+    </bitFields>
+    <bitFields name="SWS" URI="http://resources/4.1.4/peripheral/int/0/src_dmach0/sws" value="00000000" toolTipHelpDescription="SW Sticky Bit" defaultValue="00000000" startPos="29" stopPos="29" accessPermission="rh" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No interrupt was initiated via SETR"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Interrupt was initiated via SETR"/>
+    </bitFields>
+    <bitFields name="SWSCLR" URI="http://resources/4.1.4/peripheral/int/0/src_dmach0/swsclr" value="00000000" toolTipHelpDescription="SW Sticky Clear Bit" defaultValue="00000000" startPos="30" stopPos="30" accessPermission="w" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="No action"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Clear SWS; bit value is not stored; read always returns 0."/>
+    </bitFields>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="TOS" URI="http://resources/4.1.4/peripheral/int/0/src_dmach0/tos" value="00000000" toolTipHelpDescription="Type of Service Control" defaultValue="00000000" startPos="11" stopPos="13" accessPermission="rw" maxValue="7" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="CPU0 service is initiated"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="DMA service is initiated"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="CPU1 service is initiated"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="CPU2 service is initiated"/>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="SRPN" URI="http://resources/4.1.4/peripheral/int/0/src_dmach0/srpn" value="00000000" toolTipHelpDescription="Service Request Priority Number" defaultValue="00000000" startPos="0" stopPos="7" accessPermission="rw" maxValue="255" minValue="0"/>
+  <addressBlock offset="0x0" size="0x0100" usage="registers"/>
+</ResourceModel:Peripheral>

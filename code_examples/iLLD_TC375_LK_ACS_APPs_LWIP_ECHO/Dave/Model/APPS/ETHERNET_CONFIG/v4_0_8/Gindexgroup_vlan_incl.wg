@@ -1,0 +1,32 @@
+package Model.APPS.ETHERNET_CONFIG.v4_0_8;
+import ifx.davex.app.manifest.*;
+
+class Gindexgroup_vlan_incl{
+	 public GLabel glabel_sel_incl_cfg;
+	 public GLabel glabel_vlan_csvl;
+	 public GCombo gcombo_vlan_csvl;
+	 public GGroup ggroup_transmit_vlan;
+	 public GLabel glabel_vid;
+	 public GInteger ginteger_vid;
+	 public GLabel glabel_vlan_cfi;
+	 public GCheck gcheck_vlan_cfi;
+	 public GLabel glabel_user_prio;
+	 public GInteger ginteger_user_prio;
+	 public GLabel glabel_add_vlan_inner_vlc;
+	 public GCombo gcombo_add_vlan_inner_vlc;
+
+	public Gindexgroup_vlan_incl (DaveEnv daveEnv, String widgetName,int index){
+	 glabel_sel_incl_cfg = new GLabel(widgetName: "glabel_sel_incl_cfg", text: "Select VLAN Tag Inclusion/ Replacement to Configure", enabled: true, visible: true, parentWidgetName:widgetName)
+	 glabel_vlan_csvl = new GLabel(widgetName: "glabel_vlan_csvl", text: "VLAN Type", enabled: true, visible: true, parentWidgetName:widgetName)
+	 gcombo_vlan_csvl = new GCombo(widgetName: "gcombo_vlan_csvl", options: ["C-VLAN","S-VLAN"], value: "C-VLAN", enabled: true, visible: true, isMandatoryValue: false, parentWidgetName:widgetName)
+	 ggroup_transmit_vlan = new GGroup(widgetName: "ggroup_transmit_vlan", text: "Transmit VLAN Tag", enabled: true, visible: true, parentWidgetName:widgetName)
+	 glabel_vid = new GLabel(widgetName: "glabel_vid", text: "VLAN Identifier", enabled: true, visible: true, parentWidgetName:widgetName)
+	 ginteger_vid = new GInteger(widgetName: "ginteger_vid", value: 0, minValue: 0, maxValue: 4095, enabled: true, visible: true, isMandatoryValue: false, parentWidgetName:widgetName)
+	 glabel_vlan_cfi = new GLabel(widgetName: "glabel_vlan_cfi", text: "Canonical Format Indicator", enabled: true, visible: true, parentWidgetName:widgetName)
+	 gcheck_vlan_cfi = new GCheck(widgetName: "gcheck_vlan_cfi", value: false, enabled: true, visible: true, parentWidgetName:widgetName)
+	 glabel_user_prio = new GLabel(widgetName: "glabel_user_prio", text: "User Priority", enabled: true, visible: true, parentWidgetName:widgetName)
+	 ginteger_user_prio = new GInteger(widgetName: "ginteger_user_prio", value: 0, minValue: 0, maxValue: 7, enabled: true, visible: true, isMandatoryValue: false, parentWidgetName:widgetName)
+	 glabel_add_vlan_inner_vlc = new GLabel(widgetName: "glabel_add_vlan_inner_vlc", text: "Inner VLAN Tag Operation", enabled: true, visible: true, parentWidgetName:widgetName)
+	 gcombo_add_vlan_inner_vlc = new GCombo(widgetName: "gcombo_add_vlan_inner_vlc", options: ["Disable","No Operation","Delete Tag","Insert Tag","Replace Tag"], value: "Disable", enabled: true, visible: true, isMandatoryValue: false, parentWidgetName:widgetName)
+	}
+}

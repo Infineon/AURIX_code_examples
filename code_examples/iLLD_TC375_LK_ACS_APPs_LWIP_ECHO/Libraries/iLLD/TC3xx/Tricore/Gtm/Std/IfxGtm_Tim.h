@@ -1,0 +1,1158 @@
+/**
+ * \file IfxGtm_Tim.h
+ * \brief GTM  basic functionality
+ * \ingroup IfxLld_Gtm
+ *
+ * \version iLLD_1_22_0
+ * \copyright Copyright (c) 2026 Infineon Technologies AG. All rights reserved.
+ *
+ *
+ *
+ *                                 IMPORTANT NOTICE
+ *
+ * Infineon Technologies AG (Infineon) licenses this file to you under the
+ * Infineon Automotive SW Lab License v2025-01 (IFASLL). You may not use
+ * this file except in compliance with IFASLL.
+ *
+ * The full license text is contained in IFASLL202501.pdf delivered with this SW.
+ * Unless required by applicable law or agreed to in writing, software distributed
+ * under this license is distributed "AS IS" without any warranty or liability of any
+ * kind and Infineon hereby expressly disclaims any warranties or representations,
+ * whether express, implied, statutory or otherwise, including but not limited to
+ * warranties of workmanship, merchantability, fitness for a particular purpose,
+ * defects in the licensed items, or non-infringement of third parties'
+ * intellectual property rights. See the full license text for the specific
+ * language governing permissions and limitations under IFASLL.
+ *
+ *
+ *
+ *
+ * \defgroup IfxLld_Gtm_Std_Tim Tim Basic Functionality
+ * \ingroup IfxLld_Gtm_Std
+ * \defgroup IfxLld_Gtm_Std_Tim_Enumerations TIM Enumerations
+ * \ingroup IfxLld_Gtm_Std_Tim
+ * \defgroup IfxLld_Gtm_Std_Tim_Channel_Functions TIM Channel Functions
+ * \ingroup IfxLld_Gtm_Std_Tim
+ */
+
+#ifndef IFXGTM_TIM_H
+#define IFXGTM_TIM_H 1
+
+/******************************************************************************/
+/*----------------------------------Includes----------------------------------*/
+/******************************************************************************/
+
+#include "_Impl/IfxGtm_cfg.h"
+#include "Src/Std/IfxSrc.h"
+#include "IfxGtm.h"
+#include "IfxGtm_Cmu.h"
+#include "IfxGtm_bf.h"
+#include "Cpu/Std/IfxCpu_Intrinsics.h"
+
+/******************************************************************************/
+/*-----------------------------------Macros-----------------------------------*/
+/******************************************************************************/
+
+/** \brief TIMINSEL.CHxSEL value to select EDSADC boundary flag input path for TIM channel */
+#define IFX_GTM_TIMINSEL_CHSEL_EDSADC_BOUNDARY_FLAG (0xEu)
+
+/******************************************************************************/
+/*--------------------------------Enumerations--------------------------------*/
+/******************************************************************************/
+
+/** \addtogroup IfxLld_Gtm_Std_Tim_Enumerations
+ * \{ */
+/** \brief Enum for selection for CNTS register.
+ * Definition in Ifx_GTM_TIM_CH_CTRLB.CNTS_SEL
+ */
+typedef enum
+{
+    IfxGtm_Tim_CntsSel_cntReg = 0,
+    IfxGtm_Tim_CntsSel_tbuTs0
+} IfxGtm_Tim_CntsSel;
+
+/** \brief Enum for Filter counter.
+ * Definition in Ifx_GTM_TIM_CH_ECTRL.B.EFLT_CTR_RE and Ifx_GTM_TIM_CH_ECTRL.B.EFLT_CTR_FE
+ */
+typedef enum
+{
+    IfxGtm_Tim_FilterCounter_upDown = 0,
+    IfxGtm_Tim_FilterCounter_hold
+} IfxGtm_Tim_FilterCounter;
+
+/** \brief Enum for Filter counter Frequency Selection.
+ * Definition in Ifx_GTM_TIM_CH_CTRL.B.FLT_CNT_FRQ
+ */
+typedef enum
+{
+    IfxGtm_Tim_FilterCounterFreqSel_cmuClk0 = 0,  /**< \brief FLT_CNT counts with CMU_CLK0 */
+    IfxGtm_Tim_FilterCounterFreqSel_cmuClk1 = 1,  /**< \brief FLT_CNT counts with CMU_CLK1 */
+    IfxGtm_Tim_FilterCounterFreqSel_cmuClk6 = 2,  /**< \brief FLT_CNT counts with CMU_CLK6 */
+    IfxGtm_Tim_FilterCounterFreqSel_cmuClk7 = 3   /**< \brief FLT_CNT counts with CMU_CLK7 */
+} IfxGtm_Tim_FilterCounterFreqSel;
+
+/** \brief Enum for Filter mode.
+ * Definition in Ifx_GTM_TIM_CH_CTRL.B.FLT_MODE_RE and Ifx_GTM_TIM_CH_CTRL.B.FLT_MODE_FE
+ */
+typedef enum
+{
+    IfxGtm_Tim_FilterMode_immediateEdgePropagation = 0,  /**< \brief Immediate edge Propagation mode */
+    IfxGtm_Tim_FilterMode_individualDeglitchTime         /**< \brief Individual deglitch mode */
+} IfxGtm_Tim_FilterMode;
+
+/** \brief Enum for GPR0/GPR1 register selection.
+ * Definition in Ifx_GTM_TIM_CH_CTRL.B.GPR0_SEL and Ifx_GTM_TIM_CH_CTRL.B.GPR1_SEL
+ */
+typedef enum
+{
+    IfxGtm_Tim_GprSel_tbuTs0 = 0,  /**< \brief Use TBU_TS0 as input */
+    IfxGtm_Tim_GprSel_tbuTs1,      /**< \brief Use TBU_TS1 as input */
+    IfxGtm_Tim_GprSel_tbuTs2,      /**< \brief Use TBU_TS2 as input */
+    IfxGtm_Tim_GprSel_cnts         /**< \brief Use CNTS as input */
+} IfxGtm_Tim_GprSel;
+
+/** \brief Enum for Channel Input Control.
+ * Definition in Ifx_GTM_TIM_CH_CTRL.B.CICTRL
+ */
+typedef enum
+{
+    IfxGtm_Tim_Input_currentChannel = 0,  /**< \brief Use signal TIM_IN(x) as input for channel x */
+    IfxGtm_Tim_Input_adjacentChannel      /**< \brief Use signal TIM_IN(x-1) as input for channel x (or TIM_IN(m-1) if x is 0) */
+} IfxGtm_Tim_Input;
+
+/** \brief Enum for Irq mode.
+ */
+typedef enum
+{
+    IfxGtm_Tim_IrqMode_level = 0,        /**< \brief Level Mode */
+    IfxGtm_Tim_IrqMode_pulse,            /**< \brief Pulse Mode */
+    IfxGtm_Tim_IrqMode_pulseNotify,      /**< \brief pulse notify Mode */
+    IfxGtm_Tim_IrqMode_singlePulseMode,  /**< \brief Single Pulse Mode */
+    IfxGtm_Tim_IrqMode_none = -1         /**< \brief none */
+} IfxGtm_Tim_IrqMode;
+
+/** \brief Enum for Irq type.
+ */
+typedef enum
+{
+    IfxGtm_Tim_IrqType_newVal        = 0,  /**< \brief New measurement value detected by SMU of channel */
+    IfxGtm_Tim_IrqType_ecntOverflow  = 1,  /**< \brief ECNT counter overflow of channel */
+    IfxGtm_Tim_IrqType_cntOverflow   = 2,  /**< \brief CNT counter overflow of channel */
+    IfxGtm_Tim_IrqType_gprOverflow   = 3,  /**< \brief GPR0 and GPR1 data overflow */
+    IfxGtm_Tim_IrqType_timeoutDetect = 4,  /**< \brief Time out reached for input signal of channel */
+    IfxGtm_Tim_IrqType_glitchDetect  = 5   /**< \brief A glitch was detected by the TIM filter of channel */
+} IfxGtm_Tim_IrqType;
+
+/** \brief Enum for TIM channel mode.
+ * Definition in Ifx_GTM_TIM_CH_CTRL.B.TIM_MODE
+ */
+typedef enum
+{
+    IfxGtm_Tim_Mode_pwmMeasurement   = 0,  /**< \brief TPWM */
+    IfxGtm_Tim_Mode_pulseIntegration = 1,  /**< \brief TPIM - Not Supported */
+    IfxGtm_Tim_Mode_inputEvent       = 2,  /**< \brief TIEM */
+    IfxGtm_Tim_Mode_inputPrescaler   = 3,  /**< \brief TIPM - Not Supported */
+    IfxGtm_Tim_Mode_bitCompression   = 4,  /**< \brief TBCM - Not Supported */
+    IfxGtm_Tim_Mode_gatedPeriodic    = 5,  /**< \brief TGPS */
+    IfxGtm_Tim_Mode_serialShift      = 6   /**< \brief TSSM - Not Supported */
+} IfxGtm_Tim_Mode;
+
+/** \brief Enum for Timeout control.
+ * Definition in Ifx_GTM_TIM_CH_CTRL.B.TOCTRL
+ */
+typedef enum
+{
+    IfxGtm_Tim_Timeout_disabled,     /**< \brief Timeout feature disabled */
+    IfxGtm_Tim_Timeout_risingEdge,   /**< \brief Timeout feature enabled for rising edge only */
+    IfxGtm_Tim_Timeout_fallingEdge,  /**< \brief Timeout feature enabled for falling edge only */
+    IfxGtm_Tim_Timeout_bothEdge      /**< \brief Timeout feature enabled for both edges */
+} IfxGtm_Tim_Timeout;
+
+/** \brief Enum for Source selection for triggering EXT_CAPTURE functionality.
+ * Definition in Ifx_GTM_TIM_CH_ECTRL.B.EXT_CAP_SRC
+ */
+typedef enum
+{
+	IfxGtm_Tim_ExtCaptureSource_newValIrq    = 0,   /**< \brief NEW_VAL_IRQ of following channel selected */
+	IfxGtm_Tim_ExtCaptureSource_auxIn 		 = 1,   /**< \brief AUX_IN selected */
+	IfxGtm_Tim_ExtCaptureSource_cntoflIrq    = 2,   /**< \brief CNTOFL_IRQ of following channel selected */
+	IfxGtm_Tim_ExtCaptureSource_cictrl  	 = 3,   /**< \brief CICTRL = 1: use signal TIM_IN(x) as input for channel x
+	                                                 * CICTRL = 0: use signal TIM_IN(x-1) as input for channel x (or TIM_IN(m-1) if x is 0) */
+	IfxGtm_Tim_ExtCaptureSource_ecntoflIrq   = 4,   /**< \brief ECNTOFL_IRQ of following channel selected */
+	IfxGtm_Tim_ExtCaptureSource_todetIrq     = 5,   /**< \brief TODET_IRQ of following channel selected */
+	IfxGtm_Tim_ExtCaptureSource_glitchdetIrq = 6,   /**< \brief GLITCHDET_IRQ of following channel selected */
+	IfxGtm_Tim_ExtCaptureSource_gproflIrq    = 7,   /**< \brief GPROFL_IRQ of following channel selected */
+	IfxGtm_Tim_ExtCaptureSource_cmuClk    	 = 8,   /**< \brief cmu_clk selected by CLK_SEL of following channel */
+	IfxGtm_Tim_ExtCaptureSource_redgeDet     = 9,   /**< \brief REDGE_DET of following channel selected */
+	IfxGtm_Tim_ExtCaptureSource_fedgeDet     = 10,  /**< \brief FEDGE_DET of following channel selected */
+	IfxGtm_Tim_ExtCaptureSource_logicalOr    = 11,  /**< \brief Logical OR of (FEDGE_DET, REDGE_DET) of following channel selected */
+	IfxGtm_Tim_ExtCaptureSource_tduSampleEvt = 12,  /**< \brief tdu_sample_evt of local TDU selected */
+	IfxGtm_Tim_ExtCaptureSource_tduWordEvt   = 13,  /**< \brief tdu_word_evt of local TDU selected */
+	IfxGtm_Tim_ExtCaptureSource_tduFrameEvt  = 14   /**< \brief tdu_frame_evt of local TDU selected */
+} IfxGtm_Tim_ExtCaptureSource;
+
+/** \brief Enum for Filter input by lookup table.
+ * Definition in Ifx_GTM_TIM_CH_ECTRL.B.USE_LUT
+ */
+typedef enum
+{
+	IfxGtm_Tim_UseLut_none = 0,        /**< \brief Lookup table not in use, lut_in0(x) used as filter input */
+	IfxGtm_Tim_UseLut_extCapture = 1,  /**< \brief Use 3-bit lookup table with index = ext_capture(x) &amp;
+									    * lut_in1(x) &amp; lut_in0(x). Filter input is defined by TO_CNT2[index]. */
+	IfxGtm_Tim_UseLut_foutPrev = 2,    /**< \brief TUse 3-bit lookup table with index = fout_prev(x) &amp;
+										* lut_in1(x) &amp; lut_in0(x). Filter input is defined by TO_CNT2[index]. */
+	IfxGtm_Tim_UseLut_tssmOut =3       /**< \brief Use 3-bit lookup table with index = tssm_out(x) &amp;
+									    * lut_in1(x) &amp; lut_in0(x). Filter input is defined by TO_CNT2[index]. */
+} IfxGtm_Tim_UseLut;
+
+/** \} */
+
+/******************************************************************************/
+/*-----------------------------Data Structures--------------------------------*/
+/******************************************************************************/
+
+/** \brief Channel control
+ */
+typedef struct
+{
+    boolean         enable;                                             /**< \brief TIM channel enable/disable */
+    IfxGtm_Tim_Mode mode;                                               /**< \brief TIM channel Mode */
+    boolean         enableOneShotMode;                                  /**< \brief enable OneShot Mode (disable - continous operation mode) */
+    boolean         enableAruRouting;                                   /**< \brief GPR0 and GPR1 register values routed to ARU.
+                                                                         * 0- Registers content not routed.
+                                                                         * 1- Registers content routed */
+    boolean            channelInputControl;                             /**< \brief 0- use signal TIM_IN(x) as input for channel .
+                                                                         * 1- use signal TIM_IN(x-1) as input for channel x (or TIM_IN(m-1) if x is 0) */
+    boolean            tbu0Sel;                             			/**< \brief TBU_TS0 bits input select for TIM0_CH[x]_GPRz (z: 0, 1)
+    																	 * 0- use TBU_TS0(23..0) to store in TIM0_CH[x]_GPR0/TIM0_CH[x]_GPR1
+                                                                         * 1- use TBU_TS0(26..3) to store in TIM0_CH[x]_GPR0/TIM0_CH[x]_GPR1 */
+    IfxGtm_Tim_GprSel  gpr0Sel;                                         /**< \brief Selection for GPR0 register */
+    IfxGtm_Tim_GprSel  gpr1Sel;                                         /**< \brief Selection for GPR1 register */
+    IfxGtm_Tim_CntsSel cntsSel;                                         /**< \brief Selection for CNTS register */
+    boolean            signalLevelControl;                              /**< \brief Signal level control
+                                                                         * 0- Measurement starts with falling edge (low level measurement).
+                                                                         * 1- Measurement starts with rising edge (high level measurement)
+                                                                         * In TIM_MODE=0b110 (TSSM) the bit field DSL defines the shift direction.
+                                                                         * 0- Shift left
+                                                                         * 1- Shift right */
+    boolean ignoreSignalLevel;                                          /**< \brief ignore Signal Level.
+                                                                         * 0- use DSL bit for selecting active signal level (TIEM).
+                                                                         * 1- ignore DSL and treat both edges as active edge (TIEM). */
+    boolean enableCounterReset;                                         /**< \brief Enables resetting of counter in certain modes ( TIM_MODE=0b101 (TGPS) / TIM_MODE=0b000 (TPWM))
+                                                                         * 0- ECNT counter operating in wrap around mode / ECNT counter operating in wrap around mode, CNT is reset on active input edge defined by DSL
+                                                                         * 1 - ECNT counter is reset with periodic sampling / ECNT counter operating in wrap around mode, CNT is reset on active and inactive input edge else ECNT counter operating in wrap around mode;
+                                                                         * In TIM_MODE=0b110 (TSSM) the bit field ECNT_RESET defines the initial polarity for the shift register. */
+    boolean                         enableFilter;                       /**< \brief enable Filter */
+    IfxGtm_Tim_FilterCounterFreqSel filterCounterFrequency;             /**< \brief Filter counter frequency select */
+    boolean                         enableExternalCaptureMode;          /**< \brief Enables external capture mode */
+    IfxGtm_Tim_FilterMode           filterModeRisingEdge;               /**< \brief Filter mode for rising edge */
+    IfxGtm_Tim_FilterCounter        filterCounterModeRisingEdge;        /**< \brief Filter counter mode for rising edge */
+    IfxGtm_Tim_FilterMode           filterModeFallingEdge;              /**< \brief Filter mode for falling edge */
+    IfxGtm_Tim_FilterCounter        filterCounterModeFallingEdge;       /**< \brief Filter counter mode for falling edge */
+    IfxGtm_Cmu_Clk                  clkSel;                             /**< \brief CMU clock source select for channel */
+    boolean                         extendEdgeCounterOverflow;          /**< \brief Extended Edge counter overflow behavior
+                                                                         * 0- Overflow will be signaled on ECNT bit width = 8
+                                                                         * 1- Overflow will be signaled on EECNT bit width (full range) */
+    boolean            egpr0Sel;                                        /**< \brief Extension of GPR0_SEL bit field */
+    boolean            egpr1Sel;                                        /**< \brief Extension of GPR1_SEL bit field */
+    IfxGtm_Tim_Timeout timeoutControl;                                  /**< \brief Timeout control */
+} IfxGtm_Tim_ChannelControl;
+
+typedef struct
+{
+    uint8 mode;        /**< \brief Input source to Channel. Multi-core encoding in use (MODE_x(1) defines the state of the signal)
+                        * 00- State is 0 (ignore write access)
+                        * 01- Change state to 0
+                        * 10- Change state to 1
+                        * 11- State is 1 (ignore write access) */
+    uint8 value;       /**< \brief Value to be fed to Channel. Multicore encoding in use (VAL_x(1) defines the state of the signal).
+						* 00- State is 0 (ignore write access)
+						* 01- Change state to 0
+						* 10- Change state to 1
+						* 11- State is 1 (ignore write access) */
+} IfxGtm_Tim_InputSourceSelect;
+
+/** \addtogroup IfxLld_Gtm_Std_Tim_Channel_Functions
+ * \{ */
+
+/******************************************************************************/
+/*-------------------------Inline Function Prototypes-------------------------*/
+/******************************************************************************/
+
+/**
+ * \brief Clears the auxiliary input source selection for the specified channel.
+ *
+ * \param[inout] gtm 	  Pointer to the GTM module instance.
+ * \param[in] 	 timIndex TIM instance number. Range: \ref IfxGtm_Tim
+ * \param[in] 	 channel  Channel index. Range: \ref IfxGtm_Tim_Ch
+ *
+ * \retval None
+ */
+IFX_INLINE void IfxGtm_Tim_Ch_clearAuxInputSourceSelection(Ifx_GTM *gtm, IfxGtm_Tim timIndex, IfxGtm_Tim_Ch channel);
+
+/**
+ * \brief Clears the counter overflow flag.
+ *
+ * \param[inout] channel Pointer to the TIM channel.
+ *
+ * \retval None
+ */
+IFX_INLINE void IfxGtm_Tim_Ch_clearCntOverflowEvent(Ifx_GTM_TIM_CH *channel);
+
+/**
+ * \brief Clears the data lost flag.
+ *
+ * \param[inout] channel Pointer to the TIM channel.
+ *
+ * \retval None
+ */
+IFX_INLINE void IfxGtm_Tim_Ch_clearDataLostEvent(Ifx_GTM_TIM_CH *channel);
+
+/**
+ * \brief Clears the event counter overflow flag.
+ *
+ * \param[inout] channel Pointer to the TIM channel.
+ *
+ * \retval None
+ */
+IFX_INLINE void IfxGtm_Tim_Ch_clearEcntOverflowEvent(Ifx_GTM_TIM_CH *channel);
+
+/**
+ * \brief Clears the glitch event flag.
+ *
+ * \param[inout] channel Pointer to the TIM channel.
+ *
+ * \retval None
+ */
+IFX_INLINE void IfxGtm_Tim_Ch_clearGlitchEvent(Ifx_GTM_TIM_CH *channel);
+
+/**
+ * \brief Clears the new value flag.
+ *
+ * \param[inout] channel Pointer to the TIM channel.
+ *
+ * \retval None
+ */
+IFX_INLINE void IfxGtm_Tim_Ch_clearNewValueEvent(Ifx_GTM_TIM_CH *channel);
+
+/**
+ * \brief Clears the specified interrupt notification.
+ *
+ * \param[inout] channel Pointer to the TIM channel.
+ * \param[in]    irqType Type of interrupt to clear. Range: \ref IfxGtm_Tim_IrqType
+ *
+ * \retval None
+ */
+IFX_INLINE void IfxGtm_Tim_Ch_clearNotification(Ifx_GTM_TIM_CH *channel, IfxGtm_Tim_IrqType irqType);
+
+/**
+ * \brief Returns the status of a notification.
+ *
+ * \param[in] channel Pointer to the TIM channel.
+ * \param[in] irqType Type of interrupt. Range: \ref IfxGtm_Tim_IrqType
+ *
+ * \retval TRUE if the notification is active.
+ * 		   FALSE otherwise
+ */
+IFX_INLINE boolean IfxGtm_Tim_Ch_getNotification(Ifx_GTM_TIM_CH *channel, IfxGtm_Tim_IrqType irqType);
+
+/**
+ * \brief Returns a pointer to the TIM channel SRC.
+ *
+ * \param[in] gtm     Pointer to the GTM module instance
+ * \param[in] tim     Specifies the TIM module number. Range: \ref IfxGtm_Tim
+ * \param[in] channel Channel index. Range: \ref IfxGtm_Tim_Ch
+ *
+ * \retval Ifx_SRC_SRCR* Pointer to the TIM channel's SRC register
+ */
+IFX_INLINE volatile Ifx_SRC_SRCR *IfxGtm_Tim_Ch_getSrcPointer(Ifx_GTM *gtm, IfxGtm_Tim tim, IfxGtm_Tim_Ch channel);
+
+/**
+ * \brief Checks if the counter overflow event flag is set.
+ *
+ * \param[in] channel Pointer to the TIM channel.
+ *
+ * \retval TRUE if the counter overflow flag is set,FALSE otherwise.
+ */
+IFX_INLINE boolean IfxGtm_Tim_Ch_isCntOverflowEvent(Ifx_GTM_TIM_CH *channel);
+
+/**
+ * \brief Checks if the data lost event flag is set.
+ *
+ * \param[in] channel Pointer to the TIM channel.
+ *
+ * \retval TRUE If the data lost event flag is set.
+ *  	   FALSE If the data lost event flag is not set.
+ */
+IFX_INLINE boolean IfxGtm_Tim_Ch_isDataLostEvent(Ifx_GTM_TIM_CH *channel);
+
+/**
+ * \brief Checks whether the event counter overflow flag is set.
+ *
+ * \param[in] channel Pointer to the TIM channel.
+ *
+ * \retval TRUE If the event counter overflow flag is set.
+ *         FALSE If the event counter overflow flag is not set.
+ */
+IFX_INLINE boolean IfxGtm_Tim_Ch_isEcntOverflowEvent(Ifx_GTM_TIM_CH *channel);
+
+/**
+ * \brief Checks if a glitch event has occurred.
+ *
+ * \param[in] channel Pointer to the TIM channel.
+ *
+ * \retval TRUE If glitch flag is set.
+ *         FALSE If glitch flag is not set.
+ */
+IFX_INLINE boolean IfxGtm_Tim_Ch_isGlitchEvent(Ifx_GTM_TIM_CH *channel);
+
+/**
+ * \brief Check whether the new value flag is set.
+ *
+ * \param[in] channel Pointer to the TIM channel.
+ *
+ * \retval TRUE if the new value flag is set,FALSE otherwise.
+ */
+IFX_INLINE boolean IfxGtm_Tim_Ch_isNewValueEvent(Ifx_GTM_TIM_CH *channel);
+
+/**
+ * \brief Sets the Auxilary input source selection of a particular channel.
+ *
+ * \param[inout] gtm 	  Pointer to the GTM module instance.
+ * \param[in] 	 timIndex TIM instance number. Range: \ref IfxGtm_Tim
+ * \param[in] 	 channel  Channel index within the TIM instance. Range: \ref IfxGtm_Tim_Ch
+ *
+ * \retval None
+ */
+IFX_INLINE void IfxGtm_Tim_Ch_setAuxInputSourceSelection(Ifx_GTM *gtm, IfxGtm_Tim timIndex, IfxGtm_Tim_Ch channel);
+
+/**
+ * \brief Configures the edge counter register.
+ *
+ * \param[inout] channel     Pointer to the TIM channel.
+ * \param[in]    edgeCounter The edge counter value to be set. Range: 0 to 255
+ *
+ * \retval None
+ */
+IFX_INLINE void IfxGtm_Tim_Ch_setEdgeCounter(Ifx_GTM_TIM_CH *channel, uint8 edgeCounter);
+
+/**
+ * \brief Configures the Falling edge Filter Parameter.
+ *
+ * \param[inout] channel 	Pointer to the TIM channel.
+ * \param[in] 	 filterTime Falling edge filter time value to set. Range: 0 to 0xFFFFFF                 	    
+ *
+ * \retval None
+ */
+IFX_INLINE void IfxGtm_Tim_Ch_setFallingEdgeFilterTime(Ifx_GTM_TIM_CH *channel, uint32 filterTime);
+
+/**
+ * \brief Configures tthe Input source selection register.
+ *
+ * \param[inout] tim         Pointer to the GTM TIM instance
+ * \param[in]    channel     Channel index. Range: \ref IfxGtm_Tim_Ch
+ * \param[in]    inputSource Input source to the channel. Range: \ref IfxGtm_Tim_InputSourceSelect
+ *
+ * \retval None
+ */
+IFX_INLINE void IfxGtm_Tim_Ch_setInputSourceSelection(Ifx_GTM_TIM *tim, IfxGtm_Tim_Ch channel, IfxGtm_Tim_InputSourceSelect inputSource);
+
+/**
+ * \brief Configures the interrupt notification.
+ *
+ * \param[inout] channel Pointer to the TIM channel.
+ *
+ * \param[in] irqType  The type of interrupt notification to be configured. Range: \ref IfxGtm_Tim_IrqType
+ *
+ * \retval None
+ */
+IFX_INLINE void IfxGtm_Tim_Ch_setNotification(Ifx_GTM_TIM_CH *channel, IfxGtm_Tim_IrqType irqType);
+
+/**
+ * \brief Configures the Raising edge Filter Parameter.
+ * 
+ * \param[inout] channel    Pointer to the TIM channel.
+ * \param[in]    filterTime Raising edge filter time parameter. Range: 0 to 0xFFFFFF
+ *
+ * \retval None
+ */
+IFX_INLINE void IfxGtm_Tim_Ch_setRisingEdgeFilterTime(Ifx_GTM_TIM_CH *channel, uint32 filterTime);
+
+/**
+ * \brief Configures the Shadow counter register.
+ *
+ * \param[inout] channel       Pointer to the TIM channel.
+ * \param[in]    shadowCounter Value to be set for the shadow counter. Range: 0 to 0xFFFFFF
+ *
+ * \retval None
+ */
+IFX_INLINE void IfxGtm_Tim_Ch_setShadowCounter(Ifx_GTM_TIM_CH *channel, uint32 shadowCounter);
+
+/**
+ * \brief Configures the source for triggering the EXT_CAPTURE functionality.
+ *
+ * \param[inout] tim 			  Pointer to the GTM TIM instance.
+ * \param[in] 	 channel 		  TIM channel. Range: \ref IfxGtm_Tim_Ch
+ * \param[in] 	 extCaptureSource Source selection for triggering EXT_CAPTURE functionality. Range: \ref IfxGtm_Tim_ExtCaptureSource
+ *
+ * \retval None
+ */
+IFX_INLINE void IfxGtm_Tim_Ch_setExtCaptureSource(Ifx_GTM_TIM *tim, IfxGtm_Tim_Ch channel, IfxGtm_Tim_ExtCaptureSource extCaptureSource);
+
+/**
+ * \brief Sets immediate start the measurement.
+ *
+ * \param[inout] tim			Pointer to the GTM TIM instance.
+ * \param[in] 	 channel  		TIM channel. Range: \ref IfxGtm_Tim_Ch
+ * \param[in] 	 startImmediate Start immediate selection
+ *							  	Range:
+ *                            	- TRUE: Start immediately after enabling (TIM_EN = 1).
+ *                            	- FALSE: Start with the first active edge the measurement.
+ *
+ * \retval None
+ */
+IFX_INLINE void IfxGtm_Tim_Ch_setImmediateStart(Ifx_GTM_TIM *tim, IfxGtm_Tim_Ch channel, boolean startImmediate);
+
+/**
+ * \brief Selects the input data source for TIM channel.
+ *
+ * \param[inout] tim 		     Pointer to the GTM TIM instance.
+ * \param[in] 	 channel 		 TIM channel. Range: \ref IfxGtm_Tim_Ch
+ * \param[in] 	 inputDataSource Selection for input data source.
+ *							  	 Range: 
+ *                            	 - If TRUE, Use input data of previous channel (after filter unit) for channel.
+ *                            	 - If FALSE, Use input data of local filter unit for channel measurements
+ *
+ * \retval None
+ */
+IFX_INLINE void IfxGtm_Tim_Ch_setUsePrevChInput(Ifx_GTM_TIM *tim, IfxGtm_Tim_Ch channel, boolean inputDataSource);
+
+/**
+ * \brief Sets the Swap point of time of capturing CNTS and GPR1.
+ * 
+ * \param[inout] tim Pointer to the GTM TIM instance.
+ * \param[in] channel TIM channel. Range: \ref IfxGtm_Tim_Ch
+ * \param[in] swapTimeCapture Selection for Swap point of time of capturing CNTS and GPR1. Range: TRUE or FALSE
+ * 
+ * \retval None
+ */
+IFX_INLINE void IfxGtm_Tim_Ch_setSwapCapture(Ifx_GTM_TIM *tim, IfxGtm_Tim_Ch channel, boolean swapTimeCapture);
+
+/**
+ * \brief Sets the Extended Filter counter mode for the rising edge.
+ *
+ * \param[inout] tim 				      	 Pointer to the GTM TIM instance.
+ * \param[in] 	 channel 					 TIM channel. Range: \ref IfxGtm_Tim_Ch
+ * \param[in] 	 filterCounterModeRisingEdge Selection for extended filter counter mode for rising edge. Range: \ref IfxGtm_Tim_FilterCounter
+ *
+ * \retval None
+ */
+IFX_INLINE void IfxGtm_Tim_Ch_setExtendFilterCounterModeRisingEdge(Ifx_GTM_TIM *tim, IfxGtm_Tim_Ch channel, IfxGtm_Tim_FilterCounter filterCounterModeRisingEdge);
+
+/**
+ * \brief Sets the Extended Filter counter mode for falling edge.
+ *
+ * \param[inout] tim 						  Pointer to the GTM TIM instance.
+ * \param[in] 	 channel 					  TIM channel. Range: \ref IfxGtm_Tim_Ch
+ * \param[in] 	 filterCounterModeFallingEdge Selection for extended filter counter mode for falling edge. Range: \ref IfxGtm_Tim_FilterCounter
+ *
+ * \retval None
+ */
+IFX_INLINE void IfxGtm_Tim_Ch_setExtendFilterCounterModeFallingEdge(Ifx_GTM_TIM *tim, IfxGtm_Tim_Ch channel, IfxGtm_Tim_FilterCounter filterCounterModeFallingEdge);
+
+/**
+ * \brief Configures the Filter input by lookup table.
+ *
+ * \param[inout] tim 		 Pointer to the GTM TIM instance.
+ * \param[in] 	 channel 	 TIM channel. Range: \ref IfxGtm_Tim_Ch
+ * \param[in] 	 lookUpTable TSelection for Filter input by lookup table. Range: \ref IfxGtm_Tim_UseLut
+ *
+ * \retval None
+ */
+IFX_INLINE void IfxGtm_Tim_Ch_setUseLookUpTable(Ifx_GTM_TIM *tim, IfxGtm_Tim_Ch channel, IfxGtm_Tim_UseLut lookUpTable);
+
+/**
+ * \brief Configures the Current Timeout value slice2 for channel.
+ *
+ * \param[inout] tim Pointer to the GTM TIM instance.
+ * \param[in]	 channel TIM channel. Range: \ref IfxGtm_Tim_Ch
+ * \param[in]	 timeout The timeout value for slice 2 of the specified channel. Range: 0 to 0xFF
+ *
+ * \retval None
+ */
+IFX_INLINE void IfxGtm_Tim_Ch_setToCnt2(Ifx_GTM_TIM *tim, IfxGtm_Tim_Ch channel, uint8 timeout);
+
+/**
+ * \brief Retrieves a pointer to the TIM channel.
+ *
+ * \param[in] tim     Pointer to the GTM TIM instance.
+ * \param[in] channel TIM channel. Range: \ref IfxGtm_Tim_Ch
+ *
+ * \retval Ifx_GTM_TIM_CH*  Pointer to the base address of the requested TIM channel. 
+ */
+IFX_INLINE Ifx_GTM_TIM_CH *IfxGtm_Tim_getChannel(Ifx_GTM_TIM *tim, IfxGtm_Tim_Ch channel);
+
+/**
+ * \brief Resets the specified TIM channel.
+ *
+ * \param[inout] tim 	 Pointer to the GTM TIM instance.
+ * \param[in] 	 channel TIM channel. Range: \ref IfxGtm_Tim_Ch
+ *
+ * \retval None
+ */
+IFX_INLINE void IfxGtm_Tim_Ch_resetChannel(Ifx_GTM_TIM *tim, IfxGtm_Tim_Ch channel);
+
+/**
+ * \brief Configures the auxilary input source selection SRC_CHz of a particular channel.
+ *
+ * \param[inout] gtm	  Pointer to the GTM module instance.
+ * \param[in] 	 timIndex TIM instance number. Range: \ref IfxGtm_Tim
+ * \param[in] 	 channel  TIM channel. Range: \ref IfxGtm_Tim_Ch
+ *
+ * \retval None
+ */
+IFX_INLINE void IfxGtm_Ccm_Tim_setAuxInSourceSelectionSrcChz(Ifx_GTM *gtm, IfxGtm_Tim timIndex, IfxGtm_Tim_Ch channel);
+
+/**
+ * \brief Configures the auxilary input source selection SEL_OUT_N_CHz of a particular channel.
+ *
+ * \param[inout] gtm	  Pointer to the GTM module instance.
+ * \param[in] 	 timIndex TIM instance number. Range: \ref IfxGtm_Tim
+ * \param[in] 	 channel  TIM channel. Range: \ref IfxGtm_Tim_Ch
+ *
+ * \retval None
+ */
+IFX_INLINE void IfxGtm_Ccm_Tim_setAuxInSourceSelectionSelOutChz(Ifx_GTM *gtm, IfxGtm_Tim timIndex, IfxGtm_Tim_Ch channel);
+
+/**
+ * \brief Clears the Auxiliary input source selection SRC_CHz of a particular channel.
+ *
+ * \param[inout] gtm	  Pointer to the GTM module instance.
+ * \param[in] 	 timIndex TIM instance number. Range: \ref IfxGtm_Tim
+ * \param[in] 	 channel  TIM channel. Range: \ref IfxGtm_Tim_Ch
+ *
+ * \retval None
+ */
+IFX_INLINE void IfxGtm_Ccm_Tim_clearAuxInSourceSelectionSrcChz(Ifx_GTM *gtm, IfxGtm_Tim timIndex, IfxGtm_Tim_Ch channel);
+
+/**
+ * \brief Clears the Auxiliary input source selection SEL_OUT_N_CHz of a particular channel.
+ *
+ * \param[inout] gtm	  Pointer to the GTM module instance.
+ * \param[in] 	 timIndex TIM instance number. Range: \ref IfxGtm_Tim
+ * \param[in] 	 channel  TIM channel. Range: \ref IfxGtm_Tim_Ch
+ *
+ * \retval None
+ */
+IFX_INLINE void IfxGtm_Ccm_Tim_clearAuxInSourceSelectionSelOutChz(Ifx_GTM *gtm, IfxGtm_Tim timIndex, IfxGtm_Tim_Ch channel);
+
+/******************************************************************************/
+/*-------------------------Global Function Prototypes-------------------------*/
+/******************************************************************************/
+
+/**
+ * \brief Returns the capture clock frequency of a GTM TIM channel.
+ *
+ * \param[in] gtm     Pointer to the GTM module instance.
+ * \param[in] channel Pointer to the TIM channel.
+ *
+ * \retval float32 The capture clock frequency in Hz.
+ */
+IFX_EXTERN float32 IfxGtm_Tim_Ch_getCaptureClockFrequency(Ifx_GTM *gtm, Ifx_GTM_TIM_CH *channel);
+
+/**
+ * \brief Returns the capture clock source selected.
+ *
+ * \param[in] channel Pointer to the TIM channel.
+ *
+ * \retval IfxGtm_Cmu_Clk The currently selected capture clock source. Range: \ref IfxGtm_Cmu_Clk
+ */
+IFX_EXTERN IfxGtm_Cmu_Clk IfxGtm_Tim_Ch_getCaptureClockSource(Ifx_GTM_TIM_CH *channel);
+
+/**
+ * \brief Returns the Filter Clock Frequency.
+ *
+ * \param[in] gtm     Pointer to the GTM module instance.
+ * \param[in] channel Pointer to the TIM channel.
+ *
+ * \retval float32 The filter clock frequency of the specified TIM channel in Hz.
+ */
+IFX_EXTERN float32 IfxGtm_Tim_Ch_getFilterClockFrequency(Ifx_GTM *gtm, Ifx_GTM_TIM_CH *channel);
+
+/**
+ * \brief Returns the Filter clock source selected.
+ *
+ * \param[in] channel Pointer to the TIM channel.
+ *
+ * \retval IfxGtm_Cmu_Tim_Filter_Clk The currently selected filter clock source. Range: \ref IfxGtm_Cmu_Tim_Filter_Clk
+ */
+IFX_EXTERN IfxGtm_Cmu_Tim_Filter_Clk IfxGtm_Tim_Ch_getFilterClockSource(Ifx_GTM_TIM_CH *channel);
+
+/**
+ * \brief Returns the Timeout Clock Frequency.
+ *
+ * \param[in] gtm     Pointer to the GTM module instance.
+ * \param[in] channel Pointer to the TIM channel.
+ *
+ * \retval float32 Timeout clock frequency in MHz.
+ */
+IFX_EXTERN float32 IfxGtm_Tim_Ch_getTimeoutClockFrequency(Ifx_GTM *gtm, Ifx_GTM_TIM_CH *channel);
+
+/**
+ * \brief Returns the Timeout clock source selected.
+ *
+ * \param[in] channel Pointer to the TIM channel.
+ *
+ * \retval IfxGtm_Cmu_Clk The currently selected timeout clock source. Range: \ref IfxGtm_Cmu_Clk
+ */
+IFX_EXTERN IfxGtm_Cmu_Clk IfxGtm_Tim_Ch_getTimeoutClockSource(Ifx_GTM_TIM_CH *channel);
+
+/**
+ * \brief Configures the channel notification.
+ * 
+ * \param[inout] channel 		   Pointer to the TIM channel.
+ * \param[in] 	 irqOnNewVal  	   Boolean flag to enable/disable.If TRUE, enables interrupt on new value detection.
+ *                        	       If FALSE, disables interrupt on new value detection.
+ * \param[in] 	 irqOnCntOverflow  Boolean flag to enable/disable.If TRUE, enables interrupt on counter (CNT) overflow.
+ *                             	   If FALSE, disables interrupt on counter overflow.
+ * \param[in] 	 irqOnEcntOverflow Boolean flag to enable/disable.If TRUE, enables interrupt on extended counter (ECNT) overflow.
+ *                                 If FALSE, disables interrupt on extended counter overflow.
+ * \param[in] 	 irqOnDatalost     Boolean flag to enable/disable.If TRUE, enables interrupt on data loss condition (GPR0, GPR1).
+ *                          	   If FALSE, disables interrupt on data loss condition.
+ *
+ * \retval None
+ */
+IFX_EXTERN void IfxGtm_Tim_Ch_setChannelNotification(Ifx_GTM_TIM_CH *channel, boolean irqOnNewVal, boolean irqOnCntOverflow, boolean irqOnEcntOverflow, boolean irqOnDatalost);
+
+/**
+ * \brief Configures the clock source.
+ *
+ * \param[inout] channel Pointer to the TIM channel.
+ * \param[in]    clock   The selected clock source. Range: \ref IfxGtm_Cmu_Clk
+ *
+ * \retval None
+ */
+IFX_EXTERN void IfxGtm_Tim_Ch_setClockSource(Ifx_GTM_TIM_CH *channel, IfxGtm_Cmu_Clk clock);
+
+/**
+ * \brief Configures the TIM channel Control register.
+ *
+ * \param[inout] channel Pointer to the TIM channel.
+ * \param[in]    control Channel control configuration structure containing various control settings 
+ *                       for the channel, such as enable state, mode, and signal controls.
+ *
+ * \retval None
+ */
+IFX_EXTERN void IfxGtm_Tim_Ch_setControl(Ifx_GTM_TIM_CH *channel, IfxGtm_Tim_ChannelControl control);
+
+/**
+ * \brief Configures the filter notification.
+ *
+ * \param[inout] channel     Pointer to the TIM channel.
+ * \param[in]    irqOnGlitch Boolean flag to enable or disable interrupt on glitch:
+ *  				         - TRUE: Interrupt is generated on glitch detection.
+ *   				      	 - FALSE: Interrupt is not generated on glitch detection.
+ *
+ * \retval None
+ */
+IFX_EXTERN void IfxGtm_Tim_Ch_setFilterNotification(Ifx_GTM_TIM_CH *channel, boolean irqOnGlitch);
+
+/**
+ * \brief Configures the interrupt notification mode.
+ *
+ * \param[inout] channel Pointer to the TIM channel.
+ * \param[in]    mode    Notification Mode to be set. Range: \ref IfxGtm_IrqMode.
+ *
+ * \retval None
+ */
+IFX_EXTERN void IfxGtm_Tim_Ch_setNotificationMode(Ifx_GTM_TIM_CH *channel, IfxGtm_IrqMode mode);
+
+/**
+ * \brief Configures the timeout notification.
+ *
+ * \param[inout] channel      Pointer to the TIM channel.
+ * \param[in]    irqOnTimeout Boolean Flag to enable or disable the interrupt on timeout.
+ *                            - TRUE: Enable interrupt on timeout.
+ *                            - FALSE: Disable interrupt on timeout.
+ *
+ * \retval None
+ */
+IFX_EXTERN void IfxGtm_Tim_Ch_setTimeoutNotification(Ifx_GTM_TIM_CH *channel, boolean irqOnTimeout);
+
+/** \} */
+
+/******************************************************************************/
+/*-------------------------Inline Function Prototypes-------------------------*/
+/******************************************************************************/
+
+/**
+ * \brief Configures the TIMINSEL register with the required mux setting.
+ *
+ * \param[in] timIndex     Index of the TIM . Range: \ref IfxGtm_Tim
+ * \param[in] channelIndex Index of the TIM channel. Range: \ref IfxGtm_Tim_Ch
+ * \param[in] tinSel       MUX value selection for the TIMINSEL register.
+ *
+ * \retval None
+ */
+IFX_INLINE void IfxGtm_Tim_Ch_setTimTin(IfxGtm_Tim timIndex, IfxGtm_Tim_Ch channelIndex, uint32 tinSel);
+
+/** \brief Connect TIM channel input to EDSADC boundary-flag path (Output from EDSADC Multiplexer).
+ *
+ * \param[in] timIndex     Index of the TIM . Range: \ref IfxGtm_Tim
+ * \param[in] channelIndex Index of the TIM channel. Range: \ref IfxGtm_Tim_Ch
+ *
+ * \retval None
+ */
+IFX_INLINE void IfxGtm_Tim_selectEdsadcBoundaryFlag(IfxGtm_Tim timIndex, IfxGtm_Tim_Ch channelIndex);
+
+/**
+ * \brief Get the current count value of a GTM TIM channel.
+ *
+ * \param[in] channel Pointer to the TIM channel.
+ *
+ * \retval uint32 The current count value of the TIM channel. Range: 0 to 0xFFFFFF
+ */
+IFX_INLINE uint32 IfxGtm_Tim_Ch_getCountValue(Ifx_GTM_TIM_CH *channel);
+
+/**
+ * \brief Get the shadow count value of a GTM TIM channel.
+ *
+ * \param[in] channel Pointer to the TIM channel.
+ *
+ * \retval uint32 The current shadow count value captured by the channel. Range: 0 to 0xFFFFFF
+ */
+IFX_INLINE uint32 IfxGtm_Tim_Ch_getShadowCountValue(Ifx_GTM_TIM_CH *channel);
+
+/* This API fetches the output status of the filter signal of a given TIM input channel.
+ *
+ * \param[in] cluster Cluster of GTM which contains the trigger source Range: \ref: IfxGtm_Cluster
+ * \param[in] channel Channel index. Range: \ref: IfxGtm_Tim_Ch
+ *
+ * \retval TRUE If the output filter source signal is high
+ *         FALSE If the output filter source signal is low
+ */
+IFX_INLINE boolean IfxGtm_Tim_isFilterOutSignalHigh(IfxGtm_Cluster cluster, IfxGtm_Tim_Ch timChannel);
+
+/* This API fetches the status of its filter input source of a given TIM input channel.
+ * Filter input is possible pre-processed signal by LUT block. The result provides the current status, at immediate possible point in time when the API is called.
+ *
+ * \param[in] cluster Cluster of GTM which contains the trigger source Range: \ref: IfxGtm_Cluster
+ * \param[in] channel Channel index. Range: \ref: IfxGtm_Tim_Ch
+ *
+ * \retval TRUE If the input filter source signal is high
+ *         FALSE If the input filter source signal is low
+ */
+IFX_INLINE boolean IfxGtm_Tim_isFilterInputSourceSignalHigh(IfxGtm_Cluster cluster, IfxGtm_Tim_Ch timChannel);
+
+/* This API fetches the status of its own input source of a given TIM input channel.
+ * In this case the result provides the current status, at immediate possible point in time when the API is called.
+ *
+ * \param[in] cluster Cluster of GTM which contains the trigger source Range: \ref: IfxGtm_Cluster
+ * \param[in] channel Channel index. Range: \ref: IfxGtm_Tim_Ch
+ *
+ * \retval TRUE If the input signal status is high
+ *         FALSE If the input signal status is low
+ */
+IFX_INLINE boolean IfxGtm_Tim_isInputSignalHigh(IfxGtm_Cluster cluster, IfxGtm_Tim_Ch timChannel);
+
+/******************************************************************************/
+/*---------------------Inline Function Implementations------------------------*/
+/******************************************************************************/
+
+IFX_INLINE void IfxGtm_Tim_Ch_clearAuxInputSourceSelection(Ifx_GTM *gtm, IfxGtm_Tim timIndex, IfxGtm_Tim_Ch channel)
+{
+    Ifx_GTM_AUX_IN_SRC src;
+    src.TIM[timIndex].U             = gtm->AUX_IN_SRC.TIM[timIndex].U;
+    src.TIM[timIndex].U            &= ~(1 << (uint8)channel);
+    gtm->AUX_IN_SRC.TIM[timIndex].U = src.TIM[timIndex].U;
+}
+
+
+IFX_INLINE void IfxGtm_Tim_Ch_clearCntOverflowEvent(Ifx_GTM_TIM_CH *channel)
+{
+    channel->IRQ.NOTIFY.U = 0x1 << IFX_GTM_TIM_CH_IRQ_NOTIFY_CNTOFL_OFF;
+}
+
+
+IFX_INLINE void IfxGtm_Tim_Ch_clearDataLostEvent(Ifx_GTM_TIM_CH *channel)
+{
+    channel->IRQ.NOTIFY.U = 0x1 << IFX_GTM_TIM_CH_IRQ_NOTIFY_GPROFL_OFF;
+}
+
+
+IFX_INLINE void IfxGtm_Tim_Ch_clearEcntOverflowEvent(Ifx_GTM_TIM_CH *channel)
+{
+    channel->IRQ.NOTIFY.U = 0x1 << IFX_GTM_TIM_CH_IRQ_NOTIFY_ECNTOFL_OFF;
+}
+
+
+IFX_INLINE void IfxGtm_Tim_Ch_clearGlitchEvent(Ifx_GTM_TIM_CH *channel)
+{
+    channel->IRQ.NOTIFY.U = 0x1 << IFX_GTM_TIM_CH_IRQ_NOTIFY_GLITCHDET_OFF;
+}
+
+
+IFX_INLINE void IfxGtm_Tim_Ch_clearNewValueEvent(Ifx_GTM_TIM_CH *channel)
+{
+    channel->IRQ.NOTIFY.U = 0x1 << IFX_GTM_TIM_CH_IRQ_NOTIFY_NEWVAL_OFF;
+}
+
+
+IFX_INLINE void IfxGtm_Tim_Ch_clearNotification(Ifx_GTM_TIM_CH *channel, IfxGtm_Tim_IrqType irqType)
+{
+    channel->IRQ.EN.U    &= ~(1 << irqType);
+    channel->IRQ.NOTIFY.U = (1 << irqType);
+}
+
+
+IFX_INLINE boolean IfxGtm_Tim_Ch_getNotification(Ifx_GTM_TIM_CH *channel, IfxGtm_Tim_IrqType irqType)
+{
+    boolean result;
+    result = ((channel->IRQ.NOTIFY.U >> irqType) & 0x1);
+    return result;
+}
+
+
+IFX_INLINE volatile Ifx_SRC_SRCR *IfxGtm_Tim_Ch_getSrcPointer(Ifx_GTM *gtm, IfxGtm_Tim tim, IfxGtm_Tim_Ch channel)
+{
+    IFX_UNUSED_PARAMETER(gtm)
+    return &MODULE_SRC.GTM_TIM[tim][channel];
+}
+
+
+IFX_INLINE boolean IfxGtm_Tim_Ch_isCntOverflowEvent(Ifx_GTM_TIM_CH *channel)
+{
+    return channel->IRQ.NOTIFY.B.CNTOFL == 1;
+}
+
+
+IFX_INLINE boolean IfxGtm_Tim_Ch_isDataLostEvent(Ifx_GTM_TIM_CH *channel)
+{
+    return channel->IRQ.NOTIFY.B.GPROFL == 1;
+}
+
+
+IFX_INLINE boolean IfxGtm_Tim_Ch_isEcntOverflowEvent(Ifx_GTM_TIM_CH *channel)
+{
+    return channel->IRQ.NOTIFY.B.ECNTOFL == 1;
+}
+
+
+IFX_INLINE boolean IfxGtm_Tim_Ch_isGlitchEvent(Ifx_GTM_TIM_CH *channel)
+{
+    return channel->IRQ.NOTIFY.B.GLITCHDET == 1;
+}
+
+
+IFX_INLINE boolean IfxGtm_Tim_Ch_isNewValueEvent(Ifx_GTM_TIM_CH *channel)
+{
+    return channel->IRQ.NOTIFY.B.NEWVAL == 1;
+}
+
+
+IFX_INLINE void IfxGtm_Tim_Ch_setAuxInputSourceSelection(Ifx_GTM *gtm, IfxGtm_Tim timIndex, IfxGtm_Tim_Ch channel)
+{
+    Ifx_GTM_AUX_IN_SRC src;
+    src.TIM[timIndex].U             = gtm->AUX_IN_SRC.TIM[timIndex].U;
+    src.TIM[timIndex].U            |= (1 << (uint8)channel);
+    gtm->AUX_IN_SRC.TIM[timIndex].U = src.TIM[timIndex].U;
+}
+
+
+IFX_INLINE void IfxGtm_Tim_Ch_setEdgeCounter(Ifx_GTM_TIM_CH *channel, uint8 edgeCounter)
+{
+    channel->CNTS.B.ECNT = edgeCounter;
+}
+
+
+IFX_INLINE void IfxGtm_Tim_Ch_setFallingEdgeFilterTime(Ifx_GTM_TIM_CH *channel, uint32 filterTime)
+{
+    channel->FLT_FE.B.FLT_FE = filterTime;
+}
+
+
+IFX_INLINE void IfxGtm_Tim_Ch_setInputSourceSelection(Ifx_GTM_TIM *tim, IfxGtm_Tim_Ch channel, IfxGtm_Tim_InputSourceSelect inputSource)
+{
+    uint8 bitPos = (uint8)channel * IFX_GTM_TIM_IN_SRC_VAL_1_OFF;
+
+    uint32 mask = (uint32)(((IFX_GTM_TIM_IN_SRC_MODE_0_MSK << IFX_GTM_TIM_IN_SRC_MODE_0_OFF) | IFX_GTM_TIM_IN_SRC_VAL_0_MSK) << bitPos);  /* Combined mask for mode and value */
+	uint32 value = (uint32)(((inputSource.mode << IFX_GTM_TIM_IN_SRC_MODE_0_OFF) | inputSource.value) << bitPos);                         /* Combined value for mode and value */
+
+	__ldmst_c(&(tim->IN_SRC.U), mask, value);
+}
+
+
+IFX_INLINE void IfxGtm_Tim_Ch_setNotification(Ifx_GTM_TIM_CH *channel, IfxGtm_Tim_IrqType irqType)
+{
+    channel->IRQ.EN.U     |= 1 << irqType;
+    channel->IRQ.NOTIFY.U |= 1 << irqType;
+}
+
+
+IFX_INLINE void IfxGtm_Tim_Ch_setRisingEdgeFilterTime(Ifx_GTM_TIM_CH *channel, uint32 filterTime)
+{
+    channel->FLT_RE.B.FLT_RE = filterTime;
+}
+
+
+IFX_INLINE void IfxGtm_Tim_Ch_setShadowCounter(Ifx_GTM_TIM_CH *channel, uint32 shadowCounter)
+{
+    channel->CNTS.B.CNTS = shadowCounter;
+}
+
+
+IFX_INLINE void IfxGtm_Tim_Ch_setExtCaptureSource(Ifx_GTM_TIM *tim, IfxGtm_Tim_Ch channel, IfxGtm_Tim_ExtCaptureSource extCaptureSource)
+{
+	Ifx_GTM_TIM_CH *timCh = IfxGtm_Tim_getChannel(tim, channel);
+
+	timCh->ECTRL.B.EXT_CAP_SRC = extCaptureSource;
+}
+
+
+IFX_INLINE void IfxGtm_Tim_Ch_setImmediateStart(Ifx_GTM_TIM *tim, IfxGtm_Tim_Ch channel, boolean startImmediate)
+{
+	Ifx_GTM_TIM_CH *timCh = IfxGtm_Tim_getChannel(tim, channel);
+
+	timCh->ECTRL.B.IMM_START = startImmediate ? 1 : 0;
+}
+
+
+IFX_INLINE void IfxGtm_Tim_Ch_setUsePrevChInput(Ifx_GTM_TIM *tim, IfxGtm_Tim_Ch channel, boolean inputDataSource)
+{
+	Ifx_GTM_TIM_CH *timCh = IfxGtm_Tim_getChannel(tim, channel);
+
+	timCh->ECTRL.B.USE_PREV_CH_IN = inputDataSource ? 1 : 0;
+}
+
+
+IFX_INLINE void IfxGtm_Tim_Ch_setSwapCapture(Ifx_GTM_TIM *tim, IfxGtm_Tim_Ch channel, boolean swapTimeCapture)
+{
+	Ifx_GTM_TIM_CH *timCh = IfxGtm_Tim_getChannel(tim, channel);
+
+	timCh->ECTRL.B.SWAP_CAPTURE = swapTimeCapture ? 1 : 0;
+}
+
+
+IFX_INLINE void IfxGtm_Tim_Ch_setExtendFilterCounterModeRisingEdge(Ifx_GTM_TIM *tim, IfxGtm_Tim_Ch channel, IfxGtm_Tim_FilterCounter filterCounterModeRisingEdge)
+{
+	Ifx_GTM_TIM_CH *timCh = IfxGtm_Tim_getChannel(tim, channel);
+
+	timCh->ECTRL.B.EFLT_CTR_RE = filterCounterModeRisingEdge;
+}
+
+
+IFX_INLINE void IfxGtm_Tim_Ch_setExtendFilterCounterModeFallingEdge(Ifx_GTM_TIM *tim, IfxGtm_Tim_Ch channel, IfxGtm_Tim_FilterCounter filterCounterModeFallingEdge)
+{
+	Ifx_GTM_TIM_CH *timCh = IfxGtm_Tim_getChannel(tim, channel);
+
+	timCh->ECTRL.B.EFLT_CTR_FE = filterCounterModeFallingEdge;
+}
+
+
+IFX_INLINE void IfxGtm_Tim_Ch_setUseLookUpTable(Ifx_GTM_TIM *tim, IfxGtm_Tim_Ch channel, IfxGtm_Tim_UseLut lookUpTable)
+{
+	Ifx_GTM_TIM_CH *timCh = IfxGtm_Tim_getChannel(tim, channel);
+
+	timCh->ECTRL.B.USE_LUT = lookUpTable;
+}
+
+
+IFX_INLINE void IfxGtm_Tim_Ch_setToCnt2(Ifx_GTM_TIM *tim, IfxGtm_Tim_Ch channel, uint8 timeout)
+{
+	Ifx_GTM_TIM_CH *timCh = IfxGtm_Tim_getChannel(tim, channel);
+
+	timCh->TDUC.B.TO_CNT2 = timeout;
+}
+
+
+IFX_INLINE Ifx_GTM_TIM_CH *IfxGtm_Tim_getChannel(Ifx_GTM_TIM *tim, IfxGtm_Tim_Ch channel)
+{
+    return (Ifx_GTM_TIM_CH *)((uint32)&tim->CH0.GPR0.U + ((uint32)&tim->CH1 - (uint32)&tim->CH0) * channel);
+}
+
+
+IFX_INLINE void IfxGtm_Tim_Ch_resetChannel(Ifx_GTM_TIM *tim, IfxGtm_Tim_Ch channel)
+{
+    tim->RST.U |= (uint32)1 << (uint32)channel;
+}
+
+
+IFX_INLINE void IfxGtm_Ccm_Tim_setAuxInSourceSelectionSrcChz(Ifx_GTM *gtm, IfxGtm_Tim timIndex, IfxGtm_Tim_Ch channel)
+{
+	gtm->CCM[timIndex].TIM_AUX_IN_SRC.U |= 1 << (uint32)channel;
+}
+
+
+IFX_INLINE void IfxGtm_Ccm_Tim_setAuxInSourceSelectionSelOutChz(Ifx_GTM *gtm, IfxGtm_Tim timIndex, IfxGtm_Tim_Ch channel)
+{
+	gtm->CCM[timIndex].TIM_AUX_IN_SRC.U |= 1 << ((uint32)channel + 16);
+}
+
+
+IFX_INLINE void IfxGtm_Ccm_Tim_clearAuxInSourceSelectionSrcChz(Ifx_GTM *gtm, IfxGtm_Tim timIndex, IfxGtm_Tim_Ch channel)
+{
+	gtm->CCM[timIndex].TIM_AUX_IN_SRC.U &=  ~(1 << (uint32)channel);
+}
+
+
+IFX_INLINE void IfxGtm_Ccm_Tim_clearAuxInSourceSelectionSelOutChz(Ifx_GTM *gtm, IfxGtm_Tim timIndex, IfxGtm_Tim_Ch channel)
+{
+	gtm->CCM[timIndex].TIM_AUX_IN_SRC.U &= ~(1 << ((uint32)channel + 16));
+}
+
+
+IFX_INLINE void IfxGtm_Tim_Ch_setTimTin(IfxGtm_Tim timIndex, IfxGtm_Tim_Ch channelIndex, uint32 tinSel)
+{
+    uint32 shift = channelIndex * 4;
+
+    __ldmst_c(&(MODULE_GTM.TIMINSEL[timIndex].U), (0xFU << shift), (tinSel) << shift);
+}
+
+
+IFX_INLINE void IfxGtm_Tim_selectEdsadcBoundaryFlag(IfxGtm_Tim timIndex, IfxGtm_Tim_Ch channelIndex)
+{
+    uint32 shift = (uint32)channelIndex * IFX_GTM_TIMINSEL_CH0SEL_LEN;
+    uint32 value = (uint32)IFX_GTM_TIMINSEL_CHSEL_EDSADC_BOUNDARY_FLAG << shift;
+    uint32 mask  = (uint32)IFX_GTM_TIMINSEL_CH0SEL_MSK << shift;
+
+    Ifx__ldmst(&MODULE_GTM.TIMINSEL[timIndex].U, mask, value);
+}
+
+
+IFX_INLINE uint32 IfxGtm_Tim_Ch_getCountValue(Ifx_GTM_TIM_CH *channel)
+{
+    return channel->CNT.B.CNT;
+}
+
+
+IFX_INLINE uint32 IfxGtm_Tim_Ch_getShadowCountValue(Ifx_GTM_TIM_CH *channel)
+{
+    return channel->CNTS.B.CNTS;
+}
+
+
+IFX_INLINE boolean IfxGtm_Tim_isFilterOutSignalHigh(IfxGtm_Cluster cluster, IfxGtm_Tim_Ch timChannel)
+{
+    uint32 foutBitPos = (uint32)(1u << (timChannel + IFX_GTM_TIM_INP_VAL_F_OUT_OFF));
+
+    return ((MODULE_GTM.TIM[cluster].INP_VAL.U & foutBitPos) != 0u) ? TRUE : FALSE;
+}
+
+
+IFX_INLINE boolean IfxGtm_Tim_isFilterInputSourceSignalHigh(IfxGtm_Cluster cluster, IfxGtm_Tim_Ch timChannel)
+{
+	uint32 finBitPos = (uint32)(1u << (timChannel + IFX_GTM_TIM_INP_VAL_F_IN_OFF));
+
+    return ((MODULE_GTM.TIM[cluster].INP_VAL.U & finBitPos) != 0u) ? TRUE : FALSE;
+}
+
+
+IFX_INLINE boolean IfxGtm_Tim_isInputSignalHigh(IfxGtm_Cluster cluster, IfxGtm_Tim_Ch timChannel)
+{
+	uint32 inBitPos = (uint32)(1u << (timChannel + IFX_GTM_TIM_INP_VAL_TIM_IN_OFF));
+
+	return ((MODULE_GTM.TIM[cluster].INP_VAL.U & inBitPos) != 0u) ? TRUE : FALSE;
+}
+
+
+#endif /* IFXGTM_TIM_H */

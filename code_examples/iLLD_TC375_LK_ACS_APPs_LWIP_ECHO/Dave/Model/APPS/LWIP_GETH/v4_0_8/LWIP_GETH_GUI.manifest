@@ -1,0 +1,332 @@
+package Model.APPS.LWIP_GETH.v4_0_8;
+// Import statements
+import ifx.davex.app.manifest.*
+
+abstract class LWIP_GETH_GUI extends AppManifest {
+
+    /* IMPORTANT NOTE: This is an auto generated file, please do not edit manually. */
+    /* User modifications in the GUI editor will be updated here automatically.     */
+    /* Manually editing the contents of this file will corrupt the APP SDK project. */
+
+	/* Begin : UI variable section */
+	 public GTab gtab_common;
+	 public GTab gtab_ip_settings;
+	 public GTab gtab_protocol_settings;
+	 public GTab gtab_rtos_settings;
+	 public GTab gtab_mem_settings;
+	 public GTab gtab_debug_settings;
+	 public GTab gtab_cust_settings;
+	 public GImage gimage_dns_server;
+	 public GInteger ginteger_ttl;
+	 public GInteger ginteger_arp_table;
+	 public GInteger ginteger_dns_1;
+	 public GInteger ginteger_dns_2;
+	 public GInteger ginteger_dns_3;
+	 public GInteger ginteger_dns_4;
+	 public GInteger ginteger_tcp_mss;
+	 public GInteger ginteger_tcp_wnd;
+	 public GInteger ginteger_tcp_snd_buf;
+	 public GInteger ginteger_tcp_snd_queuelen;
+	 public GInteger ginteger_tcpip_task_stack_size;
+	 public GInteger ginteger_geth_stack_size;
+	 public GInteger ginteger_phy_stack;
+	 public GInteger ginteger_mem_size;
+	 public GInteger ginteger_pbuf_pool_size;
+	 public GInteger ginteger_memp_num_pbuf;
+	 public GInteger ginteger_memp_num_raw_pcb;
+	 public GInteger ginteger_memp_num_udp_pcb;
+	 public GInteger ginteger_memp_num_tcp_pcb;
+	 public GInteger ginteger_tcp_pcb_listen;
+	 public GInteger ginteger_tcp_seg;
+	 public GInteger ginteger_reassdata;
+	 public GInteger ginteger_arp_queue;
+	 public GInteger ginteger_no_struct_netbufs;
+	 public GInteger ginteger_no_struct_netconns;
+	 public GInteger ginteger_no_tcpip_msg_api;
+	 public GInteger ginteger_no_tcpip_smg_inpkt;
+	 public GInteger ginteger_sel_no_geth;
+	 public GCombo gcombo_tcpip_task_prio;
+	 public GCombo gcombo_geth_prio;
+	 public GCombo gcombo_phy_prio;
+	 public GCombo gcombo_dbg_msg_type;
+	 public GCheck gcheck_dhcp;
+	 public GCheck gcheck_enable_ipv6;
+	 public GCheck gcheck_ip_options;
+	 public GCheck gcheck_en_autoip;
+	 public GCheck gcheck_ip_frag;
+	 public GCheck gcheck_ip_reassem;
+	 public GCheck gcheck_en_icmp;
+	 public GCheck gcheck_en_igmp;
+	 public GCheck gcheck_en_dns;
+	 public GCheck gcheck_en_snmp;
+	 public GCheck gcheck_en_tcp;
+	 public GCheck gcheck_en_udp;
+	 public GCheck gcheck_enable_rtos;
+	 public GCheck gcheck_en_debug;
+	 public GCheck gcheck_netif_debug;
+	 public GCheck gcheck_etharp_debug;
+	 public GCheck gcheck_ip_debug;
+	 public GCheck gcheck_ip_reass_debug;
+	 public GCheck gcheck_ip6_debug;
+	 public GCheck gcheck_inet_debug;
+	 public GCheck gcheck_tcp_debug;
+	 public GCheck gcheck_tcp_input_debug;
+	 public GCheck gcheck_tcp_output_debug;
+	 public GCheck gcheck_tcp_fr_debug;
+	 public GCheck gcheck_tcp_rto_debug;
+	 public GCheck gcheck_tcp_cwnd_debug;
+	 public GCheck gcheck_tcp_wnd_debug;
+	 public GCheck gcheck_tcp_rst_debug;
+	 public GCheck gcheck_tcp_qlen_debug;
+	 public GCheck gcheck_udp_debug;
+	 public GCheck gcheck_raw_debug;
+	 public GCheck gcheck_icmp_debug;
+	 public GCheck gcheck_igmp_debug;
+	 public GCheck gcheck_dhcp_debug;
+	 public GCheck gcheck_dhcp6_debug;
+	 public GCheck gcheck_autoip_debug;
+	 public GCheck gcheck_acd_debug;
+	 public GCheck gcheck_dns_debug;
+	 public GCheck gcheck_snmp_msg_debug;
+	 public GCheck gcheck_snmp_mib_debug;
+	 public GCheck gcheck_sys_debug;
+	 public GCheck gcheck_timers_debug;
+	 public GCheck gcheck_tcpip_debug;
+	 public GCheck gcheck_pbuf_debug;
+	 public GCheck gcheck_mem_debug;
+	 public GCheck gcheck_memp_debug;
+	 public GCheck gcheck_socket_debug;
+	 public GCheck gcheck_api_msg_debug;
+	 public GCheck gcheck_api_lib_debug;
+	 public GCheck gcheck_netif_hostname_en;
+	 public GCheck gcheck_netif_status_notif_en;
+	 public GLabel glabel_dhcp;
+	 public GLabel glabel_enable_ipv6;
+	 public GLabel glabel_ip_options;
+	 public GLabel glabel_en_autoip;
+	 public GLabel glabel_ip_frag;
+	 public GLabel glabel_ip_reassem;
+	 public GLabel glabel_ttl;
+	 public GLabel glabel_arp_table;
+	 public GLabel glabel_en_icmp;
+	 public GLabel glabel_en_igmp;
+	 public GLabel glabel_en_dns;
+	 public GLabel glabel_dns_server;
+	 public GLabel glabel_dns_server_1;
+	 public GLabel glabel_dns_server_2;
+	 public GLabel glabel_dns_server_3;
+	 public GLabel glabel_en_snmp;
+	 public GLabel glabel_en_tcp;
+	 public GLabel glabel_tcp_mss;
+	 public GLabel glabel_tcp_wnd;
+	 public GLabel glabel_tcp_snd_buf;
+	 public GLabel glabel_tcp_snd_queuelen;
+	 public GLabel glabel_en_udp;
+	 public GLabel glabel_enable_rtos;
+	 public GLabel glabel_tcpip_task_prio;
+	 public GLabel glabel_tcpip_task_stack_size;
+	 public GLabel glabel_geth_prio;
+	 public GLabel glabel_geth_stack_size;
+	 public GLabel glabel_phy_prio;
+	 public GLabel glabel_phy_stack;
+	 public GLabel glabel_mem_size;
+	 public GLabel glabel_pbuf_pool_size;
+	 public GLabel glabel_memp_num_pbuf;
+	 public GLabel glabel_memp_num_raw_pcb;
+	 public GLabel glabel_memp_num_udp_pcb;
+	 public GLabel glabel_memp_num_tcp_pcb;
+	 public GLabel glabel_tcp_pcb_listen;
+	 public GLabel glabel_tcp_seg;
+	 public GLabel glabel_reassdata;
+	 public GLabel glabel_arp_queue;
+	 public GLabel glabel_no_struct_netbufs;
+	 public GLabel glabel_no_struct_netconns;
+	 public GLabel glabel_no_tcpip_msg_api;
+	 public GLabel glabel_no_tcpip_smg_inpkt;
+	 public GLabel glabel_en_debug;
+	 public GLabel glabel_dbg_msg_type;
+	 public GLabel glabel_sel_no_geth;
+	 public GLabel glabel_netif_hostname_en;
+	 public GLabel glabel_netif_status_notif_en;
+	 public GGroup ggroup_tcpip_settings;
+	 public GGroup ggroup_gethernet;
+	 public GGroup ggroup_phy;
+	 public GGroup ggroup_heap_buffers;
+	 public GGroup ggroup_connection_pcbs;
+	 public GGroup ggroup_queues;
+	 public GGroup ggroup_rtos_resources;
+	 public GGroup ggroup_network;
+	 public GGroup ggroup_Ip;
+	 public GGroup ggroup_tcp;
+	 public GGroup ggroup_udp;
+	 public GGroup ggroup_protocols;
+	 public GGroup ggroup_system;
+	 public GIndexCombo gindexcombo_sel_geth_port_ntwrk_intr;
+	 public RArray<Gindexgroup_ntwrk_interface> rArraygindexgroup_ntwrk_interface = RArray(2);
+
+	 public GIndexGroup gindexgroup_ntwrk_interface;
+
+	 public LWIP_GETH_GUI(DaveEnv daveEnv){
+
+	 gtab_common = GTab(widgetName: "gtab_common", text: "Common Settings", enabled: true, visible: true)
+	 gtab_ip_settings = GTab(widgetName: "gtab_ip_settings", text: "IP Settings", enabled: true, visible: true)
+	 gtab_protocol_settings = GTab(widgetName: "gtab_protocol_settings", text: "Protocol Settings", enabled: true, visible: true)
+	 gtab_rtos_settings = GTab(widgetName: "gtab_rtos_settings", text: "RTOS Settings", enabled: true, visible: true)
+	 gtab_mem_settings = GTab(widgetName: "gtab_mem_settings", text: "Memory Settings", enabled: true, visible: true)
+	 gtab_debug_settings = GTab(widgetName: "gtab_debug_settings", text: "Debug Settings", enabled: true, visible: true)
+	 gtab_cust_settings = GTab(widgetName: "gtab_cust_settings", text: "Port Settings", enabled: true, visible: true)
+	 gimage_dns_server = GImage(widgetName: "gimage_dns_server", path: "", enabled: true, visible: true)
+	 ginteger_ttl = GInteger(widgetName: "ginteger_ttl", value: 255, minValue: 1, maxValue: 255, enabled: true, visible: true, isMandatoryValue: false)
+	 ginteger_arp_table = GInteger(widgetName: "ginteger_arp_table", value: 10, minValue: 1, maxValue: 127, enabled: true, visible: true, isMandatoryValue: false)
+	 ginteger_dns_1 = GInteger(widgetName: "ginteger_dns_1", value: 0, minValue: 0, maxValue: 255, enabled: true, visible: true, isMandatoryValue: false)
+	 ginteger_dns_2 = GInteger(widgetName: "ginteger_dns_2", value: 0, minValue: 0, maxValue: 255, enabled: true, visible: true, isMandatoryValue: false)
+	 ginteger_dns_3 = GInteger(widgetName: "ginteger_dns_3", value: 0, minValue: 0, maxValue: 255, enabled: true, visible: true, isMandatoryValue: false)
+	 ginteger_dns_4 = GInteger(widgetName: "ginteger_dns_4", value: 0, minValue: 0, maxValue: 255, enabled: true, visible: true, isMandatoryValue: false)
+	 ginteger_tcp_mss = GInteger(widgetName: "ginteger_tcp_mss", value: 536, minValue: 1, maxValue: 1460, enabled: true, visible: true, isMandatoryValue: false)
+	 ginteger_tcp_wnd = GInteger(widgetName: "ginteger_tcp_wnd", value: 2144, minValue: 1, maxValue: 16000, enabled: true, visible: true, isMandatoryValue: false)
+	 ginteger_tcp_snd_buf = GInteger(widgetName: "ginteger_tcp_snd_buf", value: 1072, minValue: 1, maxValue: 16000, enabled: true, visible: true, isMandatoryValue: false)
+	 ginteger_tcp_snd_queuelen = GInteger(widgetName: "ginteger_tcp_snd_queuelen", value: 8, minValue: 1, maxValue: 10000, enabled: true, visible: true, isMandatoryValue: false)
+	 ginteger_tcpip_task_stack_size = GInteger(widgetName: "ginteger_tcpip_task_stack_size", value: 512, minValue: 0, maxValue: 1048576, enabled: true, visible: true, isMandatoryValue: false)
+	 ginteger_geth_stack_size = GInteger(widgetName: "ginteger_geth_stack_size", value: 512, minValue: 0, maxValue: 1048576, enabled: true, visible: true, isMandatoryValue: false)
+	 ginteger_phy_stack = GInteger(widgetName: "ginteger_phy_stack", value: 256, minValue: 0, maxValue: 1048576, enabled: true, visible: true, isMandatoryValue: false)
+	 ginteger_mem_size = GInteger(widgetName: "ginteger_mem_size", value: 1600, minValue: 1, maxValue: 32000, enabled: true, visible: true, isMandatoryValue: false)
+	 ginteger_pbuf_pool_size = GInteger(widgetName: "ginteger_pbuf_pool_size", value: 16, minValue: 1, maxValue: 32, enabled: true, visible: true, isMandatoryValue: false)
+	 ginteger_memp_num_pbuf = GInteger(widgetName: "ginteger_memp_num_pbuf", value: 16, minValue: 1, maxValue: 2500, enabled: true, visible: true, isMandatoryValue: false)
+	 ginteger_memp_num_raw_pcb = GInteger(widgetName: "ginteger_memp_num_raw_pcb", value: 4, minValue: 1, maxValue: 16000, enabled: true, visible: true, isMandatoryValue: false)
+	 ginteger_memp_num_udp_pcb = GInteger(widgetName: "ginteger_memp_num_udp_pcb", value: 4, minValue: 0, maxValue: 16000, enabled: true, visible: true, isMandatoryValue: false)
+	 ginteger_memp_num_tcp_pcb = GInteger(widgetName: "ginteger_memp_num_tcp_pcb", value: 5, minValue: 0, maxValue: 16000, enabled: true, visible: true, isMandatoryValue: false)
+	 ginteger_tcp_pcb_listen = GInteger(widgetName: "ginteger_tcp_pcb_listen", value: 5, minValue: 0, maxValue: 16000, enabled: true, visible: true, isMandatoryValue: false)
+	 ginteger_tcp_seg = GInteger(widgetName: "ginteger_tcp_seg", value: 8, minValue: 0, maxValue: 16000, enabled: true, visible: true, isMandatoryValue: false)
+	 ginteger_reassdata = GInteger(widgetName: "ginteger_reassdata", value: 5, minValue: 0, maxValue: 16000, enabled: true, visible: true, isMandatoryValue: false)
+	 ginteger_arp_queue = GInteger(widgetName: "ginteger_arp_queue", value: 30, minValue: 0, maxValue: 16000, enabled: true, visible: true, isMandatoryValue: false)
+	 ginteger_no_struct_netbufs = GInteger(widgetName: "ginteger_no_struct_netbufs", value: 2, minValue: 0, maxValue: 16000, enabled: true, visible: true, isMandatoryValue: false)
+	 ginteger_no_struct_netconns = GInteger(widgetName: "ginteger_no_struct_netconns", value: 4, minValue: 0, maxValue: 16000, enabled: true, visible: true, isMandatoryValue: false)
+	 ginteger_no_tcpip_msg_api = GInteger(widgetName: "ginteger_no_tcpip_msg_api", value: 8, minValue: 0, maxValue: 16000, enabled: true, visible: true, isMandatoryValue: false)
+	 ginteger_no_tcpip_smg_inpkt = GInteger(widgetName: "ginteger_no_tcpip_smg_inpkt", value: 8, minValue: 0, maxValue: 16000, enabled: true, visible: true, isMandatoryValue: false)
+	 ginteger_sel_no_geth = GInteger(widgetName: "ginteger_sel_no_geth", value: 1, minValue: 1, maxValue: 1, enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_tcpip_task_prio = GCombo(widgetName: "gcombo_tcpip_task_prio", options: ["Idle (lowest)","Low","Below Normal","Normal","Above Normal","High","Realtime (highest)"], value: "Normal", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_geth_prio = GCombo(widgetName: "gcombo_geth_prio", options: ["Idle (lowest)","Low","Below Normal","Normal","Above Normal","High","Realtime (highest)"], value: "Normal", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_phy_prio = GCombo(widgetName: "gcombo_phy_prio", options: ["Idle (lowest)","Low","Below Normal","Normal","Above Normal","High","Realtime (highest)"], value: "Normal", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_dbg_msg_type = GCombo(widgetName: "gcombo_dbg_msg_type", options: ["Message Trace","Message State","Newly Added Code","Halt After Printing"], value: "Message State", enabled: true, visible: true, isMandatoryValue: false)
+	 gcheck_dhcp = GCheck(widgetName: "gcheck_dhcp", value: false, enabled: false, visible: true)
+	 gcheck_enable_ipv6 = GCheck(widgetName: "gcheck_enable_ipv6", value: false, enabled: false, visible: true)
+	 gcheck_ip_options = GCheck(widgetName: "gcheck_ip_options", value: false, enabled: true, visible: true)
+	 gcheck_en_autoip = GCheck(widgetName: "gcheck_en_autoip", value: false, enabled: true, visible: true)
+	 gcheck_ip_frag = GCheck(widgetName: "gcheck_ip_frag", value: false, enabled: true, visible: true)
+	 gcheck_ip_reassem = GCheck(widgetName: "gcheck_ip_reassem", value: false, enabled: true, visible: true)
+	 gcheck_en_icmp = GCheck(widgetName: "gcheck_en_icmp", value: true, enabled: true, visible: true)
+	 gcheck_en_igmp = GCheck(widgetName: "gcheck_en_igmp", value: false, enabled: true, visible: true)
+	 gcheck_en_dns = GCheck(widgetName: "gcheck_en_dns", value: false, enabled: true, visible: true)
+	 gcheck_en_snmp = GCheck(widgetName: "gcheck_en_snmp", value: false, enabled: true, visible: true)
+	 gcheck_en_tcp = GCheck(widgetName: "gcheck_en_tcp", value: true, enabled: true, visible: true)
+	 gcheck_en_udp = GCheck(widgetName: "gcheck_en_udp", value: true, enabled: true, visible: true)
+	 gcheck_enable_rtos = GCheck(widgetName: "gcheck_enable_rtos", value: false, enabled: true, visible: true)
+	 gcheck_en_debug = GCheck(widgetName: "gcheck_en_debug", value: false, enabled: true, visible: true)
+	 gcheck_netif_debug = GCheck(widgetName: "gcheck_netif_debug", value: false, enabled: true, visible: true)
+	 gcheck_etharp_debug = GCheck(widgetName: "gcheck_etharp_debug", value: false, enabled: true, visible: true)
+	 gcheck_ip_debug = GCheck(widgetName: "gcheck_ip_debug", value: false, enabled: true, visible: true)
+	 gcheck_ip_reass_debug = GCheck(widgetName: "gcheck_ip_reass_debug", value: false, enabled: true, visible: true)
+	 gcheck_ip6_debug = GCheck(widgetName: "gcheck_ip6_debug", value: false, enabled: false, visible: true)
+	 gcheck_inet_debug = GCheck(widgetName: "gcheck_inet_debug", value: false, enabled: true, visible: true)
+	 gcheck_tcp_debug = GCheck(widgetName: "gcheck_tcp_debug", value: false, enabled: true, visible: true)
+	 gcheck_tcp_input_debug = GCheck(widgetName: "gcheck_tcp_input_debug", value: false, enabled: true, visible: true)
+	 gcheck_tcp_output_debug = GCheck(widgetName: "gcheck_tcp_output_debug", value: false, enabled: true, visible: true)
+	 gcheck_tcp_fr_debug = GCheck(widgetName: "gcheck_tcp_fr_debug", value: false, enabled: true, visible: true)
+	 gcheck_tcp_rto_debug = GCheck(widgetName: "gcheck_tcp_rto_debug", value: false, enabled: true, visible: true)
+	 gcheck_tcp_cwnd_debug = GCheck(widgetName: "gcheck_tcp_cwnd_debug", value: false, enabled: true, visible: true)
+	 gcheck_tcp_wnd_debug = GCheck(widgetName: "gcheck_tcp_wnd_debug", value: false, enabled: true, visible: true)
+	 gcheck_tcp_rst_debug = GCheck(widgetName: "gcheck_tcp_rst_debug", value: false, enabled: true, visible: true)
+	 gcheck_tcp_qlen_debug = GCheck(widgetName: "gcheck_tcp_qlen_debug", value: false, enabled: true, visible: true)
+	 gcheck_udp_debug = GCheck(widgetName: "gcheck_udp_debug", value: false, enabled: true, visible: true)
+	 gcheck_raw_debug = GCheck(widgetName: "gcheck_raw_debug", value: false, enabled: true, visible: true)
+	 gcheck_icmp_debug = GCheck(widgetName: "gcheck_icmp_debug", value: false, enabled: true, visible: true)
+	 gcheck_igmp_debug = GCheck(widgetName: "gcheck_igmp_debug", value: false, enabled: true, visible: true)
+	 gcheck_dhcp_debug = GCheck(widgetName: "gcheck_dhcp_debug", value: false, enabled: true, visible: true)
+	 gcheck_dhcp6_debug = GCheck(widgetName: "gcheck_dhcp6_debug", value: false, enabled: false, visible: true)
+	 gcheck_autoip_debug = GCheck(widgetName: "gcheck_autoip_debug", value: false, enabled: true, visible: true)
+	 gcheck_acd_debug = GCheck(widgetName: "gcheck_acd_debug", value: false, enabled: true, visible: true)
+	 gcheck_dns_debug = GCheck(widgetName: "gcheck_dns_debug", value: false, enabled: true, visible: true)
+	 gcheck_snmp_msg_debug = GCheck(widgetName: "gcheck_snmp_msg_debug", value: false, enabled: true, visible: true)
+	 gcheck_snmp_mib_debug = GCheck(widgetName: "gcheck_snmp_mib_debug", value: false, enabled: true, visible: true)
+	 gcheck_sys_debug = GCheck(widgetName: "gcheck_sys_debug", value: false, enabled: true, visible: true)
+	 gcheck_timers_debug = GCheck(widgetName: "gcheck_timers_debug", value: false, enabled: true, visible: true)
+	 gcheck_tcpip_debug = GCheck(widgetName: "gcheck_tcpip_debug", value: false, enabled: true, visible: true)
+	 gcheck_pbuf_debug = GCheck(widgetName: "gcheck_pbuf_debug", value: false, enabled: true, visible: true)
+	 gcheck_mem_debug = GCheck(widgetName: "gcheck_mem_debug", value: false, enabled: true, visible: true)
+	 gcheck_memp_debug = GCheck(widgetName: "gcheck_memp_debug", value: false, enabled: true, visible: true)
+	 gcheck_socket_debug = GCheck(widgetName: "gcheck_socket_debug", value: false, enabled: true, visible: true)
+	 gcheck_api_msg_debug = GCheck(widgetName: "gcheck_api_msg_debug", value: false, enabled: true, visible: true)
+	 gcheck_api_lib_debug = GCheck(widgetName: "gcheck_api_lib_debug", value: false, enabled: true, visible: true)
+	 gcheck_netif_hostname_en = GCheck(widgetName: "gcheck_netif_hostname_en", value: false, enabled: true, visible: true)
+	 gcheck_netif_status_notif_en = GCheck(widgetName: "gcheck_netif_status_notif_en", value: false, enabled: true, visible: true)
+	 glabel_dhcp = GLabel(widgetName: "glabel_dhcp", text: "Enable DHCP", enabled: true, visible: true)
+	 glabel_enable_ipv6 = GLabel(widgetName: "glabel_enable_ipv6", text: "Enable IPv6 Support", enabled: true, visible: true)
+	 glabel_ip_options = GLabel(widgetName: "glabel_ip_options", text: "Enable IP Options", enabled: true, visible: true)
+	 glabel_en_autoip = GLabel(widgetName: "glabel_en_autoip", text: "Enable AUTOIP", enabled: true, visible: true)
+	 glabel_ip_frag = GLabel(widgetName: "glabel_ip_frag", text: "Enable IP Fragmentation", enabled: true, visible: true)
+	 glabel_ip_reassem = GLabel(widgetName: "glabel_ip_reassem", text: "Enable IP Reassembly", enabled: true, visible: true)
+	 glabel_ttl = GLabel(widgetName: "glabel_ttl", text: "Default Time to Live (TTL)", enabled: true, visible: true)
+	 glabel_arp_table = GLabel(widgetName: "glabel_arp_table", text: "ARP Table Size", enabled: true, visible: true)
+	 glabel_en_icmp = GLabel(widgetName: "glabel_en_icmp", text: "Enable ICMP", enabled: true, visible: true)
+	 glabel_en_igmp = GLabel(widgetName: "glabel_en_igmp", text: "Enable IGMP", enabled: true, visible: true)
+	 glabel_en_dns = GLabel(widgetName: "glabel_en_dns", text: "Enable DNS", enabled: true, visible: true)
+	 glabel_dns_server = GLabel(widgetName: "glabel_dns_server", text: "DNS Server", enabled: true, visible: true)
+	 glabel_dns_server_1 = GLabel(widgetName: "glabel_dns_server_1", text: ".", enabled: true, visible: true)
+	 glabel_dns_server_2 = GLabel(widgetName: "glabel_dns_server_2", text: ".", enabled: true, visible: true)
+	 glabel_dns_server_3 = GLabel(widgetName: "glabel_dns_server_3", text: ".", enabled: true, visible: true)
+	 glabel_en_snmp = GLabel(widgetName: "glabel_en_snmp", text: "Enable SNMP", enabled: true, visible: true)
+	 glabel_en_tcp = GLabel(widgetName: "glabel_en_tcp", text: "Enable TCP", enabled: true, visible: true)
+	 glabel_tcp_mss = GLabel(widgetName: "glabel_tcp_mss", text: "Maximum Segment Size (TCP_MSS)", enabled: true, visible: true)
+	 glabel_tcp_wnd = GLabel(widgetName: "glabel_tcp_wnd", text: "Window Size (TCP_WND)", enabled: true, visible: true)
+	 glabel_tcp_snd_buf = GLabel(widgetName: "glabel_tcp_snd_buf", text: "TCP Sender Buffer Space [bytes] (TCP_SND_BUF)", enabled: true, visible: true)
+	 glabel_tcp_snd_queuelen = GLabel(widgetName: "glabel_tcp_snd_queuelen", text: "TCP Sender Buffer Space [pbufs] (TCP_SND_QUEUELEN)", enabled: true, visible: true)
+	 glabel_en_udp = GLabel(widgetName: "glabel_en_udp", text: "Enable UDP", enabled: true, visible: true)
+	 glabel_enable_rtos = GLabel(widgetName: "glabel_enable_rtos", text: "Enable RTOS", enabled: true, visible: true)
+	 glabel_tcpip_task_prio = GLabel(widgetName: "glabel_tcpip_task_prio", text: "TCPIP Task Priority", enabled: true, visible: true)
+	 glabel_tcpip_task_stack_size = GLabel(widgetName: "glabel_tcpip_task_stack_size", text: "TCPIP Task Stack Size", enabled: true, visible: true)
+	 glabel_geth_prio = GLabel(widgetName: "glabel_geth_prio", text: "GigaEthernet Task Priority", enabled: true, visible: true)
+	 glabel_geth_stack_size = GLabel(widgetName: "glabel_geth_stack_size", text: "GigaEthernet Task Stack Size", enabled: true, visible: true)
+	 glabel_phy_prio = GLabel(widgetName: "glabel_phy_prio", text: "PHY Status Task Priority", enabled: true, visible: true)
+	 glabel_phy_stack = GLabel(widgetName: "glabel_phy_stack", text: "PHY Status Task Stack Size", enabled: true, visible: true)
+	 glabel_mem_size = GLabel(widgetName: "glabel_mem_size", text: "Heap Memory Size [byte]", enabled: true, visible: true)
+	 glabel_pbuf_pool_size = GLabel(widgetName: "glabel_pbuf_pool_size", text: "PBUF Pool Buffer Num", enabled: true, visible: true)
+	 glabel_memp_num_pbuf = GLabel(widgetName: "glabel_memp_num_pbuf", text: "Packet Buffers Num", enabled: true, visible: true)
+	 glabel_memp_num_raw_pcb = GLabel(widgetName: "glabel_memp_num_raw_pcb", text: "Raw Connection PCBs Num", enabled: true, visible: true)
+	 glabel_memp_num_udp_pcb = GLabel(widgetName: "glabel_memp_num_udp_pcb", text: "UDP PCBs Num", enabled: true, visible: true)
+	 glabel_memp_num_tcp_pcb = GLabel(widgetName: "glabel_memp_num_tcp_pcb", text: "TCP PCBs Num", enabled: true, visible: true)
+	 glabel_tcp_pcb_listen = GLabel(widgetName: "glabel_tcp_pcb_listen", text: "PCBs Num for TCP Listen", enabled: true, visible: true)
+	 glabel_tcp_seg = GLabel(widgetName: "glabel_tcp_seg", text: "TCP Segment Queue Num", enabled: true, visible: true)
+	 glabel_reassdata = GLabel(widgetName: "glabel_reassdata", text: "IP Packet Queue Num for Reassembly", enabled: true, visible: true)
+	 glabel_arp_queue = GLabel(widgetName: "glabel_arp_queue", text: "ARP Request Queue Num", enabled: true, visible: true)
+	 glabel_no_struct_netbufs = GLabel(widgetName: "glabel_no_struct_netbufs", text: "Number of struct netbufs", enabled: true, visible: true)
+	 glabel_no_struct_netconns = GLabel(widgetName: "glabel_no_struct_netconns", text: "Number of struct netconns", enabled: true, visible: true)
+	 glabel_no_tcpip_msg_api = GLabel(widgetName: "glabel_no_tcpip_msg_api", text: "Number of struct TCPIP_MSG for callback/timeout", enabled: true, visible: true)
+	 glabel_no_tcpip_smg_inpkt = GLabel(widgetName: "glabel_no_tcpip_smg_inpkt", text: "Number of struct TCPIP_MSG for incoming packets", enabled: true, visible: true)
+	 glabel_en_debug = GLabel(widgetName: "glabel_en_debug", text: "Enable Debug Messages", enabled: true, visible: true)
+	 glabel_dbg_msg_type = GLabel(widgetName: "glabel_dbg_msg_type", text: "Debug Message Type", enabled: true, visible: true)
+	 glabel_sel_no_geth = GLabel(widgetName: "glabel_sel_no_geth", text: "Select Number of GigaEthernet Ports", enabled: true, visible: true)
+	 glabel_netif_hostname_en = GLabel(widgetName: "glabel_netif_hostname_en", text: "Enable NETIF Hostname", enabled: true, visible: true)
+	 glabel_netif_status_notif_en = GLabel(widgetName: "glabel_netif_status_notif_en", text: "Enable NETIF Status Notification", enabled: true, visible: true)
+	 ggroup_tcpip_settings = GGroup(widgetName: "ggroup_tcpip_settings", text: "TCP/IP", enabled: true, visible: true)
+	 ggroup_gethernet = GGroup(widgetName: "ggroup_gethernet", text: "GigaEthernet", enabled: true, visible: true)
+	 ggroup_phy = GGroup(widgetName: "ggroup_phy", text: "PHY", enabled: true, visible: true)
+	 ggroup_heap_buffers = GGroup(widgetName: "ggroup_heap_buffers", text: "Heap && Buffers", enabled: true, visible: true)
+	 ggroup_connection_pcbs = GGroup(widgetName: "ggroup_connection_pcbs", text: "Connection PCBs", enabled: true, visible: true)
+	 ggroup_queues = GGroup(widgetName: "ggroup_queues", text: "Queues", enabled: true, visible: true)
+	 ggroup_rtos_resources = GGroup(widgetName: "ggroup_rtos_resources", text: "RTOS Resources", enabled: true, visible: true)
+	 ggroup_network = GGroup(widgetName: "ggroup_network", text: "Network", enabled: true, visible: true)
+	 ggroup_Ip = GGroup(widgetName: "ggroup_Ip", text: "IP", enabled: true, visible: true)
+	 ggroup_tcp = GGroup(widgetName: "ggroup_tcp", text: "TCP", enabled: true, visible: true)
+	 ggroup_udp = GGroup(widgetName: "ggroup_udp", text: "UDP", enabled: true, visible: true)
+	 ggroup_protocols = GGroup(widgetName: "ggroup_protocols", text: "Protocols", enabled: true, visible: true)
+	 ggroup_system = GGroup(widgetName: "ggroup_system", text: "System", enabled: true, visible: true)
+	 gindexcombo_sel_geth_port_ntwrk_intr = GIndexCombo(widgetName: "gindexcombo_sel_geth_port_ntwrk_intr", options: ["GETH Port #0"], value: "GETH Port #0", visible: true)
+	 gindexgroup_ntwrk_interface = GIndexGroup(widgetName: "gindexgroup_ntwrk_interface", text: "Port Configuration", enabled: true, visible: true, gIndexCombo: gindexcombo_sel_geth_port_ntwrk_intr, rArray: rArraygindexgroup_ntwrk_interface)
+	 for(int i=0; i<2; i++){
+		 rArraygindexgroup_ntwrk_interface[i] = new Gindexgroup_ntwrk_interface(daveEnv, "gindexgroup_ntwrk_interface",i)
+	 }
+
+
+	 }
+	/* End : UI variable section */
+}

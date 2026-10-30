@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?fileVersion 4.0.0?><cproject storage_type_id="org.eclipse.cdt.core.XmlProjectDescriptionStorage">
+	<storageModule moduleId="org.eclipse.cdt.core.settings">
+		<cconfiguration id="com.infineon.aurix.buildsystem.managed.arc.ppu.configuration.debug.1148463378">
+			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="com.infineon.aurix.buildsystem.managed.arc.ppu.configuration.debug.1148463378" moduleId="org.eclipse.cdt.core.settings" name="Debug">
+				<externalSettings/>
+				<extensions>
+					<extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>
+					<extension id="org.eclipse.cdt.core.GmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.CWDLocator" point="org.eclipse.cdt.core.ErrorParser"/>
+				</extensions>
+			</storageModule>
+			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+				<configuration artifactName="${ProjName}" buildArtefactType="com.infineon.aurix.buildsystem.managed.arc.buildArtefactType.elf" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=com.infineon.aurix.buildsystem.managed.arc.buildArtefactType.elf,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug" description="" id="com.infineon.aurix.buildsystem.managed.arc.ppu.configuration.debug.1148463378" name="Debug" parent="com.infineon.aurix.buildsystem.managed.arc.ppu.configuration.debug">
+					<folderInfo id="com.infineon.aurix.buildsystem.managed.arc.ppu.configuration.debug.1148463378." name="/" resourcePath="">
+						<toolChain id="com.infineon.aurix.buildsystem.managed.toolchain.ppu.arc.debug.2014210604" name="Debug" superClass="com.infineon.aurix.buildsystem.managed.toolchain.ppu.arc.debug">
+							<option id="com.infineon.aurix.buildsystem.managed.toolchain.arc.llvm.base.targetPath.1847967481" name="Target Path" superClass="com.infineon.aurix.buildsystem.managed.toolchain.arc.llvm.base.targetPath" value="/DeviceRoot/Microcontrollers/Boards/AURIX TC4D7 Lite Kit/TC4D7Xx_A-Step" valueType="string"/>
+							<option id="com.infineon.aurix.buildsystem.managed.toolchain.arc.llvm.base.targetName.484607448" name="Target Name" superClass="com.infineon.aurix.buildsystem.managed.toolchain.arc.llvm.base.targetName" value="TC4D7Xx_A-Step" valueType="string"/>
+							<targetPlatform binaryParser="org.eclipse.cdt.core.ELF" id="com.infineon.aurix.buildsystem.managed.toolchain.arc.llvm.base.targetPlatform.1384436943" isAbstract="false" name="Generic platform" osList="win32,linux,solaris" superClass="com.infineon.aurix.buildsystem.managed.toolchain.arc.llvm.base.targetPlatform"/>
+							<builder buildPath="${workspace_loc:/iLLD_TC4D7_ACS_Examples_PPU}/Debug" id="com.infineon.aurix.buildsystem.managed.toolchain.arc.llvm.builder.1287210650" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Gnu Make Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="com.infineon.aurix.buildsystem.managed.toolchain.arc.llvm.builder"/>
+							<tool id="com.infineon.aurix.buildsystem.managed.toolchain.arc.compiler.debug.569281847" name="ARC C/C++ Compiler" superClass="com.infineon.aurix.buildsystem.managed.toolchain.arc.compiler.debug">
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.infineon.aurix.buildsystem.managed.toolchain.arc.compiler.includefolders.664350816" name="Include Directories" superClass="com.infineon.aurix.buildsystem.managed.toolchain.arc.compiler.includefolders" valueType="includePath">
+									<listOptionValue builtIn="false" value="../src/tests"/>
+									<listOptionValue builtIn="false" value="../src/kernels"/>
+									<listOptionValue builtIn="false" value="../src"/>
+								</option>
+								<option id="com.infineon.aurix.buildsystem.managed.toolchain.arc.compiler.optimizationlevel.1167898680" name="Optimization Level (-O...)" superClass="com.infineon.aurix.buildsystem.managed.toolchain.arc.compiler.optimizationlevel" value="com.infineon.aurix.buildsystem.managed.toolchain.arc.compiler.optimizationlevel.O2" valueType="enumerated"/>
+								<inputType id="com.ifx.ads2.buildsystem.managed.tool.c.compiler.arc.llvm.input.129338039" name="C" superClass="com.ifx.ads2.buildsystem.managed.tool.c.compiler.arc.llvm.input"/>
+								<inputType id="com.infineon.aurix.buildsystem.managed.toolchain.arc.compiler.inputTypeCPP.1172825225" name="C++ Input" superClass="com.infineon.aurix.buildsystem.managed.toolchain.arc.compiler.inputTypeCPP"/>
+								<inputType id="com.infineon.aurix.buildsystem.managed.toolchain.arc.compiler.inputTypeC.1904082670" name="C Input" superClass="com.infineon.aurix.buildsystem.managed.toolchain.arc.compiler.inputTypeC"/>
+							</tool>
+							<tool id="com.infineon.aurix.buildsystem.managed.toolchain.arc.compiler.objc.debug.1937715065" name="Llvm Arc ObjectC Compiler" superClass="com.infineon.aurix.buildsystem.managed.toolchain.arc.compiler.objc.debug">
+								<inputType id="com.ifx.ads2.buildsystem.managed.tool.c.compiler.arc.llvm.input.1342925485" name="C" superClass="com.ifx.ads2.buildsystem.managed.tool.c.compiler.arc.llvm.input"/>
+							</tool>
+							<tool id="com.infineon.aurix.buildsystem.managed.toolchain.arc.llvm.ppu.linker.debug.1679318579" name="ARC LLVM Linker" superClass="com.infineon.aurix.buildsystem.managed.toolchain.arc.llvm.ppu.linker.debug"/>
+							<tool id="com.infineon.aurix.buildsystem.managed.toolchain.arc.ppu.objectcopy.debug.968165879" name="LLVM ARC Objectcopy" superClass="com.infineon.aurix.buildsystem.managed.toolchain.arc.ppu.objectcopy.debug"/>
+						</toolChain>
+					</folderInfo>
+				</configuration>
+			</storageModule>
+			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
+			<storageModule moduleId="com.infineon.aurix.buildsystem.build.autodiscovery.settings">
+				<enabled>false</enabled>
+			</storageModule>
+		</cconfiguration>
+	</storageModule>
+	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+		<project id="iLLD_TC4D7_ACS_Examples_PPU.com.ifx.ads2.ppuProject.2103163749" name="PPU Library" projectType="com.ifx.ads2.ppuProject"/>
+	</storageModule>
+	<storageModule moduleId="scannerConfiguration">
+		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
+	<storageModule moduleId="org.eclipse.cdt.core.language.mapping">
+		<project-mappings/>
+	</storageModule>
+	<storageModule moduleId="refreshScope"/>
+</cproject>

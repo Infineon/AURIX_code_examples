@@ -1,0 +1,134 @@
+package Model.Common;
+import java.nio.file.*
+out.print("""
+/**
+ * @cond
+ ***********************************************************************************************************************
+ *
+ * Copyright (c) 2015-2020, Infineon Technologies AG
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification,are permitted provided that the
+ * following conditions are met:
+ *
+ *   Redistributions of source code must retain the above copyright notice, this list of conditions and the  following
+ *   disclaimer.
+ *
+ *   Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the
+ *   following disclaimer in the documentation and/or other materials provided with the distribution.
+ *
+ *   Neither the name of the copyright holders nor the names of its contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+ * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT  OF THE
+ * USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ * To improve the quality of the software, users are encouraged to share modifications, enhancements or bug fixes
+ * with Infineon Technologies AG (dave@infineon.com).
+ ***********************************************************************************************************************
+ *
+ * Change History
+ * --------------
+ *
+ * 2014-06-16:
+ *     - Initial version<br>
+ * 2015-08-28:
+ *     - Added CLOCK_XMC1_Init conditionally
+ * 2018-08-08:
+ *     - Add creation of projectData.bak file
+ * 2019-01-30:
+ *     - Fix creation of projectData.bak file
+ * 2019-04-29:
+ *     - Make DAVE_Init() weak, the user can reimplement the function
+ *
+ * @endcond
+ *
+ */
+
+/***********************************************************************************************************************
+ * HEADER FILES
+ **********************************************************************************************************************/
+#include "DAVE.h"
+
+/***********************************************************************************************************************
+ * API IMPLEMENTATION
+ **********************************************************************************************************************/
+
+/*******************************************************************************
+ * @brief This function initializes the APPs Init Functions.
+ *
+ * @param[in]  None
+ *
+ * @return  DAVE_STATUS_t <BR>
+ ******************************************************************************/
+__attribute__((weak)) DAVE_STATUS_t DAVE_Init(void)
+{
+  DAVE_STATUS_t init_status;
+  
+  init_status = DAVE_STATUS_SUCCESS;""");
+
+def appsList = daveEnv.project.getTopLevelApps();
+def appsList1 = daveEnv.project.getApps();
+def appNames = [];
+def apps = [];
+def appName
+def instanceLabel
+
+for (def app_temp : appsList1 ) {
+	if(app_temp.initProvider) {
+		appNames.add(app_temp);
+   }
+}
+
+for (def app_temp : appNames )
+{
+	appName = app_temp.getClass().getSimpleName()
+
+	if(appName == "CLOCK")
+	{
+		instanceLabel = app_temp.getInstanceLabel()
+out.print("""
+  /** @Initialization of APPs Init Functions */
+  init_status = (DAVE_STATUS_t)CLOCK_Init(&${instanceLabel});\n""");
+	}
+}
+
+for (def app : appsList) {
+	if(app.initProvider) {
+		apps.add(app);
+   }
+}
+
+for (def app : apps ) {
+	appName = app.getClass().getSimpleName()
+	instanceLabel = app.getInstanceLabel()
+	
+	if(appName != "CLOCK")
+	{
+out.print("""
+  if (init_status == DAVE_STATUS_SUCCESS)
+  {
+    /**  Initialization of ${appName} APP instance ${instanceLabel} */
+    init_status = (DAVE_STATUS_t)${appName}_Init(&${instanceLabel}); 
+  } """);
+	}
+}
+out.print(""" 
+  return init_status;
+} /**  End of function DAVE_Init */
+""");
+
+def scriptDir = new File(getClass().protectionDomain.codeSource.location.path.toString().replace("%20", " ")).getParentFile()
+try
+{
+  Files.delete(Paths.get(scriptDir.path, "../projectData.bak"))
+} 
+finally 
+{
+  Files.copy(Paths.get(scriptDir.path, "../projectData.bin"), Paths.get(scriptDir.path, "../projectData.bak"))
+}

@@ -1,0 +1,22 @@
+package Model.APPS.ETHERNET_CONFIG.v4_0_8;
+import ifx.davex.app.manifest.*;
+
+class Gindexgroup_tx_queue_config{
+	 public GLabel glabel_tx_queue_selection;
+	 public GLabel glabel_tx_store_fwd;
+	 public GCheck gcheck_tx_store_fwd;
+	 public GLabel glabel_tx_queue_size;
+	 public GCombo gcombo_tx_queue_size;
+	 public GLabel glabel_tx_underflow_int_en;
+	 public GCheck gcheck_tx_underflow_int_en;
+
+	public Gindexgroup_tx_queue_config (DaveEnv daveEnv, String widgetName,int index){
+	 glabel_tx_queue_selection = new GLabel(widgetName: "glabel_tx_queue_selection", text: "Select TX Queue to Configure", enabled: true, visible: true, parentWidgetName:widgetName)
+	 glabel_tx_store_fwd = new GLabel(widgetName: "glabel_tx_store_fwd", text: "Store and Forward", enabled: true, visible: true, parentWidgetName:widgetName)
+	 gcheck_tx_store_fwd = new GCheck(widgetName: "gcheck_tx_store_fwd", value: false, enabled: true, visible: true, parentWidgetName:widgetName)
+	 glabel_tx_queue_size = new GLabel(widgetName: "glabel_tx_queue_size", text: "Queue Size", enabled: true, visible: true, parentWidgetName:widgetName)
+	 gcombo_tx_queue_size = new GCombo(widgetName: "gcombo_tx_queue_size", options: ["256 Bytes","512 Bytes","768 Bytes","1024 Bytes","1280 Bytes","1536 Bytes","1792 Bytes","2048 Bytes","2304 Bytes","2560 Bytes","2816 Bytes","3072 Bytes","3328 Bytes","3584 Bytes","3840 Bytes","4096 Bytes","4352 Bytes","4608 Bytes","4864 Bytes","5120 Bytes","5376 Bytes","5632 Bytes","5888 Bytes","6144 Bytes","6400 Bytes","6656 Bytes","6912 Bytes","7168 Bytes","7424 Bytes","7680 Bytes","7936 Bytes","8192 Bytes"], value: "256 Bytes", enabled: true, visible: true, isMandatoryValue: false, parentWidgetName:widgetName)
+	 glabel_tx_underflow_int_en = new GLabel(widgetName: "glabel_tx_underflow_int_en", text: "Underflow Interrupt Enable", enabled: true, visible: true, parentWidgetName:widgetName)
+	 gcheck_tx_underflow_int_en = new GCheck(widgetName: "gcheck_tx_underflow_int_en", value: false, enabled: true, visible: true, parentWidgetName:widgetName)
+	}
+}

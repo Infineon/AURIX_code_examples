@@ -1,0 +1,90 @@
+package Model.APPS.LWIP_GETH.v4_0_8;
+import ifx.davex.app.manifest.*;
+
+class Gindexgroup_ntwrk_interface{
+	 public GLabel glabel_sel_geth_port_ntwrk_intr;
+	 public GGroup ggroup_netif_settings;
+	 public GLabel glabel_netif_hostname;
+	 public GString gstring_netif_hostname;
+	 public GLabel glabel_netif_callback;
+	 public GString gstring_netif_callback;
+	 public GGroup ggroup_cust_netwrk_intr;
+	 public GLabel glabel_phy_device;
+	 public GCombo gcombo_phy_device;
+	 public GLabel glabel_auto_negotation;
+	 public GCheck gcheck_auto_negotation;
+	 public GGroup ggroup_cust_ip_settings;
+	 public GLabel glabel_ip_address;
+	 public GImage gimage_ip_address;
+	 public GInteger ginteger_ip_address_1;
+	 public GLabel glabel_ip_1;
+	 public GInteger ginteger_ip_address_2;
+	 public GLabel glabel_ip_2;
+	 public GInteger ginteger_ip_address_3;
+	 public GLabel glabel_ip_3;
+	 public GInteger ginteger_ip_address_4;
+	 public GLabel glabel_subnet_mask;
+	 public GImage gimage_subnet_mask;
+	 public GInteger ginteger_subnet_mask_1;
+	 public GLabel glabel_subnet_1;
+	 public GInteger ginteger_subnet_mask_2;
+	 public GLabel glabel_subnet_2;
+	 public GInteger ginteger_subnet_mask_3;
+	 public GLabel glabel_subnet_3;
+	 public GInteger ginteger_subnet_mask_4;
+	 public GLabel glabel_gateway_address;
+	 public GImage gimage_gateway_address;
+	 public GInteger ginteger_gateway_1;
+	 public GLabel glabel_gate_1;
+	 public GInteger ginteger_gateway_2;
+	 public GLabel glabel_gate_2;
+	 public GInteger ginteger_gateway_3;
+	 public GLabel glabel_gate_3;
+	 public GInteger ginteger_gateway_4;
+	 public GLabel glabel_mtu;
+	 public GInteger ginteger_mtu;
+
+	public Gindexgroup_ntwrk_interface (DaveEnv daveEnv, String widgetName,int index){
+	 glabel_sel_geth_port_ntwrk_intr = new GLabel(widgetName: "glabel_sel_geth_port_ntwrk_intr", text: "Select GETH Port to Configure", enabled: true, visible: true, parentWidgetName:widgetName)
+	 ggroup_netif_settings = new GGroup(widgetName: "ggroup_netif_settings", text: "NETIF Settings", enabled: true, visible: true, parentWidgetName:widgetName)
+	 glabel_netif_hostname = new GLabel(widgetName: "glabel_netif_hostname", text: "NETIF Hostname", enabled: true, visible: true, parentWidgetName:widgetName)
+	 gstring_netif_hostname = new GString(widgetName: "gstring_netif_hostname", value: "lwip", enabled: true, visible: true, isMandatoryValue: false, parentWidgetName:widgetName)
+	 glabel_netif_callback = new GLabel(widgetName: "glabel_netif_callback", text: "NETIF Status Notification", enabled: true, visible: true, parentWidgetName:widgetName)
+	 gstring_netif_callback = new GString(widgetName: "gstring_netif_callback", value: "netif_status_cb", enabled: true, visible: true, isMandatoryValue: false, parentWidgetName:widgetName)
+	 ggroup_cust_netwrk_intr = new GGroup(widgetName: "ggroup_cust_netwrk_intr", text: "Network Interface Configuration", enabled: true, visible: true, parentWidgetName:widgetName)
+	 glabel_phy_device = new GLabel(widgetName: "glabel_phy_device", text: "PHY Device", enabled: true, visible: true, parentWidgetName:widgetName)
+	 gcombo_phy_device = new GCombo(widgetName: "gcombo_phy_device", options: ["DP83825I","RTL8211F","User Defined"], value: "User Defined", enabled: true, visible: true, isMandatoryValue: false, parentWidgetName:widgetName)
+	 glabel_auto_negotation = new GLabel(widgetName: "glabel_auto_negotation", text: "Auto Negotiation", enabled: true, visible: true, parentWidgetName:widgetName)
+	 gcheck_auto_negotation = new GCheck(widgetName: "gcheck_auto_negotation", value: false, enabled: true, visible: true, parentWidgetName:widgetName)
+	 ggroup_cust_ip_settings = new GGroup(widgetName: "ggroup_cust_ip_settings", text: "IP Configuration", enabled: true, visible: true, parentWidgetName:widgetName)
+	 glabel_ip_address = new GLabel(widgetName: "glabel_ip_address", text: "IP Address", enabled: true, visible: true, parentWidgetName:widgetName)
+	 gimage_ip_address = new GImage(widgetName: "gimage_ip_address", path: "", enabled: true, visible: true, parentWidgetName:widgetName)
+	 ginteger_ip_address_1 = new GInteger(widgetName: "ginteger_ip_address_1", value: 192, minValue: 0, maxValue: 255, enabled: true, visible: true, isMandatoryValue: false, parentWidgetName:widgetName)
+	 glabel_ip_1 = new GLabel(widgetName: "glabel_ip_1", text: ".", enabled: true, visible: true, parentWidgetName:widgetName)
+	 ginteger_ip_address_2 = new GInteger(widgetName: "ginteger_ip_address_2", value: 168, minValue: 0, maxValue: 255, enabled: true, visible: true, isMandatoryValue: false, parentWidgetName:widgetName)
+	 glabel_ip_2 = new GLabel(widgetName: "glabel_ip_2", text: ".", enabled: true, visible: true, parentWidgetName:widgetName)
+	 ginteger_ip_address_3 = new GInteger(widgetName: "ginteger_ip_address_3", value: 0, minValue: 0, maxValue: 255, enabled: true, visible: true, isMandatoryValue: false, parentWidgetName:widgetName)
+	 glabel_ip_3 = new GLabel(widgetName: "glabel_ip_3", text: ".", enabled: true, visible: true, parentWidgetName:widgetName)
+	 ginteger_ip_address_4 = new GInteger(widgetName: "ginteger_ip_address_4", value: 10, minValue: 0, maxValue: 255, enabled: true, visible: true, isMandatoryValue: false, parentWidgetName:widgetName)
+	 glabel_subnet_mask = new GLabel(widgetName: "glabel_subnet_mask", text: "Subnet Mask", enabled: true, visible: true, parentWidgetName:widgetName)
+	 gimage_subnet_mask = new GImage(widgetName: "gimage_subnet_mask", path: "", enabled: true, visible: true, parentWidgetName:widgetName)
+	 ginteger_subnet_mask_1 = new GInteger(widgetName: "ginteger_subnet_mask_1", value: 255, minValue: 0, maxValue: 255, enabled: true, visible: true, isMandatoryValue: false, parentWidgetName:widgetName)
+	 glabel_subnet_1 = new GLabel(widgetName: "glabel_subnet_1", text: ".", enabled: true, visible: true, parentWidgetName:widgetName)
+	 ginteger_subnet_mask_2 = new GInteger(widgetName: "ginteger_subnet_mask_2", value: 255, minValue: 0, maxValue: 255, enabled: true, visible: true, isMandatoryValue: false, parentWidgetName:widgetName)
+	 glabel_subnet_2 = new GLabel(widgetName: "glabel_subnet_2", text: ".", enabled: true, visible: true, parentWidgetName:widgetName)
+	 ginteger_subnet_mask_3 = new GInteger(widgetName: "ginteger_subnet_mask_3", value: 255, minValue: 0, maxValue: 255, enabled: true, visible: true, isMandatoryValue: false, parentWidgetName:widgetName)
+	 glabel_subnet_3 = new GLabel(widgetName: "glabel_subnet_3", text: ".", enabled: true, visible: true, parentWidgetName:widgetName)
+	 ginteger_subnet_mask_4 = new GInteger(widgetName: "ginteger_subnet_mask_4", value: 0, minValue: 0, maxValue: 255, enabled: true, visible: true, isMandatoryValue: false, parentWidgetName:widgetName)
+	 glabel_gateway_address = new GLabel(widgetName: "glabel_gateway_address", text: "Gateway Address", enabled: true, visible: true, parentWidgetName:widgetName)
+	 gimage_gateway_address = new GImage(widgetName: "gimage_gateway_address", path: "", enabled: true, visible: true, parentWidgetName:widgetName)
+	 ginteger_gateway_1 = new GInteger(widgetName: "ginteger_gateway_1", value: 192, minValue: 0, maxValue: 255, enabled: true, visible: true, isMandatoryValue: false, parentWidgetName:widgetName)
+	 glabel_gate_1 = new GLabel(widgetName: "glabel_gate_1", text: ".", enabled: true, visible: true, parentWidgetName:widgetName)
+	 ginteger_gateway_2 = new GInteger(widgetName: "ginteger_gateway_2", value: 168, minValue: 0, maxValue: 255, enabled: true, visible: true, isMandatoryValue: false, parentWidgetName:widgetName)
+	 glabel_gate_2 = new GLabel(widgetName: "glabel_gate_2", text: ".", enabled: true, visible: true, parentWidgetName:widgetName)
+	 ginteger_gateway_3 = new GInteger(widgetName: "ginteger_gateway_3", value: 0, minValue: 0, maxValue: 255, enabled: true, visible: true, isMandatoryValue: false, parentWidgetName:widgetName)
+	 glabel_gate_3 = new GLabel(widgetName: "glabel_gate_3", text: ".", enabled: true, visible: true, parentWidgetName:widgetName)
+	 ginteger_gateway_4 = new GInteger(widgetName: "ginteger_gateway_4", value: 1, minValue: 0, maxValue: 255, enabled: true, visible: true, isMandatoryValue: false, parentWidgetName:widgetName)
+	 glabel_mtu = new GLabel(widgetName: "glabel_mtu", text: "Max. Transmission Unit (MTU)", enabled: true, visible: true, parentWidgetName:widgetName)
+	 ginteger_mtu = new GInteger(widgetName: "ginteger_mtu", value: 1500, minValue: 1, maxValue: 2048, enabled: true, visible: true, isMandatoryValue: false, parentWidgetName:widgetName)
+	}
+}

@@ -1,0 +1,1955 @@
+package Model.APPS.CLOCK.v4_1_4;
+// Import statements
+import ifx.davex.app.manifest.*
+
+/*************** Revision History **********************************************
+ Version      Date          Description
+ 4.0.2        12-Sep-2025   - Initial version
+ 4.0.4        15-Sep-2025   - License and Copyright update
+ 4.0.6        03-Dec-2025   - Bug fix (missing signal ports)
+ 4.1.2        23-Jan-2026   - Added support for TC4x
+ 4.1.4        04-Feb-2026   - Update Limitation for different TC4x series
+ *******************************************************************************/
+
+class  CLOCK extends CLOCK_GUI
+{
+	/* Note  : Following APP properties are mandatory and important */
+
+	/* Begin : APP property section */
+
+	/**
+	 * APP version
+	 * Format: a string with three digit separated by a dot.
+	 */
+	def version	= '4.1.4'
+
+	/**
+	 * APP categories declaration.
+	 * It is list of strings. Subcategories are separated by slash.
+	 * No limits on number of categories and subcategories depth.
+	 */
+	def categoriesDescription = ["System"]
+
+	/**
+	 * Minimum DAVE version required for this APP.
+	 *
+	 * It is string with three digit separated by a dot.
+	 */
+	def minDaveVersion = '4.2.4'
+
+	/**
+	 * Keywords used by search feature in APPs selection view
+	 *
+	 * It is a list of string.
+	 */
+	def keywords = ["System Clock", "PLL", "CLOCK", "Clock", "ALL"]
+
+	/**
+	 * softwareIDs is used to declare which devices are compatible with this APP.
+	 * It is a map with key a string containing a pattern that shall match the SW id of
+	 * the device and as value the minimal version of the APP.
+	 */
+
+	def softwareIDs = [
+        "TC4.*.*.*":"1.0.0",
+        "TC3.*.*.*":"1.0.0"]
+
+	/**
+	 * Singleton property:
+	 * When it is true the APP can be instantiated only once.
+	 */
+	def singleton = true
+
+
+	/**
+	 * initProvider property
+	 * It shall be true to add a call to <AppName>_Init()
+	 */
+	def initProvider = true
+
+	/**
+	 * Deprecated APP
+	 * Set it to true to indicate that the APP shall be not used for new projects.
+	 */
+	def deprecated = false
+
+	/**
+	 * Sharable property.
+	 * It shall be true to allows multiple APPs to require the same instance of this APP.
+	 */
+	def sharable = true
+
+	/**
+	 *  APP function description.
+	 */
+	def description = "APP to configure System and Peripheral Clocks."
+
+	/* End   : APP property section */
+
+	/* Begin : User APP property section */
+
+	// DCO Frequency Constants
+	private static final float DCO_MIN_FREQ = 400.0f
+	private static final float DCO_MAX_FREQ_TC3 = 800.0f
+	private static final float DCO_MAX_FREQ_SYSPLL_TC4 = 1000.0f
+	private static final float DCO_MAX_FREQ_PERIPLL_TC4 = 800.0f
+	private static final float DCO_INPUT_MIN = 10.0f
+	private static final float DCO_INPUT_MAX = 40.0f
+	private static final float DCO_INPUT_MIN_TC4 = 20.0f
+	private static final float DCO_INPUT_MAX_TC4 = 50.0f
+
+	/* Device info */
+	GString gstring_swid = GString()						// Software ID
+
+	/* Resource groups */
+	MVirtualResourceGroup hwres_clockctrl_osc				// Clock Ctrl OSC hardware resource
+	MVirtualResourceGroup hwres_clockctrl_syspll			// Clock Ctrl SysPLL hardware resource
+	MVirtualResourceGroup hwres_clockctrl_peripll			// Clock Ctrl PeriPLL hardware resource
+	MVirtualResourceGroup hwres_clockctrl_ccu				// Clock Ctrl CCU hardware resource
+	MVirtualResourceGroup hwres_clockctrl_clkmon			// Clock Ctrl Clock Monitor hardware resource
+	MVirtualResourceGroup hwres_clockctrl_extclk			// Clock Ctrl External Clock hardware resource
+
+	/* Virtual signals for TC3 */
+	MVirtualSignal vs_syspll_sysclk							// SYSCLK input for SysPLL
+	MVirtualSignal vs_extclk_extclk0						// EXTCLK0 output
+	MVirtualSignal vs_extclk_extclk1						// EXTCLK1 output
+
+	GFloat gfloat_fASCLINF									// interface property for fASCLIN
+	GFloat gfloat_fASCLINS									// interface property for fASCLINS
+	GFloat gfloat_fSPB										// interface property for fSPB
+	GFloat gfloat_fADC										// interface property for fADC
+	GFloat gfloat_fSTM										// interface property for fSTM
+	GFloat gfloat_fGTM										// interface property for fGTM
+	GFloat gfloat_fI2C										// interface property for fI2C
+	GFloat gfloat_fMCAN										// interface property for fMCAN
+	GFloat gfloat_fMCANH									// interface property for fMCANH
+	GFloat gfloat_fQSPI										// interface property for fQSPI
+	GFloat gfloat_fSRI										// interface property for fSRI
+	GCombo gcombo_pllinsel									// pllinsel commonly used by TC3/4
+	GCheck gcheck_extclk_en0								// extclk_en0 commonly used by TC3/4
+	GCheck gcheck_extclk_en1								// extclk_en1 commonly used by TC3/4
+
+	/* End   : User APP property section */
+
+	private CLOCK_tc3(String str_series, String str_variant, int max_freq, Map<String, MF> mf)
+	{
+		gmessage_message_tc4.visible = false
+		gtab_clock_distributions_tc4.visible = false
+		glabel_perpll_modcfg_tc4.visible= false
+		gcombo_perpll_modcfg_tc4.visible = false
+		gtab_clock_distributions.text = "Clock Distribution Settings"
+
+		// fCPU1: TC3.3.*.STD does not have it
+		if (str_series == "3" && str_variant == "STD")
+		{
+			gcombo_cpu1div.visible = false
+			gfloat_fCPU1.visible = false
+		}
+		// fCPU2: TC3.3.*.* and TC3.6.*.* does not have it
+		if (str_series == "3" || str_series == "6")
+		{
+			gcombo_cpu2div.visible = false
+			gfloat_fCPU2.visible = false
+		}
+		// fCPU3: only TC3.8.*.* and TC3.9.*.* has it
+		if (str_series != "8" && str_series != "9")
+		{
+			gcombo_cpu3div.visible = false
+			gfloat_fCPU3.visible = false
+		}
+		// fCPU4/5 and fEBU: only TC3.9.*.* has them
+		if (str_series != "9")
+		{
+			gcombo_cpu4div.visible = false
+			gfloat_fCPU4.visible = false
+			gcombo_cpu5div.visible = false
+			gfloat_fCPU5.visible = false
+			gcombo_ebuperon.visible = false
+			gcombo_ebuperon.value = "Stop"
+		}
+		// fGTM: TC3.3.*.EXT and TC3.5.*.* does not have fGTM
+		if ((str_series == "3" && str_variant == "EXT") || str_series == "5")
+		{
+			gcombo_gtmdiv.visible = false
+			gcombo_gtmdiv.value = "Stop"
+		}
+		// fGETH: TC3.3.*.STD does not have it
+		if (str_series == "3" && str_variant == "STD")
+		{
+			gcombo_gethdiv.visible = false
+			gcombo_gethdiv.value = "Stop"
+		}
+		// fBBB: TC3.3.*.STD, TC3.6.*.*, TC3.7.*.STD and TC3.8.*.* does not have them
+		if ((str_series == "3" && str_variant == "STD") || str_series == "6" || (str_series == "7" && str_variant == "STD") || str_series == "8")
+		{
+			gcombo_bbbdiv.visible = false
+			gcombo_bbbdiv.value = "Stop"
+		}
+		// fADAS: TC3.3.*.STD, TC3.6.*.*, TC3.7.*.* and TC3.8.*.* does not have them
+		if ((str_series == "3" && str_variant == "STD") || str_series == "6" || str_series == "7" || str_series == "8")
+		{
+			gcombo_adasdiv.visible = false
+			gcombo_adasdiv.value = "Stop"
+		}
+		// fHSPDM: TC3.3.*.STD, TC3.6.*.*, TC3.7.*.* and TC3.8.*.* does not have it
+		if ((str_series == "3" && str_variant == "STD") || str_series == "6" || str_series == "7" || str_series == "8")
+		{
+			gcombo_hspdmperon.visible = false
+			gcombo_hspdmperon.value = "Stop"
+		}
+		// fI2C: TC3.3.*.* does not have it
+		if (str_series == "3")
+		{
+			gcombo_i2cdiv.visible = false
+			gcombo_i2cdiv.value = "Stop"
+		}
+		// fMSC/fHSCT: TC3.3.*.* and TC3.5.*.* does not have it
+		if (str_series == "3" || str_series == "5")
+		{
+			gcombo_mscdiv.visible = false
+			gcombo_mscdiv.value = "Stop"
+			gfloat_fHSCT.visible = false
+		}
+		// fERAY: TC3.3.*.EXT does not have it
+		if (str_series == "3" && str_variant == "EXT")
+		{
+			gcombo_erayperon.visible = false
+			gcombo_erayperon.value = "Stop"
+		}
+
+		gfloat_fPLL0_300.visible = (max_freq == 300)
+		gfloat_fPLL0_160.visible = (max_freq == 160)
+		gcombo_fsidiv_300.visible = (max_freq == 300)
+		gcombo_fsidiv_160.visible = (max_freq <= 200)
+		gcombo_stmdiv_300.visible = (max_freq == 300)
+		gcombo_stmdiv_160.visible = (max_freq <= 200)
+		gcombo_mcanhdiv_300.visible = (max_freq == 300)
+		gcombo_mcanhdiv_160.visible = (max_freq <= 200)
+		gcombo_spbdiv_300.visible = (max_freq == 300)
+		gcombo_spbdiv_160.visible = (max_freq <= 200)
+		gfloat_fPLL1_300.visible = (max_freq == 300)
+		gfloat_fPLL1_160.visible = (max_freq == 160)
+		gcombo_peripll_k3div_300.visible = (max_freq == 300)
+		gcombo_peripll_k3div_160.visible = (max_freq <= 200)
+		gcombo_pll1div_300.visible = (max_freq == 300)
+		gcombo_pll1div_160.visible = (max_freq <= 200)
+		gcombo_syspll_divider_list_300.visible = (max_freq == 300)
+		gcombo_syspll_divider_list_160.visible = (max_freq == 160)
+		gcombo_peripll_divider_list_300.visible = (max_freq == 300)
+		gcombo_peripll_divider_list_160.visible = (max_freq == 160)
+
+		//==================================================================================================
+		// Clock Source Settings
+		//==================================================================================================
+		// Change fOSC0 minimum value according to clock source
+		gfloat_fOSC0.minValue = mf.get("mf_tc3_00")
+		// Copy user input fOSC0 value to other widgets
+		gfloat_fOSC0_2.value = mf.get("mf_tc3_01")
+		gfloat_fOSC0_3.value = mf.get("mf_tc3_01")
+		// Switch visibility of XTAL2/SYSCLK
+		gimage_xtal2_mask.visible = mf.get("mf_tc3_02")
+		gimage_sysclk_mask.visible = mf.get("mf_tc3_03")
+		gfloat_SYSCLK.visible = mf.get("is_sysclk_enabled")
+		// Sync PeriPLL input source to SysPLL one
+		gcombo_pllinsel_2.value = mf.get("mf_tc3_05")
+
+		//==================================================================================================
+		// Generation (PLL) Settings
+		//==================================================================================================
+		// SysPLL Divider calculation
+		gcombo_syspll_divider_list_300.options = mf.get("mf_tc3_06")
+		gcombo_syspll_divider_list_160.options = mf.get("mf_tc3_08")
+		gfloat_syspll_fDCO.value = mf.get("mf_tc3_09")
+
+		// PeriPLL Divider calculation
+		gcombo_peripll_divider_list_300.options = mf.get("mf_tc3_10")
+		gcombo_peripll_divider_list_160.options = mf.get("mf_tc3_11")
+		gfloat_peripll_fDCO.value = mf.get("mf_tc3_12")
+
+		// Set fPLL2/fHSCT
+		gfloat_fPLL2.value = mf.get("mf_tc3_13")
+		gfloat_fHSCT.minValue = mf.get("mf_tc3_14")
+		gfloat_fHSCT.value = mf.get("mf_tc3_15")
+		gfloat_fHSCT_2.visible = mf.get("mf_tc3_16")
+		gfloat_fHSCT_2.value = mf.get("mf_tc3_17")
+
+		//==================================================================================================
+		// Distribution MCCU/PCCU Settings
+		//==================================================================================================
+		// Set fsource0/2 by referring fsource1 selection
+		gcombo_clksel_0.value = mf.get("mf_tc3_18")
+		gcombo_clksel_2.value = mf.get("mf_tc3_19")
+
+		// Set fsource0/1/2 by referring fsource1 selection
+		gfloat_fsource0.value = mf.get("mf_tc3_20")
+		gcombo_pll1div_300.options = mf.get("mf_tc3_21")
+		gcombo_pll1div_160.options = mf.get("mf_tc3_22")
+		gfloat_fHSPDM_320.visible = mf.get("mf_tc3_23")
+		gfloat_fHSPDM_320.value = mf.get("mf_tc3_24")
+		gfloat_fsource1.value = mf.get("mf_tc3_25")
+		gfloat_fsource2.value = mf.get("mf_tc3_26")
+
+		//==================================================================================================
+		// Distribution DCCU Settings
+		//==================================================================================================
+		// Set fSRI and its belonging clocks
+		gfloat_fSRI.value = mf.get("mf_tc3_27")
+		gfloat_fCPU0.value = mf.get("mf_tc3_28")
+		gfloat_fCPU1.value = mf.get("mf_tc3_29")
+		gfloat_fCPU2.value = mf.get("mf_tc3_30")
+		gcombo_fsidiv_300.options = mf.get("mf_tc3_31")
+		gcombo_fsidiv_160.options = mf.get("mf_tc3_32")
+		gfloat_fFSI.value = mf.get("mf_tc3_33")
+		gfloat_fFSI2.value = mf.get("mf_tc3_34")
+
+		// Set fSRI and its belonging clocks
+		gfloat_fSPB_tc3.value = mf.get("mf_tc3_35")
+		gfloat_fRAM.value = mf.get("mf_tc3_36")
+		gfloat_fGTM_tc3.visible = mf.get("mf_tc3_37")
+		gfloat_fGTM_tc3.value = mf.get("mf_tc3_38")
+
+		// Set clocks provided from fsource0
+		gfloat_fREFCLK1.value = mf.get("mf_tc3_39")
+		gfloat_fBBB.visible = mf.get("mf_tc3_40")
+		gfloat_fBBB.value = mf.get("mf_tc3_41")
+		gfloat_fSTM_tc3.visible = mf.get("mf_tc3_42")
+		gfloat_fSTM_tc3.value = mf.get("mf_tc3_43")
+		gfloat_fGETH.visible = mf.get("mf_tc3_44")
+		gfloat_fGETH.minValue = mf.get("mf_tc3_45")
+		gfloat_fGETH.value = mf.get("mf_tc3_46")
+		gfloat_fADAS.visible = mf.get("mf_tc3_47")
+		gfloat_fADAS.minValue = mf.get("mf_tc3_48")
+		gfloat_fADAS.value = mf.get("mf_tc3_49")
+		gfloat_fMCANH_tc3.visible = mf.get("mf_tc3_50")
+		gfloat_fMCANH_tc3.value = mf.get("mf_tc3_51")
+
+		// Set clocks provided from fsource1
+		gfloat_fREFCLK2.value = mf.get("mf_tc3_52")
+		gfloat_fERAY.visible = mf.get("mf_tc3_53")
+		gfloat_fERAY.minValue = mf.get("mf_tc3_54")
+		gfloat_fERAY.value = mf.get("mf_tc3_55")
+		gfloat_fMCAN_tc3.visible = mf.get("mf_tc3_56")
+		gfloat_fMCAN_tc3.value = mf.get("mf_tc3_57")
+		gfloat_fASCLINS_tc3.visible = mf.get("mf_tc3_58")
+		gfloat_fASCLINS_tc3.value = mf.get("mf_tc3_59")
+		gfloat_fADC_tc3.value = mf.get("mf_tc3_60")
+		gfloat_fEBU.visible = mf.get("mf_tc3_61")
+		gfloat_fEBU.value = mf.get("mf_tc3_62")
+		gcombo_hspdmperon_2.visible = mf.get("mf_tc3_63")
+		gcombo_hspdmperon_2.value = mf.get("mf_tc3_64")
+		gfloat_fHSPDM_160.visible = mf.get("mf_tc3_65")
+		gfloat_fHSPDM_160.value = mf.get("mf_tc3_66")
+
+		// Set clocks provided from fsource2
+		gfloat_fMSC.visible = mf.get("mf_tc3_67")
+		gfloat_fMSC.value = mf.get("mf_tc3_68")
+		gfloat_fQSPI_tc3.visible = mf.get("mf_tc3_69")
+		gfloat_fQSPI_tc3.value = mf.get("mf_tc3_70")
+		gfloat_fASCLINF_tc3.visible = mf.get("mf_tc3_71")
+		gfloat_fASCLINF_tc3.value = mf.get("mf_tc3_72")
+		gfloat_fI2C_tc3.visible = mf.get("mf_tc3_73")
+		gfloat_fI2C_tc3.value = mf.get("mf_tc3_74")
+
+		//==================================================================================================
+		// EXTCLK0/1 Settings
+		//==================================================================================================
+		// EXTCLK0
+		gcombo_extclk_sel0.enabled = mf.get("is_extclk0_enabled")
+		gcombo_extclk_dm.visible = mf.get("is_extclk0_fout")
+		gcombo_extclk_dm.enabled = mf.get("is_extclk0_enabled")
+		ginteger_extclk_step.visible = mf.get("is_extclk0_fout")
+		ginteger_extclk_step.enabled = mf.get("is_extclk0_enabled")
+		gstring_extclk0_div2.visible = mf.get("is_extclk0_fout")
+		gimage_extclk0_mask.visible = mf.get("isnot_extclk0_fout")
+		gfloat_fEXTCLK0.visible = mf.get("is_extclk0_enabled")
+		gfloat_fEXTCLK0.value = mf.get("mf_tc3_81")
+
+		// EXTCLK1
+		gcombo_extclk_sel1.enabled = mf.get("is_extclk1_enabled")
+		ginteger_extclk_div1.visible = mf.get("is_extclk1_fout")
+		ginteger_extclk_div1.enabled = mf.get("is_extclk1_enabled")
+		gstring_extclk1_div2.visible = mf.get("is_extclk1_fout")
+		gimage_extclk1_mask.visible = mf.get("isnot_extclk1_fout")
+		gfloat_fEXTCLK1.visible = mf.get("is_extclk1_enabled")
+		gcombo_extclk1_nsel.enabled = mf.get("is_extclk1_enabled")
+		gfloat_fEXTCLK1.value = mf.get("mf_tc3_86")
+
+		//==================================================================================================
+		// Consistency Check
+		//==================================================================================================
+		gmessage_message.text = mf.get("mf_tc3_87")
+		gmessage_message.isError = mf.get("mf_tc3_88")
+		gmessage_message.visible = mf.get("mf_tc3_89")
+	}
+
+	private CLOCK_tc4(String str_series, String str_variant, int max_freq, Map<String, MF> mf)
+	{
+		gmessage_message.visible = false
+		gtab_clock_distributions.visible = false
+		gtab_clock_distributions_tc4.text = "Clock Distribution Settings"
+
+		// TC4
+		// fCPB: TC4.D/8/5/Z do not have it
+		if (str_series == "D" || str_series == "8" || str_series == "5" || str_series == "Z")
+		{
+			gcombo_cpbdiv_tc4.visible = false
+			gfloat_fCPB_tc4.visible = false
+		}
+		// fPPU: TC4.Z/4/8 do not have it
+		if (str_series == "Z" || str_series == "4" || str_series == "8")
+		{
+			gcombo_ppudiv_tc4.visible = false
+			gcombo_ppudiv_tc4.value = "Stop"
+			gfloat_fsourceppu_tc4.visible = false
+			gfloat_fPLLPPU_tc4.visible= false
+			gcombo_syspll_k3pre_tc4.enabled = false
+			gcombo_syspll_k3_tc4.enabled = false
+		}
+		// fGTM: TC4.P/4/8/D/Z/5.* do not have it
+		if (str_series == "P" || str_series == "4" ||
+			str_series == "8" || str_series == "D" ||
+			str_series == "Z" || str_series == "5")
+		{
+			gcombo_gtmdiv_tc4.visible = false
+			gcombo_gtmdiv_tc4.value = "Stop"
+		}
+		// feGTM: TC4.5.*.* does not have it
+		if (str_series == "5")
+		{
+			gcombo_egtmdiv_tc4.visible = false
+			gcombo_egtmdiv_tc4.value = "Stop"
+		}
+		// fERAY: TC4.5.*.* does not have it
+		if (str_series == "5")
+		{
+			gcombo_feraydiv_tc4.visible = false
+			gcombo_feraydiv_tc4.value = "Stop"
+		}
+		// fMSC: TC4.4/8/5.*.* do not have it
+		if (str_series == "4" || str_series == "8" || str_series == "5")
+		{
+			gcombo_mscdiv_tc4.visible = false
+			gcombo_mscdiv_tc4.value = "Stop"
+		}
+		// fSDMMC: TC4.P/E/5 do not have it, TC4.8 AA Step doesn't have it, and the TC4.8's device model don't have it.
+		if (str_series == "P" || str_series == "E" || str_series == "5" || str_series == "8")
+		{
+			gcombo_fsdmmcdiv_tc4.visible = false
+			gcombo_fsdmmcdiv_tc4.value = "Stop"
+		}
+		// fGETH: TC4.P/E/6/9/5 do not have it
+		if (str_series == "P" || str_series == "E" || str_series == "6" || str_series == "9" || str_series == "5")
+		{
+			gcombo_gethdiv_tc4.visible = false
+			gcombo_gethdiv_tc4.value = "Stop"
+		}
+		// fRCB: only TC4.5 has it
+		if (str_series != "5")
+		{
+			gcombo_rcbdiv_tc4.visible = false
+			gcombo_rcbdiv_tc4.value = "Stop"
+		}
+		// fxSPI: TC4.S/5 do not have it
+		if (str_series == "S" || str_series == "5")
+		{
+			gcombo_fxspidiv_tc4.visible = false
+			gcombo_fxspidiv_tc4.value = "Stop"
+		}
+		// fSPISL: TC4.P/Z/4/5/6/8/9 do not have it
+		if (str_series == "P" || str_series == "Z" || str_series == "4" || str_series == "5" || str_series == "6" || str_series == "8" || str_series == "9")
+		{
+			gcombo_fxspisldiv_tc4.visible = false
+			gcombo_fxspisldiv_tc4.value = "Stop"
+		}
+		// fMCANH/fMCAN: TC4.5 does not have it
+		if (str_series == "5")
+		{
+			gcombo_mcanhdiv_tc4.visible = false
+			gcombo_mcanhdiv_tc4.value = "Stop"
+			gcombo_mcandiv_tc4.visible = false
+			gcombo_mcandiv_tc4.value = "Stop"
+		}
+		// fHSCT: TC4.5.*.* does not have it
+		if (str_series == "5")
+		{
+			gfloat_fHSCT_tc4.visible = false
+		}
+
+		// TC4
+		gfloat_fPLL0_tc4.maxValue = (float)max_freq
+		if (max_freq == 500)
+		{
+			gfloat_fPLLPPU_tc4.maxValue = (float)454
+			gfloat_fTPB_tc4.maxValue = (float)250
+			gfloat_fLETH_tc4.maxValue = (float)250
+			gfloat_fMCANH_tc4.maxValue = (float)250
+		}
+		else
+		{
+			gfloat_fPLLPPU_tc4.maxValue = (float)400
+			gfloat_fTPB_tc4.maxValue = (float)200
+			gfloat_fGTM_tc4.maxValue = (float)200
+			gfloat_fLETH_tc4.maxValue = (float)200
+			gfloat_fMCANH_tc4.maxValue = (float)200
+		}
+		gfloat_fSRI_tc4.maxValue = (float)max_freq
+		gfloat_feGTM_tc4.maxValue = (float)max_freq
+		gfloat_fSTM_tc4.maxValue = (float)max_freq
+
+		//==================================================================================================
+		// Clock Source Settings
+		//==================================================================================================
+		// Copy user input fOSC and SYSCLK value to other widgets
+		gfloat_fOSC_1_tc4.value = mf.get("mf_tc4_00")
+		gfloat_SYSCLK_1_tc4.value = mf.get("mf_tc4_01")
+		// Switch visibility of XTAL2/SYSCLK
+		gimage_xtal2_mask_tc4.visible = mf.get("mf_tc4_02")
+		gimage_sysclk_mask_tc4.visible = mf.get("mf_tc4_03")
+		gfloat_SYSCLK_tc4.visible = mf.get("is_sysclk_enabled_tc4")
+		// only when fOSC <=20 MHz, the OSC_F can be used.
+		gcombo_pllinsel.options = mf.get("mf_tc4_05")
+		//==================================================================================================
+		// Backup Clock Settings
+		//==================================================================================================
+		// if PLL0 frequency < 230MHz, then RAMP can not be used.
+		gcombo_clksel_0_tc4.options = mf.get("mf_tc4_06_1")
+		gcombo_ramptype_tc4.enabled = mf.get("mf_tc4_06_2")
+		gfloat_ramptarget_tc4.enabled = mf.get("mf_tc4_06_2")
+
+		// maximum upper frequency limit = fPLL0 - 100 MHz
+		gfloat_ramptarget_tc4.maxValue = mf.get("mf_tc4_06")
+
+		// only Rampup, the tag will show
+		gfloat_ramptarget_tc4.visible = mf.get("mf_tc4_07")
+
+		//==================================================================================================
+		// Generation (PLL) Settings
+		//==================================================================================================
+		// TC4
+		// SysPLL Divider calculation
+		gcombo_syspll_divider_list_tc4.options = mf.get("mf_tc4_08")
+
+		gfloat_syspll_fDCO_tc4.value = mf.get("mf_tc4_09")
+
+		// PeriPLL Divider calculation
+		gcombo_peripll_divider_list_tc4.options = mf.get("mf_tc4_10")
+
+		gfloat_peripll_fDCO_tc4.value = mf.get("mf_tc4_11")
+
+		// Set fPLLPPU/fPLL2/fPLL3
+		gfloat_fPLLPPU_tc4.value = mf.get("mf_tc4_12")
+		gfloat_fPLL2_tc4.value = mf.get("mf_tc4_13")
+		gfloat_fPLL3_tc4.value = mf.get("mf_tc4_14")
+
+		// Set fHSCT
+		gfloat_fHSCT_tc4.value = mf.get("mf_tc4_15")
+		gfloat_fHSCT_1_tc4.visible = mf.get("mf_tc4_16")
+		gfloat_fHSCT_1_tc4.value = mf.get("mf_tc4_17")
+
+		//==================================================================================================
+		// Distribution MCCU/PCCU Settings
+		//==================================================================================================
+		// TC4
+		// Copy user input fSPB and fSRI value to other widgets
+		gfloat_fSPB_1_tc4.value = mf.get("mf_tc4_18")
+		gfloat_fSRI_1_tc4.value = mf.get("mf_tc4_19")
+
+		// Set fsource0/PPU by referring fsource1 selection
+		gfloat_fsource0_tc4.visible = mf.get("mf_tc4_20")
+		gfloat_fsourceppu_tc4.visible = mf.get("mf_tc4_20_ppu")
+		gfloat_fsource0_tc4.value = mf.get("mf_tc4_21")
+		gfloat_fsourceppu_tc4.value = mf.get("mf_tc4_22")
+
+		// Set fsource1/2/3 by referring fsource1 selection
+		gfloat_fsource1_tc4.visible = mf.get("mf_tc4_23")
+		gfloat_fsource1_tc4.value = mf.get("mf_tc4_24")
+		gfloat_fsource2_tc4.value = mf.get("mf_tc4_25")
+		gfloat_fsource3_tc4.value = mf.get("mf_tc4_26")
+
+		//==================================================================================================
+		// Distribution DCCU Settings
+		//==================================================================================================
+		// TC4
+		// Set fSRI, fSRICS, fFSI2 clocks
+		gfloat_fSRI_tc4.value = mf.get("mf_tc4_27")
+		gfloat_fSRICS_tc4.value = mf.get("mf_tc4_28")
+		gfloat_fFSI2_tc4.value = mf.get("mf_tc4_29")
+
+		// Set fSPB clocks
+		gfloat_fSPB_tc4.value = mf.get("mf_tc4_30")
+
+		// Set fCPB clocks
+		gfloat_fCPB_tc4.value = mf.get("mf_tc4_31")
+
+		// Set fSTM clocks
+		gfloat_fSTM_tc4.visible = mf.get("mf_tc4_32")
+		gfloat_fSTM_tc4.value = mf.get("mf_tc4_33")
+
+		// Set fRCB clocks
+		gfloat_fRCB_tc4.visible = mf.get("mf_tc4_34")
+		gfloat_fRCB_tc4.value = mf.get("mf_tc4_35")
+
+		// Set fGTM clocks
+		gfloat_fGTM_tc4.visible = mf.get("mf_tc4_36")
+		gfloat_fGTM_tc4.value = mf.get("mf_tc4_37")
+
+		// Set feGTM clocks
+		gfloat_feGTM_tc4.visible = mf.get("mf_tc4_38")
+		gfloat_feGTM_tc4.value = mf.get("mf_tc4_39")
+
+		// Set fGETH clocks
+		gfloat_fGETH_tc4.visible = mf.get("mf_tc4_40")
+		gfloat_fGETH_tc4.value = mf.get("mf_tc4_41")
+
+		// Set fLETH clocks
+		gfloat_fLETH_tc4.visible = mf.get("mf_tc4_42")
+		gfloat_fLETH_tc4.value = mf.get("mf_tc4_43")
+
+		// Set fMCANH clocks
+		gfloat_fMCANH_tc4.visible = mf.get("mf_tc4_44")
+		gfloat_fMCANH_tc4.value = mf.get("mf_tc4_45")
+
+		// Set fCANXLH clocks
+		gfloat_fCANXLH_tc4.visible = mf.get("mf_tc4_46")
+		gfloat_fCANXLH_tc4.value = mf.get("mf_tc4_47")
+
+		// Set fFSI clocks
+		gfloat_fFSI_tc4.value = mf.get("mf_tc4_48")
+
+		// Set fTPB clocks
+		gfloat_fTPB_tc4.visible = mf.get("mf_tc4_49")
+		gfloat_fTPB_tc4.value = mf.get("mf_tc4_50")
+
+		// Set fREFCLK1, fREFCLK2 clocks
+		gfloat_fREFCLK1_tc4.value = mf.get("mf_tc4_51")
+		gfloat_fREFCLK2_tc4.value = mf.get("mf_tc4_52")
+		gfloat_fREFCLK2_tc4.visible = mf.get("mf_tc4_23")
+
+		// Set fPPU clocks
+		gfloat_fPPU_tc4.visible = mf.get("mf_tc4_53")
+		gfloat_fPPU_tc4.value = mf.get("mf_tc4_54")
+
+		// Set fERAY clocks
+		gcombo_feraydiv_tc4.enabled = mf.get("mf_tc4_23")
+		gfloat_fERAY_tc4.visible = mf.get("mf_tc4_55")
+		gfloat_fERAY_tc4.value = mf.get("mf_tc4_56")
+
+		// Set fADC clocks
+		gcombo_fadcdiv_tc4.enabled = mf.get("mf_tc4_23")
+		gfloat_fADC_tc4.visible = mf.get("mf_tc4_57")
+		gfloat_fADC_tc4.value = mf.get("mf_tc4_58")
+
+		// set fMCAN clocks
+		gcombo_mcandiv_tc4.options = mf.get("mf_tc4_59")
+		gfloat_fMCAN_tc4.visible = mf.get("mf_tc4_60")
+		gfloat_fMCAN_tc4.value = mf.get("mf_tc4_61")
+
+		// set fCANXL clocks
+		gcombo_canxldiv_tc4.options = mf.get("mf_tc4_62")
+		gfloat_fCANXL_tc4.visible = mf.get("mf_tc4_63")
+		gfloat_fCANXL_tc4.value = mf.get("mf_tc4_64")
+
+		// set fASCLINS clocks
+		gcombo_asclinsdiv_tc4.options = mf.get("mf_tc4_65")
+		gfloat_fASCLINS_tc4.visible = mf.get("mf_tc4_66")
+		gfloat_fASCLINS_tc4.value = mf.get("mf_tc4_67")
+
+		// set fMSC clocks
+		gcombo_mscdiv_tc4.options = mf.get("mf_tc4_68")
+		gfloat_fMSC_tc4.visible = mf.get("mf_tc4_69")
+		gfloat_fMSC_tc4.value = mf.get("mf_tc4_70")
+
+		// set fQSPI clocks
+		gcombo_qspidiv_tc4.options = mf.get("mf_tc4_71")
+		gfloat_fQSPI_tc4.visible = mf.get("mf_tc4_72")
+		gfloat_fQSPI_tc4.value = mf.get("mf_tc4_73")
+
+		// Set fASCLINF clocks
+		gfloat_fASCLINF_tc4.visible = mf.get("mf_tc4_74")
+		gfloat_fASCLINF_tc4.value = mf.get("mf_tc4_75")
+
+		// Set fI2C clocks
+		gfloat_fI2C_tc4.visible = mf.get("mf_tc4_76")
+		gfloat_fI2C_tc4.value = mf.get("mf_tc4_77")
+
+		// Set fLETH100 clocks
+		gfloat_fLETH100_tc4.visible = mf.get("mf_tc4_78")
+		gfloat_fLETH100_tc4.value = mf.get("mf_tc4_79")
+
+		// Set fSDMMC clocks
+		gfloat_fSDMMC_tc4.visible = mf.get("mf_tc4_80")
+		gfloat_fSDMMC_tc4.value = mf.get("mf_tc4_81")
+
+		// Set fxSPI clocks
+		gfloat_fxSPI_tc4.visible = mf.get("mf_tc4_82")
+		gfloat_fxSPI_tc4.value = mf.get("mf_tc4_83")
+
+		// Set fxSPISL clocks
+		gfloat_fxSPISL_tc4.visible = mf.get("mf_tc4_84")
+		gfloat_fxSPISL_tc4.value = mf.get("mf_tc4_85")
+
+		//==================================================================================================
+		// EXTCLK0/1 Settings
+		//==================================================================================================
+		// TC4
+		// EXTCLK0
+		gcombo_extclk_sel0_tc4.enabled = mf.get("is_extclk0_enabled_tc4")
+		gcombo_extclk_dm_tc4.visible = mf.get("is_extclk0_ffrac_tc4")
+		gcombo_extclk_dm_tc4.enabled = mf.get("is_extclk0_enabled_tc4")
+		ginteger_extclk_step_tc4.visible = mf.get("is_extclk0_ffrac_tc4")
+		ginteger_extclk_step_tc4.enabled = mf.get("is_extclk0_enabled_tc4")
+		gstring_extclk0_div2_tc4.visible = mf.get("is_extclk0_ffrac_tc4")
+		gfloat_fEXTCLK0_tc4.visible = mf.get("is_extclk0_enabled_tc4")
+		glabel_extclk0_ramp_tc4.visible = mf.get("mf_tc4_90")
+		gimage_extclk0_mask_tc4.visible = mf.get("isnot_extclk0_ffrac_tc4")
+		
+		gfloat_fEXTCLK0_tc4.value = mf.get("mf_tc4_91")
+
+		// EXTCLK1
+		gcombo_extclk_sel1_tc4.enabled = mf.get("is_extclk1_enabled_tc4")
+		ginteger_extclk_div1_tc4.visible = mf.get("is_extclk1_fDIV1_tc4")
+		ginteger_extclk_div1_tc4.enabled = mf.get("is_extclk1_enabled_tc4")
+		gcombo_extclk1_nsel.enabled = mf.get("is_extclk1_enabled_tc4")
+		gfloat_fEXTCLK1_tc4.visible = mf.get("is_extclk1_enabled_tc4")
+		glabel_extclk1_ramp_tc4.visible = mf.get("mf_tc4_96")
+		gimage_extclk1_mask_tc4.visible = mf.get("isnot_extclk1_fDIV1_tc4")
+		
+		gfloat_fEXTCLK1_tc4.value = mf.get("mf_tc4_97")
+
+		//==================================================================================================
+		// Consistency Check
+		//==================================================================================================
+		// TC4
+		gmessage_message_tc4.text = mf.get("mf_tc4_98")
+		gmessage_message_tc4.isError = mf.get("mf_tc4_99")
+		gmessage_message_tc4.visible = mf.get("mf_tc4_93")
+	}
+
+	/* Begin : APP Constructor */
+	public CLOCK(DaveEnv daveEnv)
+	{
+		//==================================================================================================
+		// Hide non existing clocks based on selected device on the project
+		//==================================================================================================
+		gstring_swid.value = daveEnv.project.selectedDevice.deviceId.softwareId
+		String str_family = daveEnv.project.selectedDevice.deviceId.softwareId.split("\\.")[0]
+		String str_series = daveEnv.project.selectedDevice.deviceId.softwareId.split("\\.")[1]
+		String str_variant = daveEnv.project.selectedDevice.deviceId.softwareId.split("\\.")[3]
+		int max_freq = daveEnv.project.selectedDevice.frequency
+
+		Map<String, MF> mf_map = [:]
+		if (str_family == "TC3")
+		{
+			//==================================================================================================
+			// Assignment to interface variables
+			//==================================================================================================
+			gfloat_fASCLINF = gfloat_fASCLINF_tc3
+			gfloat_fASCLINS = gfloat_fASCLINS_tc3
+			gfloat_fSPB = gfloat_fSPB_tc3
+			gfloat_fADC = gfloat_fADC_tc3
+			gfloat_fSTM = gfloat_fSTM_tc3
+			gfloat_fGTM = gfloat_fGTM_tc3
+			gfloat_fI2C = gfloat_fI2C_tc3
+			gfloat_fMCAN = gfloat_fMCAN_tc3
+			gfloat_fMCANH = gfloat_fMCANH_tc3
+			gfloat_fQSPI = gfloat_fQSPI_tc3
+			gfloat_fSRI = gfloat_fSRI_tc3
+			gcombo_pllinsel = gcombo_pllinsel_tc3
+			gcheck_extclk_en0 = gcheck_extclk_en0_tc3
+			gcheck_extclk_en1 = gcheck_extclk_en1_tc3
+
+			mf_map.put("mf_tc3_00",
+					MF({gcombo_clksrcmode.value == "External Input Clock" ? (float)4 : (float)16}, Float))
+			mf_map.put("mf_tc3_01",
+					MF({gfloat_fOSC0.value}, Float))
+			mf_map.put("mf_tc3_02",
+					MF({gcombo_clksrcmode.value == "External Input Clock"}, Boolean))
+			mf_map.put("mf_tc3_03",
+					MF({gcombo_pllinsel.value != "SYSCLK"}, Boolean))
+			mf_map.put("is_sysclk_enabled",
+					MF({gcombo_pllinsel.value == "SYSCLK"}, Boolean))
+			mf_map.put("mf_tc3_05",
+					MF({gcombo_pllinsel.value}, String))
+			mf_map.put("mf_tc3_06",
+					MF({
+						List options = []
+						if (gcombo_syspll_divider_list_300.visible)
+						{
+							float pllsrc = gcombo_pllinsel.value == "fBACK" ? gfloat_fBACK.value
+										 : gcombo_pllinsel.value == "fOSC0" ? gfloat_fOSC0.value
+										 : gfloat_SYSCLK.value
+							for (int p = 1; p <= 8; p++) {
+								float dcoIn = pllsrc / (float)p
+								if (DCO_INPUT_MIN <= dcoIn && dcoIn <= DCO_INPUT_MAX) {
+									for (int n = 1; n <= 256; n++) {
+										float dcoOut = dcoIn * (float)n
+										if (DCO_MIN_FREQ <= dcoOut && dcoOut <= DCO_MAX_FREQ_TC3) {
+											for (int k2 = 1; k2 <= 8; k2++) {
+												if ((dcoOut / (float)k2) == gfloat_fPLL0_300.value) {
+													options.push("P:" + p + " N:" + n + " K2:" + k2)
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+						else
+						{
+							options.push("P:1 N:30 K2:2")
+						}
+						return (options)
+					}, List))
+			mf_map.put("mf_tc3_08",
+					MF({
+						List options = []
+						if (gcombo_syspll_divider_list_160.visible)
+						{
+							float pllsrc = gcombo_pllinsel.value == "fBACK" ? gfloat_fBACK.value
+										 : gcombo_pllinsel.value == "fOSC0" ? gfloat_fOSC0.value
+										 : gfloat_SYSCLK.value
+							for (int p = 1; p <= 8; p++) {
+								float dcoIn = pllsrc / (float)p
+								if (DCO_INPUT_MIN <= dcoIn && dcoIn <= DCO_INPUT_MAX) {
+									for (int n = 1; n <= 256; n++) {
+										float dcoOut = dcoIn * (float)n
+										if (DCO_MIN_FREQ <= dcoOut && dcoOut <= DCO_MAX_FREQ_TC3) {
+											for (int k2 = 1; k2 <= 8; k2++) {
+												if ((dcoOut / (float)k2) == gfloat_fPLL0_160.value) {
+													options.push("P:" + p + " N:" + n + " K2:" + k2)
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+						else
+						{
+							options.push("P:1 N:32 K2:4")
+						}
+						return (options)
+					}, List))
+			mf_map.put("mf_tc3_09",
+					MF({
+						float pllsrc = gcombo_pllinsel.value == "fBACK" ? gfloat_fBACK.value
+									 : gcombo_pllinsel.value == "fOSC0" ? gfloat_fOSC0.value
+									 : gfloat_SYSCLK.value
+						String value = (gcombo_syspll_divider_list_300.visible ? gcombo_syspll_divider_list_300.value
+									  : gcombo_syspll_divider_list_160.value)
+						pllsrc * Float.parseFloat(value.find(/N:\d+/).find(/\d+/)) / Float.parseFloat(value.find(/P:\d+/).find(/\d+/))
+					}, Float))
+			mf_map.put("mf_tc3_10",
+					MF({
+						List options = []
+						if (gcombo_peripll_divider_list_300.visible)
+						{
+							float pllsrc = gcombo_pllinsel.value == "fBACK" ? gfloat_fBACK.value
+										 : gcombo_pllinsel.value == "fOSC0" ? gfloat_fOSC0.value
+										 : gfloat_SYSCLK.value
+							for (int p = 1; p <= 8; p++) {
+								float dcoIn = pllsrc / (float)p
+								if (DCO_INPUT_MIN <= dcoIn && dcoIn <= DCO_INPUT_MAX) {
+									for (int n = 1; n <= 256; n++) {
+										float dcoOut = dcoIn * (float)n
+										if (DCO_MIN_FREQ <= dcoOut && dcoOut <= DCO_MAX_FREQ_TC3) {
+											for (int k2 = 1; k2 <= 8; k2++) {
+												if ((dcoOut / (float)k2) == gfloat_fPLL1_300.value) {
+													options.push("P:" + p + " N:" + n + " K2:" + k2)
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+						else
+						{
+							options.push("P:1 N:32 K2:2")
+						}
+						return (options)
+					}, List))
+			mf_map.put("mf_tc3_11",
+					MF({
+						List options = []
+						if (gcombo_peripll_divider_list_160.visible)
+						{
+							float pllsrc = gcombo_pllinsel.value == "fBACK" ? gfloat_fBACK.value
+										 : gcombo_pllinsel.value == "fOSC0" ? gfloat_fOSC0.value
+										 : gfloat_SYSCLK.value
+							for (int p = 1; p <= 8; p++) {
+								float dcoIn = pllsrc / (float)p
+								if (DCO_INPUT_MIN <= dcoIn && dcoIn <= DCO_INPUT_MAX) {
+									for (int n = 1; n <= 256; n++) {
+										float dcoOut = dcoIn * (float)n
+										if (DCO_MIN_FREQ <= dcoOut && dcoOut <= DCO_MAX_FREQ_TC3) {
+											for (int k2 = 1; k2 <= 8; k2++) {
+												if ((dcoOut / (float)k2) == gfloat_fPLL1_160.value) {
+													options.push("P:" + p + " N:" + n + " K2:" + k2)
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+						else
+						{
+							options.push("P:1 N:32 K2:4")
+						}
+						return (options)
+					}, List))
+			mf_map.put("mf_tc3_12",
+					MF({
+						float pllsrc = gcombo_pllinsel.value == "fBACK" ? gfloat_fBACK.value
+									 : gcombo_pllinsel.value == "fOSC0" ? gfloat_fOSC0.value
+									 : gfloat_SYSCLK.value
+						String value = (gcombo_peripll_divider_list_300.visible ? gcombo_peripll_divider_list_300.value
+									 : gcombo_peripll_divider_list_160.value)
+						pllsrc * Float.parseFloat(value.find(/N:\d+/).find(/\d+/)) / Float.parseFloat(value.find(/P:\d+/).find(/\d+/))
+					}, Float))
+			mf_map.put("mf_tc3_13",
+					MF({
+						float k3div = Float.parseFloat(gcombo_peripll_k3div_300.visible ? gcombo_peripll_k3div_300.value : gcombo_peripll_k3div_160.value)
+						gfloat_peripll_fDCO.value / k3div
+					}, Float))
+			mf_map.put("mf_tc3_14", MF({gfloat_fHSCT.visible ? (float)200 : (float)0}, Float))
+			mf_map.put("mf_tc3_15", MF({!gfloat_fHSCT.visible ? (float)0 : (gfloat_peripll_fDCO.value / (float)2)}, Float))
+			mf_map.put("mf_tc3_16", MF({gfloat_fHSCT.visible}, Boolean))
+			mf_map.put("mf_tc3_17", MF({gfloat_fHSCT.value}, Float))
+			mf_map.put("mf_tc3_18", MF({gcombo_clksel_1.value == "fBACK" ? "fBACK" : "fPLL0"}, String))
+			mf_map.put("mf_tc3_19", MF({gcombo_clksel_1.value == "fBACK" ? "fBACK" : "fPLL2"}, String))
+			mf_map.put("mf_tc3_20",
+					MF({
+						gcombo_clksel_0.value == "fBACK" ? gfloat_fBACK.value
+													: gfloat_fPLL0_300.visible ? gfloat_fPLL0_300.value
+													: gfloat_fPLL0_160.value
+					}, Float))
+			mf_map.put("mf_tc3_21", MF({gcombo_clksel_1.value == "fBACK" ? ["/1"] : ["/2", "/1"]}, List))
+			mf_map.put("mf_tc3_22", MF({gcombo_pll1div_300.options}, List))
+			mf_map.put("mf_tc3_23", MF({gcombo_hspdmperon.visible && gcombo_hspdmperon.value != "Stop"}, Boolean))
+			mf_map.put("mf_tc3_24",
+					MF({
+						!gfloat_fHSPDM_320.visible ? (float)0
+							: gcombo_clksel_1.value == "fBACK" ? gfloat_fBACK.value
+							: gfloat_fPLL1_300.visible ? gfloat_fPLL1_300.value
+							: gfloat_fPLL1_160.value
+					}, Float))
+			mf_map.put("mf_tc3_25",
+					MF({
+						float fpll1 = gfloat_fPLL1_300.visible ? gfloat_fPLL1_300.value : gfloat_fPLL1_160.value
+						float pll1div = Float.parseFloat(gcombo_pll1div_300.visible ? gcombo_pll1div_300.value.find(/\d+/) :
+																						gcombo_pll1div_160.value.find(/\d+/))
+						gcombo_clksel_1.value == "fBACK" ? gfloat_fBACK.value : (fpll1 / pll1div)
+					}, Float))
+			mf_map.put("mf_tc3_26", MF({gcombo_clksel_2.value == "fBACK" ? gfloat_fBACK.value : gfloat_fPLL2.value}, Float))
+			mf_map.put("mf_tc3_27", MF({gfloat_fsource0.value / Float.parseFloat(gcombo_sridiv.value.find(/\d+/))}, Float))
+			mf_map.put("mf_tc3_28", MF({gfloat_fSRI.value * Float.parseFloat(gcombo_cpu0div.value.find(/\d+\//).find(/\d+/)) / (float)64}, Float))
+			mf_map.put("mf_tc3_29", MF({gfloat_fSRI.value * Float.parseFloat(gcombo_cpu1div.value.find(/\d+\//).find(/\d+/)) / (float)64}, Float))
+			mf_map.put("mf_tc3_30", MF({gfloat_fSRI.value * Float.parseFloat(gcombo_cpu2div.value.find(/\d+\//).find(/\d+/)) / (float)64}, Float))
+			mf_map.put("mf_tc3_31", MF({(gcombo_sridiv.value == "/1" || gcombo_sridiv.value == "/2") ? ["/1", "/2", "/3"] : ["/1"]}, List))
+			mf_map.put("mf_tc3_32", MF({gcombo_fsidiv_300.options}, List))
+			mf_map.put("mf_tc3_33",
+					MF({
+						gfloat_fSRI.value /
+							Float.parseFloat(gcombo_fsidiv_300.visible ? gcombo_fsidiv_300.value.find(/\d+/) : gcombo_fsidiv_160.value.find(/\d+/))
+					}, Float))
+			mf_map.put("mf_tc3_34", MF({gfloat_fSRI.value / Float.parseFloat(gcombo_fsi2div.value.find(/\d+/))}, Float))
+			mf_map.put("mf_tc3_35",
+					MF({
+						gfloat_fsource0.value /
+							Float.parseFloat(gcombo_spbdiv_300.visible ? gcombo_spbdiv_300.value.find(/\d+/) : gcombo_spbdiv_160.value.find(/\d+/))
+					}, Float))
+			mf_map.put("mf_tc3_36", MF({gfloat_fSPB_tc3.value * (float)2}, Float))
+			mf_map.put("mf_tc3_37", MF({gcombo_gtmdiv.visible && gcombo_gtmdiv.value != "Stop"}, Boolean))
+			mf_map.put("mf_tc3_38",
+					MF({
+						!gfloat_fGTM_tc3.visible ? (float)0
+							: gcombo_gtmdiv.value == "fSPB*2" ? gfloat_fRAM.value
+							: (gfloat_fsource0.value / Float.parseFloat(gcombo_gtmdiv.value.find(/\/\d+/).find(/\d+/)))
+					}, Float))
+			mf_map.put("mf_tc3_39", MF({gfloat_fsource0.value / (float)24}, Float))
+			mf_map.put("mf_tc3_40", MF({gcombo_bbbdiv.visible && gcombo_bbbdiv.value != "Stop"}, Boolean))
+			mf_map.put("mf_tc3_41", MF({!gfloat_fBBB.visible ? (float)0 : (gfloat_fsource0.value / Float.parseFloat(gcombo_bbbdiv.value.find(/\d+/)))}, Float))
+			mf_map.put("mf_tc3_42", MF({gcombo_stmdiv_300.visible ? gcombo_stmdiv_300.value != "Stop" : gcombo_stmdiv_160.value != "Stop"}, Boolean))
+			mf_map.put("mf_tc3_43",
+					MF({
+						!gfloat_fSTM_tc3.visible ? (float)0
+							: (gfloat_fsource0.value / Float.parseFloat(gcombo_stmdiv_300.visible ? gcombo_stmdiv_300.value.find(/\d+/)
+																	  : gcombo_stmdiv_160.value.find(/\d+/)))
+					}, Float))
+			mf_map.put("mf_tc3_44", MF({gcombo_gethdiv.visible && gcombo_gethdiv.value != "Stop"}, Boolean))
+			mf_map.put("mf_tc3_45", MF({gfloat_fGETH.visible ? (float)100 : (float)0}, Float))
+			mf_map.put("mf_tc3_46", MF({
+				!gfloat_fGETH.visible ? (float)0 : (gfloat_fsource0.value / Float.parseFloat(gcombo_gethdiv.value.find(/\d+/)))
+			}, Float))
+			mf_map.put("mf_tc3_47", MF({gcombo_adasdiv.visible && gcombo_adasdiv.value != "Stop"}, Boolean))
+			mf_map.put("mf_tc3_48", MF({gfloat_fADAS.visible ? (float)200 : (float)0}, Float))
+			mf_map.put("mf_tc3_49", MF({
+				!gfloat_fADAS.visible ? (float)0 : (gfloat_fsource0.value / Float.parseFloat(gcombo_adasdiv.value.find(/\d+/)))
+			}, Float))
+			mf_map.put("mf_tc3_50", MF({gcombo_mcanhdiv_300.visible ? gcombo_mcanhdiv_300.value != "Stop" : gcombo_mcanhdiv_160.value != "Stop"}, Boolean))
+			mf_map.put("mf_tc3_51",
+					MF({
+						!gfloat_fMCANH_tc3.visible ? (float)0
+							: (gfloat_fsource0.value / Float.parseFloat(gcombo_mcanhdiv_300.visible ? gcombo_mcanhdiv_300.value.find(/\d+/)
+																	  : gcombo_mcanhdiv_160.value.find(/\d+/)))
+					}, Float))
+			mf_map.put("mf_tc3_52", MF({gfloat_fsource1.value / (float)24}, Float))
+			mf_map.put("mf_tc3_53", MF({gcombo_erayperon.visible && gcombo_erayperon.value != "Stop"}, Boolean))
+			mf_map.put("mf_tc3_54", MF({gfloat_fERAY.visible ? (float)80 : (float)0}, Float))
+			mf_map.put("mf_tc3_55", MF({
+				!gfloat_fERAY.visible ? (float)0 : (gfloat_fsource1.value / Float.parseFloat(gcombo_erayperon.value.find(/\d+/)))
+			}, Float))
+			mf_map.put("mf_tc3_56", MF({gcombo_mcandiv.value != "Stop"}, Boolean))
+			mf_map.put("mf_tc3_57",
+					MF({
+						!gfloat_fMCAN_tc3.visible ? (float)0
+							: gcombo_mcandiv.value == "fOSC0" ? gfloat_fOSC0.value
+							: (gfloat_fsource1.value / Float.parseFloat(gcombo_mcandiv.value.find(/\/\d+/).find(/\d+/)))
+					}, Float))
+			mf_map.put("mf_tc3_58", MF({gcombo_asclinsdiv.value != "Stop"}, Boolean))
+			mf_map.put("mf_tc3_59",
+					MF({
+						!gfloat_fASCLINS_tc3.visible ? (float)0
+							: gcombo_asclinsdiv.value == "fOSC0" ? gfloat_fOSC0.value
+							: (gfloat_fsource1.value / Float.parseFloat(gcombo_asclinsdiv.value.find(/\/\d+/).find(/\d+/)))
+					}, Float))
+			mf_map.put("mf_tc3_60", MF({gfloat_fsource1.value}, Float))
+			mf_map.put("mf_tc3_61", MF({gcombo_ebuperon.visible && gcombo_ebuperon.value != "Stop"}, Boolean))
+			mf_map.put("mf_tc3_62", MF({!gfloat_fEBU.visible ? (float)0 : gfloat_fsource1.value}, Float))
+			mf_map.put("mf_tc3_63", MF({gcombo_hspdmperon.visible}, Boolean))
+			mf_map.put("mf_tc3_64", MF({gcombo_hspdmperon.value}, String))
+			mf_map.put("mf_tc3_65", MF({gfloat_fHSPDM_320.visible}, Boolean))
+			mf_map.put("mf_tc3_66", MF({!gfloat_fHSPDM_160.visible ? (float)0 : gfloat_fsource1.value}, Float))
+			mf_map.put("mf_tc3_67", MF({gcombo_mscdiv.visible && gcombo_mscdiv.value != "Stop"}, Boolean))
+			mf_map.put("mf_tc3_68",
+					MF({
+						!gfloat_fMSC.visible ? (float)0
+							: gcombo_mscdiv.value.find(/fsource1/) ? (gfloat_fsource1.value / Float.parseFloat(gcombo_mscdiv.value.find(/\/\d+/).find(/\d+/)))
+							: (gfloat_fsource2.value / Float.parseFloat(gcombo_mscdiv.value.find(/\/\d+/).find(/\d+/)))
+					}, Float))
+			mf_map.put("mf_tc3_69", MF({gcombo_qspidiv.value != "Stop"}, Boolean))
+			mf_map.put("mf_tc3_70",
+					MF({
+						!gfloat_fQSPI_tc3.visible ? (float)0
+							: gcombo_qspidiv.value.find(/fsource1/) ? (gfloat_fsource1.value / Float.parseFloat(gcombo_qspidiv.value.find(/\/\d+/).find(/\d+/)))
+							: (gfloat_fsource2.value / Float.parseFloat(gcombo_qspidiv.value.find(/\/\d+/).find(/\d+/)))
+					}, Float))
+			mf_map.put("mf_tc3_71", MF({gcombo_asclinfdiv.value != "Stop"}, Boolean))
+			mf_map.put("mf_tc3_72",
+					MF({
+						!gfloat_fASCLINF_tc3.visible ? (float)0 : (gfloat_fsource2.value / Float.parseFloat(gcombo_asclinfdiv.value.find(/\/\d+/).find(/\d+/)))
+					}, Float))
+			mf_map.put("mf_tc3_73", MF({gcombo_i2cdiv.visible && gcombo_i2cdiv.value != "Stop"}, Boolean))
+			mf_map.put("mf_tc3_74",
+					MF({
+						!gfloat_fI2C_tc3.visible ? (float)0 : (gfloat_fsource2.value / Float.parseFloat(gcombo_i2cdiv.value.find(/\/\d+/).find(/\d+/)))
+					}, Float))
+			mf_map.put("is_extclk0_enabled", MF({gcheck_extclk_en0.value}, Boolean))
+			mf_map.put("is_extclk0_fout", MF({gcombo_extclk_sel0.value == "fOUT"}, Boolean))
+			mf_map.put("isnot_extclk0_fout", MF({gcombo_extclk_sel0.value != "fOUT"}, Boolean))
+			mf_map.put("mf_tc3_81",
+					MF({
+						switch(gcombo_extclk_sel0.value) {
+						case "fOUT":
+							return (gcombo_extclk_dm.value == "Normal" ? (gfloat_fSPB_tc3.value / ((float)(1024 - ginteger_extclk_step.value) * 2))
+																			: (gfloat_fSPB_tc3.value * (float)ginteger_extclk_step.value / (1024 * 2)))
+						case "fPLL0":
+							return (gfloat_fPLL0_300.visible ? gfloat_fPLL0_300.value : gfloat_fPLL0_160.value)
+						case "fPLL1":
+							return (gfloat_fPLL1_300.visible ? gfloat_fPLL1_300.value : gfloat_fPLL1_160.value)
+						case "fOSC0":
+							return gfloat_fOSC0.value
+						case "fBACK":
+							return gfloat_fBACK.value
+						case "fPLL2":
+							return gfloat_fPLL2.value
+						case "fBBB":
+							return gfloat_fBBB.value
+						case "fSRI":
+							return gfloat_fSRI.value
+						case "fSPB":
+							return gfloat_fSPB_tc3.value
+						case "fFSI":
+							return gfloat_fFSI.value
+						case "fSTM":
+							return gfloat_fSTM_tc3.value
+						case "fGTM":
+							return gfloat_fGTM_tc3.value
+						case "fFSI2":
+							return gfloat_fFSI2.value
+						}
+						// fMT0
+						return (float)0
+					}, Float))
+			mf_map.put("is_extclk1_enabled", MF({gcheck_extclk_en1.value}, Boolean))
+			mf_map.put("is_extclk1_fout", MF({gcombo_extclk_sel1.value == "fOUT"}, Boolean))
+			mf_map.put("isnot_extclk1_fout", MF({gcombo_extclk_sel1.value != "fOUT"}, Boolean))
+			mf_map.put("mf_tc3_86",
+					MF({
+						switch(gcombo_extclk_sel1.value) {
+						case "fOUT":
+							return (gfloat_fSPB_tc3.value / ((float)(ginteger_extclk_div1.value + 1) * 2))
+						case "fPLL0":
+							return (gfloat_fPLL0_300.visible ? gfloat_fPLL0_300.value : gfloat_fPLL0_160.value)
+						case "fPLL1":
+							return (gfloat_fPLL1_300.visible ? gfloat_fPLL1_300.value : gfloat_fPLL1_160.value)
+						case "fEBU":
+							return gfloat_fEBU.value
+						case "fBACK":
+							return gfloat_fBACK.value
+						case "fMCAN":
+							return gfloat_fMCAN_tc3.value
+						case "fADC":
+							return gfloat_fADC_tc3.value
+						case "fQSPI":
+							return gfloat_fQSPI_tc3.value
+						case "fSRI":
+							return gfloat_fSRI.value
+						case "fSPB":
+							return gfloat_fSPB_tc3.value
+						case "fI2C":
+							return gfloat_fI2C_tc3.value
+						case "fMSC":
+							return gfloat_fMSC.value
+						case "fERAY":
+							return gfloat_fERAY.value
+						case "fASCLINF":
+							return gfloat_fASCLINF_tc3.value
+						}
+						// fASCLINS
+						return (float)gfloat_fASCLINS_tc3.value
+					}, Float))
+			mf_map.put("mf_tc3_87",
+					MF({
+						String result = ""
+						if (gtab_clock_distributions.visible)
+						{
+							if ((gfloat_fOSC0.value % 1) != 0){
+								result = "Error: The frequency of fOSC0 must be an integer value...\n"
+							}
+							if ((gfloat_SYSCLK.value % 1) != 0){
+								result += "Error: The frequency of SYSCLK must be an integer value...\n"
+							}
+							if ((gfloat_fSRI.value < gfloat_fSPB_tc3.value) || ((gfloat_fSRI.value % gfloat_fSPB_tc3.value) != 0)){
+								result += "Error: The frequency of fSRI must be an integer multiple of fSPB...\n"
+							}
+							if ((gfloat_fFSI.value < (gfloat_fSPB_tc3.value / 2)) || ((gfloat_fFSI.value % (gfloat_fSPB_tc3.value / 2)) != 0)) {
+								result += "Error: The frequency of fFSI must be an integer multiple of fSPB/2...\n"
+							}
+							if (gfloat_fGTM_tc3.visible)
+							{
+								if (((gfloat_fGTM_tc3.value > gfloat_fSPB_tc3.value) && (gfloat_fGTM_tc3.value != (gfloat_fSPB_tc3.value * 2))) ||
+									((gfloat_fGTM_tc3.value < gfloat_fSPB_tc3.value) &&
+										(((gfloat_fSPB_tc3.value % gfloat_fGTM_tc3.value) != 0) || ((gfloat_fSPB_tc3.value / gfloat_fGTM_tc3.value) > 6)))) {
+									result += ("Error: The frequencies of fGTM and fSPB must be the same, " +
+												"or fGTM must be twice fSPB, or fSPB must be n times fGTM (n=2-6)...\n")
+								}
+							}
+							if (gfloat_fSTM_tc3.visible)
+							{
+								if (((gfloat_fSPB_tc3.value > gfloat_fSTM_tc3.value) && (((gfloat_fSPB_tc3.value % gfloat_fSTM_tc3.value) != 0)
+																					|| ((gfloat_fSPB_tc3.value / gfloat_fSTM_tc3.value) > 6))) ||
+									((gfloat_fSPB_tc3.value < gfloat_fSTM_tc3.value) && (gfloat_fSTM_tc3.value % gfloat_fSPB_tc3.value) != 0)) {
+									result += ("Error: The frequencies of fSPB and fSTM must be the same,"
+														+ " or fSPB must be n times fSTM (n=2-6), or fSTM must be multiple of fSPB...\n")
+								}
+							}
+							if (gfloat_fBBB.visible)
+							{
+								if ((gfloat_fSRI.value < gfloat_fBBB.value) ||
+									((gfloat_fSRI.value > gfloat_fBBB.value)
+										&&
+									 (((gfloat_fSRI.value % gfloat_fBBB.value) != 0) || ((gfloat_fSRI.value / gfloat_fBBB.value) > 2)))) {
+									result += "Error: The frequencies of fSRI and fBBB must be the same, or fSRI must be twice fBBB...\n"
+								}
+							}
+							if (gfloat_fGETH.visible)
+							{
+								if ((gfloat_fSRI.value < gfloat_fGETH.value) || ((gfloat_fSRI.value % gfloat_fGETH.value) != 0)) {
+									result += "Error: The frequency of fSRI must be an integer multiple of fGETH...\n"
+								}
+							}
+							if (gfloat_fMCANH_tc3.visible && gfloat_fMCAN_tc3.visible)
+							{
+								if (gfloat_fMCANH_tc3.value < gfloat_fMCAN_tc3.value) {
+									result += "Error: The frequency of fMCANH must be faster than or equal to fMCAN...\n"
+								}
+							}
+							if (gfloat_fADAS.visible)
+							{
+								if ((gfloat_fADAS.value != gfloat_fSRI.value) && (gfloat_fADAS.value != (gfloat_fSRI.value * 2))) {
+									result += "Error: The frequencies of fADAS and fSRI must be the same, or fADAS must be twice fSRI...\n"
+								}
+								if (gfloat_fBBB.visible) {
+									if (gfloat_fADAS.value != (gfloat_fBBB.value * 2)) {
+										result += "Error: The frequency of ADAS must be twice fBBB...\n"
+									}
+								}
+							}
+							if (gfloat_fMCANH_tc3.visible)
+							{
+								if (gfloat_fSPB_tc3.value != gfloat_fMCANH_tc3.value) {
+									result += "Warning: The frequency of fSPB must be same with fMCANH in pretended networking / LP mode...\n"
+								}
+							}
+							if (gcombo_extclk_sel0.value == "fBBB" && !gfloat_fBBB.visible) {
+								result += "Warning: fBBB cannot be used as EXTCLK0 in the current configuration...\n"
+							}
+							if (gcombo_extclk_sel0.value == "fSTM" && !gfloat_fSTM_tc3.visible) {
+								result += "Warning: fSTM cannot be used as EXTCLK0 in the current configuration...\n"
+							}
+							if (gcombo_extclk_sel0.value == "fGTM" && !gfloat_fGTM_tc3.visible) {
+								result += "Warning: fGTM cannot be used as EXTCLK0 in the current configuration...\n"
+							}
+							if (gcombo_extclk_sel0.value == "fMT0") {
+								result += "Warning: fMT0 is selected as EXTCLK0 source. Make sure that the fMT0 is activated...\n"
+							}
+							if (gcombo_extclk_sel1.value == "fEBU" && !gfloat_fEBU.visible) {
+								result += "Warning: fEBU cannot be used as EXTCLK1 in the current configuration...\n"
+							}
+							if (gcombo_extclk_sel1.value == "fMCAN" && !gfloat_fMCAN_tc3.visible) {
+								result += "Warning: fMCAN cannot be used as EXTCLK1 in the current configuration...\n"
+							}
+							if (gcombo_extclk_sel1.value == "fQSPI" && !gfloat_fQSPI_tc3.visible) {
+								result += "Warning: fQSPI cannot be used as EXTCLK1 in the current configuration...\n"
+							}
+							if (gcombo_extclk_sel1.value == "fI2C" && !gfloat_fI2C_tc3.visible) {
+								result += "Warning: fI2C cannot be used as EXTCLK1 in the current configuration...\n"
+							}
+							if (gcombo_extclk_sel1.value == "fMSC" && !gfloat_fMSC.visible) {
+								result += "Warning: fMSC cannot be used as EXTCLK1 in the current configuration...\n"
+							}
+							if (gcombo_extclk_sel1.value == "fERAY" && !gfloat_fERAY.visible) {
+								result += "Warning: fERAY cannot be used as EXTCLK1 in the current configuration...\n"
+							}
+							if (gcombo_extclk_sel1.value == "fASCLINF" && !gfloat_fASCLINF_tc3.visible) {
+								result += "Warning: fASCLINF cannot be used as EXTCLK1 in the current configuration...\n"
+							}
+							if (gcombo_extclk_sel1.value == "fASCLINS" && !gfloat_fASCLINS_tc3.visible) {
+								result += "Warning: fASCLINS cannot be used as EXTCLK1 in the current configuration...\n"
+							}
+						}
+						return result
+					}, String))
+			mf_map.put("mf_tc3_88", MF({gmessage_message.text.toString().contains("Error:")}, Boolean))
+			mf_map.put("mf_tc3_89", MF({(gmessage_message.text != "")}, Boolean))
+
+			CLOCK_tc3(str_series, str_variant, max_freq, mf_map)
+
+			//==================================================================================================
+			// Resource Requirement
+			//==================================================================================================
+			// tc3
+			hwres_clockctrl_osc		= MVirtualResourceGroup("Oscillator Circuit", ["peripheral", "scu", "0", "clkctrl", "osc"])
+			hwres_clockctrl_syspll	= MVirtualResourceGroup("System PLL", ["peripheral", "scu", "0", "clkctrl", "syspll"])
+			hwres_clockctrl_peripll = MVirtualResourceGroup("Peripheral PLL", ["peripheral", "scu", "0", "clkctrl", "perpll"])
+			hwres_clockctrl_ccu		= MVirtualResourceGroup("Clock Control Unit", ["peripheral", "scu", "0", "clkctrl", "ccu"])
+			hwres_clockctrl_clkmon	= MVirtualResourceGroup("Clock Monitor", ["peripheral", "scu", "0", "clkctrl", "clkmon"])
+			hwres_clockctrl_extclk	= MVirtualResourceGroup("External Clock", ["peripheral", "scu", "0", "clkctrl", "extclk"])
+		}
+		else
+		{
+			//==================================================================================================
+			// Assignment to interface variables
+			//==================================================================================================
+			gfloat_fASCLINF = gfloat_fASCLINF_tc4
+			gfloat_fASCLINS = gfloat_fASCLINS_tc4
+			gfloat_fSPB = gfloat_fSPB_tc4
+			gfloat_fADC = gfloat_fADC_tc4
+			gfloat_fSTM = gfloat_fSTM_tc4
+			gfloat_fGTM = gfloat_fGTM_tc4
+			gfloat_fI2C = gfloat_fI2C_tc4
+			gfloat_fMCAN = gfloat_fMCAN_tc4
+			gfloat_fMCANH = gfloat_fMCANH_tc4
+			gfloat_fQSPI = gfloat_fQSPI_tc4
+			gfloat_fSRI = gfloat_fSRI_tc4
+			gcombo_pllinsel = gcombo_pllinsel_tc4
+			gcheck_extclk_en0 = gcheck_extclk_en0_tc4
+			gcheck_extclk_en1 = gcheck_extclk_en1_tc4
+
+			mf_map.put("mf_tc4_00", MF({gfloat_fOSC_tc4.value}, Float))
+			mf_map.put("mf_tc4_01", MF({gfloat_SYSCLK_tc4.value}, Float))
+			mf_map.put("mf_tc4_02", MF({gcombo_clksrcmode_tc4.value in ["External clock mode with shaper", "External clock mode without shaper"]}, Boolean))
+			mf_map.put("mf_tc4_03", MF({gcombo_pllinsel.value != "SYSCLK"}, Boolean))
+			mf_map.put("is_sysclk_enabled_tc4", MF({gcombo_pllinsel.value == "SYSCLK"}, Boolean))
+			mf_map.put("mf_tc4_05",
+					MF({
+						if (gfloat_fOSC_tc4.value <= 20) {
+							return ["BACK", "OSC", "SYSCLK", "OSC_F"]
+						} else {
+							return ["BACK", "OSC", "SYSCLK"]
+						}
+					}, List))
+			mf_map.put("mf_tc4_06_1",
+					MF({
+						if (gfloat_fPLL0_tc4.value >= 230) {
+							return ["PLL", "BACK", "RAMP"]
+						} else {
+							return ["PLL", "BACK"]
+						}
+					}, List))
+			mf_map.put("mf_tc4_06_2", MF({gfloat_fPLL0_tc4.value >= 230}, Boolean))
+			mf_map.put("mf_tc4_06",
+					MF({
+						if ((gfloat_fPLL0_tc4.value >= 230) && (gcombo_ramptype_tc4.value == "RampUp"))
+						{
+							return gfloat_fPLL0_tc4.value - 100.0
+						}
+						else
+						{
+							return Float.MAX_VALUE
+						}
+					}, Float))
+			mf_map.put("mf_tc4_07", MF({gcombo_ramptype_tc4.value == "RampUp"}, Boolean))
+			mf_map.put("mf_tc4_08",
+					MF({
+						List options = []
+						float pllsrc = gcombo_pllinsel.value == "BACK" ? gfloat_fBACK_tc4.value
+									 : gcombo_pllinsel.value == "OSC" ? gfloat_fOSC_tc4.value
+									 : gcombo_pllinsel.value == "SYSCLK" ? gfloat_SYSCLK_tc4.value
+									 : gfloat_fOSC_tc4.value
+						for (int p = 1; p <= 8; p++) {
+							float dcoIn = pllsrc / (float)p
+							if (DCO_INPUT_MIN_TC4 <= dcoIn && dcoIn <= DCO_INPUT_MAX_TC4) { // 20~50 is in datasheet
+								for (int n = 1; n <= 256; n++) {
+									float dcoOut = dcoIn * (float)n
+									if (DCO_MIN_FREQ <= dcoOut && dcoOut <= DCO_MAX_FREQ_SYSPLL_TC4) { // 400~1000 for syspll is in datasheet
+										for (int k2 = 1; k2 <= 16; k2++) {
+											if ((dcoOut / (float)k2) == gfloat_fPLL0_tc4.value) {
+												options.push("P:" + p + " N:" + n + " K2:" + k2)
+											}
+										}
+									}
+								}
+							}
+						}
+						return (options)
+					}, List))
+			mf_map.put("mf_tc4_09",
+					MF({
+						float pllsrc = gcombo_pllinsel.value == "BACK" ? gfloat_fBACK_tc4.value
+									 : gcombo_pllinsel.value == "OSC" ? gfloat_fOSC_tc4.value
+									 : gcombo_pllinsel.value == "SYSCLK" ? gfloat_SYSCLK_tc4.value
+									 : gfloat_fOSC_tc4.value
+						String value = gcombo_syspll_divider_list_tc4.value
+						pllsrc * Float.parseFloat(value.find(/N:\d+/).find(/\d+/)) / Float.parseFloat(value.find(/P:\d+/).find(/\d+/))
+					}, Float))
+			mf_map.put("mf_tc4_10",
+					MF({
+						List options = []
+						float pllsrc = gcombo_pllinsel.value == "BACK" ? gfloat_fBACK_tc4.value
+								     : gcombo_pllinsel.value == "OSC" ? gfloat_fOSC_tc4.value
+								     : gcombo_pllinsel.value == "SYSCLK" ? gfloat_SYSCLK_tc4.value
+								     : gfloat_fOSC_tc4.value
+						for (int p = 1; p <= 8; p++) {
+							float dcoIn = pllsrc / (float)p
+							if (DCO_INPUT_MIN_TC4 <= dcoIn && dcoIn <= DCO_INPUT_MAX_TC4) { // 20~50 is in datasheet
+								for (int n = 1; n <= 256; n++) {
+									float dcoOut = dcoIn * (float)n
+									if (DCO_MIN_FREQ <= dcoOut && dcoOut <= DCO_MAX_FREQ_PERIPLL_TC4) { // 400~800 for peripll is in datasheet
+										for (int k2 = 1; k2 <= 16; k2++) {
+											if ((dcoOut / (float)k2) == gfloat_fPLL1_tc4.value) {
+												options.push("P:" + p + " N:" + n + " K2PRE:1.0" + " K2:" + k2)
+											}
+											if ((dcoOut / (float)k2 / 2.0) == gfloat_fPLL1_tc4.value) {
+												options.push("P:" + p + " N:" + n + " K2PRE:2.0" + " K2:" + k2)
+											}
+											if ((dcoOut / (float)k2 / 1.2) == gfloat_fPLL1_tc4.value) {
+												options.push("P:" + p + " N:" + n + " K2PRE:1.2" + " K2:" + k2)
+											}
+											if ((dcoOut / (float)k2 / 1.6) == gfloat_fPLL1_tc4.value) {
+												options.push("P:" + p + " N:" + n + " K2PRE:1.6" + " K2:" + k2)
+											}
+										}
+									}
+								}
+							}
+						}
+						return (options)
+					}, List))
+			mf_map.put("mf_tc4_11",
+					MF({
+						float pllsrc = gcombo_pllinsel.value == "BACK" ? gfloat_fBACK_tc4.value
+								     : gcombo_pllinsel.value == "OSC" ? gfloat_fOSC_tc4.value
+								     : gcombo_pllinsel.value == "SYSCLK" ? gfloat_SYSCLK_tc4.value
+								     : gfloat_fOSC_tc4.value
+						String value = gcombo_peripll_divider_list_tc4.value
+						pllsrc * Float.parseFloat(value.find(/N:\d+/).find(/\d+/)) / Float.parseFloat(value.find(/P:\d+/).find(/\d+/))
+					}, Float))
+			mf_map.put("mf_tc4_12",
+					MF({
+						!gfloat_fPLLPPU_tc4.visible ? (float)25
+						    : (gfloat_syspll_fDCO_tc4.value / Float.parseFloat(gcombo_syspll_k3pre_tc4.value) / Float.parseFloat(gcombo_syspll_k3_tc4.value))
+					}, Float))
+			mf_map.put("mf_tc4_13",
+					MF({
+						gfloat_peripll_fDCO_tc4.value / Float.parseFloat(gcombo_peripll_k3pre_tc4.value) / Float.parseFloat(gcombo_peripll_k3_tc4.value)
+					}, Float))
+			mf_map.put("mf_tc4_14",
+					MF({
+						gfloat_peripll_fDCO_tc4.value / Float.parseFloat(gcombo_peripll_k4pre_tc4.value) / Float.parseFloat(gcombo_peripll_k4_tc4.value)
+					}, Float))
+			mf_map.put("mf_tc4_15", MF({!gfloat_fHSCT_tc4.visible ? (float)400 : gfloat_peripll_fDCO_tc4.value}, Float))
+			mf_map.put("mf_tc4_16", MF({gfloat_fHSCT_tc4.visible}, Boolean))
+			mf_map.put("mf_tc4_17", MF({gfloat_fHSCT_tc4.value}, Float))
+			mf_map.put("mf_tc4_18", MF({gfloat_fSPB_tc4.value}, Float))
+			mf_map.put("mf_tc4_19", MF({gfloat_fSRI_tc4.value}, Float))
+			mf_map.put("mf_tc4_20", MF({gcombo_clksel_0_tc4.value != "RAMP"}, Boolean))
+			mf_map.put("mf_tc4_20_ppu", MF({(gcombo_clksel_0_tc4.value != "RAMP") && (gcombo_ppudiv_tc4.visible)}, Boolean))
+			mf_map.put("mf_tc4_21",
+					MF({
+						gcombo_clksel_0_tc4.value == "BACK" ? gfloat_fBACK_tc4.value : gfloat_fPLL0_tc4.value
+					}, Float))
+			mf_map.put("mf_tc4_22",
+					MF({
+						!gfloat_fsourceppu_tc4.visible ? (float)25
+						    : (gcombo_clksel_0_tc4.value == "BACK" ? gfloat_fBACK_tc4.value : gfloat_fPLLPPU_tc4.value)
+					}, Float))
+			mf_map.put("mf_tc4_23", MF({gcombo_clksel_2_tc4.value != "STOP"}, Boolean))
+			mf_map.put("mf_tc4_24",
+					MF({
+						float fsrc1, fpll1 = 0
+						if (gcombo_clksel_2_tc4.value == "SRC1") {
+							if (gcombo_clksel_1_tc4.value == "PLL") {
+								fsrc1 = gfloat_fPLL1_tc4.value
+							} else {
+								fsrc1 = gfloat_fBACK_3_tc4.value
+							}
+							fpll1 = fsrc1
+						} else if (gcombo_clksel_2_tc4.value == "SPB") {
+							fpll1 = gfloat_fSPB_1_tc4.value
+						} else if (gcombo_clksel_2_tc4.value == "PADSYSCLK") {
+							fpll1 = gfloat_SYSCLK_1_tc4.value
+						} else {
+							fpll1 = 0
+						}
+						fpll1
+					}, Float))
+			mf_map.put("mf_tc4_25", MF({gcombo_clksel_1_tc4.value == "BACK" ? gfloat_fBACK_tc4.value : gfloat_fPLL2_tc4.value}, Float))
+			mf_map.put("mf_tc4_26", MF({gcombo_clksel_1_tc4.value == "BACK" ? gfloat_fBACK_tc4.value : gfloat_fPLL3_tc4.value}, Float))
+			mf_map.put("mf_tc4_27", MF({gfloat_fsource0_tc4.value / Float.parseFloat(gcombo_sridiv_tc4.value.find(/\d+/))}, Float))
+			mf_map.put("mf_tc4_28",
+					MF({
+						gfloat_fSRI_tc4.value / Float.parseFloat(gcombo_sricsdiv_tc4.value.find(/\d+/))
+					}, Float))
+			mf_map.put("mf_tc4_29", MF({gfloat_fSRI_tc4.value}, Float))
+			mf_map.put("mf_tc4_30",
+					MF({
+						gfloat_fsource0_tc4.value / Float.parseFloat(gcombo_spbdiv_tc4.value.find(/\d+/))
+					}, Float))
+			mf_map.put("mf_tc4_31",
+					MF({
+						!gfloat_fCPB_tc4.visible ?  (float)25
+						    : (gfloat_fsource0_tc4.value / Float.parseFloat(gcombo_cpbdiv_tc4.value.find(/\d+/)))
+					}, Float))
+			mf_map.put("mf_tc4_32", MF({gcombo_stmdiv_tc4.value != "Stop"}, Boolean))
+			mf_map.put("mf_tc4_33",
+					MF({
+						!gfloat_fSTM_tc4.visible ? (float)0
+							: (gfloat_fsource0_tc4.value / Float.parseFloat(gcombo_stmdiv_tc4.value.find(/\d+/)))
+					}, Float))
+			mf_map.put("mf_tc4_34", MF({gcombo_rcbdiv_tc4.value != "Stop"}, Boolean))
+			mf_map.put("mf_tc4_35",
+					MF({
+						!gfloat_fRCB_tc4.visible ? (float)20
+							: (gfloat_fsource0_tc4.value / Float.parseFloat(gcombo_rcbdiv_tc4.value.find(/\d+/)))
+					}, Float))
+			mf_map.put("mf_tc4_36", MF({gcombo_gtmdiv_tc4.value != "Stop"}, Boolean))
+			mf_map.put("mf_tc4_37",
+					MF({
+						!gfloat_fGTM_tc4.visible ? (float)0
+							: (gfloat_fsource0_tc4.value / Float.parseFloat(gcombo_gtmdiv_tc4.value.find(/\d+/)))
+					}, Float))
+			mf_map.put("mf_tc4_38", MF({gcombo_egtmdiv_tc4.value != "Stop"}, Boolean))
+			mf_map.put("mf_tc4_39",
+					MF({
+						!gfloat_feGTM_tc4.visible ? (float)0
+							: (gfloat_fsource0_tc4.value / Float.parseFloat(gcombo_egtmdiv_tc4.value.find(/\d+/)))
+					}, Float))
+			mf_map.put("mf_tc4_40", MF({gcombo_gethdiv_tc4.value != "Stop"}, Boolean))
+			mf_map.put("mf_tc4_41",
+					MF({
+						!gfloat_fGETH_tc4.visible ? (float)150
+							: (gfloat_fsource0_tc4.value / Float.parseFloat(gcombo_gethdiv_tc4.value.find(/\d+/)))
+					}, Float))
+			mf_map.put("mf_tc4_42", MF({gcombo_lethdiv_tc4.value != "Stop"}, Boolean))
+			mf_map.put("mf_tc4_43",
+					MF({
+						!gfloat_fLETH_tc4.visible ? (float)125
+							: (gfloat_fsource0_tc4.value / Float.parseFloat(gcombo_lethdiv_tc4.value.find(/\d+/)))
+					}, Float))
+			mf_map.put("mf_tc4_44", MF({gcombo_mcanhdiv_tc4.value != "Stop"}, Boolean))
+			mf_map.put("mf_tc4_45",
+					MF({
+						!gfloat_fMCANH_tc4.visible ? (float)0
+							: (gfloat_fsource0_tc4.value / Float.parseFloat(gcombo_mcanhdiv_tc4.value.find(/\d+/)))
+					}, Float))
+			mf_map.put("mf_tc4_46", MF({gcombo_canxlhdiv_tc4.value != "Stop"}, Boolean))
+			mf_map.put("mf_tc4_47",
+					MF({
+						!gfloat_fCANXLH_tc4.visible ? (float)0
+							: (gfloat_fsource0_tc4.value / Float.parseFloat(gcombo_canxlhdiv_tc4.value.find(/\d+/)))
+					}, Float))
+			mf_map.put("mf_tc4_48",
+					MF({
+						gfloat_fsource0_tc4.value / Float.parseFloat(gcombo_fsidiv_tc4.value.find(/\d+/))
+					}, Float))
+			mf_map.put("mf_tc4_49", MF({gcombo_tpbdiv_tc4.value != "Stop"}, Boolean))
+			mf_map.put("mf_tc4_50",
+					MF({
+						!gfloat_fTPB_tc4.visible ? (float)0
+							: (gfloat_fsource0_tc4.value / Float.parseFloat(gcombo_tpbdiv_tc4.value.find(/\d+/)))
+					}, Float))
+			mf_map.put("mf_tc4_51", MF({gfloat_fsource0_tc4.value / 24.0}, Float))
+			mf_map.put("mf_tc4_52", MF({gfloat_fsource1_tc4.value / 24.0}, Float))
+			mf_map.put("mf_tc4_53", MF({gcombo_ppudiv_tc4.value != "Stop"}, Boolean))
+			mf_map.put("mf_tc4_54",
+					MF({
+						!gfloat_fPPU_tc4.visible ? (float)25
+							: (gfloat_fsourceppu_tc4.value / Float.parseFloat(gcombo_ppudiv_tc4.value.find(/\d+/)))
+					}, Float))
+			mf_map.put("mf_tc4_55", MF({
+						(gcombo_feraydiv_tc4.value != "Stop") && (gcombo_clksel_2_tc4.value != "STOP")
+					}, Boolean))
+			mf_map.put("mf_tc4_56",
+					MF({
+						!gfloat_fERAY_tc4.visible ? (float)0
+							: (gfloat_fsource1_tc4.value / Float.parseFloat(gcombo_feraydiv_tc4.value.find(/\d+/)))
+					}, Float))
+			mf_map.put("mf_tc4_57",
+					MF({
+						(gcombo_fadcdiv_tc4.value != "Stop") && (gcombo_clksel_2_tc4.value != "STOP")
+					}, Boolean))
+			mf_map.put("mf_tc4_58",
+					MF({
+						!gfloat_fADC_tc4.visible ? (float)0
+							: (gfloat_fsource1_tc4.value / Float.parseFloat(gcombo_fadcdiv_tc4.value.find(/\d+/)))
+					}, Float))
+			mf_map.put("mf_tc4_59",
+					MF({
+						if (gcombo_clksel_2_tc4.value != "STOP") {
+							return ["Stop", "fOSC", "fsource1/1", "fsource1/2", "fsource1/3", "fsource1/4",
+									"fsource1/5", "fsource1/6", "fsource1/8", "fsource1/10", "fsource1/12", "fsource1/15"]
+						} else {
+							return ["Stop", "fOSC"]
+						}
+					}, List))
+			mf_map.put("mf_tc4_60", MF({gcombo_mcandiv_tc4.value != "Stop"}, Boolean))
+			mf_map.put("mf_tc4_61",
+					MF({
+						!gfloat_fMCAN_tc4.visible ? (float)0
+							: gcombo_mcandiv_tc4.value == "fOSC" ? gfloat_fOSC_tc4.value
+							: (gfloat_fsource1_tc4.value / Float.parseFloat(gcombo_mcandiv_tc4.value.find(/\/\d+/).find(/\d+/)))
+					}, Float))
+			mf_map.put("mf_tc4_62",
+					MF({
+						if (gcombo_clksel_2_tc4.value != "STOP") {
+							return ["Stop", "fOSC", "fsource1/1", "fsource1/2", "fsource1/3", "fsource1/4",
+									"fsource1/5", "fsource1/6", "fsource1/8", "fsource1/10", "fsource1/12", "fsource1/15"]
+						} else {
+							return ["Stop", "fOSC"]
+						}
+					}, List))
+			mf_map.put("mf_tc4_63", MF({gcombo_canxldiv_tc4.value != "Stop"}, Boolean))
+			mf_map.put("mf_tc4_64",
+					MF({
+						!gfloat_fCANXL_tc4.visible ? (float)0
+							: gcombo_canxldiv_tc4.value == "fOSC" ? gfloat_fOSC_tc4.value
+							: (gfloat_fsource1_tc4.value / Float.parseFloat(gcombo_canxldiv_tc4.value.find(/\/\d+/).find(/\d+/)))
+					}, Float))
+			mf_map.put("mf_tc4_65",
+					MF({
+						if (gcombo_clksel_2_tc4.value != "STOP") {
+							return ["Stop", "fOSC", "fsource1/1", "fsource1/2", "fsource1/3", "fsource1/4",
+									"fsource1/5", "fsource1/6", "fsource1/8", "fsource1/10", "fsource1/12", "fsource1/15"]
+						} else {
+							return ["Stop", "fOSC"]
+						}
+					}, List))
+			mf_map.put("mf_tc4_66", MF({gcombo_asclinsdiv_tc4.value != "Stop"}, Boolean))
+			mf_map.put("mf_tc4_67",
+					MF({
+						!gfloat_fASCLINS_tc4.visible ? (float)0
+							: gcombo_asclinsdiv_tc4.value == "fOSC" ? gfloat_fOSC_tc4.value
+							: (gfloat_fsource1_tc4.value / Float.parseFloat(gcombo_asclinsdiv_tc4.value.find(/\/\d+/).find(/\d+/)))
+					}, Float))
+			mf_map.put("mf_tc4_68",
+					MF({
+						if (gcombo_clksel_2_tc4.value != "STOP") {
+							return ["Stop","fsource1/1", "fsource1/2", "fsource1/3", "fsource1/4", "fsource1/5", "fsource1/6", "fsource1/8", "fsource1/10",
+									"fsource1/12", "fsource1/15", "fsource2/1", "fsource2/2", "fsource2/3", "fsource2/4", "fsource2/5", "fsource2/6",
+									"fsource2/8", "fsource2/10", "fsource2/12", "fsource2/15"]
+						} else {
+							return ["Stop", "fsource2/1", "fsource2/2", "fsource2/3", "fsource2/4", "fsource2/5", "fsource2/6", "fsource2/8", "fsource2/10",
+									"fsource2/12", "fsource2/15"]
+						}
+					}, List))
+			mf_map.put("mf_tc4_69", MF({gcombo_mscdiv_tc4.value != "Stop"}, Boolean))
+			mf_map.put("mf_tc4_70",
+					MF({
+						!gfloat_fMSC_tc4.visible ? (float)0 : gcombo_mscdiv_tc4.value.find(/fsource1/) ?
+							(gfloat_fsource1_tc4.value / Float.parseFloat(gcombo_mscdiv_tc4.value.find(/\/\d+/).find(/\d+/))) :
+							(gfloat_fsource2_tc4.value / Float.parseFloat(gcombo_mscdiv_tc4.value.find(/\/\d+/).find(/\d+/)))
+					}, Float))
+			mf_map.put("mf_tc4_71",
+					MF({
+						if (gcombo_clksel_2_tc4.value != "STOP") {
+							return ["Stop","fsource1/1", "fsource1/2", "fsource1/3", "fsource1/4", "fsource1/5", "fsource1/6", "fsource1/8", "fsource1/10",
+									"fsource1/12", "fsource1/15", "fsource2/1", "fsource2/2", "fsource2/3", "fsource2/4", "fsource2/5", "fsource2/6",
+									"fsource2/8", "fsource2/10", "fsource2/12", "fsource2/15"]
+						} else {
+							return ["Stop", "fsource2/1", "fsource2/2", "fsource2/3", "fsource2/4", "fsource2/5", "fsource2/6", "fsource2/8", "fsource2/10",
+									"fsource2/12", "fsource2/15"]
+						}
+					}, List))
+			mf_map.put("mf_tc4_72", MF({gcombo_qspidiv_tc4.value != "Stop"}, Boolean))
+			mf_map.put("mf_tc4_73",
+					MF({
+						!gfloat_fQSPI_tc4.visible ? (float)0 : gcombo_qspidiv_tc4.value.find(/fsource1/) ?
+							(gfloat_fsource1_tc4.value / Float.parseFloat(gcombo_qspidiv_tc4.value.find(/\/\d+/).find(/\d+/))) :
+							(gfloat_fsource2_tc4.value / Float.parseFloat(gcombo_qspidiv_tc4.value.find(/\/\d+/).find(/\d+/)))
+					}, Float))
+			mf_map.put("mf_tc4_74", MF({gcombo_asclinfdiv_tc4.value != "Stop"}, Boolean))
+			mf_map.put("mf_tc4_75",
+					MF({
+						!gfloat_fASCLINF_tc4.visible ? (float)0
+							: (gfloat_fsource2_tc4.value / Float.parseFloat(gcombo_asclinfdiv_tc4.value.find(/\d+/)))
+					}, Float))
+			mf_map.put("mf_tc4_76", MF({gcombo_i2cdiv_tc4.value != "Stop"}, Boolean))
+			mf_map.put("mf_tc4_77",
+					MF({
+						!gfloat_fI2C_tc4.visible ? (float)0
+							: (gfloat_fsource2_tc4.value / Float.parseFloat(gcombo_i2cdiv_tc4.value.find(/\d+/)))
+					}, Float))
+			mf_map.put("mf_tc4_78", MF({gcombo_fleth100div_tc4.value != "Stop"}, Boolean))
+			mf_map.put("mf_tc4_79",
+					MF({
+						!gfloat_fLETH100_tc4.visible ? (float)0
+							: (gfloat_fsource2_tc4.value / Float.parseFloat(gcombo_fleth100div_tc4.value.find(/\d+/)))
+					}, Float))
+			mf_map.put("mf_tc4_80", MF({gcombo_fsdmmcdiv_tc4.value != "Stop"}, Boolean))
+			mf_map.put("mf_tc4_81",
+					MF({
+						!gfloat_fSDMMC_tc4.visible ? (float)0
+							: (gfloat_fsource2_tc4.value / Float.parseFloat(gcombo_fsdmmcdiv_tc4.value.find(/\d+/)))
+					}, Float))
+			mf_map.put("mf_tc4_82", MF({gcombo_fxspidiv_tc4.value != "Stop"}, Boolean))
+			mf_map.put("mf_tc4_83",
+					MF({
+						!gfloat_fxSPI_tc4.visible ? (float)0
+							: (gfloat_fsource3_tc4.value / Float.parseFloat(gcombo_fxspidiv_tc4.value.find(/\d+/)))
+					}, Float))
+			mf_map.put("mf_tc4_84", MF({gcombo_fxspisldiv_tc4.value != "Stop"}, Boolean))
+			mf_map.put("mf_tc4_85",
+					MF({
+						!gfloat_fxSPISL_tc4.visible ? (float)0
+							: (gfloat_fsource3_tc4.value / Float.parseFloat(gcombo_fxspisldiv_tc4.value.find(/\d+/)))
+					}, Float))
+			mf_map.put("is_extclk0_enabled_tc4", MF({gcheck_extclk_en0.value}, Boolean))
+			mf_map.put("is_extclk0_ffrac_tc4", MF({gcombo_extclk_sel0_tc4.value == "fFRAC"}, Boolean))
+			mf_map.put("isnot_extclk0_ffrac_tc4", MF({gcombo_extclk_sel0_tc4.value != "fFRAC"}, Boolean))
+			mf_map.put("mf_tc4_90", MF({gcheck_extclk_en0.value && (gcombo_extclk_sel0_tc4.value == "fRAMP")}, Boolean))
+			mf_map.put("mf_tc4_91",
+					MF({
+						switch(gcombo_extclk_sel0_tc4.value) {
+						case "fBACK":
+							return gfloat_fBACK_tc4.value
+						case "fOSC":
+							return gfloat_fOSC_tc4.value
+						case "fPLL0":
+							return gfloat_fPLL0_tc4.value
+						case "fPLL1":
+							return gfloat_fPLL1_tc4.value
+						case "fPLL2":
+							return gfloat_fPLL2_tc4.value
+						case "fPLL3":
+							return gfloat_fPLL3_tc4.value
+						case "fFRAC":
+							return (gcombo_extclk_dm_tc4.value == "Normal" ? (gfloat_fSPB_tc4.value / ((float)(1024 - ginteger_extclk_step_tc4.value) * 2))
+																			: (gfloat_fSPB_tc4.value * (float)ginteger_extclk_step_tc4.value / (1024 * 2)))
+						case "fSPB":
+							return gfloat_fSPB_tc4.value
+						case "fCPB":
+							return gfloat_fCPB_tc4.value
+						case "fTPB":
+							return gfloat_fTPB_tc4.value
+						case "fSRI":
+							return gfloat_fSRI_tc4.value
+						case "fFSI":
+							return gfloat_fFSI_tc4.value
+						case "fSTM":
+							return gfloat_fSTM_tc4.value
+						case "fGTM":
+							return gfloat_fGTM_tc4.value
+						case "feGTM":
+							return gfloat_feGTM_tc4.value
+						case "fGETH":
+							return gfloat_fGETH_tc4.value
+						case "fMCANH":
+							return gfloat_fMCANH_tc4.value
+						case "fRCB":
+							return gfloat_fRCB_tc4.value
+						case "fLETH":
+							return gfloat_fLETH_tc4.value
+						case "fPPU":
+							return gfloat_fPPU_tc4.value
+						case "fCANXLH":
+							return gfloat_fCANXLH_tc4.value
+						}
+						return (float)0
+					}, Float))
+			mf_map.put("is_extclk1_enabled_tc4", MF({gcheck_extclk_en1.value}, Boolean))
+			mf_map.put("is_extclk1_fDIV1_tc4", MF({gcombo_extclk_sel1_tc4.value == "fDIV1"}, Boolean))
+			mf_map.put("isnot_extclk1_fDIV1_tc4", MF({gcombo_extclk_sel1_tc4.value != "fDIV1"}, Boolean))
+			mf_map.put("mf_tc4_96", MF({gcheck_extclk_en1.value && (gcombo_extclk_sel1_tc4.value == "fRAMP")}, Boolean))
+			mf_map.put("mf_tc4_97",
+					MF({
+						switch(gcombo_extclk_sel1_tc4.value) {
+						case "fBACK":
+							return gfloat_fBACK_tc4.value
+						case "fOSC":
+							return gfloat_fOSC_tc4.value
+						case "fPLL0":
+							return gfloat_fPLL0_tc4.value
+						case "fPLL1":
+							return gfloat_fPLL1_tc4.value
+						case "fPLL2":
+							return gfloat_fPLL2_tc4.value
+						case "fPLL3":
+							return gfloat_fPLL3_tc4.value
+						case "fDIV1":
+							return (gfloat_fSPB_tc4.value / ((float)ginteger_extclk_div1_tc4.value + 1))
+						case "fERAY":
+							return gfloat_fERAY_tc4.value
+						case "fMCAN":
+							return gfloat_fMCAN_tc4.value
+						case "fADC":
+							return gfloat_fADC_tc4.value
+						case "fQSPI":
+							return gfloat_fQSPI_tc4.value
+						case "fMSC":
+							return gfloat_fMSC_tc4.value
+						case "fI2C":
+							return gfloat_fI2C_tc4.value
+						case "fASCLINF":
+							return gfloat_fASCLINF_tc4.value
+						case "fASCLINS":
+							return gfloat_fASCLINS_tc4.value
+						case "fXSPI":
+							return gfloat_fxSPI_tc4.value
+						case "fSDMMC":
+							return gfloat_fSDMMC_tc4.value
+						case "fPPU":
+							return gfloat_fPPU_tc4.value
+						case "fCANXL":
+							return gfloat_fCANXL_tc4.value
+						case "fLETH100":
+							return gfloat_fLETH100_tc4.value
+						case "fXSPISL":
+							return gfloat_fxSPISL_tc4.value
+						}
+						// fMT0
+						return (float)0
+					}, Float))
+			mf_map.put("mf_tc4_98",
+					MF({
+						String result = ""
+						if (gtab_clock_distributions_tc4.visible)
+						{
+							if ((gfloat_fOSC_tc4.value % 1) != 0) {
+								result = "Error: The frequency of fOSC must be an integer value.\n"
+							}
+							if ((gfloat_SYSCLK_tc4.value % 1) != 0) {
+								result += "Error: The frequency of SYSCLK must be an integer value.\n"
+							}
+
+							// UM - Divider ratio restrictions
+							if ((gfloat_fSRI_tc4.value < gfloat_fSPB_tc4.value) || ((gfloat_fSRI_tc4.value % gfloat_fSPB_tc4.value) != 0)) {
+								result += "Error: The frequency of fSRI must be an integer multiple of fSPB.\n"
+							}
+							if (gfloat_fCPB_tc4.visible) {
+								if ((gfloat_fSRI_tc4.value < gfloat_fCPB_tc4.value) || ((gfloat_fSRI_tc4.value % gfloat_fCPB_tc4.value) != 0)) {
+									result += "Error: The frequency of fSRI must be an integer multiple of fCPB.\n"
+								}
+							}
+							if (gfloat_fTPB_tc4.visible) {
+								if ((gfloat_fSRI_tc4.value < gfloat_fTPB_tc4.value) ||
+									((gfloat_fSRI_tc4.value % gfloat_fTPB_tc4.value) != 0) ||
+									((gfloat_fSRI_tc4.value / gfloat_fTPB_tc4.value) > 2)) {
+									result += "Error: The frequency of fSRI must be an integer multiple (1,2) of fTPB.\n"
+								}
+								if (gfloat_fGTM_tc4.visible)
+								{
+									if ((gfloat_fTPB_tc4.value < gfloat_fGTM_tc4.value) || ((gfloat_fTPB_tc4.value % gfloat_fGTM_tc4.value) != 0)) {
+										result += "Error: The frequencies of fTPB must be an integer multiple of fGTM.\n"
+									}
+								}
+								if (gfloat_feGTM_tc4.visible)
+								{
+									if ((gfloat_fTPB_tc4.value < gfloat_feGTM_tc4.value) || ((gfloat_fTPB_tc4.value % gfloat_feGTM_tc4.value) != 0)) {
+										result += "Error: The frequencies of fTPB must be an integer multiple of feGTM.\n"
+									}
+								}
+								if ((gfloat_fTPB_tc4.value != (gfloat_fSPB_tc4.value * 2))){
+									result += "Error: The frequency of fTPB must be 2 multiple of fSPB.\n"
+								}
+							}
+							if (gfloat_fGTM_tc4.visible) {
+								if ((gfloat_fGTM_tc4.value < gfloat_fSPB_tc4.value) || ((gfloat_fGTM_tc4.value % gfloat_fSPB_tc4.value) != 0)) {
+									result += "Error: The frequencies of fGTM must be an integer multiple of fSPB.\n"
+								}
+							}
+							if (gfloat_fSTM_tc4.visible) {
+								if ((gfloat_fSRI_tc4.value < gfloat_fSTM_tc4.value) && ((gfloat_fSRI_tc4.value % gfloat_fSTM_tc4.value) != 0)) {
+									result += "Error: The frequencies of fSRI must be an integer multiple of fSTM.\n"
+								}
+								if ((gfloat_fSRICS_tc4.value < gfloat_fSTM_tc4.value) && ((gfloat_fSRICS_tc4.value % gfloat_fSTM_tc4.value) != 0)) {
+									result += "Error: The frequencies of fSRICS must be an integer multiple of fSTM.\n"
+								}
+							}
+							if ((gfloat_fSRI_tc4.value < gfloat_fFSI_tc4.value) ||
+								((gfloat_fSRI_tc4.value % gfloat_fFSI_tc4.value) != 0) ||
+								((gfloat_fSRI_tc4.value / gfloat_fFSI_tc4.value) > 5)) {
+								result += "Error: The frequency of fSRI must be an integer multiple (1,2,3,4,5) of fFSI.\n"
+							}
+							if ((gfloat_fFSI2_tc4.value < gfloat_fFSI_tc4.value) ||
+								((gfloat_fFSI2_tc4.value % gfloat_fFSI_tc4.value) != 0) ||
+								((gfloat_fFSI2_tc4.value / gfloat_fFSI_tc4.value) > 5)) {
+								result += "Error: The frequency of fFSI2 must be an integer multiple (1,2,3,4,5) of fFSI.\n"
+							}
+							if ((gfloat_fFSI_tc4.value < (gfloat_fSPB_tc4.value / 2)) || ((gfloat_fFSI_tc4.value % (gfloat_fSPB_tc4.value / 2)) != 0)) {
+								result += "Error: The frequency of fFSI must be an integer multiple of fSPB/2.\n"
+							}
+							if (gfloat_fMCANH_tc4.visible && gfloat_fMCAN_tc4.visible)
+							{
+								if (gfloat_fMCANH_tc4.value < gfloat_fMCAN_tc4.value) {
+									result += "Error: The frequency of fMCANH must be faster than or equal to fMCAN.\n"
+								}
+							}
+							if (gfloat_fCANXLH_tc4.visible && gfloat_fCANXL_tc4.visible)
+							{
+								if (gfloat_fCANXLH_tc4.value < gfloat_fCANXL_tc4.value) {
+									result += "Error: The frequency of fCANXLH must be faster than or equal to fCANXL.\n"
+								}
+							}
+							if (gfloat_fRCB_tc4.visible)
+							{
+								if (gfloat_fSRI_tc4.value != gfloat_fRCB_tc4.value * 2) {
+									result += "Error: The frequencies of fSRI must be 2 multiple of fRCB.\n"
+								}
+							}
+
+							if (gcombo_extclk_sel0_tc4.value == "fSTM" && !gfloat_fSTM_tc4.visible) {
+								result += "Warning: fSTM cannot be used as EXTCLK0 in the current configuration.\n"
+							}
+							if (gcombo_extclk_sel0_tc4.value == "fRCB" && !gfloat_fRCB_tc4.visible) {
+								result += "Warning: fRCB cannot be used as EXTCLK0 in the current configuration.\n"
+							}
+							if (gcombo_extclk_sel0_tc4.value == "fGTM" && !gfloat_fGTM_tc4.visible) {
+								result += "Warning: fGTM cannot be used as EXTCLK0 in the current configuration.\n"
+							}
+							if (gcombo_extclk_sel0_tc4.value == "feGTM" && !gfloat_feGTM_tc4.visible) {
+								result += "Warning: feGTM cannot be used as EXTCLK0 in the current configuration.\n"
+							}
+							if (gcombo_extclk_sel0_tc4.value == "fGETH" && !gfloat_fGETH_tc4.visible) {
+								result += "Warning: fGETH cannot be used as EXTCLK0 in the current configuration.\n"
+							}
+							if (gcombo_extclk_sel0_tc4.value == "fLETH" && !gfloat_fLETH_tc4.visible) {
+								result += "Warning: fLETH cannot be used as EXTCLK0 in the current configuration.\n"
+							}
+							if (gcombo_extclk_sel0_tc4.value == "fMCANH" && !gfloat_fMCANH_tc4.visible) {
+								result += "Warning: fMCANH cannot be used as EXTCLK0 in the current configuration.\n"
+							}
+							if (gcombo_extclk_sel0_tc4.value == "fCANXLH" && !gfloat_fCANXLH_tc4.visible) {
+								result += "Warning: fCANXLH cannot be used as EXTCLK0 in the current configuration.\n"
+							}
+							if (gcombo_extclk_sel0_tc4.value == "fTPB" && !gfloat_fTPB_tc4.visible) {
+								result += "Warning: fTPB cannot be used as EXTCLK0 in the current configuration.\n"
+							}
+							if (gcombo_extclk_sel0_tc4.value == "fPPU" && !gfloat_fPPU_tc4.visible) {
+								result += "Warning: fPPU cannot be used as EXTCLK0 in the current configuration.\n"
+							}
+
+							if (gcombo_extclk_sel1_tc4.value == "fMT0") {
+								result += "Warning: fMT0 is selected as EXTCLK1 source. Make sure that the fMT0 is activated.\n"
+							}
+							if (gcombo_extclk_sel1_tc4.value == "fERAY" && !gfloat_fERAY_tc4.visible) {
+								result += "Warning: fERAY cannot be used as EXTCLK1 in the current configuration.\n"
+							}
+							if (gcombo_extclk_sel1_tc4.value == "fADC" && !gfloat_fADC_tc4.visible) {
+								result += "Warning: fADC cannot be used as EXTCLK1 in the current configuration.\n"
+							}
+							if (gcombo_extclk_sel1_tc4.value == "fMCAN" && !gfloat_fMCAN_tc4.visible) {
+								result += "Warning: fMCAN cannot be used as EXTCLK1 in the current configuration.\n"
+							}
+							if (gcombo_extclk_sel1_tc4.value == "fCANXL" && !gfloat_fCANXL_tc4.visible) {
+								result += "Warning: fCANXL cannot be used as EXTCLK1 in the current configuration.\n"
+							}
+							if (gcombo_extclk_sel1_tc4.value == "fASCLINS" && !gfloat_fASCLINS_tc4.visible) {
+								result += "Warning: fASCLINS cannot be used as EXTCLK1 in the current configuration.\n"
+							}
+							if (gcombo_extclk_sel1_tc4.value == "fMSC" && !gfloat_fMSC_tc4.visible) {
+								result += "Warning: fMSC cannot be used as EXTCLK1 in the current configuration.\n"
+							}
+							if (gcombo_extclk_sel1_tc4.value == "fQSPI" && !gfloat_fQSPI_tc4.visible) {
+								result += "Warning: fQSPI cannot be used as EXTCLK1 in the current configuration.\n"
+							}
+							if (gcombo_extclk_sel1_tc4.value == "fASCLINF" && !gfloat_fASCLINF_tc4.visible) {
+								result += "Warning: fASCLINF cannot be used as EXTCLK1 in the current configuration.\n"
+							}
+							if (gcombo_extclk_sel1_tc4.value == "fI2C" && !gfloat_fI2C_tc4.visible) {
+								result += "Warning: fI2C cannot be used as EXTCLK1 in the current configuration.\n"
+							}
+							if (gcombo_extclk_sel1_tc4.value == "fLETH100" && !gfloat_fLETH100_tc4.visible) {
+								result += "Warning: fLETH100 cannot be used as EXTCLK1 in the current configuration.\n"
+							}
+							if (gcombo_extclk_sel1_tc4.value == "fSDMMC" && !gfloat_fSDMMC_tc4.visible) {
+								result += "Warning: fSDMMC cannot be used as EXTCLK1 in the current configuration.\n"
+							}
+							if (gcombo_extclk_sel1_tc4.value == "fXSPI" && !gfloat_fxSPI_tc4.visible) {
+								result += "Warning: fXSPI cannot be used as EXTCLK1 in the current configuration.\n"
+							}
+							if (gcombo_extclk_sel1_tc4.value == "fXSPISL" && !gfloat_fxSPISL_tc4.visible) {
+								result += "Warning: fXSPISL cannot be used as EXTCLK1 in the current configuration.\n"
+							}
+						}
+						return result
+					}, String))
+			mf_map.put("mf_tc4_99", MF({gmessage_message_tc4.text.toString().contains("Error:")}, Boolean))
+			mf_map.put("mf_tc4_93", MF({(gmessage_message_tc4.text != "")}, Boolean))
+
+			CLOCK_tc4(str_series, str_variant, max_freq, mf_map)
+
+			//==================================================================================================
+			// Resource Requirement
+			//==================================================================================================
+			// tc4
+			hwres_clockctrl_osc		= MVirtualResourceGroup("Oscillator Circuit", ["peripheral", "clock", "0", "osc"])
+			hwres_clockctrl_syspll	= MVirtualResourceGroup("System PLL", ["peripheral", "clock", "0", "syspll"])
+			hwres_clockctrl_peripll = MVirtualResourceGroup("Peripheral PLL", ["peripheral", "clock", "0", "perpll"])
+			hwres_clockctrl_ccu		= MVirtualResourceGroup("Clock Control Unit", ["peripheral", "clock", "0", "ccu"])
+			hwres_clockctrl_clkmon	= MVirtualResourceGroup("Clock Monitor", ["peripheral", "clock", "0", "clkmon"])
+			hwres_clockctrl_extclk	= MVirtualResourceGroup("External Clock", ["peripheral", "clock", "0", "extclk"])
+		}
+
+		//==================================================================================================
+		// Signal Requirement
+		//==================================================================================================
+		vs_syspll_sysclk = MVirtualSignal(hwres_clockctrl_syspll, "SYSCLK", "sysclk", MF({gcombo_pllinsel.value == "SYSCLK"}, Boolean), true)
+		vs_extclk_extclk0 = MVirtualSignal(hwres_clockctrl_extclk, "EXTCLK0", "extclk0", MF({gcheck_extclk_en0.value}, Boolean), true)
+		vs_extclk_extclk1 = MVirtualSignal(hwres_clockctrl_extclk, "EXTCLK1", "extclk1", MF({gcheck_extclk_en1.value}, Boolean), true)
+	}
+	/* End   : APP Constructor */
+
+	/* Begin : File Generation */
+	def generateFiles()
+	{
+		copy("clock.c", "clock.c")
+		copy("clock.h", "clock.h")
+		generate("clock_confc.tmpl", "clock_conf.c")
+		generate("clock_confh.tmpl", "clock_conf.h")
+	}
+	/* End   : File Generation */
+}

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ASCII"?>
+<ResourceModel:Peripheral xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ResourceModel="http://www.infineon.com/Davex/Resource.ecore" URI="http://resources/0.0.3/peripheral/stm/0" description="" baseAddress="0xF0001000">
+  <provided xsi:type="ResourceModel:ResourceGroup" name="common" URI="http://resources/0.0.3/peripheral/stm/0/common">
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/TIMER_STM/v4_1_6/TIMER_STM_0.app#//@hwResources.0"/>
+    <resourcesList name="clc" requiredResourceUri="http://resources/0.0.3/peripheral/stm/0/clc"/>
+    <resourcesList name="id" requiredResourceUri="http://resources/0.0.3/peripheral/stm/0/id"/>
+    <resourcesList name="tim0" requiredResourceUri="http://resources/0.0.3/peripheral/stm/0/tim0"/>
+    <resourcesList name="tim1" requiredResourceUri="http://resources/0.0.3/peripheral/stm/0/tim1"/>
+    <resourcesList name="tim2" requiredResourceUri="http://resources/0.0.3/peripheral/stm/0/tim2"/>
+    <resourcesList name="tim3" requiredResourceUri="http://resources/0.0.3/peripheral/stm/0/tim3"/>
+    <resourcesList name="tim4" requiredResourceUri="http://resources/0.0.3/peripheral/stm/0/tim4"/>
+    <resourcesList name="tim5" requiredResourceUri="http://resources/0.0.3/peripheral/stm/0/tim5"/>
+    <resourcesList name="tim6" requiredResourceUri="http://resources/0.0.3/peripheral/stm/0/tim6"/>
+    <resourcesList name="cap" requiredResourceUri="http://resources/0.0.3/peripheral/stm/0/cap"/>
+    <resourcesList name="cmp0" requiredResourceUri="http://resources/0.0.3/peripheral/stm/0/cmp0"/>
+    <resourcesList name="cmp1" requiredResourceUri="http://resources/0.0.3/peripheral/stm/0/cmp1"/>
+    <resourcesList name="cmcon" requiredResourceUri="http://resources/0.0.3/peripheral/stm/0/cmcon"/>
+    <resourcesList name="icr" requiredResourceUri="http://resources/0.0.3/peripheral/stm/0/icr"/>
+    <resourcesList name="iscr" requiredResourceUri="http://resources/0.0.3/peripheral/stm/0/iscr"/>
+    <resourcesList name="tim0sv" requiredResourceUri="http://resources/0.0.3/peripheral/stm/0/tim0sv"/>
+    <resourcesList name="capsv" requiredResourceUri="http://resources/0.0.3/peripheral/stm/0/capsv"/>
+    <resourcesList name="ocs" requiredResourceUri="http://resources/0.0.3/peripheral/stm/0/ocs"/>
+    <resourcesList name="krstclr" requiredResourceUri="http://resources/0.0.3/peripheral/stm/0/krstclr"/>
+    <resourcesList name="krst1" requiredResourceUri="http://resources/0.0.3/peripheral/stm/0/krst1"/>
+    <resourcesList name="krst0" requiredResourceUri="http://resources/0.0.3/peripheral/stm/0/krst0"/>
+    <resourcesList name="accen1" requiredResourceUri="http://resources/0.0.3/peripheral/stm/0/accen1"/>
+    <resourcesList name="accen0" requiredResourceUri="http://resources/0.0.3/peripheral/stm/0/accen0"/>
+    <resourcesList name="sr0_int" requiredResourceUri="http://resources/0.0.3/peripheral/stm/0/common_sr0_int"/>
+    <resourcesList name="sr1_int" requiredResourceUri="http://resources/0.0.3/peripheral/stm/0/common_sr1_int"/>
+  </provided>
+  <addressBlock offset="0x0" size="0x0100" usage="registers"/>
+</ResourceModel:Peripheral>

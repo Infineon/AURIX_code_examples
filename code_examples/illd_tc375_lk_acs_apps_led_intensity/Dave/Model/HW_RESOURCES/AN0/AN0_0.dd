@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="ASCII"?>
+<ResourceModel:Port xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ResourceModel="http://www.infineon.com/Davex/Resource.ecore" URI="http://resources/TC3.7.5.STD/port/an/0" description="" baseAddress="0x00000000">
+  <provided xsi:type="ResourceModel:ResourceGroup" name="AN0" URI="http://resources/TC3.7.5.STD/port/an/0/pad/0">
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/ANALOG_CONVERTER_EVADC/v4_0_4/ANALOG_CONVERTER_EVADC_0.app#//@hwResources.1"/>
+    <resourcesList name="pad" requiredResourceUri="http://resources/TC3.7.5.STD/port/an/0/pad_0/pad"/>
+  </provided>
+  <addressBlock offset="0x0" size="0x0100" usage="registers"/>
+</ResourceModel:Port>

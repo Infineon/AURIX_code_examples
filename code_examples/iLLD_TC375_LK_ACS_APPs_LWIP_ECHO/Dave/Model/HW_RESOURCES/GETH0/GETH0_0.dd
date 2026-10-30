@@ -1,0 +1,590 @@
+<?xml version="1.0" encoding="ASCII"?>
+<ResourceModel:Peripheral xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ResourceModel="http://www.infineon.com/Davex/Resource.ecore" URI="http://resources/0.0.8/peripheral/geth/0" description="" baseAddress="0xF001D000">
+  <provided xsi:type="ResourceModel:ResourceGroup" name="geth" URI="http://resources/0.0.8/peripheral/geth/0/geth">
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@hwResources.0"/>
+    <resourcesList name="mac_configuration" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_configuration"/>
+    <resourcesList name="mac_ext_configuration" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_ext_configuration"/>
+    <resourcesList name="mac_packet_filter" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_packet_filter"/>
+    <resourcesList name="mac_watchdog_timeout" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_watchdog_timeout"/>
+    <resourcesList name="mac_vlan_tag_ctrl" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_vlan_tag_ctrl"/>
+    <resourcesList name="mac_vlan_tag_data" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_vlan_tag_data"/>
+    <resourcesList name="mac_vlan_tag_filter_0" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_vlan_tag_filter_0"/>
+    <resourcesList name="mac_vlan_tag_filter_1" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_vlan_tag_filter_1"/>
+    <resourcesList name="mac_vlan_tag_filter_2" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_vlan_tag_filter_2"/>
+    <resourcesList name="mac_vlan_tag_filter_3" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_vlan_tag_filter_3"/>
+    <resourcesList name="mac_vlan_tag_filter_4" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_vlan_tag_filter_4"/>
+    <resourcesList name="mac_vlan_tag_filter_5" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_vlan_tag_filter_5"/>
+    <resourcesList name="mac_vlan_tag_filter_6" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_vlan_tag_filter_6"/>
+    <resourcesList name="mac_vlan_tag_filter_7" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_vlan_tag_filter_7"/>
+    <resourcesList name="mac_vlan_hash_table" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_vlan_hash_table"/>
+    <resourcesList name="mac_vlan_incl" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_vlan_incl"/>
+    <resourcesList name="mac_vlan_incl_q_0" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_vlan_incl_q_0"/>
+    <resourcesList name="mac_vlan_incl_q_1" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_vlan_incl_q_1"/>
+    <resourcesList name="mac_vlan_incl_q_2" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_vlan_incl_q_2"/>
+    <resourcesList name="mac_vlan_incl_q_3" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_vlan_incl_q_3"/>
+    <resourcesList name="mac_inner_vlan_incl_0" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_inner_vlan_incl_0"/>
+    <resourcesList name="mac_inner_vlan_incl_1" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_inner_vlan_incl_1"/>
+    <resourcesList name="mac_inner_vlan_incl_2" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_inner_vlan_incl_2"/>
+    <resourcesList name="mac_inner_vlan_incl_3" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_inner_vlan_incl_3"/>
+    <resourcesList name="mac_q0_tx_flow_ctrl" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_q0_tx_flow_ctrl"/>
+    <resourcesList name="mac_rx_flow_ctrl" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_rx_flow_ctrl"/>
+    <resourcesList name="mac_rxq_ctrl4" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_rxq_ctrl4"/>
+    <resourcesList name="mac_rxq_ctrl0" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_rxq_ctrl0"/>
+    <resourcesList name="mac_rxq_ctrl1" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_rxq_ctrl1"/>
+    <resourcesList name="mac_rxq_ctrl2" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_rxq_ctrl2"/>
+    <resourcesList name="mac_interrupt_status" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_interrupt_status"/>
+    <resourcesList name="mac_interrupt_enable" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_interrupt_enable"/>
+    <resourcesList name="mac_rx_tx_status" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_rx_tx_status"/>
+    <resourcesList name="mac_pmt_control_status" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_pmt_control_status"/>
+    <resourcesList name="mac_rwk_packet_filter" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_rwk_packet_filter"/>
+    <resourcesList name="mac_lpi_control_status" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_lpi_control_status"/>
+    <resourcesList name="mac_lpi_timers_control" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_lpi_timers_control"/>
+    <resourcesList name="mac_lpi_entry_timer" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_lpi_entry_timer"/>
+    <resourcesList name="mac_1us_tic_counter" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_1us_tic_counter"/>
+    <resourcesList name="mac_phyif_control_status" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_phyif_control_status"/>
+    <resourcesList name="mac_version" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_version"/>
+    <resourcesList name="mac_debug" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_debug"/>
+    <resourcesList name="mac_hw_feature0" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_hw_feature0"/>
+    <resourcesList name="mac_hw_feature1" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_hw_feature1"/>
+    <resourcesList name="mac_hw_feature2" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_hw_feature2"/>
+    <resourcesList name="mac_hw_feature3" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_hw_feature3"/>
+    <resourcesList name="mac_mdio_address" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_mdio_address"/>
+    <resourcesList name="mac_mdio_data" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_mdio_data"/>
+    <resourcesList name="mac_csr_sw_ctrl" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_csr_sw_ctrl"/>
+    <resourcesList name="mac_address0_high" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_address0_high"/>
+    <resourcesList name="mac_address0_low" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_address0_low"/>
+    <resourcesList name="mac_address1_high" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_address1_high"/>
+    <resourcesList name="mac_address2_high" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_address2_high"/>
+    <resourcesList name="mac_address3_high" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_address3_high"/>
+    <resourcesList name="mac_address4_high" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_address4_high"/>
+    <resourcesList name="mac_address5_high" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_address5_high"/>
+    <resourcesList name="mac_address6_high" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_address6_high"/>
+    <resourcesList name="mac_address7_high" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_address7_high"/>
+    <resourcesList name="mac_address8_high" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_address8_high"/>
+    <resourcesList name="mac_address9_high" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_address9_high"/>
+    <resourcesList name="mac_address10_high" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_address10_high"/>
+    <resourcesList name="mac_address11_high" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_address11_high"/>
+    <resourcesList name="mac_address12_high" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_address12_high"/>
+    <resourcesList name="mac_address13_high" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_address13_high"/>
+    <resourcesList name="mac_address14_high" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_address14_high"/>
+    <resourcesList name="mac_address15_high" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_address15_high"/>
+    <resourcesList name="mac_address16_high" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_address16_high"/>
+    <resourcesList name="mac_address17_high" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_address17_high"/>
+    <resourcesList name="mac_address18_high" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_address18_high"/>
+    <resourcesList name="mac_address19_high" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_address19_high"/>
+    <resourcesList name="mac_address20_high" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_address20_high"/>
+    <resourcesList name="mac_address21_high" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_address21_high"/>
+    <resourcesList name="mac_address22_high" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_address22_high"/>
+    <resourcesList name="mac_address23_high" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_address23_high"/>
+    <resourcesList name="mac_address24_high" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_address24_high"/>
+    <resourcesList name="mac_address25_high" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_address25_high"/>
+    <resourcesList name="mac_address26_high" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_address26_high"/>
+    <resourcesList name="mac_address27_high" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_address27_high"/>
+    <resourcesList name="mac_address28_high" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_address28_high"/>
+    <resourcesList name="mac_address29_high" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_address29_high"/>
+    <resourcesList name="mac_address30_high" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_address30_high"/>
+    <resourcesList name="mac_address31_high" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_address31_high"/>
+    <resourcesList name="mac_address1_low" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_address1_low"/>
+    <resourcesList name="mac_address2_low" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_address2_low"/>
+    <resourcesList name="mac_address3_low" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_address3_low"/>
+    <resourcesList name="mac_address4_low" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_address4_low"/>
+    <resourcesList name="mac_address5_low" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_address5_low"/>
+    <resourcesList name="mac_address6_low" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_address6_low"/>
+    <resourcesList name="mac_address7_low" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_address7_low"/>
+    <resourcesList name="mac_address8_low" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_address8_low"/>
+    <resourcesList name="mac_address9_low" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_address9_low"/>
+    <resourcesList name="mac_address10_low" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_address10_low"/>
+    <resourcesList name="mac_address11_low" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_address11_low"/>
+    <resourcesList name="mac_address12_low" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_address12_low"/>
+    <resourcesList name="mac_address13_low" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_address13_low"/>
+    <resourcesList name="mac_address14_low" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_address14_low"/>
+    <resourcesList name="mac_address15_low" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_address15_low"/>
+    <resourcesList name="mac_address16_low" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_address16_low"/>
+    <resourcesList name="mac_address17_low" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_address17_low"/>
+    <resourcesList name="mac_address18_low" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_address18_low"/>
+    <resourcesList name="mac_address19_low" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_address19_low"/>
+    <resourcesList name="mac_address20_low" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_address20_low"/>
+    <resourcesList name="mac_address21_low" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_address21_low"/>
+    <resourcesList name="mac_address22_low" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_address22_low"/>
+    <resourcesList name="mac_address23_low" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_address23_low"/>
+    <resourcesList name="mac_address24_low" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_address24_low"/>
+    <resourcesList name="mac_address25_low" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_address25_low"/>
+    <resourcesList name="mac_address26_low" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_address26_low"/>
+    <resourcesList name="mac_address27_low" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_address27_low"/>
+    <resourcesList name="mac_address28_low" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_address28_low"/>
+    <resourcesList name="mac_address29_low" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_address29_low"/>
+    <resourcesList name="mac_address30_low" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_address30_low"/>
+    <resourcesList name="mac_address31_low" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_address31_low"/>
+    <resourcesList name="mac_timestamp_control" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_timestamp_control"/>
+    <resourcesList name="mac_sub_second_increment" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_sub_second_increment"/>
+    <resourcesList name="mac_system_time_seconds" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_system_time_seconds"/>
+    <resourcesList name="mac_system_time_nanoseconds" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_system_time_nanoseconds"/>
+    <resourcesList name="mac_system_time_seconds_update" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_system_time_seconds_update"/>
+    <resourcesList name="mac_system_time_nanoseconds_update" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_system_time_nanoseconds_update"/>
+    <resourcesList name="mac_timestamp_addend" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_timestamp_addend"/>
+    <resourcesList name="mac_system_time_higher_word_seconds" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_system_time_higher_word_seconds"/>
+    <resourcesList name="mac_timestamp_status" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_timestamp_status"/>
+    <resourcesList name="mac_tx_timestamp_status_nanoseconds" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_tx_timestamp_status_nanoseconds"/>
+    <resourcesList name="mac_tx_timestamp_status_seconds" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_tx_timestamp_status_seconds"/>
+    <resourcesList name="mac_timestamp_ingress_asym_corr" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_timestamp_ingress_asym_corr"/>
+    <resourcesList name="mac_timestamp_egress_asym_corr" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_timestamp_egress_asym_corr"/>
+    <resourcesList name="mac_timestamp_ingress_corr_nanosecond" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_timestamp_ingress_corr_nanosecond"/>
+    <resourcesList name="mac_timestamp_egress_corr_nanosecond" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_timestamp_egress_corr_nanosecond"/>
+    <resourcesList name="mac_timestamp_ingress_corr_subnanosec" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_timestamp_ingress_corr_subnanosec"/>
+    <resourcesList name="mac_timestamp_egress_corr_subnanosec" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_timestamp_egress_corr_subnanosec"/>
+    <resourcesList name="mac_pps_control" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_pps_control"/>
+    <resourcesList name="mac_pps0_target_time_seconds" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_pps0_target_time_seconds"/>
+    <resourcesList name="mac_pps0_target_time_nanoseconds" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_pps0_target_time_nanoseconds"/>
+    <resourcesList name="mac_pps0_interval" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_pps0_interval"/>
+    <resourcesList name="mac_pps0_width" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mac_pps0_width"/>
+    <resourcesList name="rwk_filter_command_0" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/rwk_filter_command_0"/>
+    <resourcesList name="rwk_filter_offset_0" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/rwk_filter_offset_0"/>
+    <resourcesList name="rwk_filter_crc_0" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/rwk_filter_crc_0"/>
+    <resourcesList name="rwk_filter_crc_1" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/rwk_filter_crc_1"/>
+    <resourcesList name="rwk_filter_byte_mask_0" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/rwk_filter_byte_mask_0"/>
+    <resourcesList name="rwk_filter_byte_mask_1" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/rwk_filter_byte_mask_1"/>
+    <resourcesList name="rwk_filter_byte_mask_2" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/rwk_filter_byte_mask_2"/>
+    <resourcesList name="rwk_filter_byte_mask_3" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/rwk_filter_byte_mask_3"/>
+    <resourcesList name="mmc_control" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mmc_control"/>
+    <resourcesList name="mmc_rx_interrupt" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mmc_rx_interrupt"/>
+    <resourcesList name="mmc_tx_interrupt" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mmc_tx_interrupt"/>
+    <resourcesList name="mmc_rx_interrupt_mask" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mmc_rx_interrupt_mask"/>
+    <resourcesList name="mmc_tx_interrupt_mask" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mmc_tx_interrupt_mask"/>
+    <resourcesList name="mmc_ipc_rx_interrupt_mask" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mmc_ipc_rx_interrupt_mask"/>
+    <resourcesList name="mmc_ipc_rx_interrupt" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mmc_ipc_rx_interrupt"/>
+    <resourcesList name="tx_octet_count_good_bad" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/tx_octet_count_good_bad"/>
+    <resourcesList name="tx_packet_count_good_bad" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/tx_packet_count_good_bad"/>
+    <resourcesList name="tx_broadcast_packets_good" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/tx_broadcast_packets_good"/>
+    <resourcesList name="tx_multicast_packets_good" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/tx_multicast_packets_good"/>
+    <resourcesList name="tx_64octets_packets_good_bad" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/tx_64octets_packets_good_bad"/>
+    <resourcesList name="tx_65to127octets_packets_good_bad" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/tx_65to127octets_packets_good_bad"/>
+    <resourcesList name="tx_128to255octets_packets_good_bad" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/tx_128to255octets_packets_good_bad"/>
+    <resourcesList name="tx_256to511octets_packets_good_bad" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/tx_256to511octets_packets_good_bad"/>
+    <resourcesList name="tx_512to1023octets_packets_good_bad" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/tx_512to1023octets_packets_good_bad"/>
+    <resourcesList name="tx_1024tomaxoctets_packets_good_bad" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/tx_1024tomaxoctets_packets_good_bad"/>
+    <resourcesList name="tx_unicast_packets_good_bad" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/tx_unicast_packets_good_bad"/>
+    <resourcesList name="tx_multicast_packets_good_bad" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/tx_multicast_packets_good_bad"/>
+    <resourcesList name="tx_broadcast_packets_good_bad" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/tx_broadcast_packets_good_bad"/>
+    <resourcesList name="tx_underflow_error_packets" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/tx_underflow_error_packets"/>
+    <resourcesList name="tx_single_collision_good_packets" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/tx_single_collision_good_packets"/>
+    <resourcesList name="tx_multiple_collision_good_packets" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/tx_multiple_collision_good_packets"/>
+    <resourcesList name="tx_deferred_packets" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/tx_deferred_packets"/>
+    <resourcesList name="tx_late_collision_packets" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/tx_late_collision_packets"/>
+    <resourcesList name="tx_excessive_collision_packets" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/tx_excessive_collision_packets"/>
+    <resourcesList name="tx_carrier_error_packets" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/tx_carrier_error_packets"/>
+    <resourcesList name="tx_octet_count_good" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/tx_octet_count_good"/>
+    <resourcesList name="tx_packet_count_good" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/tx_packet_count_good"/>
+    <resourcesList name="tx_excessive_deferral_error" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/tx_excessive_deferral_error"/>
+    <resourcesList name="tx_pause_packets" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/tx_pause_packets"/>
+    <resourcesList name="tx_vlan_packets_good" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/tx_vlan_packets_good"/>
+    <resourcesList name="tx_osize_packets_good" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/tx_osize_packets_good"/>
+    <resourcesList name="tx_lpi_usec_cntr" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/tx_lpi_usec_cntr"/>
+    <resourcesList name="tx_lpi_tran_cntr" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/tx_lpi_tran_cntr"/>
+    <resourcesList name="rx_packets_count_good_bad" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/rx_packets_count_good_bad"/>
+    <resourcesList name="rx_octet_count_good_bad" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/rx_octet_count_good_bad"/>
+    <resourcesList name="rx_octet_count_good" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/rx_octet_count_good"/>
+    <resourcesList name="rx_broadcast_packets_good" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/rx_broadcast_packets_good"/>
+    <resourcesList name="rx_multicast_packets_good" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/rx_multicast_packets_good"/>
+    <resourcesList name="rx_crc_error_packets" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/rx_crc_error_packets"/>
+    <resourcesList name="rx_alignment_error_packets" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/rx_alignment_error_packets"/>
+    <resourcesList name="rx_runt_error_packets" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/rx_runt_error_packets"/>
+    <resourcesList name="rx_jabber_error_packets" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/rx_jabber_error_packets"/>
+    <resourcesList name="rx_undersize_packets_good" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/rx_undersize_packets_good"/>
+    <resourcesList name="rx_oversize_packets_good" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/rx_oversize_packets_good"/>
+    <resourcesList name="rx_64octets_packets_good_bad" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/rx_64octets_packets_good_bad"/>
+    <resourcesList name="rx_65to127octets_packets_good_bad" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/rx_65to127octets_packets_good_bad"/>
+    <resourcesList name="rx_128to255octets_packets_good_bad" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/rx_128to255octets_packets_good_bad"/>
+    <resourcesList name="rx_256to511octets_packets_good_bad" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/rx_256to511octets_packets_good_bad"/>
+    <resourcesList name="rx_512to1023octets_packets_good_bad" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/rx_512to1023octets_packets_good_bad"/>
+    <resourcesList name="rx_1024tomaxoctets_packets_good_bad" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/rx_1024tomaxoctets_packets_good_bad"/>
+    <resourcesList name="rx_unicast_packets_good" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/rx_unicast_packets_good"/>
+    <resourcesList name="rx_length_error_packets" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/rx_length_error_packets"/>
+    <resourcesList name="rx_out_of_range_type_packets" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/rx_out_of_range_type_packets"/>
+    <resourcesList name="rx_pause_packets" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/rx_pause_packets"/>
+    <resourcesList name="rx_fifo_overflow_packets" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/rx_fifo_overflow_packets"/>
+    <resourcesList name="rx_vlan_packets_good_bad" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/rx_vlan_packets_good_bad"/>
+    <resourcesList name="rx_watchdog_error_packets" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/rx_watchdog_error_packets"/>
+    <resourcesList name="rx_receive_error_packets" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/rx_receive_error_packets"/>
+    <resourcesList name="rx_control_packets_good" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/rx_control_packets_good"/>
+    <resourcesList name="rx_lpi_usec_cntr" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/rx_lpi_usec_cntr"/>
+    <resourcesList name="rx_lpi_tran_cntr" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/rx_lpi_tran_cntr"/>
+    <resourcesList name="rxipv4_good_packets" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/rxipv4_good_packets"/>
+    <resourcesList name="rxipv4_header_error_packets" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/rxipv4_header_error_packets"/>
+    <resourcesList name="rxipv4_no_payload_packets" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/rxipv4_no_payload_packets"/>
+    <resourcesList name="rxipv4_fragmented_packets" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/rxipv4_fragmented_packets"/>
+    <resourcesList name="rxipv4_udp_checksum_disabled_packets" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/rxipv4_udp_checksum_disabled_packets"/>
+    <resourcesList name="rxipv6_good_packets" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/rxipv6_good_packets"/>
+    <resourcesList name="rxipv6_header_error_packets" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/rxipv6_header_error_packets"/>
+    <resourcesList name="rxipv6_no_payload_packets" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/rxipv6_no_payload_packets"/>
+    <resourcesList name="rxudp_good_packets" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/rxudp_good_packets"/>
+    <resourcesList name="rxudp_error_packets" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/rxudp_error_packets"/>
+    <resourcesList name="rxtcp_good_packets" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/rxtcp_good_packets"/>
+    <resourcesList name="rxtcp_error_packets" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/rxtcp_error_packets"/>
+    <resourcesList name="rxicmp_good_packets" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/rxicmp_good_packets"/>
+    <resourcesList name="rxicmp_error_packets" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/rxicmp_error_packets"/>
+    <resourcesList name="rxipv4_good_octets" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/rxipv4_good_octets"/>
+    <resourcesList name="rxipv4_header_error_octets" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/rxipv4_header_error_octets"/>
+    <resourcesList name="rxipv4_no_payload_octets" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/rxipv4_no_payload_octets"/>
+    <resourcesList name="rxipv4_fragmented_octets" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/rxipv4_fragmented_octets"/>
+    <resourcesList name="rxipv4_udp_checksum_disable_octets" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/rxipv4_udp_checksum_disable_octets"/>
+    <resourcesList name="rxipv6_good_octets" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/rxipv6_good_octets"/>
+    <resourcesList name="rxipv6_header_error_octets" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/rxipv6_header_error_octets"/>
+    <resourcesList name="rxipv6_no_payload_octets" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/rxipv6_no_payload_octets"/>
+    <resourcesList name="rxudp_good_octets" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/rxudp_good_octets"/>
+    <resourcesList name="rxudp_error_octets" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/rxudp_error_octets"/>
+    <resourcesList name="rxtcp_good_octets" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/rxtcp_good_octets"/>
+    <resourcesList name="rxtcp_error_octets" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/rxtcp_error_octets"/>
+    <resourcesList name="rxicmp_good_octets" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/rxicmp_good_octets"/>
+    <resourcesList name="rxicmp_error_octets" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/rxicmp_error_octets"/>
+    <resourcesList name="mtl_operation_mode" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mtl_operation_mode"/>
+    <resourcesList name="mtl_interrupt_status" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mtl_interrupt_status"/>
+    <resourcesList name="mtl_rxq_dma_map0" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mtl_rxq_dma_map0"/>
+    <resourcesList name="mtl_txq0_operation_mode" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mtl_txq0_operation_mode"/>
+    <resourcesList name="mtl_txq0_underflow" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mtl_txq0_underflow"/>
+    <resourcesList name="mtl_txq0_debug" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mtl_txq0_debug"/>
+    <resourcesList name="mtl_txq0_ets_status" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mtl_txq0_ets_status"/>
+    <resourcesList name="mtl_txq0_quantum_weight" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mtl_txq0_quantum_weight"/>
+    <resourcesList name="mtl_q0_interrupt_control_status" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mtl_q0_interrupt_control_status"/>
+    <resourcesList name="mtl_rxq0_operation_mode" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mtl_rxq0_operation_mode"/>
+    <resourcesList name="mtl_rxq0_missed_packet_overflow_cnt" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mtl_rxq0_missed_packet_overflow_cnt"/>
+    <resourcesList name="mtl_rxq0_debug" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mtl_rxq0_debug"/>
+    <resourcesList name="mtl_rxq0_control" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mtl_rxq0_control"/>
+    <resourcesList name="mtl_txq1_operation_mode" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mtl_txq1_operation_mode"/>
+    <resourcesList name="mtl_txq2_operation_mode" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mtl_txq2_operation_mode"/>
+    <resourcesList name="mtl_txq3_operation_mode" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mtl_txq3_operation_mode"/>
+    <resourcesList name="mtl_txq1_underflow" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mtl_txq1_underflow"/>
+    <resourcesList name="mtl_txq2_underflow" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mtl_txq2_underflow"/>
+    <resourcesList name="mtl_txq3_underflow" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mtl_txq3_underflow"/>
+    <resourcesList name="mtl_txq1_debug" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mtl_txq1_debug"/>
+    <resourcesList name="mtl_txq2_debug" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mtl_txq2_debug"/>
+    <resourcesList name="mtl_txq3_debug" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mtl_txq3_debug"/>
+    <resourcesList name="mtl_txq1_ets_control" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mtl_txq1_ets_control"/>
+    <resourcesList name="mtl_txq2_ets_control" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mtl_txq2_ets_control"/>
+    <resourcesList name="mtl_txq3_ets_control" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mtl_txq3_ets_control"/>
+    <resourcesList name="mtl_txq1_ets_status" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mtl_txq1_ets_status"/>
+    <resourcesList name="mtl_txq2_ets_status" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mtl_txq2_ets_status"/>
+    <resourcesList name="mtl_txq3_ets_status" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mtl_txq3_ets_status"/>
+    <resourcesList name="mtl_txq1_quantum_weight" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mtl_txq1_quantum_weight"/>
+    <resourcesList name="mtl_txq2_quantum_weight" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mtl_txq2_quantum_weight"/>
+    <resourcesList name="mtl_txq3_quantum_weight" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mtl_txq3_quantum_weight"/>
+    <resourcesList name="mtl_txq1_sendslopecredit" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mtl_txq1_sendslopecredit"/>
+    <resourcesList name="mtl_txq2_sendslopecredit" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mtl_txq2_sendslopecredit"/>
+    <resourcesList name="mtl_txq3_sendslopecredit" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mtl_txq3_sendslopecredit"/>
+    <resourcesList name="mtl_txq1_hicredit" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mtl_txq1_hicredit"/>
+    <resourcesList name="mtl_txq2_hicredit" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mtl_txq2_hicredit"/>
+    <resourcesList name="mtl_txq3_hicredit" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mtl_txq3_hicredit"/>
+    <resourcesList name="mtl_txq1_locredit" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mtl_txq1_locredit"/>
+    <resourcesList name="mtl_txq2_locredit" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mtl_txq2_locredit"/>
+    <resourcesList name="mtl_txq3_locredit" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mtl_txq3_locredit"/>
+    <resourcesList name="mtl_q1_interrupt_control_status" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mtl_q1_interrupt_control_status"/>
+    <resourcesList name="mtl_q2_interrupt_control_status" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mtl_q2_interrupt_control_status"/>
+    <resourcesList name="mtl_q3_interrupt_control_status" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mtl_q3_interrupt_control_status"/>
+    <resourcesList name="mtl_rxq1_operation_mode" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mtl_rxq1_operation_mode"/>
+    <resourcesList name="mtl_rxq2_operation_mode" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mtl_rxq2_operation_mode"/>
+    <resourcesList name="mtl_rxq3_operation_mode" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mtl_rxq3_operation_mode"/>
+    <resourcesList name="mtl_rxq1_missed_packet_overflow_cnt" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mtl_rxq1_missed_packet_overflow_cnt"/>
+    <resourcesList name="mtl_rxq2_missed_packet_overflow_cnt" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mtl_rxq2_missed_packet_overflow_cnt"/>
+    <resourcesList name="mtl_rxq3_missed_packet_overflow_cnt" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mtl_rxq3_missed_packet_overflow_cnt"/>
+    <resourcesList name="mtl_rxq1_debug" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mtl_rxq1_debug"/>
+    <resourcesList name="mtl_rxq2_debug" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mtl_rxq2_debug"/>
+    <resourcesList name="mtl_rxq3_debug" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mtl_rxq3_debug"/>
+    <resourcesList name="mtl_rxq1_control" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mtl_rxq1_control"/>
+    <resourcesList name="mtl_rxq2_control" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mtl_rxq2_control"/>
+    <resourcesList name="mtl_rxq3_control" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/mtl_rxq3_control"/>
+    <resourcesList name="dma_mode" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_mode"/>
+    <resourcesList name="dma_sysbus_mode" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_sysbus_mode"/>
+    <resourcesList name="dma_interrupt_status" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_interrupt_status"/>
+    <resourcesList name="dma_debug_status0" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_debug_status0"/>
+    <resourcesList name="dma_debug_status1" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_debug_status1"/>
+    <resourcesList name="dma_ch0_control" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch0_control"/>
+    <resourcesList name="dma_ch1_control" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch1_control"/>
+    <resourcesList name="dma_ch2_control" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch2_control"/>
+    <resourcesList name="dma_ch3_control" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch3_control"/>
+    <resourcesList name="dma_ch0_tx_control" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch0_tx_control"/>
+    <resourcesList name="dma_ch1_tx_control" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch1_tx_control"/>
+    <resourcesList name="dma_ch2_tx_control" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch2_tx_control"/>
+    <resourcesList name="dma_ch3_tx_control" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch3_tx_control"/>
+    <resourcesList name="dma_ch0_rx_control" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch0_rx_control"/>
+    <resourcesList name="dma_ch1_rx_control" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch1_rx_control"/>
+    <resourcesList name="dma_ch2_rx_control" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch2_rx_control"/>
+    <resourcesList name="dma_ch3_rx_control" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch3_rx_control"/>
+    <resourcesList name="dma_ch0_txdesc_list_address" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch0_txdesc_list_address"/>
+    <resourcesList name="dma_ch1_txdesc_list_address" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch1_txdesc_list_address"/>
+    <resourcesList name="dma_ch2_txdesc_list_address" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch2_txdesc_list_address"/>
+    <resourcesList name="dma_ch3_txdesc_list_address" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch3_txdesc_list_address"/>
+    <resourcesList name="dma_ch0_rxdesc_list_address" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch0_rxdesc_list_address"/>
+    <resourcesList name="dma_ch1_rxdesc_list_address" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch1_rxdesc_list_address"/>
+    <resourcesList name="dma_ch2_rxdesc_list_address" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch2_rxdesc_list_address"/>
+    <resourcesList name="dma_ch3_rxdesc_list_address" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch3_rxdesc_list_address"/>
+    <resourcesList name="dma_ch0_txdesc_tail_pointer" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch0_txdesc_tail_pointer"/>
+    <resourcesList name="dma_ch1_txdesc_tail_pointer" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch1_txdesc_tail_pointer"/>
+    <resourcesList name="dma_ch2_txdesc_tail_pointer" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch2_txdesc_tail_pointer"/>
+    <resourcesList name="dma_ch3_txdesc_tail_pointer" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch3_txdesc_tail_pointer"/>
+    <resourcesList name="dma_ch0_rxdesc_tail_pointer" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch0_rxdesc_tail_pointer"/>
+    <resourcesList name="dma_ch1_rxdesc_tail_pointer" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch1_rxdesc_tail_pointer"/>
+    <resourcesList name="dma_ch2_rxdesc_tail_pointer" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch2_rxdesc_tail_pointer"/>
+    <resourcesList name="dma_ch3_rxdesc_tail_pointer" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch3_rxdesc_tail_pointer"/>
+    <resourcesList name="dma_ch0_txdesc_ring_length" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch0_txdesc_ring_length"/>
+    <resourcesList name="dma_ch1_txdesc_ring_length" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch1_txdesc_ring_length"/>
+    <resourcesList name="dma_ch2_txdesc_ring_length" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch2_txdesc_ring_length"/>
+    <resourcesList name="dma_ch3_txdesc_ring_length" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch3_txdesc_ring_length"/>
+    <resourcesList name="dma_ch0_rxdesc_ring_length" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch0_rxdesc_ring_length"/>
+    <resourcesList name="dma_ch1_rxdesc_ring_length" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch1_rxdesc_ring_length"/>
+    <resourcesList name="dma_ch2_rxdesc_ring_length" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch2_rxdesc_ring_length"/>
+    <resourcesList name="dma_ch3_rxdesc_ring_length" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch3_rxdesc_ring_length"/>
+    <resourcesList name="dma_ch0_interrupt_enable" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch0_interrupt_enable"/>
+    <resourcesList name="dma_ch1_interrupt_enable" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch1_interrupt_enable"/>
+    <resourcesList name="dma_ch2_interrupt_enable" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch2_interrupt_enable"/>
+    <resourcesList name="dma_ch3_interrupt_enable" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch3_interrupt_enable"/>
+    <resourcesList name="dma_ch0_rx_interrupt_watchdog_timer" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch0_rx_interrupt_watchdog_timer"/>
+    <resourcesList name="dma_ch1_rx_interrupt_watchdog_timer" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch1_rx_interrupt_watchdog_timer"/>
+    <resourcesList name="dma_ch2_rx_interrupt_watchdog_timer" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch2_rx_interrupt_watchdog_timer"/>
+    <resourcesList name="dma_ch3_rx_interrupt_watchdog_timer" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch3_rx_interrupt_watchdog_timer"/>
+    <resourcesList name="dma_ch0_slot_function_control_status" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch0_slot_function_control_status"/>
+    <resourcesList name="dma_ch1_slot_function_control_status" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch1_slot_function_control_status"/>
+    <resourcesList name="dma_ch2_slot_function_control_status" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch2_slot_function_control_status"/>
+    <resourcesList name="dma_ch3_slot_function_control_status" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch3_slot_function_control_status"/>
+    <resourcesList name="dma_ch0_current_app_txdesc" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch0_current_app_txdesc"/>
+    <resourcesList name="dma_ch1_current_app_txdesc" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch1_current_app_txdesc"/>
+    <resourcesList name="dma_ch2_current_app_txdesc" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch2_current_app_txdesc"/>
+    <resourcesList name="dma_ch3_current_app_txdesc" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch3_current_app_txdesc"/>
+    <resourcesList name="dma_ch0_current_app_rxdesc" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch0_current_app_rxdesc"/>
+    <resourcesList name="dma_ch1_current_app_rxdesc" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch1_current_app_rxdesc"/>
+    <resourcesList name="dma_ch2_current_app_rxdesc" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch2_current_app_rxdesc"/>
+    <resourcesList name="dma_ch3_current_app_rxdesc" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch3_current_app_rxdesc"/>
+    <resourcesList name="dma_ch0_current_app_txbuffer" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch0_current_app_txbuffer"/>
+    <resourcesList name="dma_ch1_current_app_txbuffer" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch1_current_app_txbuffer"/>
+    <resourcesList name="dma_ch2_current_app_txbuffer" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch2_current_app_txbuffer"/>
+    <resourcesList name="dma_ch3_current_app_txbuffer" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch3_current_app_txbuffer"/>
+    <resourcesList name="dma_ch0_current_app_rxbuffer" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch0_current_app_rxbuffer"/>
+    <resourcesList name="dma_ch1_current_app_rxbuffer" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch1_current_app_rxbuffer"/>
+    <resourcesList name="dma_ch2_current_app_rxbuffer" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch2_current_app_rxbuffer"/>
+    <resourcesList name="dma_ch3_current_app_rxbuffer" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch3_current_app_rxbuffer"/>
+    <resourcesList name="dma_ch0_status" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch0_status"/>
+    <resourcesList name="dma_ch1_status" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch1_status"/>
+    <resourcesList name="dma_ch2_status" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch2_status"/>
+    <resourcesList name="dma_ch3_status" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch3_status"/>
+    <resourcesList name="dma_ch0_miss_frame_cnt" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch0_miss_frame_cnt"/>
+    <resourcesList name="dma_ch1_miss_frame_cnt" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch1_miss_frame_cnt"/>
+    <resourcesList name="dma_ch2_miss_frame_cnt" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch2_miss_frame_cnt"/>
+    <resourcesList name="dma_ch3_miss_frame_cnt" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/dma_ch3_miss_frame_cnt"/>
+    <resourcesList name="clc" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/clc"/>
+    <resourcesList name="id" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/id"/>
+    <resourcesList name="gpctl" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/gpctl"/>
+    <resourcesList name="accen0" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/accen0"/>
+    <resourcesList name="accen1" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/accen1"/>
+    <resourcesList name="krst0" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/krst0"/>
+    <resourcesList name="krst1" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/krst1"/>
+    <resourcesList name="krstclr" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/krstclr"/>
+    <resourcesList name="accen0d0" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/accen0d0"/>
+    <resourcesList name="accen0d1" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/accen0d1"/>
+    <resourcesList name="accen0d2" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/accen0d2"/>
+    <resourcesList name="accen0d3" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/accen0d3"/>
+    <resourcesList name="accen1d0" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/accen1d0"/>
+    <resourcesList name="accen1d1" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/accen1d1"/>
+    <resourcesList name="accen1d2" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/accen1d2"/>
+    <resourcesList name="accen1d3" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/accen1d3"/>
+    <resourcesList name="skewctl" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/skewctl"/>
+    <resourcesList name="gpctl_alti0" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/gpctl/alti0"/>
+    <resourcesList name="gpctl_alti1" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/gpctl/alti1"/>
+    <resourcesList name="gpctl_alti2" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/gpctl/alti2"/>
+    <resourcesList name="gpctl_alti3" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/gpctl/alti3"/>
+    <resourcesList name="gpctl_alti4" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/gpctl/alti4"/>
+    <resourcesList name="gpctl_alti5" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/gpctl/alti5"/>
+    <resourcesList name="gpctl_alti6" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/gpctl/alti6"/>
+    <resourcesList name="gpctl_alti7" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/gpctl/alti7"/>
+    <resourcesList name="gpctl_alti8" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/gpctl/alti8"/>
+    <resourcesList name="gpctl_alti9" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/gpctl/alti9"/>
+    <resourcesList name="gpctl_alti10" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/gpctl/alti10"/>
+    <resourcesList name="gpctl_epr" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/gpctl/epr"/>
+    <resourcesList name="txer" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/geth_txer"/>
+    <resourcesList name="col" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/geth_col"/>
+    <resourcesList name="txen" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/geth_txen"/>
+    <resourcesList name="txclk_out" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/geth_txclk_out"/>
+    <resourcesList name="mdio_in" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/geth_mdio_in"/>
+    <resourcesList name="rxer" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/geth_rxer"/>
+    <resourcesList name="crsdv" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/geth_crsdv"/>
+    <resourcesList name="mdio_out" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/geth_mdio_out"/>
+    <resourcesList name="tctl" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/geth_tctl"/>
+    <resourcesList name="rctl" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/geth_rctl"/>
+    <resourcesList name="rxclk" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/geth_rxclk"/>
+    <resourcesList name="trigo8" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/geth_trigo8"/>
+    <resourcesList name="txd1" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/geth_txd1"/>
+    <resourcesList name="trigo9" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/geth_trigo9"/>
+    <resourcesList name="txd2" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/geth_txd2"/>
+    <resourcesList name="trigo6" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/geth_trigo6"/>
+    <resourcesList name="rxd0" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/geth_rxd0"/>
+    <resourcesList name="trigo7" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/geth_trigo7"/>
+    <resourcesList name="txd0" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/geth_txd0"/>
+    <resourcesList name="crs" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/geth_crs"/>
+    <resourcesList name="rxdv" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/geth_rxdv"/>
+    <resourcesList name="trigo0" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/geth_trigo0"/>
+    <resourcesList name="trigo1" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/geth_trigo1"/>
+    <resourcesList name="txclk_in" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/geth_txclk_in"/>
+    <resourcesList name="trigo4" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/geth_trigo4"/>
+    <resourcesList name="rxd2" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/geth_rxd2"/>
+    <resourcesList name="trigo5" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/geth_trigo5"/>
+    <resourcesList name="rxd1" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/geth_rxd1"/>
+    <resourcesList name="trigo2" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/geth_trigo2"/>
+    <resourcesList name="txd3" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/geth_txd3"/>
+    <resourcesList name="trigo3" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/geth_trigo3"/>
+    <resourcesList name="rxd3" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/geth_rxd3"/>
+    <resourcesList name="mdc" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/geth_mdc"/>
+    <resourcesList name="grefclk" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/geth_grefclk"/>
+    <resourcesList name="refclk" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/geth_refclk"/>
+    <resourcesList name="pps" requiredResourceUri="http://resources/0.0.8/peripheral/geth/0/geth_pps"/>
+  </provided>
+  <provided xsi:type="ResourceModel:RegisterParameter" name="GPCTL" URI="http://resources/0.0.8/peripheral/geth/0/gpctl" value="00000000" toolTipHelpDescription="General Purpose Control Register" defaultValue="00000000" addressOffset="0x00002008" resetValue="00000000" resetMask="0x00000000">
+    <bitFields name="ALTI0" URI="http://resources/0.0.8/peripheral/geth/0/gpctl/alti0" value="00000000" toolTipHelpDescription="Alternate Input Select 0" defaultValue="00000000" startPos="0" stopPos="1" accessPermission="rw" maxValue="3" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Alternate Input 0 selected"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Alternate Input 1 selected"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="Alternate Input 2 selected"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="Alternate Input 3 selected"/>
+    </bitFields>
+    <bitFields name="ALTI1" URI="http://resources/0.0.8/peripheral/geth/0/gpctl/alti1" value="00000000" toolTipHelpDescription="Alternate Input Select 1" defaultValue="00000000" startPos="2" stopPos="3" accessPermission="rw" maxValue="3" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Alternate Input 0 selected"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Alternate Input 1 selected"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="Alternate Input 2 selected"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="Alternate Input 3 selected"/>
+    </bitFields>
+    <bitFields name="ALTI2" URI="http://resources/0.0.8/peripheral/geth/0/gpctl/alti2" value="00000000" toolTipHelpDescription="Alternate Input Select 2" defaultValue="00000000" startPos="4" stopPos="5" accessPermission="rw" maxValue="3" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Alternate Input 0 selected"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Alternate Input 1 selected"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="Alternate Input 2 selected"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="Alternate Input 3 selected"/>
+    </bitFields>
+    <bitFields name="ALTI3" URI="http://resources/0.0.8/peripheral/geth/0/gpctl/alti3" value="00000000" toolTipHelpDescription="Alternate Input Select 3" defaultValue="00000000" startPos="6" stopPos="7" accessPermission="rw" maxValue="3" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Alternate Input 0 selected"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Alternate Input 1 selected"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="Alternate Input 2 selected"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="Alternate Input 3 selected"/>
+    </bitFields>
+    <bitFields name="ALTI4" URI="http://resources/0.0.8/peripheral/geth/0/gpctl/alti4" value="00000000" toolTipHelpDescription="Alternate Input Select 4" defaultValue="00000000" startPos="8" stopPos="9" accessPermission="rw" maxValue="3" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Alternate Input 0 selected"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Alternate Input 1 selected"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="Alternate Input 2 selected"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="Alternate Input 3 selected"/>
+    </bitFields>
+    <bitFields name="ALTI5" URI="http://resources/0.0.8/peripheral/geth/0/gpctl/alti5" value="00000000" toolTipHelpDescription="Alternate Input Select 5" defaultValue="00000000" startPos="10" stopPos="11" accessPermission="rw" maxValue="3" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Alternate Input 0 selected"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Alternate Input 1 selected"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="Alternate Input 2 selected"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="Alternate Input 3 selected"/>
+    </bitFields>
+    <bitFields name="ALTI6" URI="http://resources/0.0.8/peripheral/geth/0/gpctl/alti6" value="00000000" toolTipHelpDescription="Alternate Input Select 6" defaultValue="00000000" startPos="12" stopPos="13" accessPermission="rw" maxValue="3" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Alternate Input 0 selected"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Alternate Input 1 selected"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="Alternate Input 2 selected"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="Alternate Input 3 selected"/>
+    </bitFields>
+    <bitFields name="ALTI7" URI="http://resources/0.0.8/peripheral/geth/0/gpctl/alti7" value="00000000" toolTipHelpDescription="Alternate Input Select 7" defaultValue="00000000" startPos="14" stopPos="15" accessPermission="rw" maxValue="3" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Alternate Input 0 selected"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Alternate Input 1 selected"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="Alternate Input 2 selected"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="Alternate Input 3 selected"/>
+    </bitFields>
+    <bitFields name="ALTI8" URI="http://resources/0.0.8/peripheral/geth/0/gpctl/alti8" value="00000000" toolTipHelpDescription="Alternate Input Select 8" defaultValue="00000000" startPos="16" stopPos="17" accessPermission="rw" maxValue="3" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Alternate Input 0 selected"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Alternate Input 1 selected"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="Alternate Input 2 selected"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="Alternate Input 3 selected"/>
+    </bitFields>
+    <bitFields name="ALTI9" URI="http://resources/0.0.8/peripheral/geth/0/gpctl/alti9" value="00000000" toolTipHelpDescription="Alternate Input Select 9" defaultValue="00000000" startPos="18" stopPos="19" accessPermission="rw" maxValue="3" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Alternate Input 0 selected"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Alternate Input 1 selected"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="Alternate Input 2 selected"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="Alternate Input 3 selected"/>
+    </bitFields>
+    <bitFields name="ALTI10" URI="http://resources/0.0.8/peripheral/geth/0/gpctl/alti10" value="00000000" toolTipHelpDescription="Alternate Input Select 10" defaultValue="00000000" startPos="20" stopPos="21" accessPermission="rw" maxValue="3" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Alternate Input 0 selected"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Alternate Input 1 selected"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="Alternate Input 2 selected"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="Alternate Input 3 selected"/>
+    </bitFields>
+    <bitFields name="EPR" URI="http://resources/0.0.8/peripheral/geth/0/gpctl/epr" value="00000000" toolTipHelpDescription="External Phy Interface RMII Mode Bit" defaultValue="00000000" startPos="22" stopPos="24" accessPermission="rw" maxValue="7" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="MII is selected and the divider (see 100B)is not active but the clock signals clk_tx_i and clk_rx_i are connected directly to the referring port pins"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="RGMII is selected. The clock signals are connected directly to the referring port pins"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="do not use!"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="do not use!"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b100" description="RMII is selected and an internal predivider divides the clock clk_rmii_i from pin ETHRXC by 2 or 20 and provides it to the internal signals clk_tx_i and clk_rx_i. The division factor depends from the signal mac_speed_o, controlled by bit FES in Register 0 (MAC Configuration Register)"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b101" description="do not use!"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b111" description="do not use!"/>
+    </bitFields>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="ALTI6" URI="http://resources/0.0.8/peripheral/geth/0/gpctl/alti6" value="00000000" toolTipHelpDescription="Alternate Input Select 6" defaultValue="00000000" startPos="12" stopPos="13" accessPermission="rw" maxValue="3" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Alternate Input 0 selected"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Alternate Input 1 selected"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="Alternate Input 2 selected"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="Alternate Input 3 selected"/>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="ALTI7" URI="http://resources/0.0.8/peripheral/geth/0/gpctl/alti7" value="00000000" toolTipHelpDescription="Alternate Input Select 7" defaultValue="00000000" startPos="14" stopPos="15" accessPermission="rw" maxValue="3" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Alternate Input 0 selected"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Alternate Input 1 selected"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="Alternate Input 2 selected"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="Alternate Input 3 selected"/>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="ALTI8" URI="http://resources/0.0.8/peripheral/geth/0/gpctl/alti8" value="00000000" toolTipHelpDescription="Alternate Input Select 8" defaultValue="00000000" startPos="16" stopPos="17" accessPermission="rw" maxValue="3" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Alternate Input 0 selected"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Alternate Input 1 selected"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="Alternate Input 2 selected"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="Alternate Input 3 selected"/>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="ALTI9" URI="http://resources/0.0.8/peripheral/geth/0/gpctl/alti9" value="00000000" toolTipHelpDescription="Alternate Input Select 9" defaultValue="00000000" startPos="18" stopPos="19" accessPermission="rw" maxValue="3" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Alternate Input 0 selected"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Alternate Input 1 selected"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="Alternate Input 2 selected"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="Alternate Input 3 selected"/>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="ALTI2" URI="http://resources/0.0.8/peripheral/geth/0/gpctl/alti2" value="00000000" toolTipHelpDescription="Alternate Input Select 2" defaultValue="00000000" startPos="4" stopPos="5" accessPermission="rw" maxValue="3" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Alternate Input 0 selected"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Alternate Input 1 selected"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="Alternate Input 2 selected"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="Alternate Input 3 selected"/>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="ALTI3" URI="http://resources/0.0.8/peripheral/geth/0/gpctl/alti3" value="00000000" toolTipHelpDescription="Alternate Input Select 3" defaultValue="00000000" startPos="6" stopPos="7" accessPermission="rw" maxValue="3" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Alternate Input 0 selected"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Alternate Input 1 selected"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="Alternate Input 2 selected"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="Alternate Input 3 selected"/>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="ALTI4" URI="http://resources/0.0.8/peripheral/geth/0/gpctl/alti4" value="00000000" toolTipHelpDescription="Alternate Input Select 4" defaultValue="00000000" startPos="8" stopPos="9" accessPermission="rw" maxValue="3" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Alternate Input 0 selected"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Alternate Input 1 selected"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="Alternate Input 2 selected"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="Alternate Input 3 selected"/>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="ALTI5" URI="http://resources/0.0.8/peripheral/geth/0/gpctl/alti5" value="00000000" toolTipHelpDescription="Alternate Input Select 5" defaultValue="00000000" startPos="10" stopPos="11" accessPermission="rw" maxValue="3" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Alternate Input 0 selected"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Alternate Input 1 selected"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="Alternate Input 2 selected"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="Alternate Input 3 selected"/>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="ALTI10" URI="http://resources/0.0.8/peripheral/geth/0/gpctl/alti10" value="00000000" toolTipHelpDescription="Alternate Input Select 10" defaultValue="00000000" startPos="20" stopPos="21" accessPermission="rw" maxValue="3" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Alternate Input 0 selected"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Alternate Input 1 selected"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="Alternate Input 2 selected"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="Alternate Input 3 selected"/>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="ALTI0" URI="http://resources/0.0.8/peripheral/geth/0/gpctl/alti0" value="00000000" toolTipHelpDescription="Alternate Input Select 0" defaultValue="00000000" startPos="0" stopPos="1" accessPermission="rw" maxValue="3" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Alternate Input 0 selected"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Alternate Input 1 selected"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="Alternate Input 2 selected"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="Alternate Input 3 selected"/>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="ALTI1" URI="http://resources/0.0.8/peripheral/geth/0/gpctl/alti1" value="00000000" toolTipHelpDescription="Alternate Input Select 1" defaultValue="00000000" startPos="2" stopPos="3" accessPermission="rw" maxValue="3" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Alternate Input 0 selected"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Alternate Input 1 selected"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="Alternate Input 2 selected"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="Alternate Input 3 selected"/>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="EPR" URI="http://resources/0.0.8/peripheral/geth/0/gpctl/epr" value="00000000" toolTipHelpDescription="External Phy Interface RMII Mode Bit" defaultValue="00000000" startPos="22" stopPos="24" accessPermission="rw" maxValue="7" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="MII is selected and the divider (see 100B)is not active but the clock signals clk_tx_i and clk_rx_i are connected directly to the referring port pins"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="RGMII is selected. The clock signals are connected directly to the referring port pins"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="do not use!"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="do not use!"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b100" description="RMII is selected and an internal predivider divides the clock clk_rmii_i from pin ETHRXC by 2 or 20 and provides it to the internal signals clk_tx_i and clk_rx_i. The division factor depends from the signal mac_speed_o, controlled by bit FES in Register 0 (MAC Configuration Register)"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b101" description="do not use!"/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b111" description="do not use!"/>
+  </provided>
+  <addressBlock offset="0x0" size="0x0100" usage="registers"/>
+</ResourceModel:Peripheral>

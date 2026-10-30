@@ -1,0 +1,34 @@
+package Model.APPS.ETHERNET_CONFIG.v4_0_8;
+import ifx.davex.app.manifest.*;
+
+class Gindexgroup_av_tx_config{
+	 public GLabel glabel_sel_av_config;
+	 public GLabel glabel_en_av_algo;
+	 public GCombo gcombo_en_av_algo;
+	 public GLabel glabel_credit_ctrl;
+	 public GCheck gcheck_credit_ctrl;
+	 public GLabel glabel_slt_cnt;
+	 public GCombo gcombo_slt_cnt;
+	 public GLabel glabel_snd_slope_cdt;
+	 public GInteger ginteger_snd_slope_cdt;
+	 public GLabel glabel_high_crdt_value;
+	 public GInteger ginteger_high_crdt_value;
+	 public GLabel glabel_low_crdt_value;
+	 public GInteger ginteger_low_crdt_value;
+
+	public Gindexgroup_av_tx_config (DaveEnv daveEnv, String widgetName,int index){
+	 glabel_sel_av_config = new GLabel(widgetName: "glabel_sel_av_config", text: "Select TX AV to Configure", enabled: true, visible: true, parentWidgetName:widgetName)
+	 glabel_en_av_algo = new GLabel(widgetName: "glabel_en_av_algo", text: "Enable AV Algorithm", enabled: true, visible: true, parentWidgetName:widgetName)
+	 gcombo_en_av_algo = new GCombo(widgetName: "gcombo_en_av_algo", options: ["Credit based shaper Algorithm","Strict Priority Algorithm"], value: "Credit based shaper Algorithm", enabled: true, visible: true, isMandatoryValue: false, parentWidgetName:widgetName)
+	 glabel_credit_ctrl = new GLabel(widgetName: "glabel_credit_ctrl", text: "Credit Control", enabled: true, visible: true, parentWidgetName:widgetName)
+	 gcheck_credit_ctrl = new GCheck(widgetName: "gcheck_credit_ctrl", value: false, enabled: true, visible: true, parentWidgetName:widgetName)
+	 glabel_slt_cnt = new GLabel(widgetName: "glabel_slt_cnt", text: "Slot Count", enabled: true, visible: true, parentWidgetName:widgetName)
+	 gcombo_slt_cnt = new GCombo(widgetName: "gcombo_slt_cnt", options: ["1 Slot","2 Slots","4 Slots","8 Slots","16 Slots"], value: "1 Slot", enabled: true, visible: true, isMandatoryValue: false, parentWidgetName:widgetName)
+	 glabel_snd_slope_cdt = new GLabel(widgetName: "glabel_snd_slope_cdt", text: "Send Slope Credit", enabled: true, visible: true, parentWidgetName:widgetName)
+	 ginteger_snd_slope_cdt = new GInteger(widgetName: "ginteger_snd_slope_cdt", value: 0, minValue: 0, maxValue: 8192, enabled: true, visible: true, isMandatoryValue: false, parentWidgetName:widgetName)
+	 glabel_high_crdt_value = new GLabel(widgetName: "glabel_high_crdt_value", text: "High Credit Value", enabled: true, visible: true, parentWidgetName:widgetName)
+	 ginteger_high_crdt_value = new GInteger(widgetName: "ginteger_high_crdt_value", value: 0, minValue: 0, maxValue: 134217728, enabled: true, visible: true, isMandatoryValue: false, parentWidgetName:widgetName)
+	 glabel_low_crdt_value = new GLabel(widgetName: "glabel_low_crdt_value", text: "Low Credit Value", enabled: true, visible: true, parentWidgetName:widgetName)
+	 ginteger_low_crdt_value = new GInteger(widgetName: "ginteger_low_crdt_value", value: 0, minValue: 0, maxValue: 134217728, enabled: true, visible: true, isMandatoryValue: false, parentWidgetName:widgetName)
+	}
+}

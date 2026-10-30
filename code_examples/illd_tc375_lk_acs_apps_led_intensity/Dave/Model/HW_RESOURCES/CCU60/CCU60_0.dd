@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="ASCII"?>
+<ResourceModel:Peripheral xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ResourceModel="http://www.infineon.com/Davex/Resource.ecore" URI="http://resources/4.0.2/peripheral/ccu6/0" description="" baseAddress="0xF0002A00">
+  <provided xsi:type="ResourceModel:ResourceGroup" name="common" URI="http://resources/4.0.2/peripheral/ccu6/0/common">
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/CCU6_GENERIC/v4_0_4/CCU6_GENERIC_0.app#//@hwResources.0"/>
+    <resourcesList name="mosel" requiredResourceUri="http://resources/4.0.2/peripheral/ccu6/0/ccu60_mosel"/>
+    <resourcesList name="mosel_trig0sel" requiredResourceUri="http://resources/4.0.2/peripheral/ccu6/0/ccu60_mosel/trig0sel"/>
+    <resourcesList name="mosel_trig1sel" requiredResourceUri="http://resources/4.0.2/peripheral/ccu6/0/ccu60_mosel/trig1sel"/>
+    <resourcesList name="mosel_trig2sel" requiredResourceUri="http://resources/4.0.2/peripheral/ccu6/0/ccu60_mosel/trig2sel"/>
+    <resourcesList name="global_int" requiredResourceUri="http://resources/4.0.2/peripheral/ccu6/0/common_global_int"/>
+  </provided>
+  <provided xsi:type="ResourceModel:RegisterParameter" name="CCU60_MOSEL" URI="http://resources/4.0.2/peripheral/ccu6/0/ccu60_mosel" value="00000000" toolTipHelpDescription="CCU60 Module Output Select Register" defaultValue="00000000" addressOffset="0x0000000C" resetValue="00000000" resetMask="0x00000000">
+    <bitFields name="TRIG0SEL" URI="http://resources/4.0.2/peripheral/ccu6/0/ccu60_mosel/trig0sel" value="00000000" toolTipHelpDescription="Output Trigger Select for CCU6061 TRIG[0]" defaultValue="00000000" startPos="0" stopPos="2" accessPermission="rw" maxValue="7" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="The signal CCU6_CCU60_COUT63 is selected."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="The signal CCU6_CCU61_COUT63 is selected."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="The signal CCU6_CCU60_CC60 is selected."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="The signal CCU6_CCU61_CC60 is selected."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b100" description="The signal CCU6_CCU60_SR1 is selected."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b101" description="The signal CCU6_CCU61_SR1 is selected."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b110" description="The signal CCU6_CCU60_SR3 is selected."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b111" description="The signal CCU6_CCU61_SR3 is selected."/>
+    </bitFields>
+    <bitFields name="TRIG1SEL" URI="http://resources/4.0.2/peripheral/ccu6/0/ccu60_mosel/trig1sel" value="00000000" toolTipHelpDescription="Output Trigger Select for CCU6061 TRIG[1]" defaultValue="00000000" startPos="3" stopPos="5" accessPermission="rw" maxValue="7" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="The signal CCU6_CCU60_COUT63 is selected."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="The signal CCU6_CCU61_COUT63 is selected."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="The signal CCU6_CCU60_CC61 is selected."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="The signal CCU6_CCU61_CC61 is selected."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b100" description="The signal CCU6_CCU60_SR1 is selected."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b101" description="The signal CCU6_CCU61_SR1 is selected."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b110" description="The signal CCU6_CCU60_SR3 is selected."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b111" description="The signal CCU6_CCU61_SR3 is selected."/>
+    </bitFields>
+    <bitFields name="TRIG2SEL" URI="http://resources/4.0.2/peripheral/ccu6/0/ccu60_mosel/trig2sel" value="00000000" toolTipHelpDescription="Output Trigger Select for CCU6061 TRIG[2]" defaultValue="00000000" startPos="6" stopPos="8" accessPermission="rw" maxValue="7" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="The signal CCU6_CCU60_COUT63 is selected."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="The signal CCU6_CCU61_COUT63 is selected."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="The signal CCU6_CCU60_CC62 is selected."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="The signal CCU6_CCU61_CC62 is selected."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b100" description="The signal CCU6_CCU60_SR1 is selected."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b101" description="The signal CCU6_CCU61_SR1 is selected."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b110" description="The signal CCU6_CCU60_SR3 is selected."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b111" description="The signal CCU6_CCU61_SR3 is selected."/>
+    </bitFields>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="TRIG0SEL" URI="http://resources/4.0.2/peripheral/ccu6/0/ccu60_mosel/trig0sel" value="00000000" toolTipHelpDescription="Output Trigger Select for CCU6061 TRIG[0]" defaultValue="00000000" startPos="0" stopPos="2" accessPermission="rw" maxValue="7" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="The signal CCU6_CCU60_COUT63 is selected."/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="The signal CCU6_CCU61_COUT63 is selected."/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="The signal CCU6_CCU60_CC60 is selected."/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="The signal CCU6_CCU61_CC60 is selected."/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b100" description="The signal CCU6_CCU60_SR1 is selected."/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b101" description="The signal CCU6_CCU61_SR1 is selected."/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b110" description="The signal CCU6_CCU60_SR3 is selected."/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b111" description="The signal CCU6_CCU61_SR3 is selected."/>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="TRIG1SEL" URI="http://resources/4.0.2/peripheral/ccu6/0/ccu60_mosel/trig1sel" value="00000000" toolTipHelpDescription="Output Trigger Select for CCU6061 TRIG[1]" defaultValue="00000000" startPos="3" stopPos="5" accessPermission="rw" maxValue="7" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="The signal CCU6_CCU60_COUT63 is selected."/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="The signal CCU6_CCU61_COUT63 is selected."/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="The signal CCU6_CCU60_CC61 is selected."/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="The signal CCU6_CCU61_CC61 is selected."/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b100" description="The signal CCU6_CCU60_SR1 is selected."/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b101" description="The signal CCU6_CCU61_SR1 is selected."/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b110" description="The signal CCU6_CCU60_SR3 is selected."/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b111" description="The signal CCU6_CCU61_SR3 is selected."/>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="TRIG2SEL" URI="http://resources/4.0.2/peripheral/ccu6/0/ccu60_mosel/trig2sel" value="00000000" toolTipHelpDescription="Output Trigger Select for CCU6061 TRIG[2]" defaultValue="00000000" startPos="6" stopPos="8" accessPermission="rw" maxValue="7" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="The signal CCU6_CCU60_COUT63 is selected."/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="The signal CCU6_CCU61_COUT63 is selected."/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="The signal CCU6_CCU60_CC62 is selected."/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="The signal CCU6_CCU61_CC62 is selected."/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b100" description="The signal CCU6_CCU60_SR1 is selected."/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b101" description="The signal CCU6_CCU61_SR1 is selected."/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b110" description="The signal CCU6_CCU60_SR3 is selected."/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b111" description="The signal CCU6_CCU61_SR3 is selected."/>
+  </provided>
+  <provided xsi:type="ResourceModel:ResourceGroup" name="t12" URI="http://resources/4.0.2/peripheral/ccu6/0/0/t12">
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/TIMER_CCU6/v4_0_8/TIMER_CCU6_0.app#//@hwResources.0"/>
+    <resourcesList name="t12" requiredResourceUri="http://resources/4.0.2/peripheral/ccu6/0/ccu60_t12"/>
+    <resourcesList name="t12pr" requiredResourceUri="http://resources/4.0.2/peripheral/ccu6/0/ccu60_t12pr"/>
+    <resourcesList name="cc60r" requiredResourceUri="http://resources/4.0.2/peripheral/ccu6/0/ccu60_cc60r"/>
+    <resourcesList name="cc61r" requiredResourceUri="http://resources/4.0.2/peripheral/ccu6/0/ccu60_cc61r"/>
+    <resourcesList name="cc62r" requiredResourceUri="http://resources/4.0.2/peripheral/ccu6/0/ccu60_cc62r"/>
+    <resourcesList name="cc60sr" requiredResourceUri="http://resources/4.0.2/peripheral/ccu6/0/ccu60_cc60sr"/>
+    <resourcesList name="t12dtc" requiredResourceUri="http://resources/4.0.2/peripheral/ccu6/0/ccu60_t12dtc"/>
+    <resourcesList name="cc61sr" requiredResourceUri="http://resources/4.0.2/peripheral/ccu6/0/ccu60_cc61sr"/>
+    <resourcesList name="cc62sr" requiredResourceUri="http://resources/4.0.2/peripheral/ccu6/0/ccu60_cc62sr"/>
+    <resourcesList name="t12msel" requiredResourceUri="http://resources/4.0.2/peripheral/ccu6/0/ccu60_t12msel"/>
+    <resourcesList name="pslr" requiredResourceUri="http://resources/4.0.2/peripheral/ccu6/0/ccu60_pslr"/>
+    <resourcesList name="mcmouts" requiredResourceUri="http://resources/4.0.2/peripheral/ccu6/0/ccu60_mcmouts"/>
+    <resourcesList name="mcmout" requiredResourceUri="http://resources/4.0.2/peripheral/ccu6/0/ccu60_mcmout"/>
+    <resourcesList name="mcmctr" requiredResourceUri="http://resources/4.0.2/peripheral/ccu6/0/ccu60_mcmctr"/>
+    <resourcesList name="trpctr_trpen" requiredResourceUri="http://resources/4.0.2/peripheral/ccu6/0/ccu60_trpctr/trpen"/>
+    <resourcesList name="pisel0_iscc60" requiredResourceUri="http://resources/4.0.2/peripheral/ccu6/0/ccu60_pisel0/iscc60"/>
+    <resourcesList name="pisel0_iscc61" requiredResourceUri="http://resources/4.0.2/peripheral/ccu6/0/ccu60_pisel0/iscc61"/>
+    <resourcesList name="pisel0_iscc62" requiredResourceUri="http://resources/4.0.2/peripheral/ccu6/0/ccu60_pisel0/iscc62"/>
+    <resourcesList name="pisel0_ispos0" requiredResourceUri="http://resources/4.0.2/peripheral/ccu6/0/ccu60_pisel0/ispos0"/>
+    <resourcesList name="pisel0_ispos1" requiredResourceUri="http://resources/4.0.2/peripheral/ccu6/0/ccu60_pisel0/ispos1"/>
+    <resourcesList name="pisel0_ispos2" requiredResourceUri="http://resources/4.0.2/peripheral/ccu6/0/ccu60_pisel0/ispos2"/>
+    <resourcesList name="pisel0_ist12hr" requiredResourceUri="http://resources/4.0.2/peripheral/ccu6/0/ccu60_pisel0/ist12hr"/>
+    <resourcesList name="pisel2_t12ext" requiredResourceUri="http://resources/4.0.2/peripheral/ccu6/0/ccu60_pisel2/t12ext"/>
+    <resourcesList name="inp_inpcc60" requiredResourceUri="http://resources/4.0.2/peripheral/ccu6/0/ccu60_inp/inpcc60"/>
+    <resourcesList name="inp_inpcc61" requiredResourceUri="http://resources/4.0.2/peripheral/ccu6/0/ccu60_inp/inpcc61"/>
+    <resourcesList name="inp_inpcc62" requiredResourceUri="http://resources/4.0.2/peripheral/ccu6/0/ccu60_inp/inpcc62"/>
+    <resourcesList name="inp_inpche" requiredResourceUri="http://resources/4.0.2/peripheral/ccu6/0/ccu60_inp/inpche"/>
+    <resourcesList name="inp_inperr" requiredResourceUri="http://resources/4.0.2/peripheral/ccu6/0/ccu60_inp/inperr"/>
+    <resourcesList name="inp_inpt12" requiredResourceUri="http://resources/4.0.2/peripheral/ccu6/0/ccu60_inp/inpt12"/>
+    <resourcesList name="t12om" requiredResourceUri="http://resources/4.0.2/peripheral/ccu6/0/0_t12_t12om"/>
+    <resourcesList name="global" requiredResourceUri="http://resources/4.0.2/peripheral/ccu6/0/0_t12_global"/>
+    <resourcesList name="cout60" requiredResourceUri="http://resources/4.0.2/peripheral/ccu6/0/0_t12_cout60"/>
+    <resourcesList name="cout61" requiredResourceUri="http://resources/4.0.2/peripheral/ccu6/0/0_t12_cout61"/>
+    <resourcesList name="cc61" requiredResourceUri="http://resources/4.0.2/peripheral/ccu6/0/0_t12_cc61"/>
+    <resourcesList name="cout62" requiredResourceUri="http://resources/4.0.2/peripheral/ccu6/0/0_t12_cout62"/>
+    <resourcesList name="cc62" requiredResourceUri="http://resources/4.0.2/peripheral/ccu6/0/0_t12_cc62"/>
+    <resourcesList name="ccpos2" requiredResourceUri="http://resources/4.0.2/peripheral/ccu6/0/0_t12_ccpos2"/>
+    <resourcesList name="ccpos1" requiredResourceUri="http://resources/4.0.2/peripheral/ccu6/0/0_t12_ccpos1"/>
+    <resourcesList name="ccpos0" requiredResourceUri="http://resources/4.0.2/peripheral/ccu6/0/0_t12_ccpos0"/>
+    <resourcesList name="t12hr" requiredResourceUri="http://resources/4.0.2/peripheral/ccu6/0/0_t12_t12hr"/>
+    <resourcesList name="che" requiredResourceUri="http://resources/4.0.2/peripheral/ccu6/0/0_t12_che"/>
+    <resourcesList name="cc62_r" requiredResourceUri="http://resources/4.0.2/peripheral/ccu6/0/0_t12_cc62_r"/>
+    <resourcesList name="cc60_r" requiredResourceUri="http://resources/4.0.2/peripheral/ccu6/0/0_t12_cc60_r"/>
+    <resourcesList name="t12pm" requiredResourceUri="http://resources/4.0.2/peripheral/ccu6/0/0_t12_t12pm"/>
+    <resourcesList name="cc61_r" requiredResourceUri="http://resources/4.0.2/peripheral/ccu6/0/0_t12_cc61_r"/>
+    <resourcesList name="cc60" requiredResourceUri="http://resources/4.0.2/peripheral/ccu6/0/0_t12_cc60"/>
+    <resourcesList name="cc62_f" requiredResourceUri="http://resources/4.0.2/peripheral/ccu6/0/0_t12_cc62_f"/>
+    <resourcesList name="str" requiredResourceUri="http://resources/4.0.2/peripheral/ccu6/0/0_t12_str"/>
+    <resourcesList name="cc60in" requiredResourceUri="http://resources/4.0.2/peripheral/ccu6/0/0_t12_cc60in"/>
+    <resourcesList name="whe" requiredResourceUri="http://resources/4.0.2/peripheral/ccu6/0/0_t12_whe"/>
+    <resourcesList name="cc61in" requiredResourceUri="http://resources/4.0.2/peripheral/ccu6/0/0_t12_cc61in"/>
+    <resourcesList name="cc60_f" requiredResourceUri="http://resources/4.0.2/peripheral/ccu6/0/0_t12_cc60_f"/>
+    <resourcesList name="cc62in" requiredResourceUri="http://resources/4.0.2/peripheral/ccu6/0/0_t12_cc62in"/>
+    <resourcesList name="cc61_f" requiredResourceUri="http://resources/4.0.2/peripheral/ccu6/0/0_t12_cc61_f"/>
+  </provided>
+  <provided xsi:type="ResourceModel:RegisterParameter" name="CCU60_PISEL2" URI="http://resources/4.0.2/peripheral/ccu6/0/ccu60_pisel2" value="00000000" toolTipHelpDescription="Port Input Select Register 2" defaultValue="00000000" addressOffset="0x00000014" resetValue="00000000" resetMask="0x00000000">
+    <bitFields name="IST13HR" URI="http://resources/4.0.2/peripheral/ccu6/0/ccu60_pisel2/ist13hr" value="00000000" toolTipHelpDescription="Input Select for T13HR" defaultValue="00000000" startPos="0" stopPos="1" accessPermission="rw" maxValue="3" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Either signal T13HRA (if T13EXT = 0) or T13HRE (if T13EXT = 1) is selected."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Either signal T13HRB (if T13EXT = 0) or T13HRF (if T13EXT = 1) is selected."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="Either signal T13HRC (if T13EXT = 0) or T13HRG (if T13EXT = 1) is selected."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="Either signal T13HRD (if T13EXT = 0) or T13HRH (if T13EXT = 1) is selected."/>
+    </bitFields>
+    <bitFields name="ISCNT12" URI="http://resources/4.0.2/peripheral/ccu6/0/ccu60_pisel2/iscnt12" value="00000000" toolTipHelpDescription="Input Select for T12 Counting Input" defaultValue="00000000" startPos="2" stopPos="3" accessPermission="rw" maxValue="3" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="The T12 prescaler generates the counting events. Bit TCTR4.T12CNT is not taken into account."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Bit TCTR4.T12CNT written with 1 is a counting event. The T12 prescaler is not taken into account."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="The timer T12 is counting each rising edge detected in the selected T12HR signal."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="The timer T12 is counting each falling edge detected in the selected T12HR signal."/>
+    </bitFields>
+    <bitFields name="ISCNT13" URI="http://resources/4.0.2/peripheral/ccu6/0/ccu60_pisel2/iscnt13" value="00000000" toolTipHelpDescription="Input Select for T13 Counting Input" defaultValue="00000000" startPos="4" stopPos="5" accessPermission="rw" maxValue="3" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="The T13 prescaler generates the counting events. Bit TCTR4.T13CNT is not taken into account."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Bit TCTR4.T13CNT written with 1 is a counting event. The T13 prescaler is not taken into account."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="The timer T13 is counting each rising edge detected in the selected T13HR signal."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="The timer T13 is counting each falling edge detected in the selected T13HR signal."/>
+    </bitFields>
+    <bitFields name="T12EXT" URI="http://resources/4.0.2/peripheral/ccu6/0/ccu60_pisel2/t12ext" value="00000000" toolTipHelpDescription="Extension for T12HR Inputs" defaultValue="00000000" startPos="6" stopPos="6" accessPermission="rw" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="One of the signals T12HR[D:A] is selected."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="One of the signals T12HR[H:E] is selected."/>
+    </bitFields>
+    <bitFields name="T13EXT" URI="http://resources/4.0.2/peripheral/ccu6/0/ccu60_pisel2/t13ext" value="00000000" toolTipHelpDescription="Extension for T13HR Inputs" defaultValue="00000000" startPos="7" stopPos="7" accessPermission="rw" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="One of the signals T13HR[D:A] is selected."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="One of the signals T13HR[H:E] is selected."/>
+    </bitFields>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="T12EXT" URI="http://resources/4.0.2/peripheral/ccu6/0/ccu60_pisel2/t12ext" value="00000000" toolTipHelpDescription="Extension for T12HR Inputs" defaultValue="00000000" startPos="6" stopPos="6" accessPermission="rw" maxValue="1" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="One of the signals T12HR[D:A] is selected."/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="One of the signals T12HR[H:E] is selected."/>
+  </provided>
+  <provided xsi:type="ResourceModel:RegisterParameter" name="CCU60_INP" URI="http://resources/4.0.2/peripheral/ccu6/0/ccu60_inp" value="00003940" toolTipHelpDescription="Interrupt Node Pointer Register" defaultValue="00003940" addressOffset="0x000000AC" resetValue="00003940" resetMask="0x00000000">
+    <bitFields name="INPCC60" URI="http://resources/4.0.2/peripheral/ccu6/0/ccu60_inp/inpcc60" value="00000000" toolTipHelpDescription="Interrupt Node Pointer for Channel CC60 Interrupts INPCC60 (x=0,1,2)" defaultValue="00000000" startPos="0" stopPos="1" accessPermission="rw" maxValue="3" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Service request output SR0 is selected."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Service request output SR1 is selected."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="Service request output SR2 is selected."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="Service request output SR3 is selected."/>
+    </bitFields>
+    <bitFields name="INPCC61" URI="http://resources/4.0.2/peripheral/ccu6/0/ccu60_inp/inpcc61" value="00000000" toolTipHelpDescription="Interrupt Node Pointer for Channel CC61 Interrupts INPCC61 (x=0,1,2)" defaultValue="00000000" startPos="2" stopPos="3" accessPermission="rw" maxValue="3" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Service request output SR0 is selected."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Service request output SR1 is selected."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="Service request output SR2 is selected."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="Service request output SR3 is selected."/>
+    </bitFields>
+    <bitFields name="INPCC62" URI="http://resources/4.0.2/peripheral/ccu6/0/ccu60_inp/inpcc62" value="00000000" toolTipHelpDescription="Interrupt Node Pointer for Channel CC62 Interrupts INPCC62 (x=0,1,2)" defaultValue="00000000" startPos="4" stopPos="5" accessPermission="rw" maxValue="3" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Service request output SR0 is selected."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Service request output SR1 is selected."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="Service request output SR2 is selected."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="Service request output SR3 is selected."/>
+    </bitFields>
+    <bitFields name="INPCHE" URI="http://resources/4.0.2/peripheral/ccu6/0/ccu60_inp/inpche" value="00000000" toolTipHelpDescription="Interrupt Node Pointer for the CHE Interrupt" defaultValue="00000000" startPos="6" stopPos="7" accessPermission="rw" maxValue="3" minValue="0"/>
+    <bitFields name="INPERR" URI="http://resources/4.0.2/peripheral/ccu6/0/ccu60_inp/inperr" value="00000000" toolTipHelpDescription="Interrupt Node Pointer for Error Interrupts" defaultValue="00000000" startPos="8" stopPos="9" accessPermission="rw" maxValue="3" minValue="0"/>
+    <bitFields name="INPT12" URI="http://resources/4.0.2/peripheral/ccu6/0/ccu60_inp/inpt12" value="00000000" toolTipHelpDescription="Interrupt Node Pointer for Timer12 Interrupts" defaultValue="00000000" startPos="10" stopPos="11" accessPermission="rw" maxValue="3" minValue="0"/>
+    <bitFields name="INPT13" URI="http://resources/4.0.2/peripheral/ccu6/0/ccu60_inp/inpt13" value="00000000" toolTipHelpDescription="Interrupt Node Pointer for Timer13 Interrupt" defaultValue="00000000" startPos="12" stopPos="13" accessPermission="rw" maxValue="3" minValue="0"/>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="INPCC60" URI="http://resources/4.0.2/peripheral/ccu6/0/ccu60_inp/inpcc60" value="00000000" toolTipHelpDescription="Interrupt Node Pointer for Channel CC60 Interrupts INPCC60 (x=0,1,2)" defaultValue="00000000" startPos="0" stopPos="1" accessPermission="rw" maxValue="3" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Service request output SR0 is selected."/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Service request output SR1 is selected."/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="Service request output SR2 is selected."/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="Service request output SR3 is selected."/>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="INPCC62" URI="http://resources/4.0.2/peripheral/ccu6/0/ccu60_inp/inpcc62" value="00000000" toolTipHelpDescription="Interrupt Node Pointer for Channel CC62 Interrupts INPCC62 (x=0,1,2)" defaultValue="00000000" startPos="4" stopPos="5" accessPermission="rw" maxValue="3" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Service request output SR0 is selected."/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Service request output SR1 is selected."/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="Service request output SR2 is selected."/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="Service request output SR3 is selected."/>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="INPERR" URI="http://resources/4.0.2/peripheral/ccu6/0/ccu60_inp/inperr" value="00000000" toolTipHelpDescription="Interrupt Node Pointer for Error Interrupts" defaultValue="00000000" startPos="8" stopPos="9" accessPermission="rw" maxValue="3" minValue="0"/>
+  <provided xsi:type="ResourceModel:BitField" name="INPCC61" URI="http://resources/4.0.2/peripheral/ccu6/0/ccu60_inp/inpcc61" value="00000000" toolTipHelpDescription="Interrupt Node Pointer for Channel CC61 Interrupts INPCC61 (x=0,1,2)" defaultValue="00000000" startPos="2" stopPos="3" accessPermission="rw" maxValue="3" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Service request output SR0 is selected."/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Service request output SR1 is selected."/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="Service request output SR2 is selected."/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="Service request output SR3 is selected."/>
+  </provided>
+  <provided xsi:type="ResourceModel:RegisterParameter" name="CCU60_PISEL0" URI="http://resources/4.0.2/peripheral/ccu6/0/ccu60_pisel0" value="00000000" toolTipHelpDescription="Port Input Select Register 0" defaultValue="00000000" addressOffset="0x00000010" resetValue="00000000" resetMask="0x00000000">
+    <bitFields name="ISCC60" URI="http://resources/4.0.2/peripheral/ccu6/0/ccu60_pisel0/iscc60" value="00000000" toolTipHelpDescription="Input Select for CC60 ISCC60 (x=0,1,2)" defaultValue="00000000" startPos="0" stopPos="1" accessPermission="rw" maxValue="3" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="The signal CC6xINA is selected."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="The signal CC6xINB is selected."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="The signal CC6xINC is selected."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="The signal CC6xIND is selected."/>
+    </bitFields>
+    <bitFields name="ISCC61" URI="http://resources/4.0.2/peripheral/ccu6/0/ccu60_pisel0/iscc61" value="00000000" toolTipHelpDescription="Input Select for CC60 ISCC61 (x=0,1,2)" defaultValue="00000000" startPos="2" stopPos="3" accessPermission="rw" maxValue="3" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="The signal CC6xINA is selected."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="The signal CC6xINB is selected."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="The signal CC6xINC is selected."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="The signal CC6xIND is selected."/>
+    </bitFields>
+    <bitFields name="ISCC62" URI="http://resources/4.0.2/peripheral/ccu6/0/ccu60_pisel0/iscc62" value="00000000" toolTipHelpDescription="Input Select for CC60 ISCC62 (x=0,1,2)" defaultValue="00000000" startPos="4" stopPos="5" accessPermission="rw" maxValue="3" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="The signal CC6xINA is selected."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="The signal CC6xINB is selected."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="The signal CC6xINC is selected."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="The signal CC6xIND is selected."/>
+    </bitFields>
+    <bitFields name="ISTRP" URI="http://resources/4.0.2/peripheral/ccu6/0/ccu60_pisel0/istrp" value="00000000" toolTipHelpDescription="Input Select for CTRAP" defaultValue="00000000" startPos="6" stopPos="7" accessPermission="rw" maxValue="3" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="The signal CTRAPA is selected."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="The signal CTRAPB is selected."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="The signal CTRAPC is selected."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="The signal CTRAPD is selected."/>
+    </bitFields>
+    <bitFields name="ISPOS0" URI="http://resources/4.0.2/peripheral/ccu6/0/ccu60_pisel0/ispos0" value="00000000" toolTipHelpDescription="Input Select for CCPOS0 ISPOS0 (x=0,1,2)" defaultValue="00000000" startPos="8" stopPos="9" accessPermission="rw" maxValue="3" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="The signal CCPOSxA is selected."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="The signal CCPOSxB is selected."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="The signal CCPOSxC is selected."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="The signal CCPOSxD is selected."/>
+    </bitFields>
+    <bitFields name="ISPOS1" URI="http://resources/4.0.2/peripheral/ccu6/0/ccu60_pisel0/ispos1" value="00000000" toolTipHelpDescription="Input Select for CCPOS0 ISPOS1 (x=0,1,2)" defaultValue="00000000" startPos="10" stopPos="11" accessPermission="rw" maxValue="3" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="The signal CCPOSxA is selected."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="The signal CCPOSxB is selected."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="The signal CCPOSxC is selected."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="The signal CCPOSxD is selected."/>
+    </bitFields>
+    <bitFields name="ISPOS2" URI="http://resources/4.0.2/peripheral/ccu6/0/ccu60_pisel0/ispos2" value="00000000" toolTipHelpDescription="Input Select for CCPOS0 ISPOS2 (x=0,1,2)" defaultValue="00000000" startPos="12" stopPos="13" accessPermission="rw" maxValue="3" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="The signal CCPOSxA is selected."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="The signal CCPOSxB is selected."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="The signal CCPOSxC is selected."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="The signal CCPOSxD is selected."/>
+    </bitFields>
+    <bitFields name="IST12HR" URI="http://resources/4.0.2/peripheral/ccu6/0/ccu60_pisel0/ist12hr" value="00000000" toolTipHelpDescription="Input Select for T12HR" defaultValue="00000000" startPos="14" stopPos="15" accessPermission="rw" maxValue="3" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Either signal T12HRA (if T12EXT = 0) or T12HRE (if T12EXT = 1) is selected."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Either signal T12HRB (if T12EXT = 0) or T12HRF (if T12EXT = 1) is selected."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="Either signal T12HRC (if T12EXT = 0) or T12HRG (if T12EXT = 1) is selected."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="Either signal T12HRD (if T12EXT = 0) or T12HRH (if T12EXT = 1) is selected."/>
+    </bitFields>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="ISCC61" URI="http://resources/4.0.2/peripheral/ccu6/0/ccu60_pisel0/iscc61" value="00000000" toolTipHelpDescription="Input Select for CC60 ISCC61 (x=0,1,2)" defaultValue="00000000" startPos="2" stopPos="3" accessPermission="rw" maxValue="3" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="The signal CC6xINA is selected."/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="The signal CC6xINB is selected."/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="The signal CC6xINC is selected."/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="The signal CC6xIND is selected."/>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="ISCC60" URI="http://resources/4.0.2/peripheral/ccu6/0/ccu60_pisel0/iscc60" value="00000000" toolTipHelpDescription="Input Select for CC60 ISCC60 (x=0,1,2)" defaultValue="00000000" startPos="0" stopPos="1" accessPermission="rw" maxValue="3" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="The signal CC6xINA is selected."/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="The signal CC6xINB is selected."/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="The signal CC6xINC is selected."/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="The signal CC6xIND is selected."/>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="IST12HR" URI="http://resources/4.0.2/peripheral/ccu6/0/ccu60_pisel0/ist12hr" value="00000000" toolTipHelpDescription="Input Select for T12HR" defaultValue="00000000" startPos="14" stopPos="15" accessPermission="rw" maxValue="3" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Either signal T12HRA (if T12EXT = 0) or T12HRE (if T12EXT = 1) is selected."/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Either signal T12HRB (if T12EXT = 0) or T12HRF (if T12EXT = 1) is selected."/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="Either signal T12HRC (if T12EXT = 0) or T12HRG (if T12EXT = 1) is selected."/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="Either signal T12HRD (if T12EXT = 0) or T12HRH (if T12EXT = 1) is selected."/>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="ISCC62" URI="http://resources/4.0.2/peripheral/ccu6/0/ccu60_pisel0/iscc62" value="00000000" toolTipHelpDescription="Input Select for CC60 ISCC62 (x=0,1,2)" defaultValue="00000000" startPos="4" stopPos="5" accessPermission="rw" maxValue="3" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="The signal CC6xINA is selected."/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="The signal CC6xINB is selected."/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="The signal CC6xINC is selected."/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="The signal CC6xIND is selected."/>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="INPT12" URI="http://resources/4.0.2/peripheral/ccu6/0/ccu60_inp/inpt12" value="00000000" toolTipHelpDescription="Interrupt Node Pointer for Timer12 Interrupts" defaultValue="00000000" startPos="10" stopPos="11" accessPermission="rw" maxValue="3" minValue="0"/>
+  <provided xsi:type="ResourceModel:BitField" name="ISPOS2" URI="http://resources/4.0.2/peripheral/ccu6/0/ccu60_pisel0/ispos2" value="00000000" toolTipHelpDescription="Input Select for CCPOS0 ISPOS2 (x=0,1,2)" defaultValue="00000000" startPos="12" stopPos="13" accessPermission="rw" maxValue="3" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="The signal CCPOSxA is selected."/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="The signal CCPOSxB is selected."/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="The signal CCPOSxC is selected."/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="The signal CCPOSxD is selected."/>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="ISPOS1" URI="http://resources/4.0.2/peripheral/ccu6/0/ccu60_pisel0/ispos1" value="00000000" toolTipHelpDescription="Input Select for CCPOS0 ISPOS1 (x=0,1,2)" defaultValue="00000000" startPos="10" stopPos="11" accessPermission="rw" maxValue="3" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="The signal CCPOSxA is selected."/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="The signal CCPOSxB is selected."/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="The signal CCPOSxC is selected."/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="The signal CCPOSxD is selected."/>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="ISPOS0" URI="http://resources/4.0.2/peripheral/ccu6/0/ccu60_pisel0/ispos0" value="00000000" toolTipHelpDescription="Input Select for CCPOS0 ISPOS0 (x=0,1,2)" defaultValue="00000000" startPos="8" stopPos="9" accessPermission="rw" maxValue="3" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="The signal CCPOSxA is selected."/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="The signal CCPOSxB is selected."/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b10" description="The signal CCPOSxC is selected."/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b11" description="The signal CCPOSxD is selected."/>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="INPCHE" URI="http://resources/4.0.2/peripheral/ccu6/0/ccu60_inp/inpche" value="00000000" toolTipHelpDescription="Interrupt Node Pointer for the CHE Interrupt" defaultValue="00000000" startPos="6" stopPos="7" accessPermission="rw" maxValue="3" minValue="0"/>
+  <provided xsi:type="ResourceModel:RegisterParameter" name="CCU60_TRPCTR" URI="http://resources/4.0.2/peripheral/ccu6/0/ccu60_trpctr" value="00000000" toolTipHelpDescription="Trap Control Register" defaultValue="00000000" addressOffset="0x00000084" resetValue="00000000" resetMask="0x00000000">
+    <bitFields name="TRPM0" URI="http://resources/4.0.2/peripheral/ccu6/0/ccu60_trpctr/trpm0" value="00000000" toolTipHelpDescription="Trap Mode Control Bit 0" defaultValue="00000000" startPos="0" stopPos="0" accessPermission="rw" maxValue="1" minValue="0"/>
+    <bitFields name="TRPM1" URI="http://resources/4.0.2/peripheral/ccu6/0/ccu60_trpctr/trpm1" value="00000000" toolTipHelpDescription="Trap Mode Control Bit 1" defaultValue="00000000" startPos="1" stopPos="1" accessPermission="rw" maxValue="1" minValue="0"/>
+    <bitFields name="TRPM2" URI="http://resources/4.0.2/peripheral/ccu6/0/ccu60_trpctr/trpm2" value="00000000" toolTipHelpDescription="Trap Mode Control Bit 2" defaultValue="00000000" startPos="2" stopPos="2" accessPermission="rw" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="Automatic Mode: Bit TRPF is cleared by HW if the trap input condition is no longer valid."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="Manual Mode: Bit TRPF stays 1 after the trap input condition is no longer valid. It has to be cleared by SW by writing ISR.RTRPF = 1."/>
+    </bitFields>
+    <bitFields name="TRPEN" URI="http://resources/4.0.2/peripheral/ccu6/0/ccu60_trpctr/trpen" value="00000000" toolTipHelpDescription="Trap Enable Control" defaultValue="00000000" startPos="8" stopPos="13" accessPermission="rw" maxValue="63" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="The trap functionality of the corresponding output signal is disabled. The output state is independent from bit IS.TRPS."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="The trap functionality of the corresponding output signal is enabled. The output state is set to the passive while IS.TRPS=1."/>
+    </bitFields>
+    <bitFields name="TRPEN13" URI="http://resources/4.0.2/peripheral/ccu6/0/ccu60_trpctr/trpen13" value="00000000" toolTipHelpDescription="Trap Enable Control for Timer T13" defaultValue="00000000" startPos="14" stopPos="14" accessPermission="rw" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="The trap functionality for output COUT63 is disabled. The output state is independent from bit IS.TRPS."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="The trap functionality for output COUT63 is enabled. The output state is set to the passive while IS.TRPS=1."/>
+    </bitFields>
+    <bitFields name="TRPPEN" URI="http://resources/4.0.2/peripheral/ccu6/0/ccu60_trpctr/trppen" value="00000000" toolTipHelpDescription="Trap Pin Enable" defaultValue="00000000" startPos="15" stopPos="15" accessPermission="rw" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="The CCU6 trap functionality based on the input CTRAP is disabled. A CCU6 trap can only be generated by SW by setting bit TRPF."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="The CCU6 trap functionality based on the input CTRAP is enabled. A CCU6 trap can be generated by SW by setting bit TRPF or by CTRAP=0."/>
+    </bitFields>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="TRPEN" URI="http://resources/4.0.2/peripheral/ccu6/0/ccu60_trpctr/trpen" value="00000000" toolTipHelpDescription="Trap Enable Control" defaultValue="00000000" startPos="8" stopPos="13" accessPermission="rw" maxValue="63" minValue="0">
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="The trap functionality of the corresponding output signal is disabled. The output state is independent from bit IS.TRPS."/>
+    <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="The trap functionality of the corresponding output signal is enabled. The output state is set to the passive while IS.TRPS=1."/>
+  </provided>
+  <addressBlock offset="0x0" size="0x0100" usage="registers"/>
+</ResourceModel:Peripheral>

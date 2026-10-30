@@ -1,0 +1,111 @@
+package Model.APPS.PWM_EGTM.v4_1_4;
+// Import statements
+import ifx.davex.app.manifest.*
+
+abstract class PWM_EGTM_GUI extends AppManifest {
+
+    /* IMPORTANT NOTE: This is an auto generated file, please do not edit manually. */
+    /* User modifications in the GUI editor will be updated here automatically.     */
+    /* Manually editing the contents of this file will corrupt the APP SDK project. */
+
+	/* Begin : UI variable section */
+	 public GTab gtab_general_settings;
+	 public GTab gtab_pin_settings;
+	 public GTab gtab_event_settings;
+	 public GImage gimage_waveform;
+	 public GCombo gcombo_polarity;
+	 public GCombo gcombo_alignment;
+	 public GCombo gcombo_output_mode;
+	 public GCombo gcombo_drive_strength;
+	 public GFloat gfloat_freq;
+	 public GFloat gfloat_duty;
+	 public GString gstring_image;
+	 public GCheck gcheck_init_start;
+	 public GCheck gcheck_pwm_connection;
+	 public GCheck gcheck_period_match;
+	 public GCheck gcheck_compare_match;
+	 public GLabel glabel_freq;
+	 public GLabel glabel_duty;
+	 public GLabel glabel_polarity;
+	 public GLabel glabel_alignment;
+	 public GLabel glabel_image;
+	 public GLabel glabel_waveform_freq;
+	 public GLabel glabel_waveform_counter;
+	 public GLabel glabel_waveform_maxcount;
+	 public GLabel glabel_waveform_compare;
+	 public GLabel glabel_waveform_tick;
+	 public GLabel glabel_waveform_dur1;
+	 public GLabel glabel_waveform_dur2;
+	 public GLabel glabel_waveform_cycle_u;
+	 public GLabel glabel_waveform_cycle_ud;
+	 public GLabel glabel_waveform_compare_20;
+	 public GLabel glabel_waveform_dur1_20;
+	 public GLabel glabel_waveform_dur2_80_ud;
+	 public GLabel glabel_errorrate;
+	 public GLabel glabel_waveform_compare_80;
+	 public GLabel glabel_1;
+	 public GLabel glabel_2;
+	 public GLabel glabel_3;
+	 public GLabel glabel_31;
+	 public GLabel glabel_clocksource;
+	 public GLabel glabel_init_start;
+	 public GLabel glabel_pwm_connection;
+	 public GLabel glabel_output_mode;
+	 public GLabel glabel_drive_strength;
+	 public GLabel glabel_period_match;
+	 public GLabel glabel_compare_match;
+	 public GMessage gmessage_message;
+
+	 public PWM_EGTM_GUI(DaveEnv daveEnv){
+
+	 gtab_general_settings = GTab(widgetName: "gtab_general_settings", text: "General Settings", enabled: true, visible: true)
+	 gtab_pin_settings = GTab(widgetName: "gtab_pin_settings", text: "Pin Settings", enabled: true, visible: true)
+	 gtab_event_settings = GTab(widgetName: "gtab_event_settings", text: "Event Settings", enabled: true, visible: true)
+	 gimage_waveform = GImage(widgetName: "gimage_waveform", path: "up_h_50.png", enabled: true, visible: true)
+	 gcombo_polarity = GCombo(widgetName: "gcombo_polarity", options: ["Low","High"], value: "High", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_alignment = GCombo(widgetName: "gcombo_alignment", options: ["Edge Aligned","Center Aligned"], value: "Edge Aligned", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_output_mode = GCombo(widgetName: "gcombo_output_mode", options: ["Push-pull","Open-drain"], value: "Push-pull", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_drive_strength = GCombo(widgetName: "gcombo_drive_strength", options: ["Strong Driver Sharp Edge (ss)","Strong Driver Medium Edge (sm)","Medium Driver Sharp Edge (ms)","Medium Driver Medium Edge (m)","HSFAST Pad","Don't Care"], value: "Don't Care", enabled: true, visible: true, isMandatoryValue: false)
+	 gfloat_freq = GFloat(widgetName: "gfloat_freq", value: 10000, minValue: Double.NEGATIVE_INFINITY, maxValue: Double.POSITIVE_INFINITY, enabled: true, visible: true, isMandatoryValue: false)
+	 gfloat_duty = GFloat(widgetName: "gfloat_duty", value: 50, minValue: 0, maxValue: 100, enabled: true, visible: true, isMandatoryValue: false)
+	 gstring_image = GString(widgetName: "gstring_image", value: "", enabled: true, visible: true, isMandatoryValue: false)
+	 gcheck_init_start = GCheck(widgetName: "gcheck_init_start", value: true, enabled: true, visible: true)
+	 gcheck_pwm_connection = GCheck(widgetName: "gcheck_pwm_connection", value: false, enabled: true, visible: true)
+	 gcheck_period_match = GCheck(widgetName: "gcheck_period_match", value: true, enabled: true, visible: true)
+	 gcheck_compare_match = GCheck(widgetName: "gcheck_compare_match", value: false, enabled: true, visible: true)
+	 glabel_freq = GLabel(widgetName: "glabel_freq", text: "PWM Frequency [Hz]", enabled: true, visible: true)
+	 glabel_duty = GLabel(widgetName: "glabel_duty", text: "Duty Cycle [%]", enabled: true, visible: true)
+	 glabel_polarity = GLabel(widgetName: "glabel_polarity", text: "Polarity", enabled: true, visible: true)
+	 glabel_alignment = GLabel(widgetName: "glabel_alignment", text: "Alignment", enabled: true, visible: true)
+	 glabel_image = GLabel(widgetName: "glabel_image", text: "PWM Waveform Overview", enabled: true, visible: true)
+	 glabel_waveform_freq = GLabel(widgetName: "glabel_waveform_freq", text: "New Label", enabled: true, visible: true)
+	 glabel_waveform_counter = GLabel(widgetName: "glabel_waveform_counter", text: "New Label", enabled: true, visible: true)
+	 glabel_waveform_maxcount = GLabel(widgetName: "glabel_waveform_maxcount", text: "New Label", enabled: true, visible: true)
+	 glabel_waveform_compare = GLabel(widgetName: "glabel_waveform_compare", text: "New Label", enabled: true, visible: true)
+	 glabel_waveform_tick = GLabel(widgetName: "glabel_waveform_tick", text: "New Label", enabled: true, visible: true)
+	 glabel_waveform_dur1 = GLabel(widgetName: "glabel_waveform_dur1", text: "New Label", enabled: true, visible: true)
+	 glabel_waveform_dur2 = GLabel(widgetName: "glabel_waveform_dur2", text: "New Label", enabled: true, visible: true)
+	 glabel_waveform_cycle_u = GLabel(widgetName: "glabel_waveform_cycle_u", text: "New Label", enabled: true, visible: true)
+	 glabel_waveform_cycle_ud = GLabel(widgetName: "glabel_waveform_cycle_ud", text: "New Label", enabled: true, visible: true)
+	 glabel_waveform_compare_20 = GLabel(widgetName: "glabel_waveform_compare_20", text: "New Label", enabled: true, visible: true)
+	 glabel_waveform_dur1_20 = GLabel(widgetName: "glabel_waveform_dur1_20", text: "New Label", enabled: true, visible: true)
+	 glabel_waveform_dur2_80_ud = GLabel(widgetName: "glabel_waveform_dur2_80_ud", text: "New Label", enabled: true, visible: true)
+	 glabel_errorrate = GLabel(widgetName: "glabel_errorrate", text: "New Label", enabled: true, visible: true)
+	 glabel_waveform_compare_80 = GLabel(widgetName: "glabel_waveform_compare_80", text: "New Label", enabled: true, visible: true)
+	 glabel_1 = GLabel(widgetName: "glabel_1", text: "Actual Frequency", enabled: true, visible: true)
+	 glabel_2 = GLabel(widgetName: "glabel_2", text: "Tick", enabled: true, visible: true)
+	 glabel_3 = GLabel(widgetName: "glabel_3", text: "Period", enabled: true, visible: true)
+	 glabel_31 = GLabel(widgetName: "glabel_31", text: "Clock Source", enabled: true, visible: true)
+	 glabel_clocksource = GLabel(widgetName: "glabel_clocksource", text: "New Label", enabled: true, visible: true)
+	 glabel_init_start = GLabel(widgetName: "glabel_init_start", text: "Start after Initialization", enabled: true, visible: true)
+	 glabel_pwm_connection = GLabel(widgetName: "glabel_pwm_connection", text: "PWM Output Auto-Connect", enabled: true, visible: true)
+	 glabel_output_mode = GLabel(widgetName: "glabel_output_mode", text: "Output Mode", enabled: true, visible: true)
+	 glabel_drive_strength = GLabel(widgetName: "glabel_drive_strength", text: "Drive Strength", enabled: true, visible: true)
+	 glabel_period_match = GLabel(widgetName: "glabel_period_match", text: "Period Match", enabled: true, visible: true)
+	 glabel_compare_match = GLabel(widgetName: "glabel_compare_match", text: "Compare Match", enabled: true, visible: true)
+	 gmessage_message = GMessage(widgetName: "gmessage_message", text: "", isError: true, visible: true)
+
+
+	 }
+	/* End : UI variable section */
+}

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ASCII"?>
+<ResourceModel:DevicePackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ResourceModel="http://www.infineon.com/Davex/Resource.ecore" URI="http://resources/QFP176.0.0/devicepackage/0">
+  <provided xsi:type="ResourceModel:ResourceGroup" name="14" URI="http://resources/qfp176.0.0/devicepackage/0/14">
+    <resourcesList name="pin" requiredResourceUri="http://resources/QFP176.0.0/devicepackage/0/14_pin"/>
+  </provided>
+  <provided xsi:type="ResourceModel:ResourceGroup" name="67" URI="http://resources/qfp176.0.0/devicepackage/0/67">
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/ANALOG_CONVERTER_EVADC/v4_0_4/ANALOG_CONVERTER_EVADC_0.app#//@hwResources.17"/>
+    <resourcesList name="pin" requiredResourceUri="http://resources/QFP176.0.0/devicepackage/0/67_pin"/>
+  </provided>
+  <provided xsi:type="ResourceModel:ResourceGroup" name="16" URI="http://resources/qfp176.0.0/devicepackage/0/16">
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/PWM_GTM/v4_0_4/PWM_GTM_0.app#//@hwResources.3"/>
+    <resourcesList name="pin" requiredResourceUri="http://resources/QFP176.0.0/devicepackage/0/16_pin"/>
+  </provided>
+</ResourceModel:DevicePackage>

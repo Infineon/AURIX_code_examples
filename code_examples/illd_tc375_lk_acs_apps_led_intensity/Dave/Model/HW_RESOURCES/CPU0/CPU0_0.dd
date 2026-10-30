@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="ASCII"?>
+<ResourceModel:Peripheral xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ResourceModel="http://www.infineon.com/Davex/Resource.ecore" URI="http://resources/3.0.1/peripheral/cpu/0" description="" baseAddress="0xF8800000">
+  <provided xsi:type="ResourceModel:ResourceGroup" name="core" URI="http://resources/3.0.1/peripheral/cpu/0/core">
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/CPU_CORE/v4_1_4/CPU_CORE_0.app#//@hwResources.0"/>
+    <resourcesList name="task_asi" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/task_asi"/>
+    <resourcesList name="pma0" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/pma0"/>
+    <resourcesList name="pma1" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/pma1"/>
+    <resourcesList name="pma2" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/pma2"/>
+    <resourcesList name="compat" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/compat"/>
+    <resourcesList name="syscon" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/syscon"/>
+    <resourcesList name="cpu_id" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/cpu_id"/>
+    <resourcesList name="core_id" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/core_id"/>
+    <resourcesList name="biv" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/biv"/>
+    <resourcesList name="btv" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/btv"/>
+    <resourcesList name="isp" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/isp"/>
+    <resourcesList name="icr" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/icr"/>
+    <resourcesList name="fcx" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/fcx"/>
+    <resourcesList name="lcx" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/lcx"/>
+    <resourcesList name="cus_id" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/cus_id"/>
+    <resourcesList name="fpu_trap_con" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/fpu_trap_con"/>
+    <resourcesList name="fpu_trap_pc" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/fpu_trap_pc"/>
+    <resourcesList name="fpu_trap_opc" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/fpu_trap_opc"/>
+    <resourcesList name="fpu_trap_src1" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/fpu_trap_src1"/>
+    <resourcesList name="fpu_trap_src2" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/fpu_trap_src2"/>
+    <resourcesList name="fpu_trap_src3" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/fpu_trap_src3"/>
+    <resourcesList name="krst0" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/krst0"/>
+    <resourcesList name="krst1" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/krst1"/>
+    <resourcesList name="krstclr" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/krstclr"/>
+    <resourcesList name="global" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/core_global"/>
+    <resourcesList name="ispir" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/core_ispir"/>
+  </provided>
+  <provided xsi:type="ResourceModel:ResourceGroup" name="memory_protection" URI="http://resources/3.0.1/peripheral/cpu/0/memory_protection">
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/CPU_CORE/v4_1_4/CPU_CORE_0.app#//@hwResources.1"/>
+    <resourcesList name="dpr0_l" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/dpr0_l"/>
+    <resourcesList name="dpr1_l" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/dpr1_l"/>
+    <resourcesList name="dpr2_l" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/dpr2_l"/>
+    <resourcesList name="dpr3_l" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/dpr3_l"/>
+    <resourcesList name="dpr4_l" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/dpr4_l"/>
+    <resourcesList name="dpr5_l" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/dpr5_l"/>
+    <resourcesList name="dpr6_l" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/dpr6_l"/>
+    <resourcesList name="dpr7_l" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/dpr7_l"/>
+    <resourcesList name="dpr8_l" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/dpr8_l"/>
+    <resourcesList name="dpr9_l" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/dpr9_l"/>
+    <resourcesList name="dpr0_u" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/dpr0_u"/>
+    <resourcesList name="dpr1_u" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/dpr1_u"/>
+    <resourcesList name="dpr2_u" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/dpr2_u"/>
+    <resourcesList name="dpr3_u" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/dpr3_u"/>
+    <resourcesList name="dpr4_u" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/dpr4_u"/>
+    <resourcesList name="dpr5_u" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/dpr5_u"/>
+    <resourcesList name="dpr6_u" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/dpr6_u"/>
+    <resourcesList name="dpr7_u" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/dpr7_u"/>
+    <resourcesList name="dpr8_u" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/dpr8_u"/>
+    <resourcesList name="dpr9_u" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/dpr9_u"/>
+    <resourcesList name="cpr0_l" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/cpr0_l"/>
+    <resourcesList name="cpr1_l" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/cpr1_l"/>
+    <resourcesList name="cpr2_l" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/cpr2_l"/>
+    <resourcesList name="cpr3_l" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/cpr3_l"/>
+    <resourcesList name="cpr4_l" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/cpr4_l"/>
+    <resourcesList name="cpr5_l" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/cpr5_l"/>
+    <resourcesList name="cpr6_l" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/cpr6_l"/>
+    <resourcesList name="cpr7_l" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/cpr7_l"/>
+    <resourcesList name="cpr8_l" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/cpr8_l"/>
+    <resourcesList name="cpr9_l" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/cpr9_l"/>
+    <resourcesList name="cpr0_u" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/cpr0_u"/>
+    <resourcesList name="cpr1_u" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/cpr1_u"/>
+    <resourcesList name="cpr2_u" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/cpr2_u"/>
+    <resourcesList name="cpr3_u" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/cpr3_u"/>
+    <resourcesList name="cpr4_u" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/cpr4_u"/>
+    <resourcesList name="cpr5_u" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/cpr5_u"/>
+    <resourcesList name="cpr6_u" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/cpr6_u"/>
+    <resourcesList name="cpr7_u" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/cpr7_u"/>
+    <resourcesList name="cpr8_u" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/cpr8_u"/>
+    <resourcesList name="cpr9_u" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/cpr9_u"/>
+    <resourcesList name="cpxe_0" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/cpxe_0"/>
+    <resourcesList name="cpxe_1" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/cpxe_1"/>
+    <resourcesList name="cpxe_2" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/cpxe_2"/>
+    <resourcesList name="cpxe_3" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/cpxe_3"/>
+    <resourcesList name="cpxe_4" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/cpxe_4"/>
+    <resourcesList name="cpxe_5" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/cpxe_5"/>
+    <resourcesList name="dpre_0" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/dpre_0"/>
+    <resourcesList name="dpre_1" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/dpre_1"/>
+    <resourcesList name="dpre_2" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/dpre_2"/>
+    <resourcesList name="dpre_3" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/dpre_3"/>
+    <resourcesList name="dpre_4" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/dpre_4"/>
+    <resourcesList name="dpre_5" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/dpre_5"/>
+    <resourcesList name="dpwe_0" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/dpwe_0"/>
+    <resourcesList name="dpwe_1" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/dpwe_1"/>
+    <resourcesList name="dpwe_2" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/dpwe_2"/>
+    <resourcesList name="dpwe_3" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/dpwe_3"/>
+    <resourcesList name="dpwe_4" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/dpwe_4"/>
+    <resourcesList name="dpwe_5" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/dpwe_5"/>
+    <resourcesList name="global" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/memory_protection_global"/>
+  </provided>
+  <provided xsi:type="ResourceModel:ResourceGroup" name="1" URI="http://resources/3.0.1/peripheral/cpu/0/prio/1">
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/INTERRUPT_CONFIG/v4_1_4/INTERRUPT_CONFIG_0.app#//@hwResources.1"/>
+    <resourcesList name="global" requiredResourceUri="http://resources/3.0.1/peripheral/cpu/0/prio_1_global"/>
+  </provided>
+  <addressBlock offset="0x0" size="0x0100" usage="registers"/>
+</ResourceModel:Peripheral>

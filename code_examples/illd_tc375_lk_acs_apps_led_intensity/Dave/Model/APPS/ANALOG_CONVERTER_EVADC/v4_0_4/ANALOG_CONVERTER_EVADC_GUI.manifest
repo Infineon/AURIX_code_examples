@@ -1,0 +1,249 @@
+package Model.APPS.ANALOG_CONVERTER_EVADC.v4_0_4;
+// Import statements
+import ifx.davex.app.manifest.*
+
+abstract class ANALOG_CONVERTER_EVADC_GUI extends AppManifest {
+
+    /* IMPORTANT NOTE: This is an auto generated file, please do not edit manually. */
+    /* User modifications in the GUI editor will be updated here automatically.     */
+    /* Manually editing the contents of this file will corrupt the APP SDK project. */
+
+	/* Begin : UI variable section */
+	 public GTab gtab_3;
+	 public GTab gtab_Channels;
+	 public GImage gimage_19;
+	 public GImage gimage_17;
+	 public GImage gimage_20;
+	 public GImage gimage_1;
+	 public GImage gimage_21;
+	 public GImage gimage_2;
+	 public GImage gimage_22;
+	 public GImage gimage_3;
+	 public GImage gimage_23;
+	 public GImage gimage_5;
+	 public GImage gimage_24;
+	 public GImage gimage_6;
+	 public GImage gimage_25;
+	 public GImage gimage_7;
+	 public GImage gimage_26;
+	 public GImage gimage_8;
+	 public GImage gimage_27;
+	 public GImage gimage_4;
+	 public GImage gimage_28;
+	 public GImage gimage_9;
+	 public GImage gimage_29;
+	 public GImage gimage_10;
+	 public GImage gimage_30;
+	 public GImage gimage_11;
+	 public GImage gimage_31;
+	 public GImage gimage_12;
+	 public GImage gimage_32;
+	 public GImage gimage_13;
+	 public GImage gimage_33;
+	 public GImage gimage_14;
+	 public GImage gimage_34;
+	 public GImage gimage_15;
+	 public GImage gimage_35;
+	 public GImage gimage_16;
+	 public GImage gimage_36;
+	 public GInteger ginteger_NumChannels;
+	 public GCombo gcombo_TriggerEdge;
+	 public GCombo gcombo_EventGenerationChannel00;
+	 public GCombo gcombo_EventGenerationChannel01;
+	 public GCombo gcombo_EventGenerationChannel02;
+	 public GCombo gcombo_EventGenerationChannel03;
+	 public GCombo gcombo_EventGenerationChannel04;
+	 public GCombo gcombo_EventGenerationChannel05;
+	 public GCombo gcombo_EventGenerationChannel06;
+	 public GCombo gcombo_EventGenerationChannel07;
+	 public GCombo gcombo_EventGenerationChannel08;
+	 public GCombo gcombo_EventGenerationChannel09;
+	 public GCombo gcombo_EventGenerationChannel10;
+	 public GCombo gcombo_EventGenerationChannel11;
+	 public GCombo gcombo_EventGenerationChannel12;
+	 public GCombo gcombo_EventGenerationChannel13;
+	 public GCombo gcombo_EventGenerationChannel14;
+	 public GCombo gcombo_EventGenerationChannel15;
+	 public GFloat gfloat_SampleTime;
+	 public GString gstring_Channel00Name;
+	 public GString gstring_Channel01Name;
+	 public GString gstring_Channel02Name;
+	 public GString gstring_Channel03Name;
+	 public GString gstring_Channel04Name;
+	 public GString gstring_Channel05Name;
+	 public GString gstring_Channel06Name;
+	 public GString gstring_Channel07Name;
+	 public GString gstring_Channel08Name;
+	 public GString gstring_Channel09Name;
+	 public GString gstring_Channel10Name;
+	 public GString gstring_Channel11Name;
+	 public GString gstring_Channel12Name;
+	 public GString gstring_Channel13Name;
+	 public GString gstring_Channel14Name;
+	 public GString gstring_Channel15Name;
+	 public GCheck gcheck_autostart;
+	 public GCheck gcheck_autostart_dis;
+	 public GCheck gcheck_Channel00WfrEnabled;
+	 public GCheck gcheck_Channel01WfrEnabled;
+	 public GCheck gcheck_Channel02WfrEnabled;
+	 public GCheck gcheck_Channel03WfrEnabled;
+	 public GCheck gcheck_Channel04WfrEnabled;
+	 public GCheck gcheck_Channel05WfrEnabled;
+	 public GCheck gcheck_Channel06WfrEnabled;
+	 public GCheck gcheck_Channel07WfrEnabled;
+	 public GCheck gcheck_Channel08WfrEnabled;
+	 public GCheck gcheck_Channel09WfrEnabled;
+	 public GCheck gcheck_Channel10WfrEnabled;
+	 public GCheck gcheck_Channel11WfrEnabled;
+	 public GCheck gcheck_Channel12WfrEnabled;
+	 public GCheck gcheck_Channel13WfrEnabled;
+	 public GCheck gcheck_Channel14WfrEnabled;
+	 public GCheck gcheck_Channel15WfrEnabled;
+	 public GLabel glabel_SampleTime;
+	 public GLabel glabel_TriggerEdge;
+	 public GLabel glabel_autostart;
+	 public GLabel glabel_NumChannels;
+	 public GLabel glabel_chno;
+	 public GLabel glabel_Channel00Name;
+	 public GLabel glabel_Channel00WfrEnabled;
+	 public GLabel glabel_EventGenerationChannel00;
+	 public GLabel glabel_ch0;
+	 public GLabel glabel_ch1;
+	 public GLabel glabel_ch2;
+	 public GLabel glabel_ch3;
+	 public GLabel glabel_ch4;
+	 public GLabel glabel_ch5;
+	 public GLabel glabel_ch6;
+	 public GLabel glabel_ch7;
+	 public GLabel glabel_ch8;
+	 public GLabel glabel_ch9;
+	 public GLabel glabel_ch10;
+	 public GLabel glabel_ch11;
+	 public GLabel glabel_ch12;
+	 public GLabel glabel_ch13;
+	 public GLabel glabel_ch14;
+	 public GLabel glabel_ch15;
+	 public GMessage gmessage_errorinfo;
+
+	 public ANALOG_CONVERTER_EVADC_GUI(DaveEnv daveEnv){
+
+	 gtab_3 = GTab(widgetName: "gtab_3", text: "General Settings", enabled: true, visible: true)
+	 gtab_Channels = GTab(widgetName: "gtab_Channels", text: "Channel Settings", enabled: true, visible: true)
+	 gimage_19 = GImage(widgetName: "gimage_19", path: "", enabled: true, visible: true)
+	 gimage_17 = GImage(widgetName: "gimage_17", path: "", enabled: true, visible: true)
+	 gimage_20 = GImage(widgetName: "gimage_20", path: "", enabled: true, visible: true)
+	 gimage_1 = GImage(widgetName: "gimage_1", path: "", enabled: true, visible: true)
+	 gimage_21 = GImage(widgetName: "gimage_21", path: "", enabled: true, visible: true)
+	 gimage_2 = GImage(widgetName: "gimage_2", path: "", enabled: true, visible: true)
+	 gimage_22 = GImage(widgetName: "gimage_22", path: "", enabled: true, visible: true)
+	 gimage_3 = GImage(widgetName: "gimage_3", path: "", enabled: true, visible: true)
+	 gimage_23 = GImage(widgetName: "gimage_23", path: "", enabled: true, visible: true)
+	 gimage_5 = GImage(widgetName: "gimage_5", path: "", enabled: true, visible: true)
+	 gimage_24 = GImage(widgetName: "gimage_24", path: "", enabled: true, visible: true)
+	 gimage_6 = GImage(widgetName: "gimage_6", path: "", enabled: true, visible: true)
+	 gimage_25 = GImage(widgetName: "gimage_25", path: "", enabled: true, visible: true)
+	 gimage_7 = GImage(widgetName: "gimage_7", path: "", enabled: true, visible: true)
+	 gimage_26 = GImage(widgetName: "gimage_26", path: "", enabled: true, visible: true)
+	 gimage_8 = GImage(widgetName: "gimage_8", path: "", enabled: true, visible: true)
+	 gimage_27 = GImage(widgetName: "gimage_27", path: "", enabled: true, visible: true)
+	 gimage_4 = GImage(widgetName: "gimage_4", path: "", enabled: true, visible: true)
+	 gimage_28 = GImage(widgetName: "gimage_28", path: "", enabled: true, visible: true)
+	 gimage_9 = GImage(widgetName: "gimage_9", path: "", enabled: true, visible: true)
+	 gimage_29 = GImage(widgetName: "gimage_29", path: "", enabled: true, visible: true)
+	 gimage_10 = GImage(widgetName: "gimage_10", path: "", enabled: true, visible: true)
+	 gimage_30 = GImage(widgetName: "gimage_30", path: "", enabled: true, visible: true)
+	 gimage_11 = GImage(widgetName: "gimage_11", path: "", enabled: true, visible: true)
+	 gimage_31 = GImage(widgetName: "gimage_31", path: "", enabled: true, visible: true)
+	 gimage_12 = GImage(widgetName: "gimage_12", path: "", enabled: true, visible: true)
+	 gimage_32 = GImage(widgetName: "gimage_32", path: "", enabled: true, visible: true)
+	 gimage_13 = GImage(widgetName: "gimage_13", path: "", enabled: true, visible: true)
+	 gimage_33 = GImage(widgetName: "gimage_33", path: "", enabled: true, visible: true)
+	 gimage_14 = GImage(widgetName: "gimage_14", path: "", enabled: true, visible: true)
+	 gimage_34 = GImage(widgetName: "gimage_34", path: "", enabled: true, visible: true)
+	 gimage_15 = GImage(widgetName: "gimage_15", path: "", enabled: true, visible: true)
+	 gimage_35 = GImage(widgetName: "gimage_35", path: "", enabled: true, visible: true)
+	 gimage_16 = GImage(widgetName: "gimage_16", path: "", enabled: true, visible: true)
+	 gimage_36 = GImage(widgetName: "gimage_36", path: "", enabled: true, visible: true)
+	 ginteger_NumChannels = GInteger(widgetName: "ginteger_NumChannels", value: 1, minValue: 1, maxValue: 16, enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_TriggerEdge = GCombo(widgetName: "gcombo_TriggerEdge", options: ["None","Falling Edge","Rising Edge","Rising & Falling Edge"], value: "None", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_EventGenerationChannel00 = GCombo(widgetName: "gcombo_EventGenerationChannel00", options: ["None","CPU","Other"], value: "None", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_EventGenerationChannel01 = GCombo(widgetName: "gcombo_EventGenerationChannel01", options: ["None","CPU","Other"], value: "None", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_EventGenerationChannel02 = GCombo(widgetName: "gcombo_EventGenerationChannel02", options: ["None","CPU","Other"], value: "None", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_EventGenerationChannel03 = GCombo(widgetName: "gcombo_EventGenerationChannel03", options: ["None","CPU","Other"], value: "None", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_EventGenerationChannel04 = GCombo(widgetName: "gcombo_EventGenerationChannel04", options: ["None","CPU","Other"], value: "None", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_EventGenerationChannel05 = GCombo(widgetName: "gcombo_EventGenerationChannel05", options: ["None","CPU","Other"], value: "None", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_EventGenerationChannel06 = GCombo(widgetName: "gcombo_EventGenerationChannel06", options: ["None","CPU","Other"], value: "None", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_EventGenerationChannel07 = GCombo(widgetName: "gcombo_EventGenerationChannel07", options: ["None","CPU","Other"], value: "None", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_EventGenerationChannel08 = GCombo(widgetName: "gcombo_EventGenerationChannel08", options: ["None","CPU","Other"], value: "None", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_EventGenerationChannel09 = GCombo(widgetName: "gcombo_EventGenerationChannel09", options: ["None","CPU","Other"], value: "None", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_EventGenerationChannel10 = GCombo(widgetName: "gcombo_EventGenerationChannel10", options: ["None","CPU","Other"], value: "None", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_EventGenerationChannel11 = GCombo(widgetName: "gcombo_EventGenerationChannel11", options: ["None","CPU","Other"], value: "None", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_EventGenerationChannel12 = GCombo(widgetName: "gcombo_EventGenerationChannel12", options: ["None","CPU","Other"], value: "None", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_EventGenerationChannel13 = GCombo(widgetName: "gcombo_EventGenerationChannel13", options: ["None","CPU","Other"], value: "None", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_EventGenerationChannel14 = GCombo(widgetName: "gcombo_EventGenerationChannel14", options: ["None","CPU","Other"], value: "None", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_EventGenerationChannel15 = GCombo(widgetName: "gcombo_EventGenerationChannel15", options: ["None","CPU","Other"], value: "None", enabled: true, visible: true, isMandatoryValue: false)
+	 gfloat_SampleTime = GFloat(widgetName: "gfloat_SampleTime", value: 10, minValue: 1, maxValue: 1000, enabled: true, visible: true, isMandatoryValue: false)
+	 gstring_Channel00Name = GString(widgetName: "gstring_Channel00Name", value: "ADC_CHANNEL_0", enabled: true, visible: true, isMandatoryValue: false)
+	 gstring_Channel01Name = GString(widgetName: "gstring_Channel01Name", value: "ADC_CHANNEL_1", enabled: true, visible: true, isMandatoryValue: false)
+	 gstring_Channel02Name = GString(widgetName: "gstring_Channel02Name", value: "ADC_CHANNEL_2", enabled: true, visible: true, isMandatoryValue: false)
+	 gstring_Channel03Name = GString(widgetName: "gstring_Channel03Name", value: "ADC_CHANNEL_3", enabled: true, visible: true, isMandatoryValue: false)
+	 gstring_Channel04Name = GString(widgetName: "gstring_Channel04Name", value: "ADC_CHANNEL_4", enabled: true, visible: true, isMandatoryValue: false)
+	 gstring_Channel05Name = GString(widgetName: "gstring_Channel05Name", value: "ADC_CHANNEL_5", enabled: true, visible: true, isMandatoryValue: false)
+	 gstring_Channel06Name = GString(widgetName: "gstring_Channel06Name", value: "ADC_CHANNEL_6", enabled: true, visible: true, isMandatoryValue: false)
+	 gstring_Channel07Name = GString(widgetName: "gstring_Channel07Name", value: "ADC_CHANNEL_7", enabled: true, visible: true, isMandatoryValue: false)
+	 gstring_Channel08Name = GString(widgetName: "gstring_Channel08Name", value: "ADC_CHANNEL_8", enabled: true, visible: true, isMandatoryValue: false)
+	 gstring_Channel09Name = GString(widgetName: "gstring_Channel09Name", value: "ADC_CHANNEL_9", enabled: true, visible: true, isMandatoryValue: false)
+	 gstring_Channel10Name = GString(widgetName: "gstring_Channel10Name", value: "ADC_CHANNEL_10", enabled: true, visible: true, isMandatoryValue: false)
+	 gstring_Channel11Name = GString(widgetName: "gstring_Channel11Name", value: "ADC_CHANNEL_11", enabled: true, visible: true, isMandatoryValue: false)
+	 gstring_Channel12Name = GString(widgetName: "gstring_Channel12Name", value: "ADC_CHANNEL_12", enabled: true, visible: true, isMandatoryValue: false)
+	 gstring_Channel13Name = GString(widgetName: "gstring_Channel13Name", value: "ADC_CHANNEL_13", enabled: true, visible: true, isMandatoryValue: false)
+	 gstring_Channel14Name = GString(widgetName: "gstring_Channel14Name", value: "ADC_CHANNEL_14", enabled: true, visible: true, isMandatoryValue: false)
+	 gstring_Channel15Name = GString(widgetName: "gstring_Channel15Name", value: "ADC_CHANNEL_15", enabled: true, visible: true, isMandatoryValue: false)
+	 gcheck_autostart = GCheck(widgetName: "gcheck_autostart", value: true, enabled: true, visible: true)
+	 gcheck_autostart_dis = GCheck(widgetName: "gcheck_autostart_dis", value: true, enabled: false, visible: true)
+	 gcheck_Channel00WfrEnabled = GCheck(widgetName: "gcheck_Channel00WfrEnabled", value: false, enabled: true, visible: true)
+	 gcheck_Channel01WfrEnabled = GCheck(widgetName: "gcheck_Channel01WfrEnabled", value: false, enabled: true, visible: true)
+	 gcheck_Channel02WfrEnabled = GCheck(widgetName: "gcheck_Channel02WfrEnabled", value: false, enabled: true, visible: true)
+	 gcheck_Channel03WfrEnabled = GCheck(widgetName: "gcheck_Channel03WfrEnabled", value: false, enabled: true, visible: true)
+	 gcheck_Channel04WfrEnabled = GCheck(widgetName: "gcheck_Channel04WfrEnabled", value: false, enabled: true, visible: true)
+	 gcheck_Channel05WfrEnabled = GCheck(widgetName: "gcheck_Channel05WfrEnabled", value: false, enabled: true, visible: true)
+	 gcheck_Channel06WfrEnabled = GCheck(widgetName: "gcheck_Channel06WfrEnabled", value: false, enabled: true, visible: true)
+	 gcheck_Channel07WfrEnabled = GCheck(widgetName: "gcheck_Channel07WfrEnabled", value: false, enabled: true, visible: true)
+	 gcheck_Channel08WfrEnabled = GCheck(widgetName: "gcheck_Channel08WfrEnabled", value: false, enabled: true, visible: true)
+	 gcheck_Channel09WfrEnabled = GCheck(widgetName: "gcheck_Channel09WfrEnabled", value: false, enabled: true, visible: true)
+	 gcheck_Channel10WfrEnabled = GCheck(widgetName: "gcheck_Channel10WfrEnabled", value: false, enabled: true, visible: true)
+	 gcheck_Channel11WfrEnabled = GCheck(widgetName: "gcheck_Channel11WfrEnabled", value: false, enabled: true, visible: true)
+	 gcheck_Channel12WfrEnabled = GCheck(widgetName: "gcheck_Channel12WfrEnabled", value: false, enabled: true, visible: true)
+	 gcheck_Channel13WfrEnabled = GCheck(widgetName: "gcheck_Channel13WfrEnabled", value: false, enabled: true, visible: true)
+	 gcheck_Channel14WfrEnabled = GCheck(widgetName: "gcheck_Channel14WfrEnabled", value: false, enabled: true, visible: true)
+	 gcheck_Channel15WfrEnabled = GCheck(widgetName: "gcheck_Channel15WfrEnabled", value: false, enabled: true, visible: true)
+	 glabel_SampleTime = GLabel(widgetName: "glabel_SampleTime", text: "Sampling Time [us]", enabled: true, visible: true)
+	 glabel_TriggerEdge = GLabel(widgetName: "glabel_TriggerEdge", text: "External Trigger", enabled: true, visible: true)
+	 glabel_autostart = GLabel(widgetName: "glabel_autostart", text: "Start Conversion after Initialization", enabled: true, visible: true)
+	 glabel_NumChannels = GLabel(widgetName: "glabel_NumChannels", text: "Number of Channels", enabled: true, visible: true)
+	 glabel_chno = GLabel(widgetName: "glabel_chno", text: "#", enabled: true, visible: true)
+	 glabel_Channel00Name = GLabel(widgetName: "glabel_Channel00Name", text: "Channel Name", enabled: true, visible: true)
+	 glabel_Channel00WfrEnabled = GLabel(widgetName: "glabel_Channel00WfrEnabled", text: "Wait for Read", enabled: true, visible: true)
+	 glabel_EventGenerationChannel00 = GLabel(widgetName: "glabel_EventGenerationChannel00", text: "Result Event", enabled: true, visible: true)
+	 glabel_ch0 = GLabel(widgetName: "glabel_ch0", text: "0", enabled: true, visible: true)
+	 glabel_ch1 = GLabel(widgetName: "glabel_ch1", text: "1", enabled: true, visible: true)
+	 glabel_ch2 = GLabel(widgetName: "glabel_ch2", text: "2", enabled: true, visible: true)
+	 glabel_ch3 = GLabel(widgetName: "glabel_ch3", text: "3", enabled: true, visible: true)
+	 glabel_ch4 = GLabel(widgetName: "glabel_ch4", text: "4", enabled: true, visible: true)
+	 glabel_ch5 = GLabel(widgetName: "glabel_ch5", text: "5", enabled: true, visible: true)
+	 glabel_ch6 = GLabel(widgetName: "glabel_ch6", text: "6", enabled: true, visible: true)
+	 glabel_ch7 = GLabel(widgetName: "glabel_ch7", text: "7", enabled: true, visible: true)
+	 glabel_ch8 = GLabel(widgetName: "glabel_ch8", text: "8", enabled: true, visible: true)
+	 glabel_ch9 = GLabel(widgetName: "glabel_ch9", text: "9", enabled: true, visible: true)
+	 glabel_ch10 = GLabel(widgetName: "glabel_ch10", text: "10", enabled: true, visible: true)
+	 glabel_ch11 = GLabel(widgetName: "glabel_ch11", text: "11", enabled: true, visible: true)
+	 glabel_ch12 = GLabel(widgetName: "glabel_ch12", text: "12", enabled: true, visible: true)
+	 glabel_ch13 = GLabel(widgetName: "glabel_ch13", text: "13", enabled: true, visible: true)
+	 glabel_ch14 = GLabel(widgetName: "glabel_ch14", text: "14", enabled: true, visible: true)
+	 glabel_ch15 = GLabel(widgetName: "glabel_ch15", text: "15", enabled: true, visible: true)
+	 gmessage_errorinfo = GMessage(widgetName: "gmessage_errorinfo", text: "", isError: true, visible: true)
+
+
+	 }
+	/* End : UI variable section */
+}

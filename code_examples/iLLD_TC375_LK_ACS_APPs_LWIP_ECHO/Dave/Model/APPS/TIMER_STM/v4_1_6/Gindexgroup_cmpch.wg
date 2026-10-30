@@ -1,0 +1,28 @@
+package Model.APPS.TIMER_STM.v4_1_6;
+import ifx.davex.app.manifest.*;
+
+class Gindexgroup_cmpch{
+	 public GLabel glabel_compare_select;
+	 public GLabel glabel_timer_period;
+	 public GInteger ginteger_timer_period;
+	 public GLabel glabel_info;
+	 public GString gstring_info;
+	 public GLabel glabel_single_shot;
+	 public GCheck gcheck_single_shot;
+	 public GLabel glabel_auto_start;
+	 public GImage gimage_1;
+	 public GCheck gcheck_auto_start;
+
+	public Gindexgroup_cmpch (DaveEnv daveEnv, String widgetName,int index){
+	 glabel_compare_select = new GLabel(widgetName: "glabel_compare_select", text: "Compare Channel", enabled: true, visible: true, parentWidgetName:widgetName)
+	 glabel_timer_period = new GLabel(widgetName: "glabel_timer_period", text: "Time Interval [usec]", enabled: true, visible: true, parentWidgetName:widgetName)
+	 ginteger_timer_period = new GInteger(widgetName: "ginteger_timer_period", value: 10000, minValue: 100, maxValue: Long.MAX_VALUE, enabled: true, visible: true, isMandatoryValue: false, parentWidgetName:widgetName)
+	 glabel_info = new GLabel(widgetName: "glabel_info", text: "Resolution [us] / Actual Interval [s]", enabled: true, visible: true, parentWidgetName:widgetName)
+	 gstring_info = new GString(widgetName: "gstring_info", value: "", enabled: true, visible: true, isMandatoryValue: false, parentWidgetName:widgetName)
+	 glabel_single_shot = new GLabel(widgetName: "glabel_single_shot", text: "Single Shot", enabled: true, visible: true, parentWidgetName:widgetName)
+	 gcheck_single_shot = new GCheck(widgetName: "gcheck_single_shot", value: true, enabled: false, visible: true, parentWidgetName:widgetName)
+	 glabel_auto_start = new GLabel(widgetName: "glabel_auto_start", text: "Start after Initialization", enabled: true, visible: true, parentWidgetName:widgetName)
+	 gimage_1 = new GImage(widgetName: "gimage_1", path: "", enabled: true, visible: true, parentWidgetName:widgetName)
+	 gcheck_auto_start = new GCheck(widgetName: "gcheck_auto_start", value: true, enabled: true, visible: true, parentWidgetName:widgetName)
+	}
+}

@@ -1,0 +1,261 @@
+syntax = "proto3";
+
+package protocol;
+
+message Version {
+	uint32 major = 1;
+	uint32 minor = 2;
+	uint32 build = 3;
+	uint32 revision = 4;
+}
+
+enum DeviceType {
+    // Not a valid device type
+    DEVICE_TYPE_UNSPECIFIED = 0;
+
+    // The device is a sensor (e.g., IMU, microphone), typically only has output streams
+    DEVICE_TYPE_SENSOR = 1;
+
+    // The device is a playback device (e.g., display, audio output), typically only has input streams
+    DEVICE_TYPE_PLAYBACK = 2; 
+
+    // The device is a model, has at least one input and one output stream
+    DEVICE_TYPE_MODEL = 3;  
+
+    // Other device type
+    DEVICE_TYPE_OTHER = 4;
+    
+    // Loopback is the routing of data streams back to their source without intentional processing or modification.
+    // It is primarily a means of testing the communications reliability and bandwidth
+    DEVICE_TYPE_LOOPBACK = 5;
+
+    // Represents the board itself. This device usually has no streams
+    DEVICE_TYPE_BOARD = 6;
+}
+
+enum DeviceStatus {
+    // Ready to be started. The device does not accept or send any DataChunk messages.
+    DEVICE_STATUS_READY = 0;
+
+    // Device is active, sending and receiving DataChunk messages on streams.
+    DEVICE_STATUS_ACTIVE = 1;
+
+    // Device is active but in a waiting state. Similar to Active but polling is disabled.
+    // Useful when the device is waiting for data.
+    DEVICE_STATUS_ACTIVE_WAIT = 2;
+
+    // Device is halted with an error. See Device.status_message for details.
+    DEVICE_STATUS_ERROR = 3;
+}
+
+message BoardSerial {
+    // 16 bytes long UUID
+    bytes uuid = 1;
+}
+
+message Board {
+    // Serial number identifier.
+    // This property is used by host software to uniquely identify a board.
+    BoardSerial serial = 1;   
+
+    // User-friendly name for the device board.
+    string name = 2;
+	
+    // Firmware version of the device.
+    Version firmware_version = 3;
+	
+    // Protocol version used.
+    Version protocol_version = 4;
+		
+    // Time in milliseconds after which the device is reset and stops transmitting data if no watchdog reset message is received.
+    // If zero, no watchdog is present. 
+    int32 watchdog_timeout = 5;
+
+    // List of devices with their configurations.
+    repeated Device devices = 6;
+}
+
+// Structure representing a device with its configuration.
+message Device {
+    // Index for the device.
+    int32 device_id = 1;
+
+    // User-friendly name for the device type (e.g., "Microphone", "Accelerometer").
+    string name = 2;
+	
+    // User-friendly description of the device. May contain line breaks (\n).
+    string description = 3;
+
+    // Type of the device.
+    DeviceType type = 4;
+	
+    // List of possible options for the device.
+    repeated Option options = 5;
+
+    // List of device streams.
+    repeated StreamConfig streams = 6;
+
+    // Current status of the device.
+    DeviceStatus status = 7;
+
+    // Optional status message providing additional information.
+    string status_message = 8;
+}
+
+// Structure for device a option
+message Option {
+    // Unique ID for the option.
+    int32 option_id = 1;
+
+	// Name of the option (e.g., "Gain").
+	string name = 2;
+	
+	// Description of the option. May contain line breaks (\n). (e.g., "Microphone gain in dB")
+    string description = 3;
+	
+    oneof value {
+        OptionInt int_type = 4;            // Integer text field
+	    OptionFloat float_type = 5;        // Float text field
+        OptionBool bool_type = 6;          // Checkbox
+        OptionOneOf oneof_type = 7;        // Dropdown list option
+        OptionBlob blob_type = 8;          // Binary object option
+        OptionString string_type = 9;      // String field
+        OptionPassword password_type = 10; // String field (hidden)
+    };
+}
+
+message StreamConfig {
+    // Name of the stream.
+    string name = 1;
+
+    // Direction of the stream.
+    StreamDirection direction = 2;
+	   
+	 // Data elemnt type of the stream.
+	DataType datatype = 3;
+
+    // Shape of the data in one frame as a list of dimensions.
+    // One package may contain multiple frames. See max_frame_count.
+    // The number of items in this list is the tensor rank.
+    repeated Dimension shape = 4;
+	
+    // Tensor frequency in Hz.
+    // If zero, DataChunk.timestamps must be present.
+    float frequency = 5;  
+   	
+    // Maximum number of frames in each DataChunk.
+    // For example, a 16-bit stereo microphone (shape [2]) with max_frame_count=100 may send 100 sample frames in each data chunk.
+    // Maximum bytes in a DataChunk would then be: shape.flat * max_frame_count * sizeof(datatype) = 2 * 100 * 2 bytes
+    // If the frequency is 16kHz, then 160 DataChunks per second should be expected if all DataChunks use the max frame count.
+    // For input streams this value may be -1, then the frame count is determined by DataInquire messages.
+	int32 max_frame_count = 6;
+
+    // Optional unit name if available (e.g., m/s). Unicode characters are supported.
+    string unit = 7;
+
+    // Current frame index. Reset to zero when device is stopped.
+    int32 current_frame = 8;
+
+    // Number of frames dropped.
+    int32 frames_dropped = 9;
+
+    // Scale for quantized tensors. Default to 1. Only used for types DATA_TYPE_Dxx.
+    // real_value = (int_value - offset) * scale
+    float scale = 10;
+
+    // Offset for quantized tensors. Default to 0. Only used for types DATA_TYPE_Dxx.
+    // real_value = (int_value - offset) * scale
+    sint64 offset = 11;
+
+    // Shifted Fixed Point. CMSIS compatible.  Only used for types DATA_TYPE_Qxx. 
+    // real_value = int8_value / (128 >> shift)
+    // real_value = int16_value / (32768 >> shift)
+    // real_value = int32_value / (2147483648 >> shift)
+    int32 shift = 12;
+}
+
+// Structure for a dimension in a tensor.
+message Dimension {
+    // Optional name for the dimension.
+    // For example, a stereo microphone with shape [2] would have one dimension {"Audio Channel"}
+    // and a camera with shape [640,480,3] would have {"Width", "Height", "Color"}. 
+    string name = 1;
+
+    // Size of the dimension.
+    int32 size = 2;
+
+    // Optional labels for the dimension.
+    // The number of labels must be equal to size or 0.
+    // For example, a stereo microphone with shape [2] would have one dimension with two labels {"Left", "Right"}
+    // and a camera with shape [640,480,3] would have {null, null, {"Red", "Green", "Blue"}}.
+    repeated string labels = 3;
+}
+
+message OptionInt {
+    int32 current_value = 1;
+    int32 default_value = 2;
+    int32 min_value = 3;
+    int32 max_value = 4;
+}
+
+message OptionFloat {
+    float current_value = 1;
+    float default_value = 2;
+    float min_value = 3;
+    float max_value = 4;
+}
+
+message OptionBool {
+    bool default_value = 1;
+    bool current_value = 2;
+}
+
+message OptionOneOf {
+    int32 default_index = 1;
+    int32 current_index = 2;
+    repeated string items = 3;
+}
+
+message OptionBlob {
+    bytes current_value = 1;
+    bytes default_value = 2;
+}
+
+message OptionString {
+    string current_value = 1;
+    string default_value = 2;
+}
+
+message OptionPassword {
+    string current_value = 1;
+}
+
+enum StreamDirection {
+    STREAM_DIRECTION_UNSPECIFIED = 0;      // Not valid
+    STREAM_DIRECTION_INPUT = 1;            // From host to board
+    STREAM_DIRECTION_OUTPUT = 2;           // From board to host
+}
+
+// Enum representing the data type
+enum DataType {
+    DATA_TYPE_UNKNOWN = 0; // Unknown data type
+    DATA_TYPE_U8 = 1;      // Unsigned 8-bit integer
+    DATA_TYPE_S8 = 2;      // Signed 8-bit integer
+    DATA_TYPE_U16 = 3;     // Unsigned 16-bit integer
+    DATA_TYPE_S16 = 4;     // Signed 16-bit integer
+    DATA_TYPE_U32 = 5;     // Unsigned 32-bit integer
+    DATA_TYPE_S32 = 6;     // Signed 32-bit integer
+    DATA_TYPE_F32 = 7;     // 32-bit floating point
+    DATA_TYPE_F64 = 8;     // 64-bit floating point
+   
+    // CMSIS compatible
+    DATA_TYPE_Q7 = 9;      // Shifted Fixed Point. real_value = int8_value / (128 >> shift)
+    DATA_TYPE_Q15 = 10;    // Shifted Fixed Point. real_value = int16_value / (32768 >> shift)
+    DATA_TYPE_Q31 = 11;    // Shifted Fixed Point. real_value = int32_value / (2147483648 >> shift)
+
+    // Generic quantized 
+    DATA_TYPE_D8 = 12;     // Scaled Fixed Point. real_value = (int8_value - offset) * scale 
+    DATA_TYPE_D16 = 13;    // Scaled Fixed Point. real_value = (int16_value - offset) * scale
+    DATA_TYPE_D32 = 14;    // Scaled Fixed Point. real_value = (int32_value - offset) * scale
+
+}

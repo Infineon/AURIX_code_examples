@@ -1,0 +1,34 @@
+package Model.APPS.DMA_GENERIC.v4_1_4;
+import ifx.davex.app.manifest.*;
+
+class Gindexgroup_err{
+	 public GLabel glabel_rp_index;
+	 public GLabel glabel_src_err_evnt_tc4;
+	 public GCheck gcheck_src_err_evnt_tc4;
+	 public GLabel glabel_des_err_evnt_tc4;
+	 public GCheck gcheck_des_err_evnt_tc4;
+	 public GLabel glabel_dmaram_err_evnt_tc4;
+	 public GCheck gcheck_dmaram_err_evnt_tc4;
+	 public GLabel glabel_ll_err_evnt_tc4;
+	 public GCheck gcheck_ll_err_evnt_tc4;
+	 public GLabel glabel_safll_err_evnt_tc4;
+	 public GCheck gcheck_safll_err_evnt_tc4;
+	 public GLabel glabel_trl_err_evnt_tc4;
+	 public GCheck gcheck_trl_err_evnt_tc4;
+
+	public Gindexgroup_err (DaveEnv daveEnv, String widgetName,int index){
+	 glabel_rp_index = new GLabel(widgetName: "glabel_rp_index", text: "RP Channel Index", enabled: true, visible: true, parentWidgetName:widgetName)
+	 glabel_src_err_evnt_tc4 = new GLabel(widgetName: "glabel_src_err_evnt_tc4", text: "Source Error Event", enabled: true, visible: true, parentWidgetName:widgetName)
+	 gcheck_src_err_evnt_tc4 = new GCheck(widgetName: "gcheck_src_err_evnt_tc4", value: true, enabled: true, visible: true, parentWidgetName:widgetName)
+	 glabel_des_err_evnt_tc4 = new GLabel(widgetName: "glabel_des_err_evnt_tc4", text: "Destination Error Event", enabled: true, visible: true, parentWidgetName:widgetName)
+	 gcheck_des_err_evnt_tc4 = new GCheck(widgetName: "gcheck_des_err_evnt_tc4", value: true, enabled: true, visible: true, parentWidgetName:widgetName)
+	 glabel_dmaram_err_evnt_tc4 = new GLabel(widgetName: "glabel_dmaram_err_evnt_tc4", text: "DMARAM Integrity Error Event", enabled: true, visible: true, parentWidgetName:widgetName)
+	 gcheck_dmaram_err_evnt_tc4 = new GCheck(widgetName: "gcheck_dmaram_err_evnt_tc4", value: true, enabled: false, visible: true, parentWidgetName:widgetName)
+	 glabel_ll_err_evnt_tc4 = new GLabel(widgetName: "glabel_ll_err_evnt_tc4", text: "Linked List Operation TCS Load Error Event", enabled: true, visible: true, parentWidgetName:widgetName)
+	 gcheck_ll_err_evnt_tc4 = new GCheck(widgetName: "gcheck_ll_err_evnt_tc4", value: true, enabled: true, visible: true, parentWidgetName:widgetName)
+	 glabel_safll_err_evnt_tc4 = new GLabel(widgetName: "glabel_safll_err_evnt_tc4", text: "CHKLL DMA Address Checksum Error Event", enabled: true, visible: true, parentWidgetName:widgetName)
+	 gcheck_safll_err_evnt_tc4 = new GCheck(widgetName: "gcheck_safll_err_evnt_tc4", value: true, enabled: false, visible: true, parentWidgetName:widgetName)
+	 glabel_trl_err_evnt_tc4 = new GLabel(widgetName: "glabel_trl_err_evnt_tc4", text: "RP Channel Disable TRL Error Event", enabled: true, visible: true, parentWidgetName:widgetName)
+	 gcheck_trl_err_evnt_tc4 = new GCheck(widgetName: "gcheck_trl_err_evnt_tc4", value: true, enabled: true, visible: true, parentWidgetName:widgetName)
+	}
+}

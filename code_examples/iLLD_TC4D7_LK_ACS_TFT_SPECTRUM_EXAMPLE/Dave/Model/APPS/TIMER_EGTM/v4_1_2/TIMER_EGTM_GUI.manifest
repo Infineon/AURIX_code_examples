@@ -1,0 +1,43 @@
+package Model.APPS.TIMER_EGTM.v4_1_2;
+// Import statements
+import ifx.davex.app.manifest.*
+
+abstract class TIMER_EGTM_GUI extends AppManifest {
+
+    /* IMPORTANT NOTE: This is an auto generated file, please do not edit manually. */
+    /* User modifications in the GUI editor will be updated here automatically.     */
+    /* Manually editing the contents of this file will corrupt the APP SDK project. */
+
+	/* Begin : UI variable section */
+	 public GTab gtab_1;
+	 public GTab gtab_event_settings;
+	 public GFloat gfloat_time_interval;
+	 public GString gstring_info;
+	 public GCheck gcheck_sshot;
+	 public GCheck gcheck_startafterinit;
+	 public GCheck gcheck_timeintervalevent;
+	 public GLabel glabel_time_interval;
+	 public GLabel glabel_info;
+	 public GLabel glabel_sshot;
+	 public GLabel glabel_startafterinit;
+	 public GLabel glabel_timeintervalevent;
+
+	 public TIMER_EGTM_GUI(DaveEnv daveEnv){
+
+	 gtab_1 = GTab(widgetName: "gtab_1", text: "General Settings", enabled: true, visible: true)
+	 gtab_event_settings = GTab(widgetName: "gtab_event_settings", text: "Event Settings", enabled: true, visible: true)
+	 gfloat_time_interval = GFloat(widgetName: "gfloat_time_interval", value: 1000000.0, minValue: 0, maxValue: Double.POSITIVE_INFINITY, enabled: true, visible: true, isMandatoryValue: false)
+	 gstring_info = GString(widgetName: "gstring_info", value: "info will be displayed", enabled: false, visible: true, isMandatoryValue: false)
+	 gcheck_sshot = GCheck(widgetName: "gcheck_sshot", value: false, enabled: true, visible: true)
+	 gcheck_startafterinit = GCheck(widgetName: "gcheck_startafterinit", value: true, enabled: true, visible: true)
+	 gcheck_timeintervalevent = GCheck(widgetName: "gcheck_timeintervalevent", value: true, enabled: true, visible: true)
+	 glabel_time_interval = GLabel(widgetName: "glabel_time_interval", text: "Time Interval [us]", enabled: true, visible: true)
+	 glabel_info = GLabel(widgetName: "glabel_info", text: "Resolution [us] / Actual Interval [s] / Max Interval [s]", enabled: true, visible: true)
+	 glabel_sshot = GLabel(widgetName: "glabel_sshot", text: "Single Shot", enabled: true, visible: true)
+	 glabel_startafterinit = GLabel(widgetName: "glabel_startafterinit", text: "Start after Initialization", enabled: true, visible: true)
+	 glabel_timeintervalevent = GLabel(widgetName: "glabel_timeintervalevent", text: "Time Interval Event", enabled: true, visible: true)
+
+
+	 }
+	/* End : UI variable section */
+}

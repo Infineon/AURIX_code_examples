@@ -1,0 +1,142 @@
+package Model.APPS.INTERRUPT_CONFIG.v4_1_6;
+// Import statements
+import java.util.regex.Matcher
+
+import ifx.davex.app.manifest.*
+
+/*************** Revision History **********************************************
+ Version      Date          Description
+ 4.0.2        12-Sep-2025   - Initial version
+ 4.0.4        15-Sep-2025   - License and Copyright update
+ 4.1.2        23-Jan-2026   - Added support for TC4x
+ 4.1.4        22-May-2026   - Restrict TC4 support to TC4Dx and TC48x series
+ 4.1.6        29-Jul-2026   - Support to all TC4 devices
+ *******************************************************************************/
+
+class  INTERRUPT_CONFIG extends INTERRUPT_CONFIG_GUI
+{
+	/* Note  : Following APP properties are mandatory and important */
+
+	/* Begin : APP property section */
+
+	/**
+	 * APP version
+	 * Format: a string with three digit separated by a dot.
+	 */
+	def version            = '4.1.6'
+
+	/**
+	 * APP categories declaration. 
+	 * It is list of strings. Subcategories are separated by slash.
+	 * No limits on number of categories and subcategories depth.
+	 */
+	def categoriesDescription = ["System"] 
+
+	/** 
+	 * Minimum DAVE version required for this APP.
+	 * 
+	 * It is string with three digit separated by a dot.
+	 */
+	def minDaveVersion           = '4.2.4'
+
+	/** 
+	 * Keywords used by search feature in APPs selection view
+	 * 
+	 * It is a list of string.
+	 */
+	def keywords      = ['Interrupt', 'INT', 'IR']
+
+	/** 
+	 * softwareIDs is used to declare which devices are compatible with this APP.
+	 * It is a map with key a string containing a pattern that shall match the SW id of
+	 * the device and as value the minimal version of the APP.
+	 */
+
+	def softwareIDs       = [
+        "TC4.*.*.*":"1.0.0",
+        "TC3.*.*.*":"1.0.0"]
+
+	/**
+	 * Singleton property:
+	 * When it is true the APP can be instantiated only once. 
+	 */
+	def singleton     = false
+
+	/**
+	 * initProvider property
+	 * It shall be true to add a call to <AppName>_Init() 
+	 */
+	def initProvider  = true
+
+	/**
+	 * Deprecated APP
+	 * Set it to true to indicate that the APP shall be not used for new projects.
+	 */
+	def deprecated    = false
+
+	/**
+	 * Sharable property.
+	 * It shall be true to allows multiple APPs to require the same instance of this APP.
+	 */
+	def sharable      = false
+
+	/**
+	 *  APP function description.
+	 */
+	def description = "This APP configures an interrupt. Configuration can be done by signal connections and GUI parameters"
+
+	/* End   : APP property section */
+
+	/* Begin : User APP property section */
+	MRequiredApp appres_cpu						// CPU_CORE App
+	MVirtualResourceGroup hwres_interrupt		// SRN resource
+	MVirtualResourceGroup hwres_cpu_prio		// Priority resource
+	MVirtualSignal vs_interrupt_in				// SRN in signal (come from peripherals)
+	MVirtualSignal vs_interrupt_out				// SRN out signal (go to ISPs)
+	MVirtualSignal vs_cpu_prio_global			// Priority signal (connect w/ ISP same with one that connected from own SRN out signal)
+	MVirtualSignalRA vs_cpu_core_global			// reference of ISP global signal (will be connection source of prio global signal)
+	/* End   : User APP property section */
+
+	/* Begin : APP Constructor */
+	public INTERRUPT_CONFIG(DaveEnv daveEnv)
+	{
+		String str_family = daveEnv.project.selectedDevice.deviceId.softwareId.split("\\.")[0]
+
+		String fn_regexp = ~/^[^\d\W]\w*\Z/
+		appres_cpu = MRequiredApp("CPU_CORE", "CPU_CORE APP", RSHARABLE, "4.1.2", true)
+		hwres_interrupt = MVirtualResourceGroup("Interrupt SRN", ["peripheral", "int", "0", "srn", "*"])
+		vs_interrupt_in = MVirtualSignal(hwres_interrupt, "REQ", "in", true, true)
+		vs_interrupt_out = MVirtualSignal(hwres_interrupt, "INT", "out", true, true)
+
+		if (str_family == "TC3")
+		{
+			hwres_cpu_prio = MVirtualResourceGroup("Interrupt", ["peripheral", "cpu", "*", "prio", "*"], true)
+		}
+		else
+		{
+			hwres_cpu_prio = MVirtualResourceGroup("Interrupt", ["peripheral", "cpu", "*", "hra", "prio", "*"], true)
+		}
+		vs_cpu_prio_global = MVirtualSignal(hwres_cpu_prio, "global", "global", true, false)
+		vs_cpu_core_global = MVirtualSignalRA(appres_cpu, "vs_cpu_core_global")
+		addConnectionConstraint(vs_interrupt_out, vs_cpu_core_global)
+		addConnectionConstraint(vs_cpu_core_global, vs_cpu_prio_global, true)
+
+		gmessage_valid_isr_name.visible = MF(
+		{
+			Matcher matcher = (gstring_handler.value =~ fn_regexp)
+			Boolean ExpressionMatch = !matcher.matches()
+			return ExpressionMatch
+		}, Boolean)
+	}
+	/* End   : APP Constructor */
+
+	/* Begin : File Generation */
+	def generateFiles()
+	{
+		copy("interrupt_config.c", "interrupt_config.c")
+		copy("interrupt_config.h", "interrupt_config.h")
+		generate("interrupt_config_confc.tmpl", "interrupt_config_conf.c")
+		generate("interrupt_config_confh.tmpl", "interrupt_config_conf.h")
+	}
+	/* End   : File Generation */
+}

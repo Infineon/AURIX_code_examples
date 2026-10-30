@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="ASCII"?>
+<ResourceModel:Peripheral xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ResourceModel="http://www.infineon.com/Davex/Resource.ecore" URI="http://resources/4.3.10/peripheral/scu/0" description="" baseAddress="0xF0036000">
+  <provided xsi:type="ResourceModel:ResourceGroup" name="perpll" URI="http://resources/4.3.10/peripheral/scu/0/clkctrl/perpll">
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/CLOCK/v4_1_8/CLOCK_0.app#//@hwResources.2"/>
+    <resourcesList name="perpllstat" requiredResourceUri="http://resources/4.3.10/peripheral/scu/0/perpllstat"/>
+    <resourcesList name="perpllcon0" requiredResourceUri="http://resources/4.3.10/peripheral/scu/0/perpllcon0"/>
+    <resourcesList name="perpllcon1" requiredResourceUri="http://resources/4.3.10/peripheral/scu/0/perpllcon1"/>
+    <resourcesList name="sysclk" requiredResourceUri="http://resources/4.3.10/peripheral/scu/0/clkctrl_perpll_sysclk"/>
+  </provided>
+  <provided xsi:type="ResourceModel:ResourceGroup" name="osc" URI="http://resources/4.3.10/peripheral/scu/0/clkctrl/osc">
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/CLOCK/v4_1_8/CLOCK_0.app#//@hwResources.0"/>
+    <resourcesList name="osccon" requiredResourceUri="http://resources/4.3.10/peripheral/scu/0/osccon"/>
+    <resourcesList name="xtal2" requiredResourceUri="http://resources/4.3.10/peripheral/scu/0/clkctrl_osc_xtal2"/>
+    <resourcesList name="xtal1" requiredResourceUri="http://resources/4.3.10/peripheral/scu/0/clkctrl_osc_xtal1"/>
+  </provided>
+  <provided xsi:type="ResourceModel:ResourceGroup" name="extclk" URI="http://resources/4.3.10/peripheral/scu/0/clkctrl/extclk">
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/CLOCK/v4_1_8/CLOCK_0.app#//@hwResources.5"/>
+    <resourcesList name="fdr" requiredResourceUri="http://resources/4.3.10/peripheral/scu/0/fdr"/>
+    <resourcesList name="extcon" requiredResourceUri="http://resources/4.3.10/peripheral/scu/0/extcon"/>
+    <resourcesList name="extclk0" requiredResourceUri="http://resources/4.3.10/peripheral/scu/0/clkctrl_extclk_extclk0"/>
+    <resourcesList name="extclk1" requiredResourceUri="http://resources/4.3.10/peripheral/scu/0/clkctrl_extclk_extclk1"/>
+  </provided>
+  <provided xsi:type="ResourceModel:ResourceGroup" name="syspll" URI="http://resources/4.3.10/peripheral/scu/0/clkctrl/syspll">
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/CLOCK/v4_1_8/CLOCK_0.app#//@hwResources.1"/>
+    <resourcesList name="syspllstat" requiredResourceUri="http://resources/4.3.10/peripheral/scu/0/syspllstat"/>
+    <resourcesList name="syspllcon0" requiredResourceUri="http://resources/4.3.10/peripheral/scu/0/syspllcon0"/>
+    <resourcesList name="syspllcon1" requiredResourceUri="http://resources/4.3.10/peripheral/scu/0/syspllcon1"/>
+    <resourcesList name="syspllcon2" requiredResourceUri="http://resources/4.3.10/peripheral/scu/0/syspllcon2"/>
+    <resourcesList name="sysclk" requiredResourceUri="http://resources/4.3.10/peripheral/scu/0/clkctrl_syspll_sysclk"/>
+  </provided>
+  <provided xsi:type="ResourceModel:ResourceGroup" name="ccu" URI="http://resources/4.3.10/peripheral/scu/0/clkctrl/ccu">
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/CLOCK/v4_1_8/CLOCK_0.app#//@hwResources.3"/>
+    <resourcesList name="ccucon0" requiredResourceUri="http://resources/4.3.10/peripheral/scu/0/ccucon0"/>
+    <resourcesList name="ccucon1" requiredResourceUri="http://resources/4.3.10/peripheral/scu/0/ccucon1"/>
+    <resourcesList name="ccucon2" requiredResourceUri="http://resources/4.3.10/peripheral/scu/0/ccucon2"/>
+    <resourcesList name="ccucon5" requiredResourceUri="http://resources/4.3.10/peripheral/scu/0/ccucon5"/>
+    <resourcesList name="ccucon6" requiredResourceUri="http://resources/4.3.10/peripheral/scu/0/ccucon6"/>
+    <resourcesList name="ccucon7" requiredResourceUri="http://resources/4.3.10/peripheral/scu/0/ccucon7"/>
+    <resourcesList name="ccucon8" requiredResourceUri="http://resources/4.3.10/peripheral/scu/0/ccucon8"/>
+    <resourcesList name="fhsct" requiredResourceUri="http://resources/4.3.10/peripheral/scu/0/clkctrl_ccu_fhsct"/>
+  </provided>
+  <provided xsi:type="ResourceModel:ResourceGroup" name="clkmon" URI="http://resources/4.3.10/peripheral/scu/0/clkctrl/clkmon">
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/CLOCK/v4_1_8/CLOCK_0.app#//@hwResources.4"/>
+    <resourcesList name="ccucon3" requiredResourceUri="http://resources/4.3.10/peripheral/scu/0/ccucon3"/>
+    <resourcesList name="ccucon4" requiredResourceUri="http://resources/4.3.10/peripheral/scu/0/ccucon4"/>
+  </provided>
+  <addressBlock offset="0x0" size="0x0100" usage="registers"/>
+</ResourceModel:Peripheral>

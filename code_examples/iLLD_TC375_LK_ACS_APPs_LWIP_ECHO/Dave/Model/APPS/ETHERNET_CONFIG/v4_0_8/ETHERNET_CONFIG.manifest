@@ -1,0 +1,863 @@
+package Model.APPS.ETHERNET_CONFIG.v4_0_8;
+// Import statements
+import java.util.regex.Matcher
+
+import ifx.davex.app.manifest.*
+import ifx.davex.app.manifest.GString
+/*************** Revision History **********************************************
+ Version      Date          Description
+ 4.0.2        27-Feb-2026   - Initial version
+ 4.0.4        18-May-2026   - Refined the code to support LwIP
+ 4.0.6        26-May-2026	- Fixed the bug for LwIP
+ 4.0.8        02-Jul-2026	- Adapted to iLLD 1.22.0
+ *******************************************************************************/
+
+class  ETHERNET_CONFIG extends ETHERNET_CONFIG_GUI
+{
+	/* Note  : Following APP properties are mandatory and important */
+
+	/* Begin : APP property section */
+
+	/**
+	 * APP version
+	 * Format: a string with three digit separated by a dot.
+	 */
+	def version            = '4.0.8'
+
+	/**
+	 * APP categories declaration.
+	 * It is list of strings. Subcategories are separated by slash.
+	 * No limits on number of categories and subcategories depth.
+	 */
+	def categoriesDescription = ["Communication"]
+
+	/**
+	 * Minimum DAVE version required for this APP.
+	 *
+	 * It is string with three digit separated by a dot.
+	 */
+	def minDaveVersion           = '4.2.4'
+
+	/**
+	 * Keywords used by search feature in APPs selection view
+	 *
+	 * It is a list of string.
+	 */
+	def keywords      = ['GETH', 'Ethernet', 'IP', 'TCP', 'UDP']
+
+	/**
+	 * softwareIDs is used to declare which devices are compatible with this APP.
+	 * It is a map with key a string containing a pattern that shall match the SW id of
+	 * the device and as value the minimal version of the APP.
+	 */
+
+	def softwareIDs       = [
+		"TC3.3.*.EXT":"1.0.0",
+		"TC3.5.*.*":"1.0.0",
+		"TC3.6.*.*":"1.0.0",
+		"TC3.7.*.*":"1.0.0",
+		"TC3.8.*.*":"1.0.0",
+		"TC3.9.*.*":"1.0.0"]
+
+	/**
+	 * Singleton property:
+	 * When it is true the APP can be instantiated only once.
+	 */
+	def singleton     = false
+
+	/**
+	 * initProvider property
+	 * It shall be true to add a call to <AppName>_Init()
+	 */
+	def initProvider  = true
+
+	/**
+	 * Deprecated APP
+	 * Set it to true to indicate that the APP shall be not used for new projects.
+	 */
+	def deprecated    = false
+
+	/**
+	 * Sharable property.
+	 * It shall be true to allows multiple APPs to require the same instance of this APP.
+	 */
+	def sharable      = false
+
+	/**
+	 *  APP function description.
+	 */
+	def description = "The GETH module provides a high-speed Ethernet interface, enabling communication with other devices over a 10/100/1000Mbit/s. " + 
+                        "It supports IEEE 802.3 standards for reliable and efficient data transfer."
+
+	/* End   : APP property section */
+
+	/* Begin : User APP property section */
+
+	/* Required App */
+	MRequiredApp appres_cpu							// CPU App
+	MRequiredApp appres_clock                       // CLOCK App
+
+	/*Required resource groups*/
+	MVirtualResourceGroup hwres_geth				// GETH hardware resource
+	MVirtualResourceGroup hwres_crs_pad				// Carrier sense(CRS)
+	MVirtualResourceGroup hwres_crs_dv_pad			// Carrier sense-data valid(CRS_DV) pin
+	MVirtualResourceGroup hwres_col_pad				// Collision detection pin for MII
+	MVirtualResourceGroup hwres_rxer_pad			// Receive error for MII or RMII (optional)
+	MVirtualResourceGroup hwres_rxd0_pad			// Receive data pin0 for MII or RMII or RGMII
+	MVirtualResourceGroup hwres_rxd1_pad			// Receive data pin1 for MII or RMII or RGMII
+	MVirtualResourceGroup hwres_rxd2_pad			// Receive data pin2 for MII or RGMII
+	MVirtualResourceGroup hwres_rxd3_pad			// Receive data pin3 for MII or RGMII
+	MVirtualResourceGroup hwres_txen_pad			// Transmit enable for MII or RMII
+	MVirtualResourceGroup hwres_txer_pad			// Transmit error for MII
+	MVirtualResourceGroup hwres_txd0_pad			// Transmit data pin0 for MII or RMII or RGMII
+	MVirtualResourceGroup hwres_txd1_pad			// Transmit data pin1 for MII or RMII or RGMII
+	MVirtualResourceGroup hwres_txd2_pad			// Transmit data pin2 for MII or RGMII
+	MVirtualResourceGroup hwres_txd3_pad			// Transmit data pin3 for MII or RGMII
+	MVirtualResourceGroup hwres_mdc_pad				// Station management clock pin
+	MVirtualResourceGroup hwres_mdio_pad			// Station management data pin
+	MVirtualResourceGroup hwres_ref_clk_pad			// Reference clock for RMII
+	MVirtualResourceGroup hwres_tx_ctl_pad			// Tx Control for RGMII
+	MVirtualResourceGroup hwres_rx_ctl_pad			// Rx Control for RGMII
+	MVirtualResourceGroup hwres_rxc_pad				// RXc for RGMII or MII
+	MVirtualResourceGroup hwres_txc_pad				// TXc for RGMII or MII
+	MVirtualResourceGroup hwres_rx_dv_pad			// RX_DV for MII
+	MVirtualResourceGroup hwres_gref_clk_pad		// GREF_CLK for RGMII
+	MVirtualResourceGroup hwres_geth_itr			// GETH_ITR interrupt
+	MVirtualResourceGroup hwres_dma_tx_0_itr		// TX0 DMA interrupt
+	MVirtualResourceGroup hwres_dma_tx_1_itr		// TX1 DMA interrupt
+	MVirtualResourceGroup hwres_dma_tx_2_itr		// TX2 DMA interrupt
+	MVirtualResourceGroup hwres_dma_tx_3_itr		// TX3 DMA interrupt
+	MVirtualResourceGroup hwres_dma_rx_0_itr		// RX0 DMA interrupt
+	MVirtualResourceGroup hwres_dma_rx_1_itr		// RX1 DMA interrupt
+	MVirtualResourceGroup hwres_dma_rx_2_itr		// RX2 DMA interrupt
+	MVirtualResourceGroup hwres_dma_rx_3_itr		// RX3 DMA interrupt
+	MVirtualResourceGroup hwres_prio_rx_0			// Priority of RX0 DMA interrupt
+	MVirtualResourceGroup hwres_prio_rx_1			// Priority of RX1 DMA interrupt
+	MVirtualResourceGroup hwres_prio_rx_2			// Priority of RX2 DMA interrupt
+	MVirtualResourceGroup hwres_prio_rx_3			// Priority of RX3 DMA interrupt
+	MVirtualResourceGroup hwres_cpu_prio_dma_tx0	// Priority of TX0 DMA interrupt
+	MVirtualResourceGroup hwres_cpu_prio_dma_tx1	// Priority of TX1 DMA interrupt
+	MVirtualResourceGroup hwres_cpu_prio_dma_tx2	// Priority of TX2 DMA interrupt
+	MVirtualResourceGroup hwres_cpu_prio_dma_tx3	// Priority of TX3 DMA interrupt
+	MVirtualResourceGroup hwres_cpu_prio_geth_intr	// Priority of GETH interrupt
+
+	/*Required virtual signals*/
+	MVirtualSignal vs_geth_crs						// CRS signal of GETH for MII interface
+	MVirtualSignal vs_crs_pad						// CRS signal from port
+	MVirtualSignal vs_geth_crs_dv					// CRS DV signal of GETH for RMII interface
+	MVirtualSignal vs_crs_dv_pad					// CRS DV signal from port
+	MVirtualSignal vs_geth_col						// COL signal of GETH for MII interface
+	MVirtualSignal vs_col_pad						// COL signal from port
+	MVirtualSignal vs_geth_rxer						// RXER signal of GETH for MII interface
+	MVirtualSignal vs_rxer_pad						// RXER signal from port
+	MVirtualSignal vs_geth_rxd0						// RXD0 signal of GETH
+	MVirtualSignal vs_rxd0_pad						// RXD0 signal from port
+	MVirtualSignal vs_geth_rxd1						// RXD1 signal of GETH
+	MVirtualSignal vs_rxd1_pad						// RXD1 signal from port
+	MVirtualSignal vs_geth_rxd2						// RXD2 signal of GETH for MII and RGMII interface
+	MVirtualSignal vs_rxd2_pad						// RXD2 signal from port
+	MVirtualSignal vs_geth_rxd3						// RXD3 signal of GETH for MII and RGMII interface
+	MVirtualSignal vs_rxd3_pad						// RXD3 signal from port
+	MVirtualSignal vs_geth_txen						// TXEN signal of GETH for MII and RMII interface
+	MVirtualSignal vs_txen_pad						// TXEN signal from port
+	MVirtualSignal vs_geth_txer						// TXER signal of GETH for MII interface
+	MVirtualSignal vs_txer_pad						// TXER signal from port
+	MVirtualSignal vs_geth_txd0						// TXD0 signal of GETH
+	MVirtualSignal vs_txd0_pad						// TXD0 signal from port
+	MVirtualSignal vs_geth_txd1						// TXD1 signal of GETH
+	MVirtualSignal vs_txd1_pad						// TXD1 signal from port
+	MVirtualSignal vs_geth_txd2						// TXD2 signal of GETH for MII and RGMII interface
+	MVirtualSignal vs_txd2_pad						// TXD2 signal from port
+	MVirtualSignal vs_geth_txd3						// TXD3 signal of GETH for MII and RGMII interface
+	MVirtualSignal vs_txd3_pad						// TXD3 signal from port
+	MVirtualSignal vs_geth_mdc						// MDC signal of GETH
+	MVirtualSignal vs_mdc_pad						// MDC signal from port
+	MVirtualSignal vs_geth_mdio						// Input MDIO signal of GETH
+	MVirtualSignal vs_mdio_pad						// Input MDIO signal from port
+	MVirtualSignal vs_geth_mdo						// Output MDO signal of GETH
+	MVirtualSignal vs_mdo_pad						// Output MDO signal from port
+	MVirtualSignal vs_geth_ref_clk					// REFCLK signal of GETH for RMII interface
+	MVirtualSignal vs_ref_clk_pad					// REFCLK signal from port
+	MVirtualSignal vs_geth_tx_ctl					// TXCTL signal of GETH for RGMII interface
+	MVirtualSignal vs_tx_ctl_pad					// TXCTL signal from port
+	MVirtualSignal vs_geth_rx_ctl					// RXCTL signal of GETH for RGMII interface
+	MVirtualSignal vs_rx_ctl_pad					// RXCTL signal from port
+	MVirtualSignal vs_geth_rxc						// RXC signal of GETH for MII and RGMII interface
+	MVirtualSignal vs_rxc_pad						// RXC signal from port
+	MVirtualSignal vs_geth_txc_in					// Input TXC signal of GETH for MII
+	MVirtualSignal vs_geth_txc_out					// Output TXC signal of GETH for RGMII
+	MVirtualSignal vs_txc_pad						// TXC signal from port
+	MVirtualSignal vs_geth_rx_dv					// RXDV signal of GETH for MII interface
+	MVirtualSignal vs_rx_dv_pad						// RXDV signal from port
+	MVirtualSignal vs_geth_gref_clk					// GREFCLK signal of GETH for RGMII interface
+	MVirtualSignal vs_gref_clk_pad					// GREFCLK signal from port
+	MVirtualSignal vs_geth_itr_out					// Output interrupt signal to the CPU for Trigger0 signal
+	MVirtualSignal vs_geth_itr_in					// Input interrupt signal to the interrupt for Trigger0 signal
+	MVirtualSignal vs_geth_intr						// Interrupt signal for Trigger0 signal
+	MVirtualSignal vs_dma_tx0_itr_out				// Output interrupt signal to the CPU for TX0 DMA signal
+	MVirtualSignal vs_dma_tx0_itr_in				// Input interrupt signal to the interrupt for TX0 DMA signal
+	MVirtualSignal vs_geth_dma_tx0_itr_out			// Interrupt signal for Trigger2 signal
+	MVirtualSignal vs_cpu_prio_dma_tx0_global		// Virtual signal for TX0 DMA interrupt priority configuration and CPU core
+	MVirtualSignal vs_dma_tx1_itr_out				// Output interrupt signal to the CPU for TX1 DMA signal
+	MVirtualSignal vs_dma_tx1_itr_in				// Input interrupt signal to the interrupt for TX1 DMA signal
+	MVirtualSignal vs_geth_dma_tx1_itr_out			// Interrupt signal for Trigger3 signal
+	MVirtualSignal vs_cpu_prio_dma_tx1_global		// Virtual signal for TX1 DMA interrupt priority configuration and CPU core
+	MVirtualSignal vs_dma_tx2_itr_out				// Output interrupt signal to the CPU for TX2 DMA signal
+	MVirtualSignal vs_dma_tx2_itr_in				// Input interrupt signal to the interrupt for TX2 DMA signal
+	MVirtualSignal vs_geth_dma_tx2_itr_out			// Interrupt signal for Trigger4 signal
+	MVirtualSignal vs_cpu_prio_dma_tx2_global		// Virtual signal for TX2 DMA interrupt priority configuration and CPU core
+	MVirtualSignal vs_dma_tx3_itr_out				// Output interrupt signal to the CPU for TX3 DMA signal
+	MVirtualSignal vs_dma_tx3_itr_in				// Input interrupt signal to the interrupt for TX3 DMA signal
+	MVirtualSignal vs_geth_dma_tx3_itr_out			// Interrupt signal for Trigger5 signal
+	MVirtualSignal vs_cpu_prio_dma_tx3_global		// Virtual signal for TX3 DMA interrupt priority configuration and CPU core
+	MVirtualSignal vs_dma_rx0_itr_out				// Output interrupt signal to the CPU for RX0 DMA signal
+	MVirtualSignal vs_dma_rx0_itr_in				// Input interrupt signal to the interrupt for RX0 DMA signal
+	MVirtualSignal vs_dma_rx0_itr_global			// Virtual signal for RX0 DMA interrupt priority configuration and CPU core
+	MVirtualSignal vs_geth_dma_rx0_itr_out			// Interrupt signal for Trigger6 signal
+	MVirtualSignal vs_dma_rx1_itr_out				// Output interrupt signal to the CPU for RX1 DMA signal
+	MVirtualSignal vs_dma_rx1_itr_in				// Input interrupt signal to the interrupt for RX1 DMA signal
+	MVirtualSignal vs_dma_rx1_itr_global			// Virtual signal for RX1 DMA interrupt priority configuration and CPU core
+	MVirtualSignal vs_geth_dma_rx1_itr_out			// Interrupt signal for Trigger7 signal
+	MVirtualSignal vs_dma_rx2_itr_out				// Output interrupt signal to the CPU for RX2 DMA signal
+	MVirtualSignal vs_dma_rx2_itr_in				// Input interrupt signal to the interrupt for RX2 DMA signal
+	MVirtualSignal vs_dma_rx2_itr_global			// Virtual signal for RX2 DMA interrupt priority configuration and CPU core
+	MVirtualSignal vs_geth_dma_rx2_itr_out			// Interrupt signal for Trigger8 signal
+	MVirtualSignal vs_dma_rx3_itr_out				// Output interrupt signal to the CPU for RX3 DMA signal
+	MVirtualSignal vs_dma_rx3_itr_in				// Input interrupt signal to the interrupt for RX3 DMA signal
+	MVirtualSignal vs_dma_rx3_itr_global			// Virtual signal for RX3 DMA interrupt priority configuration and CPU core
+	MVirtualSignal vs_geth_dma_rx3_itr_out			// Interrupt signal for Trigger9 signal
+	MVirtualSignal vs_cpu_prio_geth_intr_global		// Virtual signal for GETH interrupt priority configuration and CPU core
+	MVirtualSignalRA vs_cpu_core_global				// Referring the signal of CPU_CORE
+
+	GString gstring_cpu_value = GString()           // CPU core number
+
+	/* End   : User APP property section */
+
+	/* Begin : APP Constructor */
+	public ETHERNET_CONFIG(DaveEnv daveEnv)
+	{
+		String str_device = (daveEnv.project.selectedDevice.deviceId.softwareId.split("\\.")[0]
+			+ daveEnv.project.selectedDevice.deviceId.softwareId.split("\\.")[1]
+			+ daveEnv.project.selectedDevice.deviceId.softwareId.split("\\.")[2]) /* ex:TC375 */
+		MF is_phy_rmii = MF({gcombo_mii_interface_mode.value == "RMII"}, Boolean)
+		MF is_phy_rgmii = MF({gcombo_mii_interface_mode.value == "RGMII"}, Boolean)
+		MF is_phy_mii = MF({gcombo_mii_interface_mode.value == "MII"}, Boolean)
+		MF is_phy_mii_rmii = MF({gcombo_mii_interface_mode.value == "MII" || gcombo_mii_interface_mode.value == "RMII"}, Boolean)
+		MF is_phy_mii_rgmii = MF({gcombo_mii_interface_mode.value == "MII" || gcombo_mii_interface_mode.value == "RGMII"}, Boolean)
+		MF is_interrupt_on	= MF({true}, Boolean)
+		MF is_mac_dma_enabled = MF({gcheck_mac_en_dma.value}, Boolean)
+		MF is_mac_dma_disbaled = MF({gcheck_mac_en_dma.value == false}, Boolean)
+		MF is_full_duplex = MF({gcombo_duplex_mode.value == "Full Duplex"}, Boolean)
+		MF is_vlan_tag_enabled = MF({gcheck_vlan_tag_en.value}, Boolean)
+		MF is_double_vlan = MF({gcheck_double_vlan_process.value}, Boolean)
+		MF is_dma_tx_1_en = MF({ginteger_dma_tx_chn.value >= 2}, Boolean)
+		MF is_dma_tx_2_en = MF({ginteger_dma_tx_chn.value >= 3}, Boolean)
+		MF is_dma_tx_3_en = MF({ginteger_dma_tx_chn.value >= 4}, Boolean)
+		MF is_dma_rx_1_en = MF({ginteger_dma_no_rx_channel.value >= 2}, Boolean)
+		MF is_dma_rx_2_en = MF({ginteger_dma_no_rx_channel.value >= 3}, Boolean)
+		MF is_dma_rx_3_en = MF({ginteger_dma_no_rx_channel.value >= 4}, Boolean)
+		MF is_receive_all = MF({gcheck_receive_all.value}, Boolean)
+		/* Regular expression to check callback function name is valid or not */
+		String fn_regexp = ~/^[^\d\W]\w*\Z/
+
+		/*------------------------------------------------------------------------------------------------------------------------------------------*/
+		/*								 Required APP																								*/
+		/*------------------------------------------------------------------------------------------------------------------------------------------*/
+		appres_cpu = MRequiredApp("CPU_CORE", "CPU_CORE APP", RSHARABLE, "4.0.2")
+		appres_clock = MRequiredApp("CLOCK", "CLOCK APP", RSHARABLE, "4.0.4")
+
+		/*------------------------------------------------------------------------------------------------------------------------------------------*/
+		/*							  Hardware resource consumption block																			*/
+		/*------------------------------------------------------------------------------------------------------------------------------------------*/
+		gstring_cpu_value.value = MF({appres_cpu.getVal(["gstring_core", "value"])}, String)
+		hwres_geth = MVirtualResourceGroup("Module", ["peripheral", "geth", "*", "geth"])
+
+		hwres_crs_pad = MVirtualResourceGroup("Carrier Sense Signal pin", ["port", "p", "*", "pad", "*"], is_phy_mii)
+		vs_geth_crs = MVirtualSignal(hwres_geth, "CRS", "crs", is_phy_mii, false)
+		@AddPin(pinDisplayName = 'CRS pin')
+		vs_crs_pad = MVirtualSignal(hwres_crs_pad, "CRS pin", "pad", is_phy_mii, false)
+		addConnectionConstraint(vs_crs_pad, vs_geth_crs, is_phy_mii)
+
+		hwres_crs_dv_pad = MVirtualResourceGroup("Carrier Sense / Data Valid pin", ["port", "p", "*", "pad", "*"], is_phy_rmii)
+		vs_geth_crs_dv = MVirtualSignal(hwres_geth, "CRSDV", "crsdv", is_phy_rmii, false)
+		@AddPin(pinDisplayName = 'CRS DV pin')
+		vs_crs_dv_pad = MVirtualSignal(hwres_crs_dv_pad, "CRS DV pin", "pad", is_phy_rmii, false)
+		addConnectionConstraint(vs_crs_dv_pad, vs_geth_crs_dv, is_phy_rmii)
+
+		vs_cpu_core_global = MVirtualSignalRA(appres_cpu, "vs_cpu_core_global")
+
+		hwres_geth_itr = MVirtualResourceGroup("GETH Interrupt SRN", ["peripheral", "int", "0", "srn", "*"])
+		vs_geth_intr = MVirtualSignal(hwres_geth, "INT", "trigo1", true, false)
+		vs_geth_itr_in = MVirtualSignal(hwres_geth_itr, "INT req", "in", true, false)
+		vs_geth_itr_out	 = MVirtualSignal(hwres_geth_itr, "INT", "out", true, false)
+		addConnectionConstraint(vs_geth_intr, vs_geth_itr_in, true)
+
+		hwres_cpu_prio_geth_intr = MVirtualResourceGroup("GETH Interrupt", ["peripheral", "cpu", "*", "prio", "*"], true)
+		vs_cpu_prio_geth_intr_global = MVirtualSignal(hwres_cpu_prio_geth_intr, "global", "global", true, false)
+		addConnectionConstraint(vs_geth_itr_out, vs_cpu_core_global, true)
+		addConnectionConstraint(vs_cpu_core_global, vs_cpu_prio_geth_intr_global, true)
+
+		hwres_dma_tx_0_itr = MVirtualResourceGroup("TX DMA0 Interrupt SRN", ["peripheral", "int", "0", "srn", "*"], true)
+		vs_geth_dma_tx0_itr_out = MVirtualSignal(hwres_geth, "TXDMA_INT", "trigo2", true, false)
+		vs_dma_tx0_itr_in = MVirtualSignal(hwres_dma_tx_0_itr, "TXDMA_INT req", "in", true, false)
+		vs_dma_tx0_itr_out = MVirtualSignal(hwres_dma_tx_0_itr, "TXDMA_INT", "out", true, false)
+		addConnectionConstraint(vs_geth_dma_tx0_itr_out, vs_dma_tx0_itr_in, true)
+
+		hwres_cpu_prio_dma_tx0 = MVirtualResourceGroup("TX DMA0 Interrupt", ["peripheral", "cpu", "*", "prio", "*"], true)
+		vs_cpu_prio_dma_tx0_global = MVirtualSignal(hwres_cpu_prio_dma_tx0, "global", "global", true, false)
+
+		addConnectionConstraint(vs_dma_tx0_itr_out, vs_cpu_core_global, true)
+		addConnectionConstraint(vs_cpu_core_global, vs_cpu_prio_dma_tx0_global, true)
+
+		hwres_dma_tx_1_itr = MVirtualResourceGroup("TX DMA1 Interrupt SRN", ["peripheral", "int", "0", "srn", "*"], is_dma_tx_1_en)
+		vs_geth_dma_tx1_itr_out = MVirtualSignal(hwres_geth, "TXDMA_INT", "trigo3", is_dma_tx_1_en, false)
+		vs_dma_tx1_itr_in = MVirtualSignal(hwres_dma_tx_1_itr, "TXDMA_INT req", "in", is_dma_tx_1_en, false)
+		vs_dma_tx1_itr_out = MVirtualSignal(hwres_dma_tx_1_itr, "TXDMA_INT", "out", is_dma_tx_1_en, false)
+		addConnectionConstraint(vs_geth_dma_tx1_itr_out, vs_dma_tx1_itr_in, is_dma_tx_1_en)
+
+		hwres_cpu_prio_dma_tx1 = MVirtualResourceGroup("TX DMA1 Interrupt", ["peripheral", "cpu", "*", "prio", "*"], is_dma_tx_1_en)
+		vs_cpu_prio_dma_tx1_global = MVirtualSignal(hwres_cpu_prio_dma_tx1, "global", "global", is_dma_tx_1_en, false)
+
+		addConnectionConstraint(vs_dma_tx1_itr_out, vs_cpu_core_global, is_dma_tx_1_en)
+		addConnectionConstraint(vs_cpu_core_global, vs_cpu_prio_dma_tx1_global, is_dma_tx_1_en)
+
+		hwres_dma_tx_2_itr = MVirtualResourceGroup("TX DMA2 Interrupt SRN", ["peripheral", "int", "0", "srn", "*"], is_dma_tx_2_en)
+		vs_geth_dma_tx2_itr_out = MVirtualSignal(hwres_geth, "TXDMA_INT", "trigo4", is_dma_tx_2_en, false)
+		vs_dma_tx2_itr_in = MVirtualSignal(hwres_dma_tx_2_itr, "TXDMA_INT req", "in", is_dma_tx_2_en, false)
+		vs_dma_tx2_itr_out = MVirtualSignal(hwres_dma_tx_2_itr, "TXDMA_INT", "out", is_dma_tx_2_en, false)
+		addConnectionConstraint(vs_geth_dma_tx2_itr_out, vs_dma_tx2_itr_in, is_dma_tx_2_en)
+
+		hwres_cpu_prio_dma_tx2 = MVirtualResourceGroup("TX DMA2 Interrupt", ["peripheral", "cpu", "*", "prio", "*"], is_dma_tx_2_en)
+		vs_cpu_prio_dma_tx2_global = MVirtualSignal(hwres_cpu_prio_dma_tx2, "global", "global", is_dma_tx_2_en, false)
+
+		addConnectionConstraint(vs_dma_tx2_itr_out, vs_cpu_core_global, is_dma_tx_2_en)
+		addConnectionConstraint(vs_cpu_core_global, vs_cpu_prio_dma_tx2_global, is_dma_tx_2_en)
+
+		hwres_dma_tx_3_itr = MVirtualResourceGroup("TX DMA3 Interrupt SRN", ["peripheral", "int", "0", "srn", "*"], is_dma_tx_3_en)
+		vs_geth_dma_tx3_itr_out = MVirtualSignal(hwres_geth, "TXDMA_INT", "trigo5", is_dma_tx_3_en, false)
+		vs_dma_tx3_itr_in = MVirtualSignal(hwres_dma_tx_3_itr, "TXDMA_INT req", "in", is_dma_tx_3_en, false)
+		vs_dma_tx3_itr_out = MVirtualSignal(hwres_dma_tx_3_itr, "TXDMA_INT", "out", is_dma_tx_3_en, false)
+		addConnectionConstraint(vs_geth_dma_tx3_itr_out, vs_dma_tx3_itr_in, is_dma_tx_3_en)
+
+		hwres_cpu_prio_dma_tx3 = MVirtualResourceGroup("TX DMA3 Interrupt", ["peripheral", "cpu", "*", "prio", "*"], is_dma_tx_3_en)
+		vs_cpu_prio_dma_tx3_global = MVirtualSignal(hwres_cpu_prio_dma_tx3, "global", "global", is_dma_tx_3_en, false)
+
+		addConnectionConstraint(vs_dma_tx3_itr_out, vs_cpu_core_global, is_dma_tx_3_en)
+		addConnectionConstraint(vs_cpu_core_global, vs_cpu_prio_dma_tx3_global, is_dma_tx_3_en)
+
+		hwres_dma_rx_0_itr = MVirtualResourceGroup("RX DMA0 Interrupt SRN", ["peripheral", "int", "0", "srn", "*"], is_interrupt_on)
+		vs_geth_dma_rx0_itr_out = MVirtualSignal(hwres_geth, "RXDMA_INT", "trigo6", is_interrupt_on, false)
+		vs_dma_rx0_itr_in = MVirtualSignal(hwres_dma_rx_0_itr, "RXDMA_INT req", "in", is_interrupt_on, false)
+		vs_dma_rx0_itr_out = MVirtualSignal(hwres_dma_rx_0_itr, "RXDMA_INT", "out", is_interrupt_on, false)
+		addConnectionConstraint(vs_geth_dma_rx0_itr_out, vs_dma_rx0_itr_in, is_interrupt_on)
+
+		hwres_prio_rx_0 = MVirtualResourceGroup("RX DMA0 Interrupt", ["peripheral", "cpu", "*", "prio", "*"], is_interrupt_on)
+		vs_dma_rx0_itr_global = MVirtualSignal(hwres_prio_rx_0, "global", "global", is_interrupt_on, false)
+
+		addConnectionConstraint(vs_dma_rx0_itr_out, vs_cpu_core_global, is_interrupt_on)
+		addConnectionConstraint(vs_cpu_core_global, vs_dma_rx0_itr_global, is_interrupt_on)
+
+		hwres_dma_rx_1_itr = MVirtualResourceGroup("RX DMA1 Interrupt SRN", ["peripheral", "int", "0", "srn", "*"], is_dma_rx_1_en)
+		vs_geth_dma_rx1_itr_out = MVirtualSignal(hwres_geth, "RXDMA_INT", "trigo7", is_dma_rx_1_en, false)
+		vs_dma_rx1_itr_in = MVirtualSignal(hwres_dma_rx_1_itr, "RXDMA_INT req", "in", is_dma_rx_1_en, false)
+		vs_dma_rx1_itr_out = MVirtualSignal(hwres_dma_rx_1_itr, "RXDMA_INT", "out", is_dma_rx_1_en, false)
+		addConnectionConstraint(vs_geth_dma_rx1_itr_out, vs_dma_rx1_itr_in, is_dma_rx_1_en)
+
+		hwres_prio_rx_1 = MVirtualResourceGroup("RX DMA1 Interrupt", ["peripheral", "cpu", "*", "prio", "*"], is_dma_rx_1_en)
+		vs_dma_rx1_itr_global = MVirtualSignal(hwres_prio_rx_1, "global", "global", is_dma_rx_1_en, false)
+
+		addConnectionConstraint(vs_dma_rx1_itr_out, vs_cpu_core_global, is_dma_rx_1_en)
+		addConnectionConstraint(vs_cpu_core_global, vs_dma_rx1_itr_global, is_dma_rx_1_en)
+
+		hwres_dma_rx_2_itr = MVirtualResourceGroup("RX DMA2 Interrupt SRN", ["peripheral", "int", "0", "srn", "*"], is_dma_rx_2_en)
+		vs_geth_dma_rx2_itr_out = MVirtualSignal(hwres_geth, "RXDMA_INT", "trigo8", is_dma_rx_2_en, false)
+		vs_dma_rx2_itr_in = MVirtualSignal(hwres_dma_rx_2_itr, "RXDMA_INT req", "in", is_dma_rx_2_en, false)
+		vs_dma_rx2_itr_out = MVirtualSignal(hwres_dma_rx_2_itr, "RXDMA_INT", "out", is_dma_rx_2_en, false)
+		addConnectionConstraint(vs_geth_dma_rx2_itr_out, vs_dma_rx2_itr_in, is_dma_rx_2_en)
+
+		hwres_prio_rx_2 = MVirtualResourceGroup("RX DMA2 Interrupt", ["peripheral", "cpu", "*", "prio", "*"], is_dma_rx_2_en)
+		vs_dma_rx2_itr_global = MVirtualSignal(hwres_prio_rx_2, "global", "global", is_dma_rx_2_en, false)
+
+		addConnectionConstraint(vs_dma_rx2_itr_out, vs_cpu_core_global, is_dma_rx_2_en)
+		addConnectionConstraint(vs_cpu_core_global, vs_dma_rx2_itr_global, is_dma_rx_2_en)
+
+		hwres_dma_rx_3_itr = MVirtualResourceGroup("RX DMA3 Interrupt SRN", ["peripheral", "int", "0", "srn", "*"], is_dma_rx_3_en)
+		vs_geth_dma_rx3_itr_out = MVirtualSignal(hwres_geth, "RXDMA_INT", "trigo9", is_dma_rx_3_en, false)
+		vs_dma_rx3_itr_in = MVirtualSignal(hwres_dma_rx_3_itr, "RXDMA_INT req", "in", is_dma_rx_3_en, false)
+		vs_dma_rx3_itr_out = MVirtualSignal(hwres_dma_rx_3_itr, "RXDMA_INT", "out", is_dma_rx_3_en, false)
+		addConnectionConstraint(vs_geth_dma_rx3_itr_out, vs_dma_rx3_itr_in, is_dma_rx_3_en)
+
+		hwres_prio_rx_3 = MVirtualResourceGroup("RX DMA3 Interrupt", ["peripheral", "cpu", "*", "prio", "*"], is_dma_rx_3_en)
+		vs_dma_rx3_itr_global = MVirtualSignal(hwres_prio_rx_3, "global", "global", is_dma_rx_3_en, false)
+
+		addConnectionConstraint(vs_dma_rx3_itr_out, vs_cpu_core_global, is_dma_rx_3_en)
+		addConnectionConstraint(vs_cpu_core_global, vs_dma_rx3_itr_global, is_dma_rx_3_en)
+
+		hwres_col_pad = MVirtualResourceGroup("Collision pin", ["port", "p", "*", "pad", "*"], is_phy_mii)
+		vs_geth_col = MVirtualSignal(hwres_geth, "COL", "col", is_phy_mii, false)
+		@AddPin(pinDisplayName = 'COL pin')
+		vs_col_pad = MVirtualSignal(hwres_col_pad, "COL pin", "pad", is_phy_mii, false)
+		addConnectionConstraint(vs_col_pad, vs_geth_col, is_phy_mii)
+
+		hwres_rxer_pad = MVirtualResourceGroup("RX Error pin", ["port", "p", "*", "pad", "*"], is_phy_mii)
+		vs_geth_rxer = MVirtualSignal(hwres_geth, "RXER", "rxer", is_phy_mii, false)
+		@AddPin(pinDisplayName = 'RXER pin')
+		vs_rxer_pad = MVirtualSignal(hwres_rxer_pad, "RXER pin", "pad", is_phy_mii, false)
+		addConnectionConstraint(vs_rxer_pad, vs_geth_rxer, is_phy_mii)
+
+		hwres_rxd0_pad = MVirtualResourceGroup("RX Data 0 pin", ["port", "p", "*", "pad", "*"])
+		vs_geth_rxd0 = MVirtualSignal(hwres_geth, "RXD0", "rxd0", true, false)
+		@AddPin(pinDisplayName = 'RXD0 pin')
+		vs_rxd0_pad = MVirtualSignal(hwres_rxd0_pad, "RXD0 pin", "pad", true, false)
+		addConnectionConstraint(vs_rxd0_pad, vs_geth_rxd0)
+
+		hwres_rxd1_pad = MVirtualResourceGroup("RX Data 1 pin", ["port", "p", "*", "pad", "*"])
+		vs_geth_rxd1 = MVirtualSignal(hwres_geth, "RXD1", "rxd1", true, false)
+		@AddPin(pinDisplayName = 'RXD1 pin')
+		vs_rxd1_pad = MVirtualSignal(hwres_rxd1_pad, "RXD1 pin", "pad", true, false)
+		addConnectionConstraint(vs_rxd1_pad, vs_geth_rxd1)
+
+		hwres_rxd2_pad = MVirtualResourceGroup("RX Data 2 pin", ["port", "p", "*", "pad", "*"], is_phy_mii_rgmii)
+		vs_geth_rxd2 = MVirtualSignal(hwres_geth, "RXD2", "rxd2", is_phy_mii_rgmii, false)
+		@AddPin(pinDisplayName = 'RXD2 pin')
+		vs_rxd2_pad = MVirtualSignal(hwres_rxd2_pad, "RXD2 pin", "pad", is_phy_mii_rgmii, false)
+		addConnectionConstraint(vs_rxd2_pad, vs_geth_rxd2, is_phy_mii_rgmii)
+
+		hwres_rxd3_pad = MVirtualResourceGroup("RX Data 3 pin", ["port", "p", "*", "pad", "*"], is_phy_mii_rgmii)
+		vs_geth_rxd3 = MVirtualSignal(hwres_geth, "RXD3", "rxd3", is_phy_mii_rgmii, false)
+		@AddPin(pinDisplayName = 'RXD3 pin')
+		vs_rxd3_pad = MVirtualSignal(hwres_rxd3_pad, "RXD3 pin", "pad", is_phy_mii_rgmii, false)
+		addConnectionConstraint(vs_rxd3_pad, vs_geth_rxd3, is_phy_mii_rgmii)
+
+		hwres_txen_pad = MVirtualResourceGroup("TX Enable pin", ["port", "p", "*", "pad", "*"], is_phy_mii_rmii)
+		vs_geth_txen = MVirtualSignal(hwres_geth, "TXEN", "txen", is_phy_mii_rmii, false)
+		@AddPin(pinDisplayName = 'TXEN pin')
+		vs_txen_pad = MVirtualSignal(hwres_txen_pad, "TXEN pin", "pad", is_phy_mii_rmii, false)
+		addConnectionConstraint(vs_geth_txen, vs_txen_pad, is_phy_mii_rmii)
+
+		hwres_txer_pad = MVirtualResourceGroup("TX Error pin", ["port", "p", "*", "pad", "*"], is_phy_mii)
+		vs_geth_txer = MVirtualSignal(hwres_geth, "TXER", "txer", is_phy_mii, false)
+		@AddPin(pinDisplayName = 'TXER pin')
+		vs_txer_pad = MVirtualSignal(hwres_txer_pad, "TXER pin", "pad", is_phy_mii, false)
+		addConnectionConstraint(vs_geth_txer, vs_txer_pad, is_phy_mii)
+
+		hwres_txd0_pad = MVirtualResourceGroup("TX Data 0 pin", ["port", "p", "*", "pad", "*"])
+		vs_geth_txd0 = MVirtualSignal(hwres_geth, "TXD0", "txd0", true, false)
+		@AddPin(pinDisplayName = 'TXD0 pin')
+		vs_txd0_pad = MVirtualSignal(hwres_txd0_pad, "TXD0 pin", "pad", true, false)
+		addConnectionConstraint(vs_geth_txd0, vs_txd0_pad)
+
+		hwres_txd1_pad = MVirtualResourceGroup("TX Data 1 pin", ["port", "p", "*", "pad", "*"])
+		vs_geth_txd1 = MVirtualSignal(hwres_geth, "TXD1", "txd1", true, false)
+		@AddPin(pinDisplayName = 'TXD1 pin')
+		vs_txd1_pad = MVirtualSignal(hwres_txd1_pad, "TXD1 pin", "pad", true, false)
+		addConnectionConstraint(vs_geth_txd1, vs_txd1_pad)
+
+		hwres_txd2_pad = MVirtualResourceGroup("TX Data 2 pin", ["port", "p", "*", "pad", "*"], is_phy_mii_rgmii)
+		vs_geth_txd2 = MVirtualSignal(hwres_geth, "TXD2", "txd2", is_phy_mii_rgmii, false)
+		@AddPin(pinDisplayName = 'TXD2 pin')
+		vs_txd2_pad = MVirtualSignal(hwres_txd2_pad, "TXD2 pin", "pad", is_phy_mii_rgmii, false)
+		addConnectionConstraint(vs_geth_txd2, vs_txd2_pad, is_phy_mii_rgmii)
+
+		hwres_txd3_pad = MVirtualResourceGroup("TX Data 3 pin", ["port", "p", "*", "pad", "*"], is_phy_mii_rgmii)
+		vs_geth_txd3 = MVirtualSignal(hwres_geth, "TXD3", "txd3", is_phy_mii_rgmii, false)
+		@AddPin(pinDisplayName = 'TXD3 pin')
+		vs_txd3_pad = MVirtualSignal(hwres_txd3_pad, "TXD3 pin", "pad", is_phy_mii_rgmii, false)
+		addConnectionConstraint(vs_geth_txd3, vs_txd3_pad, is_phy_mii_rgmii)
+
+		hwres_mdc_pad = MVirtualResourceGroup("MDIO Clock pin", ["port", "p", "*", "pad", "*"])
+		vs_geth_mdc = MVirtualSignal(hwres_geth, "MDC", "mdc", true, false)
+		@AddPin(pinDisplayName = 'MDC pin')
+		vs_mdc_pad = MVirtualSignal(hwres_mdc_pad, "MDC pin", "pad", true, false)
+		addConnectionConstraint(vs_geth_mdc, vs_mdc_pad)
+
+		hwres_mdio_pad = MVirtualResourceGroup("MDIO pin", ["port", "p", "*", "pad", "*"])
+		vs_geth_mdio = MVirtualSignal(hwres_geth, "MDIO", "mdio_in", true, false)
+		vs_geth_mdo = MVirtualSignal(hwres_geth, "MDIO", "mdio_out", true, false)
+		@AddPin(pinDisplayName = 'MDIO pin')
+		vs_mdio_pad = MVirtualSignal(hwres_mdio_pad, "MDIO pin", "pad", true, false)
+		addConnectionConstraint(vs_mdio_pad, vs_geth_mdio)
+		vs_mdo_pad = MVirtualSignal(hwres_mdio_pad, "MDIO pin", "pad", true, false)
+		addConnectionConstraint(vs_geth_mdo, vs_mdo_pad)
+
+		hwres_ref_clk_pad = MVirtualResourceGroup("Ref Clock Input pin", ["port", "p", "*", "pad", "*"], is_phy_rmii)
+		vs_geth_ref_clk = MVirtualSignal(hwres_geth, "REFCLK", "refclk", is_phy_rmii, false)
+		@AddPin(pinDisplayName = 'REFCLK pin')
+		vs_ref_clk_pad = MVirtualSignal(hwres_ref_clk_pad, "REFCLK pin", "pad", is_phy_rmii, false)
+		addConnectionConstraint(vs_ref_clk_pad, vs_geth_ref_clk, is_phy_rmii)
+
+		hwres_tx_ctl_pad = MVirtualResourceGroup("TX Control pin", ["port", "p", "*", "pad", "*"], is_phy_rgmii)
+		vs_geth_tx_ctl = MVirtualSignal(hwres_geth, "TCTL", "tctl", is_phy_rgmii, false)
+		@AddPin(pinDisplayName = 'TCTL pin')
+		vs_tx_ctl_pad = MVirtualSignal(hwres_tx_ctl_pad, "TCTL pin", "pad", is_phy_rgmii, false)
+		addConnectionConstraint(vs_geth_tx_ctl, vs_tx_ctl_pad, is_phy_rgmii)
+
+		hwres_rx_ctl_pad = MVirtualResourceGroup("RX Control pin", ["port", "p", "*", "pad", "*"], is_phy_rgmii)
+		vs_geth_rx_ctl = MVirtualSignal(hwres_geth, "RCTL", "rctl", is_phy_rgmii, false)
+		@AddPin(pinDisplayName = 'RCTL pin')
+		vs_rx_ctl_pad = MVirtualSignal(hwres_rx_ctl_pad, "RCTL pin", "pad", is_phy_rgmii, false)
+		addConnectionConstraint(vs_rx_ctl_pad, vs_geth_rx_ctl, is_phy_rgmii)
+
+		hwres_rxc_pad = MVirtualResourceGroup("RX Clock pin", ["port", "p", "*", "pad", "*"], is_phy_mii_rgmii)
+		vs_geth_rxc = MVirtualSignal(hwres_geth, "RCLK", "rxclk", is_phy_mii_rgmii, false)
+		@AddPin(pinDisplayName = 'RCLK pin')
+		vs_rxc_pad = MVirtualSignal(hwres_rxc_pad, "RCLK pin", "pad", is_phy_mii_rgmii, false)
+		addConnectionConstraint(vs_rxc_pad, vs_geth_rxc, is_phy_mii_rgmii)
+
+		hwres_txc_pad = MVirtualResourceGroup("TX Clock pin", ["port", "p", "*", "pad", "*"], is_phy_mii_rgmii)
+		vs_geth_txc_in = MVirtualSignal(hwres_geth, "TCLK", "txclk_in" , is_phy_mii, false)
+		vs_geth_txc_out = MVirtualSignal(hwres_geth, "TCLK", "txclk_out", is_phy_rgmii, false)
+		@AddPin(pinDisplayName = 'TCLK pin')
+		vs_txc_pad = MVirtualSignal(hwres_txc_pad, "TCLK pin", "pad", is_phy_mii_rgmii, false)
+		addConnectionConstraint(vs_txc_pad, vs_geth_txc_in, is_phy_mii)
+		addConnectionConstraint(vs_geth_txc_out, vs_txc_pad, is_phy_rgmii)
+
+		hwres_rx_dv_pad = MVirtualResourceGroup("RX Data Valid pin", ["port", "p", "*", "pad", "*"], is_phy_mii)
+		vs_geth_rx_dv = MVirtualSignal(hwres_geth, "RXDV", "rxdv", is_phy_mii, false)
+		@AddPin(pinDisplayName = 'RXDV pin')
+		vs_rx_dv_pad = MVirtualSignal(hwres_rx_dv_pad, "RXDV pin", "pad", is_phy_mii, false)
+		addConnectionConstraint(vs_rx_dv_pad, vs_geth_rx_dv, is_phy_mii)
+
+		hwres_gref_clk_pad = MVirtualResourceGroup("Gigabit Ref Clock Input pin", ["port", "p", "*", "pad", "*"], is_phy_rgmii)
+		vs_geth_gref_clk = MVirtualSignal(hwres_geth, "GREFCLK", "grefclk", is_phy_rgmii, false)
+		@AddPin(pinDisplayName = 'GREFCLK pin')
+		vs_gref_clk_pad = MVirtualSignal(hwres_gref_clk_pad, "GREFCLK pin", "pad", is_phy_rgmii, false)
+		addConnectionConstraint(vs_gref_clk_pad, vs_geth_gref_clk, is_phy_rgmii)
+
+		/*------------------------------------------------------------------------------------------------------------------------------------------*/
+		/*								   APP Configuration																						*/
+		/*------------------------------------------------------------------------------------------------------------------------------------------*/
+		
+		gcheck_lwip_en.visible = false
+		
+		ginteger_dma_tx_chn.maxValue = MF({gcheck_lwip_en.value == true ? 1 : 4}, Integer)
+		ginteger_dma_no_rx_channel.maxValue = MF({gcheck_lwip_en.value == true ? 1 : 4}, Integer)
+		rArraygindexgroup_dma_tx_config[0].gstring_dma_tx_callback.enabled = MF({!gcheck_lwip_en.value}, Boolean)
+		rArraygindexgroup_dma_rx_chn[0].gstring_dma_rx_callback.enabled = MF({!gcheck_lwip_en.value}, Boolean)
+		
+//TODO: uncomment when it's supported		gcheck_double_vlan_process.enabled = is_vlan_tag_enabled
+		gcheck_double_vlan_process.enabled = false			//TODO: remove this line when it's supported
+//TODO: uncomment when it's supported		gindexgroup_av_tx_config.enabled = MF({ginteger_av_en.value != 0}, Boolean)
+		ggroup_rgmii_clk_ctrl.enabled = MF({gcombo_mii_interface_mode.value == "RGMII"}, Boolean)
+		gtab_mac_vlan_config.visible = MF({gcheck_vlan_tag_filter.value == true}, Boolean)
+
+//TODO: uncomment when it's supported		gindexgroup_add_vlan_tag_ID_settings.enabled = is_vlan_tag_enabled
+//TODO: uncomment when it's supported		ginteger_mac_add_vlan_tag_filter.enabled = is_vlan_tag_enabled
+		ginteger_mac_add_vlan_tag_filter.enabled = false	//TODO: remove this line when it's supported
+//TODO: uncomment when it's supported		gcombo_vlan_tag_opr.enabled = is_vlan_tag_enabled
+		gcombo_vlan_tag_opr.enabled = false					//TODO: remove this line when it's supported
+//TODO: uncomment when it's supported		ginteger_no_vlan_incl.enabled = is_vlan_tag_enabled
+		ginteger_no_vlan_incl.enabled = false				//TODO: remove this line when it's supported
+//TODO: uncomment when it's supported		gindexgroup_vlan_incl.enabled = is_vlan_tag_enabled
+
+//TODO: uncomment when it's supported		gcombo_preamble_ln.enabled = is_full_duplex
+		gcombo_preamble_ln.enabled = false					//TODO: remove this line when it's supported
+		ginteger_no_additional_mac.maxValue = 1				//TODO: remove this line when it's supported
+		ginteger_mac_ipc.enabled = false					//TODO: remove this line when it's supported
+		gcheck_en_acs_mac.enabled = false					//TODO: remove this line when it's supported
+		gcheck_en_cst_mac.enabled = false					//TODO: remove this line when it's supported
+		gcheck_promiscous_mode.enabled = false				//TODO: remove this line when it's supported
+		gcheck_receive_all.enabled = false					//TODO: remove this line when it's supported
+		gcheck_pass_all_multicast.enabled = false			//TODO: remove this line when it's supported
+		gcheck_disable_broadcast_pkt.enabled = false		//TODO: remove this line when it's supported
+		gcheck_src_addr_filter.enabled = false				//TODO: remove this line when it's supported
+		gcheck_vlan_tag_filter.enabled = false				//TODO: remove this line when it's supported
+		gcombo_control_pkt.enabled = false					//TODO: remove this line when it's supported
+		gcheck_s_vlan_pakt.enabled = false					//TODO: remove this line when it's supported
+		gcheck_vlan_hash_table.enabled = false				//TODO: remove this line when it's supported
+		gcheck_vlan_tag_en.enabled = false					//TODO: remove this line when it's supported
+		ginteger_av_en.maxValue = 0							//TODO: remove this line when it's supported
+		gcheck_pbl_en.enabled = false						//TODO: remove this line when it's supported
+		gcheck_dma_tx_prio.enabled = false					//TODO: remove this line when it's supported
+		gcombo_dma_arbitration.enabled = false				//TODO: remove this line when it's supported
+
+
+//TODO: uncomment when it's supported		ginteger_no_inner_incl.enabled = MF({gcheck_double_vlan_process.value && gcheck_vlan_tag_en.value}, Boolean)
+		ginteger_no_inner_incl.enabled = false				//TODO: remove this line when it's supported
+
+//TODO: uncomment when it's supported		gcombo_dma_taa.enabled = MF({ginteger_dma_tx_chn.value >= 2}, Boolean)
+		gcombo_dma_taa.enabled = false						//TODO: remove this line when it's supported
+
+//TODO: uncomment when it's supported		gcombo_dma_priority_ratio.enabled = MF({gcombo_dma_arbitration.value == "Weighted Round-Robin"}, Boolean)
+		gcombo_dma_priority_ratio.enabled = false			//TODO: remove this line when it's supported
+
+//TODO: uncomment when it's supported		gcombo_mac_uffq.enabled = is_receive_all
+		gcombo_mac_uffq.enabled = false						//TODO: remove this line when it's supported
+//TODO: uncomment when it's supported		gcombo_mac_mffq.enabled = is_receive_all
+		gcombo_mac_mffq.enabled = false						//TODO: remove this line when it's supported
+//TODO: uncomment when it's supported		gcombo_mac_vffq.enabled = MF({gcheck_vlan_tag_filter.value == true && gcheck_receive_all.value}, Boolean)
+		gcombo_mac_vffq.enabled = false						//TODO: remove this line when it's supported
+
+		ginteger_pps_width.maxValue = MF({ginteger_pps_interval.value -1}, Integer)
+
+		gcombo_pps_cmd_ctrl.options = MF({
+			if (gcheck_pps_mode_flex_en.value)
+			{
+				return ["No Command", "Start Single Pulse", "Start Pulse Train", "Cancel Start",
+						"Stop Pulse Train at Time", "Stop Pulse Train Immediately", "Cancel Stop Pulse Train"]
+			}
+			else
+			{
+				return ["1 Hz / 1 Hz", "2 Hz / 1 Hz", "4 Hz / 2 Hz", "8 Hz / 4 Hz", "16 Hz / 8 Hz", "32.768 KHz / 16.384 KHz"]
+			}
+		}, List)
+
+		for (int index in 0..7)
+		{
+			int i = index
+			rArraygindexgroup_add_vlan_tag_ID_settings[i].ginteger_add_tag_id.enabled = false			//TODO: remove this line when it's supported
+			rArraygindexgroup_add_vlan_tag_ID_settings[i].gcombo_add_en_vlan_tag_comp.enabled = false	//TODO: remove this line when it's supported
+			rArraygindexgroup_add_vlan_tag_ID_settings[i].gcheck_add_dis_vlan_type_comp.enabled = false	//TODO: remove this line when it's supported
+//TODO: uncomment when it's supported			rArraygindexgroup_add_vlan_tag_ID_settings[i].gcombo_mac_add_dma_chn.enabled = is_mac_dma_enabled
+			rArraygindexgroup_add_vlan_tag_ID_settings[i].gcombo_mac_add_dma_chn.enabled = false		//TODO: remove this line when it's supported
+		}
+
+		for (int index in 0..3)
+		{
+			int i = index
+			rArraygindexgroup_rx_queue_config[i].ginteger_mtl_rxq_wegt.enabled = false					//TODO: remove this line when it's supported
+			rArraygindexgroup_rx_queue_config[i].gcheck_mtl_rxq_frm_arbit.enabled = false				//TODO: remove this line when it's supported
+			rArraygindexgroup_rx_queue_config[i].gcombo_rx_dma_channel_map.enabled = is_mac_dma_disbaled
+		}
+
+		for (int index in 0..31)
+		{
+			int i = index
+//TODO: uncomment when it's supported			rArraygindexgroup_additional_mac_address[i].gcombo_add_dma_chn.enabled = is_mac_dma_enabled
+			rArraygindexgroup_additional_mac_address[i].gcombo_add_dma_chn.enabled = false				//TODO: remove this line when it's supported
+		}
+
+		gindexcombo_sel_incl_cfg.options = MF({
+			List<String> l = []
+
+			if (gcheck_double_vlan_process.value == false && gcheck_vlan_tag_en.value == true)
+			{
+				for (int i = 1; i <= (ginteger_no_vlan_incl.value); i++)
+				{
+					l.add("VLAN Tag INCL #" + i.toString())
+				}
+			}
+			else if (gcheck_double_vlan_process.value == true && gcheck_double_vlan_process.value == true)
+			{
+				for (int i = 1; i <= (ginteger_no_vlan_incl.value); i++)
+				{
+					l.add("VLAN Tag INCL #" + i.toString())
+				}
+				for (int i = 1; i <= (ginteger_no_inner_incl.value); i++)
+				{
+					l.add("Inner VLAN Tag INCL #" + i.toString())
+				}
+			}
+			else
+			{
+				l.add("None")
+			}
+			return l
+		}, List)
+
+		for (int index in 0..8)
+		{
+			int i = index
+			rArraygindexgroup_vlan_incl[i].gcombo_vlan_csvl.enabled = false				//TODO: remove this line when it's supported
+			rArraygindexgroup_vlan_incl[i].ginteger_vid.enabled = false					//TODO: remove this line when it's supported
+			rArraygindexgroup_vlan_incl[i].gcheck_vlan_cfi.enabled = false				//TODO: remove this line when it's supported
+			rArraygindexgroup_vlan_incl[i].ginteger_user_prio.enabled = false			//TODO: remove this line when it's supported
+//TODO: uncomment when it's supported			rArraygindexgroup_vlan_incl[i].gcombo_add_vlan_inner_vlc.enabled = MF({
+//TODO: uncomment when it's supported				(gindexcombo_sel_incl_cfg.value == "Inner VLAN Tag INCL #1") ||
+//TODO: uncomment when it's supported				(gindexcombo_sel_incl_cfg.value == "Inner VLAN Tag INCL #2") ||
+//TODO: uncomment when it's supported				(gindexcombo_sel_incl_cfg.value == "Inner VLAN Tag INCL #3") ||
+//TODO: uncomment when it's supported				(gindexcombo_sel_incl_cfg.value == "Inner VLAN Tag INCL #4")
+//TODO: uncomment when it's supported			}, Boolean)
+			rArraygindexgroup_vlan_incl[i].gcombo_add_vlan_inner_vlc.enabled = false	//TODO: remove this line when it's supported
+		}
+		gindexcombo_sel_av_config.enabled = false                                       //TODO: remove this line when it's supported
+		for (int index in 0..3)
+		{
+			int i = index
+			rArraygindexgroup_av_tx_config[i].gcombo_en_av_algo.enabled = false			//TODO: remove this line when it's supported
+			rArraygindexgroup_av_tx_config[i].gcheck_credit_ctrl.enabled = false		//TODO: remove this line when it's supported
+			rArraygindexgroup_av_tx_config[i].gcombo_slt_cnt.enabled = false			//TODO: remove this line when it's supported
+			rArraygindexgroup_av_tx_config[i].ginteger_snd_slope_cdt.enabled = false	//TODO: remove this line when it's supported
+			rArraygindexgroup_av_tx_config[i].ginteger_high_crdt_value.enabled = false	//TODO: remove this line when it's supported
+			rArraygindexgroup_av_tx_config[i].ginteger_low_crdt_value.enabled = false	//TODO: remove this line when it's supported
+			rArraygindexgroup_av_tx_config[i].ginteger_snd_slope_cdt.maxValue =  MF({
+				if (gcombo_speed.value == "1000Mbit/s")
+				{
+					return 8192
+				}
+				else
+				{
+					return 4096
+				}
+			}, Integer)
+		}
+
+		// Update Selection indexgroup based on number of queue/channel mentioned by the user
+		gindexcombo_tx_queue_selection.options = MF({
+			List<String> l = []
+			for (int i = 1; i <= ginteger_no_tx_queue.value; i++)
+			{
+				l.add("TX QUEUE #" + i.toString())
+			}
+			return l
+		}, List)
+
+		gindexcombo_sel_mac_Address.options = MF({
+			List<String> l = []
+			for (int i = 0; i < ginteger_no_additional_mac.value; i++)
+			{
+				l.add("MAC Address #" + i.toString())
+			}
+			return l
+		}, List)
+
+		gindexcombo_rx_queue_sel.options = MF({
+			List<String> l = []
+			for (int i = 1; i <= ginteger_rx_no_queue.value; i++)
+			{
+				l.add("RX QUEUE #" + i.toString())
+			}
+			return l
+		}, List)
+
+		gindexcombo_sel_dma_tx_chn.options = MF({
+			List<String> l = []
+			for (int i = 0; i < ginteger_dma_tx_chn.value; i++)
+			{
+				l.add("TX DMA Channel #" + i.toString())
+			}
+			return l
+		}, List)
+
+		gindexcombo_dma_sel_rx_chn.options = MF({
+			List<String> l = []
+			for (int i = 0; i < ginteger_dma_no_rx_channel.value; i++)
+			{
+				l.add("RX DMA Channel #" + i.toString())
+			}
+			return l
+		}, List)
+
+		gindexcombo_sel_vlan_tag_filter.options = MF({
+			List<String> l = []
+			for (int i = 0; i < ginteger_mac_add_vlan_tag_filter.value; i++)
+			{
+				l.add("VLAN Tag Filter #" + i.toString())
+			}
+			return l
+		}, List)
+
+		gindexcombo_sel_av_config.options = MF({
+			List<String> l = ["TX AV #1"]
+			for (int i = 2; i <= ginteger_av_en.value; i++)
+			{
+				l.add("TX AV #" + i.toString())
+			}
+			return l
+		}, List)
+
+		if ((str_device == "TC375") || (str_device == "TC365") || (str_device == "TC364") || (str_device == "TC366"))
+		{
+			gcombo_mii_interface_mode.options = ["RMII"]
+		}
+		else
+		{
+			gcombo_mii_interface_mode.options = ["MII", "RMII", "RGMII"]
+		}
+
+		gcombo_speed.options = MF(
+		{
+			if (gcombo_mii_interface_mode.value == "RGMII")
+			{
+				return ["10Mbit/s","100Mbit/s", "1000Mbit/s"]
+			}
+			else if (gcombo_mii_interface_mode.value == "RMII")
+			{
+				return ["10Mbit/s","100Mbit/s"]
+			}
+			else
+			{
+				return ["10Mbit/s"]
+			}
+		}, List)
+		
+		gmessage_dma_info.text = MF({
+		    StringBuilder msg_1 = new StringBuilder()
+			
+				Matcher matcher_0 = (rArraygindexgroup_dma_tx_config[0].gstring_dma_tx_callback.value =~ fn_regexp)
+				Boolean ExpressionMatch_0 = !matcher_0.matches()
+				Matcher matcher_1 = (rArraygindexgroup_dma_tx_config[1].gstring_dma_tx_callback.value =~ fn_regexp)
+				Boolean ExpressionMatch_1 = !matcher_1.matches()
+				Matcher matcher_2 = (rArraygindexgroup_dma_tx_config[2].gstring_dma_tx_callback.value =~ fn_regexp)
+				Boolean ExpressionMatch_2 = !matcher_2.matches()
+				Matcher matcher_3 = (rArraygindexgroup_dma_tx_config[3].gstring_dma_tx_callback.value =~ fn_regexp)
+				Boolean ExpressionMatch_3 = !matcher_3.matches()
+				if (ExpressionMatch_0 == true || ExpressionMatch_1 == true || ExpressionMatch_2 == true || ExpressionMatch_3 == true)
+				{
+					msg_1.append("Invalid function name in Tx DMA callback.")
+				}
+				 matcher_0 = (rArraygindexgroup_dma_rx_chn[0].gstring_dma_rx_callback.value =~ fn_regexp)
+				 ExpressionMatch_0 = !matcher_0.matches()
+				 matcher_1 = (rArraygindexgroup_dma_rx_chn[1].gstring_dma_rx_callback.value =~ fn_regexp)
+				 ExpressionMatch_1 = !matcher_1.matches()
+				 matcher_2 = (rArraygindexgroup_dma_rx_chn[2].gstring_dma_rx_callback.value =~ fn_regexp)
+				 ExpressionMatch_2 = !matcher_2.matches()
+				 matcher_3 = (rArraygindexgroup_dma_rx_chn[3].gstring_dma_rx_callback.value =~ fn_regexp)
+				 ExpressionMatch_3 = !matcher_3.matches()
+				 if (ExpressionMatch_0 == true || ExpressionMatch_1 == true || ExpressionMatch_2 == true || ExpressionMatch_3 == true)
+				 {
+					 msg_1.append("Invalid function name in Rx DMA callback.")
+				 }
+			return	msg_1.toString().trim() ?: ""
+			}, String)
+		
+		gmessage_dma_info.visible = MF({gmessage_dma_info.text != ""}, Boolean)
+		
+		gmessage_info.text = MF({
+			StringBuilder msg = new StringBuilder()
+			if (gcombo_duplex_mode.value == "Full Duplex")
+			{
+				if (ginteger_mac_ipc.value != 40 && ginteger_mac_ipc.value != 80 && ginteger_mac_ipc.value != 88 )
+				{
+					if ((ginteger_mac_ipc.value < 96) || (ginteger_mac_ipc.value > 2144) || (((ginteger_mac_ipc.value - 96) % 8) != 0))
+					{
+						msg.append("Error: Invalid Inter Packet Gap. Valid values: 40, 80, 88, or 96-2144 in steps of 8. ")
+					}
+				}
+			}
+			if ((gcombo_mac_uffq.value == "RX QUEUE #4" && ginteger_rx_no_queue.value < 4) ||
+				(gcombo_mac_uffq.value == "RX QUEUE #3" && ginteger_rx_no_queue.value < 3) ||
+				(gcombo_mac_uffq.value == "RX QUEUE #2" && ginteger_rx_no_queue.value < 2) ||
+				(gcombo_mac_mffq.value == "RX QUEUE #4" && ginteger_rx_no_queue.value < 4) ||
+				(gcombo_mac_mffq.value == "RX QUEUE #3" && ginteger_rx_no_queue.value < 3) ||
+				(gcombo_mac_mffq.value == "RX QUEUE #2" && ginteger_rx_no_queue.value < 2) ||
+				(gcombo_mac_vffq.value == "RX QUEUE #4" && ginteger_rx_no_queue.value < 4) ||
+				(gcombo_mac_vffq.value == "RX QUEUE #3" && ginteger_rx_no_queue.value < 3) ||
+				(gcombo_mac_vffq.value == "RX QUEUE #2" && ginteger_rx_no_queue.value < 2))
+			{
+				msg.append("Hint: Please increase the number of RX QUEUE in MTL Configuration. ")
+			}
+			if (gcombo_duplex_mode.value == "Half Duplex" && ginteger_mac_ipc.value != 64)
+			{
+				if (msg.toString().isEmpty())
+				{
+					msg.append("Hint: ")
+				}
+				msg.append("Internal Packet Gap should be configured to 64 Bit times only.")
+			}
+			return	msg.toString().trim() ?: ""
+		}, String)
+		gmessage_info.visible = MF({gmessage_info.text != ""}, Boolean)
+	}
+	/* End   : APP Constructor */
+
+	/* Begin : File Generation */
+	def generateFiles()
+	{
+		generate("ethernet_config_confh.tmpl", "ethernet_config_conf.h")
+		generate("ethernet_config_confc.tmpl", "ethernet_config_conf.c")
+		copy("ethernet_config.c", "ethernet_config.c")
+		copy("ethernet_config.h", "ethernet_config.h")
+	}
+	/* End   : File Generation */
+}

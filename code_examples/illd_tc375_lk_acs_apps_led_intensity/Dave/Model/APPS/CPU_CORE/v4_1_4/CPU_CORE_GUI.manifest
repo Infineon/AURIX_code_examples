@@ -1,0 +1,170 @@
+package Model.APPS.CPU_CORE.v4_1_4;
+// Import statements
+import ifx.davex.app.manifest.*
+
+abstract class CPU_CORE_GUI extends AppManifest {
+
+    /* IMPORTANT NOTE: This is an auto generated file, please do not edit manually. */
+    /* User modifications in the GUI editor will be updated here automatically.     */
+    /* Manually editing the contents of this file will corrupt the APP SDK project. */
+
+	/* Begin : UI variable section */
+	 public GTab gtab_cpu;
+	 public GTab gtab_mpu;
+	 public GImage gimage_1;
+	 public GImage gimage_2;
+	 public GImage gimage_3;
+	 public GImage gimage_4;
+	 public GImage gimage_5;
+	 public GImage gimage_6;
+	 public GImage gimage_7;
+	 public GImage gimage_8;
+	 public GImage gimage_10;
+	 public GImage gimage_9;
+	 public GInteger ginteger_ccon_div;
+	 public GInteger ginteger_dprxnum;
+	 public GInteger ginteger_cprxnum;
+	 public GInteger ginteger_setnum;
+	 public GCombo gcombo_pa_u1;
+	 public GFloat gfloat_actfreq;
+	 public GString gstring_tcn0_tsr;
+	 public GString gstring_tcn1_tsr;
+	 public GString gstring_tcn2_tsr;
+	 public GString gstring_tcn3_tsr;
+	 public GString gstring_tcn4_tsr;
+	 public GString gstring_tcn5_tsr;
+	 public GString gstring_tcn6_tsr;
+	 public GString gstring_tcn7_tsr;
+	 public GCheck gcheck_tcn0;
+	 public GCheck gcheck_tcn1;
+	 public GCheck gcheck_tcn2;
+	 public GCheck gcheck_tcn3;
+	 public GCheck gcheck_tcn4;
+	 public GCheck gcheck_tcn5;
+	 public GCheck gcheck_tcn6;
+	 public GCheck gcheck_tcn7;
+	 public GCheck gcheck_pa_u0;
+	 public GCheck gcheck_pa_sv;
+	 public GCheck gcheck_eidi_u0;
+	 public GCheck gcheck_eidi_u1;
+	 public GCheck gcheck_eidi_sv;
+	 public GCheck gcheck_mpuen;
+	 public GLabel glabel_tcn0;
+	 public GLabel glabel_59;
+	 public GLabel glabel_tcn1;
+	 public GLabel glabel_60;
+	 public GLabel glabel_tcn2;
+	 public GLabel glabel_61;
+	 public GLabel glabel_tcn3;
+	 public GLabel glabel_62;
+	 public GLabel glabel_tcn4;
+	 public GLabel glabel_63;
+	 public GLabel glabel_tcn5;
+	 public GLabel glabel_64;
+	 public GLabel glabel_tcn6;
+	 public GLabel glabel_65;
+	 public GLabel glabel_tcn7;
+	 public GLabel glabel_66;
+	 public GLabel glabel_pa_u1;
+	 public GLabel glabel_eidi_u1;
+	 public GLabel glabel_u0;
+	 public GLabel glabel_u1;
+	 public GLabel glabel_sv;
+	 public GLabel glabel_ccon_div;
+	 public GLabel glabel_actfreq;
+	 public GLabel glabel_mpuen;
+	 public GLabel glabel_dprxnum;
+	 public GLabel glabel_cprxnum;
+	 public GLabel glabel_setnum;
+	 public GGroup ggroup_trap;
+	 public GGroup ggroup_iomode;
+	 public GGroup ggroup_clock;
+	 public GMessage gmessage_valid_tsr_name;
+	 public GIndexCombo gindexcombo_dpx;
+	 public RArray<Gindexgroup_Set> rArraygindexgroup_Set = RArray(8);
+
+	 public GIndexGroup gindexgroup_Set;
+
+	 public CPU_CORE_GUI(DaveEnv daveEnv){
+
+	 gtab_cpu = GTab(widgetName: "gtab_cpu", text: "CPU Settings", enabled: true, visible: true)
+	 gtab_mpu = GTab(widgetName: "gtab_mpu", text: "MPU Settings", enabled: true, visible: true)
+	 gimage_1 = GImage(widgetName: "gimage_1", path: "", enabled: true, visible: true)
+	 gimage_2 = GImage(widgetName: "gimage_2", path: "", enabled: true, visible: true)
+	 gimage_3 = GImage(widgetName: "gimage_3", path: "", enabled: true, visible: true)
+	 gimage_4 = GImage(widgetName: "gimage_4", path: "", enabled: true, visible: true)
+	 gimage_5 = GImage(widgetName: "gimage_5", path: "", enabled: true, visible: true)
+	 gimage_6 = GImage(widgetName: "gimage_6", path: "", enabled: true, visible: true)
+	 gimage_7 = GImage(widgetName: "gimage_7", path: "", enabled: true, visible: true)
+	 gimage_8 = GImage(widgetName: "gimage_8", path: "", enabled: true, visible: true)
+	 gimage_10 = GImage(widgetName: "gimage_10", path: "", enabled: true, visible: true)
+	 gimage_9 = GImage(widgetName: "gimage_9", path: "", enabled: true, visible: true)
+	 ginteger_ccon_div = GInteger(widgetName: "ginteger_ccon_div", value: 0, minValue: 0, maxValue: 63, enabled: true, visible: true, isMandatoryValue: false)
+	 ginteger_dprxnum = GInteger(widgetName: "ginteger_dprxnum", value: 2, minValue: 2, maxValue: 24, enabled: true, visible: true, isMandatoryValue: false)
+	 ginteger_cprxnum = GInteger(widgetName: "ginteger_cprxnum", value: 2, minValue: 2, maxValue: 16, enabled: true, visible: true, isMandatoryValue: false)
+	 ginteger_setnum = GInteger(widgetName: "ginteger_setnum", value: 2, minValue: 2, maxValue: 8, enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_pa_u1 = GCombo(widgetName: "gcombo_pa_u1", options: ["User-1","Supervisor"], value: "User-1", enabled: true, visible: true, isMandatoryValue: false)
+	 gfloat_actfreq = GFloat(widgetName: "gfloat_actfreq", value: 0, minValue: Double.NEGATIVE_INFINITY, maxValue: Double.POSITIVE_INFINITY, enabled: false, visible: true, isMandatoryValue: false)
+	 gstring_tcn0_tsr = GString(widgetName: "gstring_tcn0_tsr", value: "MemoryManagementError", enabled: true, visible: true, isMandatoryValue: false)
+	 gstring_tcn1_tsr = GString(widgetName: "gstring_tcn1_tsr", value: "InternalProtectionError", enabled: true, visible: true, isMandatoryValue: false)
+	 gstring_tcn2_tsr = GString(widgetName: "gstring_tcn2_tsr", value: "InstructionError", enabled: true, visible: true, isMandatoryValue: false)
+	 gstring_tcn3_tsr = GString(widgetName: "gstring_tcn3_tsr", value: "ContextManagementError", enabled: true, visible: true, isMandatoryValue: false)
+	 gstring_tcn4_tsr = GString(widgetName: "gstring_tcn4_tsr", value: "BusError", enabled: true, visible: true, isMandatoryValue: false)
+	 gstring_tcn5_tsr = GString(widgetName: "gstring_tcn5_tsr", value: "Assertion", enabled: true, visible: true, isMandatoryValue: false)
+	 gstring_tcn6_tsr = GString(widgetName: "gstring_tcn6_tsr", value: "SystemCall_Cpux", enabled: true, visible: true, isMandatoryValue: false)
+	 gstring_tcn7_tsr = GString(widgetName: "gstring_tcn7_tsr", value: "NonMaskableInterrupt", enabled: true, visible: true, isMandatoryValue: false)
+	 gcheck_tcn0 = GCheck(widgetName: "gcheck_tcn0", value: false, enabled: true, visible: true)
+	 gcheck_tcn1 = GCheck(widgetName: "gcheck_tcn1", value: false, enabled: true, visible: true)
+	 gcheck_tcn2 = GCheck(widgetName: "gcheck_tcn2", value: false, enabled: true, visible: true)
+	 gcheck_tcn3 = GCheck(widgetName: "gcheck_tcn3", value: false, enabled: true, visible: true)
+	 gcheck_tcn4 = GCheck(widgetName: "gcheck_tcn4", value: false, enabled: true, visible: true)
+	 gcheck_tcn5 = GCheck(widgetName: "gcheck_tcn5", value: false, enabled: true, visible: true)
+	 gcheck_tcn6 = GCheck(widgetName: "gcheck_tcn6", value: false, enabled: true, visible: true)
+	 gcheck_tcn7 = GCheck(widgetName: "gcheck_tcn7", value: false, enabled: true, visible: true)
+	 gcheck_pa_u0 = GCheck(widgetName: "gcheck_pa_u0", value: false, enabled: false, visible: true)
+	 gcheck_pa_sv = GCheck(widgetName: "gcheck_pa_sv", value: true, enabled: false, visible: true)
+	 gcheck_eidi_u0 = GCheck(widgetName: "gcheck_eidi_u0", value: false, enabled: false, visible: true)
+	 gcheck_eidi_u1 = GCheck(widgetName: "gcheck_eidi_u1", value: true, enabled: true, visible: true)
+	 gcheck_eidi_sv = GCheck(widgetName: "gcheck_eidi_sv", value: true, enabled: false, visible: true)
+	 gcheck_mpuen = GCheck(widgetName: "gcheck_mpuen", value: false, enabled: true, visible: true)
+	 glabel_tcn0 = GLabel(widgetName: "glabel_tcn0", text: "TCN0 Service Routine", enabled: true, visible: true)
+	 glabel_59 = GLabel(widgetName: "glabel_59", text: "Callback", enabled: true, visible: true)
+	 glabel_tcn1 = GLabel(widgetName: "glabel_tcn1", text: "TCN1 Service Routine", enabled: true, visible: true)
+	 glabel_60 = GLabel(widgetName: "glabel_60", text: "Callback", enabled: true, visible: true)
+	 glabel_tcn2 = GLabel(widgetName: "glabel_tcn2", text: "TCN2 Service Routine", enabled: true, visible: true)
+	 glabel_61 = GLabel(widgetName: "glabel_61", text: "Callback", enabled: true, visible: true)
+	 glabel_tcn3 = GLabel(widgetName: "glabel_tcn3", text: "TCN3 Service Routine", enabled: true, visible: true)
+	 glabel_62 = GLabel(widgetName: "glabel_62", text: "Callback", enabled: true, visible: true)
+	 glabel_tcn4 = GLabel(widgetName: "glabel_tcn4", text: "TCN4 Service Routine", enabled: true, visible: true)
+	 glabel_63 = GLabel(widgetName: "glabel_63", text: "Callback", enabled: true, visible: true)
+	 glabel_tcn5 = GLabel(widgetName: "glabel_tcn5", text: "TCN5 Service Routine", enabled: true, visible: true)
+	 glabel_64 = GLabel(widgetName: "glabel_64", text: "Callback", enabled: true, visible: true)
+	 glabel_tcn6 = GLabel(widgetName: "glabel_tcn6", text: "TCN6 Service Routine", enabled: true, visible: true)
+	 glabel_65 = GLabel(widgetName: "glabel_65", text: "Callback", enabled: true, visible: true)
+	 glabel_tcn7 = GLabel(widgetName: "glabel_tcn7", text: "TCN7 Service Routine", enabled: true, visible: true)
+	 glabel_66 = GLabel(widgetName: "glabel_66", text: "Callback", enabled: true, visible: true)
+	 glabel_pa_u1 = GLabel(widgetName: "glabel_pa_u1", text: "Peripheral Access", enabled: true, visible: true)
+	 glabel_eidi_u1 = GLabel(widgetName: "glabel_eidi_u1", text: "Enable/Disable Interrupt", enabled: true, visible: true)
+	 glabel_u0 = GLabel(widgetName: "glabel_u0", text: "User-0", enabled: true, visible: true)
+	 glabel_u1 = GLabel(widgetName: "glabel_u1", text: "User-1", enabled: true, visible: true)
+	 glabel_sv = GLabel(widgetName: "glabel_sv", text: "Supervisor", enabled: true, visible: true)
+	 glabel_ccon_div = GLabel(widgetName: "glabel_ccon_div", text: "Divider Reload Value", enabled: true, visible: true)
+	 glabel_actfreq = GLabel(widgetName: "glabel_actfreq", text: "Actual Frequency [MHz]", enabled: true, visible: true)
+	 glabel_mpuen = GLabel(widgetName: "glabel_mpuen", text: "Enable", enabled: true, visible: true)
+	 glabel_dprxnum = GLabel(widgetName: "glabel_dprxnum", text: "Num of Accessible Data Ranges", enabled: true, visible: true)
+	 glabel_cprxnum = GLabel(widgetName: "glabel_cprxnum", text: "Num of Accessible Code Ranges", enabled: true, visible: true)
+	 glabel_setnum = GLabel(widgetName: "glabel_setnum", text: "Number of Sets", enabled: true, visible: true)
+	 ggroup_trap = GGroup(widgetName: "ggroup_trap", text: "Trap Handling", enabled: true, visible: true)
+	 ggroup_iomode = GGroup(widgetName: "ggroup_iomode", text: "IO Mode", enabled: true, visible: true)
+	 ggroup_clock = GGroup(widgetName: "ggroup_clock", text: "CPU Clock", enabled: true, visible: true)
+	 gmessage_valid_tsr_name = GMessage(widgetName: "gmessage_valid_tsr_name", text: "Invalid function name", isError: true, visible: true)
+	 gindexcombo_dpx = GIndexCombo(widgetName: "gindexcombo_dpx", options: ["0 (Reserved)","1 (Select this to set start/end addresses)","2","3","4","5","6","7"], value: "1 (Select this to set start/end addresses)", visible: true)
+	 gindexgroup_Set = GIndexGroup(widgetName: "gindexgroup_Set", text: "Configuration", enabled: true, visible: true, gIndexCombo: gindexcombo_dpx, rArray: rArraygindexgroup_Set)
+	 for(int i=0; i<8; i++){
+		 rArraygindexgroup_Set[i] = new Gindexgroup_Set(daveEnv, "gindexgroup_Set",i)
+	 }
+
+
+	 }
+	/* End : UI variable section */
+}

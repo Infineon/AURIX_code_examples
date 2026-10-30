@@ -6023,55 +6023,6 @@
       "lastModified": "2025-08-28T00:00:00.000Z"
     },
     {
-      "title": "iLLD_TC356TA_ADS_ICMS_BOARD_3_0_point_cloud",
-      "name": "iLLD_TC356TA_ADS_ICMS_BOARD_3_0_point_cloud",
-      "description": "This software project is intended as a starting point for the application of in cabin monitoring (ICMS) on the ICMS board v3.0. It demonstrates the main processing steps that need to be performed on AURIX TC356 signal processing unit (SPU) and Tricore CPUs to generate point cloud data from raw data recorded by the BGT60 ATR24AIP MMIC.\r\n\r\nBasic understanding of FMCW radar range-doppler signal processing is presumed to follow this code example.",
-      "abstract": "This software project for the ICMS board v3.0 (AURIX TC356 and BGT60 ATR24AIP) demonstrates the main radar signal processing steps to generate point cloud data from raw data recorded by the MMIC.",
-      "folder": "iLLD_TC356TA_ADS_ICMS_BOARD_3_0_point_cloud",
-      "version": "V1.0.0",
-      "platforms": [
-        {
-          "name": "ICMS board v3.0",
-          "id": "ICMS board v3.0",
-          "device_id": "TC35xTA_A-Step"
-        }
-      ],
-      "keywords": [
-        "ICMS",
-        "RADAR",
-        "POINT CLOUD"
-      ],
-      "documents": [
-        "see README.md"
-      ],
-      "lastModified": "2025-07-11T00:00:00.000Z"
-    },
-    {
-      "title": "ICMS RADAR point cloud generation and breathing rate calculation",
-      "name": "iLLD_TC356TA_ICMS_BOARD_3_0_breathing_rate",
-      "description": "This software project is intended as a starting point for the application of in cabin monitoring (ICMS) on the ICMS board v3.0. It demonstrates the main processing steps that need to be performed on AURIX TC356 signal processing unit (SPU) and Tricore CPUs to generate point cloud data from raw data recorded by the BGT60 ATR24AIP MMIC and to calculate the breathing rate of a detected target.\r\n\r\nBasic understanding of FMCW radar range-doppler signal processing is presumed to follow this code example.",
-      "abstract": "This software project for the ICMS board v3.0 (AURIX TC356 and BGT60 ATR24AIP) demonstrates the main radar signal processing steps to generate point cloud data from raw data recorded by the MMIC and to calculate the breathing rate of a detected target.",
-      "folder": "iLLD_TC356TA_ICMS_BOARD_3_0_breathing_rate",
-      "version": "V1.0.0",
-      "platforms": [
-        {
-          "name": "ICMS board v3.0",
-          "id": "ICMS board v3.0",
-          "device_id": "TC35xTA_A-Step"
-        }
-      ],
-      "keywords": [
-        "ICMS",
-        "RADAR",
-        "POINT CLOUD",
-        "BREATHING RATE"
-      ],
-      "documents": [
-        "see README.md"
-      ],
-      "lastModified": "2025-07-11T00:00:00.000Z"
-    },
-    {
       "title": "Create a random number in the 0 to 255 range using the ADC readings as generator",
       "name": "iLLD_TC375_ADS_ADC_Random_Number_Generator",
       "description": "The Enhanced Delta-Sigma Analog to Digital Converter (EDSADC) is used to read a value on channel 3, connected to port pin AN0.\r\nThe ASCLIN module is configured for UART communication. The Shell from Infineon low level drivers (iLLDs) exploits the Asynchronous/Synchronous Interface (ASCLIN) module to interpret and manage commands from the user like \"info\", \"random\" and \"help\"\r\nwhich have been developed and are easily expandable. Random command returns a random number between 0 and 255.\r\nUsing the EDSADC to select the less significant bit of 8 consecutive readings of the analog channel separated by a predefined wait time helps impoving the quality of the random number. The user restrict the range by predefining the value of n (e.g. random 10 will provide a random number between 0 and 10).",
@@ -6974,32 +6925,6 @@
         "SEE README.MD"
       ],
       "lastModified": "2025-01-23T00:00:00.000Z"
-    },
-    {
-      "title": "iLLD_TC377TX_ADS_LWIP-HTTP-Server",
-      "name": "iLLD_TC377TX_ADS_LWIP-HTTP-Server",
-      "description": "The die temperature is read from an HTTP server implemented in the LWIP 2.2.0 stack. LED manipulation is done via the HTTP server. A CAN node and a LIN master node are also implemented. The CAN implementation can be configured to be used in loop-back mode or with an external CAN node. The LIN implementation configures a LIN Master node that sends a header and a data block on the LIN bus.",
-      "abstract": "This code example demonstrates the TC377 peripheral capabilities by implementing a CAN and LIN node together with an HTTP server using the LWIP 2.2.0 stack. The server reads the die temperature and it can manipulate LEDs.",
-      "folder": "iLLD_TC377TX_ADS_LWIP-HTTP-Server",
-      "version": "V1.0.0",
-      "platforms": [
-        {
-          "name": "KIT_A2G_TC377_SEC_GTW",
-          "id": "KIT_A2G_TC377_SEC_GTW",
-          "device_id": "TC377TX_A-Step"
-        }
-      ],
-      "keywords": [
-        "AURIX",
-        "LWIP",
-        "C",
-        "CAN",
-        "LIN"
-      ],
-      "documents": [
-        "See README.MD"
-      ],
-      "lastModified": "2024-07-17T00:00:00.000Z"
     },
     {
       "title": "This code example generates a periodic interrupt using the SCR RTC Module.",
@@ -15212,6 +15137,260 @@
         "https://www.infineon.com/aurix-expert-training/TC39B_iLLD_UM_1_0_1_17_0.chm"
       ],
       "lastModified": "2024-04-25T00:00:00.000Z"
+    },
+    {
+      "title": "iLLD_TC375_LK_ACS_APPs_LED_Intensity",
+      "name": "iLLD_TC375_LK_ACS_APPs_LED_Intensity",
+      "description": "The onboard potentiometer is sampled by EVADC group 0, channel 0. DMA transfers the result register value\r\nto RAM, and a DMA interrupt updates the PWM duty cycle for LED1.",
+      "abstract": "A CCU6-triggered EVADC conversion is transferred by DMA to RAM and used to control LED intensity through PWM.",
+      "folder": "illd_tc375_lk_acs_apps_led_intensity",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC375 Lite Kit",
+          "id": "KIT_A2G_TC375_LITE",
+          "device_id": "TC375Tx_A-Step",
+          "supportsNewProjects": true
+        }
+      ],
+      "keywords": [
+        "ADC",
+        "EVADC",
+        "DMA",
+        "PWM",
+        "LED",
+        "AURIX",
+        "ACS",
+        "APPs",
+        "TC375"
+      ],
+      "documents": [
+        "README.md"
+      ],
+      "subProjectNames": [],
+      "lastModified": "2026-09-09T00:00:00.000Z",
+      "isOnline": false
+    },
+    {
+      "title": "iLLD_TC375_LK_ACS_Apps_LwIP_Echo",
+      "name": "iLLD_TC375_LK_ACS_Apps_LwIP_Echo",
+      "description": "The lwIP TCP/IP stack exchanges strings between the board and a remote client terminal.\r\n\r\nThe DAVE-generated LWIP_GETH APP configures the board with a static IPv4 address.\r\n\r\nThe application runs a TCP echo server on port 80, returning each newline-terminated message with the prefix Board: .",
+      "abstract": "The Gigabit Ethernet Media Access Controller (GETH) module and the Lightweight IP (LwIP) stack are used to implement a network echo application using ACS APPs.",
+      "folder": "iLLD_TC375_LK_ACS_APPs_LWIP_ECHO",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC375 Lite Kit",
+          "id": "KIT_A2G_TC375_LITE",
+          "device_id": "TC375Tx_A-Step",
+          "supportsNewProjects": true
+        }
+      ],
+      "keywords": [
+        "Ethernet",
+        "communication",
+        "Ethernet_1",
+        "GETH",
+        "ACS",
+        "APPs",
+        "TC375",
+        "LWIP",
+        "AURIX",
+        "echo",
+        "UART"
+      ],
+      "documents": [
+        "README.md"
+      ],
+      "subProjectNames": [],
+      "lastModified": "2026-08-25T00:00:00.000Z",
+      "isOnline": false
+    },
+    {
+      "title": "iLLD_TC4D7_ACS_DEEPCRAFT_ML_PROFILER",
+      "name": "iLLD_TC4D7_ACS_DEEPCRAFT_ML_PROFILER_TC4",
+      "description": "Example project for deploying, profiling and validating ONNX ML models on TriCore(TM) or PPU (with acceleration)\r\nusing the Deepcraft Model Converter (with onnx2c-ifx) tool",
+      "abstract": "Example project for deploying and validating ML models on the Aurix TC4D7 Lite Kit",
+      "folder": "iLLD_TC4D7_ACS_DEEPCRAFT_ML_PROFILER",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC4D7 Lite Kit",
+          "id": "KIT_A3G_TC4D7_LITE",
+          "device_id": "TC4D7Xx_A-Step",
+          "supportsNewProjects": true
+        }
+      ],
+      "keywords": [
+        "ASCLIN",
+        "Aurix",
+        "CPU",
+        "PPU",
+        "ONNX",
+        "ML",
+        "DEEPCRAFT",
+        "NN",
+        "Ethernet",
+        "TCP",
+        "IP",
+        "FreeRTOS"
+      ],
+      "documents": [
+        "See README.md"
+      ],
+      "subProjectNames": [
+        "illd_tc4d7_acs_deepcraft_ml_profiler_PPU",
+        "illd_tc4d7_acs_deepcraft_ml_profiler_TC4"
+      ],
+      "lastModified": "2026-08-27T00:00:00.000Z",
+      "isOnline": false
+    },
+    {
+      "title": "LBIST Key-off",
+      "name": "iLLD_TC4D7_ACS_LBIST_KEY_OFF",
+      "description": "This code example demonstrates the configuration, triggering, and evaluation of a Key-Off LBIST on\r\nAURIX(TM) TC4xx. The implementation covers full-scan execution across all hierarchical scan domains.\r\nUpon completion, the MISR signature results are compared against the expected device-specific\r\nreference values and the test outcome is immediately reflected via dedicated status LEDs through the\r\nInfineon OneEye GUI.",
+      "abstract": "Evaluation of a full MCU logic LBIST test (Key-off).",
+      "folder": "iLLD_TC4D7_ACS_LBIST_KEY_OFF",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC4D7 Lite Kit",
+          "id": "KIT_A3G_TC4D7_LITE",
+          "device_id": "TC4D7Xx_A-Step",
+          "supportsNewProjects": true
+        }
+      ],
+      "keywords": [
+        "LBIST",
+        "LBIST Key-off",
+        "FUSA",
+        "AURIX",
+        "TC4xx"
+      ],
+      "documents": [
+        "see README.md"
+      ],
+      "subProjectNames": [],
+      "lastModified": "2026-09-01T00:00:00.000Z",
+      "isOnline": false
+    },
+    {
+      "title": "LBIST Key-on",
+      "name": "iLLD_TC4D7_ACS_LBIST_KEY_ON",
+      "description": "This code example demonstrates the configuration, triggering, and evaluation of a Key-On LBIST on\r\nAURIX(TM) TC4xx. The implementation covers safety-logic execution across all hierarchical scan domains.\r\nUpon completion, the MISR signature results are compared against the expected device-specific\r\nreference values and the test outcome is immediately reflected via dedicated status LEDs through the\r\nInfineon OneEye GUI.",
+      "abstract": "Evaluation of a safety logic LBIST test (Key-on) trigger by Firmware.",
+      "folder": "iLLD_TC4D7_ACS_LBIST_KEY_ON",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC4D7 Lite Kit",
+          "id": "KIT_A3G_TC4D7_LITE",
+          "device_id": "TC4D7Xx_A-Step",
+          "supportsNewProjects": true
+        }
+      ],
+      "keywords": [
+        "LBIST",
+        "LBIST Key-on",
+        "FUSA",
+        "AURIX",
+        "TC4xx"
+      ],
+      "documents": [
+        "see README.md"
+      ],
+      "subProjectNames": [],
+      "lastModified": "2026-09-01T00:00:00.000Z",
+      "isOnline": false
+    },
+    {
+      "title": "Blinky LED",
+      "name": "iLLD_TC4D7_LK_ACS_APPs_Blinky_LED",
+      "description": "A single PWM timer app,\r\nNo GPIO APP toggling logic and no software wait/delay functions are required.",
+      "abstract": "An LED blinks at 1 Hz using a single PWM app, PWM_EGTM, for both timer generation and I/O output control.",
+      "folder": "iLLD_TC4D7_LK_ACS_APPs_Blinky_LED",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC4D7 Lite Kit",
+          "id": "KIT_A3G_TC4D7_LITE",
+          "device_id": "TC4D7Xx_A-Step",
+          "supportsNewProjects": true
+        }
+      ],
+      "keywords": [
+        "LED",
+        "Blinky",
+        "GPIO",
+        "AURIX"
+      ],
+      "documents": [
+        "See README.md"
+      ],
+      "subProjectNames": [],
+      "lastModified": "2026-08-14T00:00:00.000Z",
+      "isOnline": false
+    },
+    {
+      "title": "Multicore FFT Spectrum on LED TFT Screen",
+      "name": "iLLD_TC4D7_LK_ACS_TFT_SPECTRUM_EXAMPLE",
+      "description": "This code example demonstrates a real-time 256-band spectrum analyzer that showcases multi-core processing capabilities of the TC4D. A synthetic audio signal is generated and processed using FFT to display frequency content as animated LED-style bars on a TFT LCD display.\r\n\r\nThe example shows how to distribute workload across multiple CPU cores, with CPU0 handling display rendering and CPU1 handling signal processing.",
+      "abstract": "CPU0 initializes the thin-film-transistor (TFT) display and renders the spectrum visualization. CPU1 generates a synthetic audio signal and computes the Fast Fourier Transform (FFT) to extract frequency content.",
+      "folder": "iLLD_TC4D7_LK_ACS_TFT_SPECTRUM_EXAMPLE",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC4D7 Lite Kit",
+          "id": "KIT_A3G_TC4D7_LITE",
+          "device_id": "TC4D7Xx_A-Step",
+          "supportsNewProjects": true
+        }
+      ],
+      "keywords": [
+        "TC4D",
+        "LCD",
+        "FFT",
+        "TC4D7",
+        "Multicore",
+        "Spectrum"
+      ],
+      "documents": [
+        "README.md"
+      ],
+      "subProjectNames": [],
+      "lastModified": "2026-05-25T00:00:00.000Z",
+      "isOnline": false
+    },
+    {
+      "title": "iLLD_TC4Dx_ACS_Examples_TC4",
+      "name": "iLLD_TC4Dx_ACS_Examples_TC4",
+      "description": "This project contains some vectorized kernels that are running in the vector core of the PPU, while the corresponding scalar kernels are running on the scalar core of the PPU.\r\nIt demonstrates how to write simple vectorized code and the performance gain that can be achieved compared to the scalar implementation.",
+      "abstract": "A collection of vectorized kernels for the Infineon AURIX&trade; TC4x PPU (A Vector DSP), demonstrating various SIMD intrinsics and programming patterns on the 256-bit VPX datapath.",
+      "folder": "iLLD_TC4D7_ACS_Examples",
+      "version": "V1.0.0",
+      "platforms": [
+        {
+          "name": "AURIX TC4D7 Lite Kit",
+          "id": "KIT_A3G_TC4D7_LITE",
+          "device_id": "TC4D7Xx_A-Step",
+          "supportsNewProjects": true
+        }
+      ],
+      "keywords": [
+        "PPU",
+        "LLVM",
+        "intrinsics",
+        "SIMD"
+      ],
+      "documents": [
+        "see README.md"
+      ],
+      "subProjectNames": [
+        "iLLD_TC4D7_ACS_Examples_PPU",
+        "iLLD_TC4D7_ACS_Examples_TC4"
+      ],
+      "lastModified": "2026-06-03T00:00:00.000Z",
+      "isOnline": false
     }
   ]
 }

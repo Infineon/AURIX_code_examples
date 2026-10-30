@@ -1,0 +1,710 @@
+package Model.APPS.ANALOG_CONVERTER_EVADC.v4_0_4;
+/*
+ Copyright (c) 2016-2024, Infineon Technologies AG
+ All rights reserved.
+ Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
+ following conditions are met:
+ Redistributions of source code must retain the above copyright notice, this list of conditions and the following
+ disclaimer.
+ Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following
+ disclaimer in the documentation and/or other materials provided with the distribution.
+ Neither the name of the copyright holders nor the names of its contributors may be used to endorse or promote
+ products derived from this software without specific prior written permission.
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+ INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ To improve the quality of the software, users are encouraged to share modifications, enhancements or bug fixes with
+ Infineon Technologies AG */
+
+// Import statements
+import java.util.regex.Pattern
+
+import ifx.davex.app.manifest.*
+
+/*************** Revision History **********************************************
+ Version      Date          Description
+ 4.0.2        12-Sep-2025   - Initial version
+ 4.0.4        15-Sep-2025   - License and Copyright update  
+ *******************************************************************************/
+
+class  ANALOG_CONVERTER_EVADC extends ANALOG_CONVERTER_EVADC_GUI {
+
+	public static final Boolean IsDebugVersion = false;
+
+	public static final Integer maxPrimaryChannels = 8; // no device will ever have more than 16 primary channels
+	public static final Integer maxSecondaryChannels = 16; // no device will ever have more than 16 secondary channels
+	public static final Integer secondaryGroupsIndexOffset = 8; // Secondary groups start at 8 for all devices
+
+	/* PRIVATE BEGIN */
+	private static final Map mTriggerOptions = ["No External Trigger":"No Trigger",
+		"External Trigger Upon Rising Edge":"Rising Edge",
+		"External Trigger Upon Falling Edge":"Falling Edge",
+		"External Trigger Upon Both The Edge":"Both Edges",
+		"Autoscan":"Autoscan"];
+
+	private static final Pattern mCStyleRegexPattern = Pattern.compile('^[a-zA-Z_][a-zA-Z0-9_]*$');
+	/* PRIVATE END */
+
+	/*
+	 /* Note  : Following APP properties are mandatory and important
+	 */
+
+	/* Begin : APP property section */
+
+	/**
+	 * APP version
+	 * Format: a string with three digit separated by a dot.
+	 */
+	def version            = '4.0.4'
+
+	/**
+	 * APP categories declaration.
+	 * It is list of strings. Subcategories are separated by slash.
+	 * No limits on number of categories and subcategories depth.
+	 */
+	def categoriesDescription = ["Analog"]
+
+	/**
+	 * Minimum DAVE version required for this APP.
+	 *
+	 * It is string with three digit separated by a dot.
+	 */
+	def minDaveVersion           = '4.2.4'
+
+	/**
+	 * Keywords used by search feature in APPs selection view
+	 *
+	 * It is a list of string.
+	 */
+	def keywords      = ['adc', 'vadc', 'versatile', 'evadc', 'analog', 'converter', 'digital']
+
+	/**
+	 * softwareIDs is used to declare which devices are compatible with this APP.
+	 * It is a map with key a string containing a pattern that shall match the SW id of
+	 * the device and as value the minimal version of the APP.
+	 */
+
+	def softwareIDs       = [
+		"TC3.*.*.*":"1.0.0"]
+
+	/**
+	 * Singleton property:
+	 * When it is true the APP can be instantiated only once.
+	 */
+	def singleton     = false
+
+	/**
+	 * initProvider property
+	 * It shall be true to add a call to <AppName>_Init()
+	 */
+	def initProvider  = true
+
+	/**
+	 * Deprecated APP
+	 * Set it to true to indicate that the APP shall be not used for new projects.
+	 */
+	def deprecated    = false
+
+	/**
+	 * Sharable property.
+	 * It shall be true to allows multiple APPs to require the same instance of this APP.
+	 */
+	def sharable      = false
+
+	/**
+	 *  APP function description.
+	 */
+	def description = "Measurement of analog signals using EVADC via Queue and Scan request sources." +
+	" Background request source is not supported."
+
+	/* End   : APP property section */
+
+	/* Begin : User APP property section */
+
+	// REQUIRED APPS
+	MRequiredApp appres_evadc_generic;							// EVADC Generic APP
+
+	// Resource Groups
+	MVirtualResourceGroup hwres_AdcGroup;				// EVADC Group hardware resource
+
+	// Pad & Pins
+	MVirtualResourceGroup hwres_port_00
+	MVirtualResourceGroup hwres_port_01
+	MVirtualResourceGroup hwres_port_02
+	MVirtualResourceGroup hwres_port_03
+	MVirtualResourceGroup hwres_port_04
+	MVirtualResourceGroup hwres_port_05
+	MVirtualResourceGroup hwres_port_06
+	MVirtualResourceGroup hwres_port_07
+	MVirtualResourceGroup hwres_port_08
+	MVirtualResourceGroup hwres_port_09
+	MVirtualResourceGroup hwres_port_10
+	MVirtualResourceGroup hwres_port_11
+	MVirtualResourceGroup hwres_port_12
+	MVirtualResourceGroup hwres_port_13
+	MVirtualResourceGroup hwres_port_14
+	MVirtualResourceGroup hwres_port_15
+
+	MVirtualSignal vs_port_pad_00
+	MVirtualSignal vs_port_pad_01
+	MVirtualSignal vs_port_pad_02
+	MVirtualSignal vs_port_pad_03
+	MVirtualSignal vs_port_pad_04
+	MVirtualSignal vs_port_pad_05
+	MVirtualSignal vs_port_pad_06
+	MVirtualSignal vs_port_pad_07
+	MVirtualSignal vs_port_pad_08
+	MVirtualSignal vs_port_pad_09
+	MVirtualSignal vs_port_pad_10
+	MVirtualSignal vs_port_pad_11
+	MVirtualSignal vs_port_pad_12
+	MVirtualSignal vs_port_pad_13
+	MVirtualSignal vs_port_pad_14
+	MVirtualSignal vs_port_pad_15
+
+	// Signals
+	// Ports & Pads
+	MVirtualSignal vs_sigch_00
+	MVirtualSignal vs_sigch_01
+	MVirtualSignal vs_sigch_02
+	MVirtualSignal vs_sigch_03
+	MVirtualSignal vs_sigch_04
+	MVirtualSignal vs_sigch_05
+	MVirtualSignal vs_sigch_06
+	MVirtualSignal vs_sigch_07
+	MVirtualSignal vs_sigch_08
+	MVirtualSignal vs_sigch_09
+	MVirtualSignal vs_sigch_10
+	MVirtualSignal vs_sigch_11
+	MVirtualSignal vs_sigch_12
+	MVirtualSignal vs_sigch_13
+	MVirtualSignal vs_sigch_14
+	MVirtualSignal vs_sigch_15
+
+	SolverVariable sv_sigch_name_00
+	SolverVariable sv_sigch_name_01
+	SolverVariable sv_sigch_name_02
+	SolverVariable sv_sigch_name_03
+	SolverVariable sv_sigch_name_04
+	SolverVariable sv_sigch_name_05
+	SolverVariable sv_sigch_name_06
+	SolverVariable sv_sigch_name_07
+	SolverVariable sv_sigch_name_08
+	SolverVariable sv_sigch_name_09
+	SolverVariable sv_sigch_name_10
+	SolverVariable sv_sigch_name_11
+	SolverVariable sv_sigch_name_12
+	SolverVariable sv_sigch_name_13
+	SolverVariable sv_sigch_name_14
+	SolverVariable sv_sigch_name_15
+
+
+	// External Trigger
+	MVirtualSignal			vs_exttrig;
+
+	// Result Events
+	MVirtualSignal			vs_sigRev00;
+	MVirtualSignal			vs_sigRev01;
+	MVirtualSignal			vs_sigRev02;
+	MVirtualSignal			vs_sigRev03;
+	MVirtualSignal			vs_sigRev04;
+	MVirtualSignal			vs_sigRev05;
+	MVirtualSignal			vs_sigRev06;
+	MVirtualSignal			vs_sigRev07;
+	MVirtualSignal			vs_sigRev08;
+	MVirtualSignal			vs_sigRev09;
+	MVirtualSignal			vs_sigRev10;
+	MVirtualSignal			vs_sigRev11;
+	MVirtualSignal			vs_sigRev12;
+	MVirtualSignal			vs_sigRev13;
+	MVirtualSignal			vs_sigRev14;
+	MVirtualSignal			vs_sigRev15;
+
+	MRequiredApp 			appres_icfg00;
+	MRequiredApp 			appres_icfg01;
+	MRequiredApp 			appres_icfg02;
+	MRequiredApp 			appres_icfg03;
+	MRequiredApp 			appres_icfg04;
+	MRequiredApp 			appres_icfg05;
+	MRequiredApp 			appres_icfg06;
+	MRequiredApp 			appres_icfg07;
+	MRequiredApp 			appres_icfg08;
+	MRequiredApp 			appres_icfg09;
+	MRequiredApp 			appres_icfg10;
+	MRequiredApp 			appres_icfg11;
+	MRequiredApp 			appres_icfg12;
+	MRequiredApp 			appres_icfg13;
+	MRequiredApp 			appres_icfg14;
+	MRequiredApp 			appres_icfg15;
+
+	MVirtualSignalRA		vs_appres_icfg00;
+	MVirtualSignalRA		vs_appres_icfg01;
+	MVirtualSignalRA		vs_appres_icfg02;
+	MVirtualSignalRA		vs_appres_icfg03;
+	MVirtualSignalRA		vs_appres_icfg04;
+	MVirtualSignalRA		vs_appres_icfg05;
+	MVirtualSignalRA		vs_appres_icfg06;
+	MVirtualSignalRA		vs_appres_icfg07;
+	MVirtualSignalRA		vs_appres_icfg08;
+	MVirtualSignalRA		vs_appres_icfg09;
+	MVirtualSignalRA		vs_appres_icfg10;
+	MVirtualSignalRA		vs_appres_icfg11;
+	MVirtualSignalRA		vs_appres_icfg12;
+	MVirtualSignalRA		vs_appres_icfg13;
+	MVirtualSignalRA		vs_appres_icfg14;
+	MVirtualSignalRA		vs_appres_icfg15;
+
+	// GUI Values
+	GString		gstring_autoStart = GString();
+
+	/* End   : User APP property section */
+
+	/* Begin : APP Constructor */
+	public ANALOG_CONVERTER_EVADC(DaveEnv daveEnv)
+	{
+		// -------------- APP Dependencies -------------------------------------------------------------------------- //
+		appres_evadc_generic = MRequiredApp("EVADC_GENERIC", "EVADC_GENERIC APP", RSHARABLE, "4.0.2");
+
+		// -------------- Hardware Resource Groups ------------------------------------------------------------------ //
+		hwres_AdcGroup = MVirtualResourceGroup("ADC Group", ["peripheral", "evadc", "*", "gr", "*"])
+
+
+		// -------------- Dynamic Channel Acquisition --------------------------------------------------------------- //
+		sv_sigch_name_00 = SolverVariable()
+		addUriElementRangeConstraint(sv_sigch_name_00,
+									["ch0", "ch1", "ch2", "ch3", "ch4", "ch5", "ch6", "ch7", "ch8", "ch9", "ch10", "ch11", "ch12", "ch13", "ch14", "ch15"])
+		vs_sigch_00 = MVirtualSignal(hwres_AdcGroup, "IN #0", sv_sigch_name_00, MF({0 < ginteger_NumChannels.value}, Boolean), false)
+		hwres_port_00 = MVirtualResourceGroup("Input #0 pin", ["port", "*", "*", "pad", "*"], MF({0 < ginteger_NumChannels.value}, Boolean))
+		@AddPin(pinDisplayName = 'IN #0 pin')
+				vs_port_pad_00 = MVirtualSignal(hwres_port_00, "IN #0 pin", "pad", MF({0 < ginteger_NumChannels.value}, Boolean), false)
+		addConnectionConstraint(vs_port_pad_00, vs_sigch_00)
+
+		sv_sigch_name_01 = SolverVariable()
+		addUriElementRangeConstraint(sv_sigch_name_01,
+									["ch0", "ch1", "ch2", "ch3", "ch4", "ch5", "ch6", "ch7", "ch8", "ch9", "ch10", "ch11", "ch12", "ch13", "ch14", "ch15"])
+		vs_sigch_01 = MVirtualSignal(hwres_AdcGroup, "IN #1", sv_sigch_name_01, MF({1 < ginteger_NumChannels.value}, Boolean), false)
+		hwres_port_01 = MVirtualResourceGroup("Input #1 pin", ["port", "*", "*", "pad", "*"], MF({1 < ginteger_NumChannels.value}, Boolean))
+		@AddPin(pinDisplayName = 'IN #1 pin')
+				vs_port_pad_01 = MVirtualSignal(hwres_port_01, "IN #1 pin", "pad", MF({1 < ginteger_NumChannels.value}, Boolean), false)
+		addConnectionConstraint(vs_port_pad_01, vs_sigch_01)
+
+		sv_sigch_name_02 = SolverVariable()
+		addUriElementRangeConstraint(sv_sigch_name_02,
+									["ch0", "ch1", "ch2", "ch3", "ch4", "ch5", "ch6", "ch7", "ch8", "ch9", "ch10", "ch11", "ch12", "ch13", "ch14", "ch15"])
+		vs_sigch_02 = MVirtualSignal(hwres_AdcGroup, "IN #2", sv_sigch_name_02, MF({2 < ginteger_NumChannels.value}, Boolean), false)
+		hwres_port_02 = MVirtualResourceGroup("Input #2 pin", ["port", "*", "*", "pad", "*"], MF({2 < ginteger_NumChannels.value}, Boolean))
+		@AddPin(pinDisplayName = 'IN #2 pin')
+				vs_port_pad_02 = MVirtualSignal(hwres_port_02, "IN #2 pin", "pad", MF({2 < ginteger_NumChannels.value}, Boolean), false)
+		addConnectionConstraint(vs_port_pad_02, vs_sigch_02)
+
+		sv_sigch_name_03 = SolverVariable()
+		addUriElementRangeConstraint(sv_sigch_name_03,
+									["ch0", "ch1", "ch2", "ch3", "ch4", "ch5", "ch6", "ch7", "ch8", "ch9", "ch10", "ch11", "ch12", "ch13", "ch14", "ch15"])
+		vs_sigch_03 = MVirtualSignal(hwres_AdcGroup, "IN #3", sv_sigch_name_03, MF({3 < ginteger_NumChannels.value}, Boolean), false)
+		hwres_port_03 = MVirtualResourceGroup("Input #3 pin", ["port", "*", "*", "pad", "*"], MF({3 < ginteger_NumChannels.value}, Boolean))
+		@AddPin(pinDisplayName = 'IN #3 pin')
+				vs_port_pad_03 = MVirtualSignal(hwres_port_03, "IN #3 pin", "pad", MF({3 < ginteger_NumChannels.value}, Boolean), false)
+		addConnectionConstraint(vs_port_pad_03, vs_sigch_03)
+
+		sv_sigch_name_04 = SolverVariable()
+		addUriElementRangeConstraint(sv_sigch_name_04,
+									["ch0", "ch1", "ch2", "ch3", "ch4", "ch5", "ch6", "ch7", "ch8", "ch9", "ch10", "ch11", "ch12", "ch13", "ch14", "ch15"])
+		vs_sigch_04 = MVirtualSignal(hwres_AdcGroup, "IN #4", sv_sigch_name_04, MF({4 < ginteger_NumChannels.value}, Boolean), false)
+		hwres_port_04 = MVirtualResourceGroup("Input #4 pin", ["port", "*", "*", "pad", "*"], MF({4 < ginteger_NumChannels.value}, Boolean))
+		@AddPin(pinDisplayName = 'IN #4 pin')
+				vs_port_pad_04 = MVirtualSignal(hwres_port_04, "IN #4 pin", "pad", MF({4 < ginteger_NumChannels.value}, Boolean), false)
+		addConnectionConstraint(vs_port_pad_04, vs_sigch_04)
+
+		sv_sigch_name_05 = SolverVariable()
+		addUriElementRangeConstraint(sv_sigch_name_05,
+									["ch0", "ch1", "ch2", "ch3", "ch4", "ch5", "ch6", "ch7", "ch8", "ch9", "ch10", "ch11", "ch12", "ch13", "ch14", "ch15"])
+		vs_sigch_05 = MVirtualSignal(hwres_AdcGroup, "IN #5", sv_sigch_name_05, MF({5 < ginteger_NumChannels.value}, Boolean), false)
+		hwres_port_05 = MVirtualResourceGroup("Input #5 pin", ["port", "*", "*", "pad", "*"], MF({5 < ginteger_NumChannels.value}, Boolean))
+		@AddPin(pinDisplayName = 'IN #5 pin')
+				vs_port_pad_05 = MVirtualSignal(hwres_port_05, "IN #5 pin", "pad", MF({5 < ginteger_NumChannels.value}, Boolean), false)
+		addConnectionConstraint(vs_port_pad_05, vs_sigch_05)
+
+		sv_sigch_name_06 = SolverVariable()
+		addUriElementRangeConstraint(sv_sigch_name_06,
+									["ch0", "ch1", "ch2", "ch3", "ch4", "ch5", "ch6", "ch7", "ch8", "ch9", "ch10", "ch11", "ch12", "ch13", "ch14", "ch15"])
+		vs_sigch_06 = MVirtualSignal(hwres_AdcGroup, "IN #6", sv_sigch_name_06, MF({6 < ginteger_NumChannels.value}, Boolean), false)
+		hwres_port_06 = MVirtualResourceGroup("Input #6 pin", ["port", "*", "*", "pad", "*"], MF({6 < ginteger_NumChannels.value}, Boolean))
+		@AddPin(pinDisplayName = 'IN #6 pin')
+				vs_port_pad_06 = MVirtualSignal(hwres_port_06, "IN #6 pin", "pad", MF({6 < ginteger_NumChannels.value}, Boolean), false)
+		addConnectionConstraint(vs_port_pad_06, vs_sigch_06)
+
+		sv_sigch_name_07 = SolverVariable()
+		addUriElementRangeConstraint(sv_sigch_name_07,
+									["ch0", "ch1", "ch2", "ch3", "ch4", "ch5", "ch6", "ch7", "ch8", "ch9", "ch10", "ch11", "ch12", "ch13", "ch14", "ch15"])
+		vs_sigch_07 = MVirtualSignal(hwres_AdcGroup, "IN #7", sv_sigch_name_07, MF({7 < ginteger_NumChannels.value}, Boolean), false)
+		hwres_port_07 = MVirtualResourceGroup("Input #7 pin", ["port", "*", "*", "pad", "*"], MF({7 < ginteger_NumChannels.value}, Boolean))
+		@AddPin(pinDisplayName = 'IN #7 pin')
+				vs_port_pad_07 = MVirtualSignal(hwres_port_07, "IN #7 pin", "pad", MF({7 < ginteger_NumChannels.value}, Boolean), false)
+		addConnectionConstraint(vs_port_pad_07, vs_sigch_07)
+
+		sv_sigch_name_08 = SolverVariable()
+		addUriElementRangeConstraint(sv_sigch_name_08,
+									["ch0", "ch1", "ch2", "ch3", "ch4", "ch5", "ch6", "ch7", "ch8", "ch9", "ch10", "ch11", "ch12", "ch13", "ch14", "ch15"])
+		vs_sigch_08 = MVirtualSignal(hwres_AdcGroup, "IN #8", sv_sigch_name_08, MF({8 < ginteger_NumChannels.value}, Boolean), false)
+		hwres_port_08 = MVirtualResourceGroup("Input #8 pin", ["port", "*", "*", "pad", "*"], MF({8 < ginteger_NumChannels.value}, Boolean))
+		@AddPin(pinDisplayName = 'IN #8 pin')
+				vs_port_pad_08 = MVirtualSignal(hwres_port_08, "IN #8 pin", "pad", MF({8 < ginteger_NumChannels.value}, Boolean), false)
+		addConnectionConstraint(vs_port_pad_08, vs_sigch_08)
+
+		sv_sigch_name_09 = SolverVariable()
+		addUriElementRangeConstraint(sv_sigch_name_09,
+									["ch0", "ch1", "ch2", "ch3", "ch4", "ch5", "ch6", "ch7", "ch8", "ch9", "ch10", "ch11", "ch12", "ch13", "ch14", "ch15"])
+		vs_sigch_09 = MVirtualSignal(hwres_AdcGroup, "IN #9", sv_sigch_name_09, MF({9 < ginteger_NumChannels.value}, Boolean), false)
+		hwres_port_09 = MVirtualResourceGroup("Input #9 pin", ["port", "*", "*", "pad", "*"], MF({9 < ginteger_NumChannels.value}, Boolean))
+		@AddPin(pinDisplayName = 'IN #9 pin')
+				vs_port_pad_09 = MVirtualSignal(hwres_port_09, "IN #9 pin", "pad", MF({9 < ginteger_NumChannels.value}, Boolean), false)
+		addConnectionConstraint(vs_port_pad_09, vs_sigch_09)
+
+		sv_sigch_name_10 = SolverVariable()
+		addUriElementRangeConstraint(sv_sigch_name_10,
+									["ch0", "ch1", "ch2", "ch3", "ch4", "ch5", "ch6", "ch7", "ch8", "ch9", "ch10", "ch11", "ch12", "ch13", "ch14", "ch15"])
+		vs_sigch_10 = MVirtualSignal(hwres_AdcGroup, "IN #10", sv_sigch_name_10, MF({10 < ginteger_NumChannels.value}, Boolean), false)
+		hwres_port_10 = MVirtualResourceGroup("Input #10 pin", ["port", "*", "*", "pad", "*"], MF({10 < ginteger_NumChannels.value}, Boolean))
+		@AddPin(pinDisplayName = 'IN #10 pin')
+				vs_port_pad_10 = MVirtualSignal(hwres_port_10, "IN #10 pin", "pad", MF({10 < ginteger_NumChannels.value}, Boolean), false)
+		addConnectionConstraint(vs_port_pad_10, vs_sigch_10)
+
+		sv_sigch_name_11 = SolverVariable()
+		addUriElementRangeConstraint(sv_sigch_name_11,
+									["ch0", "ch1", "ch2", "ch3", "ch4", "ch5", "ch6", "ch7", "ch8", "ch9", "ch10", "ch11", "ch12", "ch13", "ch14", "ch15"])
+		vs_sigch_11 = MVirtualSignal(hwres_AdcGroup, "IN #11", sv_sigch_name_11, MF({11 < ginteger_NumChannels.value}, Boolean), false)
+		hwres_port_11 = MVirtualResourceGroup("Input #11 pin", ["port", "*", "*", "pad", "*"], MF({11 < ginteger_NumChannels.value}, Boolean))
+		@AddPin(pinDisplayName = 'IN #11 pin')
+				vs_port_pad_11 = MVirtualSignal(hwres_port_11, "IN #11 pin", "pad", MF({11 < ginteger_NumChannels.value}, Boolean), false)
+		addConnectionConstraint(vs_port_pad_11, vs_sigch_11)
+
+		sv_sigch_name_12 = SolverVariable()
+		addUriElementRangeConstraint(sv_sigch_name_12,
+									["ch0", "ch1", "ch2", "ch3", "ch4", "ch5", "ch6", "ch7", "ch8", "ch9", "ch10", "ch11", "ch12", "ch13", "ch14", "ch15"])
+		vs_sigch_12 = MVirtualSignal(hwres_AdcGroup, "IN #12", sv_sigch_name_12, MF({12 < ginteger_NumChannels.value}, Boolean), false)
+		hwres_port_12 = MVirtualResourceGroup("Input #12 pin", ["port", "*", "*", "pad", "*"], MF({12 < ginteger_NumChannels.value}, Boolean))
+		@AddPin(pinDisplayName = 'IN #12 pin')
+				vs_port_pad_12 = MVirtualSignal(hwres_port_12, "IN #12 pin", "pad", MF({12 < ginteger_NumChannels.value}, Boolean), false)
+		addConnectionConstraint(vs_port_pad_12, vs_sigch_12)
+
+		sv_sigch_name_13 = SolverVariable()
+		addUriElementRangeConstraint(sv_sigch_name_13,
+									["ch0", "ch1", "ch2", "ch3", "ch4", "ch5", "ch6", "ch7", "ch8", "ch9", "ch10", "ch11", "ch12", "ch13", "ch14", "ch15"])
+		vs_sigch_13 = MVirtualSignal(hwres_AdcGroup, "IN #13", sv_sigch_name_13, MF({13 < ginteger_NumChannels.value}, Boolean), false)
+		hwres_port_13 = MVirtualResourceGroup("Input #13 pin", ["port", "*", "*", "pad", "*"], MF({13 < ginteger_NumChannels.value}, Boolean))
+		@AddPin(pinDisplayName = 'IN #13 pin')
+				vs_port_pad_13 = MVirtualSignal(hwres_port_13, "IN #13 pin", "pad", MF({13 < ginteger_NumChannels.value}, Boolean), false)
+		addConnectionConstraint(vs_port_pad_13, vs_sigch_13)
+
+		sv_sigch_name_14 = SolverVariable()
+		addUriElementRangeConstraint(sv_sigch_name_14,
+									["ch0", "ch1", "ch2", "ch3", "ch4", "ch5", "ch6", "ch7", "ch8", "ch9", "ch10", "ch11", "ch12", "ch13", "ch14", "ch15"])
+		vs_sigch_14 = MVirtualSignal(hwres_AdcGroup, "IN #14", sv_sigch_name_14, MF({14 < ginteger_NumChannels.value}, Boolean), false)
+		hwres_port_14 = MVirtualResourceGroup("Input #14 pin", ["port", "*", "*", "pad", "*"], MF({14 < ginteger_NumChannels.value}, Boolean))
+		@AddPin(pinDisplayName = 'IN #14 pin')
+				vs_port_pad_14 = MVirtualSignal(hwres_port_14, "IN #14 pin", "pad", MF({14 < ginteger_NumChannels.value}, Boolean), false)
+		addConnectionConstraint(vs_port_pad_14, vs_sigch_14)
+
+		sv_sigch_name_15 = SolverVariable()
+		addUriElementRangeConstraint(sv_sigch_name_15,
+									["ch0", "ch1", "ch2", "ch3", "ch4", "ch5", "ch6", "ch7", "ch8", "ch9", "ch10", "ch11", "ch12", "ch13", "ch14", "ch15"])
+		vs_sigch_15 = MVirtualSignal(hwres_AdcGroup, "IN #15", sv_sigch_name_15, MF({15 < ginteger_NumChannels.value}, Boolean), false)
+		hwres_port_15 = MVirtualResourceGroup("Input #15 pin", ["port", "*", "*", "pad", "*"], MF({15 < ginteger_NumChannels.value}, Boolean))
+		@AddPin(pinDisplayName = 'IN #15 pin')
+				vs_port_pad_15 = MVirtualSignal(hwres_port_15, "IN #15 pin", "pad", MF({15 < ginteger_NumChannels.value}, Boolean), false)
+		addConnectionConstraint(vs_port_pad_15, vs_sigch_15)
+
+
+		// -------------- GUI MF Functions -------------------------------------------------------------------------- //
+
+		debug("SolverVariable -> sv_sigch_name_00: ${sv_sigch_name_00.getSolverValue()}", MSG_INFORMATION);
+		// Output when correctly allocated -> DEBUG: SolverVariable -> sv_sigch_name_00: ch0
+		debug("MVirtualSignal -> vs_sigch_00 :"
+				+ vs_sigch_00.getSolverMap().collect { key, value -> "$key=${value?.getSolverValue() ?: 'unknown'}"}.join(", "), MSG_INFORMATION);
+		// Output when correctly allocated -> MVirtualSignal -> vs_sigch_00 :sv0=ch0
+		// return !sv_sigch_name_00.getSolverValue() && sv_sigch_name_00.getSolverValue().startsWith("ch"); // Check if solver assigned something :)
+
+		// Auto Start checkbox is enabled only if trigger is set to none (external trigger always result in conversion start after init)
+		gcheck_autostart.visible = MF({	return gcombo_TriggerEdge.value == "None"; }, Boolean)
+		gcheck_autostart_dis.visible = MF({	return !gcheck_autostart.visible }, Boolean)
+		gstring_autoStart.value = MF({if(gcheck_autostart.value || !gcheck_autostart.visible ) return "TRUE"; else return "FALSE";}, String);
+
+		// A Nasty hack to check how many channels are enabled
+		// We can check if a channel is enabled if the solver was able to grant the number of requested channels
+		// If the solver fails, the value of the ginteger_NumChannels will reset to last known working number
+		MF MF_CH00_Enabled = MF({ return ginteger_NumChannels.value > 0  }, Boolean);
+		MF MF_CH01_Enabled = MF({ return ginteger_NumChannels.value > 1  }, Boolean);
+		MF MF_CH02_Enabled = MF({ return ginteger_NumChannels.value > 2  }, Boolean);
+		MF MF_CH03_Enabled = MF({ return ginteger_NumChannels.value > 3  }, Boolean);
+		MF MF_CH04_Enabled = MF({ return ginteger_NumChannels.value > 4  }, Boolean);
+		MF MF_CH05_Enabled = MF({ return ginteger_NumChannels.value > 5  }, Boolean);
+		MF MF_CH06_Enabled = MF({ return ginteger_NumChannels.value > 6  }, Boolean);
+		MF MF_CH07_Enabled = MF({ return ginteger_NumChannels.value > 7  }, Boolean);
+		MF MF_CH08_Enabled = MF({ return ginteger_NumChannels.value > 8  }, Boolean);
+		MF MF_CH09_Enabled = MF({ return ginteger_NumChannels.value > 9  }, Boolean);
+		MF MF_CH10_Enabled = MF({ return ginteger_NumChannels.value > 10 }, Boolean);
+		MF MF_CH11_Enabled = MF({ return ginteger_NumChannels.value > 11 }, Boolean);
+		MF MF_CH12_Enabled = MF({ return ginteger_NumChannels.value > 12 }, Boolean);
+		MF MF_CH13_Enabled = MF({ return ginteger_NumChannels.value > 13 }, Boolean);
+		MF MF_CH14_Enabled = MF({ return ginteger_NumChannels.value > 14 }, Boolean);
+		MF MF_CH15_Enabled = MF({ return ginteger_NumChannels.value > 15 }, Boolean);
+
+		MF MF_CH00_ServiceRequestEnabled = MF({return ginteger_NumChannels.value > 0  && gcombo_EventGenerationChannel00.value != "None"}, Boolean);
+		MF MF_CH01_ServiceRequestEnabled = MF({return ginteger_NumChannels.value > 1  && gcombo_EventGenerationChannel01.value != "None"}, Boolean);
+		MF MF_CH02_ServiceRequestEnabled = MF({return ginteger_NumChannels.value > 2  && gcombo_EventGenerationChannel02.value != "None"}, Boolean);
+		MF MF_CH03_ServiceRequestEnabled = MF({return ginteger_NumChannels.value > 3  && gcombo_EventGenerationChannel03.value != "None"}, Boolean);
+		MF MF_CH04_ServiceRequestEnabled = MF({return ginteger_NumChannels.value > 4  && gcombo_EventGenerationChannel04.value != "None"}, Boolean);
+		MF MF_CH05_ServiceRequestEnabled = MF({return ginteger_NumChannels.value > 5  && gcombo_EventGenerationChannel05.value != "None"}, Boolean);
+		MF MF_CH06_ServiceRequestEnabled = MF({return ginteger_NumChannels.value > 6  && gcombo_EventGenerationChannel06.value != "None"}, Boolean);
+		MF MF_CH07_ServiceRequestEnabled = MF({return ginteger_NumChannels.value > 7  && gcombo_EventGenerationChannel07.value != "None"}, Boolean);
+		MF MF_CH08_ServiceRequestEnabled = MF({return ginteger_NumChannels.value > 8  && gcombo_EventGenerationChannel08.value != "None"}, Boolean);
+		MF MF_CH09_ServiceRequestEnabled = MF({return ginteger_NumChannels.value > 9  && gcombo_EventGenerationChannel09.value != "None"}, Boolean);
+		MF MF_CH10_ServiceRequestEnabled = MF({return ginteger_NumChannels.value > 10 && gcombo_EventGenerationChannel10.value != "None"}, Boolean);
+		MF MF_CH11_ServiceRequestEnabled = MF({return ginteger_NumChannels.value > 11 && gcombo_EventGenerationChannel11.value != "None"}, Boolean);
+		MF MF_CH12_ServiceRequestEnabled = MF({return ginteger_NumChannels.value > 12 && gcombo_EventGenerationChannel12.value != "None"}, Boolean);
+		MF MF_CH13_ServiceRequestEnabled = MF({return ginteger_NumChannels.value > 13 && gcombo_EventGenerationChannel13.value != "None"}, Boolean);
+		MF MF_CH14_ServiceRequestEnabled = MF({return ginteger_NumChannels.value > 14 && gcombo_EventGenerationChannel14.value != "None"}, Boolean);
+		MF MF_CH15_ServiceRequestEnabled = MF({return ginteger_NumChannels.value > 15 && gcombo_EventGenerationChannel15.value != "None"}, Boolean);
+
+		MF MF_CH00_ServiceRequestToCPU = MF({return ginteger_NumChannels.value > 0  &&  gcombo_EventGenerationChannel00.value == "CPU"}, Boolean);
+		MF MF_CH01_ServiceRequestToCPU = MF({return ginteger_NumChannels.value > 1  &&  gcombo_EventGenerationChannel01.value == "CPU"}, Boolean);
+		MF MF_CH02_ServiceRequestToCPU = MF({return ginteger_NumChannels.value > 2  &&  gcombo_EventGenerationChannel02.value == "CPU"}, Boolean);
+		MF MF_CH03_ServiceRequestToCPU = MF({return ginteger_NumChannels.value > 3  &&  gcombo_EventGenerationChannel03.value == "CPU"}, Boolean);
+		MF MF_CH04_ServiceRequestToCPU = MF({return ginteger_NumChannels.value > 4  &&  gcombo_EventGenerationChannel04.value == "CPU"}, Boolean);
+		MF MF_CH05_ServiceRequestToCPU = MF({return ginteger_NumChannels.value > 5  &&  gcombo_EventGenerationChannel05.value == "CPU"}, Boolean);
+		MF MF_CH06_ServiceRequestToCPU = MF({return ginteger_NumChannels.value > 6  &&  gcombo_EventGenerationChannel06.value == "CPU"}, Boolean);
+		MF MF_CH07_ServiceRequestToCPU = MF({return ginteger_NumChannels.value > 7  &&  gcombo_EventGenerationChannel07.value == "CPU"}, Boolean);
+		MF MF_CH08_ServiceRequestToCPU = MF({return ginteger_NumChannels.value > 8  &&  gcombo_EventGenerationChannel08.value == "CPU"}, Boolean);
+		MF MF_CH09_ServiceRequestToCPU = MF({return ginteger_NumChannels.value > 9  &&  gcombo_EventGenerationChannel09.value == "CPU"}, Boolean);
+		MF MF_CH10_ServiceRequestToCPU = MF({return ginteger_NumChannels.value > 10 &&  gcombo_EventGenerationChannel10.value == "CPU"}, Boolean);
+		MF MF_CH11_ServiceRequestToCPU = MF({return ginteger_NumChannels.value > 11 &&  gcombo_EventGenerationChannel11.value == "CPU"}, Boolean);
+		MF MF_CH12_ServiceRequestToCPU = MF({return ginteger_NumChannels.value > 12 &&  gcombo_EventGenerationChannel12.value == "CPU"}, Boolean);
+		MF MF_CH13_ServiceRequestToCPU = MF({return ginteger_NumChannels.value > 13 &&  gcombo_EventGenerationChannel13.value == "CPU"}, Boolean);
+		MF MF_CH14_ServiceRequestToCPU = MF({return ginteger_NumChannels.value > 14 &&  gcombo_EventGenerationChannel14.value == "CPU"}, Boolean);
+		MF MF_CH15_ServiceRequestToCPU = MF({return ginteger_NumChannels.value > 15 &&  gcombo_EventGenerationChannel15.value == "CPU"}, Boolean);
+
+		// Name validation for custom channel names
+		MF MF_errorinfo_string = MF(
+				{
+					if (!( // Negation because reverse logic for visibility of gmessage widget
+							gstring_Channel00Name.value ==~ mCStyleRegexPattern &&
+							gstring_Channel01Name.value ==~ mCStyleRegexPattern &&
+							gstring_Channel02Name.value ==~ mCStyleRegexPattern &&
+							gstring_Channel03Name.value ==~ mCStyleRegexPattern &&
+							gstring_Channel04Name.value ==~ mCStyleRegexPattern &&
+							gstring_Channel05Name.value ==~ mCStyleRegexPattern &&
+							gstring_Channel06Name.value ==~ mCStyleRegexPattern &&
+							gstring_Channel07Name.value ==~ mCStyleRegexPattern &&
+							gstring_Channel08Name.value ==~ mCStyleRegexPattern &&
+							gstring_Channel09Name.value ==~ mCStyleRegexPattern &&
+							gstring_Channel10Name.value ==~ mCStyleRegexPattern &&
+							gstring_Channel11Name.value ==~ mCStyleRegexPattern &&
+							gstring_Channel12Name.value ==~ mCStyleRegexPattern &&
+							gstring_Channel13Name.value ==~ mCStyleRegexPattern &&
+							gstring_Channel14Name.value ==~ mCStyleRegexPattern &&
+							gstring_Channel15Name.value ==~ mCStyleRegexPattern))
+					{
+						return "Please use C Style names for channels!";
+					}
+					List<String> names = [
+						gstring_Channel00Name.value,
+						gstring_Channel01Name.value,
+						gstring_Channel02Name.value,
+						gstring_Channel03Name.value,
+						gstring_Channel04Name.value,
+						gstring_Channel05Name.value,
+						gstring_Channel06Name.value,
+						gstring_Channel07Name.value,
+						gstring_Channel08Name.value,
+						gstring_Channel09Name.value,
+						gstring_Channel10Name.value,
+						gstring_Channel11Name.value,
+						gstring_Channel12Name.value,
+						gstring_Channel13Name.value,
+						gstring_Channel14Name.value,
+						gstring_Channel15Name.value
+					];
+					if (new HashSet(names).size() != names.size())
+					{
+						return "Please use a unique names for each channel!";
+					}
+					return "";
+				}, String);
+
+
+		// -------------- Required APPs ----------------------------------------------------------------------------- //
+
+		// If result event per channel selected, get INTERRUPT_CONFIG APP from the solver
+		appres_icfg00 = MRequiredApp("INTERRUPT_CONFIG", "INTERRUPT_CONFIG APP #0", RNOTSHARABLE, "4.0.2", MF_CH00_ServiceRequestToCPU);
+		appres_icfg01 = MRequiredApp("INTERRUPT_CONFIG", "INTERRUPT_CONFIG APP #1", RNOTSHARABLE, "4.0.2", MF_CH01_ServiceRequestToCPU);
+		appres_icfg02 = MRequiredApp("INTERRUPT_CONFIG", "INTERRUPT_CONFIG APP #2", RNOTSHARABLE, "4.0.2", MF_CH02_ServiceRequestToCPU);
+		appres_icfg03 = MRequiredApp("INTERRUPT_CONFIG", "INTERRUPT_CONFIG APP #3", RNOTSHARABLE, "4.0.2", MF_CH03_ServiceRequestToCPU);
+		appres_icfg04 = MRequiredApp("INTERRUPT_CONFIG", "INTERRUPT_CONFIG APP #4", RNOTSHARABLE, "4.0.2", MF_CH04_ServiceRequestToCPU);
+		appres_icfg05 = MRequiredApp("INTERRUPT_CONFIG", "INTERRUPT_CONFIG APP #5", RNOTSHARABLE, "4.0.2", MF_CH05_ServiceRequestToCPU);
+		appres_icfg06 = MRequiredApp("INTERRUPT_CONFIG", "INTERRUPT_CONFIG APP #6", RNOTSHARABLE, "4.0.2", MF_CH06_ServiceRequestToCPU);
+		appres_icfg07 = MRequiredApp("INTERRUPT_CONFIG", "INTERRUPT_CONFIG APP #7", RNOTSHARABLE, "4.0.2", MF_CH07_ServiceRequestToCPU);
+		appres_icfg08 = MRequiredApp("INTERRUPT_CONFIG", "INTERRUPT_CONFIG APP #8", RNOTSHARABLE, "4.0.2", MF_CH08_ServiceRequestToCPU);
+		appres_icfg09 = MRequiredApp("INTERRUPT_CONFIG", "INTERRUPT_CONFIG APP #9", RNOTSHARABLE, "4.0.2", MF_CH09_ServiceRequestToCPU);
+		appres_icfg10 = MRequiredApp("INTERRUPT_CONFIG", "INTERRUPT_CONFIG APP #10", RNOTSHARABLE, "4.0.2", MF_CH10_ServiceRequestToCPU);
+		appres_icfg11 = MRequiredApp("INTERRUPT_CONFIG", "INTERRUPT_CONFIG APP #11", RNOTSHARABLE, "4.0.2", MF_CH11_ServiceRequestToCPU);
+		appres_icfg12 = MRequiredApp("INTERRUPT_CONFIG", "INTERRUPT_CONFIG APP #12", RNOTSHARABLE, "4.0.2", MF_CH12_ServiceRequestToCPU);
+		appres_icfg13 = MRequiredApp("INTERRUPT_CONFIG", "INTERRUPT_CONFIG APP #13", RNOTSHARABLE, "4.0.2", MF_CH13_ServiceRequestToCPU);
+		appres_icfg14 = MRequiredApp("INTERRUPT_CONFIG", "INTERRUPT_CONFIG APP #14", RNOTSHARABLE, "4.0.2", MF_CH14_ServiceRequestToCPU);
+		appres_icfg15 = MRequiredApp("INTERRUPT_CONFIG", "INTERRUPT_CONFIG APP #15", RNOTSHARABLE, "4.0.2", MF_CH15_ServiceRequestToCPU);
+
+		vs_appres_icfg00 = MVirtualSignalRA(appres_icfg00, "vs_interrupt_in");
+		vs_appres_icfg01 = MVirtualSignalRA(appres_icfg01, "vs_interrupt_in");
+		vs_appres_icfg02 = MVirtualSignalRA(appres_icfg02, "vs_interrupt_in");
+		vs_appres_icfg03 = MVirtualSignalRA(appres_icfg03, "vs_interrupt_in");
+		vs_appres_icfg04 = MVirtualSignalRA(appres_icfg04, "vs_interrupt_in");
+		vs_appres_icfg05 = MVirtualSignalRA(appres_icfg05, "vs_interrupt_in");
+		vs_appres_icfg06 = MVirtualSignalRA(appres_icfg06, "vs_interrupt_in");
+		vs_appres_icfg07 = MVirtualSignalRA(appres_icfg07, "vs_interrupt_in");
+		vs_appres_icfg08 = MVirtualSignalRA(appres_icfg08, "vs_interrupt_in");
+		vs_appres_icfg09 = MVirtualSignalRA(appres_icfg09, "vs_interrupt_in");
+		vs_appres_icfg10 = MVirtualSignalRA(appres_icfg10, "vs_interrupt_in");
+		vs_appres_icfg11 = MVirtualSignalRA(appres_icfg11, "vs_interrupt_in");
+		vs_appres_icfg12 = MVirtualSignalRA(appres_icfg12, "vs_interrupt_in");
+		vs_appres_icfg13 = MVirtualSignalRA(appres_icfg13, "vs_interrupt_in");
+		vs_appres_icfg14 = MVirtualSignalRA(appres_icfg14, "vs_interrupt_in");
+		vs_appres_icfg15 = MVirtualSignalRA(appres_icfg15, "vs_interrupt_in");
+
+		/* -------------- Event and Interrupt Signals --------------------------------------------------------------- */
+		vs_sigRev00 = MVirtualSignal(hwres_AdcGroup, "INT #0",  "rev0" , (MF_CH00_ServiceRequestEnabled), (MF_CH00_ServiceRequestEnabled));
+		vs_sigRev01 = MVirtualSignal(hwres_AdcGroup, "INT #1",  "rev1" , (MF_CH01_ServiceRequestEnabled), (MF_CH01_ServiceRequestEnabled));
+		vs_sigRev02 = MVirtualSignal(hwres_AdcGroup, "INT #2",  "rev2" , (MF_CH02_ServiceRequestEnabled), (MF_CH02_ServiceRequestEnabled));
+		vs_sigRev03 = MVirtualSignal(hwres_AdcGroup, "INT #3",  "rev3" , (MF_CH03_ServiceRequestEnabled), (MF_CH03_ServiceRequestEnabled));
+		vs_sigRev04 = MVirtualSignal(hwres_AdcGroup, "INT #4",  "rev4" , (MF_CH04_ServiceRequestEnabled), (MF_CH04_ServiceRequestEnabled));
+		vs_sigRev05 = MVirtualSignal(hwres_AdcGroup, "INT #5",  "rev5" , (MF_CH05_ServiceRequestEnabled), (MF_CH05_ServiceRequestEnabled));
+		vs_sigRev06 = MVirtualSignal(hwres_AdcGroup, "INT #6",  "rev6" , (MF_CH06_ServiceRequestEnabled), (MF_CH06_ServiceRequestEnabled));
+		vs_sigRev07 = MVirtualSignal(hwres_AdcGroup, "INT #7",  "rev7" , (MF_CH07_ServiceRequestEnabled), (MF_CH07_ServiceRequestEnabled));
+		vs_sigRev08 = MVirtualSignal(hwres_AdcGroup, "INT #8",  "rev8" , (MF_CH08_ServiceRequestEnabled), (MF_CH08_ServiceRequestEnabled));
+		vs_sigRev09 = MVirtualSignal(hwres_AdcGroup, "INT #9",  "rev9" , (MF_CH09_ServiceRequestEnabled), (MF_CH09_ServiceRequestEnabled));
+		vs_sigRev10 = MVirtualSignal(hwres_AdcGroup, "INT #10", "rev10", (MF_CH10_ServiceRequestEnabled), (MF_CH10_ServiceRequestEnabled));
+		vs_sigRev11 = MVirtualSignal(hwres_AdcGroup, "INT #11", "rev11", (MF_CH11_ServiceRequestEnabled), (MF_CH11_ServiceRequestEnabled));
+		vs_sigRev12 = MVirtualSignal(hwres_AdcGroup, "INT #12", "rev12", (MF_CH12_ServiceRequestEnabled), (MF_CH12_ServiceRequestEnabled));
+		vs_sigRev13 = MVirtualSignal(hwres_AdcGroup, "INT #13", "rev13", (MF_CH13_ServiceRequestEnabled), (MF_CH13_ServiceRequestEnabled));
+		vs_sigRev14 = MVirtualSignal(hwres_AdcGroup, "INT #14", "rev14", (MF_CH14_ServiceRequestEnabled), (MF_CH14_ServiceRequestEnabled));
+		vs_sigRev15 = MVirtualSignal(hwres_AdcGroup, "INT #15", "rev15", (MF_CH15_ServiceRequestEnabled), (MF_CH15_ServiceRequestEnabled));
+
+		// Connections for channel events and interrupt_config appres
+		addConnectionConstraint(vs_sigRev00, vs_appres_icfg00, MF_CH00_ServiceRequestToCPU);
+		addConnectionConstraint(vs_sigRev01, vs_appres_icfg01, MF_CH01_ServiceRequestToCPU);
+		addConnectionConstraint(vs_sigRev02, vs_appres_icfg02, MF_CH02_ServiceRequestToCPU);
+		addConnectionConstraint(vs_sigRev03, vs_appres_icfg03, MF_CH03_ServiceRequestToCPU);
+		addConnectionConstraint(vs_sigRev04, vs_appres_icfg04, MF_CH04_ServiceRequestToCPU);
+		addConnectionConstraint(vs_sigRev05, vs_appres_icfg05, MF_CH05_ServiceRequestToCPU);
+		addConnectionConstraint(vs_sigRev06, vs_appres_icfg06, MF_CH06_ServiceRequestToCPU);
+		addConnectionConstraint(vs_sigRev07, vs_appres_icfg07, MF_CH07_ServiceRequestToCPU);
+		addConnectionConstraint(vs_sigRev08, vs_appres_icfg08, MF_CH08_ServiceRequestToCPU);
+		addConnectionConstraint(vs_sigRev09, vs_appres_icfg09, MF_CH09_ServiceRequestToCPU);
+		addConnectionConstraint(vs_sigRev10, vs_appres_icfg10, MF_CH10_ServiceRequestToCPU);
+		addConnectionConstraint(vs_sigRev11, vs_appres_icfg11, MF_CH11_ServiceRequestToCPU);
+		addConnectionConstraint(vs_sigRev12, vs_appres_icfg12, MF_CH12_ServiceRequestToCPU);
+		addConnectionConstraint(vs_sigRev13, vs_appres_icfg13, MF_CH13_ServiceRequestToCPU);
+		addConnectionConstraint(vs_sigRev14, vs_appres_icfg14, MF_CH14_ServiceRequestToCPU);
+		addConnectionConstraint(vs_sigRev15, vs_appres_icfg15, MF_CH15_ServiceRequestToCPU);
+
+		// Trigger flag (if none, the software should start/stop conversion)
+		MF MF_is_exttrig = MF({gcombo_TriggerEdge.value != "None"}, Boolean)
+		vs_exttrig = MVirtualSignal(hwres_AdcGroup, "TRG", "reqtr0", MF_is_exttrig, MF_is_exttrig)
+
+		//-------------------	CHANNEL SETTINGS TAB									 -------------------//
+		//-------------------	CHANNELS VISIBILITY BASED ON REQUIRED NUMBER OF CHANNELS -------------------//		
+		gstring_Channel00Name.visible		= MF_CH00_Enabled;
+		gstring_Channel01Name.visible		= MF_CH01_Enabled;
+		gstring_Channel02Name.visible		= MF_CH02_Enabled;
+		gstring_Channel03Name.visible		= MF_CH03_Enabled;
+		gstring_Channel04Name.visible		= MF_CH04_Enabled;
+		gstring_Channel05Name.visible		= MF_CH05_Enabled;
+		gstring_Channel06Name.visible		= MF_CH06_Enabled;
+		gstring_Channel07Name.visible		= MF_CH07_Enabled;
+		gstring_Channel08Name.visible		= MF_CH08_Enabled;
+		gstring_Channel09Name.visible		= MF_CH09_Enabled;
+		gstring_Channel10Name.visible		= MF_CH10_Enabled;
+		gstring_Channel11Name.visible		= MF_CH11_Enabled;
+		gstring_Channel12Name.visible		= MF_CH12_Enabled;
+		gstring_Channel13Name.visible		= MF_CH13_Enabled;
+		gstring_Channel14Name.visible		= MF_CH14_Enabled;
+		gstring_Channel15Name.visible		= MF_CH15_Enabled;
+
+		glabel_ch0.visible					= MF_CH00_Enabled;
+		glabel_ch1.visible					= MF_CH01_Enabled;
+		glabel_ch2.visible					= MF_CH02_Enabled;
+		glabel_ch3.visible					= MF_CH03_Enabled;
+		glabel_ch4.visible					= MF_CH04_Enabled;
+		glabel_ch5.visible					= MF_CH05_Enabled;
+		glabel_ch6.visible					= MF_CH06_Enabled;
+		glabel_ch7.visible					= MF_CH07_Enabled;
+		glabel_ch8.visible					= MF_CH08_Enabled;
+		glabel_ch9.visible					= MF_CH09_Enabled;
+		glabel_ch10.visible					= MF_CH10_Enabled;
+		glabel_ch11.visible					= MF_CH11_Enabled;
+		glabel_ch12.visible					= MF_CH12_Enabled;
+		glabel_ch13.visible					= MF_CH13_Enabled;
+		glabel_ch14.visible					= MF_CH14_Enabled;
+		glabel_ch15.visible					= MF_CH15_Enabled;
+
+		gcheck_Channel00WfrEnabled.visible	= MF_CH00_Enabled;
+		gcheck_Channel01WfrEnabled.visible	= MF_CH01_Enabled;
+		gcheck_Channel02WfrEnabled.visible	= MF_CH02_Enabled;
+		gcheck_Channel03WfrEnabled.visible	= MF_CH03_Enabled;
+		gcheck_Channel04WfrEnabled.visible	= MF_CH04_Enabled;
+		gcheck_Channel05WfrEnabled.visible	= MF_CH05_Enabled;
+		gcheck_Channel06WfrEnabled.visible	= MF_CH06_Enabled;
+		gcheck_Channel07WfrEnabled.visible	= MF_CH07_Enabled;
+		gcheck_Channel08WfrEnabled.visible	= MF_CH08_Enabled;
+		gcheck_Channel09WfrEnabled.visible	= MF_CH09_Enabled;
+		gcheck_Channel10WfrEnabled.visible	= MF_CH10_Enabled;
+		gcheck_Channel11WfrEnabled.visible	= MF_CH11_Enabled;
+		gcheck_Channel12WfrEnabled.visible	= MF_CH12_Enabled;
+		gcheck_Channel13WfrEnabled.visible	= MF_CH13_Enabled;
+		gcheck_Channel14WfrEnabled.visible	= MF_CH14_Enabled;
+		gcheck_Channel15WfrEnabled.visible	= MF_CH15_Enabled;
+
+		gcombo_EventGenerationChannel00.visible	= MF_CH00_Enabled;
+		gcombo_EventGenerationChannel01.visible	= MF_CH01_Enabled;
+		gcombo_EventGenerationChannel02.visible	= MF_CH02_Enabled;
+		gcombo_EventGenerationChannel03.visible	= MF_CH03_Enabled;
+		gcombo_EventGenerationChannel04.visible	= MF_CH04_Enabled;
+		gcombo_EventGenerationChannel05.visible	= MF_CH05_Enabled;
+		gcombo_EventGenerationChannel06.visible	= MF_CH06_Enabled;
+		gcombo_EventGenerationChannel07.visible	= MF_CH07_Enabled;
+		gcombo_EventGenerationChannel08.visible	= MF_CH08_Enabled;
+		gcombo_EventGenerationChannel09.visible	= MF_CH09_Enabled;
+		gcombo_EventGenerationChannel10.visible	= MF_CH10_Enabled;
+		gcombo_EventGenerationChannel11.visible	= MF_CH11_Enabled;
+		gcombo_EventGenerationChannel12.visible	= MF_CH12_Enabled;
+		gcombo_EventGenerationChannel13.visible	= MF_CH13_Enabled;
+		gcombo_EventGenerationChannel14.visible	= MF_CH14_Enabled;
+		gcombo_EventGenerationChannel15.visible	= MF_CH15_Enabled;
+
+
+		// Toggle message fields if names are invalid or not unique
+		gmessage_errorinfo.text = MF_errorinfo_string;
+		gmessage_errorinfo.visible = MF({gmessage_errorinfo.text != ""}, Boolean)
+
+	}
+	/* End   : APP Constructor */
+
+	/* Begin : File Generation */
+	def generateFiles()
+	{
+		generate("analog_converter_evadc_confh.tmpl", "analog_converter_evadc_conf.h", false);
+		generate("analog_converter_evadc_confc.tmpl", "analog_converter_evadc_conf.c", false);
+		copy("analog_converter_evadc.c", "analog_converter_evadc.c");
+		copy("analog_converter_evadc.h", "analog_converter_evadc.h");
+	}
+	/* End   : File Generation */
+
+	def debug(text, level) {
+		if (IsDebugVersion)
+		{
+			println("DEBUG: ${text}", level);
+		}
+	}
+}

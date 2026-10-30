@@ -1,0 +1,40 @@
+package Model.APPS.ETHERNET_CONFIG.v4_0_8;
+import ifx.davex.app.manifest.*;
+
+class Gindexgroup_additional_mac_address{
+	 public GLabel glabel_sel_mac_Address;
+	 public GLabel glabel_add_mac_byte_1;
+	 public GImage gimage_additonal_mac_addr;
+	 public GInteger ginteger_add_mac_byte_1;
+	 public GLabel glabel_add_mac_label_1;
+	 public GInteger ginteger_add_mac_byte_2;
+	 public GLabel glabel_add_mac_label_2;
+	 public GInteger ginteger_add_mac_byte_3;
+	 public GLabel glabel_add_mac_label_3;
+	 public GInteger ginteger_add_mac_byte_4;
+	 public GLabel glabel_add_mac_label_4;
+	 public GInteger ginteger_add_mac_byte_5;
+	 public GLabel glabel_add_mac_label_5;
+	 public GInteger ginteger_add_mac_byte_6;
+	 public GLabel glabel_add_dma_chn;
+	 public GCombo gcombo_add_dma_chn;
+
+	public Gindexgroup_additional_mac_address (DaveEnv daveEnv, String widgetName,int index){
+	 glabel_sel_mac_Address = new GLabel(widgetName: "glabel_sel_mac_Address", text: "Select MAC Address to Configure", enabled: true, visible: true, parentWidgetName:widgetName)
+	 glabel_add_mac_byte_1 = new GLabel(widgetName: "glabel_add_mac_byte_1", text: "MAC Address", enabled: true, visible: true, parentWidgetName:widgetName)
+	 gimage_additonal_mac_addr = new GImage(widgetName: "gimage_additonal_mac_addr", path: "", enabled: true, visible: true, parentWidgetName:widgetName)
+	 ginteger_add_mac_byte_1 = new GInteger(widgetName: "ginteger_add_mac_byte_1", value: 0, minValue: 0, maxValue: 255, enabled: true, visible: true, isMandatoryValue: false, parentWidgetName:widgetName)
+	 glabel_add_mac_label_1 = new GLabel(widgetName: "glabel_add_mac_label_1", text: ":", enabled: true, visible: true, parentWidgetName:widgetName)
+	 ginteger_add_mac_byte_2 = new GInteger(widgetName: "ginteger_add_mac_byte_2", value: 0, minValue: 0, maxValue: 255, enabled: true, visible: true, isMandatoryValue: false, parentWidgetName:widgetName)
+	 glabel_add_mac_label_2 = new GLabel(widgetName: "glabel_add_mac_label_2", text: ":", enabled: true, visible: true, parentWidgetName:widgetName)
+	 ginteger_add_mac_byte_3 = new GInteger(widgetName: "ginteger_add_mac_byte_3", value: 0, minValue: 0, maxValue: 255, enabled: true, visible: true, isMandatoryValue: false, parentWidgetName:widgetName)
+	 glabel_add_mac_label_3 = new GLabel(widgetName: "glabel_add_mac_label_3", text: ":", enabled: true, visible: true, parentWidgetName:widgetName)
+	 ginteger_add_mac_byte_4 = new GInteger(widgetName: "ginteger_add_mac_byte_4", value: 0, minValue: 0, maxValue: 255, enabled: true, visible: true, isMandatoryValue: false, parentWidgetName:widgetName)
+	 glabel_add_mac_label_4 = new GLabel(widgetName: "glabel_add_mac_label_4", text: ":", enabled: true, visible: true, parentWidgetName:widgetName)
+	 ginteger_add_mac_byte_5 = new GInteger(widgetName: "ginteger_add_mac_byte_5", value: 0, minValue: 0, maxValue: 255, enabled: true, visible: true, isMandatoryValue: false, parentWidgetName:widgetName)
+	 glabel_add_mac_label_5 = new GLabel(widgetName: "glabel_add_mac_label_5", text: ":", enabled: true, visible: true, parentWidgetName:widgetName)
+	 ginteger_add_mac_byte_6 = new GInteger(widgetName: "ginteger_add_mac_byte_6", value: 0, minValue: 0, maxValue: 255, enabled: true, visible: true, isMandatoryValue: false, parentWidgetName:widgetName)
+	 glabel_add_dma_chn = new GLabel(widgetName: "glabel_add_dma_chn", text: "Select DMA Channel", enabled: true, visible: true, parentWidgetName:widgetName)
+	 gcombo_add_dma_chn = new GCombo(widgetName: "gcombo_add_dma_chn", options: ["DMA Channel 0","DMA Channel 1","DMA Channel 2","DMA Channel 3"], value: "DMA Channel 0", enabled: true, visible: true, isMandatoryValue: false, parentWidgetName:widgetName)
+	}
+}

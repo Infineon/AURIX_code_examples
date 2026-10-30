@@ -1,0 +1,88 @@
+package Model.APPS.DMA_CHANNEL_CONFIG.v4_1_8;
+import ifx.davex.app.manifest.*;
+
+class Gindexgroup_lls{
+	 public GLabel glabel_lls_message;
+	 public GLabel glabel_node_lls;
+	 public GLabel glabel_chdw_lls;
+	 public GCombo gcombo_chdw_lls;
+	 public GLabel glabel_num_trans_lls;
+	 public GInteger ginteger_num_trans_lls;
+	 public GLabel glabel_num_moves_lls;
+	 public GCombo gcombo_num_moves_lls;
+	 public GGroup ggroup_src_lls;
+	 public GLabel glabel_src_addrs_lls;
+	 public GString gstring_src_addrs_lls;
+	 public GLabel glabel_src_count_lls;
+	 public GCombo gcombo_src_count_lls;
+	 public GLabel glabel_src_ofset_lls;
+	 public GCombo gcombo_src_ofset_lls;
+	 public GImage gimage_7;
+	 public GLabel glabel_src_circ_buffer_lls;
+	 public GCheck gcheck_src_circ_buffer_lls;
+	 public GLabel glabel_src_circ_buf_len_lls;
+	 public GCombo gcombo_src_circ_buf_len_lls;
+	 public GLabel glabel_src_addrs_lls_warning;
+	 public GGroup ggroup_des_lls;
+	 public GLabel glabel_des_addrs_lls;
+	 public GString gstring_des_addrs_lls;
+	 public GLabel glabel_des_count_lls;
+	 public GCombo gcombo_des_count_lls;
+	 public GLabel glabel_des_ofset_lls;
+	 public GCombo gcombo_des_ofset_lls;
+	 public GImage gimage_8;
+	 public GLabel glabel_des_circ_buffer_lls;
+	 public GCheck gcheck_des_circ_buffer_lls;
+	 public GLabel glabel_des_circ_buf_len_lls;
+	 public GCombo gcombo_des_circ_buf_len_lls;
+	 public GLabel glabel_des_addrs_lls_warning;
+	 public GLabel glabel_trans_mode_node;
+	 public GCombo gcombo_trans_mode_node;
+	 public GLabel glabel_rst_type_node;
+	 public GCombo gcombo_rst_type_node;
+	 public GLabel glabel_dma_rqst_type_node;
+	 public GCombo gcombo_dma_rqst_type_node;
+
+	public Gindexgroup_lls (DaveEnv daveEnv, String widgetName,int index){
+	 glabel_lls_message = new GLabel(widgetName: "glabel_lls_message", text: "0th index of Linked List Transaction's Configuration will be gathered from General Settings Tab", enabled: false, visible: true, parentWidgetName:widgetName)
+	 glabel_node_lls = new GLabel(widgetName: "glabel_node_lls", text: "Linked List Transaction Index", enabled: true, visible: true, parentWidgetName:widgetName)
+	 glabel_chdw_lls = new GLabel(widgetName: "glabel_chdw_lls", text: "Channel Data Width (CHDW)", enabled: true, visible: true, parentWidgetName:widgetName)
+	 gcombo_chdw_lls = new GCombo(widgetName: "gcombo_chdw_lls", options: ["8-bit","16-bit","32-bit","64-bit","128-bit","256-bit"], value: "8-bit", enabled: true, visible: true, isMandatoryValue: false, parentWidgetName:widgetName)
+	 glabel_num_trans_lls = new GLabel(widgetName: "glabel_num_trans_lls", text: "Number of Transfers", enabled: true, visible: true, parentWidgetName:widgetName)
+	 ginteger_num_trans_lls = new GInteger(widgetName: "ginteger_num_trans_lls", value: 1, minValue: 1, maxValue: 16383, enabled: true, visible: true, isMandatoryValue: false, parentWidgetName:widgetName)
+	 glabel_num_moves_lls = new GLabel(widgetName: "glabel_num_moves_lls", text: "Number of Moves", enabled: true, visible: true, parentWidgetName:widgetName)
+	 gcombo_num_moves_lls = new GCombo(widgetName: "gcombo_num_moves_lls", options: ["1","2","3","4","5","8","9","16"], value: "4", enabled: true, visible: true, isMandatoryValue: false, parentWidgetName:widgetName)
+	 ggroup_src_lls = new GGroup(widgetName: "ggroup_src_lls", text: "Source", enabled: true, visible: true, parentWidgetName:widgetName)
+	 glabel_src_addrs_lls = new GLabel(widgetName: "glabel_src_addrs_lls", text: "Address", enabled: true, visible: true, parentWidgetName:widgetName)
+	 gstring_src_addrs_lls = new GString(widgetName: "gstring_src_addrs_lls", value: "0x0", enabled: true, visible: true, isMandatoryValue: false, parentWidgetName:widgetName)
+	 glabel_src_count_lls = new GLabel(widgetName: "glabel_src_count_lls", text: "Counter", enabled: true, visible: true, parentWidgetName:widgetName)
+	 gcombo_src_count_lls = new GCombo(widgetName: "gcombo_src_count_lls", options: ["Increment","Decrement"], value: "Increment", enabled: true, visible: true, isMandatoryValue: false, parentWidgetName:widgetName)
+	 glabel_src_ofset_lls = new GLabel(widgetName: "glabel_src_ofset_lls", text: "Offset", enabled: true, visible: true, parentWidgetName:widgetName)
+	 gcombo_src_ofset_lls = new GCombo(widgetName: "gcombo_src_ofset_lls", options: ["1 x CHDW","2 x CHDW","4 x CHDW","8 x CHDW","16 x CHDW","32 x CHDW","64 x CHDW","128 x CHDW"], value: "1 x CHDW", enabled: true, visible: true, isMandatoryValue: false, parentWidgetName:widgetName)
+	 gimage_7 = new GImage(widgetName: "gimage_7", path: "", enabled: true, visible: true, parentWidgetName:widgetName)
+	 glabel_src_circ_buffer_lls = new GLabel(widgetName: "glabel_src_circ_buffer_lls", text: "Circular Buffer", enabled: true, visible: true, parentWidgetName:widgetName)
+	 gcheck_src_circ_buffer_lls = new GCheck(widgetName: "gcheck_src_circ_buffer_lls", value: false, enabled: true, visible: true, parentWidgetName:widgetName)
+	 glabel_src_circ_buf_len_lls = new GLabel(widgetName: "glabel_src_circ_buf_len_lls", text: "Size", enabled: true, visible: true, parentWidgetName:widgetName)
+	 gcombo_src_circ_buf_len_lls = new GCombo(widgetName: "gcombo_src_circ_buf_len_lls", options: ["1","2","4","8","16","32","64","128","256","512","1024","2048","4096","8192","16384","32768"], value: "8", enabled: true, visible: true, isMandatoryValue: false, parentWidgetName:widgetName)
+	 glabel_src_addrs_lls_warning = new GLabel(widgetName: "glabel_src_addrs_lls_warning", text: "Invalid Source Address", enabled: true, visible: true, parentWidgetName:widgetName)
+	 ggroup_des_lls = new GGroup(widgetName: "ggroup_des_lls", text: "Destination", enabled: true, visible: true, parentWidgetName:widgetName)
+	 glabel_des_addrs_lls = new GLabel(widgetName: "glabel_des_addrs_lls", text: "Address", enabled: true, visible: true, parentWidgetName:widgetName)
+	 gstring_des_addrs_lls = new GString(widgetName: "gstring_des_addrs_lls", value: "0x0", enabled: true, visible: true, isMandatoryValue: false, parentWidgetName:widgetName)
+	 glabel_des_count_lls = new GLabel(widgetName: "glabel_des_count_lls", text: "Counter", enabled: true, visible: true, parentWidgetName:widgetName)
+	 gcombo_des_count_lls = new GCombo(widgetName: "gcombo_des_count_lls", options: ["Increment","Decrement"], value: "Increment", enabled: true, visible: true, isMandatoryValue: false, parentWidgetName:widgetName)
+	 glabel_des_ofset_lls = new GLabel(widgetName: "glabel_des_ofset_lls", text: "Offset", enabled: true, visible: true, parentWidgetName:widgetName)
+	 gcombo_des_ofset_lls = new GCombo(widgetName: "gcombo_des_ofset_lls", options: ["1 x CHDW","2 x CHDW","4 x CHDW","8 x CHDW","16 x CHDW","32 x CHDW","64 x CHDW","128 x CHDW"], value: "1 x CHDW", enabled: true, visible: true, isMandatoryValue: false, parentWidgetName:widgetName)
+	 gimage_8 = new GImage(widgetName: "gimage_8", path: "", enabled: true, visible: true, parentWidgetName:widgetName)
+	 glabel_des_circ_buffer_lls = new GLabel(widgetName: "glabel_des_circ_buffer_lls", text: "Circular Buffer", enabled: true, visible: true, parentWidgetName:widgetName)
+	 gcheck_des_circ_buffer_lls = new GCheck(widgetName: "gcheck_des_circ_buffer_lls", value: false, enabled: true, visible: true, parentWidgetName:widgetName)
+	 glabel_des_circ_buf_len_lls = new GLabel(widgetName: "glabel_des_circ_buf_len_lls", text: "Size", enabled: true, visible: true, parentWidgetName:widgetName)
+	 gcombo_des_circ_buf_len_lls = new GCombo(widgetName: "gcombo_des_circ_buf_len_lls", options: ["1","2","4","8","16","32","64","128","256","512","1024","2048","4096","8192","16384","32768"], value: "8", enabled: true, visible: true, isMandatoryValue: false, parentWidgetName:widgetName)
+	 glabel_des_addrs_lls_warning = new GLabel(widgetName: "glabel_des_addrs_lls_warning", text: "Invalid Destination Address", enabled: true, visible: true, parentWidgetName:widgetName)
+	 glabel_trans_mode_node = new GLabel(widgetName: "glabel_trans_mode_node", text: "Transfer Mode", enabled: true, visible: true, parentWidgetName:widgetName)
+	 gcombo_trans_mode_node = new GCombo(widgetName: "gcombo_trans_mode_node", options: ["Single Mode","Continuous Mode"], value: "Single Mode", enabled: true, visible: true, isMandatoryValue: false, parentWidgetName:widgetName)
+	 glabel_rst_type_node = new GLabel(widgetName: "glabel_rst_type_node", text: "DMA Request For", enabled: true, visible: true, parentWidgetName:widgetName)
+	 gcombo_rst_type_node = new GCombo(widgetName: "gcombo_rst_type_node", options: ["Each Transfer","Single Transaction"], value: "Single Transaction", enabled: true, visible: true, isMandatoryValue: false, parentWidgetName:widgetName)
+	 glabel_dma_rqst_type_node = new GLabel(widgetName: "glabel_dma_rqst_type_node", text: "DMA Request Source", enabled: true, visible: true, parentWidgetName:widgetName)
+	 gcombo_dma_rqst_type_node = new GCombo(widgetName: "gcombo_dma_rqst_type_node", options: ["Auto Start","Software","Hardware"], value: "Auto Start", enabled: true, visible: true, isMandatoryValue: false, parentWidgetName:widgetName)
+	}
+}

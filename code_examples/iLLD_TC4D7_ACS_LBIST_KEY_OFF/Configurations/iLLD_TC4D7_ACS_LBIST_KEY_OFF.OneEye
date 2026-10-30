@@ -1,0 +1,200 @@
+<root version="2.74.2">
+    <signals>
+        <var name="elf" type="group" offset="0" access="read-write">
+            <var name="g_LbistKeyoffStatus" type="group" offset="0" access="read-write">
+                <item-configuration>
+                    <title><![CDATA[g_LbistKeyoffStatus]]></title>
+                </item-configuration>
+                <var type="group" offset="0" access="read-write">
+                    <item-configuration>
+                        <title><![CDATA[NO_NAME]]></title>
+                    </item-configuration>
+                    <var name="dom0Failed" type="uint16" offset="0" access="read-write" default="0">
+                        <item-configuration>
+                            <title><![CDATA[dom0Failed]]></title>
+                        </item-configuration>
+                    </var>
+                    <var name="dom1Failed" type="uint16" offset="0" access="read-write" default="0">
+                        <item-configuration>
+                            <title><![CDATA[dom1Failed]]></title>
+                        </item-configuration>
+                    </var>
+                    <var name="dom2Failed" type="uint16" offset="0" access="read-write" default="0">
+                        <item-configuration>
+                            <title><![CDATA[dom2Failed]]></title>
+                        </item-configuration>
+                    </var>
+                    <var name="dom3Failed" type="uint16" offset="0" access="read-write" default="0">
+                        <item-configuration>
+                            <title><![CDATA[dom3Failed]]></title>
+                        </item-configuration>
+                    </var>
+                    <var name="dom4Failed" type="uint16" offset="0" access="read-write" default="0">
+                        <item-configuration>
+                            <title><![CDATA[dom4Failed]]></title>
+                        </item-configuration>
+                    </var>
+                    <var name="dom5Failed" type="uint16" offset="0" access="read-write" default="0">
+                        <item-configuration>
+                            <title><![CDATA[dom5Failed]]></title>
+                        </item-configuration>
+                    </var>
+                    <var name="dom6Failed" type="uint16" offset="0" access="read-write" default="0">
+                        <item-configuration>
+                            <title><![CDATA[dom6Failed]]></title>
+                        </item-configuration>
+                    </var>
+                    <var name="dom7Failed" type="uint16" offset="0" access="read-write" default="0">
+                        <item-configuration>
+                            <title><![CDATA[dom7Failed]]></title>
+                        </item-configuration>
+                    </var>
+                    <var name="notDone" type="uint16" offset="0" access="read-write" default="0">
+                        <item-configuration>
+                            <title><![CDATA[notDone]]></title>
+                        </item-configuration>
+                    </var>
+                    <var name="notTerminatedProperlyLBTERM" type="uint16" offset="0" access="read-write" default="0">
+                        <item-configuration>
+                            <title><![CDATA[notTerminatedProperlyLBTERM]]></title>
+                        </item-configuration>
+                    </var>
+                    <var name="earlyTerminatedPORST" type="uint16" offset="0" access="read-write" default="0">
+                        <item-configuration>
+                            <title><![CDATA[earlyTerminatedPORST]]></title>
+                        </item-configuration>
+                    </var>
+                </var>
+                <var name="lbistKeyoffStatus" type="uint16" offset="0" access="read-write" default="0">
+                    <item-configuration>
+                        <title><![CDATA[lbistKeyoffStatus]]></title>
+                    </item-configuration>
+                </var>
+            </var>
+            <var name="g_LbistStatusLeds" type="group" offset="0" access="read-write">
+                <item-configuration>
+                    <title><![CDATA[g_LbistStatusLeds]]></title>
+                </item-configuration>
+                <var name="oneEyeLed0LbistPassed" type="uint8" offset="0" access="read-write" default="0">
+                    <item-configuration>
+                        <title><![CDATA[oneEyeLed0LbistPassed]]></title>
+                    </item-configuration>
+                </var>
+                <var name="oneEyeLed1WrongLbist" type="uint8" offset="0" access="read-write" default="0">
+                    <item-configuration>
+                        <title><![CDATA[oneEyeLed1WrongLbist]]></title>
+                    </item-configuration>
+                </var>
+                <var name="oneEyeLed2LbistFailed" type="uint8" offset="0" access="read-write" default="0">
+                    <item-configuration>
+                        <title><![CDATA[oneEyeLed2LbistFailed]]></title>
+                    </item-configuration>
+                </var>
+                <var name="oneEyeLed3LbistNotExecuted" type="uint8" offset="0" access="read-write" default="0">
+                    <item-configuration>
+                        <title><![CDATA[oneEyeLed3LbistNotExecuted]]></title>
+                    </item-configuration>
+                </var>
+            </var>
+        </var>
+    </signals>
+    <layout>
+        <group layout="float" layout-item="false">
+            <item-configuration>
+                <title><![CDATA[LBIST Key-off Status]]></title>
+                <style-sheet><![CDATA[#__group { color : black;font-weight : Bold; font-size: 12pt }
+#__title {   font-size: 11pt; min-height:30; }#__checkBox { 
+	color:black; 
+	font-size: 12pt 
+}QCheckBox::indicator:checked {
+image: url([:CWD:]/Images/0_green.png);
+}QCheckBox::indicator:unchecked {
+image: url([:CWD:]/Images/2_off.png);
+}]]></style-sheet>
+            </item-configuration>
+            <checkBox data-in="elf.g_LbistStatusLeds.oneEyeLed1WrongLbist" pos-x="360" pos-y="90" pos-width="300" pos-hight="45">
+                <item-configuration>
+                    <title><![CDATA[Wrong LBIST  Executed]]></title>
+                </item-configuration>
+            </checkBox>
+            <checkBox data-in="elf.g_LbistStatusLeds.oneEyeLed0LbistPassed" pos-x="360" pos-y="40" pos-width="300" pos-hight="40">
+                <item-configuration>
+                    <title><![CDATA[LBIST Passed]]></title>
+                </item-configuration>
+            </checkBox>
+            <checkBox data-in="elf.g_LbistStatusLeds.oneEyeLed3LbistNotExecuted" pos-x="360" pos-y="190" pos-width="300" pos-hight="40">
+                <item-configuration>
+                    <title><![CDATA[LBIST Not Executed]]></title>
+                </item-configuration>
+            </checkBox>
+            <checkBox data-in="elf.g_LbistStatusLeds.oneEyeLed2LbistFailed" pos-x="360" pos-y="140" pos-width="300" pos-hight="40">
+                <item-configuration>
+                    <title><![CDATA[LBIST Failed]]></title>
+                </item-configuration>
+            </checkBox>
+            <lineEdit data-in="elf.g_LbistKeyoffStatus..dom2Failed" pos-x="70" pos-y="90" pos-width="250" pos-hight="50">
+                <item-configuration>
+                    <title><![CDATA[DOM2 Failed                           ]]></title>
+                </item-configuration>
+            </lineEdit>
+            <lineEdit data-in="elf.g_LbistKeyoffStatus..dom0Failed" pos-x="70" pos-y="30" pos-width="250" pos-hight="50">
+                <item-configuration>
+                    <title><![CDATA[DOM0 Failed                           ]]></title>
+                </item-configuration>
+            </lineEdit>
+            <lineEdit data-in="elf.g_LbistKeyoffStatus..notTerminatedProperlyLBTERM" pos-x="70" pos-y="300" pos-width="250" pos-hight="50">
+                <item-configuration>
+                    <title><![CDATA[Not Properly Terminated        ]]></title>
+                </item-configuration>
+            </lineEdit>
+            <lineEdit data-in="elf.g_LbistKeyoffStatus..dom5Failed" pos-x="70" pos-y="180" pos-width="250" pos-hight="50">
+                <item-configuration>
+                    <title><![CDATA[DOM5 Failed                           ]]></title>
+                </item-configuration>
+            </lineEdit>
+            <lineEdit data-in="elf.g_LbistKeyoffStatus..dom1Failed" pos-x="70" pos-y="60" pos-width="250" pos-hight="50">
+                <item-configuration>
+                    <title><![CDATA[DOM1 Failed                           ]]></title>
+                </item-configuration>
+            </lineEdit>
+            <lineEdit data-in="elf.g_LbistKeyoffStatus..dom6Failed" pos-x="70" pos-y="210" pos-width="250" pos-hight="50">
+                <item-configuration>
+                    <title><![CDATA[DOM6 Failed                           ]]></title>
+                </item-configuration>
+            </lineEdit>
+            <lineEdit data-in="elf.g_LbistKeyoffStatus..notDone" pos-x="70" pos-y="270" pos-width="250" pos-hight="50">
+                <item-configuration>
+                    <title><![CDATA[Not Done                                 ]]></title>
+                </item-configuration>
+            </lineEdit>
+            <lineEdit data-in="elf.g_LbistKeyoffStatus..dom7Failed" pos-x="70" pos-y="240" pos-width="250" pos-hight="50">
+                <item-configuration>
+                    <title><![CDATA[DOM7 Failed                           ]]></title>
+                </item-configuration>
+            </lineEdit>
+            <lineEdit data-in="elf.g_LbistKeyoffStatus..earlyTerminatedPORST" pos-x="70" pos-y="330" pos-width="250" pos-hight="50">
+                <item-configuration>
+                    <title><![CDATA[Early Terminated                   ]]></title>
+                </item-configuration>
+            </lineEdit>
+            <lineEdit data-in="elf.g_LbistKeyoffStatus..dom4Failed" pos-x="70" pos-y="150" pos-width="250" pos-hight="50">
+                <item-configuration>
+                    <title><![CDATA[DOM4 Failed                           ]]></title>
+                </item-configuration>
+            </lineEdit>
+            <lineEdit data-in="elf.g_LbistKeyoffStatus..dom3Failed" pos-x="70" pos-y="120" pos-width="250" pos-hight="50">
+                <item-configuration>
+                    <title><![CDATA[DOM3 Failed                           ]]></title>
+                </item-configuration>
+            </lineEdit>
+        </group>
+    </layout>
+    <interface>
+        <item-configuration>
+            <id><![CDATA[das-itf]]></id>
+        </item-configuration>
+        <port plugin="PCom_DAS::DAS" connect="true" system-key="{ACS}"/>
+    </interface>
+    <config/>
+    <debugBox elf-path="Debug/iLLD_TC4D7_ACS_LBIST_KEY_OFF.elf" watches="g_LbistKeyoffStatus;g_resetStatus;g_LbistStatusLeds" com-interface-id="das-itf" title="" id="elf"/>
+</root>

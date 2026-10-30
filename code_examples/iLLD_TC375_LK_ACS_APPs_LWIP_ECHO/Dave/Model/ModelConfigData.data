@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="ASCII"?>
+<ApplicationModel:ApplicationData xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ApplicationModel="www.infineon.com/dave/applicationmodel" xmlns:ResourceModel="http://www.infineon.com/Davex/Resource.ecore">
+  <nodes xsi:type="ApplicationModel:AppNode">
+    <resource xsi:type="ResourceModel:App" href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:AppNode">
+    <resource xsi:type="ResourceModel:App" href="APPS/CLOCK/v4_1_12/CLOCK_0.app#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:AppNode">
+    <resource xsi:type="ResourceModel:App" href="APPS/TIMER_STM/v4_1_6/TIMER_STM_0.app#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:AppNode">
+    <resource xsi:type="ResourceModel:App" href="APPS/CPU_CORE/v4_1_6/CPU_CORE_0.app#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:AppNode">
+    <resource xsi:type="ResourceModel:App" href="APPS/LWIP_GETH/v4_0_8/LWIP_GETH_0.app#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:DevicePackageNode">
+    <resource xsi:type="ResourceModel:DevicePackage" href="HW_RESOURCES/DEVICEPACKAGE/DEVICEPACKAGE_0.dd#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:PeripheralNode">
+    <resource xsi:type="ResourceModel:Peripheral" href="HW_RESOURCES/SCU0/SCU0_0.dd#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:PeripheralNode">
+    <resource xsi:type="ResourceModel:Peripheral" href="HW_RESOURCES/INT0/INT0_0.dd#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:PeripheralNode">
+    <resource xsi:type="ResourceModel:Peripheral" href="HW_RESOURCES/CPU0/CPU0_0.dd#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:PortNode">
+    <resource xsi:type="ResourceModel:Port" href="HW_RESOURCES/P11/P11_11.dd#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:PortNode">
+    <resource xsi:type="ResourceModel:Port" href="HW_RESOURCES/P21/P21_21.dd#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:PeripheralNode">
+    <resource xsi:type="ResourceModel:Peripheral" href="HW_RESOURCES/STM0/STM0_0.dd#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:PeripheralNode">
+    <resource xsi:type="ResourceModel:Peripheral" href="HW_RESOURCES/GETH0/GETH0_0.dd#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:AppNode">
+    <resource xsi:type="ResourceModel:App" href="APPS/INTERRUPT_CONFIG/v4_1_6/INTERRUPT_CONFIG_0.app#/"/>
+  </nodes>
+  <connections xsi:type="ApplicationModel:NodeConnection" source="//@nodes.0" target="//@nodes.3"/>
+  <connections xsi:type="ApplicationModel:NodeConnection" source="//@nodes.0" target="//@nodes.1"/>
+  <connections xsi:type="ApplicationModel:NodeConnection" source="//@nodes.2" target="//@nodes.1"/>
+  <connections xsi:type="ApplicationModel:NodeConnection" source="//@nodes.4" target="//@nodes.2"/>
+  <connections xsi:type="ApplicationModel:NodeConnection" source="//@nodes.4" target="//@nodes.0"/>
+  <connections xsi:type="ApplicationModel:NodeConnection" source="//@nodes.13" target="//@nodes.3"/>
+  <hwConnections href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@connections.1"/>
+  <hwConnections href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@connections.2"/>
+  <hwConnections href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@connections.3"/>
+  <hwConnections href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@connections.4"/>
+  <hwConnections href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@connections.5"/>
+  <hwConnections href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@connections.6"/>
+  <hwConnections href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@connections.7"/>
+  <hwConnections href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@connections.17"/>
+  <hwConnections href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@connections.18"/>
+  <hwConnections href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@connections.19"/>
+  <hwConnections href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@connections.31"/>
+  <hwConnections href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@connections.32"/>
+  <hwConnections href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@connections.35"/>
+  <hwConnections href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@connections.37"/>
+  <hwConnections href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@connections.38"/>
+  <hwConnections href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@connections.41"/>
+  <hwConnections href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@connections.42"/>
+  <hwConnections href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@connections.43"/>
+  <hwConnections href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@connections.44"/>
+  <hwConnections href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@connections.52"/>
+  <hwConnections href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@connections.53"/>
+  <hwConnections href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@connections.54"/>
+  <hwConnections href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@connections.55"/>
+  <hwConnections href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@connections.56"/>
+  <hwConnections href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@connections.57"/>
+  <hwConnections href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@connections.58"/>
+  <hwConnections href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@connections.59"/>
+  <hwConnections href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@connections.60"/>
+  <hwConnections href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@connections.61"/>
+  <hwConnections href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@connections.62"/>
+  <hwConnections href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@connections.63"/>
+  <hwConnections href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@connections.64"/>
+  <hwConnections href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@connections.65"/>
+  <hwConnections href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@connections.66"/>
+  <hwConnections href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@connections.67"/>
+  <hwConnections href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@connections.68"/>
+  <hwConnections href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@connections.69"/>
+  <hwConnections href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@connections.70"/>
+  <hwConnections href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@connections.71"/>
+  <hwConnections href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@connections.72"/>
+  <hwConnections href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@connections.73"/>
+  <hwConnections href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@connections.74"/>
+  <hwConnections href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@connections.75"/>
+  <hwConnections href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@connections.76"/>
+  <hwConnections href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@connections.77"/>
+  <hwConnections href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@connections.78"/>
+  <hwConnections href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@connections.79"/>
+  <hwConnections href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@connections.80"/>
+  <hwConnections href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@connections.81"/>
+  <hwConnections href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@connections.82"/>
+  <hwConnections href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@connections.83"/>
+  <hwConnections href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@connections.84"/>
+  <hwConnections href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@connections.85"/>
+  <hwConnections href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@connections.86"/>
+  <hwConnections href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@connections.87"/>
+  <hwConnections href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@connections.88"/>
+  <hwConnections href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@connections.89"/>
+  <hwConnections href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@connections.90"/>
+  <hwConnections href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@connections.91"/>
+  <hwConnections href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@connections.92"/>
+  <hwConnections href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@connections.93"/>
+  <hwConnections href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@connections.94"/>
+  <hwConnections href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@connections.95"/>
+  <hwConnections href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@connections.96"/>
+  <hwConnections href="APPS/ETHERNET_CONFIG/v4_0_8/ETHERNET_CONFIG_0.app#//@connections.97"/>
+  <hwConnections href="APPS/CPU_CORE/v4_1_6/CPU_CORE_0.app#//@connections.0"/>
+  <hwConnections href="APPS/INTERRUPT_CONFIG/v4_1_6/INTERRUPT_CONFIG_0.app#//@connections.0"/>
+  <hwConnections href="APPS/INTERRUPT_CONFIG/v4_1_6/INTERRUPT_CONFIG_0.app#//@connections.1"/>
+  <hwConnections href="APPS/TIMER_STM/v4_1_6/TIMER_STM_0.app#//@connections.0"/>
+</ApplicationModel:ApplicationData>

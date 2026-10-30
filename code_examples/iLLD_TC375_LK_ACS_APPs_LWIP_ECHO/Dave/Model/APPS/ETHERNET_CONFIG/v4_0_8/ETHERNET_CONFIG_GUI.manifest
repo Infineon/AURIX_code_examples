@@ -1,0 +1,333 @@
+package Model.APPS.ETHERNET_CONFIG.v4_0_8;
+// Import statements
+import ifx.davex.app.manifest.*
+
+abstract class ETHERNET_CONFIG_GUI extends AppManifest {
+
+    /* IMPORTANT NOTE: This is an auto generated file, please do not edit manually. */
+    /* User modifications in the GUI editor will be updated here automatically.     */
+    /* Manually editing the contents of this file will corrupt the APP SDK project. */
+
+	/* Begin : UI variable section */
+	 public GTab gtab_general_settings;
+	 public GTab gtab_mac_configuration;
+	 public GTab gtab_mac_vlan_config;
+	 public GTab gtab_mtl_config;
+	 public GTab gtab_dma_config;
+	 public GInteger ginteger_tx_clk_delay;
+	 public GInteger ginteger_rx_clk_delay;
+	 public GInteger ginteger_no_additional_mac;
+	 public GInteger ginteger_mac_ipc;
+	 public GInteger ginteger_max_packet_size;
+	 public GInteger ginteger_pps_tstrh0;
+	 public GInteger ginteger_pps_ttsl0;
+	 public GInteger ginteger_pps_interval;
+	 public GInteger ginteger_pps_width;
+	 public GInteger ginteger_mac_add_vlan_tag_filter;
+	 public GInteger ginteger_no_vlan_incl;
+	 public GInteger ginteger_no_inner_incl;
+	 public GInteger ginteger_no_tx_queue;
+	 public GInteger ginteger_rx_no_queue;
+	 public GInteger ginteger_av_en;
+	 public GInteger ginteger_dma_tx_chn;
+	 public GInteger ginteger_tx_dma_descriptor;
+	 public GInteger ginteger_dma_no_rx_channel;
+	 public GInteger ginteger_rx_dma_descriptor;
+	 public GCombo gcombo_mii_interface_mode;
+	 public GCombo gcombo_speed;
+	 public GCombo gcombo_duplex_mode;
+	 public GCombo gcombo_preamble_ln;
+	 public GCombo gcombo_control_pkt;
+	 public GCombo gcombo_mac_uffq;
+	 public GCombo gcombo_mac_mffq;
+	 public GCombo gcombo_mac_vffq;
+	 public GCombo gcombo_pps_cmd_ctrl;
+	 public GCombo gcombo_pps_mode;
+	 public GCombo gcombo_vlan_tag_opr;
+	 public GCombo gcombo_tx_scheduling_algo;
+	 public GCombo gcombo_rx_scheduling_algo;
+	 public GCombo gcombo_dma_arbitration;
+	 public GCombo gcombo_dma_priority_ratio;
+	 public GCombo gcombo_dma_taa;
+	 public GCheck gcheck_lwip_en;
+	 public GCheck gcheck_loopback_mode;
+	 public GCheck gcheck_mac_en_dma;
+	 public GCheck gcheck_en_acs_mac;
+	 public GCheck gcheck_en_cst_mac;
+	 public GCheck gcheck_promiscous_mode;
+	 public GCheck gcheck_receive_all;
+	 public GCheck gcheck_pass_all_multicast;
+	 public GCheck gcheck_disable_broadcast_pkt;
+	 public GCheck gcheck_src_addr_filter;
+	 public GCheck gcheck_vlan_tag_filter;
+	 public GCheck gcheck_pps_mode_flex_en;
+	 public GCheck gcheck_s_vlan_pakt;
+	 public GCheck gcheck_vlan_hash_table;
+	 public GCheck gcheck_vlan_tag_en;
+	 public GCheck gcheck_double_vlan_process;
+	 public GCheck gcheck_addr_align_beats;
+	 public GCheck gcheck_fixed_brust_length;
+	 public GCheck gcheck_mixed_brust;
+	 public GCheck gcheck_pbl_en;
+	 public GCheck gcheck_dma_tx_prio;
+	 public GLabel glabel_mii_interface_mode;
+	 public GLabel glabel_tx_clk_delay;
+	 public GLabel glabel_rx_clk_delay;
+	 public GLabel glabel_speed;
+	 public GLabel glabel_duplex_mode;
+	 public GLabel glabel_loopback_mode;
+	 public GLabel glabel_preamble_ln;
+	 public GLabel glabel_mac_en_dma;
+	 public GLabel glabel_no_additional_mac;
+	 public GLabel glabel_mac_ipc;
+	 public GLabel glabel_max_packet_size;
+	 public GLabel glabel_en_acs_mac;
+	 public GLabel glabel_en_cst_mac;
+	 public GLabel glabel_promiscous_mode;
+	 public GLabel glabel_receive_all;
+	 public GLabel glabel_pass_all_multicast;
+	 public GLabel glabel_disable_broadcast_pkt;
+	 public GLabel glabel_src_addr_filter;
+	 public GLabel glabel_vlan_tag_filter;
+	 public GLabel glabel_control_pkt;
+	 public GLabel glabel_mac_uffq;
+	 public GLabel glabel_mac_mffq;
+	 public GLabel glabel_mac_vffq;
+	 public GLabel glabel_pps_mode_flex_en;
+	 public GLabel glabel_pps_cmd_ctrl;
+	 public GLabel glabel_pps_mode;
+	 public GLabel glabel_pps_tstrh0;
+	 public GLabel glabel_pps_ttsl0;
+	 public GLabel glabel_pps_interval;
+	 public GLabel glabel_pps_width;
+	 public GLabel glabel_s_vlan_pakt;
+	 public GLabel glabel_vlan_hash_table;
+	 public GLabel glabel_vlan_tag_en;
+	 public GLabel glabel_double_vlan_process;
+	 public GLabel glabel_96;
+	 public GLabel glabel_mac_add_vlan_tag_filter;
+	 public GLabel glabel_no_vlan_incl;
+	 public GLabel glabel_no_inner_incl;
+	 public GLabel glabel_no_tx_queue;
+	 public GLabel glabel_tx_scheduling_algo;
+	 public GLabel glabel_rx_no_queue;
+	 public GLabel glabel_rx_scheduling_algo;
+	 public GLabel glabel_av_en;
+	 public GLabel glabel_addr_align_beats;
+	 public GLabel glabel_fixed_brust_length;
+	 public GLabel glabel_mixed_brust;
+	 public GLabel glabel_pbl_en;
+	 public GLabel glabel_dma_tx_prio;
+	 public GLabel glabel_dma_arbitration;
+	 public GLabel glabel_dma_priority_ratio;
+	 public GLabel glabel_dma_tx_chn;
+	 public GLabel glabel_dma_taa;
+	 public GLabel glabel_tx_dma_descriptor;
+	 public GLabel glabel_dma_no_rx_channel;
+	 public GLabel glabel_rx_dma_descriptor;
+	 public GGroup ggroup_rgmii_clk_ctrl;
+	 public GGroup ggroup_pkt_filter;
+	 public GGroup ggroup_9;
+	 public GMessage gmessage_info;
+	 public GMessage gmessage_dma_info;
+	 public GIndexCombo gindexcombo_sel_mac_Address;
+	 public GIndexCombo gindexcombo_sel_vlan_tag_filter;
+	 public GIndexCombo gindexcombo_sel_incl_cfg;
+	 public GIndexCombo gindexcombo_tx_queue_selection;
+	 public GIndexCombo gindexcombo_rx_queue_sel;
+	 public GIndexCombo gindexcombo_sel_av_config;
+	 public GIndexCombo gindexcombo_sel_dma_tx_chn;
+	 public GIndexCombo gindexcombo_dma_sel_rx_chn;
+	 public RArray<Gindexgroup_additional_mac_address> rArraygindexgroup_additional_mac_address = RArray(32);
+
+	 public GIndexGroup gindexgroup_additional_mac_address;
+	 public RArray<Gindexgroup_add_vlan_tag_ID_settings> rArraygindexgroup_add_vlan_tag_ID_settings = RArray(9);
+
+	 public GIndexGroup gindexgroup_add_vlan_tag_ID_settings;
+	 public RArray<Gindexgroup_vlan_incl> rArraygindexgroup_vlan_incl = RArray(9);
+
+	 public GIndexGroup gindexgroup_vlan_incl;
+	 public RArray<Gindexgroup_tx_queue_config> rArraygindexgroup_tx_queue_config = RArray(4);
+
+	 public GIndexGroup gindexgroup_tx_queue_config;
+	 public RArray<Gindexgroup_rx_queue_config> rArraygindexgroup_rx_queue_config = RArray(4);
+
+	 public GIndexGroup gindexgroup_rx_queue_config;
+	 public RArray<Gindexgroup_av_tx_config> rArraygindexgroup_av_tx_config = RArray(4);
+
+	 public GIndexGroup gindexgroup_av_tx_config;
+	 public RArray<Gindexgroup_dma_tx_config> rArraygindexgroup_dma_tx_config = RArray(4);
+
+	 public GIndexGroup gindexgroup_dma_tx_config;
+	 public RArray<Gindexgroup_dma_rx_chn> rArraygindexgroup_dma_rx_chn = RArray(4);
+
+	 public GIndexGroup gindexgroup_dma_rx_chn;
+
+	 public ETHERNET_CONFIG_GUI(DaveEnv daveEnv){
+
+	 gtab_general_settings = GTab(widgetName: "gtab_general_settings", text: "General Settings", enabled: true, visible: true)
+	 gtab_mac_configuration = GTab(widgetName: "gtab_mac_configuration", text: "MAC Configuration Settings", enabled: true, visible: true)
+	 gtab_mac_vlan_config = GTab(widgetName: "gtab_mac_vlan_config", text: "MAC VLAN Configuration Settings", enabled: true, visible: true)
+	 gtab_mtl_config = GTab(widgetName: "gtab_mtl_config", text: "MTL Configuration Settings", enabled: true, visible: true)
+	 gtab_dma_config = GTab(widgetName: "gtab_dma_config", text: "DMA Configuration Settings", enabled: true, visible: true)
+	 ginteger_tx_clk_delay = GInteger(widgetName: "ginteger_tx_clk_delay", value: 0, minValue: 0, maxValue: 15, enabled: true, visible: true, isMandatoryValue: false)
+	 ginteger_rx_clk_delay = GInteger(widgetName: "ginteger_rx_clk_delay", value: 0, minValue: 0, maxValue: 15, enabled: true, visible: true, isMandatoryValue: false)
+	 ginteger_no_additional_mac = GInteger(widgetName: "ginteger_no_additional_mac", value: 1, minValue: 1, maxValue: 32, enabled: true, visible: true, isMandatoryValue: false)
+	 ginteger_mac_ipc = GInteger(widgetName: "ginteger_mac_ipc", value: 96, minValue: 40, maxValue: 2144, enabled: true, visible: true, isMandatoryValue: false)
+	 ginteger_max_packet_size = GInteger(widgetName: "ginteger_max_packet_size", value: 256, minValue: 0, maxValue: 65535, enabled: true, visible: true, isMandatoryValue: false)
+	 ginteger_pps_tstrh0 = GInteger(widgetName: "ginteger_pps_tstrh0", value: 0, minValue: 0, maxValue: 4294967295, enabled: true, visible: true, isMandatoryValue: false)
+	 ginteger_pps_ttsl0 = GInteger(widgetName: "ginteger_pps_ttsl0", value: 0, minValue: 0, maxValue: 536870912, enabled: true, visible: true, isMandatoryValue: false)
+	 ginteger_pps_interval = GInteger(widgetName: "ginteger_pps_interval", value: 1, minValue: 0, maxValue: 4294967295, enabled: true, visible: true, isMandatoryValue: false)
+	 ginteger_pps_width = GInteger(widgetName: "ginteger_pps_width", value: 0, minValue: 0, maxValue: 4294967295, enabled: true, visible: true, isMandatoryValue: false)
+	 ginteger_mac_add_vlan_tag_filter = GInteger(widgetName: "ginteger_mac_add_vlan_tag_filter", value: 1, minValue: 1, maxValue: 9, enabled: true, visible: true, isMandatoryValue: false)
+	 ginteger_no_vlan_incl = GInteger(widgetName: "ginteger_no_vlan_incl", value: 1, minValue: 1, maxValue: 5, enabled: true, visible: true, isMandatoryValue: false)
+	 ginteger_no_inner_incl = GInteger(widgetName: "ginteger_no_inner_incl", value: 1, minValue: 1, maxValue: 4, enabled: true, visible: true, isMandatoryValue: false)
+	 ginteger_no_tx_queue = GInteger(widgetName: "ginteger_no_tx_queue", value: 1, minValue: 1, maxValue: 4, enabled: true, visible: true, isMandatoryValue: false)
+	 ginteger_rx_no_queue = GInteger(widgetName: "ginteger_rx_no_queue", value: 1, minValue: 1, maxValue: 4, enabled: true, visible: true, isMandatoryValue: false)
+	 ginteger_av_en = GInteger(widgetName: "ginteger_av_en", value: 0, minValue: 0, maxValue: 3, enabled: true, visible: true, isMandatoryValue: false)
+	 ginteger_dma_tx_chn = GInteger(widgetName: "ginteger_dma_tx_chn", value: 1, minValue: 1, maxValue: 4, enabled: true, visible: true, isMandatoryValue: false)
+	 ginteger_tx_dma_descriptor = GInteger(widgetName: "ginteger_tx_dma_descriptor", value: 8, minValue: 4, maxValue: 128, enabled: false, visible: true, isMandatoryValue: false)
+	 ginteger_dma_no_rx_channel = GInteger(widgetName: "ginteger_dma_no_rx_channel", value: 1, minValue: 1, maxValue: 4, enabled: true, visible: true, isMandatoryValue: false)
+	 ginteger_rx_dma_descriptor = GInteger(widgetName: "ginteger_rx_dma_descriptor", value: 8, minValue: 4, maxValue: 128, enabled: false, visible: true, isMandatoryValue: false)
+	 gcombo_mii_interface_mode = GCombo(widgetName: "gcombo_mii_interface_mode", options: ["MII","RMII","RGMII"], value: "RMII", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_speed = GCombo(widgetName: "gcombo_speed", options: ["10Mbit/s","100Mbit/s","1000Mbit/s"], value: "100Mbit/s", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_duplex_mode = GCombo(widgetName: "gcombo_duplex_mode", options: ["Half Duplex","Full Duplex"], value: "Full Duplex", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_preamble_ln = GCombo(widgetName: "gcombo_preamble_ln", options: ["7 Bytes","5 Bytes","3 Bytes"], value: "7 Bytes", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_control_pkt = GCombo(widgetName: "gcombo_control_pkt", options: ["Block all Control Packets","Forward all except Pause Frames","Forward all Control Packets","Forward only if Destination Address pass"], value: "Block all Control Packets", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_mac_uffq = GCombo(widgetName: "gcombo_mac_uffq", options: ["Disable","RX QUEUE #1","RX QUEUE #2","RX QUEUE #3","RX QUEUE #4"], value: "Disable", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_mac_mffq = GCombo(widgetName: "gcombo_mac_mffq", options: ["Disable","RX QUEUE #1","RX QUEUE #2","RX QUEUE #3","RX QUEUE #4"], value: "Disable", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_mac_vffq = GCombo(widgetName: "gcombo_mac_vffq", options: ["Disable","RX QUEUE #1","RX QUEUE #2","RX QUEUE #3","RX QUEUE #4"], value: "Disable", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_pps_cmd_ctrl = GCombo(widgetName: "gcombo_pps_cmd_ctrl", options: ["No Command","Start Single Pulse","Start Pulse Train","Cancel Start","Stop Pulse Train at Time","Stop Pulse Train Immediately","Cancel Stop Pulse Train","1 Hz / 1 Hz","2 Hz / 1 Hz","4 Hz / 2 Hz","8 Hz / 4 Hz","16 Hz / 8 Hz","32.768 KHz / 16.384 KHz"], value: "1 Hz / 1 Hz", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_pps_mode = GCombo(widgetName: "gcombo_pps_mode", options: ["Interrupt Only","Interrupt and PPS Control","PPS Control Only"], value: "Interrupt and PPS Control", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_vlan_tag_opr = GCombo(widgetName: "gcombo_vlan_tag_opr", options: ["Disable","No Operation","Delete Tag","Insert Tag","Replace Tag"], value: "Disable", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_tx_scheduling_algo = GCombo(widgetName: "gcombo_tx_scheduling_algo", options: ["WRR Algorithm","Strict Priority Algorithm"], value: "WRR Algorithm", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_rx_scheduling_algo = GCombo(widgetName: "gcombo_rx_scheduling_algo", options: ["Strict Priority Algorithm","WSP Algorithm"], value: "Strict Priority Algorithm", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_dma_arbitration = GCombo(widgetName: "gcombo_dma_arbitration", options: ["Weighted Round-Robin","Fixed Priority"], value: "Fixed Priority", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_dma_priority_ratio = GCombo(widgetName: "gcombo_dma_priority_ratio", options: ["1:1","2:1","3:1","4:1","5:1","6:1","7:1","8:1"], value: "1:1", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_dma_taa = GCombo(widgetName: "gcombo_dma_taa", options: ["Fixed Priority","Weighted Strict Priority","Weighted Round-Robin"], value: "Fixed Priority", enabled: true, visible: true, isMandatoryValue: false)
+	 gcheck_lwip_en = GCheck(widgetName: "gcheck_lwip_en", value: false, enabled: false, visible: true)
+	 gcheck_loopback_mode = GCheck(widgetName: "gcheck_loopback_mode", value: false, enabled: true, visible: true)
+	 gcheck_mac_en_dma = GCheck(widgetName: "gcheck_mac_en_dma", value: false, enabled: false, visible: true)
+	 gcheck_en_acs_mac = GCheck(widgetName: "gcheck_en_acs_mac", value: false, enabled: true, visible: true)
+	 gcheck_en_cst_mac = GCheck(widgetName: "gcheck_en_cst_mac", value: false, enabled: true, visible: true)
+	 gcheck_promiscous_mode = GCheck(widgetName: "gcheck_promiscous_mode", value: false, enabled: true, visible: true)
+	 gcheck_receive_all = GCheck(widgetName: "gcheck_receive_all", value: false, enabled: true, visible: true)
+	 gcheck_pass_all_multicast = GCheck(widgetName: "gcheck_pass_all_multicast", value: false, enabled: true, visible: true)
+	 gcheck_disable_broadcast_pkt = GCheck(widgetName: "gcheck_disable_broadcast_pkt", value: false, enabled: true, visible: true)
+	 gcheck_src_addr_filter = GCheck(widgetName: "gcheck_src_addr_filter", value: false, enabled: true, visible: true)
+	 gcheck_vlan_tag_filter = GCheck(widgetName: "gcheck_vlan_tag_filter", value: false, enabled: true, visible: true)
+	 gcheck_pps_mode_flex_en = GCheck(widgetName: "gcheck_pps_mode_flex_en", value: false, enabled: true, visible: true)
+	 gcheck_s_vlan_pakt = GCheck(widgetName: "gcheck_s_vlan_pakt", value: false, enabled: true, visible: true)
+	 gcheck_vlan_hash_table = GCheck(widgetName: "gcheck_vlan_hash_table", value: false, enabled: true, visible: true)
+	 gcheck_vlan_tag_en = GCheck(widgetName: "gcheck_vlan_tag_en", value: false, enabled: true, visible: true)
+	 gcheck_double_vlan_process = GCheck(widgetName: "gcheck_double_vlan_process", value: false, enabled: true, visible: true)
+	 gcheck_addr_align_beats = GCheck(widgetName: "gcheck_addr_align_beats", value: false, enabled: true, visible: true)
+	 gcheck_fixed_brust_length = GCheck(widgetName: "gcheck_fixed_brust_length", value: false, enabled: true, visible: true)
+	 gcheck_mixed_brust = GCheck(widgetName: "gcheck_mixed_brust", value: false, enabled: true, visible: true)
+	 gcheck_pbl_en = GCheck(widgetName: "gcheck_pbl_en", value: false, enabled: true, visible: true)
+	 gcheck_dma_tx_prio = GCheck(widgetName: "gcheck_dma_tx_prio", value: false, enabled: true, visible: true)
+	 glabel_mii_interface_mode = GLabel(widgetName: "glabel_mii_interface_mode", text: "MII Interface Mode", enabled: true, visible: true)
+	 glabel_tx_clk_delay = GLabel(widgetName: "glabel_tx_clk_delay", text: "TX Clock Delay", enabled: true, visible: true)
+	 glabel_rx_clk_delay = GLabel(widgetName: "glabel_rx_clk_delay", text: "RX Clock Delay", enabled: true, visible: true)
+	 glabel_speed = GLabel(widgetName: "glabel_speed", text: "Speed", enabled: true, visible: true)
+	 glabel_duplex_mode = GLabel(widgetName: "glabel_duplex_mode", text: "Duplex Mode", enabled: true, visible: true)
+	 glabel_loopback_mode = GLabel(widgetName: "glabel_loopback_mode", text: "Loop Back Mode", enabled: true, visible: true)
+	 glabel_preamble_ln = GLabel(widgetName: "glabel_preamble_ln", text: "Transmit Preamble Length", enabled: true, visible: true)
+	 glabel_mac_en_dma = GLabel(widgetName: "glabel_mac_en_dma", text: "Enable MAC DMA Routing", enabled: true, visible: true)
+	 glabel_no_additional_mac = GLabel(widgetName: "glabel_no_additional_mac", text: "Number of MAC Address", enabled: true, visible: true)
+	 glabel_mac_ipc = GLabel(widgetName: "glabel_mac_ipc", text: "Inter Packet Gap [bit times]", enabled: true, visible: true)
+	 glabel_max_packet_size = GLabel(widgetName: "glabel_max_packet_size", text: "Max Packet Size [bytes]", enabled: true, visible: true)
+	 glabel_en_acs_mac = GLabel(widgetName: "glabel_en_acs_mac", text: "Enable Automatic Pad/CRC Stripping", enabled: true, visible: true)
+	 glabel_en_cst_mac = GLabel(widgetName: "glabel_en_cst_mac", text: "Enable CRC Stripping for Type Packets", enabled: true, visible: true)
+	 glabel_promiscous_mode = GLabel(widgetName: "glabel_promiscous_mode", text: "Promiscuous Mode", enabled: true, visible: true)
+	 glabel_receive_all = GLabel(widgetName: "glabel_receive_all", text: "Receive All", enabled: true, visible: true)
+	 glabel_pass_all_multicast = GLabel(widgetName: "glabel_pass_all_multicast", text: "Pass All Multicast", enabled: true, visible: true)
+	 glabel_disable_broadcast_pkt = GLabel(widgetName: "glabel_disable_broadcast_pkt", text: "Disable Broadcast Packets", enabled: true, visible: true)
+	 glabel_src_addr_filter = GLabel(widgetName: "glabel_src_addr_filter", text: "Source Address Filter", enabled: true, visible: true)
+	 glabel_vlan_tag_filter = GLabel(widgetName: "glabel_vlan_tag_filter", text: "VLAN Tag Filter", enabled: true, visible: true)
+	 glabel_control_pkt = GLabel(widgetName: "glabel_control_pkt", text: "Control Packet", enabled: true, visible: true)
+	 glabel_mac_uffq = GLabel(widgetName: "glabel_mac_uffq", text: "Unicast Fail Queue", enabled: true, visible: true)
+	 glabel_mac_mffq = GLabel(widgetName: "glabel_mac_mffq", text: "Multicast Fail Queue", enabled: true, visible: true)
+	 glabel_mac_vffq = GLabel(widgetName: "glabel_mac_vffq", text: "VLAN Filter Fail Queue", enabled: true, visible: true)
+	 glabel_pps_mode_flex_en = GLabel(widgetName: "glabel_pps_mode_flex_en", text: "Enable Flexible PPS Mode", enabled: true, visible: true)
+	 glabel_pps_cmd_ctrl = GLabel(widgetName: "glabel_pps_cmd_ctrl", text: "Output Control / Command", enabled: true, visible: true)
+	 glabel_pps_mode = GLabel(widgetName: "glabel_pps_mode", text: "Target Time Mode", enabled: true, visible: true)
+	 glabel_pps_tstrh0 = GLabel(widgetName: "glabel_pps_tstrh0", text: "Target Time (Seconds)", enabled: true, visible: true)
+	 glabel_pps_ttsl0 = GLabel(widgetName: "glabel_pps_ttsl0", text: "Target Time (Nanoseconds)", enabled: true, visible: true)
+	 glabel_pps_interval = GLabel(widgetName: "glabel_pps_interval", text: "Interval", enabled: true, visible: true)
+	 glabel_pps_width = GLabel(widgetName: "glabel_pps_width", text: "Width", enabled: true, visible: true)
+	 glabel_s_vlan_pakt = GLabel(widgetName: "glabel_s_vlan_pakt", text: "S-VLAN Packets", enabled: true, visible: true)
+	 glabel_vlan_hash_table = GLabel(widgetName: "glabel_vlan_hash_table", text: "Hash Table Match", enabled: true, visible: true)
+	 glabel_vlan_tag_en = GLabel(widgetName: "glabel_vlan_tag_en", text: "Enable VLAN Tag", enabled: true, visible: true)
+	 glabel_double_vlan_process = GLabel(widgetName: "glabel_double_vlan_process", text: "Double VLAN Processing", enabled: true, visible: true)
+	 glabel_96 = GLabel(widgetName: "glabel_96", text: "VLAN Tag Operation", enabled: true, visible: true)
+	 glabel_mac_add_vlan_tag_filter = GLabel(widgetName: "glabel_mac_add_vlan_tag_filter", text: "Number of VLAN Tag Filters", enabled: true, visible: true)
+	 glabel_no_vlan_incl = GLabel(widgetName: "glabel_no_vlan_incl", text: "Number of VLAN Tag Inclusion/ Replacement ", enabled: true, visible: true)
+	 glabel_no_inner_incl = GLabel(widgetName: "glabel_no_inner_incl", text: "Number of Inner VLAN Tag Inclusion/ Replacement", enabled: true, visible: true)
+	 glabel_no_tx_queue = GLabel(widgetName: "glabel_no_tx_queue", text: "Number of TX Queue", enabled: true, visible: true)
+	 glabel_tx_scheduling_algo = GLabel(widgetName: "glabel_tx_scheduling_algo", text: "TX Scheduling Algorithm", enabled: true, visible: true)
+	 glabel_rx_no_queue = GLabel(widgetName: "glabel_rx_no_queue", text: "Number of RX Queue", enabled: true, visible: true)
+	 glabel_rx_scheduling_algo = GLabel(widgetName: "glabel_rx_scheduling_algo", text: "RX Arbitration Algorithm", enabled: true, visible: true)
+	 glabel_av_en = GLabel(widgetName: "glabel_av_en", text: "Number of Audio Video Queue", enabled: true, visible: true)
+	 glabel_addr_align_beats = GLabel(widgetName: "glabel_addr_align_beats", text: "Address-Aligned Beats", enabled: true, visible: true)
+	 glabel_fixed_brust_length = GLabel(widgetName: "glabel_fixed_brust_length", text: "Fixed Burst Length", enabled: true, visible: true)
+	 glabel_mixed_brust = GLabel(widgetName: "glabel_mixed_brust", text: "Mixed Burst", enabled: true, visible: true)
+	 glabel_pbl_en = GLabel(widgetName: "glabel_pbl_en", text: "Programmable Burst Length", enabled: true, visible: true)
+	 glabel_dma_tx_prio = GLabel(widgetName: "glabel_dma_tx_prio", text: "Transmit Priority", enabled: true, visible: true)
+	 glabel_dma_arbitration = GLabel(widgetName: "glabel_dma_arbitration", text: "DMA Arbitration Scheme", enabled: true, visible: true)
+	 glabel_dma_priority_ratio = GLabel(widgetName: "glabel_dma_priority_ratio", text: "Priority Ratio", enabled: true, visible: true)
+	 glabel_dma_tx_chn = GLabel(widgetName: "glabel_dma_tx_chn", text: "Number of TX Channel", enabled: true, visible: true)
+	 glabel_dma_taa = GLabel(widgetName: "glabel_dma_taa", text: "Transmit Arbitration Algorithm", enabled: true, visible: true)
+	 glabel_tx_dma_descriptor = GLabel(widgetName: "glabel_tx_dma_descriptor", text: "Number of TX Descriptor", enabled: true, visible: true)
+	 glabel_dma_no_rx_channel = GLabel(widgetName: "glabel_dma_no_rx_channel", text: "Number of RX Channel", enabled: true, visible: true)
+	 glabel_rx_dma_descriptor = GLabel(widgetName: "glabel_rx_dma_descriptor", text: "Number of RX Descriptor", enabled: true, visible: true)
+	 ggroup_rgmii_clk_ctrl = GGroup(widgetName: "ggroup_rgmii_clk_ctrl", text: "RGMII Clock Delay Control", enabled: true, visible: true)
+	 ggroup_pkt_filter = GGroup(widgetName: "ggroup_pkt_filter", text: "Packet Filter", enabled: true, visible: true)
+	 ggroup_9 = GGroup(widgetName: "ggroup_9", text: "Pulse Per Second (PPS) Settings", enabled: true, visible: false)
+	 gmessage_info = GMessage(widgetName: "gmessage_info", text: "", isError: false, visible: true)
+	 gmessage_dma_info = GMessage(widgetName: "gmessage_dma_info", text: "", isError: false, visible: true)
+	 gindexcombo_sel_mac_Address = GIndexCombo(widgetName: "gindexcombo_sel_mac_Address", options: ["MAC Address #0","MAC Address #1"], value: "MAC Address #0", visible: true)
+	 gindexcombo_sel_vlan_tag_filter = GIndexCombo(widgetName: "gindexcombo_sel_vlan_tag_filter", options: ["VLAN Tag Filter #0","VLAN Tag Filter #1"], value: "VLAN Tag Filter #0", visible: true)
+	 gindexcombo_sel_incl_cfg = GIndexCombo(widgetName: "gindexcombo_sel_incl_cfg", options: ["VLAN Tag INCL #1","VLAN Tag INCL #2","VLAN Tag INCL #3","None"], value: "None", visible: true)
+	 gindexcombo_tx_queue_selection = GIndexCombo(widgetName: "gindexcombo_tx_queue_selection", options: ["TX QUEUE #1","TX QUEUE #2"], value: "TX QUEUE #1", visible: true)
+	 gindexcombo_rx_queue_sel = GIndexCombo(widgetName: "gindexcombo_rx_queue_sel", options: ["RX QUEUE #1","RX QUEUE #2"], value: "RX QUEUE #1", visible: true)
+	 gindexcombo_sel_av_config = GIndexCombo(widgetName: "gindexcombo_sel_av_config", options: ["TX AV #1"], value: "TX AV #1", visible: true)
+	 gindexcombo_sel_dma_tx_chn = GIndexCombo(widgetName: "gindexcombo_sel_dma_tx_chn", options: ["TX DMA Channel #0","TX DMA Channel #1"], value: "TX DMA Channel #0", visible: true)
+	 gindexcombo_dma_sel_rx_chn = GIndexCombo(widgetName: "gindexcombo_dma_sel_rx_chn", options: ["RX DMA Channel #0","RX DMA Channel #2"], value: "RX DMA Channel #0", visible: true)
+	 gindexgroup_additional_mac_address = GIndexGroup(widgetName: "gindexgroup_additional_mac_address", text: "MAC Address Settings", enabled: true, visible: true, gIndexCombo: gindexcombo_sel_mac_Address, rArray: rArraygindexgroup_additional_mac_address)
+	 for(int i=0; i<32; i++){
+		 rArraygindexgroup_additional_mac_address[i] = new Gindexgroup_additional_mac_address(daveEnv, "gindexgroup_additional_mac_address",i)
+	 }
+	 gindexgroup_add_vlan_tag_ID_settings = GIndexGroup(widgetName: "gindexgroup_add_vlan_tag_ID_settings", text: "VLAN Tag ID Settings", enabled: true, visible: true, gIndexCombo: gindexcombo_sel_vlan_tag_filter, rArray: rArraygindexgroup_add_vlan_tag_ID_settings)
+	 for(int i=0; i<9; i++){
+		 rArraygindexgroup_add_vlan_tag_ID_settings[i] = new Gindexgroup_add_vlan_tag_ID_settings(daveEnv, "gindexgroup_add_vlan_tag_ID_settings",i)
+	 }
+	 gindexgroup_vlan_incl = GIndexGroup(widgetName: "gindexgroup_vlan_incl", text: "Inclusion/ Replacement Settings", enabled: true, visible: true, gIndexCombo: gindexcombo_sel_incl_cfg, rArray: rArraygindexgroup_vlan_incl)
+	 for(int i=0; i<9; i++){
+		 rArraygindexgroup_vlan_incl[i] = new Gindexgroup_vlan_incl(daveEnv, "gindexgroup_vlan_incl",i)
+	 }
+	 gindexgroup_tx_queue_config = GIndexGroup(widgetName: "gindexgroup_tx_queue_config", text: "TX Queue Configuration", enabled: true, visible: true, gIndexCombo: gindexcombo_tx_queue_selection, rArray: rArraygindexgroup_tx_queue_config)
+	 for(int i=0; i<4; i++){
+		 rArraygindexgroup_tx_queue_config[i] = new Gindexgroup_tx_queue_config(daveEnv, "gindexgroup_tx_queue_config",i)
+	 }
+	 gindexgroup_rx_queue_config = GIndexGroup(widgetName: "gindexgroup_rx_queue_config", text: "RX Queue Configuration", enabled: true, visible: true, gIndexCombo: gindexcombo_rx_queue_sel, rArray: rArraygindexgroup_rx_queue_config)
+	 for(int i=0; i<4; i++){
+		 rArraygindexgroup_rx_queue_config[i] = new Gindexgroup_rx_queue_config(daveEnv, "gindexgroup_rx_queue_config",i)
+	 }
+	 gindexgroup_av_tx_config = GIndexGroup(widgetName: "gindexgroup_av_tx_config", text: "AV TX Queue Configuration", enabled: true, visible: true, gIndexCombo: gindexcombo_sel_av_config, rArray: rArraygindexgroup_av_tx_config)
+	 for(int i=0; i<4; i++){
+		 rArraygindexgroup_av_tx_config[i] = new Gindexgroup_av_tx_config(daveEnv, "gindexgroup_av_tx_config",i)
+	 }
+	 gindexgroup_dma_tx_config = GIndexGroup(widgetName: "gindexgroup_dma_tx_config", text: "TX Channel Configuration", enabled: true, visible: true, gIndexCombo: gindexcombo_sel_dma_tx_chn, rArray: rArraygindexgroup_dma_tx_config)
+	 for(int i=0; i<4; i++){
+		 rArraygindexgroup_dma_tx_config[i] = new Gindexgroup_dma_tx_config(daveEnv, "gindexgroup_dma_tx_config",i)
+	 }
+	 gindexgroup_dma_rx_chn = GIndexGroup(widgetName: "gindexgroup_dma_rx_chn", text: "RX Channel Configuration", enabled: true, visible: true, gIndexCombo: gindexcombo_dma_sel_rx_chn, rArray: rArraygindexgroup_dma_rx_chn)
+	 for(int i=0; i<4; i++){
+		 rArraygindexgroup_dma_rx_chn[i] = new Gindexgroup_dma_rx_chn(daveEnv, "gindexgroup_dma_rx_chn",i)
+	 }
+
+
+	 }
+	/* End : UI variable section */
+}

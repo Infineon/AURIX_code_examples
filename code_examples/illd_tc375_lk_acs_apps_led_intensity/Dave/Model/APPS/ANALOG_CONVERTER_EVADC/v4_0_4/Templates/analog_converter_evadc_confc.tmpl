@@ -1,0 +1,1538 @@
+package Model.APPS.ANALOG_CONVERTER_EVADC.v4_0_4.Templates;
+import Model.APPS.ANALOG_CONVERTER_EVADC.v4_0_4.ANALOG_CONVERTER_EVADC;
+	import groovy.transform.EqualsAndHashCode
+
+	/* Class to generate a formatted macro line */
+	@groovy.transform.builder.Builder
+	class MacroGen {
+		def lhs;
+		def rhs;
+		def comment;
+
+		@Override
+		String toString() {
+
+
+			if ((comment.toString().size() + rhs.toString().size()) < (27 + 26))
+			{ // All fit in single line
+				return String.format("#define %-27s %-26s /* %-49s */",
+						lhs, rhs, comment);
+			}
+			else
+			{ // Put comment on top
+				return String.format("/* %-49s */\n#define %-27s %-26s",
+						lhs, rhs, comment);
+			}
+		}
+	}
+
+	/**
+	 * Class to generate a formatted variable declaration/definition line
+	 */
+	@groovy.transform.builder.Builder
+	class VarGen {
+		def lhs;
+		def rhs;
+		def comment;
+		def isDecel; // with true, there will be no assignement operator between lhs and rhs
+
+		@Override
+		String toString() {
+			if (isDecel)
+			{ // Declaration
+				String format = (lhs.toString().size() + rhs.toString().size()) > (25 + 27)
+						? "%-25s %-27s /* %-60s */"  // Single line
+						: "/* %-113s */\n%-50s %-115s"; // Comment above the line
+				return String.format(format,
+						lhs, rhs + ";", comment);
+			} else { // Definition, we add assignment sign
+				String format = (lhs.toString().size() + rhs.toString().size()) > (25 + 25)
+						? "%-25s = %-27s /* %-60s */"  // Single line
+						: "/* %-113s */\n%-50s =  %-112s"; // Comment above the line
+				return String.format(format,
+						lhs, rhs + ";", comment);
+			}
+		}
+	}
+
+	@groovy.transform.builder.Builder
+	class FuncParam {
+		def type;
+		def name;
+		def comment;
+	}
+
+	/**
+	 * Class to generate a formatted function
+	 */
+	@groovy.transform.builder.Builder
+	class FuncGen {
+		def type;
+		def name;
+		def params = [];
+		def body;
+		def comment;
+		def isDecel;
+
+		@Override
+		String toString() {
+
+			if (isDecel)
+			{ // Declaration
+			}
+			else
+			{ // Definition
+			}
+		}
+	}
+
+	/**
+	 * Type of ADC group
+	 */
+	enum GroupType {
+		Undefined,
+		Primary,
+		Secondary
+	}
+
+	/**
+	 * A Class to represent a generic MRequiredApp
+	 */
+	@EqualsAndHashCode
+	abstract class ReqiuredApp
+	{
+		/**
+		 * Indicates if we need to init this requried app within the container app
+		 * If set to false, generation of init functions will be ingnored
+		 * CAN BE OVERRIDED IN CHILD CLASSES
+		 */
+		public static Boolean ExplicitInitNeeded = false;
+
+		String mName
+		String mDisplayName
+		String mMinVersion
+		Boolean mIsRequired
+		String mInstanceLabel
+
+		// Protected constructor for ReqiuredApp
+		protected ReqiuredApp(Builder builder)
+		{
+			this.mName = builder.mName
+			this.mDisplayName = builder.mDisplayName
+			this.mMinVersion = builder.mMinVersion
+			this.mIsRequired = builder.mIsRequired ?: false
+			this.mInstanceLabel = builder.mInstanceLabel
+		}
+
+		static abstract class Builder
+		{
+			String mName
+			String mDisplayName
+			String mMinVersion
+			Boolean mIsRequired = false
+			String mInstanceLabel
+
+			Builder mName(String mName)
+			{
+				this.mName = mName
+				return this
+			}
+
+			Builder mDisplayName(String mDisplayName)
+			{
+				this.mDisplayName = mDisplayName
+				return this
+			}
+
+			Builder mMinVersion(String mMinVersion)
+			{
+				this.mMinVersion = mMinVersion
+				return this
+			}
+
+			Builder mIsRequired(Boolean mIsRequired)
+			{
+				this.mIsRequired = mIsRequired
+				return this
+			}
+
+			Builder mInstanceLabel(String mInstanceLabel)
+			{
+				this.mInstanceLabel = mInstanceLabel
+				return this
+			}
+
+			abstract ReqiuredApp build()
+		}
+
+		String getName()
+		{
+			return mName
+		}
+
+		String getDisplayName()
+		{
+			return mDisplayName
+		}
+
+		String getMinVersion()
+		{
+			return mMinVersion
+		}
+
+		Boolean getIsRequired()
+		{
+			return mIsRequired
+		}
+
+		String getInstanceLabel()
+		{
+			return mInstanceLabel
+		}
+
+		/**
+		 * Get the handle name for the app
+		 */
+		String getAppHandleName()
+		{
+			return mInstanceLabel;
+		}
+
+		/**
+		 * Get handle struct name for the app
+		 */
+		String getAppHandleStructName()
+		{
+			return mName + "_t"; // According to coding style, should bee APPNAME_t
+		}
+
+		/**
+		 * Get config struct name for the app
+		 */
+		String getAppConfigStructName()
+		{
+			return mName + "_CONF_t"; // According to coding style, should bee APPNAME_CONF_t
+		}
+
+		/**
+		 * Get header file name of the app
+		 */
+		String getAppHeaderFileName()
+		{
+			return (mName + ".h").toLowerCase(); // headers are lower case!
+		}
+
+		String getAppStatusStructName()
+		{
+			return mName + "_STATUS_t"; // According to coding style, should bee APPNAME_STATUS_t
+		}
+
+		String getAppInitFunctionName()
+		{
+			return mName + "_Init"; // According to coding style, should bee APPNAME_Init_t
+		}
+
+		// If EqualsAndHashCode is not supported by ACS mothersystem, this is alternative way to check for uniqueness
+		//    @Override
+		//    boolean equals(Object o) {
+		//        if (this.is(o)) return true
+		//        if (!(o instanceof ReqiuredApp)) return false
+		//        ReqiuredApp that = (ReqiuredApp) o
+		//        return mName == that.mName && mDisplayName == that.mDisplayName &&
+		//                mMinVersion == that.mMinVersion && mIsRequired == that.mIsRequired &&
+		//                mInstanceLabel == that.mInstanceLabel
+		//    }
+		//
+		//    @Override
+		//    int hashCode() {
+		//        int result = 17
+		//        result += 37 * (mName != null ? mName.hashCode() : 0)
+		//        result += 41 * (mDisplayName != null ? mDisplayName.hashCode() : 0)
+		//        result += 43 * (mMinVersion != null ? mMinVersion.hashCode() : 0)
+		//        result += 47 * (mIsRequired != null ? mIsRequired.hashCode() : 0)
+		//        result += 53 * (mInstanceLabel != null ? mInstanceLabel.hashCode() : 0)
+		//        return result
+		//    }
+
+		@Override
+		String toString()
+		{
+			String ret = "ReqiuredApp(name: $mName, displayName: $mDisplayName, minVersion: $mMinVersion, isRequired: $mIsRequired, instanceLabel: $mInstanceLabel";
+			ret += ", ConfigStructName = ${getAppConfigStructName()}, AppHandleStructName = ${getAppHandleStructName()}, AppHandleName = ${getAppHandleName()}";
+
+
+			return ret;
+		}
+	}
+
+
+	class InterruptConfigApp extends ReqiuredApp
+	{
+		public static Boolean ExplicitInitNeeded = true; // InterruptConfigApp needs init as not supported by mothersystem yet
+
+		private InterruptConfigApp(Builder builder)
+		{
+			super(builder)
+		}
+
+		static class Builder extends ReqiuredApp.Builder
+		{
+			@Override
+			InterruptConfigApp build() {
+				return new InterruptConfigApp(this)
+			}
+		}
+	}
+
+	/**
+	 * A Class to represent an ADC Channel based on Manifest/GUI data
+	 */
+	class AdcChannel {
+		Integer mGroupId = -1;
+		Integer mChannelId = -1;
+		Integer mPhysicalCh = -1;
+		Integer mPort = -1;
+		Integer mPad = -1;
+		String mCustomName = "";
+		String mEvent = "";
+		Boolean mWaitForRead = false;
+
+
+		// This set contains a unique list of requiredapps that have something to do with this specific channel
+		private Set<ReqiuredApp> mRequiredAppSet = null;
+
+		AdcChannel(groupId, channelId, physicalCh, port, pad, customName, event, waitForRead = false) {
+			this.mGroupId = groupId;
+			this.mChannelId = channelId;
+			this.mPhysicalCh = physicalCh;
+			this.mPort = port;
+			this.mPad = pad;
+			this.mCustomName = customName;
+			this.mEvent = event;
+			this.mWaitForRead = waitForRead;
+
+			mRequiredAppSet = new HashSet</*ReqiuredApp*/>(); // To make sure we only add unique objects and no duplicates
+		}
+
+		Boolean addRequiredApp(ReqiuredApp reqApp)
+		{
+			return mRequiredAppSet.add(reqApp);
+		}
+
+		def getRequiredApps()
+		{
+			return mRequiredAppSet;
+		}
+
+		private def getExceptionMessage(String msg = "Has an error!")
+		{
+			return "EVADC Group ${getGroupId()} Channel #${getChannelId()} channel ${msg}.";
+		}
+
+		/** Check if this ADC Channel is correctly constructed */
+		def isValid() {
+			return mGroupId > -1 && mChannelId > -1;
+		}
+
+		/** Get group number */
+		def	getGroupId() {
+			return this.mGroupId;
+		}
+
+		/** Get ID of this ADC channel (order to be converted) */
+		def	getChannelId() {
+			return this.mChannelId;
+		}
+
+		/** Get physical channel number */
+		def	getPhysicalCh() {
+			return this.mPhysicalCh;
+		}
+
+		/**
+		 * Get ID of this ADC channel (channel number).
+		 * @return Channel ID
+		 */
+		def	getId() {
+			return this.mChannelId;
+		}
+
+		def getPort() {
+			return this.mPort;
+		}
+
+		def getPin() {
+			return this.mPad;
+		}
+
+		/** Get the custom user assigned name*/
+		def	getCustomName() {
+			return this.mCustomName;
+		}
+
+		def hasEvent() {
+			return (this.mEvent != "None");
+		}
+
+		def getDebugLine() {
+			return "EVADC Channel ${mChannelId} of Group ${mGroupId}" +
+					" Custom Name: ${mCustomName}" +
+					" Event generation: ${mEvent}";
+		}
+
+		/**
+		 * This function will return appropriate ILLD enum based on WaitForRead checkbox
+		 * IfxEvadc_WaitForRead_enabled || IfxEvadc_WaitForRead_overwriteMode
+		 * @return
+		 */
+		def getWaitForReadEnum() {
+			return (mWaitForRead ? "IfxEvadc_WaitForRead_enabled" : "IfxEvadc_WaitForRead_overwriteMode");
+		}
+
+		/**
+		 * Get preprocessor custom name of this channel (prefixed with group ID to be unique)
+		 * @return
+		 */
+		def getPpCustomName() {
+			return "EVADC_G${mGroupId}_${this.getCustomName()}";
+		}
+
+		def getChannelConfigVarName() {
+			return "EVADC_G${mGroupId}_${this.getCustomName()}_ChannelConfig";
+		}
+
+		def getChannelHandleVarName() {
+			return "EVADC_G${mGroupId}_${this.getCustomName()}_ChannelHandle";
+		}
+
+		def getChannelResultVarName() {
+			return "EVADC_G${mGroupId}_${this.getCustomName()}_ChannelResult";
+		}
+
+		def getChannelPinConfigVarName() {
+			return "EVADC_G${mGroupId}_${this.getCustomName()}_ChannelPinConfig";
+		}
+
+		def getIsrFuncName() { // Interrupt service routine name for this channel
+			if(this.hasEvent()) {
+				// We prefixed this in manifest with EVADC_Gx_
+				// And post fixed with _ISR so we have to do the same when generating the code
+				return "EVADC_G${getGroupId()}_${getCustomName()}_ISR"
+			} else {
+				throw new Exception(getExceptionMessage("has INTERRUPT_CONFIG APP associated with it!" +
+				" Please enable Events in the Channels tab." ));
+			}
+		}
+	}
+
+	/**
+	 * Object representing an ADC Group
+	 */
+	class AdcGroup {
+
+		/** ID Of ADC group */
+		private Integer 	mGroupId = -1;
+
+		private String		mAppLabel = null;
+
+		private Float		mSampleTime = 1; // Sample time in microseconds
+
+		private Integer		mExtTrig = 0; // Index of External Trigger param on GUI
+
+		private Integer		mXTSEL = 0; // External Trigger Input Selection (QCTRL0.XTSEL)
+
+		private Integer		mGTSEL = 0; // External Gate Input Selection (QCTRL0.GTSEL)
+
+		private List<AdcChannel> mChannels = null;
+		
+		private String		mAutoStartConversion; // Start conversion after init
+
+		/**
+		 * Construct an AdcGroup obeject with id and number of enabled channels
+		 */
+		AdcGroup(Integer groupId, String appLabel, Float sampleTime, Integer extTrig, Integer xtSel, Integer gtSel) {
+			this.mGroupId = groupId;
+
+			mSampleTime = sampleTime;
+
+			mExtTrig = extTrig;
+
+			mXTSEL = xtSel;
+
+			mGTSEL = gtSel;
+
+			mAppLabel = appLabel;
+
+			mChannels = []; // Init the list
+			
+			mAutoStartConversion = "false";
+		}
+
+		def getSampleTimeString() {
+			return "${mSampleTime.round(1)}e-6"; // Round necessary to disallow numbers like 1.3216546878468465421651 !!!!
+		}
+		
+		def getExtTriggerIndex() {
+			return mExtTrig;
+		}
+
+		def getExtTrigString() {
+			String str = "IfxEvadc_TriggerMode_"
+			if (mExtTrig == 0)
+			{
+				str += "noExternalTrigger"
+			}
+			else if (mExtTrig == 1)
+			{
+				str += "uponFallingEdge"
+			}
+			else if (mExtTrig == 2)
+			{
+				str += "uponRisingEdge"
+			}
+			else
+			{
+				str += "uponAnyEdge"
+			}
+			return str
+		}
+
+		def getXtselString() {
+			return "IfxEvadc_TriggerSource_" + mXTSEL.toString();
+		}
+
+		def getGtselString() {
+			return "IfxEvadc_GatingSource_" + mGTSEL.toString();
+		}
+
+		def getInstanceLabel() {
+			return mAppLabel;
+		}
+
+		def getAppLabel() {
+			return getInstanceLabel();
+		}
+
+		def hasEventOnChannels() {
+			for (AdcChannel ch in mChannels)
+			{
+				if (ch.hasEvent())
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+
+		/**
+		 * Get ID of group
+		 * @return ID of group
+		 */
+		def getId() {
+			return mGroupId;
+		}
+
+		/**
+		 * Get Id of group (alias for @see{getId()}
+		 * @return ID of group
+		 */
+		def getGroupId() {
+			return mGroupId;
+		}
+
+		/**
+		 * Add a channel to this group
+		 * @param channel Channel object
+		 * @return No return
+		 */
+		def addChannel(channel) {
+			mChannels.add(channel);
+		}
+
+		/**
+		 * Get number of enabled channels for this ADC group
+		 * @return number of channels
+		 */
+		def getNumberOfChannels() {
+			return mChannels.size();
+		}
+
+		/**
+		 * Get a string representation of content of this group
+		 * @return string
+		 */
+		def getDebugLine() {
+			return "EVADC Group #${groupId}, Number of enabled channels: ${mChannels.size()}";
+		}
+
+		/**
+		 * Get list of enabled channels for this ADC group
+		 * @return list of channels
+		 */
+		List<AdcChannel> getChannels() {
+			return this.mChannels;
+		}
+
+		/**
+		 * Get preprocessor for group ID
+		 * @return
+		 */
+		def getPpId() {
+			return "EVADC_G${mGroupId}";
+		}
+
+		/**
+		 * Get preprocessor for number of channels
+		 * @return
+		 */
+		def getPpChannelsNum() {
+			return "${getPpId()}_NUM_CHANNELS";
+		}
+
+		/**
+		 * Get global variable for this group
+		 * @return
+		 */
+		def getGlobVarGroup() {
+			return "g_evadcGroup_${mGroupId}";
+		}
+
+		/**
+		 * Get global variable for this group's result storage
+		 */
+		def getGlobalVarResults() {
+			return "${getGlobVarGroup()}_Results";
+		}
+
+		/**
+		 * Get global variable name for this group's channels
+		 * @return
+		 */
+		def getGlobVarChannels() {
+			return "${getGlobVarGroup()}_Channels";
+		}
+
+		/**
+		 * Get the config struct name for this instance. Usually the same as app label!
+		 * @return
+		 */
+		def getInstanceStruct() {
+			return mAppLabel;
+		}
+
+		def getGroupConfigVarName() {
+			return "ANALOG_CONVERTER_EVADC_GROUP_${mGroupId}_Config";
+		}
+
+		// This is the same for all apps
+		def getEvadcModuleConfigVarName() {
+			return "ANALOG_CONVERTER_EVADC_ModuleConfig";
+		}
+		
+		def setAutoStart(String autoStart) {
+			
+			mAutoStartConversion = autoStart;
+		}
+		
+		def getAutoStartConversion() {
+			return mAutoStartConversion;
+		}
+		
+		def getAutoStartConversionAsBoolean() {
+			mAutoStartConversion == "true" ? true : false;
+		}
+	}
+
+	/**
+	 * Object to contain all instances of APP
+	 */
+	class AppInstance
+	{
+		ANALOG_CONVERTER_EVADC instance = null;
+		String name = "";
+		List<String> uri = null;
+		AdcGroup group = null;
+		String evadc_generic_label = "";
+		def getAppConfStruct() {
+			return name + "_Config";
+		}
+	}
+
+	/**
+	 * Will contain all information from all instances
+	 */
+	List<AppInstance> appInstances = [];
+
+	// Go over all APP Instances and create ADC Groups and add ADC Channels to each group
+	for (ANALOG_CONVERTER_EVADC appInst : appInstancesList)
+	{
+		appLabel = appInst.getInstanceLabel(); // Name of current instance in itteration
+		evadc_uri = appInst.hwres_AdcGroup.getSolverUri(); // URI of peripheral/group for this instance
+		evadc_generic_appLabel = appInst.appres_evadc_generic.getInstanceLabel()
+		if (ANALOG_CONVERTER_EVADC.IsDebugVersion)
+		{
+			println("/****    DEBUG INSTANCE ${appLabel}")
+
+			for (var in evadc_uri)
+			{
+				out.print("""
+                        URI Sections: ${var}
+                        """);
+			}
+
+			// Pad00
+			println("hwres_port00 getSolverUri");
+			for (var in appInst.hwres_port_00.getSolverUri())
+			{
+				println("hwres_port_00 URI Sections: ${var}");
+			}
+
+			// Pin00
+			println("PIN 00 getSolverUri");
+			println("displayName ${appInst.vs_port_pad_00.displayName.value}");
+			println("hwSignalName ${appInst.vs_port_pad_00.hwSignalName}");
+			println("hwSignalName ${appInst.vs_port_pad_00.resourceGroup.resourceGroupUri}");
+
+			appInst.vs_port_pad_00.solverMap.each{k, v -> println "\n${k}:${v}"}
+
+			println("****/")
+		}
+
+		/* If the channel resource is available */
+		if (evadc_uri != null)
+		{
+			// Find out which group was assigned to this ADC group by solver
+			groupNum = evadc_uri[6] as Integer;
+
+			def xtsel;
+			xtsel = appInst.hwres_AdcGroup.getRegisterValue("qctrl0", "xtsel");
+			if (xtsel == null)
+			{
+				xtsel = appInst.hwres_AdcGroup.getRegisterValue("g" + evadc_uri[6] + "qctrl0", "xtsel");
+			}
+			exttrig = appInst.gcombo_TriggerEdge.options.indexOf(appInst.gcombo_TriggerEdge.value);
+			if (!exttrig || (xtsel == null))
+			{
+				xtsel = 0;
+			}
+			else
+			{
+				xtsel = xtsel.toInteger();
+			}
+
+			def gtsel;
+			gtsel = appInst.hwres_AdcGroup.getRegisterValue("qctrl0", "gtsel");
+			if (gtsel == null)
+			{
+				gtsel = appInst.hwres_AdcGroup.getRegisterValue("g" + evadc_uri[6] + "qctrl0", "gtsel");
+			}
+			if (!exttrig || (gtsel == null))
+			{
+				gtsel = 0;
+			}
+			else
+			{
+				gtsel = gtsel.toInteger();
+			}
+
+			// Create group object
+			adcGroup = new AdcGroup(groupNum, appLabel, (Float)appInst.gfloat_SampleTime.value, exttrig, xtsel, gtsel);
+			adcGroup.setAutoStart(appInst.gstring_autoStart.value);
+
+
+			/*** Go over channel related stuff from GUI and create channel instances ***/
+			// Channel 00
+			if (appInst.ginteger_NumChannels.value > 0)
+			{
+				AdcChannel ch00 = new AdcChannel(groupNum, 0,
+						appInst.sv_sigch_name_00.getSolverValue().find(/\d+/).toInteger(),
+						(appInst.hwres_port_00.getSolverUri()[3] == "p") ? appInst.hwres_port_00.getSolverUri()[4].toInteger() : -1,
+						appInst.hwres_port_00.getSolverUri()[6].toInteger(),
+						appInst.gstring_Channel00Name.value,
+						appInst.gcombo_EventGenerationChannel00.value,
+						appInst.gcheck_Channel00WfrEnabled.value);
+			
+				// Add InterruptConfig app which is intended for channel 00
+				InterruptConfigApp icfgApp00 = new InterruptConfigApp.Builder()
+						.mName(appInst.appres_icfg00.getAppName())
+						.mDisplayName(appInst.appres_icfg00.getDisplayName())
+						.mMinVersion(appInst.appres_icfg00.getMinVersion())
+						.mIsRequired(appInst.appres_icfg00.getIsApprequired())
+						.mInstanceLabel(appInst.appres_icfg00.getInstanceLabel())
+						.build();
+			
+				ch00.addRequiredApp(icfgApp00);
+				adcGroup.addChannel(ch00);
+			}
+			
+			// Channel 01
+			if (appInst.ginteger_NumChannels.value > 1)
+			{
+				AdcChannel ch01 = new AdcChannel(groupNum, 1,
+						appInst.sv_sigch_name_01.getSolverValue().find(/\d+/).toInteger(),
+						(appInst.hwres_port_01.getSolverUri()[3] == "p") ? appInst.hwres_port_01.getSolverUri()[4].toInteger() : -1,
+						appInst.hwres_port_01.getSolverUri()[6].toInteger(),
+						appInst.gstring_Channel01Name.value,
+						appInst.gcombo_EventGenerationChannel01.value,
+						appInst.gcheck_Channel01WfrEnabled.value);
+			
+				// Add InterruptConfig app which is intended for channel 01
+				InterruptConfigApp icfgApp01 = new InterruptConfigApp.Builder()
+						.mName(appInst.appres_icfg01.getAppName())
+						.mDisplayName(appInst.appres_icfg01.getDisplayName())
+						.mMinVersion(appInst.appres_icfg01.getMinVersion())
+						.mIsRequired(appInst.appres_icfg01.getIsApprequired())
+						.mInstanceLabel(appInst.appres_icfg01.getInstanceLabel())
+						.build();
+			
+				ch01.addRequiredApp(icfgApp01);
+				adcGroup.addChannel(ch01);
+			}
+			
+			// Channel 02
+			if (appInst.ginteger_NumChannels.value > 2)
+			{
+				AdcChannel ch02 = new AdcChannel(groupNum, 2,
+						appInst.sv_sigch_name_02.getSolverValue().find(/\d+/).toInteger(),
+						(appInst.hwres_port_02.getSolverUri()[3] == "p") ? appInst.hwres_port_02.getSolverUri()[4].toInteger() : -1,
+						appInst.hwres_port_02.getSolverUri()[6].toInteger(),
+						appInst.gstring_Channel02Name.value,
+						appInst.gcombo_EventGenerationChannel02.value,
+						appInst.gcheck_Channel02WfrEnabled.value);
+			
+				// Add InterruptConfig app which is intended for channel 02
+				InterruptConfigApp icfgApp02 = new InterruptConfigApp.Builder()
+						.mName(appInst.appres_icfg02.getAppName())
+						.mDisplayName(appInst.appres_icfg02.getDisplayName())
+						.mMinVersion(appInst.appres_icfg02.getMinVersion())
+						.mIsRequired(appInst.appres_icfg02.getIsApprequired())
+						.mInstanceLabel(appInst.appres_icfg02.getInstanceLabel())
+						.build();
+			
+				ch02.addRequiredApp(icfgApp02);
+				adcGroup.addChannel(ch02);
+			}
+			
+			// Channel 03
+			if (appInst.ginteger_NumChannels.value > 3)
+			{
+				AdcChannel ch03 = new AdcChannel(groupNum, 3,
+						appInst.sv_sigch_name_03.getSolverValue().find(/\d+/).toInteger(),
+						(appInst.hwres_port_03.getSolverUri()[3] == "p") ? appInst.hwres_port_03.getSolverUri()[4].toInteger() : -1,
+						appInst.hwres_port_03.getSolverUri()[6].toInteger(),
+						appInst.gstring_Channel03Name.value,
+						appInst.gcombo_EventGenerationChannel03.value,
+						appInst.gcheck_Channel03WfrEnabled.value);
+			
+				// Add InterruptConfig app which is intended for channel 03
+				InterruptConfigApp icfgApp03 = new InterruptConfigApp.Builder()
+						.mName(appInst.appres_icfg03.getAppName())
+						.mDisplayName(appInst.appres_icfg03.getDisplayName())
+						.mMinVersion(appInst.appres_icfg03.getMinVersion())
+						.mIsRequired(appInst.appres_icfg03.getIsApprequired())
+						.mInstanceLabel(appInst.appres_icfg03.getInstanceLabel())
+						.build();
+			
+				ch03.addRequiredApp(icfgApp03);
+				adcGroup.addChannel(ch03);
+			}
+			
+			// Channel 04
+			if (appInst.ginteger_NumChannels.value > 4)
+			{
+				AdcChannel ch04 = new AdcChannel(groupNum, 4,
+						appInst.sv_sigch_name_04.getSolverValue().find(/\d+/).toInteger(),
+						(appInst.hwres_port_04.getSolverUri()[3] == "p") ? appInst.hwres_port_04.getSolverUri()[4].toInteger() : -1,
+						appInst.hwres_port_04.getSolverUri()[6].toInteger(),
+						appInst.gstring_Channel04Name.value,
+						appInst.gcombo_EventGenerationChannel04.value,
+						appInst.gcheck_Channel04WfrEnabled.value);
+			
+				// Add InterruptConfig app which is intended for channel 04
+				InterruptConfigApp icfgApp04 = new InterruptConfigApp.Builder()
+						.mName(appInst.appres_icfg04.getAppName())
+						.mDisplayName(appInst.appres_icfg04.getDisplayName())
+						.mMinVersion(appInst.appres_icfg04.getMinVersion())
+						.mIsRequired(appInst.appres_icfg04.getIsApprequired())
+						.mInstanceLabel(appInst.appres_icfg04.getInstanceLabel())
+						.build();
+			
+				ch04.addRequiredApp(icfgApp04);
+				adcGroup.addChannel(ch04);
+			}
+			
+			// Channel 05
+			if (appInst.ginteger_NumChannels.value > 5)
+			{
+				AdcChannel ch05 = new AdcChannel(groupNum, 5,
+						appInst.sv_sigch_name_05.getSolverValue().find(/\d+/).toInteger(),
+						(appInst.hwres_port_05.getSolverUri()[3] == "p") ? appInst.hwres_port_05.getSolverUri()[4].toInteger() : -1,
+						appInst.hwres_port_05.getSolverUri()[6].toInteger(),
+						appInst.gstring_Channel05Name.value,
+						appInst.gcombo_EventGenerationChannel05.value,
+						appInst.gcheck_Channel05WfrEnabled.value);
+			
+				// Add InterruptConfig app which is intended for channel 05
+				InterruptConfigApp icfgApp05 = new InterruptConfigApp.Builder()
+						.mName(appInst.appres_icfg05.getAppName())
+						.mDisplayName(appInst.appres_icfg05.getDisplayName())
+						.mMinVersion(appInst.appres_icfg05.getMinVersion())
+						.mIsRequired(appInst.appres_icfg05.getIsApprequired())
+						.mInstanceLabel(appInst.appres_icfg05.getInstanceLabel())
+						.build();
+			
+				ch05.addRequiredApp(icfgApp05);
+				adcGroup.addChannel(ch05);
+			}
+			
+			// Channel 06
+			if (appInst.ginteger_NumChannels.value > 6)
+			{
+				AdcChannel ch06 = new AdcChannel(groupNum, 6,
+						appInst.sv_sigch_name_06.getSolverValue().find(/\d+/).toInteger(),
+						(appInst.hwres_port_06.getSolverUri()[3] == "p") ? appInst.hwres_port_06.getSolverUri()[4].toInteger() : -1,
+						appInst.hwres_port_06.getSolverUri()[6].toInteger(),
+						appInst.gstring_Channel06Name.value,
+						appInst.gcombo_EventGenerationChannel06.value,
+						appInst.gcheck_Channel06WfrEnabled.value);
+			
+				// Add InterruptConfig app which is intended for channel 06
+				InterruptConfigApp icfgApp06 = new InterruptConfigApp.Builder()
+						.mName(appInst.appres_icfg06.getAppName())
+						.mDisplayName(appInst.appres_icfg06.getDisplayName())
+						.mMinVersion(appInst.appres_icfg06.getMinVersion())
+						.mIsRequired(appInst.appres_icfg06.getIsApprequired())
+						.mInstanceLabel(appInst.appres_icfg06.getInstanceLabel())
+						.build();
+			
+				ch06.addRequiredApp(icfgApp06);
+				adcGroup.addChannel(ch06);
+			}
+			
+			// Channel 07
+			if (appInst.ginteger_NumChannels.value > 7)
+			{
+				AdcChannel ch07 = new AdcChannel(groupNum, 7,
+						appInst.sv_sigch_name_07.getSolverValue().find(/\d+/).toInteger(),
+						(appInst.hwres_port_07.getSolverUri()[3] == "p") ? appInst.hwres_port_07.getSolverUri()[4].toInteger() : -1,
+						appInst.hwres_port_07.getSolverUri()[6].toInteger(),
+						appInst.gstring_Channel07Name.value,
+						appInst.gcombo_EventGenerationChannel07.value,
+						appInst.gcheck_Channel07WfrEnabled.value);
+			
+				// Add InterruptConfig app which is intended for channel 07
+				InterruptConfigApp icfgApp07 = new InterruptConfigApp.Builder()
+						.mName(appInst.appres_icfg07.getAppName())
+						.mDisplayName(appInst.appres_icfg07.getDisplayName())
+						.mMinVersion(appInst.appres_icfg07.getMinVersion())
+						.mIsRequired(appInst.appres_icfg07.getIsApprequired())
+						.mInstanceLabel(appInst.appres_icfg07.getInstanceLabel())
+						.build();
+			
+				ch07.addRequiredApp(icfgApp07);
+				adcGroup.addChannel(ch07);
+			}
+			
+			// Channel 08
+			if (appInst.ginteger_NumChannels.value > 8)
+			{
+				AdcChannel ch08 = new AdcChannel(groupNum, 8,
+						appInst.sv_sigch_name_08.getSolverValue().find(/\d+/).toInteger(),
+						(appInst.hwres_port_08.getSolverUri()[3] == "p") ? appInst.hwres_port_08.getSolverUri()[4].toInteger() : -1,
+						appInst.hwres_port_08.getSolverUri()[6].toInteger(),
+						appInst.gstring_Channel08Name.value,
+						appInst.gcombo_EventGenerationChannel08.value,
+						appInst.gcheck_Channel08WfrEnabled.value);
+			
+				// Add InterruptConfig app which is intended for channel 08
+				InterruptConfigApp icfgApp08 = new InterruptConfigApp.Builder()
+						.mName(appInst.appres_icfg08.getAppName())
+						.mDisplayName(appInst.appres_icfg08.getDisplayName())
+						.mMinVersion(appInst.appres_icfg08.getMinVersion())
+						.mIsRequired(appInst.appres_icfg08.getIsApprequired())
+						.mInstanceLabel(appInst.appres_icfg08.getInstanceLabel())
+						.build();
+			
+				ch08.addRequiredApp(icfgApp08);
+				adcGroup.addChannel(ch08);
+			}
+			
+			// Channel 09
+			if (appInst.ginteger_NumChannels.value > 9)
+			{
+				AdcChannel ch09 = new AdcChannel(groupNum, 9,
+						appInst.sv_sigch_name_09.getSolverValue().find(/\d+/).toInteger(),
+						(appInst.hwres_port_09.getSolverUri()[3] == "p") ? appInst.hwres_port_09.getSolverUri()[4].toInteger() : -1,
+						appInst.hwres_port_09.getSolverUri()[6].toInteger(),
+						appInst.gstring_Channel09Name.value,
+						appInst.gcombo_EventGenerationChannel09.value,
+						appInst.gcheck_Channel09WfrEnabled.value);
+			
+				// Add InterruptConfig app which is intended for channel 09
+				InterruptConfigApp icfgApp09 = new InterruptConfigApp.Builder()
+						.mName(appInst.appres_icfg09.getAppName())
+						.mDisplayName(appInst.appres_icfg09.getDisplayName())
+						.mMinVersion(appInst.appres_icfg09.getMinVersion())
+						.mIsRequired(appInst.appres_icfg09.getIsApprequired())
+						.mInstanceLabel(appInst.appres_icfg09.getInstanceLabel())
+						.build();
+			
+				ch09.addRequiredApp(icfgApp09);
+				adcGroup.addChannel(ch09);
+			}
+			
+			// Channel 10
+			if (appInst.ginteger_NumChannels.value > 10)
+			{
+				AdcChannel ch10 = new AdcChannel(groupNum, 10,
+						appInst.sv_sigch_name_10.getSolverValue().find(/\d+/).toInteger(),
+						(appInst.hwres_port_10.getSolverUri()[3] == "p") ? appInst.hwres_port_10.getSolverUri()[4].toInteger() : -1,
+						appInst.hwres_port_10.getSolverUri()[6].toInteger(),
+						appInst.gstring_Channel10Name.value,
+						appInst.gcombo_EventGenerationChannel10.value,
+						appInst.gcheck_Channel10WfrEnabled.value);
+			
+				// Add InterruptConfig app which is intended for channel 10
+				InterruptConfigApp icfgApp10 = new InterruptConfigApp.Builder()
+						.mName(appInst.appres_icfg10.getAppName())
+						.mDisplayName(appInst.appres_icfg10.getDisplayName())
+						.mMinVersion(appInst.appres_icfg10.getMinVersion())
+						.mIsRequired(appInst.appres_icfg10.getIsApprequired())
+						.mInstanceLabel(appInst.appres_icfg10.getInstanceLabel())
+						.build();
+			
+				ch10.addRequiredApp(icfgApp10);
+				adcGroup.addChannel(ch10);
+			}
+			
+			// Channel 11
+			if (appInst.ginteger_NumChannels.value > 11)
+			{
+				AdcChannel ch11 = new AdcChannel(groupNum, 11,
+						appInst.sv_sigch_name_11.getSolverValue().find(/\d+/).toInteger(),
+						(appInst.hwres_port_11.getSolverUri()[3] == "p") ? appInst.hwres_port_11.getSolverUri()[4].toInteger() : -1,
+						appInst.hwres_port_11.getSolverUri()[6].toInteger(),
+						appInst.gstring_Channel11Name.value,
+						appInst.gcombo_EventGenerationChannel11.value,
+						appInst.gcheck_Channel11WfrEnabled.value);
+			
+				// Add InterruptConfig app which is intended for channel 11
+				InterruptConfigApp icfgApp11 = new InterruptConfigApp.Builder()
+						.mName(appInst.appres_icfg11.getAppName())
+						.mDisplayName(appInst.appres_icfg11.getDisplayName())
+						.mMinVersion(appInst.appres_icfg11.getMinVersion())
+						.mIsRequired(appInst.appres_icfg11.getIsApprequired())
+						.mInstanceLabel(appInst.appres_icfg11.getInstanceLabel())
+						.build();
+			
+				ch11.addRequiredApp(icfgApp11);
+				adcGroup.addChannel(ch11);
+			}
+			
+			// Channel 12
+			if (appInst.ginteger_NumChannels.value > 12)
+			{
+				AdcChannel ch12 = new AdcChannel(groupNum, 12,
+						appInst.sv_sigch_name_12.getSolverValue().find(/\d+/).toInteger(),
+						(appInst.hwres_port_12.getSolverUri()[3] == "p") ? appInst.hwres_port_12.getSolverUri()[4].toInteger() : -1,
+						appInst.hwres_port_12.getSolverUri()[6].toInteger(),
+						appInst.gstring_Channel12Name.value,
+						appInst.gcombo_EventGenerationChannel12.value,
+						appInst.gcheck_Channel12WfrEnabled.value);
+			
+				// Add InterruptConfig app which is intended for channel 12
+				InterruptConfigApp icfgApp12 = new InterruptConfigApp.Builder()
+						.mName(appInst.appres_icfg12.getAppName())
+						.mDisplayName(appInst.appres_icfg12.getDisplayName())
+						.mMinVersion(appInst.appres_icfg12.getMinVersion())
+						.mIsRequired(appInst.appres_icfg12.getIsApprequired())
+						.mInstanceLabel(appInst.appres_icfg12.getInstanceLabel())
+						.build();
+			
+				ch12.addRequiredApp(icfgApp12);
+				adcGroup.addChannel(ch12);
+			}
+			
+			// Channel 13
+			if (appInst.ginteger_NumChannels.value > 13)
+			{
+				AdcChannel ch13 = new AdcChannel(groupNum, 13,
+						appInst.sv_sigch_name_13.getSolverValue().find(/\d+/).toInteger(),
+						(appInst.hwres_port_13.getSolverUri()[3] == "p") ? appInst.hwres_port_13.getSolverUri()[4].toInteger() : -1,
+						appInst.hwres_port_13.getSolverUri()[6].toInteger(),
+						appInst.gstring_Channel13Name.value,
+						appInst.gcombo_EventGenerationChannel13.value,
+						appInst.gcheck_Channel13WfrEnabled.value);
+			
+				// Add InterruptConfig app which is intended for channel 13
+				InterruptConfigApp icfgApp13 = new InterruptConfigApp.Builder()
+						.mName(appInst.appres_icfg13.getAppName())
+						.mDisplayName(appInst.appres_icfg13.getDisplayName())
+						.mMinVersion(appInst.appres_icfg13.getMinVersion())
+						.mIsRequired(appInst.appres_icfg13.getIsApprequired())
+						.mInstanceLabel(appInst.appres_icfg13.getInstanceLabel())
+						.build();
+			
+				ch13.addRequiredApp(icfgApp13);
+				adcGroup.addChannel(ch13);
+			}
+			
+			// Channel 14
+			if (appInst.ginteger_NumChannels.value > 14)
+			{
+				AdcChannel ch14 = new AdcChannel(groupNum, 14,
+						appInst.sv_sigch_name_14.getSolverValue().find(/\d+/).toInteger(),
+						(appInst.hwres_port_14.getSolverUri()[3] == "p") ? appInst.hwres_port_14.getSolverUri()[4].toInteger() : -1,
+						appInst.hwres_port_14.getSolverUri()[6].toInteger(),
+						appInst.gstring_Channel14Name.value,
+						appInst.gcombo_EventGenerationChannel14.value,
+						appInst.gcheck_Channel14WfrEnabled.value);
+			
+				// Add InterruptConfig app which is intended for channel 14
+				InterruptConfigApp icfgApp14 = new InterruptConfigApp.Builder()
+						.mName(appInst.appres_icfg14.getAppName())
+						.mDisplayName(appInst.appres_icfg14.getDisplayName())
+						.mMinVersion(appInst.appres_icfg14.getMinVersion())
+						.mIsRequired(appInst.appres_icfg14.getIsApprequired())
+						.mInstanceLabel(appInst.appres_icfg14.getInstanceLabel())
+						.build();
+			
+				ch14.addRequiredApp(icfgApp14);
+				adcGroup.addChannel(ch14);
+			}
+			
+			// Channel 15
+			if (appInst.ginteger_NumChannels.value > 15)
+			{
+				AdcChannel ch15 = new AdcChannel(groupNum, 15,
+						appInst.sv_sigch_name_15.getSolverValue().find(/\d+/).toInteger(),
+						(appInst.hwres_port_15.getSolverUri()[3] == "p") ? appInst.hwres_port_15.getSolverUri()[4].toInteger() : -1,
+						appInst.hwres_port_15.getSolverUri()[6].toInteger(),
+						appInst.gstring_Channel15Name.value,
+						appInst.gcombo_EventGenerationChannel15.value,
+						appInst.gcheck_Channel15WfrEnabled.value);
+			
+				// Add InterruptConfig app which is intended for channel 15
+				InterruptConfigApp icfgApp15 = new InterruptConfigApp.Builder()
+						.mName(appInst.appres_icfg15.getAppName())
+						.mDisplayName(appInst.appres_icfg15.getDisplayName())
+						.mMinVersion(appInst.appres_icfg15.getMinVersion())
+						.mIsRequired(appInst.appres_icfg15.getIsApprequired())
+						.mInstanceLabel(appInst.appres_icfg15.getInstanceLabel())
+						.build();
+			
+				ch15.addRequiredApp(icfgApp15);
+				adcGroup.addChannel(ch15);
+			}
+
+
+			appInstances.add(new AppInstance(instance: appInst, name: appLabel, uri: evadc_uri, group: adcGroup, evadc_generic_label: evadc_generic_appLabel));
+		}
+	}
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// BEGIN CODE GENERATION ///////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	// Generate some comments in the top of the file for debug porpuses
+	if (ANALOG_CONVERTER_EVADC.IsDebugVersion)
+	{
+		// Debug objects
+		println("//Debugging EVADC APP instances:");
+		Integer index = 1;
+		for (app in appInstances)
+		{
+			println("//Instance: ${index++} of ${appInstances.size()}");
+			println("//\tName: ${app.name}");
+			//	println("//\tURI:${app.uri}");
+			println("//\tADC Group ID: ${app.group.getId()}");
+			println("//\tNumber of enabled channels: ${app.group.getNumberOfChannels()}");
+
+			// Go over channels of group
+			j = 1;
+			for (channel in app.group.getChannels())
+			{
+				println("//\t\tChannel #${j++} of ${app.group.getNumberOfChannels()}")
+				println("//\t\tChannel ID: ${channel.getId()}");
+				println("//\t\tChannel custom name: ${channel.getCustomName()}");
+				println("//\t\tChannel generate event: ${channel.hasEvent() ? 'yes' : 'no'}");
+
+				// Only debug interrupt-config apps
+				for (reqApp in channel.getRequiredApps())
+				{
+					println("// RequiredApps:\t" + reqApp.toString());
+				}
+			}
+
+			println("//");
+		}
+	}
+
+	/** HEADER & INCLUDES **/
+
+	// File version and copyright stuff
+	out.print("""/**
+ * @file analog_converter_evadc_conf.c
+ *
+ * NOTE:
+ * This file is generated by ACS. Any manual modification done to this file will be lost when the code is 
+ * regenerated.
+ *
+ * @cond
+ ***********************************************************************************************************************
+ *
+ * (c) 2025, Infineon Technologies AG, or an affiliate of Infineon Technologies AG. All rights reserved.
+ *
+ * Use of this file is subject to the terms of use agreed between (i) you or the company in which ordinary course of
+ * business you are acting and (ii) Infineon Technologies AG or its licensees. If and as long as no such terms of use
+ * are agreed, use of this file is subject to following:
+ *
+ * Boost Software License - Version 1.0 - August 17th, 2003
+ *
+ * Permission is hereby granted, free of charge, to any person or organization obtaining a copy of the software and
+ * accompanying documentation covered by this license (the "Software") to use, reproduce, display, distribute, execute,
+ * and transmit the Software, and to prepare derivative works of the Software, and to permit third-parties to whom the
+ * Software is furnished to do so, all subject to the following:
+ *
+ * The copyright notices in the Software and this entire statement, including the above license grant, this restriction
+ * and the following disclaimer, must be included in all copies of the Software, in whole or in part, and all
+ * derivative works of the Software, unless such copies or derivative works are solely in the form of
+ * machine-executable object code generated by a source language processor.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+ * WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+ * COPYRIGHT HOLDERS OR ANYONE DISTRIBUTING THE SOFTWARE BE LIABLE FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN
+ * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+ * IN THE SOFTWARE.
+ ***********************************************************************************************************************
+ *
+ * @endcond
+ */
+
+""")
+
+	out.print("""
+/**********************************************************************************************************************/
+/*---------------------------------------------------Header Files-----------------------------------------------------*/
+/**********************************************************************************************************************/
+#include "analog_converter_evadc.h"
+""");
+
+	// This variable indicates if any channel of a group requries init apps. Will be reevaluated in the main loop
+	Boolean ChannelsNeedInitRequiredApp = false;
+
+
+	//MAIN LOOP -> Per app instance structs
+	for (app in appInstances)
+	{
+		grp = app.group;	// Group object for the current app instance in the loop
+		gid = grp.getId();	// To simplify access to group number :)
+
+		ChannelsNeedInitRequiredApp =
+				grp.getChannels().any { channel -> channel.getRequiredApps().any { it.getIsRequired() && it.ExplicitInitNeeded } };
+
+
+		// GROUP CONFIGURATION -----------------------------------------------------------------------------------------------//
+		out.print("""
+/*=== Group Configuration for ${app.name} (ADC Group ${gid}) ===*/
+IfxEvadc_Adc_Group ${grp.getGlobVarGroup()}; /* Variable for Group ${gid} */
+
+IfxEvadc_Adc_GroupConfig ${grp.getGroupConfigVarName()} =
+{
+  .groupId                                  = IfxEvadc_GroupId_${gid},
+  .master                                   = IfxEvadc_GroupId_${gid},
+  .disablePostCalibration                   = FALSE,
+  .doubleClockForMSBConversionSelection     = FALSE,
+  .sampleSynchronizationEnabled             = IfxEvadc_SampleSynchronization_off,
+  .analogClockSynchronizationDelay          = IfxEvadc_AnalogClockSynchronizationDelay_0,
+  .calibrationSampleTimeControlMode         = IfxEvadc_CalibrationSampleTimeControl_4,
+  .referencePrechargeControlMode            = IfxEvadc_ReferencePrechargeControl_singleClockPhase,
+  .referencePrechargeEnabled                = FALSE,
+  .inputBufferEnabled                       = FALSE,
+  .idlePrechargeLevel                       = IfxEvadc_IdlePrecharge_currentLevel,
+  .analogConverterMode                      = IfxEvadc_AnalogConverterMode_normalOperation,
+  .inputClasses                             = IfxEvadc_InputClasses_group0,
+
+  .arbiter =
+  {
+    .arbiterRoundLength                     = IfxEvadc_ArbitrationRounds_4_slots,
+    .requestSlotQueue0Enabled               = TRUE,
+    .requestSlotQueue1Enabled               = FALSE,
+    .requestSlotQueue2Enabled               = FALSE,
+  },
+
+  .queueRequest =
+  {
+    /* Queue Request 0 (enables as default queue) */
+    {
+      .flushQueueAfterInit                  = TRUE,
+      .triggerConfig =
+      {
+        .gatingMode                         = IfxEvadc_GatingMode_always,
+        .gatingSource                       = ${grp.getGtselString()},
+        .triggerMode                        = ${grp.getExtTrigString()},
+        .triggerSource                      = ${grp.getXtselString()},
+      },
+      .requestSlotPrio                      = IfxEvadc_RequestSlotPriority_highest,
+      .requestSlotStartMode                 = IfxEvadc_RequestSlotStartMode_waitForStart,
+    },
+  }, /* End queueRequest */
+
+  .inputClass =
+  {
+    /* Input Class 0 */
+    {
+      .sampleTime                           = ${grp.getSampleTimeString()},
+      .conversionMode                       = IfxEvadc_ChannelNoiseReduction_standardConversion,
+      .samplePointStandard                  = IfxEvadc_SpreadEarlySamplePointStandardConversionsMode_nominal,
+      .analogInputPrechargeControlStandard  = IfxEvadc_AnalogInputPrechargeControl_noPrecharge,
+      .sampleTimeEMUX                       = 1.0e-6,
+      .conversionModeEMUX                   = IfxEvadc_ChannelNoiseReductionEMUX_standardConversion,
+      .samplePointEMUX                      = IfxEvadc_SpreadEarlySamplePointEMUXConversionsMode_nominal,
+      .analogInputPrechargeControlEMUX      = IfxEvadc_AnalogInputPrechargeControl_noPrecharge,
+    },
+    
+    /* Input Class 1 */
+    {
+      .conversionMode                       = IfxEvadc_ChannelNoiseReduction_standardConversion,
+      .sampleTime                           = ${grp.getSampleTimeString()},
+      .samplePointStandard                  = IfxEvadc_SpreadEarlySamplePointStandardConversionsMode_nominal,
+      .analogInputPrechargeControlStandard  = IfxEvadc_AnalogInputPrechargeControl_noPrecharge,
+      .sampleTimeEMUX                       = 1.0e-6,
+      .conversionModeEMUX                   = IfxEvadc_ChannelNoiseReductionEMUX_standardConversion,
+      .samplePointEMUX                      = IfxEvadc_SpreadEarlySamplePointEMUXConversionsMode_nominal,
+      .analogInputPrechargeControlEMUX      = IfxEvadc_AnalogInputPrechargeControl_noPrecharge,
+    }
+  },
+
+  .analogFrequency                          = IFXEVADC_DEFAULT_ANALOG_FREQ,
+  .startupCalibration                       = FALSE,
+  .boundary0                                = 0u,
+  .boundary1                                = 0u,
+};
+""");
+		println("\n/* Channel Configuration for ${app.name} (ADC Group ${gid}) */");
+
+		//--- BEGIN CHANNEL CONFIG
+		for (AdcChannel ch in grp.getChannels())
+		{ // BEGIN CHANNEL LOOP
+
+			out.print("""/* Channel #${ch.getChannelId().toString()} */
+IfxEvadc_Adc_ChannelConfig ${ch.getChannelConfigVarName()} =
+{
+  /* General Settings */
+  .channelId                                = IfxEvadc_ChannelId_${ch.getPhysicalCh()},
+  .group                                    = &${grp.getGlobVarGroup()},
+  .inputClass                               = IfxEvadc_InputClasses_group0,
+  .reference                                = IfxEvadc_ChannelReference_standard,
+  .rightAlignedStorage                      = FALSE,
+  .synchonize                               = FALSE,
+  .dataModificationMode                     = IfxEvadc_DataModificationMode_standardDataReduction,
+  .dataReductionControlMode                 = IfxEvadc_DataReductionControlMode_0,
+  .waitForReadMode                          = ${ch.getWaitForReadEnum()},
+  .fifoMode                                 = IfxEvadc_FifoMode_seperateResultRegister,
+  .globalResultUsage                        = FALSE,  
+
+  /* Result Event Settings */
+  .resultRegister                           = IfxEvadc_ChannelResult_${ch.getPhysicalCh()},
+  .resultSrcNr                              = IfxEvadc_SrcNr_group0,
+  .resultServProvider                       = IfxSrc_Tos_cpu0,
+  .resultPriority                           = 0,
+
+  /* Channel Event Settings */
+  .channelSrcNr                             = IfxEvadc_SrcNr_group0,
+  .channelServProvider                      = IfxSrc_Tos_cpu0,
+  .channelPriority                          = 0,
+
+  /* Boundary Compare Settings */
+  .lowerBoundary                            = IfxEvadc_BoundarySelection_group0,
+  .upperBoundary                            = IfxEvadc_BoundarySelection_group0,
+  .boundaryMode                             = IfxEvadc_BoundaryExtension_standard,
+  .limitCheck                               = IfxEvadc_LimitCheck_noCheck
+};
+
+IfxEvadc_Adc_Channel ${ch.getChannelHandleVarName()} =
+{
+  .channel                                  = IfxEvadc_ChannelId_${ch.getPhysicalCh()},
+  .resultreg                                = IfxEvadc_ChannelResult_${ch.getPhysicalCh()},
+  .group                                    = &${grp.getGlobVarGroup()}
+};
+
+Ifx_EVADC_G_RES ${ch.getChannelResultVarName()} =
+{
+  .U = 0
+};
+
+IfxPort_Pin ${ch.getChannelPinConfigVarName()} =
+{
+  .port                                     = ${ch.getPort() != -1 ? ("&MODULE_P" + String.format("%02d", ch.getPort())) : "NULL_PTR"},
+  .pinIndex                                 = ${ch.getPin().toString()}
+};
+
+""");
+
+		} // END CHANNEL LOOP
+
+		// Define ChannelConfig Array
+		println("IfxEvadc_Adc_ChannelConfig ANALOG_CONVERTER_EVADC_ChannelConfigsArray_G${gid}[${grp.getPpChannelsNum()}];");
+		// Define Port_Pin Array
+		println("IfxPort_Pin ANALOG_CONVERTER_EVADC_ChannelPinConfigsArray_G${gid}[${grp.getPpChannelsNum()}];");
+		// Define ChannelHandle Array
+		println("IfxEvadc_Adc_Channel ANALOG_CONVERTER_EVADC_ChannelHandlesArray_G${gid}[${grp.getPpChannelsNum()}];");
+		// Define ChannelResults Array
+		println("Ifx_EVADC_G_RES ANALOG_CONVERTER_EVADC_ChannelResultsArray_G${gid}[${grp.getPpChannelsNum()}];");
+
+		//--- END CHANNELS CONFIG --------------------------------------------------------------------------------------------//
+
+		//--- BEGIN APP STRUCT DEFINITIONS -----------------------------------------------------------------------------------//
+		out.print("""
+ANALOG_CONVERTER_EVADC_CONF_t ${app.getAppConfStruct()} =
+{
+  .group_config                             = &${grp.getGroupConfigVarName()},
+  .channel_configs                          = ANALOG_CONVERTER_EVADC_ChannelConfigsArray_G${gid},
+  .port_pin_config                          = ANALOG_CONVERTER_EVADC_ChannelPinConfigsArray_G${gid},
+  .queue_flag                               = """)
+		if (grp.getExtTriggerIndex() == 0)
+		{
+			out.print("IFXEVADC_QUEUE_REFILL")
+		}
+		else
+		{
+			out.print("((1 << IFX_EVADC_G_Q_QINR_EXTR_OFF) | IFXEVADC_QUEUE_REFILL)")
+		}
+		out.print(""",
+  .start_conversion_after_init              = ${grp.getAutoStartConversion()},
+  .init_arrays_func_ptr                     = ANALOG_CONVERTER_EVADC_initArrays_G${gid},
+  .init_events_func_ptr                     = ${grp.hasEventOnChannels() ? "ANALOG_CONVERTER_EVADC_initEventForEnabledChannels_G" + gid : "NULL_PTR"},
+  .init_required_apps_func_ptr              = ${ChannelsNeedInitRequiredApp ? "ANALOG_CONVERTER_EVADC_initRequiredApps_G" + gid : "NULL_PTR"}
+};
+
+ANALOG_CONVERTER_EVADC_t ${grp.getInstanceStruct()} =
+{
+  .app_config                               = &${app.getAppConfStruct()},
+  .evadc_generic_handle                     = &${app.evadc_generic_label},
+  .group                                    = &${grp.getGlobVarGroup()},
+  .channels                                 = ANALOG_CONVERTER_EVADC_ChannelHandlesArray_G${gid},
+  .results                                  = ANALOG_CONVERTER_EVADC_ChannelResultsArray_G${gid},
+  .number_of_channels                       = ${grp.getPpChannelsNum()},
+  .app_is_initialized                       = FALSE
+};
+""")
+	}
+
+	/*******************************************************************************************************/
+	// Loop over all instances to create array init functions for config structs
+	int appIndex = 0;
+	for (app in appInstances)
+	{
+		appIndex++;
+		grp = app.group; // Group object for the current app instance in the loop
+		gid = grp.getId(); // To simplify access to group number :)
+
+		println("/*=== Group ${gid.toString()} Specific Functions ===*/");
+		out.print("void ANALOG_CONVERTER_EVADC_initArrays_G${gid}(void)\n{");
+
+		int channelIndex = 0;
+		for (AdcChannel ch in grp.getChannels())
+		{ // BEGIN CHANNEL LOOP
+			out.print("""
+  ANALOG_CONVERTER_EVADC_ChannelConfigsArray_G${gid}[${channelIndex}] = ${ch.getChannelConfigVarName()};
+  ANALOG_CONVERTER_EVADC_ChannelHandlesArray_G${gid}[${channelIndex}] = ${ch.getChannelHandleVarName()};
+  ANALOG_CONVERTER_EVADC_ChannelResultsArray_G${gid}[${channelIndex}] = ${ch.getChannelResultVarName()};
+  ANALOG_CONVERTER_EVADC_ChannelPinConfigsArray_G${gid}[${channelIndex}] = ${ch.getChannelPinConfigVarName()};
+""")
+			channelIndex++;
+		} // END CHANNEL LOOP
+
+		println("}"); // END ANALOG_CONVERTER_EVADC_AssignArrayElements()
+
+		if (appIndex < appInstances.size())
+		{ // Add line separator between groups
+			println("");
+		}
+	}
+	println("");
+
+	/*******************************************************************************************************/
+	// Another loop over all instances to create array init functions for required APPs that can not be init by DAVE
+	// Because of some limitation currently in ACS
+	appIndex = 0;
+	for (app in appInstances)
+	{
+		appIndex++;
+		grp = app.group; // Group object for the current app instance in the loop
+		gid = grp.getId(); // To simplify access to group number :)
+
+		// Create functions if any channel needs to init a requriedapp
+		ChannelsNeedInitRequiredApp =
+				grp.getChannels().any { channel -> channel.getRequiredApps().any { it.getIsRequired() && it.ExplicitInitNeeded } };
+		if(ChannelsNeedInitRequiredApp)
+		{
+			// Begin init function for required apps
+			out.print("""
+ANALOG_CONVERTER_EVADC_STATUS_t ANALOG_CONVERTER_EVADC_initRequiredApps_G${gid}()
+{
+  ANALOG_CONVERTER_EVADC_STATUS_t status = ANALOG_CONVERTER_EVADC_STATUS_SUCCESS;
+""")
+
+			// Loop over all requried apps and check if explicist init is needed
+			grp.getChannels()*.getRequiredApps().flatten().each
+			{
+				reqApp ->
+				if (reqApp.ExplicitInitNeeded && reqApp.getIsRequired())
+				{
+					out.print("""
+  if (status == 0)
+  {
+    if (${reqApp.getAppInitFunctionName()}(&${reqApp.getAppHandleName()}) != ${reqApp.getName() + "_STATUS_SUCCESS"})
+    {
+      status = ANALOG_CONVERTER_EVADC_STATUS_FAILURE;
+    }
+  }
+""");
+				}
+			}
+
+			out.print("""
+  return status;
+}
+"""); // End init function for required apps
+
+		}
+	}
+	println("");
+
+	/*******************************************************************************************************/
+	// Yet Another loop over all instances to enable result events and interrupts
+	appIndex = 0;
+	for (app in appInstances)
+	{
+		appIndex++;
+		grp = app.group; // Group object for the current app instance in the loop
+		if (grp.hasEventOnChannels())
+		{
+			gid = grp.getId(); // To simplify access to group number :)
+
+			out.print("void ANALOG_CONVERTER_EVADC_initEventForEnabledChannels_G${gid}(void)\n{");
+			for (AdcChannel ch in grp.getChannels())
+			{ // BEGIN CHANNEL LOOP
+
+				if (ch.hasEvent()) // Channel checkbox for event was enabled!
+				{
+					// Assumption: IfxEvadc_SrcNr_group0 used for all, unless a field inthe UI gets used to specify this
+					out.print("""
+  /* Enable Service Request for ${app.name}_${ch.getCustomName()} */
+  IfxEvadc_enableServiceRequest(${grp.getGlobVarGroup()}.group, IfxEvadc_ChannelResult_${ch.getPhysicalCh()});
+""")
+				}
+			} // END CHANNEL LOOP
+
+			println("}"); // END ANALOG_CONVERTER_EVADC_AssignArrayElements()
+
+			if (appIndex < appInstances.size())
+			{ // Add line separator between groups
+				println("");
+			}
+		}
+	}
+	out.print("/* CODE_BLOCK_END */")

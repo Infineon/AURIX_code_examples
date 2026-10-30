@@ -1,0 +1,284 @@
+package Model.APPS.LWIP_GETH.v4_0_8;
+// Import statements
+import ifx.davex.app.manifest.*
+
+/*************** Revision History **********************************************
+ Version      Date          Description
+ 4.0.2        12-Sep-2025   - Initial version
+ 4.0.4        15-Sep-2025   - License and Copyright update
+ 4.0.6        18-May-2026   - Support multiple GETH modules
+ 4.0.8		  27-May-2026	- Fixing the bug for ISR handlers
+ *******************************************************************************/
+
+class  LWIP_GETH extends LWIP_GETH_GUI
+{
+	/* Note  : Following APP properties are mandatory and important */
+
+	/* Begin : APP property section */
+
+	/**
+	 * APP version
+	 * Format: a string with three digit separated by a dot.
+	 */
+	def version			   = '4.0.8'
+
+	/**
+	 * APP categories declaration.
+	 * It is list of strings. Subcategories are separated by slash.
+	 * No limits on number of categories and subcategories depth.
+	 */
+	def categoriesDescription = ["Communication"]
+
+	/**
+	 * Minimum DAVE version required for this APP.
+	 *
+	 * It is string with three digit separated by a dot.
+	 */
+	def minDaveVersion			 = '4.2.4'
+
+	/**
+	 * Keywords used by search feature in APPs selection view
+	 *
+	 * It is a list of string.
+	 */
+	def keywords	  = ['LWIP', 'GETH', 'Ethernet', 'IP', 'TCP', 'UDP']
+
+	/**
+	 * softwareIDs is used to declare which devices are compatible with this APP.
+	 * It is a map with key a string containing a pattern that shall match the SW id of
+	 * the device and as value the minimal version of the APP.
+	 */
+
+	def softwareIDs		  = [
+		"TC3.3.*.EXT":"1.0.0",
+		"TC3.5.*.*":"1.0.0",
+		"TC3.6.*.*":"1.0.0",
+		"TC3.7.*.*":"1.0.0",
+		"TC3.8.*.*":"1.0.0",
+		"TC3.9.*.*":"1.0.0"]
+
+	/**
+	 * Singleton property:
+	 * When it is true the APP can be instantiated only once.
+	 */
+	def singleton	  = true
+
+
+	/**
+	 * initProvider property
+	 * It shall be true to add a call to <AppName>_Init()
+	 */
+	def initProvider  = true
+
+	/**
+	 * Deprecated APP
+	 * Set it to true to indicate that the APP shall be not used for new projects.
+	 */
+	def deprecated	  = false
+
+	/**
+	 * Sharable property.
+	 * It shall be true to allows multiple APPs to require the same instance of this APP.
+	 */
+	def sharable	  = false
+
+	/**
+	 *	APP function description.
+	 */
+	def description =	"LwIP (lightweight IP) is an open source TCP/IP stack designed for embedded systems." +
+						" LwIP stack supports the IP, TCP, UDP, ICMP, IGMP, ARP, DHCP, AutoIP, DNS and SNMP protocols." +
+						" LwIP is provided under BSD style license and maintained at http://savannah.nongnu.org/projects/lwip."
+
+	/* End	 : APP property section */
+
+	/* Begin : User APP property section */
+
+	/* Required App */
+	MRequiredApp appres_timer_stm					// TIMER STM App
+	MRequiredApp appres_printf						// PRINTF_ASCLIN App
+	MRequiredApp appres_freertos                    // FREERTOS_AURIX App
+	MRequiredApp appres_ethernet_0                  // ETHERNET_CONFIG App
+	MRequiredApp appres_ethernet_1                  // ETHERNET_CONFIG App
+
+	/* End	 : User APP property section */
+
+	/* Begin : APP Constructor */
+	public LWIP_GETH(DaveEnv daveEnv)
+	{
+		String device_id = daveEnv.project.selectedDevice.deviceId.softwareId.replaceAll('\\.', '')
+		MF is_dhcp_disabled = MF({gcheck_dhcp.value == false}, Boolean)
+		MF is_tcp_enabled = MF({gcheck_en_tcp.value}, Boolean)
+		MF is_udp_enabled = MF({gcheck_en_udp.value}, Boolean)
+		MF is_debug = MF({gcheck_en_debug.value}, Boolean)
+		MF is_rtos = MF({gcheck_enable_rtos.value}, Boolean)
+		MF is_rtos_disabled = MF({gcheck_enable_rtos.value == false}, Boolean)
+
+		/*------------------------------------------------------------------------------------------------------------------------------------------*/
+		/*								 Required APP																								*/
+		/*------------------------------------------------------------------------------------------------------------------------------------------*/
+		 appres_timer_stm = MRequiredApp("TIMER_STM", "TIMER_STM APP", RSHARABLE, "4.0.2", is_rtos_disabled)
+		 appres_freertos = MRequiredApp("FREERTOS_AURIX", "FREERTOS_AURIX APP", RSHARABLE, "4.0.2", is_rtos)
+		 appres_printf = MRequiredApp("PRINTF_ASCLIN", "PRINTF_ASCLIN APP", RSHARABLE, "4.0.2", is_debug)
+		 appres_ethernet_0 = MRequiredApp("ETHERNET_CONFIG", "ETHERNET_CONFIG APP", RNOTSHARABLE, "4.0.2")
+		 appres_ethernet_1 = MRequiredApp("ETHERNET_CONFIG", "ETHERNET_CONFIG APP", RNOTSHARABLE, "4.0.2",MF({ginteger_sel_no_geth.value == 2}, Boolean))
+		/*------------------------------------------------------------------------------------------------------------------------------------------*/
+		/*							  Hardware resource consumption block																			*/
+		/*------------------------------------------------------------------------------------------------------------------------------------------*/
+
+		/*------------------------------------------------------------------------------------------------------------------------------------------*/
+		/*								   APP Configuration																						*/
+		/*------------------------------------------------------------------------------------------------------------------------------------------*/
+		glabel_dbg_msg_type.enabled = is_debug
+		gcombo_dbg_msg_type.enabled = is_debug
+		ggroup_network.enabled = is_debug
+		ggroup_Ip.enabled = is_debug
+		ggroup_tcp.enabled = is_debug
+		ggroup_udp.enabled = is_debug
+		ggroup_protocols.enabled = is_debug
+		ggroup_system.enabled = is_debug
+		gcheck_udp_debug.enabled = is_udp_enabled
+		gcheck_tcp_debug.enabled = is_tcp_enabled
+		gcheck_tcp_input_debug.enabled = is_tcp_enabled
+		gcheck_tcp_fr_debug.enabled = is_tcp_enabled
+		gcheck_tcp_rto_debug.enabled = is_tcp_enabled
+		gcheck_tcp_cwnd_debug.enabled = is_tcp_enabled
+		gcheck_tcp_wnd_debug.enabled = is_tcp_enabled
+		gcheck_tcp_output_debug.enabled = is_tcp_enabled
+		gcheck_tcp_rst_debug.enabled = is_tcp_enabled
+		gcheck_tcp_qlen_debug.enabled = is_tcp_enabled
+		gcheck_dhcp_debug.enabled = MF({(gcheck_dhcp.value == true) && (gcheck_en_udp.value == true)}, Boolean)
+		gcheck_etharp_debug.enabled = is_udp_enabled
+		gcheck_autoip_debug.enabled = MF({gcheck_en_autoip.value == true}, Boolean)
+		gcheck_icmp_debug.enabled = MF({gcheck_en_icmp.value == true}, Boolean)
+		gcheck_igmp_debug.enabled = MF({gcheck_en_igmp.value == true && gcheck_en_udp.value == true}, Boolean)
+		gcheck_dns_debug.enabled = MF({gcheck_en_dns.value == true && gcheck_en_udp.value == true}, Boolean)
+		gcheck_snmp_msg_debug.enabled = MF({gcheck_en_snmp.value == true && gcheck_en_udp.value == true}, Boolean)
+		gcheck_snmp_mib_debug.enabled = MF({gcheck_en_snmp.value == true && gcheck_en_udp.value == true}, Boolean)
+		gcheck_ip_reass_debug.enabled = MF({gcheck_ip_reassem.value == true}, Boolean)
+				
+		ginteger_sel_no_geth.maxValue = MF({
+			if(device_id == "TC377EXT")
+				return 2
+			else
+				return 1
+		},Integer)
+		
+		gindexcombo_sel_geth_port_ntwrk_intr.options = MF({
+			List<String> l = []
+			for (int i = 0; i < ginteger_sel_no_geth.value; i++)
+			{
+				l.add("GETH Port #" + i.toString())
+			}
+			return l
+		}, List)
+		
+		ginteger_dns_1.value = 208
+		ginteger_dns_2.value = 67
+		ginteger_dns_3.value = 222
+		ginteger_dns_4.value = 222
+		
+		List mtu_values = []
+		for (int index in 0..1)
+		{
+			int i = index 
+			rArraygindexgroup_ntwrk_interface[i].gstring_netif_hostname.enabled =  MF({gcheck_netif_hostname_en.value}, Boolean)
+			rArraygindexgroup_ntwrk_interface[i].gstring_netif_callback.enabled =  MF({gcheck_netif_status_notif_en.value}, Boolean)
+			rArraygindexgroup_ntwrk_interface[i].glabel_ip_address.enabled =  is_dhcp_disabled
+			rArraygindexgroup_ntwrk_interface[i].gimage_ip_address.enabled =  is_dhcp_disabled
+			
+			rArraygindexgroup_ntwrk_interface[i].glabel_subnet_mask.enabled =  is_dhcp_disabled
+			rArraygindexgroup_ntwrk_interface[i].gimage_subnet_mask.enabled =  is_dhcp_disabled
+			
+			rArraygindexgroup_ntwrk_interface[i].glabel_gateway_address.enabled =  is_dhcp_disabled
+			rArraygindexgroup_ntwrk_interface[i].gimage_gateway_address.enabled =  is_dhcp_disabled		
+		}
+
+		glabel_en_dns.enabled = is_udp_enabled
+		gcheck_en_dns.enabled = is_udp_enabled
+		glabel_en_igmp.enabled = is_udp_enabled
+		gcheck_en_igmp.enabled = is_udp_enabled
+		glabel_en_snmp.enabled = is_udp_enabled
+		gcheck_en_snmp.enabled = is_udp_enabled
+		glabel_memp_num_udp_pcb.enabled = is_udp_enabled
+		ginteger_memp_num_udp_pcb.enabled = is_udp_enabled
+		gcheck_dhcp.enabled = is_udp_enabled
+		glabel_dhcp.enabled = is_udp_enabled
+
+		glabel_dns_server.enabled = MF({gcheck_en_dns.value && gcheck_en_udp.value}, Boolean)
+		gimage_dns_server.enabled = MF({gcheck_en_dns.value && gcheck_en_udp.value}, Boolean)
+			
+
+		glabel_tcp_snd_buf.enabled = is_tcp_enabled
+		ginteger_tcp_snd_buf.enabled = is_tcp_enabled
+		glabel_tcp_snd_queuelen.enabled = is_tcp_enabled
+		ginteger_tcp_snd_queuelen.enabled = is_tcp_enabled
+		glabel_memp_num_tcp_pcb.enabled = is_tcp_enabled
+		ginteger_memp_num_tcp_pcb.enabled = is_tcp_enabled
+		glabel_tcp_pcb_listen.enabled = is_tcp_enabled
+		ginteger_tcp_pcb_listen.enabled = is_tcp_enabled
+		glabel_tcp_seg.enabled = is_tcp_enabled
+		ginteger_tcp_seg.enabled = is_tcp_enabled
+		glabel_reassdata.enabled = MF({gcheck_en_tcp.value && gcheck_ip_reassem.value}, Boolean)
+		ginteger_reassdata.enabled = MF({gcheck_en_tcp.value && gcheck_ip_reassem.value}, Boolean)
+		ginteger_tcp_pcb_listen.maxValue = MF({ginteger_memp_num_tcp_pcb.value}, Integer)
+
+		glabel_no_struct_netbufs.enabled = is_rtos
+		ginteger_no_struct_netbufs.enabled = is_rtos
+		glabel_no_struct_netconns.enabled = is_rtos
+		ginteger_no_struct_netconns.enabled = is_rtos
+		glabel_no_tcpip_msg_api.enabled = is_rtos
+		ginteger_no_tcpip_msg_api.enabled = is_rtos
+		glabel_no_tcpip_smg_inpkt.enabled = is_rtos
+		ginteger_no_tcpip_smg_inpkt.enabled = is_rtos
+		
+		gcheck_timers_debug.enabled = is_rtos
+		gcheck_tcpip_debug.enabled = is_tcp_enabled
+		gcheck_sys_debug.enabled = is_rtos
+		gcheck_socket_debug.enabled = is_rtos
+		gcheck_api_msg_debug.enabled = is_rtos
+		ggroup_tcpip_settings.enabled = is_rtos
+		ggroup_gethernet.enabled = is_rtos
+		ggroup_phy.enabled = is_rtos
+		ginteger_tcp_mss.maxValue =  MF({rArraygindexgroup_ntwrk_interface[0].ginteger_mtu.maxValue}, Integer)
+		ginteger_tcp_wnd.minValue = MF({ginteger_tcp_mss.value * 2}, Integer)
+		ginteger_tcp_wnd.maxValue = MF({rArraygindexgroup_ntwrk_interface[0].ginteger_mtu.maxValue * ginteger_pbuf_pool_size.value}, Integer)
+		ginteger_tcp_snd_buf.minValue = MF({ginteger_tcp_mss.value * 2}, Integer)
+		ginteger_tcp_snd_queuelen.maxValue = MF({ginteger_tcp_seg.value}, Integer)
+		ginteger_tcp_snd_queuelen.minValue = MF(
+		{
+			Integer value = (2 * ginteger_tcp_snd_buf.value)/ginteger_tcp_mss.value
+			return value
+		}, Integer)
+		appres_ethernet_0.setVal(["gcheck_lwip_en","value"], MF({true},Boolean))
+		appres_ethernet_1.setVal(["gcheck_lwip_en","value"], MF({ginteger_sel_no_geth.value == 2},Boolean))
+		
+
+	}
+	/* End   : APP Constructor */
+
+	/* Begin : File Generation */
+	def generateFiles()
+	{
+		generate("lwip_geth_confh.tmpl", "lwip_geth_conf.h")
+		generate("lwip_geth_confc.tmpl", "lwip_geth_conf.c")
+		copy("lwip", "lwip")
+		copy("port", "port")
+		copy("lwip_geth.c", "lwip_geth.c")
+		copy("lwip_geth.h", "lwip_geth.h")
+		copy("lwip_geth_private_phy_dp83825i.c", "lwip_geth_private_phy_dp83825i.c")
+		copy("lwip_geth_private_phy_dp83825i.h", "lwip_geth_private_phy_dp83825i.h")
+		copy("lwip_geth_private_phy_rtl8211f.c", "lwip_geth_private_phy_rtl8211f.c")
+		copy("lwip_geth_private_phy_rtl8211f.h", "lwip_geth_private_phy_rtl8211f.h")
+		generate("lwipoptsh.tmpl", "lwipopts.h")
+	}
+	/* End   : File Generation */
+
+	/*** HELPER FUNCTIONS ***/
+	def debug(text, level)
+	{
+		if (true)
+		{
+			println("DEBUG: ${text}", level);
+		}
+	}
+}

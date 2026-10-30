@@ -1,0 +1,22 @@
+package Model.APPS.ETHERNET_CONFIG.v4_0_8;
+import ifx.davex.app.manifest.*;
+
+class Gindexgroup_dma_rx_chn{
+	 public GLabel glabel_dma_sel_rx_chn;
+	 public GLabel glabel_rx_max_brust_length;
+	 public GCombo gcombo_rx_max_brust_length;
+	 public GLabel glabel_rx_dma_buffer_size;
+	 public GCombo gcombo_rx_dma_buffer_size;
+	 public GLabel glabel_dma_rx_callback;
+	 public GString gstring_dma_rx_callback;
+
+	public Gindexgroup_dma_rx_chn (DaveEnv daveEnv, String widgetName,int index){
+	 glabel_dma_sel_rx_chn = new GLabel(widgetName: "glabel_dma_sel_rx_chn", text: "Select RX Channel to Configure", enabled: true, visible: true, parentWidgetName:widgetName)
+	 glabel_rx_max_brust_length = new GLabel(widgetName: "glabel_rx_max_brust_length", text: "Max Burst Length", enabled: true, visible: true, parentWidgetName:widgetName)
+	 gcombo_rx_max_brust_length = new GCombo(widgetName: "gcombo_rx_max_brust_length", options: ["1","2","4","8","16","32"], value: "1", enabled: true, visible: true, isMandatoryValue: false, parentWidgetName:widgetName)
+	 glabel_rx_dma_buffer_size = new GLabel(widgetName: "glabel_rx_dma_buffer_size", text: "Buffer Size", enabled: true, visible: true, parentWidgetName:widgetName)
+	 gcombo_rx_dma_buffer_size = new GCombo(widgetName: "gcombo_rx_dma_buffer_size", options: ["1","2","4","8","16","32","64","128","256","512","1024","2048","4096","8192","16384","32768"], value: "1", enabled: true, visible: true, isMandatoryValue: false, parentWidgetName:widgetName)
+	 glabel_dma_rx_callback = new GLabel(widgetName: "glabel_dma_rx_callback", text: "Callback", enabled: true, visible: true, parentWidgetName:widgetName)
+	 gstring_dma_rx_callback = new GString(widgetName: "gstring_dma_rx_callback", value: "DMA_Rx_UserCallback", enabled: true, visible: true, isMandatoryValue: false, parentWidgetName:widgetName)
+	}
+}

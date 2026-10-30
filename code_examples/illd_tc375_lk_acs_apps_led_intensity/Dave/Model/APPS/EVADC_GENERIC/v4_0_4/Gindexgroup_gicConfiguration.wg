@@ -1,0 +1,42 @@
+package Model.APPS.EVADC_GENERIC.v4_0_4;
+import ifx.davex.app.manifest.*;
+
+class Gindexgroup_gicConfiguration{
+	 public GLabel glabel_gicIndexSelector;
+	 public GLabel glabel_gicSampleTime;
+	 public GFloat gfloat_gicSampleTime;
+	 public GLabel glabel_gicConversionMode;
+	 public GCombo gcombo_gicConversionMode;
+	 public GLabel glabel_gicSamplePointStandard;
+	 public GCombo gcombo_gicSamplePointStandard;
+	 public GLabel glabel_gicPreChargeControl;
+	 public GCombo gcombo_gicPreChargeControl;
+	 public GLabel glabel_gicSampleTimeEmux;
+	 public GFloat gfloat_gicSampleTimeEmux;
+	 public GLabel glabel_gicConversionModeEmux;
+	 public GCombo gcombo_gicConversionModeEmux;
+	 public GLabel glabel_gicSamplePointStandardEmux;
+	 public GCombo gcombo_gicSamplePointStandardEmux;
+	 public GLabel glabel_gicPreChargeControlEmux;
+	 public GCombo gcombo_gicPreChargeControlEmux;
+
+	public Gindexgroup_gicConfiguration (DaveEnv daveEnv, String widgetName,int index){
+	 glabel_gicIndexSelector = new GLabel(widgetName: "glabel_gicIndexSelector", text: "Select Class to Configure", enabled: true, visible: true, parentWidgetName:widgetName)
+	 glabel_gicSampleTime = new GLabel(widgetName: "glabel_gicSampleTime", text: "Sample Time [us]", enabled: true, visible: true, parentWidgetName:widgetName)
+	 gfloat_gicSampleTime = new GFloat(widgetName: "gfloat_gicSampleTime", value: 10, minValue: 0.001, maxValue: Double.POSITIVE_INFINITY, enabled: true, visible: true, isMandatoryValue: false, parentWidgetName:widgetName)
+	 glabel_gicConversionMode = new GLabel(widgetName: "glabel_gicConversionMode", text: "Conversion Mode", enabled: true, visible: true, parentWidgetName:widgetName)
+	 gcombo_gicConversionMode = new GCombo(widgetName: "gcombo_gicConversionMode", options: ["Standard Conversion","Noise Reduction Level 1","Noise Reduction Level 2","Noise Reduction Level 3"], value: "Standard Conversion", enabled: true, visible: true, isMandatoryValue: false, parentWidgetName:widgetName)
+	 glabel_gicSamplePointStandard = new GLabel(widgetName: "glabel_gicSamplePointStandard", text: "Sample Point Standard", enabled: true, visible: true, parentWidgetName:widgetName)
+	 gcombo_gicSamplePointStandard = new GCombo(widgetName: "gcombo_gicSamplePointStandard", options: ["Nominal","Spread"], value: "Nominal", enabled: true, visible: true, isMandatoryValue: false, parentWidgetName:widgetName)
+	 glabel_gicPreChargeControl = new GLabel(widgetName: "glabel_gicPreChargeControl", text: "Precharge Control", enabled: true, visible: true, parentWidgetName:widgetName)
+	 gcombo_gicPreChargeControl = new GCombo(widgetName: "gcombo_gicPreChargeControl", options: ["No Precharge","8 Cycles","16 Cycles","32 Cycles"], value: "No Precharge", enabled: true, visible: true, isMandatoryValue: false, parentWidgetName:widgetName)
+	 glabel_gicSampleTimeEmux = new GLabel(widgetName: "glabel_gicSampleTimeEmux", text: "EMUX Sample Time [us]", enabled: true, visible: true, parentWidgetName:widgetName)
+	 gfloat_gicSampleTimeEmux = new GFloat(widgetName: "gfloat_gicSampleTimeEmux", value: 10, minValue: 0.001, maxValue: Double.POSITIVE_INFINITY, enabled: true, visible: true, isMandatoryValue: false, parentWidgetName:widgetName)
+	 glabel_gicConversionModeEmux = new GLabel(widgetName: "glabel_gicConversionModeEmux", text: "EMUX Conversion Mode", enabled: true, visible: true, parentWidgetName:widgetName)
+	 gcombo_gicConversionModeEmux = new GCombo(widgetName: "gcombo_gicConversionModeEmux", options: ["Standard Conversion","Noise Reduction Level 1","Noise Reduction Level 2","Noise Reduction Level 3"], value: "Standard Conversion", enabled: true, visible: true, isMandatoryValue: false, parentWidgetName:widgetName)
+	 glabel_gicSamplePointStandardEmux = new GLabel(widgetName: "glabel_gicSamplePointStandardEmux", text: "EMUX Sample Point Standard", enabled: true, visible: true, parentWidgetName:widgetName)
+	 gcombo_gicSamplePointStandardEmux = new GCombo(widgetName: "gcombo_gicSamplePointStandardEmux", options: ["Nominal","Spread"], value: "Nominal", enabled: true, visible: true, isMandatoryValue: false, parentWidgetName:widgetName)
+	 glabel_gicPreChargeControlEmux = new GLabel(widgetName: "glabel_gicPreChargeControlEmux", text: "EMUX Precharge Control", enabled: true, visible: true, parentWidgetName:widgetName)
+	 gcombo_gicPreChargeControlEmux = new GCombo(widgetName: "gcombo_gicPreChargeControlEmux", options: ["No Precharge","8 Cycles","16 Cycles","32 Cycles"], value: "No Precharge", enabled: true, visible: true, isMandatoryValue: false, parentWidgetName:widgetName)
+	}
+}

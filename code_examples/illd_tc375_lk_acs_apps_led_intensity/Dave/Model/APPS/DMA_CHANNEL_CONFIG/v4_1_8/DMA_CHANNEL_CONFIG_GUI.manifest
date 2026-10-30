@@ -1,0 +1,205 @@
+package Model.APPS.DMA_CHANNEL_CONFIG.v4_1_8;
+// Import statements
+import ifx.davex.app.manifest.*
+import ifx.davex.app.manifest.GString
+
+abstract class DMA_CHANNEL_CONFIG_GUI extends AppManifest {
+
+    /* IMPORTANT NOTE: This is an auto generated file, please do not edit manually. */
+    /* User modifications in the GUI editor will be updated here automatically.     */
+    /* Manually editing the contents of this file will corrupt the APP SDK project. */
+
+	/* Begin : UI variable section */
+	 public GTab gtab_basics;
+	 public GTab gtab_operations;
+	 public GTab gtab_linkedlist;
+	 public GTab gtab_interrupt;
+	 public GImage gimage_5;
+	 public GImage gimage_6;
+	 public GImage gimage_1;
+	 public GImage gimage_2;
+	 public GImage gimage_3;
+	 public GImage gimage_4;
+	 public GImage gimage_9;
+	 public GImage gimage_10;
+	 public GInteger ginteger_num_trans;
+	 public GInteger ginteger_num_lls;
+	 public GInteger ginteger_trans_comp_intr;
+	 public GCombo gcombo_ch_wid;
+	 public GCombo gcombo_num_moves;
+	 public GCombo gcombo_src_cnt;
+	 public GCombo gcombo_src_ofst;
+	 public GCombo gcombo_src_circ_buf_len;
+	 public GCombo gcombo_des_cnt;
+	 public GCombo gcombo_des_ofst;
+	 public GCombo gcombo_des_circ_buf_len;
+	 public GCombo gcombo_trans_mode;
+	 public GCombo gcombo_rst_type;
+	 public GCombo gcombo_dma_rqst_type;
+	 public GCombo gcombo_rp_sel;
+	 public GCombo gcombo_operation_type;
+	 public GCombo gcombo_swap_data_crc;
+	 public GCombo gcombo_add_feat;
+	 public GCombo gcombo_detection_type;
+	 public GCombo gcombo_pat_cmp_rgn;
+	 public GCombo gcombo_subseq;
+	 public GCombo gcombo_trl_err_evnt;
+	 public GString gstring_src_adrs;
+	 public GString gstring_des_adrs;
+	 public GString gstring_shadr;
+	 public GCheck gcheck_src_circ_buffer;
+	 public GCheck gcheck_des_circ_buffer;
+	 public GCheck gcheck_susen;
+	 public GCheck gcheck_pat_mat_evnt;
+	 public GCheck gcheck_wrap_src_buf_intr;
+	 public GCheck gcheck_wrap_des_buf_intr;
+	 public GCheck gcheck_trans_comp_intr;
+	 public GCheck gcheck_tsr_wwc;
+	 public GCheck gcheck_tsr_wwc_dis;
+	 public GLabel glabel_ch_wid;
+	 public GLabel glabel_num_trans;
+	 public GLabel glabel_num_moves;
+	 public GLabel glabel_src_adrs;
+	 public GLabel glabel_src_cnt;
+	 public GLabel glabel_src_ofst;
+	 public GLabel glabel_src_circ_buffer;
+	 public GLabel glabel_src_circ_buf_len;
+	 public GLabel glabel_des_adrs;
+	 public GLabel glabel_des_cnt;
+	 public GLabel glabel_des_ofst;
+	 public GLabel glabel_des_circ_buffer;
+	 public GLabel glabel_des_circ_buf_len;
+	 public GLabel glabel_trans_mode;
+	 public GLabel glabel_rst_type;
+	 public GLabel glabel_dma_rqst_type;
+	 public GLabel glabel_rp_sel;
+	 public GLabel glabel_susen;
+	 public GLabel glabel_operation_type;
+	 public GLabel glabel_swap_data_crc;
+	 public GLabel glabel_add_feat;
+	 public GLabel glabel_detection_type;
+	 public GLabel glabel_pat_cmp_rgn;
+	 public GLabel glabel_pat_det_message;
+	 public GLabel glabel_shadr;
+	 public GLabel glabel_num_lls;
+	 public GLabel glabel_subseq;
+	 public GLabel glabel_trl_err_evnt;
+	 public GLabel glabel_pat_mat_evnt;
+	 public GLabel glabel_wrap_src_buf_intr;
+	 public GLabel glabel_wrap_des_buf_intr;
+	 public GLabel glabel_trans_comp_intr;
+	 public GLabel glabel_tsr_wwc;
+	 public GGroup ggroup_src;
+	 public GGroup ggroup_des;
+	 public GGroup ggroup_operation;
+	 public GGroup ggroup_features;
+	 public GGroup ggroup_pat_det_config;
+	 public GGroup ggroup_chintr;
+	 public GMessage gmessage_src_adrs;
+	 public GMessage gmessage_des_adrs;
+	 public GMessage gmessage_shadr;
+	 public GIndexCombo gindexcombo_node_lls;
+	 public RArray<Gindexgroup_lls> rArraygindexgroup_lls = RArray(127);
+
+	 public GIndexGroup gindexgroup_lls;
+
+	 public DMA_CHANNEL_CONFIG_GUI(DaveEnv daveEnv){
+
+	 gtab_basics = GTab(widgetName: "gtab_basics", text: "General Settings", enabled: true, visible: true)
+	 gtab_operations = GTab(widgetName: "gtab_operations", text: "Operations and Features Settings", enabled: true, visible: true)
+	 gtab_linkedlist = GTab(widgetName: "gtab_linkedlist", text: "Linked List Settings", enabled: true, visible: true)
+	 gtab_interrupt = GTab(widgetName: "gtab_interrupt", text: "Event Settings", enabled: true, visible: true)
+	 gimage_5 = GImage(widgetName: "gimage_5", path: "", enabled: true, visible: true)
+	 gimage_6 = GImage(widgetName: "gimage_6", path: "", enabled: true, visible: true)
+	 gimage_1 = GImage(widgetName: "gimage_1", path: "", enabled: true, visible: true)
+	 gimage_2 = GImage(widgetName: "gimage_2", path: "", enabled: true, visible: true)
+	 gimage_3 = GImage(widgetName: "gimage_3", path: "", enabled: true, visible: true)
+	 gimage_4 = GImage(widgetName: "gimage_4", path: "", enabled: true, visible: true)
+	 gimage_9 = GImage(widgetName: "gimage_9", path: "", enabled: true, visible: true)
+	 gimage_10 = GImage(widgetName: "gimage_10", path: "", enabled: true, visible: true)
+	 ginteger_num_trans = GInteger(widgetName: "ginteger_num_trans", value: 1, minValue: 1, maxValue: 16383, enabled: true, visible: true, isMandatoryValue: false)
+	 ginteger_num_lls = GInteger(widgetName: "ginteger_num_lls", value: 2, minValue: 2, maxValue: 127, enabled: true, visible: true, isMandatoryValue: false)
+	 ginteger_trans_comp_intr = GInteger(widgetName: "ginteger_trans_comp_intr", value: 1, minValue: 1, maxValue: 16383, enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_ch_wid = GCombo(widgetName: "gcombo_ch_wid", options: ["8-bit","16-bit","32-bit","64-bit","128-bit","256-bit","512-bit"], value: "8-bit", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_num_moves = GCombo(widgetName: "gcombo_num_moves", options: ["1","2","3","4","5","8","9","16"], value: "4", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_src_cnt = GCombo(widgetName: "gcombo_src_cnt", options: ["Increment","Decrement"], value: "Increment", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_src_ofst = GCombo(widgetName: "gcombo_src_ofst", options: ["1 x CHDW","2 x CHDW","4 x CHDW","8 x CHDW","16 x CHDW","32 x CHDW","64 x CHDW","128 x CHDW"], value: "1 x CHDW", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_src_circ_buf_len = GCombo(widgetName: "gcombo_src_circ_buf_len", options: ["1","2","4","8","16","32","64","128","256","512","1024","2048","4096","8192","16384","32768"], value: "8", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_des_cnt = GCombo(widgetName: "gcombo_des_cnt", options: ["Increment","Decrement"], value: "Increment", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_des_ofst = GCombo(widgetName: "gcombo_des_ofst", options: ["1 x CHDW","2 x CHDW","4 x CHDW","8 x CHDW","16 x CHDW","32 x CHDW","64 x CHDW","128 x CHDW"], value: "1 x CHDW", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_des_circ_buf_len = GCombo(widgetName: "gcombo_des_circ_buf_len", options: ["1","2","4","8","16","32","64","128","256","512","1024","2048","4096","8192","16384","32768"], value: "8", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_trans_mode = GCombo(widgetName: "gcombo_trans_mode", options: ["Single Mode","Continuous Mode"], value: "Single Mode", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_rst_type = GCombo(widgetName: "gcombo_rst_type", options: ["Each Transfer","Single Transaction"], value: "Single Transaction", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_dma_rqst_type = GCombo(widgetName: "gcombo_dma_rqst_type", options: ["Software","Hardware","Daisy Chain"], value: "Hardware", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_rp_sel = GCombo(widgetName: "gcombo_rp_sel", options: ["Resource Partition 0 (RP0)","Resource Partition 1 (RP1)","Resource Partition 2 (RP2)","Resource Partition 3 (RP3)","Resource Partition 4 (RP4)","Resource Partition 5 (RP5)","Resource Partition 6 (RP6)","Resource Partition 7 (RP7)","Resource Partition 8 (RP8)","Resource Partition 9 (RP9)","Resource Partition 10 (RP10)","Resource Partition 11 (RP11)","Resource Partition 12 (RP12)","Resource Partition 13 (RP13)","Resource Partition 14 (RP14)","Resource Partition 15 (RP15)"], value: "Resource Partition 0 (RP0)", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_operation_type = GCombo(widgetName: "gcombo_operation_type", options: ["Move Operation","Shadow Operation Read Only Mode Source Address","Shadow Operation Read Only Mode Destination Address","Shadow Operation Direct Write Mode Source Address","Shadow Operation Direct Write Mode Destination Address","Double Source Buffering with S/W Switch Only","Double Source Buffering with S/W Switch and Automatic H/W Switch","Double Destination Buffering with S/W Switch Only","Double Destination Buffering with S/W Switch and Automatic H/W Switch","DMA Linked List (DMALL)","Accumulated Linked List (ACCLL)","Safe/Checked Linked List (SAFLL/CHKLL)","Conditional Linked List (CONLL)"], value: "Move Operation", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_swap_data_crc = GCombo(widgetName: "gcombo_swap_data_crc", options: ["Enable","Disable"], value: "Disable", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_add_feat = GCombo(widgetName: "gcombo_add_feat", options: ["No Feature","Pattern Detection","Timestamp"], value: "No Feature", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_detection_type = GCombo(widgetName: "gcombo_detection_type", options: ["None","8-bit Lower Pattern Compare","8-bit Upper Pattern Compare","8-bit Two Byte Pattern Detection Sequence Compare","16-bit Aligned Mode Compare","16-bit Unaligned Mode 1 or Unaligned Mode 2 Compare","16-bit Combined Mode Compare","32-bit Lower Data Half Word Compare","32-bit Upper Data Half Word Compare","32-bit Complete Data Word Compare"], value: "None", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_pat_cmp_rgn = GCombo(widgetName: "gcombo_pat_cmp_rgn", options: ["None","PRR0","PRR1"], value: "None", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_subseq = GCombo(widgetName: "gcombo_subseq", options: ["Auto Start Request for All Transactions","Software Request for All Transactions","Hardware Request for All Transactions","Configured Individually"], value: "Auto Start Request for All Transactions", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_trl_err_evnt = GCombo(widgetName: "gcombo_trl_err_evnt", options: ["Enable","Disable"], value: "Enable", enabled: true, visible: true, isMandatoryValue: false)
+	 gstring_src_adrs = GString(widgetName: "gstring_src_adrs", value: "0x0", enabled: true, visible: true, isMandatoryValue: false)
+	 gstring_des_adrs = GString(widgetName: "gstring_des_adrs", value: "0x0", enabled: true, visible: true, isMandatoryValue: false)
+	 gstring_shadr = GString(widgetName: "gstring_shadr", value: "0x0", enabled: true, visible: true, isMandatoryValue: false)
+	 gcheck_src_circ_buffer = GCheck(widgetName: "gcheck_src_circ_buffer", value: false, enabled: true, visible: true)
+	 gcheck_des_circ_buffer = GCheck(widgetName: "gcheck_des_circ_buffer", value: false, enabled: true, visible: true)
+	 gcheck_susen = GCheck(widgetName: "gcheck_susen", value: false, enabled: true, visible: true)
+	 gcheck_pat_mat_evnt = GCheck(widgetName: "gcheck_pat_mat_evnt", value: false, enabled: true, visible: true)
+	 gcheck_wrap_src_buf_intr = GCheck(widgetName: "gcheck_wrap_src_buf_intr", value: false, enabled: true, visible: true)
+	 gcheck_wrap_des_buf_intr = GCheck(widgetName: "gcheck_wrap_des_buf_intr", value: false, enabled: true, visible: true)
+	 gcheck_trans_comp_intr = GCheck(widgetName: "gcheck_trans_comp_intr", value: false, enabled: true, visible: true)
+	 gcheck_tsr_wwc = GCheck(widgetName: "gcheck_tsr_wwc", value: false, enabled: true, visible: true)
+	 gcheck_tsr_wwc_dis = GCheck(widgetName: "gcheck_tsr_wwc_dis", value: false, enabled: false, visible: true)
+	 glabel_ch_wid = GLabel(widgetName: "glabel_ch_wid", text: "Channel Data Width (CHDW)", enabled: true, visible: true)
+	 glabel_num_trans = GLabel(widgetName: "glabel_num_trans", text: "Number of Transfers", enabled: true, visible: true)
+	 glabel_num_moves = GLabel(widgetName: "glabel_num_moves", text: "Number of Moves", enabled: true, visible: true)
+	 glabel_src_adrs = GLabel(widgetName: "glabel_src_adrs", text: "Address", enabled: true, visible: true)
+	 glabel_src_cnt = GLabel(widgetName: "glabel_src_cnt", text: "Counter", enabled: true, visible: true)
+	 glabel_src_ofst = GLabel(widgetName: "glabel_src_ofst", text: "Offset", enabled: true, visible: true)
+	 glabel_src_circ_buffer = GLabel(widgetName: "glabel_src_circ_buffer", text: "Circular Buffer", enabled: true, visible: true)
+	 glabel_src_circ_buf_len = GLabel(widgetName: "glabel_src_circ_buf_len", text: "Size", enabled: true, visible: true)
+	 glabel_des_adrs = GLabel(widgetName: "glabel_des_adrs", text: "Address", enabled: true, visible: true)
+	 glabel_des_cnt = GLabel(widgetName: "glabel_des_cnt", text: "Counter", enabled: true, visible: true)
+	 glabel_des_ofst = GLabel(widgetName: "glabel_des_ofst", text: "Offset", enabled: true, visible: true)
+	 glabel_des_circ_buffer = GLabel(widgetName: "glabel_des_circ_buffer", text: "Circular Buffer", enabled: true, visible: true)
+	 glabel_des_circ_buf_len = GLabel(widgetName: "glabel_des_circ_buf_len", text: "Size", enabled: true, visible: true)
+	 glabel_trans_mode = GLabel(widgetName: "glabel_trans_mode", text: "Transfer Mode", enabled: true, visible: true)
+	 glabel_rst_type = GLabel(widgetName: "glabel_rst_type", text: "DMA Request For", enabled: true, visible: true)
+	 glabel_dma_rqst_type = GLabel(widgetName: "glabel_dma_rqst_type", text: "DMA Request Source", enabled: true, visible: true)
+	 glabel_rp_sel = GLabel(widgetName: "glabel_rp_sel", text: "DMA Channel RP", enabled: true, visible: true)
+	 glabel_susen = GLabel(widgetName: "glabel_susen", text: "DMA Channel Suspend", enabled: true, visible: true)
+	 glabel_operation_type = GLabel(widgetName: "glabel_operation_type", text: "Type", enabled: true, visible: true)
+	 glabel_swap_data_crc = GLabel(widgetName: "glabel_swap_data_crc", text: "Swap Data CRC Byte Order", enabled: true, visible: true)
+	 glabel_add_feat = GLabel(widgetName: "glabel_add_feat", text: "Operation with", enabled: true, visible: true)
+	 glabel_detection_type = GLabel(widgetName: "glabel_detection_type", text: "Detection Type", enabled: true, visible: true)
+	 glabel_pat_cmp_rgn = GLabel(widgetName: "glabel_pat_cmp_rgn", text: "Compared to", enabled: true, visible: true)
+	 glabel_pat_det_message = GLabel(widgetName: "glabel_pat_det_message", text: "Required Configuration:\n- Channel Width (8-bit or 16-bit or 32-bit)\n- Source Address (0xA0000000 to 0xBFFFFFFF)\n- Operation Type (Move operation or any Shadow operation)\n- Operation with (Pattern Detection)", enabled: false, visible: true)
+	 glabel_shadr = GLabel(widgetName: "glabel_shadr", text: "Shadow Address", enabled: true, visible: true)
+	 glabel_num_lls = GLabel(widgetName: "glabel_num_lls", text: "Number of Linked List Transactions", enabled: true, visible: true)
+	 glabel_subseq = GLabel(widgetName: "glabel_subseq", text: "DMA Request Type", enabled: true, visible: true)
+	 glabel_trl_err_evnt = GLabel(widgetName: "glabel_trl_err_evnt", text: "Transaction or Transfer Request Lost Interrupt", enabled: true, visible: true)
+	 glabel_pat_mat_evnt = GLabel(widgetName: "glabel_pat_mat_evnt", text: "Pattern Match Event", enabled: true, visible: true)
+	 glabel_wrap_src_buf_intr = GLabel(widgetName: "glabel_wrap_src_buf_intr", text: "Wrap Source Buffer Event", enabled: true, visible: true)
+	 glabel_wrap_des_buf_intr = GLabel(widgetName: "glabel_wrap_des_buf_intr", text: "Wrap Destination Buffer Event", enabled: true, visible: true)
+	 glabel_trans_comp_intr = GLabel(widgetName: "glabel_trans_comp_intr", text: "Transfer Completion Event", enabled: true, visible: true)
+	 glabel_tsr_wwc = GLabel(widgetName: "glabel_tsr_wwc", text: "Wait for Write Completion", enabled: true, visible: true)
+	 ggroup_src = GGroup(widgetName: "ggroup_src", text: "Source", enabled: true, visible: true)
+	 ggroup_des = GGroup(widgetName: "ggroup_des", text: "Destination", enabled: true, visible: true)
+	 ggroup_operation = GGroup(widgetName: "ggroup_operation", text: "Operation", enabled: true, visible: true)
+	 ggroup_features = GGroup(widgetName: "ggroup_features", text: "Features", enabled: true, visible: true)
+	 ggroup_pat_det_config = GGroup(widgetName: "ggroup_pat_det_config", text: "Pattern Detection Configuration", enabled: true, visible: true)
+	 ggroup_chintr = GGroup(widgetName: "ggroup_chintr", text: "Channel Interrupt", enabled: true, visible: true)
+	 gmessage_src_adrs = GMessage(widgetName: "gmessage_src_adrs", text: "Invalid Source Address", isError: true, visible: true)
+	 gmessage_des_adrs = GMessage(widgetName: "gmessage_des_adrs", text: "Invalid Destination Address", isError: true, visible: true)
+	 gmessage_shadr = GMessage(widgetName: "gmessage_shadr", text: "Invalid Shadow Address", isError: true, visible: true)
+	 gindexcombo_node_lls = GIndexCombo(widgetName: "gindexcombo_node_lls", options: ["1"], value: "1", visible: true)
+	 gindexgroup_lls = GIndexGroup(widgetName: "gindexgroup_lls", text: "Individual Transaction Configuration", enabled: true, visible: true, gIndexCombo: gindexcombo_node_lls, rArray: rArraygindexgroup_lls)
+	 for(int i=0; i<127; i++){
+		 rArraygindexgroup_lls[i] = new Gindexgroup_lls(daveEnv, "gindexgroup_lls",i)
+	 }
+
+
+	 }
+	/* End : UI variable section */
+}

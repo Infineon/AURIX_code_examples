@@ -1,0 +1,106 @@
+package Model.APPS.CCU6_GENERIC.v4_0_4;
+// Import statements
+import ifx.davex.app.manifest.*
+
+/*************** Revision History **********************************************
+ Version      Date          Description
+ 4.0.2        12-Sep-2025   - Initial version
+ 4.0.4        15-Sep-2025   - License and Copyright update
+ *******************************************************************************/
+
+class  CCU6_GENERIC extends CCU6_GENERIC_GUI
+{
+	/* Note  : Following APP properties are mandatory and important */
+
+	/* Begin : APP property section */
+
+	/**
+	 * APP version
+	 * Format: a string with three digit separated by a dot.
+	 */
+	def version            = '4.0.4'
+
+	/**
+	 * APP categories declaration.
+	 * It is list of strings. Subcategories are separated by slash.
+	 * No limits on number of categories and subcategories depth.
+	 */
+	def categoriesDescription = ["Timer"]
+
+	/**
+	 * Minimum DAVE version required for this APP.
+	 *
+	 * It is string with three digit separated by a dot.
+	 */
+	def minDaveVersion           = '4.2.4'
+
+	/**
+	 * Keywords used by search feature in APPs selection view
+	 *
+	 * It is a list of string.
+	 */
+	def keywords      = ['CCU6']
+
+	/**
+	 * softwareIDs is used to declare which devices are compatible with this APP.
+	 * It is a map with key a string containing a pattern that shall match the SW id of
+	 * the device and as value the minimal version of the APP.
+	 */
+
+	def softwareIDs       = [
+		"TC3.*.*.*":"1.0.0"]
+
+	/**
+	 * Singleton property:
+	 * When it is true the APP can be instantiated only once.
+	 */
+	def singleton     = true
+
+	/**
+	 * initProvider property
+	 * It shall be true to add a call to <AppName>_Init()
+	 */
+	def initProvider  = true
+
+	/**
+	 * Deprecated APP
+	 * Set it to true to indicate that the APP shall be not used for new projects.
+	 */
+	def deprecated    = false
+
+	/**
+	 * Sharable property.
+	 * It shall be true to allows multiple APPs to require the same instance of this APP.
+	 */
+	def sharable      = true
+
+	/**
+	 *  APP function description.
+	 */
+	def description =	"This CCU6_GENERIC APP has no parameters. " +
+						"It is always used with the APPs that manages one of the channels of the CCU6 and exists to output a register (MOSEL) " +
+						"in code generation that determines whether the signals they output are output as signals (OUT1/2/3) to be output as a module"
+
+	/* End   : APP property section */
+
+	/* Begin : User APP property section */
+	MVirtualResourceGroup hwres_ccu6_common
+	/* End   : User APP property section */
+
+	/* Begin : APP Constructor */
+	public CCU6_GENERIC(DaveEnv daveEnv) {
+		gstring_desc.visible = false
+		hwres_ccu6_common = MVirtualResourceGroup("Common Block", ["peripheral", "ccu6", "0", "common"], true)
+	}
+	/* End   : APP Constructor */
+
+	/* Begin : File Generation */
+	def generateFiles()
+	{
+		generate("ccu6_generic_confh.tmpl", "ccu6_generic_conf.h", false)
+		generate("ccu6_generic_confc.tmpl", "ccu6_generic_conf.c", false)
+		copy("ccu6_generic.c", "ccu6_generic.c")
+		copy("ccu6_generic.h", "ccu6_generic.h")
+	}
+	/* End   : File Generation */
+}

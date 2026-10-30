@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ProjectConfig>
+        
+    <ResourceReserve/>
+        
+    <Solver>
+                
+        <SolverBndMap>
+            <BindMap MUri="peripheral/int/0/icu/0" Proxy="app/CPU_CORE/0/hwres_ir_icu"/>
+            <BindMap MUri="port/p/0/pad/5" Proxy="app/PWM_GTM/0/hwres_port_pad"/>
+            <BindMap MUri="peripheral/evadc/0/common" Proxy="app/EVADC_GENERIC/0/hwres_evadc_common"/>
+            <BindMap MUri="peripheral/dma/0/ch/0" Proxy="app/DMA_CHANNEL_CONFIG/0/hwres_dma_channel"/>
+            <BindMap MUri="peripheral/scu/0/clkctrl/perpll" Proxy="app/CLOCK/0/hwres_clockctrl_peripll"/>
+            <BindMap MUri="peripheral/gtm/0/common" Proxy="app/GTM_GENERIC/0/hwres_gtm_common"/>
+            <BindMap MUri="peripheral/gtm/0/cluster/0/tom/0/ch/12" Proxy="app/PWM_GTM/0/hwres_module"/>
+            <BindMap MUri="peripheral/scu/0/clkctrl/syspll" Proxy="app/CLOCK/0/hwres_clockctrl_syspll"/>
+            <BindMap MUri="peripheral/int/0/srn/412" Proxy="app/DMA_CHANNEL_CONFIG/0/hwres_interrupt"/>
+            <BindMap MUri="peripheral/scu/0/clkctrl/clkmon" Proxy="app/CLOCK/0/hwres_clockctrl_clkmon"/>
+            <BindMap MUri="peripheral/ccu6/0/common" Proxy="app/CCU6_GENERIC/0/hwres_ccu6_common"/>
+            <BindMap MUri="peripheral/dma/0/common" Proxy="app/DMA_GENERIC/0/hwres_dma"/>
+            <BindMap MUri="peripheral/ccu6/0/0/t12" Proxy="app/TIMER_CCU6/0/hwres_CCU6_CCU6x_Timer"/>
+            <BindMap MUri="peripheral/scu/0/clkctrl/ccu" Proxy="app/CLOCK/0/hwres_clockctrl_ccu"/>
+            <BindMap MUri="port/an/0/pad/0" Proxy="app/ANALOG_CONVERTER_EVADC/0/hwres_port_00"/>
+            <BindMap MUri="peripheral/int/0/srn/220" Proxy="app/INTERRUPT_CONFIG/0/hwres_interrupt"/>
+            <BindMap MUri="peripheral/cpu/0/core" Proxy="app/CPU_CORE/0/hwres_cpu_core"/>
+            <BindMap MUri="devicepackage/0/16" Proxy="app/PWM_GTM/0/__pin_hwres_port_pad"/>
+            <BindMap MUri="peripheral/scu/0/clkctrl/extclk" Proxy="app/CLOCK/0/hwres_clockctrl_extclk"/>
+            <BindMap MUri="peripheral/scu/0/clkctrl/osc" Proxy="app/CLOCK/0/hwres_clockctrl_osc"/>
+            <BindMap MUri="peripheral/cpu/0/memory_protection" Proxy="app/CPU_CORE/0/hwres_cpu_mpu"/>
+            <BindMap MUri="peripheral/evadc/0/gr/0" Proxy="app/ANALOG_CONVERTER_EVADC/0/hwres_AdcGroup"/>
+            <BindMap MUri="peripheral/cpu/0/prio/1" Proxy="app/INTERRUPT_CONFIG/0/hwres_cpu_prio"/>
+            <BindMap MUri="devicepackage/0/67" Proxy="app/ANALOG_CONVERTER_EVADC/0/__pin_hwres_port_00"/>
+        </SolverBndMap>
+    </Solver>
+    
+</ProjectConfig>

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="ASCII"?>
+<ResourceModel:Peripheral xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ResourceModel="http://www.infineon.com/Davex/Resource.ecore" URI="http://resources/40.0.1/peripheral/cpu/0" description="" baseAddress="0xF8800000">
+  <provided xsi:type="ResourceModel:ResourceGroup" name="memory_protection" URI="http://resources/40.0.1/peripheral/cpu/0/hra/memory_protection">
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/CPU_CORE/v4_1_2/CPU_CORE_0.app#//@hwResources.1"/>
+    <resourcesList name="hra_dpr0_l" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_dpr0_l"/>
+    <resourcesList name="hra_dpr1_l" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_dpr1_l"/>
+    <resourcesList name="hra_dpr2_l" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_dpr2_l"/>
+    <resourcesList name="hra_dpr3_l" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_dpr3_l"/>
+    <resourcesList name="hra_dpr4_l" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_dpr4_l"/>
+    <resourcesList name="hra_dpr5_l" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_dpr5_l"/>
+    <resourcesList name="hra_dpr6_l" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_dpr6_l"/>
+    <resourcesList name="hra_dpr7_l" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_dpr7_l"/>
+    <resourcesList name="hra_dpr8_l" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_dpr8_l"/>
+    <resourcesList name="hra_dpr9_l" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_dpr9_l"/>
+    <resourcesList name="hra_dpr0_u" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_dpr0_u"/>
+    <resourcesList name="hra_dpr1_u" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_dpr1_u"/>
+    <resourcesList name="hra_dpr2_u" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_dpr2_u"/>
+    <resourcesList name="hra_dpr3_u" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_dpr3_u"/>
+    <resourcesList name="hra_dpr4_u" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_dpr4_u"/>
+    <resourcesList name="hra_dpr5_u" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_dpr5_u"/>
+    <resourcesList name="hra_dpr6_u" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_dpr6_u"/>
+    <resourcesList name="hra_dpr7_u" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_dpr7_u"/>
+    <resourcesList name="hra_dpr8_u" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_dpr8_u"/>
+    <resourcesList name="hra_dpr9_u" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_dpr9_u"/>
+    <resourcesList name="hra_cpr0_l" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_cpr0_l"/>
+    <resourcesList name="hra_cpr1_l" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_cpr1_l"/>
+    <resourcesList name="hra_cpr2_l" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_cpr2_l"/>
+    <resourcesList name="hra_cpr3_l" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_cpr3_l"/>
+    <resourcesList name="hra_cpr4_l" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_cpr4_l"/>
+    <resourcesList name="hra_cpr5_l" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_cpr5_l"/>
+    <resourcesList name="hra_cpr6_l" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_cpr6_l"/>
+    <resourcesList name="hra_cpr7_l" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_cpr7_l"/>
+    <resourcesList name="hra_cpr8_l" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_cpr8_l"/>
+    <resourcesList name="hra_cpr9_l" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_cpr9_l"/>
+    <resourcesList name="hra_cpr0_u" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_cpr0_u"/>
+    <resourcesList name="hra_cpr1_u" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_cpr1_u"/>
+    <resourcesList name="hra_cpr2_u" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_cpr2_u"/>
+    <resourcesList name="hra_cpr3_u" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_cpr3_u"/>
+    <resourcesList name="hra_cpr4_u" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_cpr4_u"/>
+    <resourcesList name="hra_cpr5_u" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_cpr5_u"/>
+    <resourcesList name="hra_cpr6_u" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_cpr6_u"/>
+    <resourcesList name="hra_cpr7_u" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_cpr7_u"/>
+    <resourcesList name="hra_cpr8_u" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_cpr8_u"/>
+    <resourcesList name="hra_cpr9_u" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_cpr9_u"/>
+    <resourcesList name="hra_cpxe_0" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_cpxe_0"/>
+    <resourcesList name="hra_cpxe_1" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_cpxe_1"/>
+    <resourcesList name="hra_cpxe_2" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_cpxe_2"/>
+    <resourcesList name="hra_cpxe_3" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_cpxe_3"/>
+    <resourcesList name="hra_dpre_0" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_dpre_0"/>
+    <resourcesList name="hra_dpre_1" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_dpre_1"/>
+    <resourcesList name="hra_dpre_2" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_dpre_2"/>
+    <resourcesList name="hra_dpre_3" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_dpre_3"/>
+    <resourcesList name="hra_dpwe_0" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_dpwe_0"/>
+    <resourcesList name="hra_dpwe_1" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_dpwe_1"/>
+    <resourcesList name="hra_dpwe_2" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_dpwe_2"/>
+    <resourcesList name="hra_dpwe_3" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_dpwe_3"/>
+    <resourcesList name="hra_cpxe_4" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_cpxe_4"/>
+    <resourcesList name="hra_cpxe_5" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_cpxe_5"/>
+    <resourcesList name="hra_cpxe_6" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_cpxe_6"/>
+    <resourcesList name="hra_cpxe_7" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_cpxe_7"/>
+    <resourcesList name="hra_dpre_4" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_dpre_4"/>
+    <resourcesList name="hra_dpre_5" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_dpre_5"/>
+    <resourcesList name="hra_dpre_6" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_dpre_6"/>
+    <resourcesList name="hra_dpre_7" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_dpre_7"/>
+    <resourcesList name="hra_dpwe_4" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_dpwe_4"/>
+    <resourcesList name="hra_dpwe_5" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_dpwe_5"/>
+    <resourcesList name="hra_dpwe_6" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_dpwe_6"/>
+    <resourcesList name="hra_dpwe_7" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_dpwe_7"/>
+    <resourcesList name="global" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_memory_protection_global"/>
+  </provided>
+  <provided xsi:type="ResourceModel:ResourceGroup" name="core" URI="http://resources/40.0.1/peripheral/cpu/0/hra/core">
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/CPU_CORE/v4_1_2/CPU_CORE_0.app#//@hwResources.0"/>
+    <resourcesList name="hra_pma0" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_pma0"/>
+    <resourcesList name="hra_pma1" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_pma1"/>
+    <resourcesList name="hra_pma2" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_pma2"/>
+    <resourcesList name="hra_smacon" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_smacon"/>
+    <resourcesList name="hra_compat" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_compat"/>
+    <resourcesList name="hra_lcltest" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_lcltest"/>
+    <resourcesList name="hra_fpu_trap_con" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_fpu_trap_con"/>
+    <resourcesList name="hra_fpu_trap_pc" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_fpu_trap_pc"/>
+    <resourcesList name="hra_fpu_trap_opc" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_fpu_trap_opc"/>
+    <resourcesList name="hra_fpu_trap_src1_l" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_fpu_trap_src1_l"/>
+    <resourcesList name="hra_fpu_trap_src1_u" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_fpu_trap_src1_u"/>
+    <resourcesList name="hra_fpu_trap_src2_l" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_fpu_trap_src2_l"/>
+    <resourcesList name="hra_fpu_trap_src2_u" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_fpu_trap_src2_u"/>
+    <resourcesList name="hra_fpu_trap_src3_l" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_fpu_trap_src3_l"/>
+    <resourcesList name="hra_fpu_trap_src3_u" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_fpu_trap_src3_u"/>
+    <resourcesList name="hra_fpu_sync_trap_con" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_fpu_sync_trap_con"/>
+    <resourcesList name="hra_fpu_sync_trap_opc" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_fpu_sync_trap_opc"/>
+    <resourcesList name="hra_pcxi" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_pcxi"/>
+    <resourcesList name="hra_psw" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_psw"/>
+    <resourcesList name="hra_pc" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_pc"/>
+    <resourcesList name="hra_cpu_id" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_cpu_id"/>
+    <resourcesList name="hra_core_id" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_core_id"/>
+    <resourcesList name="hra_icr" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_icr"/>
+    <resourcesList name="hra_pprs" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_pprs"/>
+    <resourcesList name="hra_swid" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_swid"/>
+    <resourcesList name="hra_cus_id" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_cus_id"/>
+    <resourcesList name="hra_corecon" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_corecon"/>
+    <resourcesList name="hra_biv" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_biv"/>
+    <resourcesList name="hra_btv" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_btv"/>
+    <resourcesList name="hra_isp" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_isp"/>
+    <resourcesList name="hra_fcx" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_fcx"/>
+    <resourcesList name="hra_lcx" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_lcx"/>
+    <resourcesList name="hra_bootcon" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_bootcon"/>
+    <resourcesList name="hra_lclcon" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_lclcon"/>
+    <resourcesList name="hra_ccon" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_ccon"/>
+    <resourcesList name="hra_tccon" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_tccon"/>
+    <resourcesList name="d0" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/d0"/>
+    <resourcesList name="d1" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/d1"/>
+    <resourcesList name="d2" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/d2"/>
+    <resourcesList name="d3" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/d3"/>
+    <resourcesList name="d4" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/d4"/>
+    <resourcesList name="d5" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/d5"/>
+    <resourcesList name="d6" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/d6"/>
+    <resourcesList name="d7" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/d7"/>
+    <resourcesList name="d8" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/d8"/>
+    <resourcesList name="d9" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/d9"/>
+    <resourcesList name="a0" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/a0"/>
+    <resourcesList name="a1" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/a1"/>
+    <resourcesList name="a2" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/a2"/>
+    <resourcesList name="a3" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/a3"/>
+    <resourcesList name="a4" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/a4"/>
+    <resourcesList name="a5" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/a5"/>
+    <resourcesList name="a6" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/a6"/>
+    <resourcesList name="a7" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/a7"/>
+    <resourcesList name="a8" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/a8"/>
+    <resourcesList name="a9" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/a9"/>
+    <resourcesList name="global" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_core_global"/>
+  </provided>
+  <provided xsi:type="ResourceModel:ResourceGroup" name="1" URI="http://resources/40.0.1/peripheral/cpu/0/hra/prio/1">
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/INTERRUPT_CONFIG/v4_1_2/INTERRUPT_CONFIG_0.app#//@hwResources.1"/>
+    <resourcesList name="global" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_prio_1_global"/>
+  </provided>
+  <provided xsi:type="ResourceModel:ResourceGroup" name="10" URI="http://resources/40.0.1/peripheral/cpu/0/hra/prio/10">
+    <resourcesList name="global" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_prio_10_global"/>
+  </provided>
+  <provided xsi:type="ResourceModel:ResourceGroup" name="6" URI="http://resources/40.0.1/peripheral/cpu/0/hra/prio/6">
+    <resourcesList name="global" requiredResourceUri="http://resources/40.0.1/peripheral/cpu/0/hra_prio_6_global"/>
+  </provided>
+  <addressBlock offset="0x0" size="0x0100" usage="registers"/>
+</ResourceModel:Peripheral>

@@ -1,0 +1,294 @@
+/**
+ * \file IfxDma_Dma.c
+ * \brief DMA DMA details
+ *
+ * \version iLLD-TC4-v2.6.0
+ * \copyright Copyright (c) 2026 Infineon Technologies AG. All rights reserved.
+ *
+ *
+ *
+ *                                 IMPORTANT NOTICE
+ *
+ * Infineon Technologies AG (Infineon) licenses this file to you under the
+ * Infineon Automotive SW Lab License v2025-01 (IFASLL). You may not use
+ * this file except in compliance with IFASLL.
+ *
+ * The full license text is contained in IFASLL202501.pdf delivered with this SW.
+ * Unless required by applicable law or agreed to in writing, software distributed
+ * under this license is distributed "AS IS" without any warranty or liability of any
+ * kind and Infineon hereby expressly disclaims any warranties or representations,
+ * whether express, implied, statutory or otherwise, including but not limited to
+ * warranties of workmanship, merchantability, fitness for a particular purpose,
+ * defects in the licensed items, or non-infringement of third parties'
+ * intellectual property rights. See the full license text for the specific
+ * language governing permissions and limitations under IFASLL.
+ *
+ *
+ */
+
+/******************************************************************************/
+/*----------------------------------Includes----------------------------------*/
+/******************************************************************************/
+
+#include "IfxDma_Dma.h"
+#include "_Utilities/Ifx_Assert.h"
+
+/******************************************************************************/
+/*-----------------------Private Function Prototypes--------------------------*/
+/******************************************************************************/
+
+/** \brief Local function to copy a transaction set into DMA channel SFRs or memory location (for linked lists).
+ *
+ * \param[inout] channel Specifies the pointer to DMA channel registers.
+ * \param[in]    config  Pointer to the DMA default channel configuration structure.
+ *
+ * \return None
+ */
+IFX_STATIC void IfxDma_Dma_configureTransactionSet(Ifx_DMA_CH *channel, const IfxDma_Dma_ChannelConfig *config);
+
+/******************************************************************************/
+/*-------------------------Function Implementations---------------------------*/
+/******************************************************************************/
+
+IFX_STATIC void IfxDma_Dma_configureTransactionSet(Ifx_DMA_CH *channel, const IfxDma_Dma_ChannelConfig *config)
+{
+    /* Shadow address shall be 32-Byte Aligned */
+    {
+        IFX_ASSERT(IFX_VERBOSE_LEVEL_ERROR, ((config->shadowAddress & 0x1F) == 0U));
+    }
+    /* Configures the resource partition */
+    {
+        if (config->cyberSecurityAsset == TRUE)
+        {
+            if (config->module->dma->PROTCSE.B.CSEN != 0U)
+            {
+                Ifx_DMA_RP_MODE mode;
+
+                mode.U                                                            = config->module->dma->RP[config->hardwareResourcePartition].MODE.U;
+
+                mode.B.CS                                                         = 1;
+                mode.B.VALID                                                      = 1;
+                mode.B.TAGOFF                                                     = config->module->dma->PROTCSE.B.CSTAGOFF;
+
+                config->module->dma->RP[config->hardwareResourcePartition].MODE.U = mode.U;
+            }
+            else
+            {
+                /* To configure as CS asset PROTCSE.B.CSEN needs to be 1 */
+                IFX_ASSERT(IFX_VERBOSE_LEVEL_ERROR, FALSE);
+            }
+        }
+
+#if (IFX_PROT_ENABLED == 1U)
+        IfxApProt_setState((Ifx_PROT_PROT *)&config->module->dma->RP[config->hardwareResourcePartition].PROT, IfxApProt_State_config);
+#endif
+
+        if (!(config->module->dma->HRR[config->channelId].B.HRPV) || ((config->module->dma->HRR[config->channelId].B.HRP) != (config->hardwareResourcePartition)))
+        {
+            config->module->dma->HRR[config->channelId].B.HRP  = config->hardwareResourcePartition;
+            config->module->dma->HRR[config->channelId].B.HRPV = 1U;
+        }
+
+        if (config->cyberSecurityAsset != TRUE)
+        {
+            config->module->dma->RP[config->hardwareResourcePartition].MODE.B.VALID = 1U;
+        }
+
+#if (IFX_PROT_ENABLED == 1U)
+        IfxApProt_setState((Ifx_PROT_PROT *)&config->module->dma->RP[config->hardwareResourcePartition].PROT, IfxApProt_State_run);
+#endif
+    }
+
+    /* Configures the channel configuration register (CHCFGR) */
+    {
+        Ifx_DMA_CH_CHCFGR chcfgr;
+        chcfgr.U          = 0;
+        chcfgr.B.TREL     = config->transferCount;
+        chcfgr.B.BLKM     = config->blockMode;
+        chcfgr.B.RROAT    = config->requestMode;
+        chcfgr.B.CHMODE   = config->operationMode;
+        chcfgr.B.CHDW     = config->moveSize;
+        chcfgr.B.PRSEL    = config->requestSource;
+        chcfgr.B.PATSEL   = config->pattern;
+
+        channel->CHCFGR.U = chcfgr.U;
+    }
+
+    /* Configures the address and interrupt control register (ADICR) */
+    {
+        Ifx_DMA_CH_ADICR adicr;
+        adicr.U          = 0;
+        adicr.B.SMF      = config->sourceAddressIncrementStep;
+        adicr.B.INCS     = config->sourceAddressIncrementDirection;
+        adicr.B.CBLS     = config->sourceAddressCircularRange;
+        adicr.B.SCBE     = config->sourceCircularBufferEnabled;
+        adicr.B.DMF      = config->destinationAddressIncrementStep;
+        adicr.B.INCD     = config->destinationAddressIncrementDirection;
+        adicr.B.CBLD     = config->destinationAddressCircularRange;
+        adicr.B.DCBE     = config->destinationCircularBufferEnabled;
+        adicr.B.SHCT     = config->shadowControl;
+        adicr.B.STAMP    = config->timestampEnabled;
+        adicr.B.WRPSE    = config->wrapSourceInterruptEnabled;
+        adicr.B.WRPDE    = config->wrapDestinationInterruptEnabled;
+        adicr.B.INTCT    = (config->channelInterruptEnabled ? 2 : 0) | (config->channelInterruptControl ? 1 : 0);
+        adicr.B.IRDV     = config->interruptRaiseThreshold;
+        channel->ADICR.U = adicr.U;
+    }
+
+    /* Configures the transaction state register */
+    {
+        Ifx_DMA_TSR tsr;
+        tsr.U                                         = config->module->dma->TSR[config->channelId].U;
+        tsr.B.ETRL                                    = config->transactionRequestLostInterruptEnabled;
+
+        config->module->dma->TSR[config->channelId].U = tsr.U;
+    }
+    channel->SADR.U   = config->sourceAddress;
+    channel->DADR.U   = config->destinationAddress;
+    channel->SDCRCR.U = config->sourceDestinationAddressCrc;
+    channel->RDCRCR.U = config->readDataCrc;
+
+    /* Write not allowed if SHCT=1 or SHCT=2 */
+    if ((config->shadowControl != IfxDma_ChannelShadow_none) &&
+        (config->shadowControl != IfxDma_ChannelShadow_src) &&
+        (config->shadowControl != IfxDma_ChannelShadow_dst))
+    {
+        channel->SHADR.U = config->shadowAddress;
+    }
+}
+
+
+void IfxDma_Dma_createModuleHandle(IfxDma_Dma *dmaHandle, Ifx_DMA *dma)
+{
+    dmaHandle->dma = dma;
+}
+
+
+void IfxDma_Dma_initChannel(IfxDma_Dma_Channel *channel, const IfxDma_Dma_ChannelConfig *config)
+{
+	/* Gets the DMA module pointer from the configuration */
+    Ifx_DMA *dma = config->module->dma;
+
+    channel->dma       = dma;
+    channel->channelId = config->channelId;
+    channel->channel   = &dma->CH[config->channelId];
+
+    /* Local function to copy a transaction set into DMA channel SFRs or memory location */
+    IfxDma_Dma_configureTransactionSet(channel->channel, config);
+#if !defined(IFX_ILLD_PPU_USAGE)
+    Ifx__mem_barrier
+#endif
+
+    {
+        Ifx_DMA_TSR tsr;
+        tsr.U = 0;
+
+        if (config->hardwareRequestEnabled)
+        {
+            tsr.B.ECH = 1;
+        }
+        else
+        {
+            tsr.B.DCH = 1;
+        }
+
+        dma->TSR[channel->channelId].U = tsr.U;
+    }
+
+    if (config->channelInterruptPriority > 0)
+    {
+    	/* Returns the SRC pointer for given DMA channel */
+        volatile Ifx_SRC_SRCR *src = IfxDma_getSrcPointer(channel->dma, channel->channelId);
+        /* Initializes the service request control register */
+        IfxSrc_init(src, config->channelInterruptTypeOfService, config->channelInterruptPriority, config->channelVmId);
+        /* Enables a specific interrupt service request */
+        IfxSrc_enable(src);
+    }
+}
+
+
+void IfxDma_Dma_initChannelConfig(IfxDma_Dma_ChannelConfig *config, IfxDma_Dma *dma)
+{
+	/* Defines a default DMA channel initialization configuration structure */
+    const IfxDma_Dma_ChannelConfig defaultConfig = {
+        .module                                 = NULL_PTR,
+        .channelId                              = IfxDma_ChannelId_0,
+        .sourceAddress                          = 0,
+        .destinationAddress                     = 0,
+        .shadowAddress                          = 0,
+        .readDataCrc                            = 0,
+        .sourceDestinationAddressCrc            = 0,
+        .transferCount                          = 0,
+        .blockMode                              = IfxDma_ChannelMove_1,
+        .requestMode                            = IfxDma_ChannelRequestMode_oneTransferPerRequest,
+        .operationMode                          = IfxDma_ChannelOperationMode_single,
+        .moveSize                               = IfxDma_ChannelMoveSize_8bit,
+        .pattern                                = IfxDma_ChannelPattern_0_disable,
+        .requestSource                          = IfxDma_ChannelRequestSource_peripheral,
+        .busPriority                            = IfxDma_ChannelBusPriority_medium,
+        .hardwareRequestEnabled                 = FALSE,
+        .sourceAddressIncrementStep             = IfxDma_ChannelIncrementStep_1,
+        .sourceAddressIncrementDirection        = IfxDma_ChannelIncrementDirection_positive,
+        .sourceAddressCircularRange             = IfxDma_ChannelIncrementCircular_32768,
+        .destinationAddressIncrementStep        = IfxDma_ChannelIncrementStep_1,
+        .destinationAddressIncrementDirection   = IfxDma_ChannelIncrementDirection_positive,
+        .destinationAddressCircularRange        = IfxDma_ChannelIncrementCircular_32768,
+        .shadowControl                          = IfxDma_ChannelShadow_none,
+        .sourceCircularBufferEnabled            = FALSE,
+        .destinationCircularBufferEnabled       = FALSE,
+        .timestampEnabled                       = FALSE,
+        .wrapSourceInterruptEnabled             = FALSE,
+        .wrapDestinationInterruptEnabled        = FALSE,
+        .channelInterruptEnabled                = FALSE,
+        .channelInterruptControl                = IfxDma_ChannelInterruptControl_thresholdLimitMatch,
+        .interruptRaiseThreshold                = 0,
+        .transactionRequestLostInterruptEnabled = FALSE,
+        .channelInterruptPriority               = 0,
+        .channelInterruptTypeOfService          = IfxSrc_Tos_cpu0,
+        .channelVmId                            = IfxSrc_VmId_0,
+        .hardwareResourcePartition              = IfxDma_HardwareResourcePartition_0,
+        .cyberSecurityAsset                     = FALSE
+    };
+
+    /* Default Configuration */
+    *config = defaultConfig;
+
+    /* Takes over module pointer */
+    config->module = dma;
+}
+
+
+void IfxDma_Dma_initLinkedListEntry(void *ptrToAddress, const IfxDma_Dma_ChannelConfig *config)
+{
+	/* Local function to copy a transaction set into DMA channel SFRs or memory location */
+    IfxDma_Dma_configureTransactionSet((Ifx_DMA_CH *)ptrToAddress, config);
+}
+
+
+void IfxDma_Dma_initModule(IfxDma_Dma *dma, const IfxDma_Dma_Config *config)
+{
+    dma->dma = config->dma;
+
+#if (IFX_PROT_ENABLED == 1U)
+    IfxApProt_setState((Ifx_PROT_PROT *)&dma->dma->PROTSE, IfxApProt_State_config);
+#endif
+
+    if (dma->dma->CLC.B.DISR)
+
+    {
+        dma->dma->CLC.B.DISR = 0U;
+    }
+
+#if (IFX_PROT_ENABLED == 1U)
+    IfxApProt_setState((Ifx_PROT_PROT *)&dma->dma->PROTSE, IfxApProt_State_config);
+#endif
+
+    while (dma->dma->CLC.B.DISS != 0U)
+    {}
+}
+
+
+void IfxDma_Dma_initModuleConfig(IfxDma_Dma_Config *config, Ifx_DMA *dma)
+{
+    config->dma = dma;
+}

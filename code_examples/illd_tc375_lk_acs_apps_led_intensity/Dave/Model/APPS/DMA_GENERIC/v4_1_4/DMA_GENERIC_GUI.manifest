@@ -1,0 +1,68 @@
+package Model.APPS.DMA_GENERIC.v4_1_4;
+// Import statements
+import ifx.davex.app.manifest.*
+
+abstract class DMA_GENERIC_GUI extends AppManifest {
+
+    /* IMPORTANT NOTE: This is an auto generated file, please do not edit manually. */
+    /* User modifications in the GUI editor will be updated here automatically.     */
+    /* Manually editing the contents of this file will corrupt the APP SDK project. */
+
+	/* Begin : UI variable section */
+	 public GTab gtab_config;
+	 public GTab gtab_config_tc4;
+	 public GInteger ginteger_rp_ch;
+	 public GCombo gcombo_sleep;
+	 public GCombo gcombo_sleep_tc4;
+	 public GCheck gcheck_src_err_evnt;
+	 public GCheck gcheck_des_err_evnt;
+	 public GCheck gcheck_dmaram_err_evnt;
+	 public GCheck gcheck_ll_err_evnt;
+	 public GCheck gcheck_safll_err_evnt;
+	 public GLabel glabel_sleep;
+	 public GLabel glabel_src_err_evnt;
+	 public GLabel glabel_des_err_evnt;
+	 public GLabel glabel_dmaram_err_evnt;
+	 public GLabel glabel_ll_err_evnt;
+	 public GLabel glabel_safll_err_evnt;
+	 public GLabel glabel_sleep_tc4;
+	 public GLabel glabel_rp_ch;
+	 public GGroup ggroup_rp_err_intr_req;
+	 public GMessage gmessage_tc49xA;
+	 public GIndexCombo gindexcombo_rp_index;
+	 public RArray<Gindexgroup_err> rArraygindexgroup_err = RArray(16);
+
+	 public GIndexGroup gindexgroup_err;
+
+	 public DMA_GENERIC_GUI(DaveEnv daveEnv){
+
+	 gtab_config = GTab(widgetName: "gtab_config", text: "TC3xx General Settings", enabled: true, visible: true)
+	 gtab_config_tc4 = GTab(widgetName: "gtab_config_tc4", text: "TC4xx General Settings", enabled: true, visible: true)
+	 ginteger_rp_ch = GInteger(widgetName: "ginteger_rp_ch", value: 4, minValue: 1, maxValue: 16, enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_sleep = GCombo(widgetName: "gcombo_sleep", options: ["Enable","Disable"], value: "Disable", enabled: true, visible: true, isMandatoryValue: false)
+	 gcombo_sleep_tc4 = GCombo(widgetName: "gcombo_sleep_tc4", options: ["Enable","Disable"], value: "Disable", enabled: true, visible: true, isMandatoryValue: false)
+	 gcheck_src_err_evnt = GCheck(widgetName: "gcheck_src_err_evnt", value: true, enabled: true, visible: true)
+	 gcheck_des_err_evnt = GCheck(widgetName: "gcheck_des_err_evnt", value: true, enabled: true, visible: true)
+	 gcheck_dmaram_err_evnt = GCheck(widgetName: "gcheck_dmaram_err_evnt", value: true, enabled: false, visible: true)
+	 gcheck_ll_err_evnt = GCheck(widgetName: "gcheck_ll_err_evnt", value: true, enabled: true, visible: true)
+	 gcheck_safll_err_evnt = GCheck(widgetName: "gcheck_safll_err_evnt", value: true, enabled: false, visible: true)
+	 glabel_sleep = GLabel(widgetName: "glabel_sleep", text: "Sleep Mode", enabled: true, visible: true)
+	 glabel_src_err_evnt = GLabel(widgetName: "glabel_src_err_evnt", text: "ME Source Error Event", enabled: true, visible: true)
+	 glabel_des_err_evnt = GLabel(widgetName: "glabel_des_err_evnt", text: "ME Destination Error Event", enabled: true, visible: true)
+	 glabel_dmaram_err_evnt = GLabel(widgetName: "glabel_dmaram_err_evnt", text: "ME DMARAM Integrity Error Event", enabled: true, visible: true)
+	 glabel_ll_err_evnt = GLabel(widgetName: "glabel_ll_err_evnt", text: "ME Linked List Operation TCS Load Error Event", enabled: true, visible: true)
+	 glabel_safll_err_evnt = GLabel(widgetName: "glabel_safll_err_evnt", text: "ME SAFLL DMA Address Checksum Error Event", enabled: true, visible: true)
+	 glabel_sleep_tc4 = GLabel(widgetName: "glabel_sleep_tc4", text: "Sleep Mode", enabled: true, visible: true)
+	 glabel_rp_ch = GLabel(widgetName: "glabel_rp_ch", text: "Required RP Channels", enabled: true, visible: true)
+	 ggroup_rp_err_intr_req = GGroup(widgetName: "ggroup_rp_err_intr_req", text: "DMA RP Error Interrupt Service Request", enabled: true, visible: true)
+	 gmessage_tc49xA = GMessage(widgetName: "gmessage_tc49xA", text: "For TC49x-A, the DMA channel is not notified of an uncorrectable RAM error in the DMARAM.\r\nPlease rely on the SMU DMARAM uncorrectable error alarm for the notification instead of the RP error interrupt.", isError: false, visible: true)
+	 gindexcombo_rp_index = GIndexCombo(widgetName: "gindexcombo_rp_index", options: ["0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"], value: "0", visible: true)
+	 gindexgroup_err = GIndexGroup(widgetName: "gindexgroup_err", text: "DMA RP Error Interrupt Service Request", enabled: true, visible: true, gIndexCombo: gindexcombo_rp_index, rArray: rArraygindexgroup_err)
+	 for(int i=0; i<16; i++){
+		 rArraygindexgroup_err[i] = new Gindexgroup_err(daveEnv, "gindexgroup_err",i)
+	 }
+
+
+	 }
+	/* End : UI variable section */
+}

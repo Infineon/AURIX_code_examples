@@ -1,0 +1,25 @@
+package Model.APPS.CCU6_GENERIC.v4_0_4;
+// Import statements
+import ifx.davex.app.manifest.*
+
+abstract class CCU6_GENERIC_GUI extends AppManifest {
+
+    /* IMPORTANT NOTE: This is an auto generated file, please do not edit manually. */
+    /* User modifications in the GUI editor will be updated here automatically.     */
+    /* Manually editing the contents of this file will corrupt the APP SDK project. */
+
+	/* Begin : UI variable section */
+	 public GTab gtab_1;
+	 public GString gstring_desc;
+	 public GLabel glabel_desc;
+
+	 public CCU6_GENERIC_GUI(DaveEnv daveEnv){
+
+	 gtab_1 = GTab(widgetName: "gtab_1", text: "General Settings", enabled: true, visible: true)
+	 gstring_desc = GString(widgetName: "gstring_desc", value: "This gstring is only for help generation. Will be invisible always", enabled: true, visible: true, isMandatoryValue: false)
+	 glabel_desc = GLabel(widgetName: "glabel_desc", text: "This CCU6_GENERIC APP has no parameters", enabled: true, visible: true)
+
+
+	 }
+	/* End : UI variable section */
+}

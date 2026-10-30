@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="ASCII"?>
+<ResourceModel:Peripheral xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ResourceModel="http://www.infineon.com/Davex/Resource.ecore" URI="http://resources/45.0.1/peripheral/clock/0" description="" baseAddress="0xF0064000">
+  <provided xsi:type="ResourceModel:ResourceGroup" name="ccu" URI="http://resources/45.0.1/peripheral/clock/0/ccu">
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/CLOCK/v4_1_8/CLOCK_0.app#//@hwResources.3"/>
+    <resourcesList name="ccucon" requiredResourceUri="http://resources/45.0.1/peripheral/clock/0/ccucon"/>
+    <resourcesList name="ccustat" requiredResourceUri="http://resources/45.0.1/peripheral/clock/0/ccustat"/>
+    <resourcesList name="sysccucon0" requiredResourceUri="http://resources/45.0.1/peripheral/clock/0/sysccucon0"/>
+    <resourcesList name="sysccucon1" requiredResourceUri="http://resources/45.0.1/peripheral/clock/0/sysccucon1"/>
+    <resourcesList name="perccucon0" requiredResourceUri="http://resources/45.0.1/peripheral/clock/0/perccucon0"/>
+    <resourcesList name="perccucon1" requiredResourceUri="http://resources/45.0.1/peripheral/clock/0/perccucon1"/>
+    <resourcesList name="fhsct" requiredResourceUri="http://resources/45.0.1/peripheral/clock/0/ccu_fhsct"/>
+    <resourcesList name="global_prot" requiredResourceUri="http://resources/45.0.1/peripheral/clock/0/ccu_global_prot"/>
+  </provided>
+  <provided xsi:type="ResourceModel:ResourceGroup" name="osc" URI="http://resources/45.0.1/peripheral/clock/0/osc">
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/CLOCK/v4_1_8/CLOCK_0.app#//@hwResources.0"/>
+    <resourcesList name="osccon" requiredResourceUri="http://resources/45.0.1/peripheral/clock/0/osccon"/>
+    <resourcesList name="rampcon0" requiredResourceUri="http://resources/45.0.1/peripheral/clock/0/rampcon0"/>
+    <resourcesList name="rampstat" requiredResourceUri="http://resources/45.0.1/peripheral/clock/0/rampstat"/>
+    <resourcesList name="xtal2" requiredResourceUri="http://resources/45.0.1/peripheral/clock/0/osc_xtal2"/>
+    <resourcesList name="xtal1" requiredResourceUri="http://resources/45.0.1/peripheral/clock/0/osc_xtal1"/>
+    <resourcesList name="global_prot" requiredResourceUri="http://resources/45.0.1/peripheral/clock/0/osc_global_prot"/>
+  </provided>
+  <provided xsi:type="ResourceModel:ResourceGroup" name="clkmon" URI="http://resources/45.0.1/peripheral/clock/0/clkmon">
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/CLOCK/v4_1_8/CLOCK_0.app#//@hwResources.4"/>
+    <resourcesList name="oscmon0" requiredResourceUri="http://resources/45.0.1/peripheral/clock/0/oscmon0"/>
+    <resourcesList name="oscmon1" requiredResourceUri="http://resources/45.0.1/peripheral/clock/0/oscmon1"/>
+    <resourcesList name="oscstat" requiredResourceUri="http://resources/45.0.1/peripheral/clock/0/oscstat"/>
+    <resourcesList name="rampmon" requiredResourceUri="http://resources/45.0.1/peripheral/clock/0/rampmon"/>
+    <resourcesList name="monstat" requiredResourceUri="http://resources/45.0.1/peripheral/clock/0/monstat"/>
+    <resourcesList name="global_prot" requiredResourceUri="http://resources/45.0.1/peripheral/clock/0/clkmon_global_prot"/>
+  </provided>
+  <provided xsi:type="ResourceModel:ResourceGroup" name="extclk" URI="http://resources/45.0.1/peripheral/clock/0/extclk">
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/CLOCK/v4_1_8/CLOCK_0.app#//@hwResources.5"/>
+    <resourcesList name="extcon" requiredResourceUri="http://resources/45.0.1/peripheral/clock/0/extcon"/>
+    <resourcesList name="extfdcon" requiredResourceUri="http://resources/45.0.1/peripheral/clock/0/extfdcon"/>
+    <resourcesList name="extclk0" requiredResourceUri="http://resources/45.0.1/peripheral/clock/0/extclk_extclk0"/>
+    <resourcesList name="extclk1" requiredResourceUri="http://resources/45.0.1/peripheral/clock/0/extclk_extclk1"/>
+    <resourcesList name="global_prot" requiredResourceUri="http://resources/45.0.1/peripheral/clock/0/extclk_global_prot"/>
+  </provided>
+  <provided xsi:type="ResourceModel:ResourceGroup" name="syspll" URI="http://resources/45.0.1/peripheral/clock/0/syspll">
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/CLOCK/v4_1_8/CLOCK_0.app#//@hwResources.1"/>
+    <resourcesList name="syspllcon0" requiredResourceUri="http://resources/45.0.1/peripheral/clock/0/syspllcon0"/>
+    <resourcesList name="syspllcon1" requiredResourceUri="http://resources/45.0.1/peripheral/clock/0/syspllcon1"/>
+    <resourcesList name="syspllcon2" requiredResourceUri="http://resources/45.0.1/peripheral/clock/0/syspllcon2"/>
+    <resourcesList name="syspllstat" requiredResourceUri="http://resources/45.0.1/peripheral/clock/0/syspllstat"/>
+    <resourcesList name="smodcon0" requiredResourceUri="http://resources/45.0.1/peripheral/clock/0/smodcon0"/>
+    <resourcesList name="sysclk" requiredResourceUri="http://resources/45.0.1/peripheral/clock/0/syspll_sysclk"/>
+    <resourcesList name="global_prot" requiredResourceUri="http://resources/45.0.1/peripheral/clock/0/syspll_global_prot"/>
+  </provided>
+  <provided xsi:type="ResourceModel:ResourceGroup" name="perpll" URI="http://resources/45.0.1/peripheral/clock/0/perpll">
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/CLOCK/v4_1_8/CLOCK_0.app#//@hwResources.2"/>
+    <resourcesList name="perpllcon0" requiredResourceUri="http://resources/45.0.1/peripheral/clock/0/perpllcon0"/>
+    <resourcesList name="perpllcon1" requiredResourceUri="http://resources/45.0.1/peripheral/clock/0/perpllcon1"/>
+    <resourcesList name="perpllcon2" requiredResourceUri="http://resources/45.0.1/peripheral/clock/0/perpllcon2"/>
+    <resourcesList name="perpllstat" requiredResourceUri="http://resources/45.0.1/peripheral/clock/0/perpllstat"/>
+    <resourcesList name="pmodcon0" requiredResourceUri="http://resources/45.0.1/peripheral/clock/0/pmodcon0"/>
+    <resourcesList name="sysclk" requiredResourceUri="http://resources/45.0.1/peripheral/clock/0/perpll_sysclk"/>
+    <resourcesList name="global_prot" requiredResourceUri="http://resources/45.0.1/peripheral/clock/0/perpll_global_prot"/>
+  </provided>
+  <addressBlock offset="0x0" size="0x0100" usage="registers"/>
+</ResourceModel:Peripheral>
