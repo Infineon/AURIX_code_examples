@@ -1,8 +1,8 @@
-# Code Examples for AURIX™ Development Studio
+# Code Examples for AURIX™ Configuration Studio & AURIX™ Development Studio
 More than hundreds of code examples are available for AURIX™ devices in this repository.<br />
 Each code example is made up of two parts: the **[source code](#source-code)** and the corresponding **[tutorial](#tutorial)**.
 
-To import a code example into AURIX™ Development Studio, follow the guide at the [end on this page](#how-to-import).
+To import a code example into AURIX™ Configuration Studio or AURIX™ Development Studio, follow the guide at the [end on this page](#how-to-import).
 
 **NOTE:** For any question or request, please use the dedicated [Infineon AURIX™ forum](https://community.infineon.com/t5/AURIX/bd-p/AURIX/page/1).
 
@@ -44,7 +44,9 @@ The name of each code example follows a specific naming scheme:
 - &lt;Framework&gt;_&lt;Board short name&gt;&#95;ADS&#95;&lt;Code name&gt;
 
 e.g. : ADC&#95;Filtering&#95;1&#95;KIT&#95;TC375&#95;LK
+e.g. : iLLD&#95;TC4D7&#95;ACS&#95;APPs_Blinky_LED
 e.g. : iLLD&#95;TC375&#95;ADS&#95;Blinky_LED_CPP
+
 
 where:
 - The **code name** summarizes in a couple of words the scope and the module used in the example
@@ -90,7 +92,7 @@ Each tutorial contains the following information:
 - **References**: Useful links
 
 ### Code Examples with README.md tutorial 
-README.md is provided within the project. This file is automatically opened when the code example is imported into AURIX™ Development Studio, giving you immediate access to the documentation alongside the source code.
+README.md is provided within the project. This file is automatically opened when the code example is imported, giving you immediate access to the documentation alongside the source code.
 
 - **Abstract**: An abstract and a detailed description of the example's scope
 - **Device**: The device used in the code example 
@@ -103,11 +105,15 @@ README.md is provided within the project. This file is automatically opened when
 - **References**: Useful links
 
 ## How To Import
-To **import** a code example, use the dedicated import function in AURIX™ Development Studio: *File* &gt;&gt; *Import...* &gt;&gt; *Infineon* &gt;&gt; *"AURIX Development Studio Project"*, select *"Infineon Code Examples Repository"* and select the code example to be imported.
+To **import** a code example, use the dedicated import function in AURIX™ Configuration Studio (ACS) or AURIX™ Development Studio (ADS): 
+ - **ACS**: Open File* &gt;&gt; *Import...* &gt;&gt; *Infineon* &gt;&gt; *"ACS/ADS Project"*
+ - **ADS**: Open File* &gt;&gt; *Import...* &gt;&gt; *Infineon* &gt;&gt; *"AURIX Development Studio Project"*
+
+select *"Infineon Code Examples Repository"* and select the code example to be imported.
 
 <center><img src="./img/importCEs.png" width="800"/></center>
 
-The same result can be achieved by clicking on "*Import AURIX Project*" in the Quick Links view of AURIX™ Development Studio:
+The same result can be achieved by clicking on "*Import AURIX Project*" in the Quick Links
 
 <img src="./img/quickLinksImport.png" width="200" />
 <br>
