@@ -41,11 +41,9 @@ e.g.:
 The name of each code example follows a specific naming scheme:
 
 - &lt;Code name&gt;&#95;&lt;ID number&gt;&#95;&lt;Board short name&gt;
-- &lt;Framework&gt;_&lt;Board short name&gt;&#95;ADS&#95;&lt;Code name&gt;
+- &lt;Framework&gt;_&lt;Board short name&gt;&#95;ACS&#95;&lt;Code name&gt;
 
-e.g. : ADC&#95;Filtering&#95;1&#95;KIT&#95;TC375&#95;LK
-e.g. : iLLD&#95;TC4D7&#95;ACS&#95;APPs_Blinky_LED
-e.g. : iLLD&#95;TC375&#95;ADS&#95;Blinky_LED_CPP
+e.g. : ADC&#95;Filtering&#95;1&#95;KIT&#95;TC375&#95;LK, iLLD&#95;TC4D7&#95;ACS&#95;APPs_Blinky_LED, iLLD&#95;TC375&#95;ADS&#95;Blinky_LED_CPP
 
 
 where:
@@ -58,8 +56,6 @@ where:
 The code examples supports the following types of boards:
 
 <center><img src="./img/supportedBoards.gif" width="800" /></center>
-
- - Aggiungere triboard
 
 In particular, the following boards are supported:
 
